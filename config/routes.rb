@@ -1,12 +1,13 @@
 Smalljobs::Application.routes.draw do
-  devise_for :admin_users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
+
+  devise_for :admins
+
   devise_for :job_seekers
-  ActiveAdmin.routes(self)
   devise_for :job_providers
-  ActiveAdmin.routes(self)
   devise_for :job_brokers
-  ActiveAdmin.routes(self)
+
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
