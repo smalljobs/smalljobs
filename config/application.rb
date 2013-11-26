@@ -25,5 +25,11 @@ module Smalljobs
     config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :de
     config.encoding = 'utf-8'
+
+    config.generators do |g|
+      g.integration_tool    :rspec
+      g.test_framework      :rspec, fixture: true
+      g.fixture_replacement :fabrication, dir: 'spec/fabricators'
+    end
   end
 end
