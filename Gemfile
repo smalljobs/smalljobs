@@ -18,6 +18,12 @@ group :development, :test do
   gem 'fabrication'
   gem 'guard-rspec'
   gem 'guard-spring'
+  gem 'pry'
+  gem 'pry-byebug'
+  gem 'pry-coolline'
+  gem 'pry-doc'
+  gem 'pry-rails'
+  gem 'pry-stack_explorer'
   gem 'rspec-rails'
   gem 'spring'
 end
