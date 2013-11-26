@@ -65,7 +65,11 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    em-websocket (0.5.0)
+      eventmachine (>= 0.12.9)
+      http_parser.rb (~> 0.5.3)
     erubis (2.7.0)
+    eventmachine (1.0.3)
     execjs (2.0.2)
     fabrication (2.9.3)
     faraday (0.8.8)
@@ -80,6 +84,10 @@ GEM
       lumberjack (~> 1.0)
       pry (>= 0.9.12)
       thor (>= 0.18.1)
+    guard-livereload (2.0.0)
+      em-websocket (~> 0.5)
+      guard (~> 2.0)
+      multi_json (~> 1.8)
     guard-rspec (4.0.4)
       guard (>= 2.1.1)
       rspec (~> 2.14)
@@ -95,6 +103,7 @@ GEM
       railties (>= 3.1, < 4.1)
     hashie (2.0.5)
     hike (1.2.3)
+    http_parser.rb (0.5.3)
     httpauth (0.2.0)
     i18n (0.6.5)
     io-console (0.3)
@@ -261,6 +270,7 @@ DEPENDENCIES
   devise
   fabrication
   font-awesome-rails
+  guard-livereload
   guard-rspec
   guard-spring
   haml-rails
