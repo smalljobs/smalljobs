@@ -7,3 +7,45 @@ This is the repo for smalljobs.ch.
 * [Pivotal Tracker](https://www.pivotaltracker.com/s/projects/789611) for managing requirements and bug tracking.
 * [GitHub](https://github.com/ratte/smalljobs) for source code management.
 * [Heroku](https://dashboard.heroku.com/apps/smalljobs/resources) for production hosting.
+
+### Running locally
+
+Make sure [Ruby 2](https://www.ruby-lang.org/en/) and [Bundler](http://bundler.io/) are installed. Also PostgreSQL
+should be accessible with the user `smalljobs` without password.
+
+#### Clone the repo
+
+Get the source by cloning the repo:
+
+```bash
+$ git clone git@github.com:ratte/smalljobs.git
+$ cd smalljobs
+```
+
+#### Prepare the database
+
+Get the database ready and populate with needed data:
+
+```bash
+$ rake db:setup
+```
+
+#### Start the server
+
+Start the local [unicorn](http://unicorn.bogomips.org/) server
+
+```bash
+$ RAILS_ENV=development bundle exec unicorn -p 3000 -c config/unicorn.rb
+```
+
+and open [the site](http://127.0.0.0:3000/) or the [admin interface](http://127.0.0.0:3000/admin).
+
+#### Update to latest version
+
+You can update your local project with:
+
+```bash
+$ cd smalljobs
+$ git pull origin master
+$ rake db:migrate
+```
