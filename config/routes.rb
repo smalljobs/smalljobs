@@ -1,4 +1,7 @@
 Smalljobs::Application.routes.draw do
+  devise_for :job_seekers
+  devise_for :job_providers
+  devise_for :job_brokers
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
