@@ -4,3 +4,10 @@ de:
       user: "Benutzer"
       job: "Job"
       geo: "Ortsbestimmung"
+  errors:
+    messages:
+      carrierwave_processing_error: "Kann das Bild nicht bearbeiten."
+      carrierwave_integrity_error: "Ist kein Bild."
+      carrierwave_download_error: "Kann Bild nicht herunterladen."
+      extension_white_list_error: "Es ist nicht erlaubt %{extension} Dateien hochzuladen, nur %{allowed_types} sind erlaubt."
+      extension_black_list_error: "Es ist nicht erlaubt %{extension} Dateien hochzuladen, %{prohibited_types} sind nicht erlaubt."

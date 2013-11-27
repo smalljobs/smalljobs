@@ -1,2 +1,14 @@
 Fabricator(:job_provider) do
+  username  { Forgery(:name).first_name }
+  password  { Forgery(:basic).password.rjust(10, 'a') }
+
+  firstname { Forgery(:name).first_name }
+  lastname  { Forgery(:name).last_name }
+
+  street { "#{ Forgery(:address).street_name } #{ Forgery(:address).street_number }" }
+  zip    { Random.rand(9999).to_s.rjust(4, '0') }
+  city   { Forgery(:address).city }
+
+  contact_preference  { 'mobile' }
+  contact_availability { 'all day' }
 end

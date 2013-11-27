@@ -31,6 +31,9 @@ Smalljobs::Application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
+  # Mailer default link host
+  config.action_mailer.default_url_options = { host: 'localhost' }
+
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 end
