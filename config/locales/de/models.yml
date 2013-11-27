@@ -23,6 +23,7 @@ de:
         name: "Name"
       region:
         name: "Name"
+        places: "Orte"
       place:
         name: "Name"
         zip: "PLZ"

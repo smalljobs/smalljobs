@@ -14,8 +14,8 @@ describe Region do
   end
 
   describe '#places' do
-    it 'needs at least a place' do
-      expect(Fabricate.build(:region, places: nil)).not_to be_valid
+    it 'needs at least one place' do
+      expect(Fabricate.build(:region, places: [])).not_to be_valid
     end
   end
 end

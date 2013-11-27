@@ -1,5 +1,5 @@
 class Place < ActiveRecord::Base
-  has_and_belongs_to_many :regions
+  belongs_to :region
 
   validates :zip, :name, :longitude, :latitude, presence: true
 end
