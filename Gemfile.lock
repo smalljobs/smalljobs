@@ -113,9 +113,6 @@ GEM
     guard-rspec (4.0.4)
       guard (>= 2.1.1)
       rspec (~> 2.14)
-    guard-spring (0.0.4)
-      guard
-      spring
     haml (4.0.4)
       tilt
     haml-rails (0.4)
@@ -256,6 +253,8 @@ GEM
       activemodel (>= 4.0.0, < 4.1)
     slop (3.4.7)
     spring (1.0.0)
+    spring-commands-rspec (1.0.1)
+      spring (>= 0.9.1)
     sprockets (2.10.1)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -307,7 +306,6 @@ DEPENDENCIES
   font-awesome-rails
   guard-livereload
   guard-rspec
-  guard-spring
   haml-rails
   jbuilder
   jquery-rails
@@ -329,6 +327,7 @@ DEPENDENCIES
   sdoc
   simple_form
   spring
+  spring-commands-rspec
   therubyracer
   turbolinks
   uglifier

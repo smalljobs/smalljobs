@@ -31,7 +31,6 @@ group :development, :test do
   gem 'fabrication'
   gem 'guard-livereload'
   gem 'guard-rspec'
-  gem 'guard-spring'
   gem 'pry'
   gem 'pry-byebug'
   gem 'pry-coolline'
@@ -40,6 +39,7 @@ group :development, :test do
   gem 'pry-stack_explorer'
   gem 'rspec-rails'
   gem 'spring'
+  gem 'spring-commands-rspec'
 end
 
 group :doc do

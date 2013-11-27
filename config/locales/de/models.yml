@@ -1,0 +1,17 @@
+de:
+  activerecord:
+    models:
+      admin:
+        one: "Administrator"
+        other: "Administratoren"
+      job_broker: "Vermittler"
+      job_seeker:
+        one: "Arbeitssuchender"
+        other: "Arbeitssuchende"
+      job_provider: "Anbieter"
+      work_category:
+        one: "Arbeitskategorie"
+        other: "Arbeitskategorien"
+    attributes:
+      work_category:
+        name: "Name"
