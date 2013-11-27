@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131127083031) do
+ActiveRecord::Schema.define(version: 20131127103347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,25 @@ ActiveRecord::Schema.define(version: 20131127083031) do
   add_index "job_seekers", ["email"], name: "index_job_seekers_on_email", unique: true, using: :btree
   add_index "job_seekers", ["reset_password_token"], name: "index_job_seekers_on_reset_password_token", unique: true, using: :btree
 
+  create_table "places", force: true do |t|
+    t.integer  "zip",                                null: false
+    t.string   "name",                               null: false
+    t.string   "state"
+    t.string   "province"
+    t.decimal  "longitude",  precision: 9, scale: 6, null: false
+    t.decimal  "latitude",   precision: 9, scale: 6, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "places", ["name"], name: "index_places_on_name", using: :btree
+  add_index "places", ["zip"], name: "index_places_on_zip", using: :btree
+
+  create_table "places_regions", force: true do |t|
+    t.integer "place_id"
+    t.integer "region_id"
+  end
+
   create_table "rails_admin_histories", force: true do |t|
     t.text     "message"
     t.string   "username"
@@ -106,6 +125,14 @@ ActiveRecord::Schema.define(version: 20131127083031) do
   end
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], name: "index_rails_admin_histories", using: :btree
+
+  create_table "regions", force: true do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "regions", ["name"], name: "index_regions_on_name", using: :btree
 
   create_table "work_categories", force: true do |t|
     t.string   "name",       null: false

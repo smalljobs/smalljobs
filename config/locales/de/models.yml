@@ -12,6 +12,27 @@ de:
       work_category:
         one: "Arbeitskategorie"
         other: "Arbeitskategorien"
+      region:
+        one: "Region"
+        other: "Regionen"
+      place:
+        one: "Ort"
+        other: "Orte"
     attributes:
       work_category:
         name: "Name"
+      region:
+        name: "Name"
+      place:
+        name: "Name"
+        zip: "PLZ"
+        state: "Kanton"
+        province: "Bezirk"
+        longitude: "Longitude"
+        latitude: "Latitude"
+    errors:
+      models:
+        region:
+          attributes:
+            places:
+              blank: "muss mindestens einen Ort beinhalten"

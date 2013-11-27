@@ -29,6 +29,7 @@ group :development, :test do
   gem 'binding_of_caller'
   gem 'capybara'
   gem 'fabrication'
+  gem 'forgery'
   gem 'guard-livereload'
   gem 'guard-rspec'
   gem 'pry'
