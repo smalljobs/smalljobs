@@ -1,5 +1,5 @@
 class Region < ActiveRecord::Base
-  has_many :places
+  has_many :places, inverse_of: :region
 
   has_many :employments, inverse_of: :region
   has_many :job_brokers, through: :employments
