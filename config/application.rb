@@ -34,5 +34,6 @@ module Smalljobs
 
     # Asset pipeline
     config.assets.precompile += %w(rails_admin/rails_admin.css rails_admin/rails_admin.js)
+    config.serve_static_assets = true
   end
 end
