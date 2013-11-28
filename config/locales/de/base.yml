@@ -16,6 +16,7 @@ de:
       job_brokers: "Vermittler"
       administration: "Admin"
       authenticatable: "Authentifizierung"
+      employment: "Anstellungen"
   errors:
     messages:
       carrierwave_processing_error: "Kann das Bild nicht bearbeiten."

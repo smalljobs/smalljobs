@@ -106,6 +106,11 @@ RailsAdmin.config do |config|
       field :name
       field :places
     end
+
+    edit do
+      field :name
+      field :places
+    end
   end
 
   config.model Employment do
@@ -148,7 +153,7 @@ RailsAdmin.config do |config|
       field :phone
       field :email
       field :active
-      field :confirmed
+      field :confirmed?
     end
 
     edit do
@@ -166,6 +171,12 @@ RailsAdmin.config do |config|
         field :lastname
         field :phone
         field :mobile
+      end
+
+      group :employment do
+        label I18n.t('admin.groups.employment')
+
+        field :employments
       end
 
       group :administration do

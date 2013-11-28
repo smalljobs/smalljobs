@@ -107,4 +107,10 @@ describe JobSeeker do
       expect(Fabricate.build(:job_seeker, contact_preference: 'mobile', contact_availability: nil)).not_to be_valid
     end
   end
+
+  describe "#name" do
+    it 'uses the first and last as name' do
+      expect(Fabricate(:job_seeker, firstname: 'Otto', lastname: 'Biber').name).to eql('Otto Biber')
+    end
+  end
 end

@@ -58,4 +58,9 @@ describe JobBroker do
     end
   end
 
+  describe "#name" do
+    it 'uses the first and last as name' do
+      expect(Fabricate(:job_broker, firstname: 'Otto', lastname: 'Biber').name).to eql('Otto Biber')
+    end
+  end
 end

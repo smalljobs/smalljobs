@@ -24,4 +24,13 @@ describe Employment do
       expect(Fabricate.build(:employment, region: nil)).not_to be_valid
     end
   end
+
+  describe '#name' do
+    it 'uses the organization and region as name' do
+      expect(Fabricate(:employment,
+                       organization: Fabricate(:organization, name: 'Lotte'),
+                       region: Fabricate(:region, name: 'Muhen')
+                      ).name).to eql('Lotte, Muhen')
+    end
+  end
 end

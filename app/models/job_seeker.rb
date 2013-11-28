@@ -1,9 +1,6 @@
 class JobSeeker < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  has_many :employments
-  has_many :organizations, through: :employments
-
   validates :firstname, :lastname, presence: true
 
   validates :street, :zip, :city, presence: true
@@ -24,5 +21,9 @@ class JobSeeker < ActiveRecord::Base
 
   def contact_preference_enum
     %w(email phone mobile postal whatsapp)
+  end
+
+  def name
+    "#{ firstname } #{ lastname }"
   end
 end

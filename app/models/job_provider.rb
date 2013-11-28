@@ -27,4 +27,8 @@ class JobProvider < ActiveRecord::Base
   def contact_preference_enum
     %w(email phone mobile postal)
   end
+
+  def name
+    "#{ firstname } #{ lastname }"
+  end
 end

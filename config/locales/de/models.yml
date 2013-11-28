@@ -38,6 +38,9 @@ de:
         places: "Orte"
         created_at: "Erstellt"
         updated_at: "Bearbeitet"
+        employments: "Anstellungen"
+        job_brokers: "Vermittler"
+        organizations: "Organization"
       place:
         name: "Name"
         state: "Kanton"
@@ -100,11 +103,14 @@ de:
         confirmed_at: "Bestätigt am"
         confirmation_sent_at: "Bestätigungsmail gesendet am"
         unconfirmed_email: "Unbestätigte Email"
-        confirmed: "Bestätigt"
+        confirmed?: "Bestätigt"
       job_seeker:
         <<: *USER
       job_broker:
         <<: *USER
+        organizations: "Organisationen"
+        regions: "Regionen"
+        employments: "Anstellungen"
       job_provider:
         <<: *USER
       admin:
