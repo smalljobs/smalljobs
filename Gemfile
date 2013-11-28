@@ -35,6 +35,7 @@ group :development, :test do
   gem 'binding_of_caller'
   gem 'capybara'
   gem 'fabrication'
+  gem 'foreman'
   gem 'forgery'
   gem 'guard-livereload'
   gem 'guard-rspec'
@@ -51,4 +52,8 @@ end
 
 group :doc do
   gem 'sdoc', require: false
+end
+
+group :production do
+  gem 'rails_12factor'
 end
