@@ -1,8 +1,8 @@
-class CreateJobBrokerOrganizations < ActiveRecord::Migration
+class CreateEmployments < ActiveRecord::Migration
   def change
-    create_table :job_broker_organizations do |t|
-      t.references :job_broker
+    create_table :employments do |t|
       t.references :organization
+      t.references :job_broker
       t.references :region
 
       t.timestamps

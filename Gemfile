@@ -26,6 +26,7 @@ gem 'simple_form'
 gem 'therubyracer'
 gem 'turbolinks'
 gem 'uglifier'
+gem 'unf'
 gem 'unicorn'
 
 group :development, :test do

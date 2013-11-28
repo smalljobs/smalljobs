@@ -11,6 +11,11 @@ describe Region do
     it 'is not valid without a name' do
       expect(Fabricate.build(:region, name: nil)).not_to be_valid
     end
+
+    it 'must be a unique name' do
+      Fabricate(:region, name: 'Yo Land')
+      expect(Fabricate.build(:region, name: 'Yo Land')).not_to be_valid
+    end
   end
 
   describe '#places' do

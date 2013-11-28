@@ -58,29 +58,29 @@ describe Organization do
 
   describe '#email' do
     it 'is not valid without a email' do
-      expect(Fabricate.build(:job_seeker, email: nil)).not_to be_valid
+      expect(Fabricate.build(:organization, email: nil)).not_to be_valid
     end
 
     it 'must be a valid email' do
-      expect(Fabricate.build(:job_seeker, email: 'michinetz.ch')).not_to be_valid
-      expect(Fabricate.build(:job_seeker, email: 'michi@netzpiraten.ch')).to be_valid
+      expect(Fabricate.build(:organization, email: 'michinetz.ch')).not_to be_valid
+      expect(Fabricate.build(:organization, email: 'michi@netzpiraten.ch')).to be_valid
     end
   end
 
   describe '#phone' do
     it 'should be a plausible phone number' do
-      expect(Fabricate.build(:job_seeker, phone: 'abc123')).not_to be_valid
-      expect(Fabricate.build(:job_seeker, phone: '056 496 03 58')).to be_valid
+      expect(Fabricate.build(:organization, phone: 'abc123')).not_to be_valid
+      expect(Fabricate.build(:organization, phone: '056 496 03 58')).to be_valid
     end
 
     it 'normalizes the phone number' do
-      expect(Fabricate(:job_seeker, phone: '056 496 03 58').phone).to eql('41564960358')
+      expect(Fabricate(:organization, phone: '056 496 03 58').phone).to eql('41564960358')
     end
   end
 
   describe '#active' do
     it 'is active by default' do
-      expect(Fabricate(:job_seeker)).to be_active
+      expect(Fabricate(:organization)).to be_active
     end
   end
 end

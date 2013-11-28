@@ -1,6 +1,8 @@
 class CreatePlaces < ActiveRecord::Migration
   def change
     create_table :places do |t|
+      t.references :region
+
       t.integer :zip, null: false
       t.string  :name, null: false
 

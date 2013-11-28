@@ -1,6 +1,9 @@
 class JobSeeker < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
+  has_many :employments
+  has_many :organizations, through: :employments
+
   validates :firstname, :lastname, presence: true
 
   validates :street, :zip, :city, presence: true

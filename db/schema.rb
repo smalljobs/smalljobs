@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131127223727) do
+ActiveRecord::Schema.define(version: 20131127232302) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,9 +34,9 @@ ActiveRecord::Schema.define(version: 20131127223727) do
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
 
-  create_table "job_broker_organizations", force: true do |t|
-    t.integer  "job_broker_id"
+  create_table "employments", force: true do |t|
     t.integer  "organization_id"
+    t.integer  "job_broker_id"
     t.integer  "region_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -164,6 +164,7 @@ ActiveRecord::Schema.define(version: 20131127223727) do
   add_index "organizations", ["name"], name: "index_organizations_on_name", unique: true, using: :btree
 
   create_table "places", force: true do |t|
+    t.integer  "region_id"
     t.integer  "zip",                                null: false
     t.string   "name",                               null: false
     t.string   "state"
@@ -172,11 +173,9 @@ ActiveRecord::Schema.define(version: 20131127223727) do
     t.decimal  "latitude",   precision: 9, scale: 6, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "region_id"
   end
 
   add_index "places", ["name"], name: "index_places_on_name", using: :btree
-  add_index "places", ["region_id"], name: "index_places_on_region_id", using: :btree
   add_index "places", ["zip"], name: "index_places_on_zip", using: :btree
 
   create_table "rails_admin_histories", force: true do |t|
@@ -198,7 +197,7 @@ ActiveRecord::Schema.define(version: 20131127223727) do
     t.datetime "updated_at"
   end
 
-  add_index "regions", ["name"], name: "index_regions_on_name", using: :btree
+  add_index "regions", ["name"], name: "index_regions_on_name", unique: true, using: :btree
 
   create_table "work_categories", force: true do |t|
     t.string   "name",       null: false

@@ -7,6 +7,17 @@ describe JobProvider do
     end
   end
 
+  describe '#username' do
+    it 'is not valid without a username' do
+      expect(Fabricate.build(:job_provider, username: nil)).not_to be_valid
+    end
+
+    it 'must be a unique name' do
+      Fabricate(:job_provider, username: 'Yo Land')
+      expect(Fabricate.build(:job_provider, username: 'Yo Land')).not_to be_valid
+    end
+  end
+
   describe '#firstname' do
     it 'is not valid without a firstname' do
       expect(Fabricate.build(:job_provider, firstname: nil)).not_to be_valid
