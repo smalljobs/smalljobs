@@ -35,7 +35,6 @@ RailsAdmin.config do |config|
       group :position do
         label I18n.t('admin.groups.position')
 
-        field :map
         field :longitude
         field :latitude
       end
