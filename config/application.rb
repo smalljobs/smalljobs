@@ -31,5 +31,10 @@ module Smalljobs
       g.test_framework      :rspec, fixture: true
       g.fixture_replacement :fabrication, dir: 'spec/fabricators'
     end
+
+    # Asset pipeline
+    config.assets.enabled = true
+    config.assets.initialize_on_precompile = false
+    config.assets.precompile += ['rails_admin/rails_admin.css', 'rails_admin/rails_admin.js']
   end
 end
