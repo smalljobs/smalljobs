@@ -4,33 +4,111 @@ de:
       admin:
         one: "Administrator"
         other: "Administratoren"
-      job_broker: "Vermittler"
+      job_broker:
+        one: "Vermittler"
+        other: "Vermittler"
       job_seeker:
         one: "Arbeitssuchender"
-        other: "Arbeitssuchende"
-      job_provider: "Anbieter"
+        other: "Suchende"
+      job_provider:
+        one: "Anbieter"
+        other: "Anbieter"
       work_category:
-        one: "Arbeitskategorie"
-        other: "Arbeitskategorien"
+        one: "Kategorie"
+        other: "Kategorien"
       region:
         one: "Region"
         other: "Regionen"
       place:
         one: "Ort"
         other: "Orte"
+      organization:
+        one: "Organisation"
+        other: "Organisationen"
+      employment:
+        one: "Anstellung"
+        other: "Anstellungen"
     attributes:
       work_category:
         name: "Name"
+        created_at: "Erstellt"
+        updated_at: "Bearbeitet"
       region:
         name: "Name"
         places: "Orte"
+        created_at: "Erstellt"
+        updated_at: "Bearbeitet"
       place:
         name: "Name"
-        zip: "PLZ"
         state: "Kanton"
         province: "Bezirk"
         longitude: "Longitude"
         latitude: "Latitude"
+        created_at: "Erstellt"
+        updated_at: "Bearbeitet"
+      organization:
+        logo: "Logo"
+        background: "Hintergrund"
+        webseite: "Webseite"
+        description: "Beschreibung"
+        street: "Strasse"
+        zip: "PLZ"
+        city: "Ort"
+        email: "Email"
+        phone: "Telefon"
+        mobile: "Mobil"
+        active: "Aktiv"
+        employments: "Vermittler"
+        created_at: "Erstellt"
+        updated_at: "Bearbeitet"
+      employment:
+        organization: "Organisation"
+        job_broker: "Vermittler"
+        region: "Region"
+        created_at: "Erstellt"
+        updated_at: "Bearbeitet"
+      user: &USER
+        firstname: "Vorname"
+        lastname: "Nachname"
+        street: "Strasse"
+        zip: "PLZ"
+        city: "Ort"
+        email: "Email"
+        phone: "Telefon"
+        mobile: "Mobil"
+        active: "Aktiv"
+        created_at: "Erstellt"
+        updated_at: "Bearbeitet"
+        contact_preference: "Bevorzuge Kontaktart"
+        contact_availability: "Am Besten zu Erreichen"
+        provider: "Anbieter"
+        uid: "UID"
+        name: "Name"
+        username: "Benutzername"
+        password: "Passwort"
+        password_confirmation: "Passwortbestätigung"
+        encrypted_password: "Verschlüsseltes Passwort"
+        reset_password_token: "Schlüssel zur Passwortrücksetzung"
+        reset_password_sent_at: "Passwordrücksetzung gesendet am"
+        remember_created_at: "Erinnerung seit"
+        sign_in_count: "Anmeldungen"
+        current_sign_in_at: "Angemeldet seit"
+        last_sign_in_at: "Zuletzt angemeldet seit"
+        current_sign_in_ip: "Aktuelle IP"
+        last_sign_in_ip: "Letzte IP"
+        confirmation_token: "Schlüssel zur Bestätigung"
+        confirmed_at: "Bestätigt am"
+        confirmation_sent_at: "Bestätigungsmail gesendet am"
+        unconfirmed_email: "Unbestätigte Email"
+        confirmed: "Bestätigt"
+      job_seeker:
+        <<: *USER
+      job_broker:
+        <<: *USER
+      job_provider:
+        <<: *USER
+      admin:
+        <<: *USER
     errors:
       models:
         region:

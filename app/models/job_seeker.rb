@@ -12,7 +12,7 @@ class JobSeeker < ActiveRecord::Base
   validates :email, email: true, allow_blank: true
   validates :phone, :mobile, phony_plausible: true
 
-  validates :contact_preference, inclusion: %w(email phone mobile postal whatsapp)
+  validates :contact_preference, inclusion: { in: lambda { |m| m.contact_preference_enum } }
   validates :contact_availability, presence: true, if: lambda { %w(phone mobile).include?(self.contact_preference) }
 
   phony_normalize :phone,  default_country_code: 'CH'
@@ -20,5 +20,9 @@ class JobSeeker < ActiveRecord::Base
 
   def active_for_authentication?
     super && active?
+  end
+
+  def contact_preference_enum
+    %w(email phone mobile postal whatsapp)
   end
 end

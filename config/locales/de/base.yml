@@ -2,8 +2,20 @@ de:
   admin:
     menu:
       user: "Benutzer"
-      job: "Job"
-      geo: "Ortsbestimmung"
+      job: "Jobs"
+      geo: "Orte"
+      org: "Jugendarbeit"
+    groups:
+      place: "Ortschaft"
+      political: "Politisch"
+      position: "Geo-Position"
+      design: "Design"
+      organization: "Jugenarbeit"
+      address: "Adresse"
+      contact: "Kontakt"
+      job_brokers: "Vermittler"
+      administration: "Admin"
+      authenticatable: "Authentifizierung"
   errors:
     messages:
       carrierwave_processing_error: "Kann das Bild nicht bearbeiten."

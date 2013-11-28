@@ -1,6 +1,6 @@
 class Organization < ActiveRecord::Base
   has_many :employments
-  has_many :job_seekers, through: :employments
+  has_many :job_brokers, through: :employments
 
   validates :name, presence: true, uniqueness: true
   validates :website, url: true
