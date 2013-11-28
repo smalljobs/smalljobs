@@ -1,6 +1,7 @@
 /*
- *= require_self
  *= require font-awesome
- *= require bootstrap-sass
- *= require_tree .
+ *= require_self
  */
+
+@import "bootstrap";
+@import "bootstrap/theme";
