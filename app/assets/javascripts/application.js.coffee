@@ -1,5 +1,5 @@
 #= require jquery
 #= require jquery_ujs
 #= require turbolinks
-#= require twitter/bootstrap
+#= require bootstrap-sass
 #= require_tree .

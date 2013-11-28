@@ -4,7 +4,7 @@ ruby '2.0.0'
 gem 'rails', '4.0.1'
 
 gem 'activevalidators'
-gem 'bootstrap-sass-rails'
+gem 'bootstrap-sass'
 gem 'cancan'
 gem 'carrierwave'
 gem 'coffee-rails'
