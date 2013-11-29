@@ -1,9 +1,11 @@
 .jumbotron
   %h1= I18n.t('pages.home.teaser')
   %p.lead= I18n.t('pages.home.lead')
-  %p
-    = link_to I18n.t('pages.home.signup_provider'), new_job_provider_registration_path, class: 'btn btn-lg btn-success'
-    = link_to I18n.t('pages.home.signup_seeker'), new_job_seeker_registration_path, class: 'btn btn-lg btn-success pull-right'
+  .row.signup
+    .col-lg-6
+      = link_to I18n.t('pages.home.signup_provider'), new_job_provider_registration_path, class: 'btn btn-lg btn-success'
+    .col-lg-6.top-buffer
+      = link_to I18n.t('pages.home.signup_seeker'), new_job_seeker_registration_path, class: 'btn btn-lg btn-success'
 
 .row.marketing
   .col-lg-6
