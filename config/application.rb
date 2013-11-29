@@ -27,6 +27,10 @@ module Smalljobs
     config.encoding = 'utf-8'
 
     config.generators do |g|
+      g.helper              false
+      g.helper_specs        false
+      g.stylesheets         false
+      g.javascripts         false
       g.integration_tool    :rspec
       g.test_framework      :rspec, fixture: true
       g.fixture_replacement :fabrication, dir: 'spec/fabricators'

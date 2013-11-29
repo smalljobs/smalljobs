@@ -18,5 +18,19 @@
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
+
   %body
-    = yield
+    .container
+      .header
+        = render_navigation(expand_all: true)
+
+        %i.fa.fa-2x.fa-usd
+        %h3.text-muted
+          = I18n.t('pages.layout.title')
+
+      = yield
+
+      .footer
+        %p
+          &copy;
+          = I18n.t('pages.layout.copyright')
