@@ -1,0 +1,45 @@
+%h2= I18n.t('job_seekers.registrations.new.title')
+%p= I18n.t('job_seekers.registrations.new.lead')
+
+= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { novalidate: true }) do |f|
+
+  .bs-callout.bs-callout-danger
+    = f.error_notification
+
+  %fieldset
+    %legend
+      = I18n.t('legends.login')
+      %i.fa.fa-2x.fa-user.pull-right
+
+    .form-inputs
+      = f.input :email, required: true, autofocus: true
+      = f.input :password, required: true
+      = f.input :password_confirmation, required: true
+
+  %fieldset
+    %legend
+      = I18n.t('legends.address')
+      %i.fa.fa-2x.fa-home.pull-right
+
+    .form-inputs
+      = f.input :firstname, required: true
+      = f.input :lastname, required: true
+      = f.input :street, required: true
+      = f.input :zip, required: true
+      = f.input :city, required: true
+
+  %fieldset
+    %legend
+      = I18n.t('legends.contact')
+      %i.fa.fa-2x.fa-phone.pull-right
+
+    .form-inputs
+      = f.input :phone
+      = f.input :mobile
+      = f.input :contact_preference, collection: job_seeker_contact_preferences
+      = f.input :contact_availability
+
+  .form-actions
+    = f.button :submit, I18n.t('job_seekers.registrations.new.register'), class: 'btn btn-primary'
+
+= render "job_seekers/shared/links"

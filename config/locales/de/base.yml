@@ -19,6 +19,34 @@ de:
       employment: "Anstellungen"
   navigation:
     home: ""
+  legends:
+    login: "Anmeldedaten"
+    address: "Adresse"
+    contact: "Kontakt"
+  contacts:
+    email: "Email"
+    phone: "Telefon"
+    mobile: "Mobiltelefon"
+    whatsapp: "WhatsApp"
+  devise_links:
+    sign_in: "Anmelden"
+    sign_in_with: "Mit {{provider}} anmelden"
+    sign_up: "Registrieren"
+    forgot_password: "Passwort vergessen?"
+    no_confirmation: "Keine Email zur Bestätigung erhalten?"
+    no_unlock: "Keine Email zum Entsperren erhalten?"
+  job_providers:
+    registrations:
+      new:
+        title: "Als Jobanbieter registrieren"
+        register: "Registrieren"
+        lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+  job_seekers:
+    registrations:
+      new:
+        title: "Als Jobsuchender registrieren"
+        register: "Registrieren"
+        lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
   pages:
     layout:
       title: "mallJobs"

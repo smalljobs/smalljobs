@@ -1,0 +1,13 @@
+de:
+  simple_form:
+    "yes": 'Ja'
+    "no": 'Nein'
+    required:
+      text: 'Wird benötigt'
+      mark: '*'
+      # html: '<abbr title="required">*</abbr>'
+    error_notification:
+      default_message: "Bitte überprüfen Sie ihre Formulareingabe:"
+    hints:
+      defaults:
+        contact_availability: "Wann sind Sie am Besten per Telefon zu erreichen?"

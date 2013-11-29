@@ -1,0 +1,27 @@
+form {
+  margin-bottom: 30px;
+
+  label {
+    margin-top: 10px;
+  }
+}
+
+fieldset {
+  margin-top: 50px;
+
+  legend {
+    font-size: 2em;
+
+    i {
+      margin-top: -20px;
+    }
+  }
+
+  .error .form-control {
+    border-color: #e74c3c;
+  }
+}
+
+.form-actions {
+  margin-top: 30px;
+}
