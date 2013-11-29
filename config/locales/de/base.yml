@@ -24,6 +24,7 @@ de:
     address: "Adresse"
     contact: "Kontakt"
   contacts:
+    postal: "Per Post"
     email: "Email"
     phone: "Telefon"
     mobile: "Mobiltelefon"
