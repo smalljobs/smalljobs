@@ -1,0 +1,15 @@
+%h2= I18n.t('job_seekers.confirmations.title')
+
+= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, novalidate: true }) do |f|
+
+  .bs-callout.bs-callout-danger
+    = f.error_notification
+    = f.full_error :confirmation_token
+
+  .form-inputs
+    = f.input :email, required: true, autofocus: true
+
+  .form-actions
+    = f.button :submit, I18n.t('job_seekers.confirmations.action'), class: 'btn btn-primary'
+
+= render 'job_seekers/shared/links'

@@ -1,0 +1,19 @@
+%h2= I18n.t('job_seekers.passwords.edit.title')
+%p= I18n.t('job_seekers.passwords.edit.lead')
+
+= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, novalidate: true }) do |f|
+
+  = f.input :reset_password_token, as: :hidden
+
+  .bs-callout.bs-callout-danger
+    = f.error_notification
+    = f.full_error :reset_password_token
+
+  .form-inputs
+    = f.input :password, label: 'job_seekers.passwords.edit.new_password'), required: true, autofocus: true
+    = f.input :password_confirmation, label: I18n.t('job_seekers.passwords.edit.confirmation'), required: true
+
+  .form-actions
+    = f.button :submit, I18n.t('job_seekers.passwords.edit.lead'), class: 'btn btn-primary'
+
+= render 'job_seekers/shared/links'

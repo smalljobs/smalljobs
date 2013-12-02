@@ -36,18 +36,65 @@ de:
     forgot_password: "Passwort vergessen?"
     no_confirmation: "Keine Email zur Bestätigung erhalten?"
     no_unlock: "Keine Email zum Entsperren erhalten?"
+  common:
+    sure: "Sind Sie sicher?"
+  devise_common:
+    wait_confirmation: "Warte auf die Bestätigung von: {{ email }}"
+    leave_empty: "Lassen Sie das Passwort leer, wenn Sie es nicht ändern wollen."
+    need_password: "Wir benötigen ihr aktuelles Passwort um die Änderung zu Bestätigen."
   job_providers:
     registrations:
       new:
         title: "Als Jobanbieter registrieren"
         register: "Registrieren"
         lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+      edit:
+        title: "Ihre Daten ändern"
+        lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+        action: "Ändern"
+        cancel:
+          title: "Ihr Benutzerkonto deaktivieren"
+          lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+          action: "Deaktivieren"
+    confirmations:
+      title: "Bestätigung erneut senden"
+        lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+      action: "Bestätigung sende"
+    passwords:
+      new:
+        title: "Passwort vergessen?"
+        lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+        action: "Passwort zurücksetzen"
+      edit:
+        title: "Passwort ändern"
+        lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+        new_passwort: "Neues Passwort"
+        confirmation: "Passwort wiederholen"
+        action: "Passwort ändern"
   job_seekers:
     registrations:
       new:
         title: "Als Jobsuchender registrieren"
         register: "Registrieren"
         lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+      edit:
+        title: "Ihre Daten ändern"
+        lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+        action: "Ändern"
+    confirmations:
+      title: "Bestätigung erneut senden"
+      action: "Bestätigung sende"
+    passwords:
+      new:
+        title: "Passwort vergessen?"
+        lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+        action: "Passwort zurücksetzen"
+      edit:
+        title: "Passwort ändern"
+        lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+        new_passwort: "Neues Passwort"
+        confirmation: "Passwort wiederholen"
+        action: "Passwort ändern"
   pages:
     layout:
       title: "mallJobs"

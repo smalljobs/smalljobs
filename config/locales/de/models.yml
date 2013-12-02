@@ -90,6 +90,7 @@ de:
         username: "Benutzername"
         password: "Passwort"
         password_confirmation: "Passwortbestätigung"
+        current_passwort: "Aktuelles Passwort"
         encrypted_password: "Verschlüsseltes Passwort"
         reset_password_token: "Schlüssel zur Passwortrücksetzung"
         reset_password_sent_at: "Passwordrücksetzung gesendet am"
