@@ -37,11 +37,11 @@ de:
   common:
     sure: "Sind Sie sicher?"
   devise_views:
-    wait_confirmation: "Warte auf die Bestätigung von: {{ email }}"
+    wait_confirmation: "Warte auf die Bestätigung von: %{email}"
     leave_empty: "Lassen Sie das Passwort leer, wenn Sie es nicht ändern wollen."
     need_password: "Wir benötigen ihr aktuelles Passwort um die Änderung zu Bestätigen."
     sign_in: "Anmelden"
-    sign_in_with: "Mit {{provider}} anmelden"
+    sign_in_with: "Mit %{provider} anmelden"
     sign_up: "Registrieren"
     forgot_password?: "Passwort vergessen?"
     no_confirmation: "Keine Email zur Bestätigung erhalten?"
