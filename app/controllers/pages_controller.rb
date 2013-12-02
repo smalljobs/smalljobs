@@ -2,6 +2,9 @@ class PagesController < ApplicationController
   def home
   end
 
+  def sign_in
+  end
+
   def about_us
   end
 
@@ -9,5 +12,8 @@ class PagesController < ApplicationController
   end
 
   def terms_of_service
+  end
+
+  def confirm
   end
 end

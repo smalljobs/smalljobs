@@ -31,13 +31,15 @@ class JobSeeker < ActiveRecord::Base
     user = JobSeeker.where(provider: auth.provider, uid: auth.uid).first
 
     unless user
-      user = JobSeeker.create(
-        firstname: auth.extra.raw_info.firstname,
-        lastname:  auth.extra.raw_info.lastname,
+      user = JobSeeker.new(
+        firstname: auth.extra.raw_info.first_name,
+        lastname:  auth.extra.raw_info.last_name,
         provider:  auth.provider,
         uid:       auth.uid,
         email:     auth.info.email,
-        password:  Devise.friendly_token[0,20])
+        password:  Devise.friendly_token[0,20]
+      )
+      user.save(validate: false)
     end
 
     user

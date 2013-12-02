@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131128131037) do
+ActiveRecord::Schema.define(version: 20131202205251) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,10 +138,10 @@ ActiveRecord::Schema.define(version: 20131128131037) do
   create_table "job_seekers", force: true do |t|
     t.string   "firstname",                                   null: false
     t.string   "lastname",                                    null: false
-    t.string   "street",                                      null: false
-    t.string   "zip",                                         null: false
-    t.string   "city",                                        null: false
-    t.date     "date_of_birth",                               null: false
+    t.string   "street"
+    t.string   "zip"
+    t.string   "city"
+    t.date     "date_of_birth"
     t.string   "phone"
     t.string   "mobile"
     t.string   "contact_preference",     default: "whatsapp"

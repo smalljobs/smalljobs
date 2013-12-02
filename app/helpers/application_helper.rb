@@ -16,4 +16,13 @@ module ApplicationHelper
       [I18n.t('contacts.phone'), 'phone' ]
     ]
   end
+
+  def flash_class(level)
+    case level
+    when :notice then 'alert-info'
+    when :error then 'alert-error'
+    when :alert then 'alert-warning'
+    end
+  end
+
 end
