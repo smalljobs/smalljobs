@@ -36,6 +36,7 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'capybara'
+  gem 'database_cleaner'
   gem 'fabrication'
   gem 'foreman'
   gem 'forgery'

@@ -19,6 +19,11 @@ de:
       employment: "Anstellungen"
   navigation:
     home: ""
+    sign_up: "Registrieren"
+    sign_in: "Anmelden"
+    about_us: "Über uns"
+    privacy_policy: "Datenschutz"
+    terms_of_service: "Geschäfsbedingungen"
   legends:
     login: "Anmeldedaten"
     address: "Adresse"
@@ -41,10 +46,6 @@ de:
     forgot_password?: "Passwort vergessen?"
     no_confirmation: "Keine Email zur Bestätigung erhalten?"
     no_unlock: "Keine Email zum Entsperren erhalten?"
-    sessions:
-      title: "Anmelden"
-      lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
-      action: "Anmelden"
     confirmations:
       title: "Bestätigung erneut senden"
       lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
@@ -74,6 +75,10 @@ de:
           title: "Ihr Benutzerkonto deaktivieren"
           lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
           action: "Deaktivieren"
+    sessions:
+      title: "Als Anbieter anmelden"
+      lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+      action: "Anmelden"
   job_seekers:
     registrations:
       new:
@@ -84,16 +89,23 @@ de:
         title: "Ihre Daten ändern"
         lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
         action: "Ändern"
+    sessions:
+      title: "Als Sucher anmelden"
+      lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+      action: "Anmelden"
   job_brokers:
     registrations:
       edit:
         title: "Ihre Daten ändern"
         lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
         action: "Ändern"
+    sessions:
+      title: "Als Vermittler anmelden"
+      lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+      action: "Anmelden"
   pages:
     layout:
-      title: "mallJobs"
-      copyright: "SmallJobs"
+      title: "SmallJobs"
     home:
       teaser: "Willkommen bei SmallJobs"
       lead: "Pea sprouts pea parsley water spinach radish plantain. Gourd tomato dulse kale black-eyed pea earthnut pea okra corn caulie garlic. Bell pepper sweet pepper turnip greens welsh onion horseradish cucumber caulie tomatillo."
@@ -112,6 +124,13 @@ de:
         feature_text_5: "Veggies sunt bona vobis, proinde vos postulo esse magis dandelion ricebean courgette pumpkin tomatillo sea lettuce epazote gumbo summer purslane kakadu plum."
         feature_title_6: "Dulse horseradish lentil"
         feature_text_6: "Veggies sunt bona vobis, proinde vos postulo esse magis dandelion ricebean courgette pumpkin tomatillo sea lettuce epazote gumbo summer purslane kakadu plum."
+    sign_in:
+      title: "Anmelden"
+      lead: "Veggies sunt bona vobis, proinde vos postulo esse magis dandelion ricebean courgette pumpkin tomatillo sea lettuce epazote gumbo summer purslane kakadu plum."
+      provider: "Anbieter"
+      seeker: "Sucher"
+      broker: "Vermittler"
+
   errors:
     messages:
       carrierwave_processing_error: "Kann das Bild nicht bearbeiten."

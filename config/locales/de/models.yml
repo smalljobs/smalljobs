@@ -118,6 +118,10 @@ de:
       admin:
         <<: *USER
     errors:
+      messages:
+        broker_email: "wird bereits von einem Jobvermittler verwendet"
+        provider_email: "wird bereits von einem Jobanbieter verwendet"
+        seeker_email: "wird bereits von einem Jobsucher verwendet"
       models:
         region:
           attributes:

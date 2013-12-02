@@ -91,6 +91,7 @@ GEM
     countries (0.8.4)
       currencies (>= 0.4.0)
     currencies (0.4.2)
+    database_cleaner (1.2.0)
     date_validator (0.7.0)
       activemodel (>= 3)
     debug_inspector (0.0.2)
@@ -360,6 +361,7 @@ DEPENDENCIES
   capybara
   carrierwave
   coffee-rails
+  database_cleaner
   devise
   fabrication
   fog

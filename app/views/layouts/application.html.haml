@@ -23,14 +23,10 @@
     .container
       .header
         = render_navigation(expand_all: true)
-
-        %i.fa.fa-2x.fa-usd
-        %h3.text-muted
-          = I18n.t('pages.layout.title')
+        %h3
+          = link_to I18n.t('pages.layout.title'), root_path
 
       = yield
 
       .footer
-        %p
-          &copy;
-          = I18n.t('pages.layout.copyright')
+        = render_navigation(context: :footer, expand_all: true)

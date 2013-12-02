@@ -7,6 +7,7 @@ require 'capybara/rails'
 require 'fabrication'
 require 'forgery'
 require 'devise'
+require 'database_cleaner'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
@@ -20,4 +21,21 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, type: :controller
   config.include Support::Authentication::Controller, type: :controller
   config.extend Support::Authentication::Controller::Macros, type: :controller
+
+  config.include Devise::TestHelpers, type: :view
+  config.include Support::Authentication::Controller, type: :view
+  config.extend Support::Authentication::Controller::Macros, type: :view
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
 end
