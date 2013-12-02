@@ -1,5 +1,5 @@
-%h2= I18n.t('job_providers.passwords.new.title')
-%p= I18n.t('job_providers.passwords.new.lead')
+%h2= I18n.t('devise_views.passwords.new.title')
+%p= I18n.t('devise_views.passwords.new.lead')
 
 = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, novalidate: true }) do |f|
 
@@ -10,6 +10,6 @@
     = f.input :email, required: true, autofocus: true
 
   .form-actions
-    = f.button :submit, I18n.t('job_providers.passwords.new.action'), class: 'btn btn-primary'
+    = f.button :submit, I18n.t('devise_views.passwords.new.action'), class: 'btn btn-primary'
 
-= render 'job_providers/shared/links'
+= render 'devise/shared/links'

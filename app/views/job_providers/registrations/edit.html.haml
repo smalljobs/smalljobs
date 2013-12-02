@@ -13,9 +13,9 @@
 
     .form-inputs
       = f.input :username, required: true, autofocus: true
-      = f.input :password, required: false, autocomplete: 'off', hint: I18n.t('devise_common.leave_empty')
+      = f.input :password, required: false, autocomplete: 'off', hint: I18n.t('devise_views.leave_empty')
       = f.input :password_confirmation, required: false
-      = f.input :current_password, required: true, hint: I18n.t('devise_common.need_password')
+      = f.input :current_password, required: true, hint: I18n.t('devise_views.need_password')
 
   %fieldset
     %legend
@@ -39,7 +39,7 @@
       = f.input :phone
 
       - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-        %p= I18n.t('devise_common.wait_confirmation', email: resource.unconfirmed_email)
+        %p= I18n.t('devise_views.wait_confirmation', email: resource.unconfirmed_email)
 
       = f.input :mobile
       = f.input :contact_preference, collection: job_provider_contact_preferences

@@ -71,6 +71,7 @@ de:
         created_at: "Erstellt"
         updated_at: "Bearbeitet"
       user: &USER
+        remember_me: "Angemeldet bleiben"
         firstname: "Vorname"
         lastname: "Nachname"
         street: "Strasse"
