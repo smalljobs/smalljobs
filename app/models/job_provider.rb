@@ -1,9 +1,6 @@
 class JobProvider < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable, authentication_keys: [:username]
 
-
-  validates_with UniqueEmailValidator
-
   validates :username, presence: true, uniqueness: true
   validates :firstname, :lastname, presence: true
 

@@ -5,8 +5,6 @@ class JobBroker < ActiveRecord::Base
   has_many :organizations, through: :employments
   has_many :regions, through: :employments
 
-  validates_with UniqueEmailValidator
-
   validates :firstname, :lastname, :phone, presence: true
   validates :phone, :mobile, phony_plausible: true
 
