@@ -34,18 +34,6 @@ class JobSeeker < ActiveRecord::Base
     "#{ firstname } #{ lastname }"
   end
 
-  def ensure_seeker_age
-    if date_of_birth.present? && !date_of_birth.between?(19.years.ago, 13.years.ago)
-      errors.add(:date_of_birth, :invalid_seeker_age)
-    end
-  end
-
-  def ensure_work_category
-    if work_categories.size == 0
-      errors.add(:work_categories, :invalid_work_category)
-    end
-  end
-
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = JobSeeker.where(provider: auth.provider, uid: auth.uid).first
 
@@ -67,8 +55,24 @@ class JobSeeker < ActiveRecord::Base
   def self.new_with_session(params, session)
     super.tap do |seeker|
       if data = session['devise.facebook_data'] && session['devise.facebook_data']['extra']['raw_info']
-        seeker.email = data['email'] if seeker.email.blank?
+        seeker.email     = data['email']
+        seeker.firstname = data['first_name']
+        seeker.lastname  = data['last_name']
       end
+    end
+  end
+
+  private
+
+  def ensure_seeker_age
+    if date_of_birth.present? && !date_of_birth.between?(19.years.ago, 13.years.ago)
+      errors.add(:date_of_birth, :invalid_seeker_age)
+    end
+  end
+
+  def ensure_work_category
+    if work_categories.size == 0
+      errors.add(:work_categories, :invalid_work_category)
     end
   end
 
