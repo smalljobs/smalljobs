@@ -68,4 +68,24 @@ describe 'layouts/application.html.haml' do
       expect(rendered).to match(terms_of_service_path)
     end
   end
+
+  context 'flash messages' do
+    it 'renders a flash notice' do
+      flash[:notice] = 'Hallo Notiz'
+      render
+      expect(rendered).to match('Hallo Notiz')
+    end
+
+    it 'renders a flash error' do
+      flash[:error] = 'Hallo Error'
+      render
+      expect(rendered).to match('Hallo Error')
+    end
+
+    it 'renders a flash alert' do
+      flash[:alert] = 'Hallo Alert'
+      render
+      expect(rendered).to match('Hallo Alert')
+    end
+  end
 end
