@@ -120,9 +120,7 @@ de:
         <<: *USER
     errors:
       messages:
-        broker_email: "wird bereits von einem Jobvermittler verwendet"
-        provider_email: "wird bereits von einem Jobanbieter verwendet"
-        seeker_email: "wird bereits von einem Jobsucher verwendet"
+        invalid_seeker_age: "muss zwischen 13 und 18 Jahre alt sein"
       models:
         region:
           attributes:

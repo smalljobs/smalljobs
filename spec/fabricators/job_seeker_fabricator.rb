@@ -6,7 +6,7 @@ Fabricator(:job_seeker) do
   zip    { Random.rand(9999).to_s.rjust(4, '0') }
   city   { Forgery(:address).city }
 
-  date_of_birth { (Time.now - 12.years).to_date }
+  date_of_birth { 15.years.ago }
 
   email     { Forgery(:internet).email_address }
   password  { Forgery(:basic).password.rjust(10, 'a') }

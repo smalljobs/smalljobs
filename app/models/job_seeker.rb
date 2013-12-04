@@ -9,6 +9,9 @@ class JobSeeker < ActiveRecord::Base
   validates :email, email: true
   validates :phone, :mobile, phony_plausible: true
 
+  validates :date_of_birth, presence: true
+  validate :age
+
   validates :contact_preference, inclusion: { in: lambda { |m| m.contact_preference_enum } }
   validates :contact_availability, presence: true, if: lambda { %w(phone mobile).include?(self.contact_preference) }
 
@@ -25,6 +28,12 @@ class JobSeeker < ActiveRecord::Base
 
   def name
     "#{ firstname } #{ lastname }"
+  end
+
+  def age
+    if date_of_birth.present? && !date_of_birth.between?(19.years.ago, 13.years.ago)
+      errors.add(:date_of_birth, :invalid_seeker_age)
+    end
   end
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)

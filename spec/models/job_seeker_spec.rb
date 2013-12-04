@@ -79,6 +79,18 @@ describe JobSeeker do
     end
   end
 
+  describe '#date_of_birth' do
+    it 'ensures the seeker is at least of age 13' do
+      expect(Fabricate.build(:job_seeker, date_of_birth: 12.years.ago)).not_to be_valid
+      expect(Fabricate.build(:job_seeker, date_of_birth: 13.years.ago)).to be_valid
+    end
+
+    it 'ensures the seeker is at max of age 18' do
+      expect(Fabricate.build(:job_seeker, date_of_birth: 18.years.ago)).to be_valid
+      expect(Fabricate.build(:job_seeker, date_of_birth: 19.years.ago)).not_to be_valid
+    end
+  end
+
   describe '#active' do
     it 'is active by default' do
       expect(Fabricate(:job_seeker)).to be_active
