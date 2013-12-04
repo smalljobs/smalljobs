@@ -13,11 +13,12 @@ Smalljobs::Application.routes.draw do
   get 'job_seekers/dashboard',   to: 'seeker_dashboard#index'
 
   get 'sign_in',          to: 'pages#sign_in'
-  get 'confirm',          to: 'pages#confirm'
-  get 'activate',         to: 'pages#activate'
   get 'about_us',         to: 'pages#about_us'
   get 'privacy_policy',   to: 'pages#privacy_policy'
   get 'terms_of_service', to: 'pages#terms_of_service'
+
+  get 'awaiting_confirmation', to: 'pages#awaiting_confirmation'
+  get 'awaiting_activation',   to: 'pages#awaiting_activation'
 
   root 'pages#home'
 end

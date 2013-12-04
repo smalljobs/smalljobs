@@ -1,4 +1,6 @@
 Fabricator(:job_seeker) do
+  transient confirmed: true
+
   firstname { Forgery(:name).first_name }
   lastname  { Forgery(:name).last_name }
 
@@ -15,4 +17,10 @@ Fabricator(:job_seeker) do
   contact_availability { 'all day' }
 
   work_categories(count: 1)
+
+  active { true }
+
+  after_create do |user, transients|
+    user.confirm! if transients[:confirmed]
+  end
 end

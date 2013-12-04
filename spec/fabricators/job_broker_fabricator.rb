@@ -1,4 +1,6 @@
 Fabricator(:job_broker) do
+  transient confirmed: true
+
   firstname { Forgery(:name).first_name }
   lastname  { Forgery(:name).last_name }
 
@@ -6,4 +8,10 @@ Fabricator(:job_broker) do
   password  { Forgery(:basic).password.rjust(10, 'a') }
 
   phone     { Forgery(:address).phone }
+
+  active    { true }
+
+  after_create do |user, transients|
+    user.confirm! if transients[:confirmed]
+  end
 end

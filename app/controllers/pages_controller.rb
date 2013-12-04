@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+
   def home
   end
 
@@ -14,6 +15,10 @@ class PagesController < ApplicationController
   def terms_of_service
   end
 
-  def confirm
+  def awaiting_confirmation
   end
+
+  def awaiting_activation
+  end
+
 end

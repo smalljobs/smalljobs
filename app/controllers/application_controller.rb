@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
+
   protect_from_forgery with: :exception
 
   def current_user
@@ -9,9 +8,9 @@ class ApplicationController < ActionController::Base
 
   def after_inactive_sign_up_path_for(resource)
     if !resource.confirmed?
-      confirm_path
-    elsif !resource.activated?
-      activate_path
+      awaiting_confirmation_path
+    elsif !resource.active?
+      awaiting_activation_path
     else
       super
     end
@@ -19,11 +18,11 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     if resource.is_a?(JobBroker)
-      job_broker_dashboard
+      job_brokers_dashboard_path
     elsif resource.is_a?(JobProvider)
-      job_providers_dashboard
+      job_providers_dashboard_path
     elsif resource.is_a?(JobSeeker)
-      job_seekers_dashboard
+      job_seekers_dashboard_path
     else
       super
     end
