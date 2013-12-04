@@ -19,10 +19,6 @@ describe Organization do
   end
 
   describe '#website' do
-    it 'is not valid without a website' do
-      expect(Fabricate.build(:organization, website: nil)).not_to be_valid
-    end
-
     it 'must be a valid url' do
       expect(Fabricate.build(:organization, website: 'something')).not_to be_valid
       expect(Fabricate.build(:organization, website: 'http://www.google.ch')).to be_valid
