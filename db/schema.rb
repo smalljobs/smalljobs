@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131202205251) do
+ActiveRecord::Schema.define(version: 20131204105111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -171,6 +171,11 @@ ActiveRecord::Schema.define(version: 20131202205251) do
   add_index "job_seekers", ["confirmation_token"], name: "index_job_seekers_on_confirmation_token", unique: true, using: :btree
   add_index "job_seekers", ["email"], name: "index_job_seekers_on_email", unique: true, using: :btree
   add_index "job_seekers", ["reset_password_token"], name: "index_job_seekers_on_reset_password_token", unique: true, using: :btree
+
+  create_table "job_seekers_work_categories", force: true do |t|
+    t.integer "job_seeker_id"
+    t.integer "work_category_id"
+  end
 
   create_table "organizations", force: true do |t|
     t.string   "logo"

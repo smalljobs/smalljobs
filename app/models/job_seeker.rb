@@ -1,6 +1,8 @@
 class JobSeeker < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable, omniauth_providers: [:facebook]
 
+  has_and_belongs_to_many :work_categories
+
   validates :firstname, :lastname, presence: true
 
   validates :street, :zip, :city, presence: true
@@ -10,13 +12,15 @@ class JobSeeker < ActiveRecord::Base
   validates :phone, :mobile, phony_plausible: true
 
   validates :date_of_birth, presence: true
-  validate :age
 
   validates :contact_preference, inclusion: { in: lambda { |m| m.contact_preference_enum } }
   validates :contact_availability, presence: true, if: lambda { %w(phone mobile).include?(self.contact_preference) }
 
   phony_normalize :phone,  default_country_code: 'CH'
   phony_normalize :mobile, default_country_code: 'CH'
+
+  validate :ensure_seeker_age
+  validate :ensure_work_category
 
   def active_for_authentication?
     super && active?
@@ -30,9 +34,15 @@ class JobSeeker < ActiveRecord::Base
     "#{ firstname } #{ lastname }"
   end
 
-  def age
+  def ensure_seeker_age
     if date_of_birth.present? && !date_of_birth.between?(19.years.ago, 13.years.ago)
       errors.add(:date_of_birth, :invalid_seeker_age)
+    end
+  end
+
+  def ensure_work_category
+    if work_categories.size == 0
+      errors.add(:work_categories, :invalid_work_category)
     end
   end
 

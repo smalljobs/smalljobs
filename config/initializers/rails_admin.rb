@@ -289,5 +289,9 @@ RailsAdmin.config do |config|
     list do
       field :name
     end
+
+    edit do
+      field :name
+    end
   end
 end

@@ -13,4 +13,6 @@ Fabricator(:job_seeker) do
 
   contact_preference  { 'mobile' }
   contact_availability { 'all day' }
+
+  work_categories(count: 1)
 end

@@ -120,6 +120,12 @@ describe JobSeeker do
     end
   end
 
+  describe '#work_categories' do
+    it 'needs at least one selection' do
+      expect(Fabricate.build(:job_seeker, work_categories: [])).not_to be_valid
+    end
+  end
+
   describe "#name" do
     it 'uses the first and last as name' do
       expect(Fabricate(:job_seeker, firstname: 'Otto', lastname: 'Biber').name).to eql('Otto Biber')

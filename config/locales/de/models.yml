@@ -86,6 +86,7 @@ de:
         updated_at: "Bearbeitet"
         contact_preference: "Bevorzuge Kontaktart"
         contact_availability: "Am Besten zu Erreichen"
+        work_categories: "Bevorzugte Arbeiten"
         provider: "Anbieter"
         uid: "UID"
         name: "Name"
@@ -121,6 +122,7 @@ de:
     errors:
       messages:
         invalid_seeker_age: "muss zwischen 13 und 18 Jahre alt sein"
+        invalid_work_category: "muss mindestens eine Kategorie beinhalten"
       models:
         region:
           attributes:
