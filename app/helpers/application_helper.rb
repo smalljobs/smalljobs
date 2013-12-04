@@ -1,4 +1,5 @@
 module ApplicationHelper
+
   def job_provider_contact_preferences
     [
       [I18n.t('contacts.postal'), 'postal' ],
