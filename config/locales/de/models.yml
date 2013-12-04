@@ -81,6 +81,7 @@ de:
         phone: "Telefon"
         mobile: "Mobil"
         active: "Aktiv"
+        date_of_birth: "Geburtstag"
         created_at: "Erstellt"
         updated_at: "Bearbeitet"
         contact_preference: "Bevorzuge Kontaktart"
