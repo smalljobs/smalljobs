@@ -3,7 +3,7 @@
 ## Requirements
 
 * [VirtualBox](https://www.virtualbox.org)
-* [Vagrant 1.1+](http://vagrantup.com)
+* [Vagrant 1.4](http://vagrantup.com)
 
 
 ## How To Build The Virtual Machine
@@ -11,7 +11,7 @@
     host $ cd ..   
     host $ vagrant up
 
-access them machnine with:
+access them machine with:
 
     host $ vagrant ssh
 
@@ -22,11 +22,8 @@ The recommended workflow is:
 
 * edit in the host computer and
 
-* test within the virtual machine ->  path: /vagrant
+* test within the virtual machine ->  path: '/vagrant'
 
-## Error VBox Guest Additions: Version not actual:
-can be solved by:
-	host $ vagrant plugin install vagrant-vbguest
 
 
 ## Virtual Machine Management
@@ -56,6 +53,12 @@ You can find out the state of a virtual machine anytime by invoking
 Finally, to completely wipe the virtual machine from the disk **destroying all its contents**:
 
     host $ vagrant destroy # destroy the machine
+
+### Error VBox Guest Additions: Version not actual
+
+can be solved by:
+
+	host $ vagrant plugin install vagrant-vbguest
 
 Please check the [Vagrant documentation](http://docs.vagrantup.com/v2/) for more information on Vagrant.
 
