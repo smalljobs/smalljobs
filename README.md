@@ -61,6 +61,6 @@ $ ssh vagrant
 ```
 Requirement:
  
-* Vagrant 2.0 (http://vagrantup.com)
-* VirtualBox
+* Vagrant 1.4 (http://vagrantup.com)
+* VirtualBox 4.3.x (https://www.virtualbox.org)
 
