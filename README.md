@@ -58,9 +58,6 @@ If you want to test the Application in a proper environment, use Vagrant/Virtual
 ```bash
 $ vagrant up
 $ ssh vagrant
+$ cd /vagrant
 ```
-Requirement:
- 
-* Vagrant 1.4 (http://vagrantup.com)
-* VirtualBox 4.3.x (https://www.virtualbox.org)
-
+Handling of [vagrant-Box](/puppet/README.md)
