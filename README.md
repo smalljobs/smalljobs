@@ -13,6 +13,7 @@ This is the repo for smalljobs.ch.
 Make sure [Ruby 2](https://www.ruby-lang.org/en/) and [Bundler](http://bundler.io/) are installed. Also PostgreSQL
 should be accessible with the user `smalljobs` without password.
 
+
 #### Clone the repo
 
 Get the source by cloning the repo:
@@ -49,3 +50,17 @@ $ cd smalljobs
 $ git pull origin master
 $ rake db:migrate
 ```
+
+#### Vagrant Box
+
+If you want to test the Application in a proper environment, use Vagrant/Virtualbox for testing:
+
+```bash
+$ vagrant up
+$ ssh vagrant
+```
+Requirement:
+ 
+* Vagrant 2.0 (http://vagrantup.com)
+* VirtualBox
+
