@@ -49,6 +49,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-stack_explorer'
   gem 'rspec-rails'
+  gem 'selenium-webdriver'
   gem 'spring'
   gem 'spring-commands-rspec'
 end
