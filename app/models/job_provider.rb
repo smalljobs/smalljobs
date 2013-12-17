@@ -7,7 +7,7 @@ class JobProvider < ActiveRecord::Base
   validates :street, :zip, :city, presence: true
   validates :zip, postal_code: { country: :ch }
 
-  validates :email, email: true, allow_blank: true
+  validates :email, email: true, allow_blank: true, allow_nil: true
   validates :phone, :mobile, phony_plausible: true
 
   validates :contact_preference, inclusion: { in: lambda { |m| m.contact_preference_enum } }
