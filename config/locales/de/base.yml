@@ -133,7 +133,7 @@ de:
       broker: "Vermittler"
     confirm:
       title: "Vielen Dank für Ihre Registration"
-      lead: "Vielen Dank für ihre Anmeldung. Wir haben Ihnen soeben eine Email zum Überprüfen ihre Adresse gesendet. Bitte bestätigen Sie diese damit wir Ihre Anfrage manuell überprüfen können. Wir werden Sie persönlich kontaktieren und ihre Benutzerkonto anschliessend aktivieren."
+      lead: "Vielen Dank für ihre Anmeldung. Wir werden Sie in Kürze persönlich kontaktieren und ihr Benutzerkonto anschliessend aktivieren."
     activate:
       title: "Aktivierung ausstehend"
       lead: "Vielen Dank für ihre Anmeldung. Ihr Benutzerkonto wurde erfolgreich bestätigt und wir werden Sie so bald wie möglich persönlich kontaktieren und ihre Benutzerkonto anschliessend aktivieren."
