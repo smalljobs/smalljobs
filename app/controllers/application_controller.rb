@@ -4,18 +4,10 @@ class ApplicationController < ActionController::Base
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
+  protected
+
   def current_user
     current_admin || current_job_broker || current_job_provider || current_job_seeker
-  end
-
-  def after_inactive_sign_up_path_for(resource)
-    if !resource.confirmed?
-      awaiting_confirmation_path
-    elsif !resource.active?
-      awaiting_activation_path
-    else
-      super
-    end
   end
 
   def after_sign_in_path_for(resource)
@@ -29,8 +21,6 @@ class ApplicationController < ActionController::Base
       super
     end
   end
-
-  protected
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) do |u|

@@ -2,8 +2,8 @@ Smalljobs::Application.routes.draw do
 
   devise_for :admins
 
-  devise_for :job_seekers, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
-  devise_for :job_providers
+  devise_for :job_seekers, controllers: { registrations: 'registrations', omniauth_callbacks: 'omniauth_callbacks' }
+  devise_for :job_providers, controllers: { registrations: 'registrations' }
   devise_for :job_brokers
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
