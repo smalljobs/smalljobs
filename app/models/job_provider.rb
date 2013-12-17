@@ -1,6 +1,8 @@
 class JobProvider < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable, authentication_keys: [:username]
 
+  before_save :nullify_blank_email
+
   validates :username, presence: true, uniqueness: true
   validates :firstname, :lastname, presence: true
 
@@ -31,4 +33,11 @@ class JobProvider < ActiveRecord::Base
   def name
     "#{ firstname } #{ lastname }"
   end
+
+  protected
+
+  def nullify_blank_email
+    self.email = nil if self.email.blank?
+  end
+
 end
