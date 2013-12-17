@@ -26,11 +26,12 @@
         %h3
           = link_to I18n.t('pages.layout.title'), root_path
 
-      - [:notice, :error, :alert].each do |level|
-        - unless flash[level].blank?
-          .alert{ class: flash_class(level) }
-            %a.close{ href: '#' } ×
-            = content_tag :p, flash[level]
+      .notifications
+        - [:notice, :error, :alert].each do |level|
+          - unless flash[level].blank?
+            .alert{ class: flash_class(level) }
+              %a.close{ href: '#' } ×
+              = content_tag :p, flash[level]
 
       = yield
 
