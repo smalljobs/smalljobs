@@ -122,6 +122,20 @@ describe JobProvider do
     end
   end
 
+  describe '#unauthenticated_message' do
+    context 'when confirmed' do
+      it 'is inactive' do
+        expect(Fabricate(:job_provider, confirmed: true).unauthenticated_message).to eql(:inactive)
+      end
+    end
+
+    context 'when unconfirmed' do
+      it 'is unconfirmed' do
+        expect(Fabricate(:job_provider, confirmed: false).unauthenticated_message).to eql(:unconfirmed)
+      end
+    end
+  end
+
   describe '#active_for_authentication?' do
     it 'is not active when not confirmed' do
       expect(Fabricate(:job_provider, confirmed: false, active: true).active_for_authentication?).to be_false
@@ -147,4 +161,19 @@ describe JobProvider do
       expect(Fabricate(:job_provider, firstname: 'Otto', lastname: 'Biber').name).to eql('Otto Biber')
     end
   end
+
+  describe '#inactive_message' do
+    context 'with an email' do
+      it 'is unconfirmed' do
+        expect(Fabricate(:job_provider, confirmed: false, email: 'joe@example.com').inactive_message).to eql(:unconfirmed)
+      end
+    end
+
+    context 'with an email' do
+      it 'is unconfirmed' do
+        expect(Fabricate(:job_provider, confirmed: false, email: nil).inactive_message).to eql(:unconfirmed_manual)
+      end
+    end
+  end
+
 end

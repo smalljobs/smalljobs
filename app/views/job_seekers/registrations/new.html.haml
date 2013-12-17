@@ -3,8 +3,9 @@
 
 = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { novalidate: true }) do |f|
 
-  .alert.alerr-danger
-    = f.error_notification
+  - if notification = f.error_notification
+    .alert.alert-danger
+      = notification
 
   %fieldset
     %legend

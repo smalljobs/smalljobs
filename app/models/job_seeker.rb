@@ -22,6 +22,10 @@ class JobSeeker < ActiveRecord::Base
   validate :ensure_seeker_age
   validate :ensure_work_category
 
+  def unauthenticated_message
+    confirmed? ? :inactive : :unconfirmed
+  end
+
   def active_for_authentication?
     super && active?
   end

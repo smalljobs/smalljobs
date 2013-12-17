@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/dockyard/capybara-email.git
+  revision: ee19d03189360c370c3d238a9441cc072f07d177
+  specs:
+    capybara-email (2.2.0)
+      capybara (~> 2.2.0)
+      mail
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -365,6 +373,7 @@ DEPENDENCIES
   bootstrap-sass
   cancan
   capybara
+  capybara-email!
   carrierwave
   coffee-rails
   database_cleaner

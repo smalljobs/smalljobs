@@ -50,7 +50,7 @@ de:
     confirmations:
       title: "Bestätigung erneut senden"
       lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
-      action: "Bestätigung sende"
+      action: "Bestätigung senden"
     passwords:
       new:
         title: "Passwort vergessen?"
@@ -66,7 +66,7 @@ de:
     registrations:
       new:
         title: "Als Jobanbieter registrieren"
-        register: "Registrieren"
+        register: "Als Jobanbieter registrieren"
         lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
       edit:
         title: "Ihre Daten ändern"
@@ -83,8 +83,8 @@ de:
   job_seekers:
     registrations:
       new:
-        title: "Als Jobsuchender registrieren"
-        register: "Registrieren"
+        title: "Als Jobsucher registrieren"
+        register: "Als Jobsucher registrieren"
         lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
       edit:
         title: "Ihre Daten ändern"

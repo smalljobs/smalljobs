@@ -11,6 +11,10 @@ class JobBroker < ActiveRecord::Base
   phony_normalize :phone,  default_country_code: 'CH'
   phony_normalize :mobile, default_country_code: 'CH'
 
+  def unauthenticated_message
+    confirmed? ? :inactive : :unconfirmed
+  end
+
   def active_for_authentication?
     super && active?
   end
@@ -18,4 +22,5 @@ class JobBroker < ActiveRecord::Base
   def name
     "#{ firstname } #{ lastname }"
   end
+
 end

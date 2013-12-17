@@ -60,6 +60,20 @@ describe JobBroker do
     end
   end
 
+  describe '#unauthenticated_message' do
+    context 'when confirmed' do
+      it 'is inactive' do
+        expect(Fabricate(:job_broker, confirmed: true).unauthenticated_message).to eql(:inactive)
+      end
+    end
+
+    context 'when unconfirmed' do
+      it 'is unconfirmed' do
+        expect(Fabricate(:job_broker, confirmed: false).unauthenticated_message).to eql(:unconfirmed)
+      end
+    end
+  end
+
   describe '#active_for_authentication?' do
     it 'is not active when not confirmed' do
       expect(Fabricate(:job_broker, confirmed: false, active: true).active_for_authentication?).to be_false

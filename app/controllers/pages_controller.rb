@@ -15,10 +15,4 @@ class PagesController < ApplicationController
   def terms_of_service
   end
 
-  def awaiting_confirmation
-  end
-
-  def awaiting_activation
-  end
-
 end

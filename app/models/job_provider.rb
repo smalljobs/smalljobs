@@ -22,6 +22,10 @@ class JobProvider < ActiveRecord::Base
     false
   end
 
+  def unauthenticated_message
+    confirmed? ? :inactive : :unconfirmed
+  end
+
   def active_for_authentication?
     super && active?
   end
@@ -32,6 +36,14 @@ class JobProvider < ActiveRecord::Base
 
   def name
     "#{ firstname } #{ lastname }"
+  end
+
+  def inactive_message
+    if !confirmed?
+      self.email.blank? ? :unconfirmed_manual : :unconfirmed
+    else
+      super
+    end
   end
 
   protected

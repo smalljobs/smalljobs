@@ -6,7 +6,7 @@
   - if notification = f.error_notification
     .alert.alert-danger
       = notification
-     = f.full_error :confirmation_token
+      = f.full_error :confirmation_token
 
   .form-inputs
     = f.input :email, required: true, autofocus: true
