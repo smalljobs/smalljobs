@@ -16,4 +16,7 @@
 /tmp
 
 # Ignore Vagrant
-.vagrant
+/.vagrant
+
+# ignore gem lock
+/.GemFile.lock
