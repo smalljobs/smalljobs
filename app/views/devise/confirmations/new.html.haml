@@ -3,9 +3,10 @@
 
 = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, novalidate: true }) do |f|
 
-  .alert.alert-danger
-    = f.error_notification
-    = f.full_error :confirmation_token
+  - if notification = f.error_notification
+    .alert.alert-danger
+      = notification
+     = f.full_error :confirmation_token
 
   .form-inputs
     = f.input :email, required: true, autofocus: true

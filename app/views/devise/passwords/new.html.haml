@@ -3,8 +3,9 @@
 
 = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, novalidate: true }) do |f|
 
-  .alert.alert-danger
-    = f.error_notification
+  - if notification = f.error_notification
+    .alert.alert-danger
+      = notification
 
   .form-inputs
     = f.input :email, required: true, autofocus: true

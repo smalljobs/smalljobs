@@ -5,9 +5,10 @@
 
   = f.input :reset_password_token, as: :hidden
 
-  .alert.alert-danger
-    = f.error_notification
-    = f.full_error :reset_password_token
+  - if notification = f.error_notification
+    .alert.alert-danger
+      = notification
+      = f.full_error :reset_password_token
 
   .form-inputs
     = f.input :password, label: 'devise_views.passwords.edit.new_password'), required: true, autofocus: true
