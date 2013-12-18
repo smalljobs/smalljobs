@@ -54,7 +54,7 @@ feature 'New job seeker registration' do
     click_on 'Als Jobsucher registrieren'
 
     within_notifications do
-      expect(page).to have_content('Sie erhalten in wenigen Minuten eine E-Mail mit einem Link für die Bestätigung der Registrierung. Klicken Sie auf den Link um Ihren Account zu bestätigen.')
+      expect(page).to have_content('Sie erhalten in wenigen Minuten eine E-Mail mit einem Link für die Bestätigung der Registrierung. Klicken Sie auf den Link um Ihren Konto zu bestätigen.')
     end
 
     open_email('rolf@example.com')

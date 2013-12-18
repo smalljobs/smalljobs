@@ -24,7 +24,7 @@ feature 'Login' do
       click_on 'Als Jobvermittler anmelden'
 
       within_notifications do
-        expect(page).to have_content('Sie müssen Ihren Account bestätigen, bevor Sie fortfahren können.')
+        expect(page).to have_content('Sie müssen Ihren Konto bestätigen, bevor Sie fortfahren können.')
       end
     end
   end
@@ -50,7 +50,7 @@ feature 'Login' do
       click_on 'Als Jobvermittler anmelden'
 
       within_notifications do
-        expect(page).to have_content('Ihr Account ist nicht aktiv')
+        expect(page).to have_content('Ihr Konto ist nicht aktiv')
       end
     end
   end

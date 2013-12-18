@@ -14,7 +14,7 @@ feature 'Omniauth registration' do
       click_on 'Mit Facebook anmelden'
 
       within_notifications do
-        expect(page).to have_content('Sie erhalten in wenigen Minuten eine E-Mail mit einem Link für die Bestätigung der Registrierung. Klicken Sie auf den Link um Ihren Account zu bestätigen.')
+        expect(page).to have_content('Sie erhalten in wenigen Minuten eine E-Mail mit einem Link für die Bestätigung der Registrierung. Klicken Sie auf den Link um Ihren Konto zu bestätigen.')
       end
 
       expect(current_path).to eql('/')
@@ -42,7 +42,7 @@ feature 'Omniauth registration' do
         click_on 'Mit Facebook anmelden'
 
         within_notifications do
-          expect(page).to have_content('Sie erhalten in wenigen Minuten eine E-Mail mit einem Link für die Bestätigung der Registrierung. Klicken Sie auf den Link um Ihren Account zu bestätigen.')
+          expect(page).to have_content('Sie erhalten in wenigen Minuten eine E-Mail mit einem Link für die Bestätigung der Registrierung. Klicken Sie auf den Link um Ihren Konto zu bestätigen.')
         end
 
         expect(current_path).to eql('/')
@@ -69,7 +69,7 @@ feature 'Omniauth registration' do
         click_on 'Mit Facebook anmelden'
 
         within_notifications do
-          expect(page).to have_content('Sie haben sich erfolgreich registriert. Wir konnten Sie jedoch nicht anmelden, weil Ihr Account noch nicht aktiviert ist.')
+          expect(page).to have_content('Sie haben sich erfolgreich registriert. Wir konnten Sie jedoch nicht anmelden, weil Ihr Konto noch nicht aktiviert ist.')
         end
 
         expect(current_path).to eql('/')

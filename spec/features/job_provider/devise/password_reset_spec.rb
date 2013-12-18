@@ -38,7 +38,7 @@ feature 'Password reset' do
 
       within_notifications do
         expect(page).to have_content('Ihr Passwort wurde geändert.')
-        expect(page).to have_content('Sie müssen Ihren Account bestätigen, bevor Sie fortfahren können.')
+        expect(page).to have_content('Sie müssen Ihren Konto bestätigen, bevor Sie fortfahren können.')
       end
     end
   end
@@ -78,7 +78,7 @@ feature 'Password reset' do
 
       within_notifications do
         expect(page).to have_content('Ihr Passwort wurde geändert.')
-        expect(page).to have_content('Ihr Account ist nicht aktiv.')
+        expect(page).to have_content('Ihr Konto ist nicht aktiv.')
       end
     end
   end

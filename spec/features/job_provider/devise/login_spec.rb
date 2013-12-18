@@ -25,7 +25,7 @@ feature 'Login' do
         click_on 'Als Jobanbieter anmelden'
 
         within_notifications do
-          expect(page).to have_content('Wir werden Sie in Kürze kontaktieren um ihren Account zu bestätigen.')
+          expect(page).to have_content('Wir werden Sie in Kürze kontaktieren um ihren Konto zu bestätigen.')
         end
       end
     end
@@ -52,7 +52,7 @@ feature 'Login' do
         click_on 'Als Jobanbieter anmelden'
 
         within_notifications do
-          expect(page).to have_content('Sie müssen Ihren Account bestätigen, bevor Sie fortfahren können.')
+          expect(page).to have_content('Sie müssen Ihren Konto bestätigen, bevor Sie fortfahren können.')
         end
       end
     end
@@ -80,7 +80,7 @@ feature 'Login' do
       click_on 'Als Jobanbieter anmelden'
 
       within_notifications do
-        expect(page).to have_content('Ihr Account ist nicht aktiv')
+        expect(page).to have_content('Ihr Konto ist nicht aktiv')
       end
     end
   end
