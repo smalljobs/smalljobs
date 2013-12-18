@@ -1,7 +1,8 @@
 de:
   devise:
     confirmations:
-      confirmed: Vielen Dank für Ihre Registrierung. Wir werden uns in Kürze bei Ihnen melden um ihr Konto zu aktivieren.
+      confirmed: Vielen Dank für Ihre Bestätigung. Wir werden uns in Kürze bei Ihnen melden um ihr Konto zu aktivieren.
+      confirmed_without_activation: Vielen Dank für Ihre Bestätigung.
       send_instructions: Sie erhalten in wenigen Minuten eine E-Mail, mit der Sie Ihre Registrierung bestätigen können.
       send_paranoid_instructions: Falls Ihre E-Mail-Adresse in unserer Datenbank existiert, erhalten Sie in wenigen Minuten eine E-Mail mit der die Sie Ihre Registrierung bestätigen können.
     failure:

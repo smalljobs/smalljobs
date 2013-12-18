@@ -10,4 +10,12 @@ class ConfirmationsController < Devise::ConfirmationsController
     root_path
   end
 
+  def set_flash_message(key, kind, options = {})
+    if kind == :confirmed && self.resource.active?
+      kind = "#{ kind }_without_activation".intern
+    end
+
+    super(key, kind, options)
+  end
+
 end

@@ -32,7 +32,14 @@ feature 'Edit registration profile' do
     click_on 'Ändern'
 
     within_notifications do
-      expect(page).to have_content('Ihre Daten wurden aktualisiert.')
+      expect(page).to have_content('Ihre Daten wurden aktualisiert, aber Sie müssen Ihre neue E-Mail-Adresse bestätigen.')
+    end
+
+    open_email('roberto@example.com')
+    current_email.click_link('Konto bestätigen')
+
+    within_notifications do
+      expect(page).to have_content('Vielen Dank für Ihre Bestätigung.')
     end
   end
 

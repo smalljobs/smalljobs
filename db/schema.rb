@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131204120438) do
+ActiveRecord::Schema.define(version: 20131218195741) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,7 +99,7 @@ ActiveRecord::Schema.define(version: 20131204120438) do
     t.string   "mobile"
     t.string   "contact_preference",     default: "email"
     t.text     "contact_availability"
-    t.boolean  "active",                 default: true
+    t.boolean  "active",                 default: false
     t.string   "provider"
     t.string   "uid"
     t.string   "name"
@@ -146,7 +146,7 @@ ActiveRecord::Schema.define(version: 20131204120438) do
     t.string   "mobile"
     t.string   "contact_preference",     default: "whatsapp"
     t.text     "contact_availability"
-    t.boolean  "active",                 default: true
+    t.boolean  "active",                 default: false
     t.string   "provider"
     t.string   "uid"
     t.string   "name"
