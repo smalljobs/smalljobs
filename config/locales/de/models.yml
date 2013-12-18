@@ -124,6 +124,22 @@ de:
         invalid_seeker_age: "muss zwischen 13 und 18 Jahre alt sein"
         invalid_work_category: "muss mindestens eine Kategorie beinhalten"
       models:
+        job_seeker:
+          attributes:
+            phone:
+              improbable_phone: "ist keine telefonnummer"
+        job_provider:
+          attributes:
+            phone:
+              improbable_phone: "ist keine telefonnummer"
+        job_broker:
+          attributes:
+            phone:
+              improbable_phone: "ist keine telefonnummer"
+        organization:
+          attributes:
+            phone:
+              improbable_phone: "ist keine telefonnummer"
         region:
           attributes:
             places:
