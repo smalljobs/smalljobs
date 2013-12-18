@@ -1,5 +1,5 @@
 class JobBroker < ActiveRecord::Base
-  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :confirmable
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :confirmable, :registerable
 
   has_many :employments, inverse_of: :job_broker
   has_many :organizations, through: :employments

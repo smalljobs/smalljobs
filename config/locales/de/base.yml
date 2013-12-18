@@ -41,6 +41,7 @@ de:
   common:
     sure: "Sind Sie sicher?"
   devise_views:
+    no_broker_registration: "Sie können sich nicht selber als Anbieter registrieren. Bitte kontaktieren Sie uns unter hello@smalljobs.ch"
     wait_confirmation: "Warte auf die Bestätigung von: %{email}"
     leave_empty: "Lassen Sie das Passwort leer, wenn Sie es nicht ändern wollen."
     need_password: "Wir benötigen ihr aktuelles Passwort um die Änderung zu Bestätigen."
