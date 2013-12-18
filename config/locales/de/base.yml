@@ -59,7 +59,7 @@ de:
       edit:
         title: "Passwort ändern"
         lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
-        new_passwort: "Neues Passwort"
+        new_password: "Neues Passwort"
         confirmation: "Passwort wiederholen"
         action: "Passwort ändern"
   job_providers:

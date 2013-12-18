@@ -5,9 +5,8 @@ require 'spec_helper'
 feature 'Password reset' do
   context 'with an unconfirmed user' do
     background do
-      Fabricate(:job_provider,
+      Fabricate(:job_seeker,
                 email: 'rolf@example.com',
-                username: 'rolf',
                 password: 'tester1234',
                 password_confirmation: 'tester1234',
                 confirmed: false,
@@ -17,7 +16,7 @@ feature 'Password reset' do
     scenario 'using valid credentials' do
       visit '/'
       click_on 'Anmelden'
-      click_on 'Anbieter'
+      click_on 'Sucher'
       click_on 'Passwort vergessen?'
 
       fill_in 'Email', with: 'rolf@example.com'
@@ -45,9 +44,8 @@ feature 'Password reset' do
 
   context 'with an inactive user' do
     background do
-      Fabricate(:job_provider,
+      Fabricate(:job_seeker,
                 email: 'rolf@example.com',
-                username: 'rolf',
                 password: 'tester1234',
                 password_confirmation: 'tester1234',
                 confirmed: true,
@@ -57,7 +55,7 @@ feature 'Password reset' do
     scenario 'using valid credentials' do
       visit '/'
       click_on 'Anmelden'
-      click_on 'Anbieter'
+      click_on 'Sucher'
       click_on 'Passwort vergessen?'
 
       fill_in 'Email', with: 'rolf@example.com'
@@ -85,9 +83,8 @@ feature 'Password reset' do
 
   context 'with an active user' do
     background do
-      Fabricate(:job_provider,
+      Fabricate(:job_seeker,
                 email: 'rolf@example.com',
-                username: 'rolf',
                 password: 'tester1234',
                 password_confirmation: 'tester1234',
                 confirmed: true,
@@ -97,7 +94,7 @@ feature 'Password reset' do
     scenario 'using invalid email' do
       visit '/'
       click_on 'Anmelden'
-      click_on 'Anbieter'
+      click_on 'Sucher'
       click_on 'Passwort vergessen?'
 
       fill_in 'Email', with: 'inexistent@example.com'
@@ -110,7 +107,7 @@ feature 'Password reset' do
     scenario 'using valid credentials' do
       visit '/'
       click_on 'Anmelden'
-      click_on 'Anbieter'
+      click_on 'Sucher'
       click_on 'Passwort vergessen?'
 
       fill_in 'Email', with: 'rolf@example.com'
@@ -133,7 +130,7 @@ feature 'Password reset' do
         expect(page).to have_content('Ihr Passwort wurde geändert. Sie sind jetzt angemeldet.')
       end
 
-      expect(current_path).to eql('/job_providers/dashboard')
+      expect(current_path).to eql('/job_seekers/dashboard')
     end
   end
 end
