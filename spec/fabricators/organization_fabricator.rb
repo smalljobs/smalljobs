@@ -5,5 +5,5 @@ Fabricator(:organization) do
   zip    { Random.rand(9999).to_s.rjust(4, '0') }
   city   { Forgery(:address).city }
   email  { Forgery(:internet).email_address }
-  phone  { Forgery(:address).phone }
+  phone  { '044 444 44 44' }
 end

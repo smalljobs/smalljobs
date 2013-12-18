@@ -7,7 +7,7 @@ Fabricator(:job_broker) do
   email     { Forgery(:internet).email_address }
   password  { Forgery(:basic).password.rjust(10, 'a') }
 
-  phone     { Forgery(:address).phone }
+  phone     { '044 444 44 44' }
 
   active    { true }
 
