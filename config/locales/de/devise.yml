@@ -51,7 +51,7 @@ de:
       unlocked: Ihr Account wurde entsperrt. Sie sind jetzt angemeldet.
   errors:
     messages:
-      already_confirmed: wurde bereits bestätigt, bitte versuchen Sie, sich anzumelden
+      already_confirmed: wurde bereits bestätigt
       confirmation_period_expired: musste innerhalb von %{period} bestätigt werden, bitte neu anfordern.
       expired: ist abgelaufen, bitte neu anfordern
       not_found: nicht gefunden

@@ -5,7 +5,7 @@ require 'spec_helper'
 feature 'Omniauth registration' do
   context 'as a new user' do
     background do
-      mock_facebook_oauth(Fabricate.build(:job_seeker, confirmed: false, active: false))
+      mock_facebook_oauth(Fabricate.build(:job_seeker, email: 'rolf@example.com', confirmed: false, active: false))
     end
 
     scenario 'registers for confirmation' do
@@ -18,13 +18,22 @@ feature 'Omniauth registration' do
       end
 
       expect(current_path).to eql('/')
+
+      open_email('rolf@example.com')
+      current_email.click_link 'Konto bestätigen'
+
+      within_notifications do
+        expect(page).to have_content('Vielen Dank für Ihre Registrierung. Wir werden uns in Kürze bei Ihnen melden um ihr Konto zu aktivieren.')
+      end
+
+      expect(current_path).to eql('/')
     end
   end
 
   context 'as an existing user' do
     context 'that is unconfirmed' do
       background do
-        mock_facebook_oauth(Fabricate(:job_seeker, confirmed: false, active: false, provider: 'facebook', uid: '1234'))
+        mock_facebook_oauth(Fabricate(:job_seeker, email: 'rolf@example.com', confirmed: false, active: false, provider: 'facebook', uid: '1234'))
       end
 
       scenario 'registers again' do
@@ -34,6 +43,15 @@ feature 'Omniauth registration' do
 
         within_notifications do
           expect(page).to have_content('Sie erhalten in wenigen Minuten eine E-Mail mit einem Link für die Bestätigung der Registrierung. Klicken Sie auf den Link um Ihren Account zu bestätigen.')
+        end
+
+        expect(current_path).to eql('/')
+
+        open_email('rolf@example.com')
+        current_email.click_link 'Konto bestätigen'
+
+        within_notifications do
+          expect(page).to have_content('Vielen Dank für Ihre Registrierung. Wir werden uns in Kürze bei Ihnen melden um ihr Konto zu aktivieren.')
         end
 
         expect(current_path).to eql('/')

@@ -1,10 +1,12 @@
+# coding: UTF-8
+
 require 'spec_helper'
 
 feature 'Resend confirmation' do
   scenario 'Unknown email' do
     visit '/'
     click_on 'Anmelden'
-    click_on 'Anbieter'
+    click_on 'Sucher'
     click_on 'Keine Email zur Bestätigung erhalten?'
 
     fill_in 'Email', with: 'inexistent@example.com'
@@ -14,12 +16,12 @@ feature 'Resend confirmation' do
   end
 
   context 'for an already confirmed user' do
-    let!(:user) { Fabricate(:job_provider, email: 'rolf@example.com', confirmed: true) }
+    let!(:user) { Fabricate(:job_seeker, email: 'rolf@example.com', confirmed: true) }
 
     scenario 'Resend the confirmation email' do
       visit '/'
       click_on 'Anmelden'
-      click_on 'Anbieter'
+      click_on 'Sucher'
       click_on 'Keine Email zur Bestätigung erhalten?'
 
       fill_in 'Email', with: 'rolf@example.com'
@@ -30,12 +32,12 @@ feature 'Resend confirmation' do
   end
 
   context 'for an unconfirmed user' do
-    let!(:user) { Fabricate(:job_provider, email: 'rolf@example.com', confirmed: false) }
+    let!(:user) { Fabricate(:job_seeker, email: 'rolf@example.com', confirmed: false) }
 
     scenario 'Resend the confirmation email' do
       visit '/'
       click_on 'Anmelden'
-      click_on 'Anbieter'
+      click_on 'Sucher'
       click_on 'Keine Email zur Bestätigung erhalten?'
 
       fill_in 'Email', with: 'rolf@example.com'
