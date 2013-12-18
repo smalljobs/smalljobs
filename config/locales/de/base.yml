@@ -77,9 +77,9 @@ de:
           lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
           action: "Deaktivieren"
     sessions:
-      title: "Als Anbieter anmelden"
+      title: "Als Jobanbieter anmelden"
       lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
-      action: "Anmelden"
+      action: "Als Jobanbieter anmelden"
   job_seekers:
     registrations:
       new:
@@ -93,7 +93,7 @@ de:
     sessions:
       title: "Als Sucher anmelden"
       lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
-      action: "Anmelden"
+      action: "Als Jobsucher anmelden"
   job_brokers:
     registrations:
       edit:
@@ -101,9 +101,9 @@ de:
         lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
         action: "Ändern"
     sessions:
-      title: "Als Vermittler anmelden"
+      title: "Als Jobvermittler anmelden"
       lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
-      action: "Anmelden"
+      action: "Als Jobvermittler anmelden"
   pages:
     layout:
       title: "SmallJobs"
