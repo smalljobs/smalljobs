@@ -96,7 +96,7 @@ feature 'New job provider registration' do
     end
 
     open_email('rolf@example.com')
-    current_email.click_link('Konto bestätigen')
+    current_email.click_link('Email bestätigen')
 
     within_notifications do
       expect(page).to have_content('Vielen Dank für Ihre Bestätigung. Wir werden uns in Kürze bei Ihnen melden um ihr Konto zu aktivieren.')

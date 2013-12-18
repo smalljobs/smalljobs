@@ -20,7 +20,7 @@ feature 'Omniauth registration' do
       expect(current_path).to eql('/')
 
       open_email('rolf@example.com')
-      current_email.click_link 'Konto bestätigen'
+      current_email.click_link 'Email bestätigen'
 
       within_notifications do
         expect(page).to have_content('Vielen Dank für Ihre Bestätigung. Wir werden uns in Kürze bei Ihnen melden um ihr Konto zu aktivieren.')
@@ -48,7 +48,7 @@ feature 'Omniauth registration' do
         expect(current_path).to eql('/')
 
         open_email('rolf@example.com')
-        current_email.click_link 'Konto bestätigen'
+        current_email.click_link 'Email bestätigen'
 
         within_notifications do
           expect(page).to have_content('Vielen Dank für Ihre Bestätigung. Wir werden uns in Kürze bei Ihnen melden um ihr Konto zu aktivieren.')

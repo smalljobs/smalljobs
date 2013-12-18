@@ -40,7 +40,7 @@ feature 'New job broker registration' do
       click_on 'Speichern'
 
       open_email('rolf@example.com')
-      current_email.click_link 'Konto bestätigen'
+      current_email.click_link 'Email bestätigen'
 
       within_notifications do
         expect(page).to have_content('Vielen Dank für Ihre Bestätigung.')
