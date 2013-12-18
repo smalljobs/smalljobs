@@ -74,7 +74,7 @@ Capybara.configure do |config|
 end
 
 RSpec.configure do |config|
-  config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false
   config.infer_base_class_for_anonymous_controllers = false
   config.order = 'random'
 
@@ -90,8 +90,15 @@ RSpec.configure do |config|
   config.include Capybara::Email::DSL, type: :feature
 
   config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  config.before(:each, js: true) do
+    DatabaseCleaner.strategy = :truncation
   end
 
   config.before(:each) do

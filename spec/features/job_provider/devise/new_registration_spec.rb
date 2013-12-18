@@ -4,15 +4,16 @@ require 'spec_helper'
 
 feature 'New job provider registration' do
   background do
-    visit '/'
-    click_on 'Als Anbieter registrieren'
+    Fabricate(:job_provider, username: 'existing')
+    Fabricate(:job_provider, email: 'existing@example.com')
   end
 
   scenario 'with a duplicate username' do
-    Fabricate(:job_provider, username: 'meier')
+    visit '/'
+    click_on 'Als Anbieter registrieren'
 
     within_fieldset 'Anmeldedaten' do
-      fill_in 'Benutzername',        with: 'meier'
+      fill_in 'Benutzername',        with: 'existing'
       fill_in 'Passwort',            with: 'chicksonspeed'
       fill_in 'Passwortbestätigung', with: 'chicksonspeed'
     end
@@ -25,10 +26,11 @@ feature 'New job provider registration' do
   end
 
   scenario 'with a duplicate email' do
-    Fabricate(:job_provider, email: 'rolf@example.com')
+    visit '/'
+    click_on 'Als Anbieter registrieren'
 
     within_fieldset 'Kontakt' do
-      fill_in 'Email',  with: 'rolf@example.com'
+      fill_in 'Email',  with: 'existing@example.com'
     end
 
     click_on 'Als Jobanbieter registrieren'
@@ -39,6 +41,9 @@ feature 'New job provider registration' do
   end
 
   scenario 'without an email' do
+    visit '/'
+    click_on 'Als Anbieter registrieren'
+
     within_fieldset 'Anmeldedaten' do
       fill_in 'Benutzername',        with: 'meier'
       fill_in 'Passwort',            with: 'chicksonspeed'
@@ -63,6 +68,9 @@ feature 'New job provider registration' do
   end
 
   scenario 'with a valid email' do
+    visit '/'
+    click_on 'Als Anbieter registrieren'
+
     within_fieldset 'Anmeldedaten' do
       fill_in 'Benutzername',        with: 'meier'
       fill_in 'Passwort',            with: 'chicksonspeed'
