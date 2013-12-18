@@ -39,7 +39,7 @@ Start the local [unicorn](http://unicorn.bogomips.org/) server
 $ RAILS_ENV=development bundle exec unicorn -p 3000 -c config/unicorn.rb
 ```
 
-and open [the site](http://127.0.0.0:3000/) or the [admin interface](http://127.0.0.0:3000/admin).
+and open [the site](http://dev.smalljobs.ch:3000/) or the [admin interface](http://dev.smalljobs.ch:3000/admin).
 
 #### Update to latest version
 
