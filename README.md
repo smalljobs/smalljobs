@@ -67,7 +67,7 @@ Handling of [vagrant-Box](/puppet/README.md)
 SmallJobs is testes extensively, so make sure you do not break the specs before pushing to master.
 
 ```bash
-$ bundle exec rake spec
+$ rake spec
 ```
 
 You may want to enable continous testing by running Guard:
