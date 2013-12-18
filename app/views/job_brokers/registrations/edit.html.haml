@@ -20,7 +20,6 @@
 
       = f.input :password, required: false, autocomplete: 'off', hint: I18n.t('devise_views.leave_empty')
       = f.input :password_confirmation, required: false
-      = f.input :current_password, required: true, hint: I18n.t('devise_views.need_password')
 
   %fieldset
     %legend
@@ -41,7 +40,8 @@
       = f.input :mobile
 
   .form-actions
-    = f.button :submit, I18n.t('job_brokers.registrations.edit.action')
+    = f.input :current_password, required: true, hint: I18n.t('devise_views.need_password')
+    = f.button :submit, I18n.t('job_brokers.registrations.edit.action'), class: 'btn btn-primary'
 
 %h3= I18n.t('job_brokers.registrations.edit.cancel.title')
 %p= I18n.t('job_brokers.registrations.edit.cancel.lead')

@@ -4,7 +4,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def new
     if self.resource_name == :job_broker
-      flash[:failure] = t('devise_views.no_broker_registration')
+      flash[:alert] = t('devise_views.no_broker_registration')
       redirect_to root_path
     else
       super

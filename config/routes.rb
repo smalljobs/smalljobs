@@ -13,7 +13,10 @@ Smalljobs::Application.routes.draw do
     confirmations: 'confirmations'
   }
 
-  devise_for :job_brokers
+  devise_for :job_brokers, controllers: {
+    registrations: 'registrations',
+    confirmations: 'confirmations'
+  }
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 

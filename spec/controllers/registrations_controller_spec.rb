@@ -13,7 +13,7 @@ describe RegistrationsController do
       end
 
       it 'notifies that registration is not possible' do
-        expect(flash[:failure]).to eql('Sie können sich nicht selber als Anbieter registrieren. Bitte kontaktieren Sie uns unter hello@smalljobs.ch')
+        expect(flash[:alert]).to eql('Sie können sich nicht selber als Anbieter registrieren. Bitte kontaktieren Sie uns unter hello@smalljobs.ch')
       end
     end
 
