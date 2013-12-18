@@ -9,10 +9,12 @@ class OmniauthCallbacksController < ::Devise::OmniauthCallbacksController
         set_flash_message(:notice, :success, kind: 'Facebook') if is_navigational_format?
 
       elsif job_seeker.confirmed?
-        redirect_to awaiting_activation_url
+        set_flash_message(:notice, :inactive, kind: 'Facebook') if is_navigational_format?
+        redirect_to root_url
 
       else
-        redirect_to awaiting_confirmation_url
+        set_flash_message(:notice, :unconfirmed, kind: 'Facebook') if is_navigational_format?
+        redirect_to root_url
       end
     else
       session['devise.facebook_data'] = request.env['omniauth.auth']

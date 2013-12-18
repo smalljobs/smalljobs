@@ -80,5 +80,52 @@ module Support
       find(:xpath, ".//*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6][normalize-space()='#{ text }']").click
     end
 
+    # Select a date from multiple selects
+    #
+    # @param [Date] date the date to select
+    # @param [Hash] options the select options
+    #
+    def select_date(date, options = {})
+      field = find_field(options[:from])
+      field = field[:id].sub('_3i', '')
+
+      select date.year.to_s,   from: "#{ field }_1i"
+      select_by_id date.month, from: "#{ field }_2i"
+      select date.day.to_s,    from: "#{ field }_3i"
+    end
+
+    # Select an option by id
+    #
+    # @param [String] id the element id
+    # @param [Hash] options the select options
+    #
+    def select_by_id(id, options = {})
+      field = options[:from]
+      option_xpath = "//*[@id='#{ field }']/option[#{ id }]"
+      option_text = find(:xpath, option_xpath).text
+      select option_text, from: field
+    end
+
+    # Mock a facebook oauth request
+    #
+    # @param [JobSeeker] user the seeker to mock
+    #
+    def mock_facebook_oauth(user)
+      OmniAuth.config.test_mode = true
+      OmniAuth.config.mock_auth[:facebook] = OpenStruct.new({
+        provider: :facebook,
+        uid: user.uid || '1234',
+        info: OpenStruct.new({
+          email: user.email
+        }),
+        extra: OpenStruct.new({
+          raw_info: OpenStruct.new({
+            first_name: user.firstname,
+            last_name: user.lastname
+          })
+        })
+      })
+    end
   end
+
 end

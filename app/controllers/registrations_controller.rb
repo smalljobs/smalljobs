@@ -1,0 +1,13 @@
+class RegistrationsController < Devise::RegistrationsController
+
+  before_filter :configure_permitted_parameters
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up) do |u|
+      u.permit(:username, :password, :password_confirmation, :firstname, :lastname, :street, :zip, :city, :date_of_birth, :email, :phone, :mobile, :contact_preference, :contact_availability, work_category_ids: [])
+    end
+  end
+
+end

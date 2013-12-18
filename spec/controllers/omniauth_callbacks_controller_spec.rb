@@ -25,8 +25,8 @@ describe OmniauthCallbacksController do
           get :facebook
         end
 
-        it 'redirects the user to the awaiting confirmation page' do
-          expect(response).to redirect_to('/awaiting_confirmation')
+        it 'redirects the user to the home page' do
+          expect(response).to redirect_to('/')
         end
       end
 
@@ -36,8 +36,8 @@ describe OmniauthCallbacksController do
           get :facebook
         end
 
-        it 'redirects the user to the awaiting activation page' do
-          expect(response).to redirect_to('/awaiting_activation')
+        it 'redirects the user to the home page' do
+          expect(response).to redirect_to('/')
         end
       end
     end

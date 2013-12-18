@@ -28,7 +28,7 @@ feature 'New job seeker registration' do
     end
   end
 
-  scenario 'with valid data', js: true do
+  scenario 'with valid data' do
     visit '/'
     click_on 'Als Sucher registrieren'
 
@@ -36,6 +36,7 @@ feature 'New job seeker registration' do
       fill_in 'Email',               with: 'rolf@example.com'
       fill_in 'Passwort',            with: 'chicksonspeed'
       fill_in 'Passwortbestätigung', with: 'chicksonspeed'
+      select_date 15.years.ago,      from: 'Geburtsdatum'
     end
 
     within_fieldset 'Adresse' do

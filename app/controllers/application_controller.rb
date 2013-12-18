@@ -2,8 +2,6 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-  before_filter :configure_permitted_parameters, if: :devise_controller?
-
   protected
 
   def current_user
@@ -19,12 +17,6 @@ class ApplicationController < ActionController::Base
       job_seekers_dashboard_path
     else
       super
-    end
-  end
-
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) do |u|
-      u.permit(:username, :password, :password_confirmation, :firstname, :lastname, :street, :zip, :city, :date_of_birth, :email, :phone, :mobile, :contact_preference, :contact_availability, :work_category_ids)
     end
   end
 
