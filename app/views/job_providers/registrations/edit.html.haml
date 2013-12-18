@@ -16,7 +16,6 @@
       = f.input :username, required: true, autofocus: true
       = f.input :password, required: false, autocomplete: 'off', hint: I18n.t('devise_views.leave_empty')
       = f.input :password_confirmation, required: false
-      = f.input :current_password, required: true, hint: I18n.t('devise_views.need_password')
 
   %fieldset
     %legend
@@ -47,9 +46,11 @@
       = f.input :contact_availability
 
   .form-actions
-    = f.button :submit, I18n.t('job_providers.registrations.edit.action')
+    = f.input :current_password, required: true, hint: I18n.t('devise_views.need_password')
+    = f.button :submit, I18n.t('job_providers.registrations.edit.action'), class: 'btn btn-primary'
 
 %h3= I18n.t('job_providers.registrations.edit.cancel.title')
 %p= I18n.t('job_providers.registrations.edit.cancel.lead')
 
 %p= link_to I18n.t('job_providers.registrations.edit.cancel.action'), registration_path(resource_name), data: { confirm: I18n.t('common.sure') }, method: :delete
+

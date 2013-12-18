@@ -50,8 +50,6 @@ test:
   pool: 5
   username: smalljobs
   password:
-  
-  
   host: localhost
 
 production:

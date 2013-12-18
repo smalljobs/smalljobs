@@ -10,8 +10,15 @@ form {
   color: #e74c3c;
 }
 
+.alert {
+  .help-inline {
+    color: #fff;
+  }
+}
+
 fieldset {
   margin-top: 50px;
+  overflow: visible;
 
   legend {
     font-size: 2em;
@@ -19,6 +26,7 @@ fieldset {
 
     i {
       margin-top: -20px;
+      overflow: visible;
     }
   }
 

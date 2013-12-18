@@ -24,6 +24,9 @@ de:
     about_us: "Über uns"
     privacy_policy: "Datenschutz"
     terms_of_service: "Geschäfsbedingungen"
+    dashboard: 'Übersicht'
+    sign_out: 'Abmelden'
+    profile: 'Profil'
   legends:
     login: "Anmeldedaten"
     address: "Adresse"
@@ -137,6 +140,12 @@ de:
     activate:
       title: "Aktivierung ausstehend"
       lead: "Vielen Dank für ihre Anmeldung. Ihr Benutzerkonto wurde erfolgreich bestätigt und wir werden Sie so bald wie möglich persönlich kontaktieren und ihre Benutzerkonto anschliessend aktivieren."
+  provider_dashboard:
+    title: 'Übersicht'
+  broker_dashboard:
+    title: 'Übersicht'
+  seeker_dashboard:
+    title: 'Übersicht'
   errors:
     messages:
       carrierwave_processing_error: "Kann das Bild nicht bearbeiten."

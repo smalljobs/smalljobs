@@ -88,9 +88,11 @@ RSpec.configure do |config|
 
   config.include Support::Feature, type: :feature
   config.include Capybara::Email::DSL, type: :feature
+  config.include Warden::Test::Helpers, type: :feature
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
+    Warden.test_mode!
   end
 
   config.before(:each) do
