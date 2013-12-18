@@ -17,6 +17,3 @@
 
 # Ignore Vagrant
 .vagrant
-
-# ignore gem lock
-Gemfile.lock
