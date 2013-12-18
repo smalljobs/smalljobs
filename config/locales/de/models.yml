@@ -127,19 +127,19 @@ de:
         job_seeker:
           attributes:
             phone:
-              improbable_phone: "ist keine telefonnummer"
+              improbable_phone: "ist keine gültige Telefonnummer"
         job_provider:
           attributes:
             phone:
-              improbable_phone: "ist keine telefonnummer"
+              improbable_phone: "ist keine gültige Telefonnummer"
         job_broker:
           attributes:
             phone:
-              improbable_phone: "ist keine telefonnummer"
+              improbable_phone: "ist keine gültige Telefonnummer"
         organization:
           attributes:
             phone:
-              improbable_phone: "ist keine telefonnummer"
+              improbable_phone: "ist keine gültige Telefonnummer"
         region:
           attributes:
             places:
