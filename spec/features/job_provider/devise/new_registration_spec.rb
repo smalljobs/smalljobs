@@ -105,4 +105,45 @@ feature 'New job provider registration' do
     expect(current_path).to eql('/')
   end
 
+  context 'from the admin backend' do
+    let(:admin) { Fabricate(:admin) }
+
+    background do
+      login_as(admin, scope: :admin)
+    end
+
+    scenario 'invites a new job provider' do
+      visit '/admin'
+      click_on 'Anbieter'
+      click_on 'Neu hinzufügen'
+
+      within_fieldset 'Authentifizierung' do
+        fill_in 'Benutzername', with: 'yolo'
+        fill_in 'Passwort', with: 'tester1234'
+      end
+
+      within_fieldset 'Adresse' do
+        fill_in 'Vorname',   with: 'Rolf'
+        fill_in 'Nachname',  with: 'Meier'
+        fill_in 'Strasse',   with: 'Hühnerstall 12'
+        fill_in 'PLZ',       with: '1234'
+        fill_in 'Ort',       with: 'Gockelwil'
+      end
+
+      within_fieldset 'Kontakt' do
+        fill_in 'Email',   with: 'rolf@example.com'
+        fill_in 'Telefon', with: '044 444 44 44'
+        fill_in 'Mobile',  with: '079 333 33 33'
+      end
+
+      click_on 'Speichern'
+
+      open_email('rolf@example.com')
+      current_email.click_link 'Email bestätigen'
+
+      within_notifications do
+        expect(page).to have_content('Vielen Dank für Ihre Bestätigung.')
+      end
+    end
+  end
 end
