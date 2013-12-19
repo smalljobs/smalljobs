@@ -22,22 +22,48 @@ class JobSeeker < ActiveRecord::Base
   validate :ensure_seeker_age
   validate :ensure_work_category
 
-  def unauthenticated_message
-    confirmed? ? :inactive : :unconfirmed
-  end
-
-  def active_for_authentication?
-    super && active?
-  end
-
-  def contact_preference_enum
-    %w(email phone mobile postal whatsapp)
-  end
-
+  # Returns the display name
+  #
+  # @return [String] the name
+  #
   def name
     "#{ firstname } #{ lastname }"
   end
 
+  # Available options for the contact preference
+  #
+  # @param [Array<String>] the contact options
+  #
+  def contact_preference_enum
+    %w(email phone mobile postal whatsapp)
+  end
+
+  # @!group Devise
+
+  # Check if the user can log in
+  #
+  # @return [Boolean] the status
+  #
+  def active_for_authentication?
+    super && active?
+  end
+
+  # Return the I18n message key when authentication fails
+  #
+  # @return [Symbol] the i18n key
+  #
+  def unauthenticated_message
+    confirmed? ? :inactive : :unconfirmed
+  end
+
+  # @!endgroup
+  # @!group Omniauth
+
+  # Find or create a user when doing oauth signup/login
+  #
+  # @param [OpenStuct] auth the oauth params
+  # @param [JobSeeker] signed_in_resource alreadt signed in seeker
+  #
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = JobSeeker.where(provider: auth.provider, uid: auth.uid).first
 
@@ -56,6 +82,11 @@ class JobSeeker < ActiveRecord::Base
     user
   end
 
+  # Initialize a seeker with oauth retreived data
+  #
+  # @param [OpenStuct] params the oauth params
+  # @param [Session] session the rails session
+  #
   def self.new_with_session(params, session)
     super.tap do |seeker|
       if data = session['devise.facebook_data'] && session['devise.facebook_data']['extra']['raw_info']
@@ -66,14 +97,24 @@ class JobSeeker < ActiveRecord::Base
     end
   end
 
+  # @!endgroup
+
   private
 
+  # Validate the job seeker age
+  #
+  # @return [Boolean] validation status
+  #
   def ensure_seeker_age
     if date_of_birth.present? && !date_of_birth.between?(19.years.ago, 13.years.ago)
       errors.add(:date_of_birth, :invalid_seeker_age)
     end
   end
 
+  # Ensure a seeker has at least one work category selected
+  #
+  # @return [Boolean] validation status
+  #
   def ensure_work_category
     if work_categories.size == 0
       errors.add(:work_categories, :invalid_work_category)

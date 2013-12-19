@@ -60,6 +60,36 @@ describe JobBroker do
     end
   end
 
+  describe '#providers' do
+    let(:broker) { Fabricate(:job_broker_with_regions) }
+
+    let!(:my_provider_1)   { Fabricate(:job_provider, zip: '1234') }
+    let!(:my_provider_2)   { Fabricate(:job_provider, zip: '1235') }
+    let!(:my_provider_3)   { Fabricate(:job_provider, zip: '1236') }
+
+    let!(:not_my_provider) { Fabricate(:job_provider, zip: '4321') }
+
+    it 'returns the providers in the broker region' do
+      expect(broker.providers).to match_array([my_provider_1, my_provider_2, my_provider_3])
+      expect(broker.providers).to_not include(not_my_provider)
+    end
+  end
+
+  describe '#seekers' do
+    let(:broker) { Fabricate(:job_broker_with_regions) }
+
+    let!(:my_seeker_1)   { Fabricate(:job_seeker, zip: '1234') }
+    let!(:my_seeker_2)   { Fabricate(:job_seeker, zip: '1235') }
+    let!(:my_seeker_3)   { Fabricate(:job_seeker, zip: '1236') }
+
+    let!(:not_my_seeker) { Fabricate(:job_seeker, zip: '4321') }
+
+    it 'returns the seekers in the broker region' do
+      expect(broker.seekers).to match_array([my_seeker_1, my_seeker_2, my_seeker_3])
+      expect(broker.seekers).to_not include(not_my_seeker)
+    end
+  end
+
   describe '#unauthenticated_message' do
     context 'when confirmed' do
       it 'is inactive' do
