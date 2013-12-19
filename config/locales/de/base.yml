@@ -17,6 +17,7 @@ de:
       administration: "Admin"
       authenticatable: "Authentifizierung"
       employment: "Anstellungen"
+      work: "Arbeiten"
   navigation:
     home: ""
     sign_up: "Registrieren"

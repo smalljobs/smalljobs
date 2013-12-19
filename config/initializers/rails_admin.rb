@@ -254,6 +254,7 @@ RailsAdmin.config do |config|
 
         field :email
         field :password
+        field :date_of_birth, :string
       end
 
       group :address do
@@ -264,7 +265,6 @@ RailsAdmin.config do |config|
         field :street
         field :zip
         field :city
-        field :date_of_birth
       end
 
       group :contact do
@@ -273,6 +273,11 @@ RailsAdmin.config do |config|
         field :mobile
         field :contact_preference
         field :contact_availability
+      end
+
+      group :work do
+        label I18n.t('admin.groups.work')
+        field :work_categories
       end
 
       group :administration do
