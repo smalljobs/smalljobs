@@ -74,7 +74,7 @@ feature 'New job seeker registration' do
       login_as(admin, scope: :admin)
     end
 
-    scenario 'invites a new job seeker', js: true do
+    scenario 'invites a new job seeker' do
       visit '/admin'
       click_on 'Suchende'
       click_on 'Neu hinzufügen'
@@ -99,7 +99,7 @@ feature 'New job seeker registration' do
       end
 
       within_fieldset 'Arbeiten' do
-        click_link 'Alle auswählen'
+        select 'Computer', from: 'Bevorzugte Arbeiten'
       end
 
       click_on 'Speichern'
