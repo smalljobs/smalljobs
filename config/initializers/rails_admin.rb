@@ -1,11 +1,8 @@
+require 'rails_admin_impersonate'
+
 RailsAdmin.config do |config|
   config.main_app_name = ['Small Jobs', 'Adminstration']
-
-  config.authenticate_with do
-    authenticate_admin!
-  end
-
-  config.current_user_method { current_admin }
+  config.authorize_with :cancan
 
   config.model Place do
     navigation_label I18n.t('admin.menu.geo')
