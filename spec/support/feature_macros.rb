@@ -108,7 +108,7 @@ module Support
 
     # Mock a facebook oauth request
     #
-    # @param [JobSeeker] user the seeker to mock
+    # @param [Seeker] user the seeker to mock
     #
     def mock_facebook_oauth(user)
       OmniAuth.config.test_mode = true

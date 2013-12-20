@@ -45,7 +45,7 @@ module Support
         #
         def auth_broker(name, &block)
           let(name, &block)
-          before { authenticate(:job_broker, send(name)) }
+          before { authenticate(:broker, send(name)) }
         end
 
         # Assigns a provider to a method, like the let method,
@@ -56,7 +56,7 @@ module Support
         #
         def auth_provider(name, &block)
           let(name, &block)
-          before { authenticate(:job_provider, send(name)) }
+          before { authenticate(:provider, send(name)) }
         end
 
         # Assigns a seeker to a method, like the let method,
@@ -67,7 +67,7 @@ module Support
         #
         def auth_seeker(name, &block)
           let(name, &block)
-          before { authenticate(:job_seeker, send(name)) }
+          before { authenticate(:seeker, send(name)) }
         end
 
       end

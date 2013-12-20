@@ -1,6 +1,6 @@
 class Organization < ActiveRecord::Base
   has_many :employments, inverse_of: :organization
-  has_many :job_brokers, through: :employments
+  has_many :brokers, through: :employments
   has_many :regions, through: :employments
 
   validates :name, presence: true, uniqueness: true

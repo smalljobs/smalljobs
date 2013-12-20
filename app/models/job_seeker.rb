@@ -1,4 +1,4 @@
-class JobSeeker < ActiveRecord::Base
+class Seeker < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable, omniauth_providers: [:facebook]
 
   has_and_belongs_to_many :work_categories
@@ -62,13 +62,13 @@ class JobSeeker < ActiveRecord::Base
   # Find or create a user when doing oauth signup/login
   #
   # @param [OpenStuct] auth the oauth params
-  # @param [JobSeeker] signed_in_resource alreadt signed in seeker
+  # @param [Seeker] signed_in_resource alreadt signed in seeker
   #
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
-    user = JobSeeker.where(provider: auth.provider, uid: auth.uid).first
+    user = Seeker.where(provider: auth.provider, uid: auth.uid).first
 
     unless user
-      user = JobSeeker.new(
+      user = Seeker.new(
         firstname: auth.extra.raw_info.first_name,
         lastname:  auth.extra.raw_info.last_name,
         provider:  auth.provider,

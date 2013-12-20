@@ -1,5 +1,5 @@
 Fabricator(:employment) do
   organization
-  job_broker
+  broker
   region
 end

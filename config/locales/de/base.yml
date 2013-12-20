@@ -13,7 +13,7 @@ de:
       organization: "Jugenarbeit"
       address: "Adresse"
       contact: "Kontakt"
-      job_brokers: "Vermittler"
+      brokers: "Vermittler"
       administration: "Admin"
       authenticatable: "Authentifizierung"
       employment: "Anstellungen"
@@ -67,7 +67,7 @@ de:
         new_password: "Neues Passwort"
         confirmation: "Passwort wiederholen"
         action: "Passwort ändern"
-  job_providers:
+  providers:
     registrations:
       new:
         title: "Als Jobanbieter registrieren"
@@ -85,7 +85,7 @@ de:
       title: "Als Jobanbieter anmelden"
       lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
       action: "Als Jobanbieter anmelden"
-  job_seekers:
+  seekers:
     registrations:
       new:
         title: "Als Jobsucher registrieren"
@@ -103,7 +103,7 @@ de:
       title: "Als Sucher anmelden"
       lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
       action: "Als Jobsucher anmelden"
-  job_brokers:
+  brokers:
     registrations:
       edit:
         title: "Ihre Daten ändern"

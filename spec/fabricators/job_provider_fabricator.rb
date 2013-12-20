@@ -1,4 +1,4 @@
-Fabricator(:job_provider) do
+Fabricator(:provider) do
   transient confirmed: true
 
   username  { Forgery(:name).first_name }

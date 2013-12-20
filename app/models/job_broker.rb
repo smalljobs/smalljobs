@@ -1,7 +1,7 @@
-class JobBroker < ActiveRecord::Base
+class Broker < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :confirmable, :registerable
 
-  has_many :employments, inverse_of: :job_broker
+  has_many :employments, inverse_of: :broker
   has_many :organizations, through: :employments
   has_many :regions, through: :employments
   has_many :places, through: :regions
@@ -22,18 +22,18 @@ class JobBroker < ActiveRecord::Base
 
   # Get the provider this broker is responsible for
   #
-  # @return [ActiveRecord::Relation<JobProvider>] the providers
+  # @return [ActiveRecord::Relation<Provider>] the providers
   #
   def providers
-    JobProvider.where(zip: places.pluck(:zip))
+    Provider.where(zip: places.pluck(:zip))
   end
 
   # Get the seekers this broker is responsible for
   #
-  # @return [ActiveRecord::Relation<JobSeeker>] the seekers
+  # @return [ActiveRecord::Relation<Seeker>] the seekers
   #
   def seekers
-    JobSeeker.where(zip: places.pluck(:zip))
+    Seeker.where(zip: places.pluck(:zip))
   end
 
   # @!group Devise

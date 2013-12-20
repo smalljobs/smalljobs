@@ -1,6 +1,6 @@
 module ApplicationHelper
 
-  def job_provider_contact_preferences
+  def provider_contact_preferences
     [
       [I18n.t('contacts.postal'), 'postal' ],
       [I18n.t('contacts.phone'), 'phone' ],
@@ -9,7 +9,7 @@ module ApplicationHelper
     ]
   end
 
-  def job_seeker_contact_preferences
+  def seeker_contact_preferences
     [
       [I18n.t('contacts.whatsapp'), 'whatsapp' ],
       [I18n.t('contacts.mobile'), 'mobile' ],

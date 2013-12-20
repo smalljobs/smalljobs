@@ -4,13 +4,13 @@ de:
       admin:
         one: "Administrator"
         other: "Administratoren"
-      job_broker:
+      broker:
         one: "Vermittler"
         other: "Vermittler"
-      job_seeker:
+      seeker:
         one: "Arbeitssuchender"
         other: "Suchende"
-      job_provider:
+      provider:
         one: "Anbieter"
         other: "Anbieter"
       work_category:
@@ -39,7 +39,7 @@ de:
         created_at: "Erstellt"
         updated_at: "Bearbeitet"
         employments: "Anstellungen"
-        job_brokers: "Vermittler"
+        brokers: "Vermittler"
         organizations: "Organization"
       place:
         name: "Name"
@@ -66,7 +66,7 @@ de:
         updated_at: "Bearbeitet"
       employment:
         organization: "Organisation"
-        job_broker: "Vermittler"
+        broker: "Vermittler"
         region: "Region"
         created_at: "Erstellt"
         updated_at: "Bearbeitet"
@@ -109,14 +109,14 @@ de:
         confirmation_sent_at: "Bestätigungsmail gesendet am"
         unconfirmed_email: "Unbestätigte Email"
         confirmed?: "Bestätigt"
-      job_seeker:
+      seeker:
         <<: *USER
-      job_broker:
+      broker:
         <<: *USER
         organizations: "Organisationen"
         regions: "Regionen"
         employments: "Anstellungen"
-      job_provider:
+      provider:
         <<: *USER
       admin:
         <<: *USER
@@ -125,15 +125,15 @@ de:
         invalid_seeker_age: "muss zwischen 13 und 18 Jahre alt sein"
         invalid_work_category: "muss mindestens eine Kategorie beinhalten"
       models:
-        job_seeker:
+        seeker:
           attributes:
             phone:
               improbable_phone: "ist keine gültige Telefonnummer"
-        job_provider:
+        provider:
           attributes:
             phone:
               improbable_phone: "ist keine gültige Telefonnummer"
-        job_broker:
+        broker:
           attributes:
             phone:
               improbable_phone: "ist keine gültige Telefonnummer"

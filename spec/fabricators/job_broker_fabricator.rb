@@ -1,4 +1,4 @@
-Fabricator(:job_broker) do
+Fabricator(:broker) do
   transient confirmed: true
 
   firstname { Forgery(:name).first_name }
@@ -16,7 +16,7 @@ Fabricator(:job_broker) do
   end
 end
 
-Fabricator(:job_broker_with_regions, from: :job_broker) do
+Fabricator(:broker_with_regions, from: :broker) do
   after_create do |user, transients|
       place_1        = Fabricate(:place, zip: '1234')
       region_1       = Fabricate(:region, places: [place_1])
@@ -25,7 +25,7 @@ Fabricator(:job_broker_with_regions, from: :job_broker) do
       Fabricate(:employment,
                 organization: organization_1,
                 region: region_1,
-                job_broker: user)
+                broker: user)
 
       place_2        = Fabricate(:place, zip: '1235')
       place_3        = Fabricate(:place, zip: '1236')
@@ -35,6 +35,6 @@ Fabricator(:job_broker_with_regions, from: :job_broker) do
       Fabricate(:employment,
                 organization: organization_2,
                 region: region_2,
-                job_broker: user)
+                broker: user)
   end
 end

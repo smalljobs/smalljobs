@@ -2,18 +2,18 @@ Smalljobs::Application.routes.draw do
 
   devise_for :admins
 
-  devise_for :job_seekers, controllers: {
+  devise_for :seekers, controllers: {
     registrations:      'registrations',
     confirmations:      'confirmations',
     omniauth_callbacks: 'omniauth_callbacks'
   }
 
-  devise_for :job_providers, controllers: {
+  devise_for :providers, controllers: {
     registrations: 'registrations',
     confirmations: 'confirmations'
   }
 
-  devise_for :job_brokers, controllers: {
+  devise_for :brokers, controllers: {
     registrations: 'registrations',
     confirmations: 'confirmations'
   }

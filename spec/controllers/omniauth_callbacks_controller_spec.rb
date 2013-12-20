@@ -4,13 +4,13 @@ describe OmniauthCallbacksController do
 
   describe '#facebook' do
     before do
-      request.env['devise.mapping'] = Devise.mappings[:job_seeker]
+      request.env['devise.mapping'] = Devise.mappings[:seeker]
     end
 
     context 'with persisted user' do
       context 'which is confirmed and activated' do
         before do
-          JobSeeker.stub(:find_for_facebook_oauth).and_return(Fabricate(:job_seeker, confirmed: true, active: true))
+          Seeker.stub(:find_for_facebook_oauth).and_return(Fabricate(:seeker, confirmed: true, active: true))
           get :facebook
         end
 
@@ -21,7 +21,7 @@ describe OmniauthCallbacksController do
 
       context 'which is not confirmed' do
         before do
-          JobSeeker.stub(:find_for_facebook_oauth).and_return(Fabricate(:job_seeker, confirmed: false, active: true))
+          Seeker.stub(:find_for_facebook_oauth).and_return(Fabricate(:seeker, confirmed: false, active: true))
           get :facebook
         end
 
@@ -32,7 +32,7 @@ describe OmniauthCallbacksController do
 
       context 'which is not activated' do
         before do
-          JobSeeker.stub(:find_for_facebook_oauth).and_return(Fabricate(:job_seeker, confirmed: true, active: false))
+          Seeker.stub(:find_for_facebook_oauth).and_return(Fabricate(:seeker, confirmed: true, active: false))
           get :facebook
         end
 
@@ -44,12 +44,12 @@ describe OmniauthCallbacksController do
 
     context 'with a user that cannot be persisted' do
       before do
-        JobSeeker.stub(:find_for_facebook_oauth).and_return(Fabricate.build(:job_seeker))
+        Seeker.stub(:find_for_facebook_oauth).and_return(Fabricate.build(:seeker))
         get :facebook
       end
 
       it 'redirects to the job seeker registration' do
-        expect(response).to redirect_to('/job_seekers/sign_up')
+        expect(response).to redirect_to('/seekers/sign_up')
       end
     end
   end

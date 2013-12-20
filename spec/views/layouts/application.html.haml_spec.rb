@@ -10,7 +10,7 @@ describe 'layouts/application.html.haml' do
     end
 
     context 'for a broker' do
-      auth_broker(:broker) { Fabricate(:job_broker) }
+      auth_broker(:broker) { Fabricate(:broker) }
 
       it 'renders the link to the broker dashboard' do
         render
@@ -19,12 +19,12 @@ describe 'layouts/application.html.haml' do
 
       it 'renders the link to sign out' do
         render
-        expect(rendered).to match(destroy_job_broker_session_path)
+        expect(rendered).to match(destroy_broker_session_path)
       end
     end
 
     context 'for a provider' do
-      auth_provider(:provider) { Fabricate(:job_provider) }
+      auth_provider(:provider) { Fabricate(:provider) }
 
       it 'renders the link to the provider dashboard' do
         render
@@ -33,12 +33,12 @@ describe 'layouts/application.html.haml' do
 
       it 'renders the link to sign out' do
         render
-        expect(rendered).to match(destroy_job_provider_session_path)
+        expect(rendered).to match(destroy_provider_session_path)
       end
     end
 
     context 'for a seeker' do
-      auth_seeker(:seeker) { Fabricate(:job_seeker) }
+      auth_seeker(:seeker) { Fabricate(:seeker) }
 
       it 'renders the link to the seeker dashboard' do
         render
@@ -47,7 +47,7 @@ describe 'layouts/application.html.haml' do
 
       it 'renders the link to sign out' do
         render
-        expect(rendered).to match(destroy_job_seeker_session_path)
+        expect(rendered).to match(destroy_seeker_session_path)
       end
     end
   end

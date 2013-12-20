@@ -10,32 +10,32 @@ describe Broker::DashboardsController do
       end
 
       it 'is not accessible by a provider' do
-        authenticate(:job_provider, Fabricate(:job_provider))
+        authenticate(:provider, Fabricate(:provider))
         xhr :get, :show
         expect(response.status).to eql(401)
       end
 
       it 'is not accessible by a seeker' do
-        authenticate(:job_seeker, Fabricate(:job_seeker))
+        authenticate(:seeker, Fabricate(:seeker))
         xhr :get, :show
         expect(response.status).to eql(401)
       end
 
       it 'is accessible by a broker' do
-        authenticate(:job_broker, Fabricate(:job_broker))
+        authenticate(:broker, Fabricate(:broker))
         xhr :get, :show
         expect(response.status).to eql(200)
        end
     end
 
     context 'presenting the dashboard' do
-      auth_broker(:broker) { Fabricate(:job_broker_with_regions) }
+      auth_broker(:broker) { Fabricate(:broker_with_regions) }
 
-      let!(:provider_1) { Fabricate(:job_provider, zip: '1234') }
-      let!(:provider_2) { Fabricate(:job_provider, zip: '1235') }
+      let!(:provider_1) { Fabricate(:provider, zip: '1234') }
+      let!(:provider_2) { Fabricate(:provider, zip: '1235') }
 
-      let!(:seeker_1) { Fabricate(:job_seeker, zip: '1234') }
-      let!(:seeker_2) { Fabricate(:job_seeker, zip: '1235') }
+      let!(:seeker_1) { Fabricate(:seeker, zip: '1234') }
+      let!(:seeker_2) { Fabricate(:seeker, zip: '1235') }
 
       before do
         xhr :get, :show

@@ -77,8 +77,8 @@ RailsAdmin.config do |config|
         field :email
       end
 
-      group :job_brokers do
-        label I18n.t('admin.groups.job_brokers')
+      group :brokers do
+        label I18n.t('admin.groups.brokers')
 
         field :employments
       end
@@ -119,7 +119,7 @@ RailsAdmin.config do |config|
 
     list do
       field :organization
-      field :job_broker
+      field :broker
       field :region
     end
   end
@@ -143,7 +143,7 @@ RailsAdmin.config do |config|
     end
   end
 
-  config.model JobBroker do
+  config.model Broker do
     navigation_label I18n.t('admin.menu.user')
     weight 5
 
@@ -187,7 +187,7 @@ RailsAdmin.config do |config|
     end
   end
 
-  config.model JobProvider do
+  config.model Provider do
     navigation_label I18n.t('admin.menu.user')
     weight 10
 
@@ -235,7 +235,7 @@ RailsAdmin.config do |config|
     end
   end
 
-  config.model JobSeeker do
+  config.model Seeker do
     navigation_label I18n.t('admin.menu.user')
     weight 15
 

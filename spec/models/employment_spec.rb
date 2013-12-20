@@ -13,9 +13,9 @@ describe Employment do
     end
   end
 
-  describe '#job_broker' do
-    it 'is not valid without a job_broker' do
-      expect(Fabricate.build(:employment, job_broker: nil)).not_to be_valid
+  describe '#broker' do
+    it 'is not valid without a broker' do
+      expect(Fabricate.build(:employment, broker: nil)).not_to be_valid
     end
   end
 

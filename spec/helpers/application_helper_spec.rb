@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe ApplicationHelper do
 
-  describe '#job_provider_contact_preferences' do
+  describe '#provider_contact_preferences' do
     it 'returns the translated contact preferences for job providers' do
-      expect(helper.job_provider_contact_preferences).to eq([
+      expect(helper.provider_contact_preferences).to eq([
         ['Per Post', 'postal'],
         ['Telefon', 'phone'],
         ['Email', 'email'],
@@ -13,9 +13,9 @@ describe ApplicationHelper do
     end
   end
 
-  describe '#job_seeker_contact_preferences' do
+  describe '#seeker_contact_preferences' do
     it 'returns the translated contact preferences for job seekers' do
-      expect(helper.job_seeker_contact_preferences).to eq([
+      expect(helper.seeker_contact_preferences).to eq([
         ['WhatsApp', 'whatsapp'],
         ['Mobiltelefon', 'mobile'],
         ['Email', 'email'],

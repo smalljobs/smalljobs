@@ -3,7 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
   before_filter :configure_permitted_parameters
 
   def new
-    if self.resource_name == :job_broker
+    if self.resource_name == :broker
       flash[:alert] = t('devise_views.no_broker_registration')
       redirect_to root_path
     else

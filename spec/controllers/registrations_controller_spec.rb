@@ -4,7 +4,7 @@ describe RegistrationsController do
   describe '#new' do
     context 'for a job broker' do
       before do
-        @request.env['devise.mapping'] = Devise.mappings[:job_broker]
+        @request.env['devise.mapping'] = Devise.mappings[:broker]
         get :new
       end
 
@@ -19,23 +19,23 @@ describe RegistrationsController do
 
     context 'for a job provider' do
       before do
-        @request.env['devise.mapping'] = Devise.mappings[:job_provider]
+        @request.env['devise.mapping'] = Devise.mappings[:provider]
         get :new
       end
 
       it 'renders the registration form' do
-        expect(subject).to render_template('job_providers/registrations/new')
+        expect(subject).to render_template('providers/registrations/new')
       end
     end
 
     context 'for a job seeker' do
       before do
-        @request.env['devise.mapping'] = Devise.mappings[:job_seeker]
+        @request.env['devise.mapping'] = Devise.mappings[:seeker]
         get :new
       end
 
       it 'renders the registration form' do
-        expect(subject).to render_template('job_seekers/registrations/new')
+        expect(subject).to render_template('seekers/registrations/new')
       end
     end
   end

@@ -1,4 +1,4 @@
-class JobProvider < ActiveRecord::Base
+class Provider < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable, authentication_keys: [:username]
 
   before_save :nullify_blank_email
