@@ -6,6 +6,6 @@ class Employment < ActiveRecord::Base
   validates :organization, :job_broker, :region, presence: true
 
   def name
-    "#{ self.organization.name }, #{ self.region.name }"
+    "#{ self.organization.try(:name) }, #{ self.region.try(:name) }"
   end
 end
