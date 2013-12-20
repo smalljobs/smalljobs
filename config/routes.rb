@@ -29,8 +29,5 @@ Smalljobs::Application.routes.draw do
   get 'privacy_policy',   to: 'pages#privacy_policy'
   get 'terms_of_service', to: 'pages#terms_of_service'
 
-  get 'awaiting_confirmation', to: 'pages#awaiting_confirmation'
-  get 'awaiting_activation',   to: 'pages#awaiting_activation'
-
   root 'pages#home'
 end

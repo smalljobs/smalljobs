@@ -15,20 +15,6 @@ describe 'routing to the pages' do
     )
   end
 
-  it 'routes /confirm to pages#confirm' do
-    expect(get: '/awaiting_confirmation').to route_to(
-      controller: 'pages',
-      action:     'awaiting_confirmation'
-    )
-  end
-
-  it 'routes /activate to pages#activate' do
-    expect(get: '/awaiting_activation').to route_to(
-      controller: 'pages',
-      action:     'awaiting_activation'
-    )
-  end
-
   it 'routes /about_us to pages#about_us' do
     expect(get: '/about_us').to route_to(
       controller: 'pages',
