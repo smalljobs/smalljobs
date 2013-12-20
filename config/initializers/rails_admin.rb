@@ -1,5 +1,3 @@
-require 'rails_admin_impersonate'
-
 RailsAdmin.config do |config|
   config.main_app_name = ['Small Jobs', 'Adminstration']
   config.authorize_with :cancan
