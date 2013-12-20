@@ -1,5 +1,5 @@
 %h2= I18n.t('providers.sessions.title')
-%p= I18n.t('providers.sessions.lead')
+%p.lead= I18n.t('providers.sessions.lead')
 
 = simple_form_for(resource, as: resource_name, url: new_session_path(resource_name), html: { novalidate: true }) do |f|
 

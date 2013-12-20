@@ -1,5 +1,5 @@
 %h2= I18n.t('providers.registrations.edit.title')
-%p= I18n.t('providers.registrations.edit.lead')
+%p.lead= I18n.t('providers.registrations.edit.lead')
 
 = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, novalidate: true }) do |f|
 

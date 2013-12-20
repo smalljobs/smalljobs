@@ -1,5 +1,5 @@
 %h2= I18n.t('devise_views.passwords.edit.title')
-%p= I18n.t('devise_views.passwords.edit.lead')
+%p.lead= I18n.t('devise_views.passwords.edit.lead')
 
 = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, novalidate: true }) do |f|
 
