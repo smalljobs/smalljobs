@@ -38,4 +38,44 @@ describe ApplicationHelper do
     end
   end
 
+  describe '#provider_status_class' do
+    it 'maps an unconfirmed provider to the warning class' do
+      provider = Fabricate(:provider, confirmed: false, active: false)
+      expect(helper.provider_status_class(provider)).to eq('warning')
+    end
+
+    it 'maps an confirmed, inactive provider to the danger class' do
+      provider = Fabricate(:provider, confirmed: true, active: false)
+      expect(helper.provider_status_class(provider)).to eq('danger')
+    end
+
+    it 'maps an confirmed, active provider to no class' do
+      provider = Fabricate(:provider, confirmed: true, active: true)
+      expect(helper.provider_status_class(provider)).to eq('')
+    end
+  end
+
+  describe '#provider_label' do
+    it 'labels an unconfirmed provider' do
+      provider = Fabricate(:provider, confirmed: false, active: false)
+      expect(helper.provider_label(provider)).to eq('<span class="label label-warning">Unbestätigt</span>')
+    end
+
+    it 'labels an confirmed, inactive providern' do
+      provider = Fabricate(:provider, confirmed: true, active: false)
+      expect(helper.provider_label(provider)).to eq('<span class="label label-danger">Inaktiv</span>')
+    end
+
+    it 'labels an confirmed, active provider' do
+      provider = Fabricate(:provider, confirmed: true, active: true)
+      expect(helper.provider_label(provider)).to eq('<span class="label label-success">Aktiv</span>')
+    end
+  end
+
+  describe '#bootstrap_label' do
+    it 'creates a bootstrap span label' do
+      expect(helper.bootstrap_label('kind', 'text')).to eq('<span class="label label-kind">text</span>')
+    end
+  end
+
 end

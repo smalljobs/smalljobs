@@ -17,6 +17,11 @@ describe 'layouts/application.html.haml' do
         expect(rendered).to match(broker_dashboard_path)
       end
 
+      it 'renders the link to the brokers providers' do
+        render
+        expect(rendered).to match(broker_providers_path)
+      end
+
       it 'renders the link to sign out' do
         render
         expect(rendered).to match(destroy_broker_session_path)

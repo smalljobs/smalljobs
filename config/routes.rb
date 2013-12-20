@@ -1,5 +1,9 @@
 Smalljobs::Application.routes.draw do
 
+  namespace :broker do
+    resources :providers
+  end
+
   devise_for :admins
 
   devise_for :seekers, controllers: {
@@ -22,6 +26,7 @@ Smalljobs::Application.routes.draw do
 
   namespace :broker do
     resource :dashboard, only: :show
+    resources :providers
   end
 
   namespace :provider do

@@ -1,0 +1,7 @@
+%h1= I18n.t('providers.new.title')
+%p.lead= I18n.t('providers.new.lead')
+
+= render 'form'
+
+%ul.nav.nav-pills
+  %li= link_to I18n.t('common.back'), broker_providers_path

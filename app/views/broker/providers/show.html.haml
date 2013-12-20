@@ -1,0 +1,36 @@
+%h1= I18n.t('providers.show.title', name: @provider.name)
+%p.lead= I18n.t('providers.show.lead')
+
+.panel.panel-default
+  .panel-body
+
+    .address
+      .status.pull-right= provider_label(@provider)
+
+      %strong= @provider.name
+      %br
+
+      = @provider.street
+      %br
+
+      = "#{ @provider.zip } #{ @provider.city }"
+      %br
+      %br
+
+      - if @provider.phone
+        %abbr{ title: I18n.t('activerecord.attributes.provider.phone') } P:
+        = @provider.phone.phony_formatted
+        %br
+
+      - if @provider.mobile
+        %abbr{ title: i18n.t('activerecord.attributes.provider.mobile') } m:
+        = @provider.mobile.phony_formatted
+        %br
+
+      - if @provider.email
+        %a{ href: 'mailto:#' }= @provider.email
+        %br
+
+%ul.nav.nav-pills
+  %li= link_to I18n.t('common.edit'), edit_broker_provider_path(@provider)
+  %li= link_to I18n.t('common.back'), broker_providers_path

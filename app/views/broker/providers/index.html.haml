@@ -1,0 +1,27 @@
+%h1= I18n.t('providers.index.title')
+%p.lead= I18n.t('providers.index.lead')
+
+.table-responsive
+  %table.table.table-striped
+    %tr
+      %th
+      %th= I18n.t('activerecord.attributes.provider.firstname')
+      %th= I18n.t('activerecord.attributes.provider.lastname')
+      %th= I18n.t('activerecord.attributes.provider.zip')
+      %th= I18n.t('activerecord.attributes.provider.city')
+      %th{ colspan: 3 }
+
+    - @providers.each do |provider|
+      %tr{ class: provider_status_class(provider) }
+        %td
+          = provider_label(provider)
+        %td= provider.firstname
+        %td= provider.lastname
+        %td= provider.zip
+        %td= provider.city
+
+        %td= link_to '', broker_provider_path(provider), class: 'fa fa-eye', title: I18n.t('common.show')
+        %td= link_to '', edit_broker_provider_path(provider), class: 'fa fa-pencil', title: I18n.t('common.edit')
+        %td= link_to '', broker_provider_path(provider), method: :delete, data: { confirm: I18n.t('common.sure') }, class: 'fa fa-trash-o'
+
+= link_to I18n.t('providers.index.add_new'), new_broker_provider_path, class: 'btn btn-primary'

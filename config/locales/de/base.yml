@@ -28,6 +28,7 @@ de:
     dashboard: 'Übersicht'
     sign_out: 'Abmelden'
     profile: 'Profil'
+    providers: "Anbieter"
   legends:
     login: "Anmeldedaten"
     address: "Adresse"
@@ -41,6 +42,13 @@ de:
     whatsapp: "WhatsApp"
   common:
     sure: "Sind Sie sicher?"
+    show: "Anzeigen"
+    edit: "Bearbeiten"
+    destroy: "Löschen"
+    back: "Zurück"
+    unconfirmed: "Unbestätigt"
+    active: "Aktiv"
+    inactive: "Inaktiv"
   devise_views:
     no_broker_registration: "Sie können sich nicht selber als Anbieter registrieren. Bitte kontaktieren Sie uns unter hello@smalljobs.ch"
     wait_confirmation: "Warte auf die Bestätigung von: %{email}"
@@ -68,6 +76,19 @@ de:
         confirmation: "Passwort wiederholen"
         action: "Passwort ändern"
   providers:
+    index:
+      title: "Anbieter ihrer Region"
+      lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet."
+      add_new: "Neuen Anbieter hinzufügen"
+    show:
+      title: "Anbieter %{name}"
+      lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet."
+    new:
+      title: "Neuen Anbieter erstellen"
+      lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet."
+    edit:
+      title: "Anbieter %{name} bearbeiten"
+      lead: "epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet."
     registrations:
       new:
         title: "Als Jobanbieter registrieren"
