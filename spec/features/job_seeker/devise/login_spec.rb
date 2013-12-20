@@ -94,7 +94,7 @@ feature 'Login' do
         expect(page).to have_content('Erfolgreich angemeldet')
       end
 
-      expect(current_path).to eql('/job_seekers/dashboard')
+      expect(current_path).to eql('/seeker/dashboard')
     end
   end
 end

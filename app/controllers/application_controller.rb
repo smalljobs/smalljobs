@@ -10,11 +10,11 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     if resource.is_a?(JobBroker)
-      job_brokers_dashboard_path
+      broker_dashboard_path
     elsif resource.is_a?(JobProvider)
-      job_providers_dashboard_path
+      provider_dashboard_path
     elsif resource.is_a?(JobSeeker)
-      job_seekers_dashboard_path
+      seeker_dashboard_path
     else
       super
     end

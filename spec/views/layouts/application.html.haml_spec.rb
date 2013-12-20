@@ -14,7 +14,7 @@ describe 'layouts/application.html.haml' do
 
       it 'renders the link to the broker dashboard' do
         render
-        expect(rendered).to match(job_brokers_dashboard_path)
+        expect(rendered).to match(broker_dashboard_path)
       end
 
       it 'renders the link to sign out' do
@@ -28,7 +28,7 @@ describe 'layouts/application.html.haml' do
 
       it 'renders the link to the provider dashboard' do
         render
-        expect(rendered).to match(job_providers_dashboard_path)
+        expect(rendered).to match(provider_dashboard_path)
       end
 
       it 'renders the link to sign out' do
@@ -42,7 +42,7 @@ describe 'layouts/application.html.haml' do
 
       it 'renders the link to the seeker dashboard' do
         render
-        expect(rendered).to match(job_seekers_dashboard_path)
+        expect(rendered).to match(seeker_dashboard_path)
       end
 
       it 'renders the link to sign out' do

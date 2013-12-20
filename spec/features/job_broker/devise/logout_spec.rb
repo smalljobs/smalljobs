@@ -15,7 +15,7 @@ feature 'Logout' do
   end
 
   scenario 'Successfully log out' do
-    visit '/job_brokers/dashboard'
+    visit '/broker/dashboard'
     click_on 'Abmelden'
 
     within_notifications do

@@ -38,17 +38,17 @@ describe ApplicationController do
   describe '#after_sign_in_path_for' do
     it 'returns the path to the broker dashboard for a broker' do
       user = Fabricate(:job_broker)
-      expect(controller.send(:after_sign_in_path_for, user)).to eq('/job_brokers/dashboard')
+      expect(controller.send(:after_sign_in_path_for, user)).to eq('/broker/dashboard')
     end
 
     it 'returns the path to the provider dashboard for a provider' do
       user = Fabricate(:job_provider)
-      expect(controller.send(:after_sign_in_path_for, user)).to eq('/job_providers/dashboard')
+      expect(controller.send(:after_sign_in_path_for, user)).to eq('/provider/dashboard')
     end
 
     it 'returns the path to the seeker dashboard for a seeker' do
       user = Fabricate(:job_seeker)
-      expect(controller.send(:after_sign_in_path_for, user)).to eq('/job_seekers/dashboard')
+      expect(controller.send(:after_sign_in_path_for, user)).to eq('/seeker/dashboard')
     end
   end
 end

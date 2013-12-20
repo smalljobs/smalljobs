@@ -20,9 +20,17 @@ Smalljobs::Application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
-  get 'job_brokers/dashboard',   to: 'broker_dashboard#index'
-  get 'job_providers/dashboard', to: 'provider_dashboard#index'
-  get 'job_seekers/dashboard',   to: 'seeker_dashboard#index'
+  namespace :broker do
+    resource :dashboard, only: :show
+  end
+
+  namespace :provider do
+    resource :dashboard, only: :show
+  end
+
+  namespace :seeker do
+    resource :dashboard, only: :show
+  end
 
   get 'sign_in',          to: 'pages#sign_in'
   get 'about_us',         to: 'pages#about_us'

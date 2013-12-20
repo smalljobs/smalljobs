@@ -15,7 +15,7 @@ feature 'Edit registration profile' do
   end
 
   scenario 'Edit the credentials' do
-    visit '/job_providers/dashboard'
+    visit '/provider/dashboard'
     click_on 'Profil'
 
     within_fieldset 'Anmeldedaten' do
@@ -33,7 +33,7 @@ feature 'Edit registration profile' do
   end
 
   scenario 'Edit the address' do
-    visit '/job_providers/dashboard'
+    visit '/provider/dashboard'
     click_on 'Profil'
 
     within_fieldset 'Adresse' do
@@ -53,7 +53,7 @@ feature 'Edit registration profile' do
   end
 
   scenario 'Edit the contact' do
-    visit '/job_providers/dashboard'
+    visit '/provider/dashboard'
     click_on 'Profil'
 
     within_fieldset 'Kontakt' do

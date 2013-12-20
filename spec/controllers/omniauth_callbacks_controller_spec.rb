@@ -15,7 +15,7 @@ describe OmniauthCallbacksController do
         end
 
         it 'redirects the user to its dashboard' do
-          expect(response).to redirect_to('/job_seekers/dashboard')
+          expect(response).to redirect_to('/seeker/dashboard')
         end
       end
 

@@ -133,7 +133,7 @@ feature 'Password reset' do
         expect(page).to have_content('Ihr Passwort wurde geändert. Sie sind jetzt angemeldet.')
       end
 
-      expect(current_path).to eql('/job_providers/dashboard')
+      expect(current_path).to eql('/provider/dashboard')
     end
   end
 end
