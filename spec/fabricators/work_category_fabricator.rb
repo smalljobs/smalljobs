@@ -1,3 +1,3 @@
 Fabricator(:work_category) do
-  name { sequence(:category) { |i| "Category #{ i }" }}
+  name { sequence(:category) { |i| "category #{ i }" }}
 end
