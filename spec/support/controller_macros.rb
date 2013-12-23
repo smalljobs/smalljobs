@@ -14,7 +14,7 @@ module Support
       # @param user [User] the user to authenticate
       #
       def authenticate(mapping, user)
-        @request.env['devise.mapping'] = Devise.mappings[:admin]
+        @request.env['devise.mapping'] = Devise.mappings[mapping]
 
         user.confirm! if user.respond_to?(:confirm!)
         sign_in mapping, user
