@@ -2,6 +2,16 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
+  rescue_from CanCan::AccessDenied do |exception|
+    referer = request.env['HTTP_REFERER']
+
+    if referer.present? && referer != request.env['REQUEST_URI']
+      redirect_to(referer, alert: exception.message)
+    else
+      redirect_to(root_url, alert: exception.message)
+    end
+  end
+
   protected
 
   def current_user

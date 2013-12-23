@@ -1,6 +1,60 @@
 require 'spec_helper'
 
 describe ApplicationController do
+  context 'rescues' do
+    describe 'CanCan::AccessDenied' do
+      controller do
+        def index
+          raise CanCan::AccessDenied.new('Not allowed')
+        end
+      end
+
+      it 'shows the access denied details as flash alert' do
+        get :index
+        expect(flash[:alert]).to eql('Not allowed')
+      end
+
+      context 'with a referer' do
+        before do
+          request.env['HTTP_REFERER'] = '/from-here'
+        end
+
+        context 'with a different request uri' do
+          before do
+            request.env['REQUEST_URI'] = '/different'
+          end
+
+          it 'redirects back to the referer' do
+            get :index
+            expect(response).to redirect_to('/from-here')
+          end
+        end
+
+        context 'with the same request uri' do
+          before do
+            request.env['REQUEST_URI'] = '/from-here'
+          end
+
+          it 'redirects back to the home page' do
+            get :index
+            expect(response).to redirect_to('/')
+          end
+        end
+      end
+
+      context 'without a referer' do
+        before do
+          request.env['HTTP_REFERER'] = nil
+        end
+
+        it 'redirects back to the home page' do
+          get :index
+          expect(response).to redirect_to('/')
+        end
+      end
+    end
+  end
+
   describe '#current_user' do
     context 'with a logged in admin' do
       auth_admin(:admin) { Fabricate(:admin) }
