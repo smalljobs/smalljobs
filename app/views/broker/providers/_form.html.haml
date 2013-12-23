@@ -1,7 +1,54 @@
-= simple_form_for([:broker, @provider]) do |f|
-  = f.error_notification
+= simple_form_for([:broker, @provider], html: { novalidate: true }) do |f|
 
-  .form-inputs
+  - if notification = f.error_notification
+    .alert.alert-danger
+      = notification
+
+  %fieldset
+    %legend
+      = t('legends.login')
+      %i.fa.fa-2x.fa-user.pull-right
+
+    .form-inputs
+      = f.input :username, required: true, autofocus: true
+
+      - if @provider.new_record?
+        = f.input :password, required: true, autocomplete: 'off'
+        = f.input :password_confirmation, required: true
+      - else
+        = f.input :password, required: false, autocomplete: 'off', hint: t('devise_views.leave_empty')
+        = f.input :password_confirmation, required: false
+
+  %fieldset
+    %legend
+      = t('legends.address')
+      %i.fa.fa-2x.fa-home.pull-right
+
+    .form-inputs
+      = f.input :firstname, required: true
+      = f.input :lastname, required: true
+      = f.input :street, required: true
+      = f.input :zip, required: true
+      = f.input :city, required: true
+
+  %fieldset
+    %legend
+      = t('legends.contact')
+      %i.fa.fa-2x.fa-phone.pull-right
+
+    .form-inputs
+      = f.input :email
+      = f.input :phone
+
+      - if @provider.pending_reconfirmation?
+        %p= t('devise_views.wait_confirmation', email: @provider.unconfirmed_email)
+
+      = f.input :mobile
+      = f.input :contact_preference, collection: provider_contact_preferences
+      = f.input :contact_availability, hint: ''
 
   .form-actions
-    = f.button :submit, class: 'btn btn-primary'
+    - if @provider.new_record?
+      = f.button :submit, t('common.create'), class: 'btn btn-primary'
+    - else
+      = f.button :submit, t('common.edit'), class: 'btn btn-primary'

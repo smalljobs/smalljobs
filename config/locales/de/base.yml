@@ -44,6 +44,7 @@ de:
     sure: "Sind Sie sicher?"
     show: "Anzeigen"
     edit: "Bearbeiten"
+    create: "Erstellen"
     destroy: "Löschen"
     back: "Zurück"
     unconfirmed: "Unbestätigt"
@@ -125,6 +126,7 @@ de:
       lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
       action: "Als Jobsucher anmelden"
   brokers:
+    not_responsible: "Sie können keinen Provider ausserhalb ihrer Region definieren."
     registrations:
       edit:
         title: "Ihre Daten ändern"
