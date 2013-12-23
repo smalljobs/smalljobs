@@ -1,7 +1,7 @@
 Fabricator(:provider) do
   transient confirmed: true
 
-  username  { Forgery(:name).first_name }
+  username  { sequence(:username) { |i| "user#{ i }" }}
   password  { Forgery(:basic).password.rjust(10, 'a') }
 
   firstname { Forgery(:name).first_name }
