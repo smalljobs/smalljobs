@@ -106,7 +106,7 @@ class Seeker < ActiveRecord::Base
   # @return [Boolean] validation status
   #
   def ensure_seeker_age
-    if date_of_birth.present? && !date_of_birth.between?(18.years.ago, 12.years.ago)
+    if date_of_birth.present? && !date_of_birth.between?(19.years.ago, 13.years.ago)
       errors.add(:date_of_birth, :invalid_seeker_age)
     end
   end
