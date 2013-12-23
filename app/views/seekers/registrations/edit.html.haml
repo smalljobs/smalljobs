@@ -20,6 +20,7 @@
 
       = f.input :password, required: false, autocomplete: 'off', hint: t('devise_views.leave_empty')
       = f.input :password_confirmation, required: false
+      = f.input :date_of_birth, required: true, start_year: Date.today.year - 18, end_year: Date.today.year - 13
 
   %fieldset
     %legend
@@ -41,7 +42,7 @@
     .form-inputs
       = f.input :phone
       = f.input :mobile
-      = f.input :contact_preference, collection: provider_contact_preferences
+      = f.input :contact_preference, collection: seeker_contact_preferences
       = f.input :contact_availability
 
   %fieldset
