@@ -24,7 +24,7 @@
       .header
         = render_navigation(expand_all: true)
         %h3
-          = link_to I18n.t('pages.layout.title'), root_path
+          = link_to t('pages.layout.title'), root_path
 
       .notifications
         - [:notice, :error, :alert].each do |level|

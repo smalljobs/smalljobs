@@ -1,5 +1,5 @@
-%h2= I18n.t('providers.sessions.title')
-%p.lead= I18n.t('providers.sessions.lead')
+%h2= t('providers.sessions.title')
+%p.lead= t('providers.sessions.lead')
 
 = simple_form_for(resource, as: resource_name, url: new_session_path(resource_name), html: { novalidate: true }) do |f|
 
@@ -9,6 +9,6 @@
     = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
 
   .form-actions
-    = f.button :submit, I18n.t('providers.sessions.action'), class: 'btn btn-primary'
+    = f.button :submit, t('providers.sessions.action'), class: 'btn btn-primary'
 
 = render 'devise/shared/links'

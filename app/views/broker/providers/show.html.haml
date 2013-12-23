@@ -1,5 +1,5 @@
-%h1= I18n.t('providers.show.title', name: @provider.name)
-%p.lead= I18n.t('providers.show.lead')
+%h1= t('providers.show.title', name: @provider.name)
+%p.lead= t('providers.show.lead')
 
 .panel.panel-default
   .panel-body
@@ -18,7 +18,7 @@
       %br
 
       - if @provider.phone
-        %abbr{ title: I18n.t('activerecord.attributes.provider.phone') } P:
+        %abbr{ title: t('activerecord.attributes.provider.phone') } P:
         = @provider.phone.phony_formatted
         %br
 
@@ -32,5 +32,5 @@
         %br
 
 %ul.nav.nav-pills
-  %li= link_to I18n.t('common.edit'), edit_broker_provider_path(@provider)
-  %li= link_to I18n.t('common.back'), broker_providers_path
+  %li= link_to t('common.edit'), edit_broker_provider_path(@provider)
+  %li= link_to t('common.back'), broker_providers_path

@@ -1,14 +1,14 @@
-%h1= I18n.t('pages.sign_in.title')
-%p.lead= I18n.t('pages.sign_in.lead')
+%h1= t('pages.sign_in.title')
+%p.lead= t('pages.sign_in.lead')
 
 .row.signin
   .col-lg-4.text-center
-    = link_to I18n.t('pages.sign_in.provider'), new_provider_session_path, class: 'btn btn-lg btn-success'
+    = link_to t('pages.sign_in.provider'), new_provider_session_path, class: 'btn btn-lg btn-success'
 
   .col-lg-4.text-center
-    = link_to I18n.t('pages.sign_in.broker'), new_broker_session_path, class: 'btn btn-lg btn-success'
+    = link_to t('pages.sign_in.broker'), new_broker_session_path, class: 'btn btn-lg btn-success'
 
   .col-lg-4.text-center
-    = link_to I18n.t('pages.sign_in.seeker'), new_seeker_session_path, class: 'btn btn-lg btn-success'
+    = link_to t('pages.sign_in.seeker'), new_seeker_session_path, class: 'btn btn-lg btn-success'
 
 
