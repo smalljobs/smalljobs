@@ -18,12 +18,12 @@
       %br
 
       - if @provider.phone
-        %abbr{ title: t('activerecord.attributes.provider.phone') } P:
+        %abbr{ title: t('activerecord.attributes.provider.phone') } T:
         = @provider.phone.phony_formatted
         %br
 
       - if @provider.mobile
-        %abbr{ title: t('activerecord.attributes.provider.mobile') } m:
+        %abbr{ title: t('activerecord.attributes.provider.mobile') } M:
         = @provider.mobile.phony_formatted
         %br
 
