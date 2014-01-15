@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.0.0'
+ruby '2.1.0'
 
 gem 'rails', '4.0.2'
 
@@ -36,7 +36,7 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'capybara'
-  gem 'capybara-email', github: 'dockyard/capybara-email'
+  gem 'capybara-email'
   gem 'database_cleaner'
   gem 'fabrication'
   gem 'foreman'

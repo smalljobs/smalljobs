@@ -31,6 +31,12 @@ Get the database ready and populate with needed data:
 $ rake db:setup
 ```
 
+Alternatively you can sync the production database to your local database:
+
+```bash
+$ heroku pg:pull DATABASE_URL smalljobs_development
+```
+
 #### Start the server
 
 Start the local [unicorn](http://unicorn.bogomips.org/) server
