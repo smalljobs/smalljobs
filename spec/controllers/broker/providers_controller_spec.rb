@@ -1,7 +1,12 @@
 require 'spec_helper'
 
 describe Broker::ProvidersController do
-  #it_should_behave_like 'a protected controller', :broker, :provider, :all
+
+  it_should_behave_like 'a protected controller', :broker, :provider, :all, {
+    broker:         -> { Fabricate(:broker_with_regions) },
+    provider:       -> { Fabricate(:provider, zip: '1234') },
+    provider_attrs: -> { Fabricate.attributes_for(:provider, zip: '1234') }
+  }
 
   describe '#optional_password' do
     let(:provider) { Fabricate(:provider, zip: '1234') }

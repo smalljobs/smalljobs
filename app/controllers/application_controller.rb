@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
 
+  respond_to :html, :json
+
   protect_from_forgery with: :exception
 
   rescue_from CanCan::AccessDenied do |exception|
