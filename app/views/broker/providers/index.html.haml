@@ -22,6 +22,6 @@
 
         %td= link_to '', broker_provider_path(provider), class: 'fa fa-eye', title: t('common.show')
         %td= link_to '', edit_broker_provider_path(provider), class: 'fa fa-pencil', title: t('common.edit')
-        %td= link_to '', broker_provider_path(provider), method: :delete, data: { confirm: t('common.sure') }, class: 'fa fa-trash-o'
+        %td= link_to '', broker_provider_path(provider), method: :delete, title: t('common.destroy'), data: { confirm: t('common.sure') }, class: 'fa fa-trash-o'
 
 = link_to t('providers.index.add_new'), new_broker_provider_path, class: 'btn btn-primary'
