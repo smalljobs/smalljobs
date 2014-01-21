@@ -101,7 +101,7 @@ module Support
     #
     def select_by_id(id, options = {})
       field = options[:from]
-      option_xpath = "//*[@id='#{ field }']/option[#{ id }]"
+      option_xpath = "//*[@id='#{ field }']/option[@value='#{ id }']"
       option_text = find(:xpath, option_xpath).text
       select option_text, from: field
     end
