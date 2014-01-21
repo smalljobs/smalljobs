@@ -7,11 +7,13 @@ class Ability
       can :manage, :all
 
     elsif user.is_a?(Broker)
+
       regions = user.places.pluck(:zip)
 
       can :read, Provider
+      can :update, Provider
+
       can :create, Provider, zip: regions
-      can :update, Provider, zip: regions
       can :destroy, Provider, zip: regions
     end
   end
