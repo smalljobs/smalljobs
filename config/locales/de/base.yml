@@ -81,6 +81,7 @@ de:
       title: "Anbieter ihrer Region"
       lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet."
       add_new: "Neuen Anbieter hinzufügen"
+      no_providers: "Es sind noch keine Anbieter in deiner Region erfasst."
     show:
       title: "Anbieter %{name}"
       lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet."
@@ -177,6 +178,8 @@ de:
     title: 'Übersicht'
   broker_dashboard:
     title: 'Übersicht'
+    lead: "Veggies sunt bona vobis, proinde vos postulo esse magis dandelion ricebean courgette pumpkin tomatillo sea lettuce epazote gumbo summer purslane kakadu plum."
+    provider_list: 'Alle Anbieter anzeigen'
   seeker_dashboard:
     title: 'Übersicht'
   errors:
