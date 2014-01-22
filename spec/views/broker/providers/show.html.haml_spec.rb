@@ -26,11 +26,11 @@ describe 'broker/providers/show.html.haml' do
   end
 
   it 'shows the provider phone' do
-    expect(rendered).to have_text(provider.phone)
+    expect(rendered).to have_text(provider.phone.phony_formatted)
   end
 
   it 'shows the provider mobile' do
-    expect(rendered).to have_text(provider.mobile)
+    expect(rendered).to have_text(provider.mobile.phony_formatted)
   end
 
   it 'shows the provider email' do

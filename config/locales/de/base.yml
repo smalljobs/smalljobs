@@ -85,6 +85,9 @@ de:
     show:
       title: "Anbieter %{name}"
       lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet."
+      contact:
+        preference: "Bevorzugt Kontakt via %{preference}"
+        availability: "Am Besten erreichbar: %{availability}"
     new:
       title: "Neuen Anbieter erstellen"
       lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet."
