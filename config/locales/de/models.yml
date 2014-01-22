@@ -109,6 +109,8 @@ de:
         confirmation_sent_at: "Bestätigungsmail gesendet am"
         unconfirmed_email: "Unbestätigte Email"
         confirmed?: "Bestätigt"
+        confirmed: "Bestätigt"
+        active: "Aktiviert"
       seeker:
         <<: *USER
       broker:
