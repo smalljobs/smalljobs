@@ -2,13 +2,16 @@
 
 require 'spec_helper'
 
-feature 'List the providers' do
+feature 'List the seekers' do
   let(:user) do
     Fabricate(:broker_with_regions)
   end
 
+  let(:category_1) { Fabricate(:work_category, name: 'Putzen') }
+  let(:category_2) { Fabricate(:work_category, name: 'Rasen') }
+
   background do
-    Fabricate(:provider, {
+    Fabricate(:seeker, {
       firstname: 'John',
       lastname: 'Johnetty',
       street: 'Rotmatt 28',
@@ -18,7 +21,9 @@ feature 'List the providers' do
       mobile: '+41 0794444444',
       email: 'john@example.com',
       contact_preference: 'mobile',
-      contact_availability: 'Am Abend'
+      contact_availability: 'Am Abend',
+      date_of_birth: Date.new(1999, 1, 1),
+      work_categories: [category_1, category_2]
     })
 
     login_as(user, scope: :broker)
@@ -26,7 +31,7 @@ feature 'List the providers' do
 
   scenario 'displays all the user details' do
     visit '/broker/dashboard'
-    click_on 'Alle Anbieter anzeigen'
+    click_on 'Alle Sucher anzeigen'
     click_on 'John Johnetty anzeigen'
 
     expect(page).to have_content('John')
@@ -34,11 +39,14 @@ feature 'List the providers' do
     expect(page).to have_content('Rotmatt 28')
     expect(page).to have_content('1234')
     expect(page).to have_content('Dortwil')
+    expect(page).to have_content('1. Januar 1999')
     expect(page).to have_content('056 444 44 44')
     expect(page).to have_content('079 444 44 44')
     expect(page).to have_content('john@example.com')
     expect(page).to have_content('Mobiltelefon')
     expect(page).to have_content('Am Abend')
+    expect(page).to have_content('Putzen')
+    expect(page).to have_content('Rasen')
   end
 
- end
+end

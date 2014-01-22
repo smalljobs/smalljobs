@@ -2,13 +2,13 @@
 
 require 'spec_helper'
 
-feature 'Edit a provider' do
+feature 'Edit a seeker' do
   let(:user) do
     Fabricate(:broker_with_regions)
   end
 
   background do
-    Fabricate(:provider, {
+    Fabricate(:seeker, {
       firstname: 'Dora',
       lastname: 'Doretty',
       zip: '1235',
@@ -18,15 +18,16 @@ feature 'Edit a provider' do
     login_as(user, scope: :broker)
   end
 
-  scenario 'updates the provider data' do
+  scenario 'updates the seeker data' do
     visit '/broker/dashboard'
-    click_on 'Alle Anbieter anzeigen'
+    click_on 'Alle Sucher anzeigen'
     click_on 'Dora Doretty bearbeiten'
 
     within_fieldset 'Anmeldedaten' do
-      fill_in 'Benutzername',        with: 'meier'
+      fill_in 'Email',   with: 'meier@example.com'
       fill_in 'Passwort',            with: 'chicksonspeed'
       fill_in 'Passwortbestätigung', with: 'chicksonspeed'
+      select_date 15.years.ago,      from: 'Geburtsdatum'
     end
 
     within_fieldset 'Adresse' do
@@ -38,7 +39,6 @@ feature 'Edit a provider' do
     end
 
     within_fieldset 'Kontakt' do
-      fill_in 'Email',   with: 'meier@example.com'
       fill_in 'Telefon', with: '+41 044 444 44 44'
       fill_in 'Mobile',  with: '+41 079 444 44 44'
     end
@@ -46,7 +46,7 @@ feature 'Edit a provider' do
     click_on 'Bearbeiten'
 
     within_notifications do
-      expect(page).to have_content('Anbieter wurde erfolgreich aktualisiert.')
+      expect(page).to have_content('Sucher wurde erfolgreich aktualisiert.')
     end
   end
 

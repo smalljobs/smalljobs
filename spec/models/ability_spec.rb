@@ -30,5 +30,13 @@ describe Ability do
     it 'cannot read providers not in his region' do
       expect(ability).to_not be_able_to(:read, Fabricate(:provider, zip: '9999'))
     end
+
+    it 'can manage all seekers' do
+      expect(ability).to be_able_to(:manage, Seeker)
+    end
+
+    it 'cannot read seekers not in his region' do
+      expect(ability).to_not be_able_to(:read, Fabricate(:seeker, zip: '9999'))
+    end
   end
 end

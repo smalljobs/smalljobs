@@ -1,5 +1,8 @@
 class Seeker < ActiveRecord::Base
+
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable, omniauth_providers: [:facebook]
+
+  include ConfirmToggle
 
   has_and_belongs_to_many :work_categories
 

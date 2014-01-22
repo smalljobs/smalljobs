@@ -1,0 +1,56 @@
+%h1= t('seekers.show.title', name: @seeker.name)
+%p.lead= t('seekers.show.lead')
+
+.panel.panel-default
+  .panel-body
+    .status.pull-right
+      .label.label-info= t("contacts.#{ @seeker.contact_preference }")
+      = seeker_label(@seeker)
+
+    .row
+      .col-sm-6
+        .address
+          %strong= @seeker.name
+          %br
+
+          = @seeker.street
+          %br
+
+          = "#{ @seeker.zip } #{ @seeker.city }"
+          %br
+          %br
+
+          %abbr{ title: t('activerecord.attributes.seeker.date_of_birth') } G:
+          = l(@seeker.date_of_birth, format: :long)
+          %br
+          %br
+
+          - if @seeker.phone
+            %abbr{ title: t('activerecord.attributes.seeker.phone') } T:
+            = @seeker.phone.phony_formatted
+            %br
+
+          - if @seeker.mobile
+            %abbr{ title: t('activerecord.attributes.seeker.mobile') } M:
+            = @seeker.mobile.phony_formatted
+            %br
+
+          - if @seeker.email
+            %a{ href: 'mailto:#' }= @seeker.email
+            %br
+
+      .col-sm-6
+        %br
+
+        - if @seeker.contact_availability
+          .well.well-sm
+            = @seeker.contact_availability
+
+        %p.work-categories
+          - @seeker.work_categories.each do |category|
+            .label.label-info= category.name
+
+        %br
+%ul.nav.nav-pills
+  %li= link_to t('common.edit'), edit_broker_seeker_path(@seeker)
+  %li= link_to t('common.back'), broker_seekers_path

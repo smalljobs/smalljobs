@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe Seeker do
+
+  it_should_behave_like 'a confirm toggle'
+
   context 'fabricators' do
     it 'has a valid factory' do
       expect(Fabricate(:seeker)).to be_valid

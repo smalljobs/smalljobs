@@ -21,7 +21,7 @@ feature 'Login' do
       fill_in 'Email',    with: 'rolf@example.com'
       fill_in 'Passwort', with: 'tester1234'
 
-      click_on 'Als Jobsucher anmelden'
+      click_on 'Als Sucher anmelden'
 
       within_notifications do
         expect(page).to have_content('Sie müssen Ihren Email bestätigen, bevor Sie fortfahren können.')
@@ -47,7 +47,7 @@ feature 'Login' do
       fill_in 'Email',    with: 'rolf@example.com'
       fill_in 'Passwort', with: 'tester1234'
 
-      click_on 'Als Jobsucher anmelden'
+      click_on 'Als Sucher anmelden'
 
       within_notifications do
         expect(page).to have_content('Ihr Konto ist nicht aktiv')
@@ -73,7 +73,7 @@ feature 'Login' do
       fill_in 'Email',    with: 'dani'
       fill_in 'Passwort', with: 'tester'
 
-      click_on 'Als Jobsucher anmelden'
+      click_on 'Als Sucher anmelden'
 
       within_notifications do
         expect(page).to have_content('Ungültige Anmeldedaten')
@@ -88,7 +88,7 @@ feature 'Login' do
       fill_in 'Email',    with: 'rolf@example.com'
       fill_in 'Passwort', with: 'tester1234'
 
-      click_on 'Als Jobsucher anmelden'
+      click_on 'Als Sucher anmelden'
 
       within_notifications do
         expect(page).to have_content('Erfolgreich angemeldet')

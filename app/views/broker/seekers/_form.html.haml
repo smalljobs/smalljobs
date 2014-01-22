@@ -1,7 +1,4 @@
-%h2= t('seekers.registrations.new.title')
-%p.lead= t('seekers.registrations.new.lead')
-
-= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { novalidate: true }) do |f|
+= simple_form_for([:broker, @seeker], html: { novalidate: true }) do |f|
 
   - if notification = f.error_notification
     .alert.alert-danger
@@ -14,8 +11,14 @@
 
     .form-inputs
       = f.input :email, required: true, autofocus: true
-      = f.input :password, required: true
-      = f.input :password_confirmation, required: true
+
+      - if @seeker.new_record?
+        = f.input :password, required: true, autocomplete: 'off'
+        = f.input :password_confirmation, required: true
+      - else
+        = f.input :password, required: false, autocomplete: 'off', hint: t('devise_views.leave_empty')
+        = f.input :password_confirmation, required: false
+
       = f.input :date_of_birth, required: true, start_year: Date.today.year - 18, end_year: Date.today.year - 13, include_blank: true
 
   %fieldset
@@ -37,9 +40,13 @@
 
     .form-inputs
       = f.input :phone
+
+      - if @seeker.pending_reconfirmation?
+        %p= t('devise_views.wait_confirmation', email: @seeker.unconfirmed_email)
+
       = f.input :mobile
       = f.input :contact_preference, collection: seeker_contact_preferences
-      = f.input :contact_availability
+      = f.input :contact_availability, hint: ''
 
   %fieldset
     %legend
@@ -49,7 +56,17 @@
     .form-inputs
       = f.association :work_categories, as: :check_boxes
 
-  .form-actions
-    = f.button :submit, t('seekers.registrations.new.register'), class: 'btn btn-primary'
+  %fieldset
+    %legend
+      = t('legends.admin')
+      %i.fa.fa-2x.fa-lock.pull-right
 
-= render 'devise/shared/links'
+    .form-inputs
+      = f.input :active
+      = f.input :confirmed, as: :boolean
+
+  .form-actions
+    - if @seeker.new_record?
+      = f.button :submit, t('common.create'), class: 'btn btn-primary'
+    - else
+      = f.button :submit, t('common.edit'), class: 'btn btn-primary'

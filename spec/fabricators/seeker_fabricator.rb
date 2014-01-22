@@ -10,8 +10,15 @@ Fabricator(:seeker) do
 
   date_of_birth { 15.years.ago }
 
-  email     { Forgery(:internet).email_address }
-  password  { Forgery(:basic).password.rjust(10, 'a') }
+  password { Forgery(:basic).password.rjust(10, 'a') }
+  email    { sequence(:email)  { |i| "seeker#{ i }@example.com" }}
+  phone    { sequence(:phone)  { |i| "0041 056 111 22 3#{ i }" }}
+  mobile   { sequence(:mobile) { |i| "0041 079 111 22 3#{ i }" }}
+
+  contact_preference  { 'mobile' }
+  contact_availability { 'all day' }
+
+  active { true }
 
   contact_preference  { 'mobile' }
   contact_availability { 'all day' }

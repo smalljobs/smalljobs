@@ -1,4 +1,8 @@
 %h2= t('broker_dashboard.title')
 %p.lead= t('broker_dashboard.lead')
 
-= link_to t('broker_dashboard.provider_list'), broker_providers_path
+%ul.list-group
+  %li.list-group-item
+    = link_to t('broker_dashboard.provider_list'), broker_providers_path
+  %li.list-group-item
+    = link_to t('broker_dashboard.seeker_list'), broker_seekers_path

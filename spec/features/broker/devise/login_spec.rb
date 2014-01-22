@@ -21,7 +21,7 @@ feature 'Login' do
       fill_in 'Email',    with: 'rolf@example.com'
       fill_in 'Passwort', with: 'tester1234'
 
-      click_on 'Als Jobvermittler anmelden'
+      click_on 'Als Vermittler anmelden'
 
       within_notifications do
         expect(page).to have_content('Sie müssen Ihren Email bestätigen, bevor Sie fortfahren können.')
@@ -47,7 +47,7 @@ feature 'Login' do
       fill_in 'Email',    with: 'rolf@example.com'
       fill_in 'Passwort', with: 'tester1234'
 
-      click_on 'Als Jobvermittler anmelden'
+      click_on 'Als Vermittler anmelden'
 
       within_notifications do
         expect(page).to have_content('Ihr Konto ist nicht aktiv')
@@ -73,7 +73,7 @@ feature 'Login' do
       fill_in 'Email',    with: 'dani@example.com'
       fill_in 'Passwort', with: 'tester'
 
-      click_on 'Als Jobvermittler anmelden'
+      click_on 'Als Vermittler anmelden'
 
       within_notifications do
         expect(page).to have_content('Ungültige Anmeldedaten')
@@ -88,7 +88,7 @@ feature 'Login' do
       fill_in 'Email',    with: 'rolf@example.com'
       fill_in 'Passwort', with: 'tester1234'
 
-      click_on 'Als Jobvermittler anmelden'
+      click_on 'Als Vermittler anmelden'
 
       within_notifications do
         expect(page).to have_content('Erfolgreich angemeldet')

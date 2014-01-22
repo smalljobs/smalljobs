@@ -12,6 +12,10 @@ class Ability
       can :manage, Provider, Provider.where(zip: broker_zips) do |p|
         p.zip.blank? || broker_zips.include?(p.zip)
       end
+
+      can :manage, Seeker, Seeker.where(zip: broker_zips) do |s|
+        s.zip.blank? || broker_zips.include?(s.zip)
+      end
     end
   end
 end

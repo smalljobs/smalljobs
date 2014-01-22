@@ -23,7 +23,7 @@ feature 'Login' do
         fill_in 'Benutzername', with: 'rolf'
         fill_in 'Passwort',     with: 'tester1234'
 
-        click_on 'Als Jobanbieter anmelden'
+        click_on 'Als Anbieter anmelden'
 
         within_notifications do
           expect(page).to have_content('Wir werden Sie in Kürze kontaktieren um ihren Konto zu bestätigen.')
@@ -50,7 +50,7 @@ feature 'Login' do
         fill_in 'Benutzername', with: 'rolf'
         fill_in 'Passwort',     with: 'tester1234'
 
-        click_on 'Als Jobanbieter anmelden'
+        click_on 'Als Anbieter anmelden'
 
         within_notifications do
           expect(page).to have_content('Sie müssen Ihren Email bestätigen, bevor Sie fortfahren können.')
@@ -78,7 +78,7 @@ feature 'Login' do
       fill_in 'Benutzername', with: 'rolf'
       fill_in 'Passwort',     with: 'tester1234'
 
-      click_on 'Als Jobanbieter anmelden'
+      click_on 'Als Anbieter anmelden'
 
       within_notifications do
         expect(page).to have_content('Ihr Konto ist nicht aktiv')
@@ -105,7 +105,7 @@ feature 'Login' do
       fill_in 'Benutzername', with: 'dani'
       fill_in 'Passwort',     with: 'tester'
 
-      click_on 'Als Jobanbieter anmelden'
+      click_on 'Als Anbieter anmelden'
 
       within_notifications do
         expect(page).to have_content('Ungültige Anmeldedaten')
@@ -120,7 +120,7 @@ feature 'Login' do
       fill_in 'Benutzername', with: 'rolf'
       fill_in 'Passwort',     with: 'tester1234'
 
-      click_on 'Als Jobanbieter anmelden'
+      click_on 'Als Anbieter anmelden'
 
       within_notifications do
         expect(page).to have_content('Erfolgreich angemeldet')

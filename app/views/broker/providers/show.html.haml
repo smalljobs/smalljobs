@@ -3,6 +3,7 @@
 
 .panel.panel-default
   .panel-body
+    .label.label-info= t("contacts.#{ @provider.contact_preference }")
     .status.pull-right= provider_label(@provider)
 
     .row
@@ -33,8 +34,11 @@
             %br
 
       .col-sm-6
-        %p= t('providers.show.contact.preference', preference: t("contacts.#{ @provider.contact_preference }"))
-        %p= t('providers.show.contact.availability', availability: @provider.contact_availability)
+        %br
+
+        - if @provider.contact_availability
+          .well.well-sm
+            = @provider.contact_availability
 
 %ul.nav.nav-pills
   %li= link_to t('common.edit'), edit_broker_provider_path(@provider)

@@ -9,6 +9,60 @@ describe 'routing to the broker dashboard' do
   end
 end
 
+describe 'routing to the broker seeker management' do
+  it 'routes /broker/seekers to broker/seekers#index' do
+    expect(get: '/broker/seekers').to route_to(
+      controller: 'broker/seekers',
+      action:     'index'
+    )
+  end
+
+  it 'routes /broker/seekers/new to broker/seekers#new' do
+    expect(get: '/broker/seekers/new').to route_to(
+      controller: 'broker/seekers',
+      action:     'new'
+    )
+  end
+
+  it 'routes posting to /broker/seekers to broker/seekers#create' do
+    expect(post: '/broker/seekers').to route_to(
+      controller: 'broker/seekers',
+      action:     'create'
+    )
+  end
+
+  it 'routes /broker/seekers/12 to broker/seekers#show' do
+    expect(get: '/broker/seekers/12').to route_to(
+      controller: 'broker/seekers',
+      action:     'show',
+      id:         '12'
+    )
+  end
+
+  it 'routes /broker/seekers/12/edit to broker/seekers#edit' do
+    expect(get: '/broker/seekers/12/edit').to route_to(
+      controller: 'broker/seekers',
+      action:     'edit',
+      id:         '12'
+    )
+  end
+
+  it 'routes patching to /broker/seekers/12 to broker/seekers#update' do
+    expect(patch: '/broker/seekers/12').to route_to(
+      controller: 'broker/seekers',
+      action:     'update',
+      id:         '12'
+    )
+  end
+
+  it 'routes deleting to /broker/seekers/12 to broker/seekers#destroy' do
+    expect(delete: '/broker/seekers/12').to route_to(
+      controller: 'broker/seekers',
+      action:     'destroy',
+      id:         '12'
+    )
+  end
+end
 describe 'routing to the broker provider management' do
   it 'routes /broker/providers to broker/providers#index' do
     expect(get: '/broker/providers').to route_to(

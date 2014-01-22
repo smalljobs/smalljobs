@@ -13,6 +13,7 @@ require 'database_cleaner'
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
+ActiveSupport::Deprecation.silenced = true
 
 Capybara.always_include_port = true
 
