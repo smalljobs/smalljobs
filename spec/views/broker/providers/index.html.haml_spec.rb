@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe 'broker/providers/index.html.haml' do
 
-  let(:provider_A) { Fabricate(:provider) }
-  let(:provider_B) { Fabricate(:provider) }
+  let(:provider_A) { Fabricate(:provider, firstname: 'OlA', lastname: 'HoplA') }
+  let(:provider_B) { Fabricate(:provider, firstname: 'OlB', lastname: 'HoplB') }
 
   context 'with providers' do
     before do
@@ -34,18 +34,18 @@ describe 'broker/providers/index.html.haml' do
 
       context 'list item data' do
         it 'contains the link to show the providers details' do
-          expect(rendered).to have_link('Anzeigen', href: broker_provider_path(provider_A))
-          expect(rendered).to have_link('Anzeigen', href: broker_provider_path(provider_B))
+          expect(rendered).to have_link('OlA HoplA anzeigen', href: broker_provider_path(provider_A))
+          expect(rendered).to have_link('OlB HoplB anzeigen', href: broker_provider_path(provider_B))
         end
 
         it 'contains the link to edit the providers details' do
-          expect(rendered).to have_link('Bearbeiten', href: edit_broker_provider_path(provider_A))
-          expect(rendered).to have_link('Bearbeiten', href: edit_broker_provider_path(provider_B))
+          expect(rendered).to have_link('OlA HoplA bearbeiten', href: edit_broker_provider_path(provider_A))
+          expect(rendered).to have_link('OlB HoplB bearbeiten', href: edit_broker_provider_path(provider_B))
         end
 
         it 'contains the link to destroy the providers' do
-          expect(rendered).to have_link('Löschen', href: broker_provider_path(provider_A))
-          expect(rendered).to have_link('Löschen', href: broker_provider_path(provider_B))
+          expect(rendered).to have_link('OlA HoplA löschen', href: broker_provider_path(provider_A))
+          expect(rendered).to have_link('OlB HoplB löschen', href: broker_provider_path(provider_B))
         end
       end
     end
