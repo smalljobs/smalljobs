@@ -43,9 +43,12 @@ de:
   common:
     sure: "Sind Sie sicher?"
     show: "Anzeigen"
+    show_title: "%{who} anzeigen"
     edit: "Bearbeiten"
+    edit_title: "%{who} bearbeiten"
     create: "Erstellen"
     destroy: "Löschen"
+    destroy_title: "%{who} löschen"
     back: "Zurück"
     unconfirmed: "Unbestätigt"
     active: "Aktiv"

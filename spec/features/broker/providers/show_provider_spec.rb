@@ -27,7 +27,7 @@ feature 'List the providers' do
   scenario 'displays all the user details' do
     visit '/broker/dashboard'
     click_on 'Alle Anbieter anzeigen'
-    click_on 'Anzeigen'
+    click_on 'John Johnetty anzeigen'
 
     expect(page).to have_content('John')
     expect(page).to have_content('Johnetty')
