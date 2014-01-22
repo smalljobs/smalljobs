@@ -42,7 +42,7 @@
       .col-sm-6
         %br
 
-        - if @seeker.contact_availability
+        - if @seeker.contact_availability.present?
           .well.well-sm
             = @seeker.contact_availability
 
