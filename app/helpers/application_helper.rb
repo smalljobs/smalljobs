@@ -58,6 +58,8 @@ module ApplicationHelper
     end
   end
 
+  alias_method :seeker_status_class, :provider_status_class
+
   # Get the table label depending
   # on the provider status
   #
@@ -73,6 +75,8 @@ module ApplicationHelper
       bootstrap_label('success', I18n.t('common.active'))
     end
   end
+
+  alias_method :seeker_label, :provider_label
 
   # Creates a bootstrap label
   #

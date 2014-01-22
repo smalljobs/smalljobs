@@ -21,7 +21,7 @@ feature 'New job seeker registration' do
       fill_in 'Passwortbestätigung', with: 'chicksonspeed'
     end
 
-    click_on 'Als Jobsucher registrieren'
+    click_on 'Als Sucher registrieren'
 
     within_fieldset 'Anmeldedaten' do
       expect(page).to have_content('ist bereits vergeben')
@@ -51,7 +51,7 @@ feature 'New job seeker registration' do
       check 'Computer'
     end
 
-    click_on 'Als Jobsucher registrieren'
+    click_on 'Als Sucher registrieren'
 
     within_notifications do
       expect(page).to have_content('Sie erhalten in wenigen Minuten eine E-Mail mit einem Link für die Bestätigung der Registrierung. Klicken Sie auf den Link um Ihren Konto zu bestätigen.')
@@ -76,7 +76,7 @@ feature 'New job seeker registration' do
 
     scenario 'invites a new job seeker' do
       visit '/admin'
-      click_on 'Suchende'
+      click_on 'Sucher'
       click_on 'Neu hinzufügen'
 
       within_fieldset 'Authentifizierung' do

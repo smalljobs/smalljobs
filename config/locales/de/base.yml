@@ -34,6 +34,7 @@ de:
     address: "Adresse"
     contact: "Kontakt"
     work: "Arbeit"
+    admin: "Administration"
   contacts:
     postal: "Per Post"
     email: "Email"
@@ -81,16 +82,13 @@ de:
         action: "Passwort ändern"
   providers:
     index:
-      title: "Anbieter ihrer Region"
+      title: "Anbieter in deiner Region"
       lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet."
       add_new: "Neuen Anbieter hinzufügen"
       no_providers: "Es sind noch keine Anbieter in deiner Region erfasst."
     show:
       title: "Anbieter %{name}"
       lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet."
-      contact:
-        preference: "Bevorzugt Kontakt via %{preference}"
-        availability: "Am Besten erreichbar: %{availability}"
     new:
       title: "Neuen Anbieter erstellen"
       lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet."
@@ -99,8 +97,8 @@ de:
       lead: "epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet."
     registrations:
       new:
-        title: "Als Jobanbieter registrieren"
-        register: "Als Jobanbieter registrieren"
+        title: "Als Anbieter registrieren"
+        register: "Als Anbieter registrieren"
         lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
       edit:
         title: "Ihre Daten ändern"
@@ -111,14 +109,28 @@ de:
           lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
           action: "Deaktivieren"
     sessions:
-      title: "Als Jobanbieter anmelden"
+      title: "Als Anbieter anmelden"
       lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
-      action: "Als Jobanbieter anmelden"
+      action: "Als Anbieter anmelden"
   seekers:
+    index:
+      title: "Sucher in deiner Region"
+      lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet."
+      add_new: "Neuen Sucher hinzufügen"
+      no_seekers: "Es sind noch keine Sucher in deiner Region erfasst."
+    show:
+      title: "Sucher %{name}"
+      lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet."
+    new:
+      title: "Neuen Sucher erstellen"
+      lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet."
+    edit:
+      title: "Sucher %{name} bearbeiten"
+      lead: "epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet."
     registrations:
       new:
-        title: "Als Jobsucher registrieren"
-        register: "Als Jobsucher registrieren"
+        title: "Als Sucher registrieren"
+        register: "Als Sucher registrieren"
         lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
       edit:
         title: "Ihre Daten ändern"
@@ -131,7 +143,7 @@ de:
     sessions:
       title: "Als Sucher anmelden"
       lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
-      action: "Als Jobsucher anmelden"
+      action: "Als Sucher anmelden"
   brokers:
     not_responsible: "Sie können keinen Provider ausserhalb ihrer Region definieren."
     registrations:
@@ -144,9 +156,9 @@ de:
           lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
           action: "Deaktivieren"
     sessions:
-      title: "Als Jobvermittler anmelden"
+      title: "Als Vermittler anmelden"
       lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
-      action: "Als Jobvermittler anmelden"
+      action: "Als Vermittler anmelden"
   pages:
     layout:
       title: "SmallJobs"
@@ -186,6 +198,7 @@ de:
     title: 'Übersicht'
     lead: "Veggies sunt bona vobis, proinde vos postulo esse magis dandelion ricebean courgette pumpkin tomatillo sea lettuce epazote gumbo summer purslane kakadu plum."
     provider_list: 'Alle Anbieter anzeigen'
+    seeker_list: 'Alle Sucher anzeigen'
   seeker_dashboard:
     title: 'Übersicht'
   errors:

@@ -2,13 +2,13 @@
 
 require 'spec_helper'
 
-feature 'Destroy a provider' do
+feature 'Destroy a seeker' do
   let(:user) do
     Fabricate(:broker_with_regions)
   end
 
   background do
-    Fabricate(:provider, {
+    Fabricate(:seeker, {
       firstname: 'Dora',
       lastname: 'Doretty',
       zip: '1235',
@@ -18,13 +18,13 @@ feature 'Destroy a provider' do
     login_as(user, scope: :broker)
   end
 
-  scenario 'remove the provider' do
+  scenario 'remove the seeker' do
     visit '/broker/dashboard'
-    click_on 'Alle Anbieter anzeigen'
+    click_on 'Alle Sucher anzeigen'
     click_on 'Dora Doretty löschen'
 
     within_notifications do
-      expect(page).to have_content('Anbieter wurde erfolgreich gelöscht.')
+      expect(page).to have_content('Sucher wurde erfolgreich gelöscht.')
     end
   end
 

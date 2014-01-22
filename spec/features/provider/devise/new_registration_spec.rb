@@ -18,7 +18,7 @@ feature 'New job provider registration' do
       fill_in 'Passwortbestätigung', with: 'chicksonspeed'
     end
 
-    click_on 'Als Jobanbieter registrieren'
+    click_on 'Als Anbieter registrieren'
 
     within_fieldset 'Anmeldedaten' do
       expect(page).to have_content('ist bereits vergeben')
@@ -33,7 +33,7 @@ feature 'New job provider registration' do
       fill_in 'Email',  with: 'existing@example.com'
     end
 
-    click_on 'Als Jobanbieter registrieren'
+    click_on 'Als Anbieter registrieren'
 
     within_fieldset 'Kontakt' do
       expect(page).to have_content('ist bereits vergeben')
@@ -58,7 +58,7 @@ feature 'New job provider registration' do
       fill_in 'Ort',      with: 'Gockelwil'
     end
 
-    click_on 'Als Jobanbieter registrieren'
+    click_on 'Als Anbieter registrieren'
 
     within_notifications do
       expect(page).to have_content('Da Sie keine Email angegeben haben, müssen wir Sie zur Bestätigung persönlich kontaktieren. Wir werden uns in Kürze bei Ihnen melden.')
@@ -89,7 +89,7 @@ feature 'New job provider registration' do
       fill_in 'Email',  with: 'rolf@example.com'
     end
 
-    click_on 'Als Jobanbieter registrieren'
+    click_on 'Als Anbieter registrieren'
 
     within_notifications do
       expect(page).to have_content('Sie erhalten in wenigen Minuten eine E-Mail mit einem Link für die Bestätigung der Registrierung. Klicken Sie auf den Link um Ihren Konto zu bestätigen.')
