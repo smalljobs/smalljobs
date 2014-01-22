@@ -8,6 +8,7 @@ feature 'Login' do
       background do
         Fabricate(:provider,
                   username: 'rolf',
+                  email: nil,
                   password: 'tester1234',
                   password_confirmation: 'tester1234',
                   confirmed: false,
