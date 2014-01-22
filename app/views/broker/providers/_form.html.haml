@@ -47,6 +47,15 @@
       = f.input :contact_preference, collection: provider_contact_preferences
       = f.input :contact_availability, hint: ''
 
+  %fieldset
+    %legend
+      = t('legends.admin')
+      %i.fa.fa-2x.fa-lock.pull-right
+
+    .form-inputs
+      = f.input :active
+      = f.input :confirmed, as: :boolean
+
   .form-actions
     - if @provider.new_record?
       = f.button :submit, t('common.create'), class: 'btn btn-primary'

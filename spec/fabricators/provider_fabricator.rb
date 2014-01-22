@@ -11,6 +11,10 @@ Fabricator(:provider) do
   zip    { Random.rand(9999).to_s.rjust(4, '0') }
   city   { Forgery(:address).city }
 
+  email  { sequence(:email)  { |i| "user#{ i }@example.com" }}
+  phone  { sequence(:phone)  { |i| "0041 056 111 22 3#{ i }" }}
+  mobile { sequence(:mobile) { |i| "0041 079 111 22 3#{ i }" }}
+
   contact_preference  { 'mobile' }
   contact_availability { 'all day' }
 

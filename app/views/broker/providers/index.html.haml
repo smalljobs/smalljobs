@@ -11,6 +11,10 @@
       %th= t('activerecord.attributes.provider.city')
       %th{ colspan: 3 }
 
+    - if @providers.size == 0
+      %tr
+        %td{ colspan: 8 }= t('providers.index.no_providers')
+
     - @providers.each do |provider|
       %tr{ class: provider_status_class(provider) }
         %td
@@ -20,8 +24,8 @@
         %td= provider.zip
         %td= provider.city
 
-        %td= link_to '', broker_provider_path(provider), class: 'fa fa-eye', title: t('common.show')
-        %td= link_to '', edit_broker_provider_path(provider), class: 'fa fa-pencil', title: t('common.edit')
-        %td= link_to '', broker_provider_path(provider), method: :delete, data: { confirm: t('common.sure') }, class: 'fa fa-trash-o'
+        %td= link_to '', broker_provider_path(provider), class: 'fa fa-eye', title: t('common.show_title', who: provider.name)
+        %td= link_to '', edit_broker_provider_path(provider), class: 'fa fa-pencil', title: t('common.edit_title', who: provider.name)
+        %td= link_to '', broker_provider_path(provider), method: :delete, title: t('common.destroy_title', who: provider.name), data: { confirm: t('common.sure') }, class: 'fa fa-trash-o'
 
 = link_to t('providers.index.add_new'), new_broker_provider_path, class: 'btn btn-primary'

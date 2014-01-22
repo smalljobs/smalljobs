@@ -23,48 +23,12 @@ describe Ability do
     let(:user) { Fabricate(:broker_with_regions) }
     let(:ability) { Ability.new(user) }
 
-    context 'providers' do
-      it 'can instantiate a provider without region' do
-        expect(ability).to be_able_to(:new, Fabricate.build(:provider, zip: nil))
-      end
+    it 'can manage all providers' do
+      expect(ability).to be_able_to(:manage, Provider)
+    end
 
-      it 'can move a provider into another region' do
-        expect(ability).to be_able_to(:update, Fabricate(:provider, zip: '9999'))
-      end
-
-      context 'with region restriction' do
-        it 'can read a providers in his region' do
-          expect(ability).to be_able_to(:read, Fabricate(:provider, zip: '1234'))
-        end
-
-        it 'cannot read providers not in his region' do
-          expect(ability).to_not be_able_to(:read, Fabricate(:provider, zip: '9999'))
-        end
-
-        it 'can create a providers in his region' do
-          expect(ability).to be_able_to(:create, Fabricate(:provider, zip: '1234'))
-        end
-
-        it 'cannot create providers not in his region' do
-          expect(ability).to_not be_able_to(:create, Fabricate(:provider, zip: '9999'))
-        end
-
-        it 'can edit a providers in his region' do
-          expect(ability).to be_able_to(:edit, Fabricate(:provider, zip: '1234'))
-        end
-
-        it 'cannot edit providers not in his region' do
-          expect(ability).to_not be_able_to(:edit, Fabricate(:provider, zip: '9999'))
-        end
-
-        it 'can destroy providers in his region' do
-          expect(ability).to be_able_to(:destroy, Fabricate(:provider, zip: '1234'))
-        end
-
-        it 'cannot destroy providers not in his region' do
-          expect(ability).to_not be_able_to(:destroy, Fabricate(:provider, zip: '9999'))
-        end
-      end
+    it 'cannot read providers not in his region' do
+      expect(ability).to_not be_able_to(:read, Fabricate(:provider, zip: '9999'))
     end
   end
 end

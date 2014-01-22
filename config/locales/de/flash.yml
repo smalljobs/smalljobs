@@ -1,0 +1,12 @@
+de:
+  flash:
+    actions:
+      create:
+        notice: "%{resource_name} wurde erfolgreich erstellt."
+      update:
+        notice: "%{resource_name} wurde erfolgreich aktualisiert."
+      destroy:
+        notice: "%{resource_name} wurde erfolgreich gelöscht."
+        alert: "%{resource_name} konnte nicht gelöscht werden."
+  unauthorized:
+    default: "Sie haben keinen Zugriff auf diese Seite."

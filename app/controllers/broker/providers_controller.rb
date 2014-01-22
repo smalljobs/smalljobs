@@ -15,7 +15,7 @@ class Broker::ProvidersController < InheritedResources::Base
   end
 
   def permitted_params
-    params.permit(provider: [:id, :username, :password, :password_confirmation, :firstname, :lastname, :street, :zip, :city, :email, :phone, :mobile, :contact_preference, :contact_availability])
+    params.permit(provider: [:id, :username, :password, :password_confirmation, :firstname, :lastname, :street, :zip, :city, :email, :phone, :mobile, :contact_preference, :contact_availability, :active, :confirmed])
   end
 
 end

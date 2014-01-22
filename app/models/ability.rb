@@ -7,9 +7,11 @@ class Ability
       can :manage, :all
 
     elsif user.is_a?(Broker)
-      clear_aliased_actions
-      can [:new, :update], Provider
-      can :manage, Provider, zip: user.places.pluck(:zip)
+      broker_zips = user.places.pluck(:zip)
+
+      can :manage, Provider, Provider.where(zip: broker_zips) do |p|
+        p.zip.blank? || broker_zips.include?(p.zip)
+      end
     end
   end
 end
