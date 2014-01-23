@@ -36,6 +36,14 @@ class Broker < ActiveRecord::Base
     Seeker.where(zip: places.pluck(:zip))
   end
 
+  # Get the jobs this broker is responsible for
+  #
+  # @return [ActiveRecord::Relation<Seeker>] the seekers
+  #
+  def jobs
+    Job.where(provider_id: providers.pluck(:id))
+  end
+
   # @!group Devise
 
   # Check if the user can log in

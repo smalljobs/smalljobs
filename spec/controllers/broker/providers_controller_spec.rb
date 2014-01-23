@@ -8,6 +8,21 @@ describe Broker::ProvidersController do
     provider_attrs: -> { Fabricate.attributes_for(:provider, zip: '1234') }
   }
 
+  describe '#index' do
+    auth_broker(:broker) { Fabricate(:broker_with_regions) }
+
+    before do
+      Fabricate(:provider, zip: '1234')
+      Fabricate(:provider, zip: '1235')
+      Fabricate(:provider, zip: '9999')
+    end
+
+    it 'shows only providers in the broker regions' do
+      get :index
+      expect(assigns(:providers).count).to eql(2)
+    end
+  end
+
   describe '#optional_password' do
     let(:provider) { Fabricate(:provider, zip: '1234') }
 

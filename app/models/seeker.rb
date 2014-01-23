@@ -5,6 +5,7 @@ class Seeker < ActiveRecord::Base
   include ConfirmToggle
 
   has_and_belongs_to_many :work_categories
+  has_and_belongs_to_many :jobs
 
   validates :firstname, :lastname, presence: true
 

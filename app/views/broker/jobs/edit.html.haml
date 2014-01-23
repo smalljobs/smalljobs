@@ -1,0 +1,8 @@
+%h1= t('jobs.edit.title')
+%p.lead= t('jobs.edit.lead')
+
+= render 'form'
+
+%ul.nav.nav-pills
+  %li= link_to t('common.show'), broker_job_path(@job)
+  %li= link_to t('common.back'), broker_jobs_path
