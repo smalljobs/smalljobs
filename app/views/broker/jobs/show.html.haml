@@ -1,0 +1,9 @@
+%h1= t('jobs.show.title')
+%p.lead= t('jobs.show.lead')
+
+.panel.panel-default
+  .panel-body
+
+%ul.nav.nav-pills
+  %li= link_to t('common.edit'), edit_broker_provider_path(@provider)
+  %li= link_to t('common.back'), broker_jobs_path

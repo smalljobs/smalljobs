@@ -13,6 +13,21 @@ describe Broker::SeekersController do
     }
   }
 
+  describe '#index' do
+    auth_broker(:broker) { Fabricate(:broker_with_regions) }
+
+    before do
+      Fabricate(:seeker, zip: '1234')
+      Fabricate(:seeker, zip: '1235')
+      Fabricate(:seeker, zip: '9999')
+    end
+
+    it 'shows only seekers in the broker regions' do
+      get :index
+      expect(assigns(:seekers).count).to eql(2)
+    end
+  end
+
   describe '#optional_password' do
     let(:seeker) { Fabricate(:seeker, zip: '1234') }
 

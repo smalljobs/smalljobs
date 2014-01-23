@@ -199,6 +199,7 @@ de:
     lead: "Veggies sunt bona vobis, proinde vos postulo esse magis dandelion ricebean courgette pumpkin tomatillo sea lettuce epazote gumbo summer purslane kakadu plum."
     provider_list: 'Alle Anbieter anzeigen'
     seeker_list: 'Alle Sucher anzeigen'
+    job_list: 'Alle Jobs anzeigen'
   seeker_dashboard:
     title: 'Übersicht'
   errors:

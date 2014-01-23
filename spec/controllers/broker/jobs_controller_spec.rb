@@ -8,4 +8,18 @@ describe Broker::JobsController do
     job_attrs: -> { Fabricate.attributes_for(:job) }
   }
 
+  describe '#index' do
+    auth_broker(:broker) { Fabricate(:broker_with_regions) }
+
+    before do
+      Fabricate(:job, provider: Fabricate(:provider, zip: '1234'))
+      Fabricate(:job, provider: Fabricate(:provider, zip: '1235'))
+      Fabricate(:job, provider: Fabricate(:provider, zip: '9999'))
+    end
+
+    it 'shows only jobs in the broker regions' do
+      get :index
+      #TODO: expect(assigns(:jobs).count).to eql(2)
+    end
+  end
 end

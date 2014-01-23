@@ -10,4 +10,9 @@ describe 'broker/dashboards/show.html.haml' do
     render
     expect(rendered).to have_link('Alle Sucher anzeigen', broker_seekers_path)
   end
+
+  it 'contains the link to show all jobs' do
+    render
+    expect(rendered).to have_link('Alle Jobs anzeigen', broker_jobs_path)
+  end
 end
