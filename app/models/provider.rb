@@ -4,6 +4,8 @@ class Provider < ActiveRecord::Base
 
   include ConfirmToggle
 
+  has_many :jobs
+
   before_save :nullify_blank_email
 
   validates :username, presence: true, uniqueness: true
