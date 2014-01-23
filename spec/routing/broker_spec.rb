@@ -63,6 +63,7 @@ describe 'routing to the broker seeker management' do
     )
   end
 end
+
 describe 'routing to the broker provider management' do
   it 'routes /broker/providers to broker/providers#index' do
     expect(get: '/broker/providers').to route_to(
@@ -110,6 +111,61 @@ describe 'routing to the broker provider management' do
   end
 
   it 'routes deleting to /broker/providers/12 to broker/providers#destroy' do
+    expect(delete: '/broker/providers/12').to route_to(
+      controller: 'broker/providers',
+      action:     'destroy',
+      id:         '12'
+    )
+  end
+end
+
+describe 'routing to the broker job management' do
+  it 'routes /broker/jobs to broker/jobs#index' do
+    expect(get: '/broker/jobs').to route_to(
+      controller: 'broker/jobs',
+      action:     'index'
+    )
+  end
+
+  it 'routes /broker/jobs/new to broker/jobs#new' do
+    expect(get: '/broker/jobs/new').to route_to(
+      controller: 'broker/jobs',
+      action:     'new'
+    )
+  end
+
+  it 'routes posting to /broker/jobs to broker/jobs#create' do
+    expect(post: '/broker/jobs').to route_to(
+      controller: 'broker/jobs',
+      action:     'create'
+    )
+  end
+
+  it 'routes /broker/jobs/12 to broker/jobs#show' do
+    expect(get: '/broker/jobs/12').to route_to(
+      controller: 'broker/jobs',
+      action:     'show',
+      id:         '12'
+    )
+  end
+
+  it 'routes /broker/jobs/12/edit to broker/jobs#edit' do
+    expect(get: '/broker/jobs/12/edit').to route_to(
+      controller: 'broker/jobs',
+      action:     'edit',
+      id:         '12'
+    )
+  end
+
+  it 'routes patching to /broker/jobs/12 to broker/jobs#update' do
+    expect(patch: '/broker/jobs/12').to route_to(
+      controller: 'broker/jobs',
+      action:     'update',
+      id:         '12'
+    )
+  end
+
+  it 'routes deleting to /broker/jobs/12 to broker/jobs#destroy' do
     expect(delete: '/broker/providers/12').to route_to(
       controller: 'broker/providers',
       action:     'destroy',

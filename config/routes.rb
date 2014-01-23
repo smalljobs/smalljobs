@@ -28,6 +28,7 @@ Smalljobs::Application.routes.draw do
     resource :dashboard, only: :show
     resources :providers
     resources :seekers
+    resources :jobs
   end
 
   namespace :provider do
