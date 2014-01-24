@@ -35,6 +35,7 @@ de:
         updated_at: "Bearbeitet"
       region:
         name: "Name"
+        subdomain: "Subdomäne"
         places: "Orte"
         created_at: "Erstellt"
         updated_at: "Bearbeitet"

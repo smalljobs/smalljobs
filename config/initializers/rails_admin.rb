@@ -99,6 +99,7 @@ RailsAdmin.config do |config|
 
     list do
       field :name
+      field :subdomain
       field :places
     end
 

@@ -41,6 +41,12 @@ de:
     phone: "Telefon"
     mobile: "Mobiltelefon"
     whatsapp: "WhatsApp"
+  validators:
+    subdomain:
+      reserved: "darf nicht ein reservierter Name sein"
+      length: "muss zwischen 3 und 63 Zeichen haben"
+      hyphen: "kann nicht mit einen Bindestrich beginnen oder enden"
+      chars: "muss alphanumerisch sein; A-Z, 0-9 oder Bindestrich"
   common:
     sure: "Sind Sie sicher?"
     show: "Anzeigen"
