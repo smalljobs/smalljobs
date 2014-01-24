@@ -43,6 +43,8 @@ Smalljobs::Application.routes.draw do
   get 'about_us',         to: 'pages#about_us'
   get 'privacy_policy',   to: 'pages#privacy_policy'
   get 'terms_of_service', to: 'pages#terms_of_service'
+  get 'features',         to: 'pages#features'
+  get 'join',             to: 'pages#join'
 
   root 'pages#home'
 end
