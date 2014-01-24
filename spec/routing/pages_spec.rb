@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe 'routing to the pages' do
-  it 'routes / to pages#home' do
-    expect(get: '/').to route_to(
+  it 'routes / to pages#join' do
+    expect(get: '/join').to route_to(
       controller: 'pages',
-      action:     'home'
+      action:     'join'
     )
   end
 
