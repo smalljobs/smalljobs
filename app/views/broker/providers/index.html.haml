@@ -7,8 +7,8 @@
       %th
       %th= t('activerecord.attributes.provider.firstname')
       %th= t('activerecord.attributes.provider.lastname')
-      %th= t('activerecord.attributes.provider.zip')
-      %th= t('activerecord.attributes.provider.city')
+      %th= t('activerecord.attributes.place.zip')
+      %th= t('activerecord.attributes.place.city')
       %th{ colspan: 3 }
 
     - if @providers.size == 0
@@ -21,8 +21,8 @@
           = provider_label(provider)
         %td= provider.firstname
         %td= provider.lastname
-        %td= provider.zip
-        %td= provider.city
+        %td= provider.place.zip
+        %td= provider.place.name
 
         %td= link_to '', broker_provider_path(provider), class: 'fa fa-eye', title: t('common.show_title', who: provider.name)
         %td= link_to '', edit_broker_provider_path(provider), class: 'fa fa-pencil', title: t('common.edit_title', who: provider.name)

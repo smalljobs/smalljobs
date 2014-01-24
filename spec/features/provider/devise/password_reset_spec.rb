@@ -3,6 +3,8 @@
 require 'spec_helper'
 
 feature 'Password reset' do
+  let(:region) { Fabricate(:region, name: 'Bremgarten') }
+
   context 'with an unconfirmed user' do
     background do
       Fabricate(:provider,
@@ -15,7 +17,8 @@ feature 'Password reset' do
     end
 
     scenario 'using valid credentials' do
-      visit '/'
+      visit_on region, '/'
+
       click_on 'Anmelden'
       click_on 'Anbieter'
       click_on 'Passwort vergessen?'
@@ -55,7 +58,8 @@ feature 'Password reset' do
     end
 
     scenario 'using valid credentials' do
-      visit '/'
+      visit_on region, '/'
+
       click_on 'Anmelden'
       click_on 'Anbieter'
       click_on 'Passwort vergessen?'
@@ -95,7 +99,8 @@ feature 'Password reset' do
     end
 
     scenario 'using invalid email' do
-      visit '/'
+      visit_on region, '/'
+
       click_on 'Anmelden'
       click_on 'Anbieter'
       click_on 'Passwort vergessen?'
@@ -108,7 +113,8 @@ feature 'Password reset' do
     end
 
     scenario 'using valid credentials' do
-      visit '/'
+      visit_on region, '/'
+
       click_on 'Anmelden'
       click_on 'Anbieter'
       click_on 'Passwort vergessen?'

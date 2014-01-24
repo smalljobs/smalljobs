@@ -31,8 +31,7 @@
       = f.input :firstname, required: true
       = f.input :lastname, required: true
       = f.input :street, required: true
-      = f.input :zip, required: true
-      = f.input :city, required: true
+      = f.input :place, required: true, collection: current_region.places
 
   %fieldset
     %legend

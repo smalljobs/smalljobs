@@ -3,13 +3,17 @@
 require 'spec_helper'
 
 feature 'New job provider registration' do
+
+  let(:region) { Fabricate(:region, name: 'Bremgarten') }
+
   background do
     Fabricate(:provider, username: 'existing')
     Fabricate(:provider, email: 'existing@example.com')
   end
 
   scenario 'with a duplicate username' do
-    visit '/'
+    visit_on region, '/'
+
     click_on 'Als Anbieter registrieren'
 
     within_fieldset 'Anmeldedaten' do
@@ -26,7 +30,8 @@ feature 'New job provider registration' do
   end
 
   scenario 'with a duplicate email' do
-    visit '/'
+    visit_on region, '/'
+
     click_on 'Als Anbieter registrieren'
 
     within_fieldset 'Kontakt' do
@@ -41,7 +46,8 @@ feature 'New job provider registration' do
   end
 
   scenario 'without an email' do
-    visit '/'
+    visit_on region, '/'
+
     click_on 'Als Anbieter registrieren'
 
     within_fieldset 'Anmeldedaten' do
@@ -68,7 +74,8 @@ feature 'New job provider registration' do
   end
 
   scenario 'with a valid email' do
-    visit '/'
+    visit_on region, '/'
+
     click_on 'Als Anbieter registrieren'
 
     within_fieldset 'Anmeldedaten' do

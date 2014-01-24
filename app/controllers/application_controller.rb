@@ -17,10 +17,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  helper_method :current_region
+
   protected
 
   def current_user
     current_admin || current_broker || current_provider || current_seeker
+  end
+
+  def current_region
+    @region ||= Region.find_by_subdomain(request.subdomain)
   end
 
   def after_sign_in_path_for(resource)

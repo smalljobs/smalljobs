@@ -3,23 +3,22 @@
 require 'spec_helper'
 
 feature 'Destroy a provider' do
-  let(:user) do
+  let(:broker) do
     Fabricate(:broker_with_regions)
   end
 
   background do
     Fabricate(:provider, {
       firstname: 'Dora',
-      lastname: 'Doretty',
-      zip: '1235',
-      city: 'Hierwil'
+      lastname: 'Doretty'
     })
 
-    login_as(user, scope: :broker)
+    login_as(broker, scope: :broker)
   end
 
   scenario 'remove the provider' do
-    visit '/broker/dashboard'
+    visit_on broker, '/broker/dashboard'
+
     click_on 'Alle Anbieter anzeigen'
     click_on 'Dora Doretty löschen'
 

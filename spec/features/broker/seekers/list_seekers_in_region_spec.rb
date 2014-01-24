@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 feature 'List the seekers' do
-  let(:user) do
+  let(:broker) do
     Fabricate(:broker_with_regions)
   end
 
@@ -29,11 +29,12 @@ feature 'List the seekers' do
       city: 'Dawil'
     })
 
-    login_as(user, scope: :broker)
+    login_as(broker, scope: :broker)
   end
 
   scenario 'displays the seeker in the broker region' do
-    visit '/broker/dashboard'
+    visit_on broker, '/broker/dashboard'
+
     click_on 'Alle Sucher anzeigen'
 
     expect(page).to have_content 'John'
@@ -48,7 +49,7 @@ feature 'List the seekers' do
   end
 
   scenario 'hides the seeker not in the broker region' do
-    visit '/broker/dashboard'
+    visit_on broker, '/broker/dashboard'
     click_on 'Alle Sucher anzeigen'
 
     expect(page).to_not have_content 'Jan'

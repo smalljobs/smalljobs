@@ -3,6 +3,8 @@
 require 'spec_helper'
 
 feature 'Logout' do
+  let(:region) { Fabricate(:region, name: 'Bremgarten') }
+
   let(:user) do
     Fabricate(:seeker,
               email: 'rolf@example.com',
@@ -15,7 +17,7 @@ feature 'Logout' do
   end
 
   scenario 'Successfully log out' do
-    visit '/seeker/dashboard'
+    visit_on region, '/seeker/dashboard'
     click_on 'Abmelden'
 
     within_notifications do

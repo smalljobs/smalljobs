@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 feature 'Add a new provider' do
-  let(:user) do
+  let(:broker) do
     Fabricate(:broker_with_regions)
   end
 
@@ -11,11 +11,12 @@ feature 'Add a new provider' do
     Fabricate(:provider, username: 'existing')
     Fabricate(:provider, email: 'existing@example.com')
 
-    login_as(user, scope: :broker)
+    login_as(broker, scope: :broker)
   end
 
   scenario 'with a duplicate username' do
-    visit '/broker/dashboard'
+    visit_on broker, '/broker/dashboard'
+
     click_on 'Alle Anbieter anzeigen'
     click_on 'Neuen Anbieter hinzufügen'
 
@@ -33,7 +34,8 @@ feature 'Add a new provider' do
   end
 
   scenario 'with a duplicate email' do
-    visit '/broker/dashboard'
+    visit_on broker, '/broker/dashboard'
+
     click_on 'Alle Anbieter anzeigen'
     click_on 'Neuen Anbieter hinzufügen'
 
@@ -51,7 +53,8 @@ feature 'Add a new provider' do
   end
 
   scenario 'with valid data' do
-    visit '/broker/dashboard'
+    visit_on broker, '/broker/dashboard'
+
     click_on 'Alle Anbieter anzeigen'
     click_on 'Neuen Anbieter hinzufügen'
 

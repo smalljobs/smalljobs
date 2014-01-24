@@ -31,24 +31,9 @@ describe Organization do
     end
   end
 
-  describe '#zip' do
-    it 'is not valid without a zip' do
-      expect(Fabricate.build(:organization, zip: nil)).not_to be_valid
-    end
-
-    it 'must conform to Swiss zip format' do
-      expect(Fabricate.build(:organization, zip: '123a')).not_to be_valid
-      expect(Fabricate.build(:organization, zip: '123')).not_to be_valid
-      expect(Fabricate.build(:organization, zip: '12345')).not_to be_valid
-      expect(Fabricate.build(:organization, zip: '1')).not_to be_valid
-
-      expect(Fabricate.build(:organization, zip: '1234')).to be_valid
-    end
-  end
-
-  describe '#city' do
-    it 'is not valid without a city' do
-      expect(Fabricate.build(:organization, city: nil)).not_to be_valid
+  describe '#place' do
+    it 'is not valid without a place' do
+      expect(Fabricate.build(:organization, place: nil)).not_to be_valid
     end
   end
 

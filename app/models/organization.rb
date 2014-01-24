@@ -6,8 +6,7 @@ class Organization < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
   validates :website, url: true, allow_blank: true, allow_nil: true
 
-  validates :street, :zip, :city, presence: true
-  validates :zip, postal_code: { country: :ch }
+  validates :street, :place, presence: true
 
   validates :email, email: true, presence: true
   validates :phone, phony_plausible: true, allow_blank: true, allow_nil: true

@@ -4,7 +4,7 @@ describe Broker::ProvidersController do
 
   it_should_behave_like 'a protected controller', :broker, :provider, :all, {
     broker:         -> { Fabricate(:broker_with_regions) },
-    provider:       -> { Fabricate(:provider, zip: '1234') },
+    provider:       -> { Fabricate(:provider, Fabricate(:place, zip: '1234')) },
     provider_attrs: -> { Fabricate.attributes_for(:provider, zip: '1234') }
   }
 
@@ -12,9 +12,9 @@ describe Broker::ProvidersController do
     auth_broker(:broker) { Fabricate(:broker_with_regions) }
 
     before do
-      Fabricate(:provider, zip: '1234')
-      Fabricate(:provider, zip: '1235')
-      Fabricate(:provider, zip: '9999')
+      Fabricate(:provider, Fabricate(:place, zip: '1234'))
+      Fabricate(:provider, Fabricate(:place, zip: '1235'))
+      Fabricate(:provider, Fabricate(:place, zip: '9999'))
     end
 
     it 'shows only providers in the broker regions' do
@@ -24,7 +24,7 @@ describe Broker::ProvidersController do
   end
 
   describe '#optional_password' do
-    let(:provider) { Fabricate(:provider, zip: '1234') }
+    let(:provider) { Fabricate(:provider, Fabricate(:place, zip: '1234')) }
 
     before do
       authenticate(:broker, Fabricate(:broker_with_regions))

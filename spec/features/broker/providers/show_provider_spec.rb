@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 feature 'List the providers' do
-  let(:user) do
+  let(:broker) do
     Fabricate(:broker_with_regions)
   end
 
@@ -21,11 +21,12 @@ feature 'List the providers' do
       contact_availability: 'Am Abend'
     })
 
-    login_as(user, scope: :broker)
+    login_as(broker, scope: :broker)
   end
 
   scenario 'displays all the user details' do
-    visit '/broker/dashboard'
+    visit_on broker, '/broker/dashboard'
+
     click_on 'Alle Anbieter anzeigen'
     click_on 'John Johnetty anzeigen'
 

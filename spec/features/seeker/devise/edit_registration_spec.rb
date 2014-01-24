@@ -3,7 +3,9 @@
 require 'spec_helper'
 
 feature 'Edit registration profile' do
-  let(:user) do
+  let(:region) { Fabricate(:region, name: 'Bremgarten') }
+
+  let(:seeker) do
     Fabricate(:seeker,
               email: 'rolf@example.com',
               password: 'tester1234',
@@ -15,11 +17,12 @@ feature 'Edit registration profile' do
     Fabricate(:work_category, name: 'Tiere')
     Fabricate(:work_category, name: 'Computer')
 
-    login_as(user, scope: :seeker)
+    login_as(seeker, scope: :seeker)
   end
 
   scenario 'Edit the credentials' do
-    visit '/seeker/dashboard'
+    visit_on region, '/seeker/dashboard'
+
     click_on 'Profil'
 
     within_fieldset 'Anmeldedaten' do
@@ -44,7 +47,8 @@ feature 'Edit registration profile' do
   end
 
   scenario 'Edit the address' do
-    visit '/seeker/dashboard'
+    visit_on region, '/seeker/dashboard'
+
     click_on 'Profil'
 
     within_fieldset 'Adresse' do
@@ -64,7 +68,8 @@ feature 'Edit registration profile' do
   end
 
   scenario 'Edit the contact' do
-    visit '/seeker/dashboard'
+    visit_on region, '/seeker/dashboard'
+
     click_on 'Profil'
 
     within_fieldset 'Kontakt' do
@@ -85,7 +90,8 @@ feature 'Edit registration profile' do
   end
 
   scenario 'Edit the works' do
-    visit '/seeker/dashboard'
+    visit_on region, '/seeker/dashboard'
+
     click_on 'Profil'
 
     within_fieldset 'Arbeit' do

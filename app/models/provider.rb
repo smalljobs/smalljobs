@@ -5,14 +5,14 @@ class Provider < ActiveRecord::Base
   include ConfirmToggle
 
   has_many :jobs
+  belongs_to :place
 
   before_save :nullify_blank_email
 
   validates :username, presence: true, uniqueness: true
   validates :firstname, :lastname, presence: true
 
-  validates :street, :zip, :city, presence: true
-  validates :zip, postal_code: { country: :ch }
+  validates :street, :place, presence: true
 
   validates :email, email: true, allow_blank: true, allow_nil: true
   validates :phone, :mobile, phony_plausible: true
@@ -37,6 +37,15 @@ class Provider < ActiveRecord::Base
   #
   def contact_preference_enum
     %w(email phone mobile postal)
+  end
+
+  # Get the list of subdomains the current broker can
+  # access.
+  #
+  # @return [Array<String>] the subdomains
+  #
+  def subdomains
+    place.try(:region) ? [place.region.subdomain] : []
   end
 
   # @!group Devise

@@ -3,6 +3,8 @@
 require 'spec_helper'
 
 feature 'Login' do
+  let(:region) { Fabricate(:region, name: 'Bremgarten') }
+
   context 'with an unconfirmed user' do
     background do
       Fabricate(:seeker,
@@ -14,7 +16,8 @@ feature 'Login' do
     end
 
     scenario 'using valid credentials' do
-      visit '/'
+      visit_on region, '/'
+
       click_on 'Anmelden'
       click_on 'Sucher'
 
@@ -40,7 +43,8 @@ feature 'Login' do
     end
 
     scenario 'using valid credentials' do
-      visit '/'
+      visit_on region, '/'
+
       click_on 'Anmelden'
       click_on 'Sucher'
 
@@ -66,7 +70,8 @@ feature 'Login' do
     end
 
     scenario 'using invalid credentials' do
-      visit '/'
+      visit_on region, '/'
+
       click_on 'Anmelden'
       click_on 'Sucher'
 
@@ -81,7 +86,8 @@ feature 'Login' do
     end
 
     scenario 'using valid credentials' do
-      visit '/'
+      visit_on region, '/'
+
       click_on 'Anmelden'
       click_on 'Sucher'
 

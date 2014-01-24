@@ -7,6 +7,24 @@ module Support
   #
   module Feature
 
+    # Visits a path on a subdomain
+    #
+    # @param [Model] the model providing the subdomain info
+    # @param [String] the path to visit
+    #
+    def visit_on(model, path)
+      case model
+      when Region
+        host = "http://#{ region.subdomain }.lvh.me"
+      when Broker
+        host = "http://#{ broker.regions.first.subdomain }.lvh.me"
+      else
+        host = ''
+      end
+
+      visit(host + path)
+    end
+
     # Scopes the block actions to a flash notification
     #
     # The name of the section will be converted to lowercase

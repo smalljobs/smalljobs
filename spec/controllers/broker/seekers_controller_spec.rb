@@ -6,7 +6,7 @@ describe Broker::SeekersController do
     broker:       -> { Fabricate(:broker_with_regions) },
     seeker:       -> { Fabricate(:seeker, zip: '1234') },
     seeker_attrs: -> {
-      attrs = Fabricate.attributes_for(:seeker, zip: '1234')
+      attrs = Fabricate.attributes_for(:seeker, Fabricate(:place, zip: '1234'))
       attrs[:work_categories].map(&:save)
       attrs[:work_category_ids] = attrs[:work_categories].map(&:id)
       attrs
@@ -17,9 +17,9 @@ describe Broker::SeekersController do
     auth_broker(:broker) { Fabricate(:broker_with_regions) }
 
     before do
-      Fabricate(:seeker, zip: '1234')
-      Fabricate(:seeker, zip: '1235')
-      Fabricate(:seeker, zip: '9999')
+      Fabricate(:seeker, Fabricate(:place, zip: '1234'))
+      Fabricate(:seeker, Fabricate(:place, zip: '1235'))
+      Fabricate(:seeker, Fabricate(:place, zip: '9999'))
     end
 
     it 'shows only seekers in the broker regions' do
@@ -29,7 +29,7 @@ describe Broker::SeekersController do
   end
 
   describe '#optional_password' do
-    let(:seeker) { Fabricate(:seeker, zip: '1234') }
+    let(:seeker) { Fabricate(:seeker, Fabricate(:place, zip: '1234')) }
 
     before do
       authenticate(:broker, Fabricate(:broker_with_regions))

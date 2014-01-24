@@ -18,6 +18,16 @@ describe Region do
     end
   end
 
+  describe '#subdomain' do
+    it 'is not valid without a subname' do
+      expect(Fabricate.build(:region, subdomain: nil)).not_to be_valid
+    end
+
+    it 'must be a valid subdomain' do
+      expect(Fabricate.build(:region, subdomain: 'Yo Land')).not_to be_valid
+    end
+  end
+
   describe '#places' do
     it 'needs at least one place' do
       expect(Fabricate.build(:region, places: [])).not_to be_valid

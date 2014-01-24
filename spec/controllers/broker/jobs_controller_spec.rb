@@ -12,9 +12,9 @@ describe Broker::JobsController do
     auth_broker(:broker) { Fabricate(:broker_with_regions) }
 
     before do
-      Fabricate(:job, provider: Fabricate(:provider, zip: '1234'))
-      Fabricate(:job, provider: Fabricate(:provider, zip: '1235'))
-      Fabricate(:job, provider: Fabricate(:provider, zip: '9999'))
+      Fabricate(:job, provider: Fabricate(:provider, Fabricate(:place, zip: '1234')))
+      Fabricate(:job, provider: Fabricate(:provider, Fabricate(:place, zip: '1235')))
+      Fabricate(:job, provider: Fabricate(:provider, Fabricate(:place, zip: '9999')))
     end
 
     it 'shows only jobs in the broker regions' do

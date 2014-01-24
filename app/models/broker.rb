@@ -5,6 +5,9 @@ class Broker < ActiveRecord::Base
   has_many :organizations, through: :employments
   has_many :regions, through: :employments
   has_many :places, through: :regions
+  has_many :providers, through: :places
+  has_many :seekers, through: :places
+  has_many :jobs, through: :providers
 
   validates :firstname, :lastname, :phone, presence: true
   validates :phone, :mobile, phony_plausible: true
@@ -20,28 +23,13 @@ class Broker < ActiveRecord::Base
     "#{ firstname } #{ lastname }"
   end
 
-  # Get the provider this broker is responsible for
+  # Get the list of subdomains the current broker can
+  # access.
   #
-  # @return [ActiveRecord::Relation<Provider>] the providers
+  # @return [Array<String>] the subdomains
   #
-  def providers
-    Provider.where(zip: places.pluck(:zip))
-  end
-
-  # Get the seekers this broker is responsible for
-  #
-  # @return [ActiveRecord::Relation<Seeker>] the seekers
-  #
-  def seekers
-    Seeker.where(zip: places.pluck(:zip))
-  end
-
-  # Get the jobs this broker is responsible for
-  #
-  # @return [ActiveRecord::Relation<Seeker>] the seekers
-  #
-  def jobs
-    Job.where(provider_id: providers.pluck(:id))
+  def subdomains
+    regions.pluck(:subdomain)
   end
 
   # @!group Devise

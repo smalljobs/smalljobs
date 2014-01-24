@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 feature 'Edit a seeker' do
-  let(:user) do
+  let(:broker) do
     Fabricate(:broker_with_regions)
   end
 
@@ -15,11 +15,12 @@ feature 'Edit a seeker' do
       city: 'Hierwil'
     })
 
-    login_as(user, scope: :broker)
+    login_as(broker, scope: :broker)
   end
 
   scenario 'updates the seeker data' do
-    visit '/broker/dashboard'
+    visit_on broker, '/broker/dashboard'
+
     click_on 'Alle Sucher anzeigen'
     click_on 'Dora Doretty bearbeiten'
 

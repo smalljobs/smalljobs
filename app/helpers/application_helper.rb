@@ -1,6 +1,5 @@
 module ApplicationHelper
 
-
   # Get the translated select options for
   # the provider contact preferences.
   #

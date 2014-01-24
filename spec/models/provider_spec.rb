@@ -37,24 +37,9 @@ describe Provider do
       end
     end
 
-    describe '#zip' do
-      it 'is not valid without a zip' do
-        expect(Fabricate.build(:provider, zip: nil)).not_to be_valid
-      end
-
-      it 'must conform to Swiss zip format' do
-        expect(Fabricate.build(:provider, zip: '123a')).not_to be_valid
-        expect(Fabricate.build(:provider, zip: '123')).not_to be_valid
-        expect(Fabricate.build(:provider, zip: '12345')).not_to be_valid
-        expect(Fabricate.build(:provider, zip: '1')).not_to be_valid
-
-        expect(Fabricate.build(:provider, zip: '1234')).to be_valid
-      end
-    end
-
-    describe '#city' do
-      it 'is not valid without a city' do
-        expect(Fabricate.build(:provider, city: nil)).not_to be_valid
+    describe '#place' do
+      it 'is not valid without a place' do
+        expect(Fabricate.build(:provider, place: nil)).not_to be_valid
       end
     end
 
@@ -113,6 +98,19 @@ describe Provider do
         expect(Fabricate.build(:provider, contact_preference: 'phone', contact_availability: nil)).not_to be_valid
         expect(Fabricate.build(:provider, contact_preference: 'mobile', contact_availability: nil)).not_to be_valid
       end
+    end
+  end
+
+  describe '#subdomains' do
+    let(:place)  { Fabricate(:place) }
+    let(:provider) { Fabricate(:provider, place: place) }
+
+    before do
+      Fabricate(:region, subdomain: 'myregion', places: [place])
+    end
+
+    it 'returns the provider subdomains' do
+      expect(provider.subdomains).to eql(['myregion'])
     end
   end
 

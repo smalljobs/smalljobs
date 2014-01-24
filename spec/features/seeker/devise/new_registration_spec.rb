@@ -3,6 +3,8 @@
 require 'spec_helper'
 
 feature 'New job seeker registration' do
+  let(:region) { Fabricate(:region, name: 'Bremgarten') }
+
   background do
     Fabricate(:work_category, name: 'Garten')
     Fabricate(:work_category, name: 'Tiere')
@@ -12,7 +14,8 @@ feature 'New job seeker registration' do
   end
 
   scenario 'with a duplicate email' do
-    visit '/'
+    visit_on region, '/'
+
     click_on 'Als Sucher registrieren'
 
     within_fieldset 'Anmeldedaten' do
@@ -29,7 +32,8 @@ feature 'New job seeker registration' do
   end
 
   scenario 'with valid data' do
-    visit '/'
+    visit_on region, '/'
+
     click_on 'Als Sucher registrieren'
 
     within_fieldset 'Anmeldedaten' do
@@ -76,6 +80,7 @@ feature 'New job seeker registration' do
 
     scenario 'invites a new job seeker' do
       visit '/admin'
+
       click_on 'Sucher'
       click_on 'Neu hinzufügen'
 

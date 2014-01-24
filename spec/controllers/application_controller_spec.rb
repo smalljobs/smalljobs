@@ -89,6 +89,18 @@ describe ApplicationController do
     end
   end
 
+  describe '#current_region' do
+    let(:region) { Fabricate(:region) }
+
+    before do
+      controller.request.stub(subdomain: region.subdomain)
+    end
+
+    it 'returns the current region' do
+      expect(controller.send(:current_region)).to eql(region)
+    end
+  end
+
   describe '#after_sign_in_path_for' do
     it 'returns the path to the broker dashboard for a broker' do
       user = Fabricate(:broker)
@@ -105,4 +117,5 @@ describe ApplicationController do
       expect(controller.send(:after_sign_in_path_for, user)).to eq('/seeker/dashboard')
     end
   end
+
 end

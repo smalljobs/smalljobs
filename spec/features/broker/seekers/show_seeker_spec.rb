@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 feature 'List the seekers' do
-  let(:user) do
+  let(:broker) do
     Fabricate(:broker_with_regions)
   end
 
@@ -26,11 +26,12 @@ feature 'List the seekers' do
       work_categories: [category_1, category_2]
     })
 
-    login_as(user, scope: :broker)
+    login_as(broker, scope: :broker)
   end
 
   scenario 'displays all the user details' do
-    visit '/broker/dashboard'
+    visit_on broker, '/broker/dashboard'
+
     click_on 'Alle Sucher anzeigen'
     click_on 'John Johnetty anzeigen'
 
