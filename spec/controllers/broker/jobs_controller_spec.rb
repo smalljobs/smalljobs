@@ -2,19 +2,19 @@ require 'spec_helper'
 
 describe Broker::JobsController do
 
-  it_should_behave_like 'a protected controller', :broker, :job, :all, {
-    broker:    -> { Fabricate(:broker_with_regions) },
-    job:       -> { Fabricate(:job) },
-    job_attrs: -> { Fabricate.attributes_for(:job) }
-  }
+  it_behaves_like 'a protected controller', :broker, :job, :all do
+    let(:broker)    { Fabricate(:broker_with_regions) }
+    let(:job)       { Fabricate(:job, provider: Fabricate(:provider, place: broker.places.first)) }
+    let(:jok_attrs) { Fabricate.attributes_for(:job, provider: Fabricate(:provider, place: broker.places.first)) }
+  end
 
   describe '#index' do
     auth_broker(:broker) { Fabricate(:broker_with_regions) }
 
     before do
-      Fabricate(:job, provider: Fabricate(:provider, zip: '1234'))
-      Fabricate(:job, provider: Fabricate(:provider, zip: '1235'))
-      Fabricate(:job, provider: Fabricate(:provider, zip: '9999'))
+      Fabricate(:job, provider: Fabricate(:provider, place: broker.places.first))
+      Fabricate(:job, provider: Fabricate(:provider, place: broker.places.last))
+      Fabricate(:job, provider: Fabricate(:provider, place: Fabricate(:place, zip: '9999')))
     end
 
     it 'shows only jobs in the broker regions' do

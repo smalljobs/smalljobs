@@ -3,19 +3,19 @@
 require 'spec_helper'
 
 feature 'Logout' do
-  let(:user) do
-    Fabricate(:broker,
+  let(:broker) do
+    Fabricate(:broker_with_regions,
               email: 'rolf@example.com',
               password: 'tester1234',
               password_confirmation: 'tester1234')
   end
 
   background do
-    login_as(user, scope: :broker)
+    login_as(broker, scope: :broker)
   end
 
   scenario 'Successfully log out' do
-    visit '/broker/dashboard'
+    visit_on broker, '/broker/dashboard'
     click_on 'Abmelden'
 
     within_notifications do

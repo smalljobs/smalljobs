@@ -3,7 +3,7 @@ class Broker::ProvidersController < InheritedResources::Base
   before_filter :authenticate_broker!
   before_filter :optional_password, only: [:update]
 
-  load_and_authorize_resource :provider, through: :current_broker
+  load_and_authorize_resource :provider, through: :current_broker, except: :new
 
   protected
 
@@ -15,7 +15,7 @@ class Broker::ProvidersController < InheritedResources::Base
   end
 
   def permitted_params
-    params.permit(provider: [:id, :username, :password, :password_confirmation, :firstname, :lastname, :street, :zip, :city, :email, :phone, :mobile, :contact_preference, :contact_availability, :active, :confirmed])
+    params.permit(provider: [:id, :username, :password, :password_confirmation, :firstname, :lastname, :street, :place_id, :email, :phone, :mobile, :contact_preference, :contact_availability, :active, :confirmed])
   end
 
 end

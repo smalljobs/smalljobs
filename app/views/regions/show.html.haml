@@ -1,0 +1,8 @@
+.jumbotron
+  %h1= t('regions.show.teaser')
+  %p.lead= t('regions.show.lead')
+  .row.signup
+    .col-lg-6
+      = link_to t('regions.show.signup_provider'), new_provider_registration_path, class: 'btn btn-lg btn-success'
+    .col-lg-6.top-buffer
+      = link_to t('regions.show.signup_seeker'), new_seeker_registration_path, class: 'btn btn-lg btn-success'

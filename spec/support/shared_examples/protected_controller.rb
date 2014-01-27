@@ -1,4 +1,4 @@
-shared_examples_for 'a protected controller' do |role, resource, actions, objects|
+shared_examples_for 'a protected controller' do |role, resource, actions|
 
   if actions == :all
     actions = [:index, :new, :create, :show, :edit, :update, :destroy]
@@ -6,12 +6,10 @@ shared_examples_for 'a protected controller' do |role, resource, actions, object
     actions = Array(action)
   end
 
-  objects ||= {}
-
   ([:anonymous, :broker, :provider, :seeker] - [role]).each do |scope|
 
     context  "for a #{ scope }" do
-      let(:login_user) { objects[scope].try(:call) || Fabricate(scope) }
+      let(:login_user) { send(scope) rescue Fabricate(scope) }
 
       before do
         authenticate(scope, login_user) unless scope == :anonymous
@@ -33,7 +31,7 @@ shared_examples_for 'a protected controller' do |role, resource, actions, object
 
       if actions.include?(:create)
         let(:create_attributes) do
-          objects["#{ resource }_attrs".intern].try(:call) || Fabricate.attributes_for(resource)
+          send("#{ resource }_attrs") rescue Fabricate.attributes_for(resource)
         end
 
         it 'does not allow to create a new resource' do
@@ -46,7 +44,7 @@ shared_examples_for 'a protected controller' do |role, resource, actions, object
       end
 
       if actions.include?(:show)
-        let(:show_resource) { objects[resource].try(:call) || Fabricate(resource) }
+        let(:show_resource) { send(resource) rescue Fabricate(resource) }
 
         it 'does not allow to show a resource' do
           xhr :get, :show, id: show_resource, format: :json
@@ -55,7 +53,7 @@ shared_examples_for 'a protected controller' do |role, resource, actions, object
       end
 
       if actions.include?(:edit)
-        let(:edit_resource) { objects[resource].try(:call) || Fabricate(resource) }
+        let(:edit_resource) { send(resource) rescue Fabricate(resource) }
 
         it 'does not allow to edit a resource' do
           xhr :get, :edit, id: edit_resource.id, format: :json
@@ -64,7 +62,7 @@ shared_examples_for 'a protected controller' do |role, resource, actions, object
       end
 
       if actions.include?(:update)
-        let(:update_resource) { objects[resource].try(:call) || Fabricate(resource) }
+        let(:update_resource) { send(resource) rescue Fabricate(resource) }
 
         it 'does not allow to update a resource' do
           params = { id: update_resource.id, format: :json }
@@ -76,7 +74,7 @@ shared_examples_for 'a protected controller' do |role, resource, actions, object
       end
 
       if actions.include?(:destroy)
-        let(:destroy_resource) { objects[resource].try(:call) || Fabricate(resource) }
+        let(:destroy_resource) { send(resource) rescue Fabricate(resource) }
 
         it 'does not allow to destroy a resoures' do
           xhr :delete, :destroy, id: destroy_resource.id, format: :json
@@ -87,7 +85,7 @@ shared_examples_for 'a protected controller' do |role, resource, actions, object
   end
 
   context  "for a #{ role }" do
-    let(:login_user) { objects[role].try(:call) || Fabricate(role) }
+    let(:login_user) { send(role) rescue Fabricate(role) }
 
     before do
       authenticate(role, login_user) unless role == :anonymous
@@ -109,7 +107,7 @@ shared_examples_for 'a protected controller' do |role, resource, actions, object
 
     if actions.include?(:create)
       let(:create_attributes) do
-        objects["#{ resource }_attrs".intern].try(:call) || Fabricate.attributes_for(resource)
+        send("#{ resource }_attrs") rescue Fabricate.attributes_for(resource)
       end
 
       it 'does allow to create a new resource' do
@@ -122,7 +120,7 @@ shared_examples_for 'a protected controller' do |role, resource, actions, object
     end
 
     if actions.include?(:show)
-      let(:show_resource) { objects[resource].try(:call) || Fabricate(resource) }
+      let(:show_resource) { send(resource) rescue Fabricate(resource) }
 
       it 'does allow to show a resource' do
         xhr :get, :show, id: show_resource.id, format: :json
@@ -131,7 +129,7 @@ shared_examples_for 'a protected controller' do |role, resource, actions, object
     end
 
     if actions.include?(:edit)
-      let(:edit_resource) { objects[resource].try(:call) || Fabricate(resource) }
+      let(:edit_resource) { send(resource) rescue Fabricate(resource) }
 
       it 'does allow to edit a resource' do
         xhr :get, :edit, id: edit_resource.id, format: :json
@@ -140,7 +138,7 @@ shared_examples_for 'a protected controller' do |role, resource, actions, object
     end
 
     if actions.include?(:update)
-      let(:update_resource) { objects[resource].try(:call) || Fabricate(resource) }
+      let(:update_resource) { send(resource) rescue Fabricate(resource) }
 
       it 'does allow to update a resource' do
         params = { id: update_resource.id, format: :json }
@@ -152,7 +150,7 @@ shared_examples_for 'a protected controller' do |role, resource, actions, object
     end
 
     if actions.include?(:destroy)
-      let(:destroy_resource) { objects[resource].try(:call) || Fabricate(resource) }
+      let(:destroy_resource) { send(resource) rescue Fabricate(resource) }
 
       it 'does allow to destroy a resoures' do
         xhr :delete, :destroy, id: destroy_resource.id, format: :json

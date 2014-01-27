@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140123145159) do
+ActiveRecord::Schema.define(version: 20140124174358) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,13 +118,12 @@ ActiveRecord::Schema.define(version: 20140123145159) do
     t.string   "website"
     t.text     "description"
     t.string   "street",                     null: false
-    t.string   "zip",                        null: false
-    t.string   "city",                       null: false
     t.string   "email",                      null: false
     t.string   "phone"
     t.boolean  "active",      default: true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "place_id"
   end
 
   add_index "organizations", ["name"], name: "index_organizations_on_name", unique: true, using: :btree
@@ -149,8 +148,6 @@ ActiveRecord::Schema.define(version: 20140123145159) do
     t.string   "firstname",                                null: false
     t.string   "lastname",                                 null: false
     t.string   "street",                                   null: false
-    t.string   "zip",                                      null: false
-    t.string   "city",                                     null: false
     t.string   "phone"
     t.string   "mobile"
     t.string   "contact_preference",     default: "email"
@@ -182,6 +179,7 @@ ActiveRecord::Schema.define(version: 20140123145159) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
+    t.integer  "place_id"
   end
 
   add_index "providers", ["confirmation_token"], name: "index_providers_on_confirmation_token", unique: true, using: :btree
@@ -208,16 +206,16 @@ ActiveRecord::Schema.define(version: 20140123145159) do
     t.string   "name",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "subdomain",  null: false
   end
 
   add_index "regions", ["name"], name: "index_regions_on_name", unique: true, using: :btree
+  add_index "regions", ["subdomain"], name: "index_regions_on_subdomain", using: :btree
 
   create_table "seekers", force: true do |t|
     t.string   "firstname",                                   null: false
     t.string   "lastname",                                    null: false
     t.string   "street"
-    t.string   "zip"
-    t.string   "city"
     t.date     "date_of_birth"
     t.string   "phone"
     t.string   "mobile"
@@ -243,6 +241,7 @@ ActiveRecord::Schema.define(version: 20140123145159) do
     t.string   "unconfirmed_email"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "place_id"
   end
 
   add_index "seekers", ["confirmation_token"], name: "index_seekers_on_confirmation_token", unique: true, using: :btree

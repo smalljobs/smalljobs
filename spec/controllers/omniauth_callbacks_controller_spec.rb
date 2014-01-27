@@ -8,14 +8,16 @@ describe OmniauthCallbacksController do
     end
 
     context 'with persisted user' do
+      let(:region) { Fabricate(:region_bremgarten) }
+
       context 'which is confirmed and activated' do
         before do
-          Seeker.stub(:find_for_facebook_oauth).and_return(Fabricate(:seeker, confirmed: true, active: true))
+          Seeker.stub(:find_for_facebook_oauth).and_return(Fabricate(:seeker, place: region.places.first, confirmed: true, active: true))
           get :facebook
         end
 
         it 'redirects the user to its dashboard' do
-          expect(response).to redirect_to('/seeker/dashboard')
+          expect(response).to redirect_to('http://bremgarten.test.host/seeker/dashboard')
         end
       end
 

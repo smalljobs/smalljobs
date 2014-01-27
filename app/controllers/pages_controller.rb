@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
 
-  def home
+  def join_us
   end
 
   def sign_in

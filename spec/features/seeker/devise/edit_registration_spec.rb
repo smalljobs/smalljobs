@@ -3,11 +3,15 @@
 require 'spec_helper'
 
 feature 'Edit registration profile' do
-  let(:user) do
+
+  let(:region) { Fabricate(:region_bremgarten) }
+
+  let(:seeker) do
     Fabricate(:seeker,
               email: 'rolf@example.com',
               password: 'tester1234',
-              password_confirmation: 'tester1234')
+              password_confirmation: 'tester1234',
+              place: region.places.first)
   end
 
   background do
@@ -15,11 +19,12 @@ feature 'Edit registration profile' do
     Fabricate(:work_category, name: 'Tiere')
     Fabricate(:work_category, name: 'Computer')
 
-    login_as(user, scope: :seeker)
+    login_as(seeker, scope: :seeker)
   end
 
   scenario 'Edit the credentials' do
-    visit '/seeker/dashboard'
+    visit_on region, '/seeker/dashboard'
+
     click_on 'Profil'
 
     within_fieldset 'Anmeldedaten' do
@@ -44,15 +49,16 @@ feature 'Edit registration profile' do
   end
 
   scenario 'Edit the address' do
-    visit '/seeker/dashboard'
+    visit_on region, '/seeker/dashboard'
+
     click_on 'Profil'
 
     within_fieldset 'Adresse' do
       fill_in 'Vorname',  with: 'Robi'
       fill_in 'Nachname', with: 'Blanco'
       fill_in 'Strasse',  with: 'Weissstrasse 123'
-      fill_in 'PLZ',      with: '5432'
-      fill_in 'Ort',      with: 'Testwil'
+
+      select 'Zufikon', from: 'Ort'
     end
 
     fill_in 'Aktuelles Passwort', with: 'tester1234'
@@ -64,7 +70,8 @@ feature 'Edit registration profile' do
   end
 
   scenario 'Edit the contact' do
-    visit '/seeker/dashboard'
+    visit_on region, '/seeker/dashboard'
+
     click_on 'Profil'
 
     within_fieldset 'Kontakt' do
@@ -85,7 +92,8 @@ feature 'Edit registration profile' do
   end
 
   scenario 'Edit the works' do
-    visit '/seeker/dashboard'
+    visit_on region, '/seeker/dashboard'
+
     click_on 'Profil'
 
     within_fieldset 'Arbeit' do

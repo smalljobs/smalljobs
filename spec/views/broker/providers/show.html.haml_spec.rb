@@ -2,10 +2,12 @@ require 'spec_helper'
 
 describe 'broker/providers/show.html.haml' do
 
-  let(:provider) { Fabricate(:provider) }
+  let(:region) { Fabricate(:region) }
+  let(:provider) { Fabricate(:provider, place: region.places.first) }
 
   before do
     assign(:provider, provider)
+    view.stub(current_region: region)
     render
   end
 
@@ -18,11 +20,11 @@ describe 'broker/providers/show.html.haml' do
   end
 
   it 'shows the provider zip' do
-    expect(rendered).to have_text(provider.zip)
+    expect(rendered).to have_text(provider.place.zip)
   end
 
   it 'shows the provider city' do
-    expect(rendered).to have_text(provider.city)
+    expect(rendered).to have_text(provider.place.name)
   end
 
   it 'shows the provider phone' do

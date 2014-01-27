@@ -3,7 +3,7 @@ Fabricator(:job) do
   work_category
 
   title 'A nice job'
-  description 'Help me undertand the Internet'
+  description 'Help me understand the Internet'
 
   date_type 'date_range'
   start_date Time.now + 7.days

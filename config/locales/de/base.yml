@@ -23,12 +23,14 @@ de:
     sign_up: "Registrieren"
     sign_in: "Anmelden"
     about_us: "Über uns"
+    join_us: "Mitmachen"
     privacy_policy: "Datenschutz"
     terms_of_service: "Geschäfsbedingungen"
     dashboard: 'Übersicht'
     sign_out: 'Abmelden'
     profile: 'Profil'
     providers: "Anbieter"
+    features: "Funktionen"
   legends:
     login: "Anmeldedaten"
     address: "Adresse"
@@ -41,6 +43,12 @@ de:
     phone: "Telefon"
     mobile: "Mobiltelefon"
     whatsapp: "WhatsApp"
+  validators:
+    subdomain:
+      reserved: "darf nicht ein reservierter Name sein"
+      length: "muss zwischen 3 und 63 Zeichen haben"
+      hyphen: "kann nicht mit einen Bindestrich beginnen oder enden"
+      chars: "muss alphanumerisch sein; A-Z, 0-9 oder Bindestrich"
   common:
     sure: "Sind Sie sicher?"
     show: "Anzeigen"
@@ -159,10 +167,19 @@ de:
       title: "Als Vermittler anmelden"
       lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
       action: "Als Vermittler anmelden"
+  regions:
+    index:
+      teaser: "Willkommen bei SmallJobs"
+      lead: "Pea sprouts pea parsley water spinach radish plantain. Gourd tomato dulse kale black-eyed pea earthnut pea okra corn caulie garlic. Bell pepper sweet pepper turnip greens welsh onion horseradish cucumber caulie tomatillo."
+    show:
+      teaser: "Willkommen bei SmallJobs"
+      lead: "Pea sprouts pea parsley water spinach radish plantain. Gourd tomato dulse kale black-eyed pea earthnut pea okra corn caulie garlic. Bell pepper sweet pepper turnip greens welsh onion horseradish cucumber caulie tomatillo."
+      signup_provider: "Als Anbieter registrieren"
+      signup_seeker: "Als Sucher registrieren"
   pages:
     layout:
       title: "SmallJobs"
-    home:
+    features:
       teaser: "Willkommen bei SmallJobs"
       lead: "Pea sprouts pea parsley water spinach radish plantain. Gourd tomato dulse kale black-eyed pea earthnut pea okra corn caulie garlic. Bell pepper sweet pepper turnip greens welsh onion horseradish cucumber caulie tomatillo."
       signup_provider: "Als Anbieter registrieren"

@@ -23,13 +23,13 @@ describe 'broker/providers/index.html.haml' do
       end
 
       it 'render the provider zip' do
-        expect(rendered).to have_text(provider_A.zip)
-        expect(rendered).to have_text(provider_B.zip)
+        expect(rendered).to have_text(provider_A.place.zip)
+        expect(rendered).to have_text(provider_B.place.zip)
       end
 
       it 'render the provider city' do
-        expect(rendered).to have_text(provider_A.city)
-        expect(rendered).to have_text(provider_B.city)
+        expect(rendered).to have_text(provider_A.place.name)
+        expect(rendered).to have_text(provider_B.place.name)
       end
 
       context 'list item data' do

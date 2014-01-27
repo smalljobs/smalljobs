@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 feature 'List the seekers' do
-  let(:user) do
+  let(:broker) do
     Fabricate(:broker_with_regions)
   end
 
@@ -15,8 +15,7 @@ feature 'List the seekers' do
       firstname: 'John',
       lastname: 'Johnetty',
       street: 'Rotmatt 28',
-      zip: '1234',
-      city: 'Dortwil',
+      place: broker.places.first,
       phone: '+41 0564444444',
       mobile: '+41 0794444444',
       email: 'john@example.com',
@@ -26,11 +25,12 @@ feature 'List the seekers' do
       work_categories: [category_1, category_2]
     })
 
-    login_as(user, scope: :broker)
+    login_as(broker, scope: :broker)
   end
 
   scenario 'displays all the user details' do
-    visit '/broker/dashboard'
+    visit_on broker, '/broker/dashboard'
+
     click_on 'Alle Sucher anzeigen'
     click_on 'John Johnetty anzeigen'
 
@@ -38,7 +38,7 @@ feature 'List the seekers' do
     expect(page).to have_content('Johnetty')
     expect(page).to have_content('Rotmatt 28')
     expect(page).to have_content('1234')
-    expect(page).to have_content('Dortwil')
+    expect(page).to have_content('Vessy')
     expect(page).to have_content('1. Januar 1999')
     expect(page).to have_content('056 444 44 44')
     expect(page).to have_content('079 444 44 44')
