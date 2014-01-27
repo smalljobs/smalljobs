@@ -4,13 +4,14 @@ require 'spec_helper'
 
 feature 'Logout' do
 
-  let(:region) { Fabricate(:region, name: 'Bremgarten') }
+  let(:region) { Fabricate(:region_bremgarten) }
 
   let(:provider) do
     Fabricate(:provider,
               email: 'rolf@example.com',
               password: 'tester1234',
-              password_confirmation: 'tester1234')
+              password_confirmation: 'tester1234',
+              place: region.places.first)
   end
 
   background do

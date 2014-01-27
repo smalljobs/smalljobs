@@ -11,6 +11,7 @@ feature 'Login' do
                 email: 'rolf@example.com',
                 password: 'tester1234',
                 password_confirmation: 'tester1234',
+                place: region.places.first,
                 confirmed: false,
                 active: false)
     end
@@ -38,6 +39,7 @@ feature 'Login' do
                 email: 'rolf@example.com',
                 password: 'tester1234',
                 password_confirmation: 'tester1234',
+                place: region.places.first,
                 confirmed: true,
                 active: false)
     end
@@ -65,6 +67,7 @@ feature 'Login' do
                 email: 'rolf@example.com',
                 password: 'tester1234',
                 password_confirmation: 'tester1234',
+                place: region.places.first,
                 confirmed: true,
                 active: true)
     end

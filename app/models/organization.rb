@@ -2,6 +2,9 @@ class Organization < ActiveRecord::Base
   has_many :employments, inverse_of: :organization
   has_many :brokers, through: :employments
   has_many :regions, through: :employments
+  has_many :places, through: :regions
+
+  belongs_to :place, inverse_of: :organization
 
   validates :name, presence: true, uniqueness: true
   validates :website, url: true, allow_blank: true, allow_nil: true

@@ -11,22 +11,19 @@ feature 'List the seekers' do
     Fabricate(:seeker, {
       firstname: 'John',
       lastname: 'Johnetty',
-      zip: '1234',
-      city: 'Dortwil'
+      place: broker.places.first
     })
 
     Fabricate(:seeker, {
       firstname: 'Dora',
       lastname: 'Doretty',
-      zip: '1235',
-      city: 'Hierwil'
+      place: broker.places.first
     })
 
     Fabricate(:seeker, {
       firstname: 'Jan',
       lastname: 'Janetty',
-      zip: '5432',
-      city: 'Dawil'
+      place: Fabricate(:place, zip: '5432', name: 'Dawil')
     })
 
     login_as(broker, scope: :broker)
@@ -40,12 +37,12 @@ feature 'List the seekers' do
     expect(page).to have_content 'John'
     expect(page).to have_content 'Johnetty'
     expect(page).to have_content '1234'
-    expect(page).to have_content 'Dortwil'
+    expect(page).to have_content 'Vessy'
 
     expect(page).to have_content 'Dora'
     expect(page).to have_content 'Doretty'
-    expect(page).to have_content '1235'
-    expect(page).to have_content 'Hierwil'
+    expect(page).to have_content '1234'
+    expect(page).to have_content 'Vessy'
   end
 
   scenario 'hides the seeker not in the broker region' do

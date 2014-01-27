@@ -1,8 +1,10 @@
 class Job < ActiveRecord::Base
   has_and_belongs_to_many :seekers
 
-  belongs_to :provider
-  belongs_to :work_category
+  belongs_to :provider, inverse_of: :jobs
+  belongs_to :work_category, inverse_of: :jobs
+
+  has_one :place, through: :provider
 
   validates :provider, presence: true
   validates :work_category, presence: true

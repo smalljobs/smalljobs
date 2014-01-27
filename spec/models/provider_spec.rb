@@ -101,19 +101,6 @@ describe Provider do
     end
   end
 
-  describe '#subdomains' do
-    let(:place)  { Fabricate(:place) }
-    let(:provider) { Fabricate(:provider, place: place) }
-
-    before do
-      Fabricate(:region, subdomain: 'myregion', places: [place])
-    end
-
-    it 'returns the provider subdomains' do
-      expect(provider.subdomains).to eql(['myregion'])
-    end
-  end
-
   describe '#email_required?' do
     it 'does not require an email' do
       expect(Fabricate(:provider).email_required?).to be_false

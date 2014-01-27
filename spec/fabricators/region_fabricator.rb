@@ -8,3 +8,15 @@ Fabricator(:region) do
     end
   end
 end
+
+Fabricator(:region_bremgarten, class_name: :region) do
+  name 'Bremgarten'
+  subdomain 'bremgarten'
+  places {
+    [
+      Fabricate(:place, zip: '5620', name: 'Bremgarten'),
+      Fabricate(:place, zip: '5621', name: 'Zufikon'),
+      Fabricate(:place, zip: '5610', name: 'Wohlen')
+    ]
+  }
+end

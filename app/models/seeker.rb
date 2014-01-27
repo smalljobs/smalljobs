@@ -7,7 +7,7 @@ class Seeker < ActiveRecord::Base
   has_and_belongs_to_many :work_categories
   has_and_belongs_to_many :jobs
 
-  belongs_to :place
+  belongs_to :place, inverse_of: :seekers
 
   validates :firstname, :lastname, presence: true
 
@@ -41,15 +41,6 @@ class Seeker < ActiveRecord::Base
   #
   def contact_preference_enum
     %w(email phone mobile postal whatsapp)
-  end
-
-  # Get the list of subdomains the current broker can
-  # access.
-  #
-  # @return [Array<String>] the subdomains
-  #
-  def subdomains
-    place.try(:region) ? [place.region.subdomain] : []
   end
 
   # @!group Devise

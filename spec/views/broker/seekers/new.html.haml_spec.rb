@@ -2,10 +2,12 @@ require 'spec_helper'
 
 describe 'broker/seekers/new.html.haml' do
 
-  let(:seeker) { Fabricate.build(:seeker) }
+  let(:region) { Fabricate(:region) }
+  let(:seeker) { Fabricate.build(:seeker, place: region.places.first) }
 
   before do
     assign(:seeker, seeker)
+    view.stub(current_region: region)
     render
   end
 
@@ -20,8 +22,7 @@ describe 'broker/seekers/new.html.haml' do
       expect(rendered).to have_field('Vorname')
       expect(rendered).to have_field('Nachname')
       expect(rendered).to have_field('Strasse')
-      expect(rendered).to have_field('PLZ')
-      expect(rendered).to have_field('Ort')
+      expect(rendered).to have_select('Ort')
     end
 
     it 'renders the contact inputs' do

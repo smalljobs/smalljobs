@@ -15,8 +15,7 @@ feature 'List the seekers' do
       firstname: 'John',
       lastname: 'Johnetty',
       street: 'Rotmatt 28',
-      zip: '1234',
-      city: 'Dortwil',
+      place: broker.places.first,
       phone: '+41 0564444444',
       mobile: '+41 0794444444',
       email: 'john@example.com',
@@ -39,7 +38,7 @@ feature 'List the seekers' do
     expect(page).to have_content('Johnetty')
     expect(page).to have_content('Rotmatt 28')
     expect(page).to have_content('1234')
-    expect(page).to have_content('Dortwil')
+    expect(page).to have_content('Vessy')
     expect(page).to have_content('1. Januar 1999')
     expect(page).to have_content('056 444 44 44')
     expect(page).to have_content('079 444 44 44')

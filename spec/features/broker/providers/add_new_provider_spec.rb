@@ -79,8 +79,8 @@ feature 'Add a new provider' do
       fill_in 'Vorname',  with: 'Rolf'
       fill_in 'Nachname', with: 'Meier'
       fill_in 'Strasse',  with: 'Hühnerstall 12'
-      fill_in 'PLZ',      with: '1234'
-      fill_in 'Ort',      with: 'Gockelwil'
+
+      select 'Vessy',    from: 'Ort'
     end
 
     within_fieldset 'Kontakt' do

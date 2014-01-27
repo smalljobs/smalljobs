@@ -3,6 +3,18 @@ require 'region_subdomain'
 
 Smalljobs::Application.routes.draw do
 
+  devise_for :brokers, only: :confirmations, controllers: {
+    confirmations: 'confirmations'
+  }
+
+  devise_for :providers, only: :confirmation, controllers: {
+    confirmations: 'confirmations'
+  }
+
+  devise_for :seekers, only: :confirmation, controllers: {
+    confirmations: 'confirmations'
+  }
+
   constraints(MainSubdomain) do
     devise_for :admins
 
@@ -14,19 +26,16 @@ Smalljobs::Application.routes.draw do
   end
 
   constraints(RegionSubdomain) do
-    devise_for :brokers, controllers: {
-      registrations: 'registrations',
-      confirmations: 'confirmations'
+    devise_for :brokers, except: :confirmation, controllers: {
+      registrations: 'registrations'
     }
 
-    devise_for :providers, controllers: {
-      registrations: 'registrations',
-      confirmations: 'confirmations'
+    devise_for :providers, except: :confirmation, controllers: {
+      registrations: 'registrations'
     }
 
-    devise_for :seekers, controllers: {
+    devise_for :seekers, except: :confirmation, controllers: {
       registrations:      'registrations',
-      confirmations:      'confirmations',
       omniauth_callbacks: 'omniauth_callbacks'
     }
 

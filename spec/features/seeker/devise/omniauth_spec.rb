@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 feature 'Omniauth registration' do
-  let(:region) { Fabricate(:region, name: 'Bremgarten') }
+  let(:region) { Fabricate(:region_bremgarten) }
 
   context 'as a new user' do
     background do

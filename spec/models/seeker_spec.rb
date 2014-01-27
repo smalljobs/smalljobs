@@ -117,19 +117,6 @@ describe Seeker do
 
   end
 
-  describe '#subdomains' do
-    let(:place)  { Fabricate(:place) }
-    let(:seeker) { Fabricate(:seeker, place: place) }
-
-    before do
-      Fabricate(:region, subdomain: 'myregion', places: [place])
-    end
-
-    it 'returns the seeker subdomains' do
-      expect(seeker.subdomains).to eql(['myregion'])
-    end
-  end
-
   describe '#unauthenticated_message' do
     context 'when confirmed' do
       it 'is inactive' do

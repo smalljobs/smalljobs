@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 feature 'Password reset' do
-  let(:region) { Fabricate(:region, name: 'Bremgarten') }
+  let(:region) { Fabricate(:region_bremgarten) }
 
   context 'with an unconfirmed user' do
     background do
@@ -11,6 +11,7 @@ feature 'Password reset' do
                 email: 'rolf@example.com',
                 password: 'tester1234',
                 password_confirmation: 'tester1234',
+                place: region.places.first,
                 confirmed: false,
                 active: false)
     end
@@ -51,6 +52,7 @@ feature 'Password reset' do
                 email: 'rolf@example.com',
                 password: 'tester1234',
                 password_confirmation: 'tester1234',
+                place: region.places.first,
                 confirmed: true,
                 active: false)
     end
@@ -91,6 +93,7 @@ feature 'Password reset' do
                 email: 'rolf@example.com',
                 password: 'tester1234',
                 password_confirmation: 'tester1234',
+                place: region.places.first,
                 confirmed: true,
                 active: true)
     end

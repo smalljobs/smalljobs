@@ -10,7 +10,8 @@ feature 'Destroy a provider' do
   background do
     Fabricate(:provider, {
       firstname: 'Dora',
-      lastname: 'Doretty'
+      lastname: 'Doretty',
+      place: broker.places.first
     })
 
     login_as(broker, scope: :broker)

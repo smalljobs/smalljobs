@@ -23,15 +23,6 @@ class Broker < ActiveRecord::Base
     "#{ firstname } #{ lastname }"
   end
 
-  # Get the list of subdomains the current broker can
-  # access.
-  #
-  # @return [Array<String>] the subdomains
-  #
-  def subdomains
-    regions.pluck(:subdomain)
-  end
-
   # @!group Devise
 
   # Check if the user can log in

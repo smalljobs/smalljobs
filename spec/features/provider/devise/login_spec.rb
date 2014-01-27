@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 feature 'Login' do
-  let(:region) { Fabricate(:region, name: 'Bremgarten') }
+  let(:region) { Fabricate(:region_bremgarten) }
 
   context 'with an unconfirmed user' do
     context 'without an email' do
@@ -13,6 +13,7 @@ feature 'Login' do
                   email: nil,
                   password: 'tester1234',
                   password_confirmation: 'tester1234',
+                  place: region.places.first,
                   confirmed: false,
                   active: false)
       end
@@ -41,6 +42,7 @@ feature 'Login' do
                   username: 'rolf',
                   password: 'tester1234',
                   password_confirmation: 'tester1234',
+                  place: region.places.first,
                   confirmed: false,
                   active: false)
       end
@@ -70,6 +72,7 @@ feature 'Login' do
                 username: 'rolf',
                 password: 'tester1234',
                 password_confirmation: 'tester1234',
+                place: region.places.first,
                 confirmed: true,
                 active: false)
     end
@@ -98,6 +101,7 @@ feature 'Login' do
                 username: 'rolf',
                 password: 'tester1234',
                 password_confirmation: 'tester1234',
+                place: region.places.first,
                 confirmed: true,
                 active: true)
     end

@@ -28,7 +28,7 @@ describe Ability do
     end
 
     it 'cannot read providers not in his region' do
-      expect(ability).to_not be_able_to(:read, Fabricate(:provider, zip: '9999'))
+      expect(ability).to_not be_able_to(:read, Fabricate(:provider, place: Fabricate(:place, zip: '9999')))
     end
 
     it 'can manage all seekers' do
@@ -36,15 +36,15 @@ describe Ability do
     end
 
     it 'cannot read seekers not in his region' do
-      expect(ability).to_not be_able_to(:read, Fabricate(:seeker, zip: '9999'))
+      expect(ability).to_not be_able_to(:read, Fabricate(:seeker, place: Fabricate(:place, zip: '9999')))
     end
 
-    #TODO: it 'can manage all jobs' do
-    #  expect(ability).to be_able_to(:manage, Job)
-    #end
+    it 'can manage all jobs' do
+      expect(ability).to be_able_to(:manage, Job)
+    end
 
-    #TODO: it 'cannot read jobs not in his region' do
-    #  expect(ability).to_not be_able_to(:read, Fabricate(:job, provider: Fabricate(:provider, zip: '9999')))
-    #end
+    it 'cannot read jobs not in his region' do
+      expect(ability).to_not be_able_to(:read, Fabricate(:job, provider: Fabricate(:provider, place: Fabricate(:place, zip: '9999'))))
+    end
   end
 end

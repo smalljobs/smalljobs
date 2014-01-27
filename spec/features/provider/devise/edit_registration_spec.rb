@@ -3,14 +3,16 @@
 require 'spec_helper'
 
 feature 'Edit registration profile' do
+
+  let(:region) { Fabricate(:region_bremgarten) }
+
   let(:provider) do
     Fabricate(:provider,
               email: 'rolf@example.com',
               password: 'tester1234',
-              password_confirmation: 'tester1234')
+              password_confirmation: 'tester1234',
+              place: region.places.first)
   end
-
-  let(:region) { Fabricate(:region, name: 'Bremgarten') }
 
   background do
     login_as(provider, scope: :provider)
@@ -44,8 +46,8 @@ feature 'Edit registration profile' do
       fill_in 'Vorname',  with: 'Robi'
       fill_in 'Nachname', with: 'Blanco'
       fill_in 'Strasse',  with: 'Weissstrasse 123'
-      fill_in 'PLZ',      with: '5432'
-      fill_in 'Ort',      with: 'Testwil'
+
+      select 'Wohlen', from: 'Ort'
     end
 
     fill_in 'Aktuelles Passwort', with: 'tester1234'

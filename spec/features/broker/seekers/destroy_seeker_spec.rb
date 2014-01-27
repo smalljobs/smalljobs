@@ -11,8 +11,7 @@ feature 'Destroy a seeker' do
     Fabricate(:seeker, {
       firstname: 'Dora',
       lastname: 'Doretty',
-      zip: '1235',
-      city: 'Hierwil'
+      place: broker.places.first
     })
 
     login_as(broker, scope: :broker)

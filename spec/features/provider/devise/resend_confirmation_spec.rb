@@ -1,7 +1,9 @@
+# coding: UTF-8
+
 require 'spec_helper'
 
 feature 'Resend confirmation' do
-  let(:region) { Fabricate(:region, name: 'Bremgarten') }
+  let(:region) { Fabricate(:region_bremgarten) }
 
   scenario 'Unknown email' do
     visit_on region, '/'
@@ -17,7 +19,7 @@ feature 'Resend confirmation' do
   end
 
   context 'for an already confirmed user' do
-    before { Fabricate(:provider, email: 'rolf@example.com', confirmed: true) }
+    before { Fabricate(:provider, email: 'rolf@example.com', place: region.places.first, confirmed: true) }
 
     scenario 'Resend the confirmation email' do
       visit_on region, '/'
@@ -34,7 +36,7 @@ feature 'Resend confirmation' do
   end
 
   context 'for an unconfirmed user' do
-    before { Fabricate(:provider, email: 'rolf@example.com', confirmed: false, active: false) }
+    before { Fabricate(:provider, email: 'rolf@example.com', place: region.places.first, confirmed: false, active: false) }
 
     scenario 'Resend the confirmation email' do
       visit_on region, '/'
@@ -62,7 +64,7 @@ feature 'Resend confirmation' do
   end
 
   context 'for an unconfirmed, active user' do
-    before { Fabricate(:provider, email: 'rolf@example.com', confirmed: false, active: true) }
+    before { Fabricate(:provider, email: 'rolf@example.com', place: region.places.first, confirmed: false, active: true) }
 
     scenario 'Resend the confirmation email' do
       visit_on region, '/'

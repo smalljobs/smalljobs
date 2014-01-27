@@ -26,7 +26,7 @@
       = f.input :firstname, required: true
       = f.input :lastname, required: true
       = f.input :street, required: true
-      = f.input :place, required: true, collection: current_region.places
+      = f.association :place, required: true, collection: current_region.places
 
   %fieldset
     %legend

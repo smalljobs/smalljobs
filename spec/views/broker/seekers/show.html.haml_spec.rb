@@ -2,15 +2,19 @@ require 'spec_helper'
 
 describe 'broker/seekers/show.html.haml' do
 
+  let(:region) { Fabricate(:region) }
+
   let(:category_1) { Fabricate(:work_category, name: 'Putzen')}
   let(:category_2) { Fabricate(:work_category, name: 'Rasen')}
 
   let(:seeker) { Fabricate(:seeker,
                            date_of_birth: Date.new(1999, 1, 1),
+                           place: region.places.first,
                            work_categories: [category_1, category_2]) }
 
   before do
     assign(:seeker, seeker)
+    view.stub(current_region: region)
     render
   end
 
@@ -23,11 +27,11 @@ describe 'broker/seekers/show.html.haml' do
   end
 
   it 'shows the seeker zip' do
-    expect(rendered).to have_text(seeker.zip)
+    expect(rendered).to have_text(seeker.place.zip)
   end
 
   it 'shows the seeker city' do
-    expect(rendered).to have_text(seeker.city)
+    expect(rendered).to have_text(seeker.place.name)
   end
 
   it 'shows the seeker date of birth' do

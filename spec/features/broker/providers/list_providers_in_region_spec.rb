@@ -11,13 +11,13 @@ feature 'List the providers' do
     Fabricate(:provider, {
       firstname: 'John',
       lastname: 'Johnetty',
-      place: Fabricate(:place, zip: '1234', name: 'Dortwil')
+      place: broker.places.first
     })
 
     Fabricate(:provider, {
       firstname: 'Dora',
       lastname: 'Doretty',
-      place: Fabricate(:place, zip: '1235', name: 'Hierwil')
+      place: broker.places.last
     })
 
     Fabricate(:provider, {
@@ -37,12 +37,12 @@ feature 'List the providers' do
     expect(page).to have_content 'John'
     expect(page).to have_content 'Johnetty'
     expect(page).to have_content '1234'
-    expect(page).to have_content 'Dortwil'
+    expect(page).to have_content 'Vessy'
 
     expect(page).to have_content 'Dora'
     expect(page).to have_content 'Doretty'
-    expect(page).to have_content '1235'
-    expect(page).to have_content 'Hierwil'
+    expect(page).to have_content '1234'
+    expect(page).to have_content 'Vessy'
   end
 
   scenario 'hides the provider not in the broker region' do

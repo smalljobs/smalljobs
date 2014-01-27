@@ -5,7 +5,7 @@ class Provider < ActiveRecord::Base
   include ConfirmToggle
 
   has_many :jobs
-  belongs_to :place
+  belongs_to :place, inverse_of: :providers
 
   before_save :nullify_blank_email
 
@@ -37,15 +37,6 @@ class Provider < ActiveRecord::Base
   #
   def contact_preference_enum
     %w(email phone mobile postal)
-  end
-
-  # Get the list of subdomains the current broker can
-  # access.
-  #
-  # @return [Array<String>] the subdomains
-  #
-  def subdomains
-    place.try(:region) ? [place.region.subdomain] : []
   end
 
   # @!group Devise

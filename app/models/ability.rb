@@ -7,19 +7,11 @@ class Ability
       can :manage, :all
 
     elsif user.is_a?(Broker)
-      broker_zips = user.places.pluck(:zip)
+      places = user.places.pluck(:id)
 
-      can :manage, Provider, Provider.where(zip: broker_zips) do |p|
-        p.zip.blank? || broker_zips.include?(p.zip)
-      end
-
-      can :manage, Seeker, Seeker.where(zip: broker_zips) do |s|
-        s.zip.blank? || broker_zips.include?(s.zip)
-      end
-
-      can :manage, Job, Job.where(provider_id: { zip: broker_zips }) do |j|
-        broker_zips.include?(j.provider.zip)
-      end
+      can :manage, Provider, place: { id: places }
+      can :manage, Seeker, place: { id: places }
+      can :manage, Job, provider: { place: { id: places } }
     end
   end
 end

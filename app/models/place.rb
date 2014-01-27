@@ -3,6 +3,7 @@ class Place < ActiveRecord::Base
 
   has_many :providers
   has_many :seekers
+  has_one :organization
 
   validates :zip, :name, :longitude, :latitude, presence: true
 end
