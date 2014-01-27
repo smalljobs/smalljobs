@@ -22,7 +22,11 @@
   %body
     .container
       .header
-        = render_navigation(expand_all: true)
+        - if request.subdomain == 'www'
+          = render_navigation(context: :header_main, expand_all: true)
+        - else
+          = render_navigation(context: :header_region, expand_all: true)
+
         %h3
           = link_to t('pages.layout.title'), root_path
 
@@ -36,4 +40,7 @@
       = yield
 
       .footer
-        = render_navigation(context: :footer, expand_all: true)
+        - if request.subdomain == 'www'
+          = render_navigation(context: :footer_main, expand_all: true)
+        - else
+          = render_navigation(context: :footer_region, expand_all: true)

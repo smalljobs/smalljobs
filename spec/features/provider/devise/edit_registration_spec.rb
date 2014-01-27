@@ -3,19 +3,24 @@
 require 'spec_helper'
 
 feature 'Edit registration profile' do
-  let(:user) do
+
+  let(:region) { Fabricate(:region_bremgarten) }
+
+  let(:provider) do
     Fabricate(:provider,
               email: 'rolf@example.com',
               password: 'tester1234',
-              password_confirmation: 'tester1234')
+              password_confirmation: 'tester1234',
+              place: region.places.first)
   end
 
   background do
-    login_as(user, scope: :provider)
+    login_as(provider, scope: :provider)
   end
 
   scenario 'Edit the credentials' do
-    visit '/provider/dashboard'
+    visit_on region, '/provider/dashboard'
+
     click_on 'Profil'
 
     within_fieldset 'Anmeldedaten' do
@@ -33,15 +38,16 @@ feature 'Edit registration profile' do
   end
 
   scenario 'Edit the address' do
-    visit '/provider/dashboard'
+    visit_on region, '/provider/dashboard'
+
     click_on 'Profil'
 
     within_fieldset 'Adresse' do
       fill_in 'Vorname',  with: 'Robi'
       fill_in 'Nachname', with: 'Blanco'
       fill_in 'Strasse',  with: 'Weissstrasse 123'
-      fill_in 'PLZ',      with: '5432'
-      fill_in 'Ort',      with: 'Testwil'
+
+      select 'Wohlen', from: 'Ort'
     end
 
     fill_in 'Aktuelles Passwort', with: 'tester1234'
@@ -53,7 +59,7 @@ feature 'Edit registration profile' do
   end
 
   scenario 'Edit the contact' do
-    visit '/provider/dashboard'
+    visit_on region, '/provider/dashboard'
     click_on 'Profil'
 
     within_fieldset 'Kontakt' do

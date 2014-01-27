@@ -32,7 +32,7 @@ Smalljobs::Application.configure do
   config.action_mailer.delivery_method = :test
 
   # Mailer default link host
-  config.action_mailer.default_url_options = { host: 'localhost' }
+  config.action_mailer.default_url_options = { host: 'lvh.me' }
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr

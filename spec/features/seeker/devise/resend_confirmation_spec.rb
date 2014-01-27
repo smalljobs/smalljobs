@@ -3,8 +3,11 @@
 require 'spec_helper'
 
 feature 'Resend confirmation' do
+  let(:region) { Fabricate(:region_bremgarten) }
+
   scenario 'Unknown email' do
-    visit '/'
+    visit_on region, '/'
+
     click_on 'Anmelden'
     click_on 'Sucher'
     click_on 'Keine Email zur Bestätigung erhalten?'
@@ -16,10 +19,11 @@ feature 'Resend confirmation' do
   end
 
   context 'for an already confirmed user' do
-    let!(:user) { Fabricate(:seeker, email: 'rolf@example.com', confirmed: true) }
+    before { Fabricate(:seeker, email: 'rolf@example.com', place: region.places.first, confirmed: true) }
 
     scenario 'Resend the confirmation email' do
-      visit '/'
+      visit_on region, '/'
+
       click_on 'Anmelden'
       click_on 'Sucher'
       click_on 'Keine Email zur Bestätigung erhalten?'
@@ -32,10 +36,11 @@ feature 'Resend confirmation' do
   end
 
   context 'for an unconfirmed user' do
-    let!(:user) { Fabricate(:seeker, email: 'rolf@example.com', confirmed: false, active: false) }
+    before { Fabricate(:seeker, email: 'rolf@example.com', place: region.places.first, confirmed: false, active: false) }
 
     scenario 'Resend the confirmation email' do
-      visit '/'
+      visit_on region, '/'
+
       click_on 'Anmelden'
       click_on 'Sucher'
       click_on 'Keine Email zur Bestätigung erhalten?'
@@ -59,10 +64,11 @@ feature 'Resend confirmation' do
   end
 
   context 'for an unconfirmed, active user' do
-    let!(:user) { Fabricate(:seeker, email: 'rolf@example.com', confirmed: false, active: true) }
+    before { Fabricate(:seeker, email: 'rolf@example.com', place: region.places.first, confirmed: false, active: true) }
 
     scenario 'Resend the confirmation email' do
-      visit '/'
+      visit_on region, '/'
+
       click_on 'Anmelden'
       click_on 'Sucher'
       click_on 'Keine Email zur Bestätigung erhalten?'

@@ -5,8 +5,7 @@ Fabricator(:seeker) do
   lastname  { Forgery(:name).last_name }
 
   street { "#{ Forgery(:address).street_name } #{ Forgery(:address).street_number }" }
-  zip    { Random.rand(9999).to_s.rjust(4, '0') }
-  city   { Forgery(:address).city }
+  place
 
   date_of_birth { 15.years.ago }
 

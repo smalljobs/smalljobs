@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 feature 'Add a new seeker' do
-  let(:user) do
+  let(:broker) do
     Fabricate(:broker_with_regions)
   end
 
@@ -13,11 +13,12 @@ feature 'Add a new seeker' do
     Fabricate(:work_category, name: 'Tiere')
     Fabricate(:work_category, name: 'Computer')
 
-    login_as(user, scope: :broker)
+    login_as(broker, scope: :broker)
   end
 
   scenario 'with a duplicate email' do
-    visit '/broker/dashboard'
+    visit_on broker, '/broker/dashboard'
+
     click_on 'Alle Sucher anzeigen'
     click_on 'Neuen Sucher hinzufügen'
 
@@ -35,7 +36,8 @@ feature 'Add a new seeker' do
   end
 
   scenario 'with valid data' do
-    visit '/broker/dashboard'
+    visit_on broker, '/broker/dashboard'
+
     click_on 'Alle Sucher anzeigen'
     click_on 'Neuen Sucher hinzufügen'
 
@@ -61,8 +63,8 @@ feature 'Add a new seeker' do
       fill_in 'Vorname',  with: 'Rolf'
       fill_in 'Nachname', with: 'Meier'
       fill_in 'Strasse',  with: 'Hühnerstall 12'
-      fill_in 'PLZ',      with: '1234'
-      fill_in 'Ort',      with: 'Gockelwil'
+
+      select 'Vessy',    from: 'Ort'
     end
 
     within_fieldset 'Kontakt' do

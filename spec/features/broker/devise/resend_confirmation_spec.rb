@@ -1,8 +1,14 @@
+# coding: UTF-8
+
 require 'spec_helper'
 
 feature 'Resend confirmation' do
+  let(:broker) { Fabricate(:broker_with_regions) }
+  let(:region) { broker.regions.first }
+
   scenario 'Unknown email' do
-    visit '/'
+    visit_on region, '/'
+
     click_on 'Anmelden'
     click_on 'Vermittler'
     click_on 'Keine Email zur Bestätigung erhalten?'
@@ -14,10 +20,11 @@ feature 'Resend confirmation' do
   end
 
   context 'for an already confirmed user' do
-    let!(:user) { Fabricate(:broker, email: 'rolf@example.com', confirmed: true) }
+    let(:broker) { Fabricate(:broker_with_regions, email: 'rolf@example.com', confirmed: true) }
 
     scenario 'Resend the confirmation email' do
-      visit '/'
+      visit_on region, '/'
+
       click_on 'Anmelden'
       click_on 'Vermittler'
       click_on 'Keine Email zur Bestätigung erhalten?'
@@ -30,10 +37,11 @@ feature 'Resend confirmation' do
   end
 
   context 'for an unconfirmed user' do
-    let!(:user) { Fabricate(:broker, email: 'rolf@example.com', confirmed: false, active: false) }
+    let(:broker) { Fabricate(:broker_with_regions, email: 'rolf@example.com', confirmed: false, active: false) }
 
     scenario 'Resend the confirmation email' do
-      visit '/'
+      visit_on region, '/'
+
       click_on 'Anmelden'
       click_on 'Vermittler'
       click_on 'Keine Email zur Bestätigung erhalten?'
@@ -57,10 +65,11 @@ feature 'Resend confirmation' do
   end
 
   context 'for an unconfirmed, active user' do
-    let!(:user) { Fabricate(:broker, email: 'rolf@example.com', confirmed: false, active: true) }
+    let(:broker) { Fabricate(:broker_with_regions, email: 'rolf@example.com', confirmed: false, active: true) }
 
     scenario 'Resend the confirmation email' do
-      visit '/'
+      visit_on region, '/'
+
       click_on 'Anmelden'
       click_on 'Vermittler'
       click_on 'Keine Email zur Bestätigung erhalten?'

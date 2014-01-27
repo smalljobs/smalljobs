@@ -3,6 +3,8 @@
 require 'spec_helper'
 
 feature 'New job seeker registration' do
+  let(:region) { Fabricate(:region_bremgarten) }
+
   background do
     Fabricate(:work_category, name: 'Garten')
     Fabricate(:work_category, name: 'Tiere')
@@ -12,7 +14,8 @@ feature 'New job seeker registration' do
   end
 
   scenario 'with a duplicate email' do
-    visit '/'
+    visit_on region, '/'
+
     click_on 'Als Sucher registrieren'
 
     within_fieldset 'Anmeldedaten' do
@@ -29,7 +32,8 @@ feature 'New job seeker registration' do
   end
 
   scenario 'with valid data' do
-    visit '/'
+    visit_on region, '/'
+
     click_on 'Als Sucher registrieren'
 
     within_fieldset 'Anmeldedaten' do
@@ -43,8 +47,8 @@ feature 'New job seeker registration' do
       fill_in 'Vorname',  with: 'Rolf'
       fill_in 'Nachname', with: 'Meier'
       fill_in 'Strasse',  with: 'Hühnerstall 12'
-      fill_in 'PLZ',      with: '1234'
-      fill_in 'Ort',      with: 'Gockelwil'
+
+      select 'Zufikon', from: 'Ort'
     end
 
     within_fieldset 'Arbeit' do
@@ -67,49 +71,4 @@ feature 'New job seeker registration' do
     expect(current_path).to eql('/')
   end
 
-  context 'from the admin backend' do
-    let(:admin) { Fabricate(:admin) }
-
-    background do
-      login_as(admin, scope: :admin)
-    end
-
-    scenario 'invites a new job seeker' do
-      visit '/admin'
-      click_on 'Sucher'
-      click_on 'Neu hinzufügen'
-
-      within_fieldset 'Authentifizierung' do
-        fill_in 'Email',        with: 'rolf@example.com'
-        fill_in 'Passwort',     with: 'tester1234'
-        fill_in 'Geburtsdatum', with: '1.1.1998'
-      end
-
-      within_fieldset 'Adresse' do
-        fill_in 'Vorname',   with: 'Rolf'
-        fill_in 'Nachname',  with: 'Meier'
-        fill_in 'Strasse',   with: 'Hühnerstall 12'
-        fill_in 'PLZ',       with: '1234'
-        fill_in 'Ort',       with: 'Gockelwil'
-      end
-
-      within_fieldset 'Kontakt' do
-        fill_in 'Telefon', with: '044 444 44 44'
-        fill_in 'Mobile', with: '079 333 33 33'
-      end
-
-      within_fieldset 'Arbeiten' do
-        select 'Computer', from: 'Bevorzugte Arbeiten'
-      end
-
-      click_on 'Speichern'
-
-      open_email('rolf@example.com')
-      current_email.click_link 'Email bestätigen'
-
-      within_notifications do
-        expect(page).to have_content('Vielen Dank für Ihre Bestätigung.')
-      end
-    end
-  end
 end

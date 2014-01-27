@@ -3,13 +3,15 @@
 require 'spec_helper'
 
 feature 'Omniauth registration' do
+  let(:region) { Fabricate(:region_bremgarten) }
+
   context 'as a new user' do
     background do
       mock_facebook_oauth(Fabricate.build(:seeker, email: 'rolf@example.com', confirmed: false, active: false))
     end
 
     scenario 'registers for confirmation' do
-      visit '/'
+      visit_on region, '/'
       click_on 'Als Sucher registrieren'
       click_on 'Mit Facebook anmelden'
 
@@ -37,7 +39,8 @@ feature 'Omniauth registration' do
       end
 
       scenario 'registers again' do
-        visit '/'
+        visit_on region, '/'
+
         click_on 'Als Sucher registrieren'
         click_on 'Mit Facebook anmelden'
 
@@ -64,7 +67,8 @@ feature 'Omniauth registration' do
       end
 
       scenario 'registers again' do
-        visit '/'
+        visit_on region, '/'
+
         click_on 'Als Sucher registrieren'
         click_on 'Mit Facebook anmelden'
 

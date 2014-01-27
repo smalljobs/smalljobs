@@ -3,7 +3,7 @@ class Broker::SeekersController < InheritedResources::Base
   before_filter :authenticate_broker!
   before_filter :optional_password, only: [:update]
 
-  load_and_authorize_resource :seeker, through: :current_broker
+  load_and_authorize_resource :seeker, through: :current_broker, except: :new
 
   protected
 
@@ -15,7 +15,7 @@ class Broker::SeekersController < InheritedResources::Base
   end
 
   def permitted_params
-    params.permit(seeker: [:id, :password, :password_confirmation, :firstname, :lastname, :street, :zip, :city, :email, :phone, :mobile, :date_of_birth, :contact_preference, :contact_availability, :active, :confirmed, work_category_ids: []])
+    params.permit(seeker: [:id, :password, :password_confirmation, :firstname, :lastname, :street, :place_id, :email, :phone, :mobile, :date_of_birth, :contact_preference, :contact_availability, :active, :confirmed, work_category_ids: []])
   end
 
 end

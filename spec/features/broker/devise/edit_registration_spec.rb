@@ -3,19 +3,20 @@
 require 'spec_helper'
 
 feature 'Edit registration profile' do
-  let(:user) do
-    Fabricate(:broker,
+  let(:broker) do
+    Fabricate(:broker_with_regions,
               email: 'rolf@example.com',
               password: 'tester1234',
               password_confirmation: 'tester1234')
   end
 
   background do
-    login_as(user, scope: :broker)
+    login_as(broker, scope: :broker)
   end
 
   scenario 'Edit the credentials' do
-    visit '/broker/dashboard'
+    visit_on broker, '/broker/dashboard'
+
     click_on 'Profil'
 
     within_fieldset 'Anmeldedaten' do
@@ -40,7 +41,8 @@ feature 'Edit registration profile' do
   end
 
   scenario 'Edit the address' do
-    visit '/broker/dashboard'
+    visit_on broker, '/broker/dashboard'
+
     click_on 'Profil'
 
     within_fieldset 'Adresse' do
@@ -57,7 +59,8 @@ feature 'Edit registration profile' do
   end
 
   scenario 'Edit the contact' do
-    visit '/broker/dashboard'
+    visit_on broker, '/broker/dashboard'
+
     click_on 'Profil'
 
     within_fieldset 'Kontakt' do

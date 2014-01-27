@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'subdomain_validator'
 
 describe SubdomainValidator do
 

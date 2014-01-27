@@ -21,8 +21,8 @@
           = seeker_label(seeker)
         %td= seeker.firstname
         %td= seeker.lastname
-        %td= seeker.zip
-        %td= seeker.city
+        %td= seeker.place.zip
+        %td= seeker.place.name
 
         %td= link_to '', broker_seeker_path(seeker), class: 'fa fa-eye', title: t('common.show_title', who: seeker.name)
         %td= link_to '', edit_broker_seeker_path(seeker), class: 'fa fa-pencil', title: t('common.edit_title', who: seeker.name)

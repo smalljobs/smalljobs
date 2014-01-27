@@ -7,10 +7,11 @@ class Seeker < ActiveRecord::Base
   has_and_belongs_to_many :work_categories
   has_and_belongs_to_many :jobs
 
+  belongs_to :place, inverse_of: :seekers
+
   validates :firstname, :lastname, presence: true
 
-  validates :street, :zip, :city, presence: true
-  validates :zip, postal_code: { country: :ch }
+  validates :street, :place, presence: true
 
   validates :email, email: true
   validates :phone, :mobile, phony_plausible: true

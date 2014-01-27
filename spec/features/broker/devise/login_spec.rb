@@ -4,8 +4,8 @@ require 'spec_helper'
 
 feature 'Login' do
   context 'with an unconfirmed user' do
-    background do
-      Fabricate(:broker,
+    let(:broker) do
+      Fabricate(:broker_with_regions,
                 email: 'rolf@example.com',
                 password: 'tester1234',
                 password_confirmation: 'tester1234',
@@ -14,7 +14,8 @@ feature 'Login' do
     end
 
     scenario 'using valid credentials' do
-      visit '/'
+      visit_on broker, '/'
+
       click_on 'Anmelden'
       click_on 'Vermittler'
 
@@ -30,8 +31,8 @@ feature 'Login' do
   end
 
   context 'with an inactive user' do
-    background do
-      Fabricate(:broker,
+    let(:broker) do
+      Fabricate(:broker_with_regions,
                 email: 'rolf@example.com',
                 password: 'tester1234',
                 password_confirmation: 'tester1234',
@@ -40,7 +41,8 @@ feature 'Login' do
     end
 
     scenario 'using valid credentials' do
-      visit '/'
+      visit_on broker, '/'
+
       click_on 'Anmelden'
       click_on 'Vermittler'
 
@@ -56,8 +58,8 @@ feature 'Login' do
   end
 
   context 'with an active user' do
-    background do
-      Fabricate(:broker,
+    let(:broker) do
+      Fabricate(:broker_with_regions,
                 email: 'rolf@example.com',
                 password: 'tester1234',
                 password_confirmation: 'tester1234',
@@ -66,7 +68,8 @@ feature 'Login' do
     end
 
     scenario 'using invalid credentials' do
-      visit '/'
+      visit_on broker, '/'
+
       click_on 'Anmelden'
       click_on 'Vermittler'
 
@@ -81,7 +84,8 @@ feature 'Login' do
     end
 
     scenario 'using valid credentials' do
-      visit '/'
+      visit_on broker, '/'
+
       click_on 'Anmelden'
       click_on 'Vermittler'
 

@@ -2,10 +2,12 @@ require 'spec_helper'
 
 describe 'broker/providers/edit.html.haml' do
 
-  let(:provider) { Fabricate(:provider) }
+  let(:region) { Fabricate(:region) }
+  let(:provider) { Fabricate(:provider, place: region.places.first) }
 
   before do
     assign(:provider, provider)
+    view.stub(current_region: region)
     render
   end
 
@@ -20,8 +22,7 @@ describe 'broker/providers/edit.html.haml' do
       expect(rendered).to have_field('Vorname', with: provider.firstname)
       expect(rendered).to have_field('Nachname', with: provider.lastname)
       expect(rendered).to have_field('Strasse', with: provider.street)
-      expect(rendered).to have_field('PLZ', with: provider.zip)
-      expect(rendered).to have_field('Ort', with: provider.city)
+      expect(rendered).to have_select('Ort', selected: provider.place.name)
     end
 
     it 'renders the contact inputs' do

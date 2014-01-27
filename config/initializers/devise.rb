@@ -14,6 +14,10 @@ Devise.setup do |config|
   # with default "from" parameter.
   config.mailer_sender = 'hello@smalljobs.ch'
 
+  config.mailer.class_eval do
+    helper :mailer
+  end
+
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
 

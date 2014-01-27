@@ -2,24 +2,24 @@ require 'spec_helper'
 
 describe Broker::SeekersController do
 
-  it_should_behave_like 'a protected controller', :broker, :seeker, :all, {
-    broker:       -> { Fabricate(:broker_with_regions) },
-    seeker:       -> { Fabricate(:seeker, zip: '1234') },
-    seeker_attrs: -> {
-      attrs = Fabricate.attributes_for(:seeker, zip: '1234')
+  it_behaves_like 'a protected controller', :broker, :seeker, :all do
+    let(:broker) { Fabricate(:broker_with_regions) }
+    let(:seeker) { Fabricate(:seeker, place: broker.places.first) }
+    let(:seeker_attrs) do
+      attrs = Fabricate.attributes_for(:seeker, place: broker.places.first)
       attrs[:work_categories].map(&:save)
       attrs[:work_category_ids] = attrs[:work_categories].map(&:id)
       attrs
-    }
-  }
+    end
+  end
 
   describe '#index' do
     auth_broker(:broker) { Fabricate(:broker_with_regions) }
 
     before do
-      Fabricate(:seeker, zip: '1234')
-      Fabricate(:seeker, zip: '1235')
-      Fabricate(:seeker, zip: '9999')
+      Fabricate(:seeker, place: broker.places.first)
+      Fabricate(:seeker, place: broker.places.last)
+      Fabricate(:seeker, place: Fabricate(:place, zip: '9999'))
     end
 
     it 'shows only seekers in the broker regions' do
@@ -29,11 +29,8 @@ describe Broker::SeekersController do
   end
 
   describe '#optional_password' do
-    let(:seeker) { Fabricate(:seeker, zip: '1234') }
-
-    before do
-      authenticate(:broker, Fabricate(:broker_with_regions))
-    end
+    auth_broker(:broker) { Fabricate(:broker_with_regions) }
+    let(:seeker) { Fabricate(:seeker, place: broker.places.first) }
 
     context 'without a password' do
       let(:attributes) do

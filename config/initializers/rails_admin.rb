@@ -43,7 +43,6 @@ RailsAdmin.config do |config|
     list do
       field :name
       field :website
-      field :city
       field :email
       field :phone
     end
@@ -61,8 +60,7 @@ RailsAdmin.config do |config|
         label I18n.t('admin.groups.address')
 
         field :street
-        field :zip
-        field :city
+        field :place
       end
 
       group :contact do
@@ -105,6 +103,7 @@ RailsAdmin.config do |config|
 
     edit do
       field :name
+      field :subdomain
       field :places
     end
   end
@@ -210,8 +209,7 @@ RailsAdmin.config do |config|
         field :firstname
         field :lastname
         field :street
-        field :zip
-        field :city
+        field :place
       end
 
       group :contact do
@@ -259,8 +257,7 @@ RailsAdmin.config do |config|
         field :firstname
         field :lastname
         field :street
-        field :zip
-        field :city
+        field :place
       end
 
       group :contact do

@@ -16,6 +16,10 @@ module Support
       def authenticate(mapping, user)
         @request.env['devise.mapping'] = Devise.mappings[mapping]
 
+        if user.respond_to?(:subdomains)
+          @request.host = "#{ user.subdomains.first }.test.host"
+        end
+
         user.confirm! if user.respond_to?(:confirm!)
         sign_in mapping, user
 
