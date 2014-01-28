@@ -25,6 +25,7 @@ Fabricator(:org_lenzburg, from: :organization) do
   phone '062 508 13 14'
   website 'http://www.jugendarbeit-lotten.ch'
   street 'c/o JA Lenzburg, Soziale Dienste'
+
   after_create do |o|
     Fabricate(:employment,
               organization: o,
