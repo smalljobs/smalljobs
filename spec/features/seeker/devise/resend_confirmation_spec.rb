@@ -3,7 +3,9 @@
 require 'spec_helper'
 
 feature 'Resend confirmation' do
-  let(:region) { Fabricate(:region_bremgarten) }
+
+  let(:org) { Fabricate(:org_lenzburg) }
+  let(:region) { org.regions.first }
 
   scenario 'Unknown email' do
     visit_on region, '/'

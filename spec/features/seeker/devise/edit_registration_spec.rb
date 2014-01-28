@@ -4,7 +4,8 @@ require 'spec_helper'
 
 feature 'Edit registration profile' do
 
-  let(:region) { Fabricate(:region_bremgarten) }
+  let(:org) { Fabricate(:org_lenzburg) }
+  let(:region) { org.regions.first }
 
   let(:seeker) do
     Fabricate(:seeker,
@@ -58,7 +59,7 @@ feature 'Edit registration profile' do
       fill_in 'Nachname', with: 'Blanco'
       fill_in 'Strasse',  with: 'Weissstrasse 123'
 
-      select 'Zufikon', from: 'Ort'
+      select 'Niederlenz', from: 'Ort'
     end
 
     fill_in 'Aktuelles Passwort', with: 'tester1234'

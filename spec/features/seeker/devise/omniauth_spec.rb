@@ -3,7 +3,9 @@
 require 'spec_helper'
 
 feature 'Omniauth registration' do
-  let(:region) { Fabricate(:region_bremgarten) }
+
+  let(:org) { Fabricate(:org_lenzburg) }
+  let(:region) { org.regions.first }
 
   context 'as a new user' do
     background do

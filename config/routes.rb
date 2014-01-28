@@ -3,6 +3,8 @@ require 'region_subdomain'
 
 Smalljobs::Application.routes.draw do
 
+  devise_for :admins
+
   devise_for :brokers, only: :confirmations, controllers: {
     confirmations: 'confirmations'
   }
@@ -16,8 +18,6 @@ Smalljobs::Application.routes.draw do
   }
 
   constraints(MainSubdomain) do
-    devise_for :admins
-
     get 'about_us',         to: 'pages#about_us'
     get 'privacy_policy',   to: 'pages#privacy_policy'
     get 'terms_of_service', to: 'pages#terms_of_service'

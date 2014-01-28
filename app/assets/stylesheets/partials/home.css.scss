@@ -17,6 +17,19 @@
   .signup div {
     margin-top: 30px;
   }
+
+  &.organization {
+    height: 200px;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    img {
+      border-radius: 5px;
+      border: 1px solid #000;
+      width: 110px;
+      width: 110px;
+    }
+  }
 }
 
 /* Supporting marketing content */
@@ -40,5 +53,14 @@
   /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron {
     border-bottom: 0;
+
+    &.organization {
+      height: 400px;
+
+      img {
+        width: 220px;
+        width: 220px;
+      }
+    }
   }
 }

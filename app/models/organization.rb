@@ -14,6 +14,9 @@ class Organization < ActiveRecord::Base
   validates :email, email: true, presence: true
   validates :phone, phony_plausible: true, allow_blank: true, allow_nil: true
 
+  scope :random, -> { order('RANDOM()') }
+  scope :active, -> { where(active: true) }
+
   phony_normalize :phone,  default_country_code: 'CH'
 
   mount_uploader :logo, LogoUploader

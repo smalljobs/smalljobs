@@ -3,7 +3,9 @@
 require 'spec_helper'
 
 feature 'Password reset' do
-  let(:region) { Fabricate(:region_bremgarten) }
+
+  let(:org) { Fabricate(:org_lenzburg) }
+  let(:region) { org.regions.first }
 
   context 'with an unconfirmed user' do
     background do

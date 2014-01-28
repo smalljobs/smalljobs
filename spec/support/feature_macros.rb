@@ -12,17 +12,15 @@ module Support
     # @param [Model] the model providing the subdomain info
     # @param [String] the path to visit
     #
-    def visit_on(model, path)
+    def visit_on(model, path='')
       case model
       when Region
-        host = "http://#{ region.subdomain }.lvh.me"
+        visit("http://#{ region.subdomain }.lvh.me/#{ path }")
       when Broker
-        host = "http://#{ broker.regions.first.subdomain }.lvh.me"
-      else
-        host = ''
+        visit("http://#{ broker.regions.first.subdomain }.lvh.me/#{ path }")
+      when String
+        visit("http://www.lvh.me/#{ model }")
       end
-
-      visit(host + path)
     end
 
     # Scopes the block actions to a flash notification

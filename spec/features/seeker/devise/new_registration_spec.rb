@@ -3,7 +3,9 @@
 require 'spec_helper'
 
 feature 'New job seeker registration' do
-  let(:region) { Fabricate(:region_bremgarten) }
+
+  let(:org) { Fabricate(:org_lenzburg) }
+  let(:region) { org.regions.first }
 
   background do
     Fabricate(:work_category, name: 'Garten')
@@ -48,7 +50,7 @@ feature 'New job seeker registration' do
       fill_in 'Nachname', with: 'Meier'
       fill_in 'Strasse',  with: 'Hühnerstall 12'
 
-      select 'Zufikon', from: 'Ort'
+      select 'Lenzburg', from: 'Ort'
     end
 
     within_fieldset 'Arbeit' do

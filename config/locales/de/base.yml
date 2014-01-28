@@ -18,6 +18,9 @@ de:
       authenticatable: "Authentifizierung"
       employment: "Anstellungen"
       work: "Arbeiten"
+    format:
+      logo: "Format 220x220"
+      background: "Format 700x400"
   navigation:
     home: ""
     sign_up: "Registrieren"
@@ -171,11 +174,15 @@ de:
     index:
       teaser: "Willkommen bei SmallJobs"
       lead: "Pea sprouts pea parsley water spinach radish plantain. Gourd tomato dulse kale black-eyed pea earthnut pea okra corn caulie garlic. Bell pepper sweet pepper turnip greens welsh onion horseradish cucumber caulie tomatillo."
+      organizations: "Unsere Organisationen"
+      region: "Region %{name}"
+      visit: "Besuche %{name}"
     show:
-      teaser: "Willkommen bei SmallJobs"
-      lead: "Pea sprouts pea parsley water spinach radish plantain. Gourd tomato dulse kale black-eyed pea earthnut pea okra corn caulie garlic. Bell pepper sweet pepper turnip greens welsh onion horseradish cucumber caulie tomatillo."
       signup_provider: "Als Anbieter registrieren"
       signup_seeker: "Als Sucher registrieren"
+      places: "Unsere Orte: %{places}"
+      people: "Mitarbeiter"
+      address: "Adresse"
   pages:
     layout:
       title: "SmallJobs"

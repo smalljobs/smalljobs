@@ -79,8 +79,13 @@ RailsAdmin.config do |config|
       group :design do
         label I18n.t('admin.groups.design')
 
-        field :logo
-        field :background
+        field :logo do
+          help I18n.t('admin.format.logo')
+        end
+
+        field :background do
+          help I18n.t('admin.format.background')
+        end
       end
 
       group :administration do
