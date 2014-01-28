@@ -3,7 +3,9 @@
 require 'spec_helper'
 
 feature 'New job broker registration' do
-  let(:region) { Fabricate(:region, name: 'Bremgarten') }
+
+  let(:org) { Fabricate(:org_lenzburg) }
+  let(:region) { org.regions.first }
 
   scenario 'public registrations' do
     visit_on region, '/brokers/sign_up'

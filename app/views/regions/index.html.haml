@@ -1,3 +1,29 @@
 .jumbotron
   %h1= t('regions.index.teaser')
   %p.lead= t('regions.index.lead')
+
+%h2= t('regions.index.organizations')
+
+- @organizations.each_slice(2) do |org_a, org_b|
+  .row
+    .col-lg-6
+      %h3= org_a.name
+      %dl
+        - for region in org_a.regions
+          %dt= t('regions.index.region', name: region.name)
+          %dd
+            = region.places.pluck(:name).to_sentence
+            %br
+            = link_to(t('regions.index.visit', name: region.name), root_url(subdomain: region.subdomain))
+
+    - if org_b.present?
+      .col-lg-6
+        %h3= org_b.name
+        %dl
+          - for region in org_b.regions
+            %dt= t('regions.index.region', name: region.name)
+            %dd
+              = region.places.pluck(:name).to_sentence
+              %br
+              = link_to(t('regions.index.visit', name: region.name), root_url(subdomain: region.subdomain))
+

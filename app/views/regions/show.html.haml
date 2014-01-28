@@ -1,8 +1,51 @@
-.jumbotron
-  %h1= t('regions.show.teaser')
-  %p.lead= t('regions.show.lead')
+.jumbotron.org-header
+  %h1= @organization.name
   .row.signup
     .col-lg-6
       = link_to t('regions.show.signup_provider'), new_provider_registration_path, class: 'btn btn-lg btn-success'
     .col-lg-6.top-buffer
       = link_to t('regions.show.signup_seeker'), new_seeker_registration_path, class: 'btn btn-lg btn-success'
+
+%h1= @organization.name
+%p.lead= @organization.description
+%p.places= t('regions.show.places', places: @organization.places.pluck(:name).to_sentence)
+
+.row
+  .col-lg-6
+
+    %h2= t('regions.show.address')
+    %address
+      = @organization.name
+      %br
+      = @organization.street
+      %br
+
+      = @organization.place.zip + ' ' + @organization.place.name
+      %br
+      %br
+
+      - if @organization.phone
+        %abbr{ title: t('activerecord.attributes.provider.phone') } T:
+        = @organization.phone.phony_formatted
+        %br
+
+      - if @organization.email
+        %a{ href: 'mailto:#' }= @organization.email
+        %br
+
+      - if @organization.website
+        = link_to @organization.website, @organization.website
+        %br
+
+  .col-lg-6
+
+    %h2= t('regions.show.people')
+    - @organization.brokers.each do |broker|
+      %address
+        = broker.name
+        %br
+        - if broker.phone
+          %abbr{ title: t('activerecord.attributes.provider.phone') } T:
+          = broker.phone.phony_formatted
+          %br
+

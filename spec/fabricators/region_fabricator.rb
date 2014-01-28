@@ -20,3 +20,17 @@ Fabricator(:region_bremgarten, class_name: :region) do
     ]
   }
 end
+
+Fabricator(:region_lenzburg, class_name: :region) do
+  name 'Lenzburg'
+  subdomain 'lenzburg'
+  places {
+    [
+      Fabricate(:place, zip: '5702', name: 'Niederlenz'),
+      Fabricate(:place, zip: '5706', name: 'Boniswil'),
+      Fabricate(:place, zip: '5704', name: 'Egliswil'),
+      Fabricate(:place, zip: '5703', name: 'Seon'),
+      Fabricate(:place, zip: '5600', name: 'Lenzburg')
+    ]
+  }
+end
