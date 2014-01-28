@@ -1,4 +1,7 @@
 class BackgroundUploader < CarrierWave::Uploader::Base
+  include CarrierWave::MiniMagick
+
+  storage :fog
 
   def store_dir
     "uploads/#{ model.class.to_s.underscore }/#{ mounted_as }/#{ model.id }"
@@ -8,4 +11,7 @@ class BackgroundUploader < CarrierWave::Uploader::Base
     %w(jpg jpeg gif png)
   end
 
+  version(:web) do
+    process(resize_to_fit: [700, 400])
+  end
 end

@@ -1,5 +1,9 @@
-.jumbotron.org-header
-  %h1= @organization.name
+.jumbotron.organization{ style: @organization.background.present? ? "background-image: url(#{ @organization.background.url(:web) })" : ''}
+  - if @organization.logo.present?
+    = image_tag(@organization.logo.url(:web, :normal), alt: @organization.name)
+  - else
+    %h1= @organization.name
+
   .row.signup
     .col-lg-6
       = link_to t('regions.show.signup_provider'), new_provider_registration_path, class: 'btn btn-lg btn-success'

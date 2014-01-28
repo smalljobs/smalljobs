@@ -18,6 +18,9 @@ de:
       authenticatable: "Authentifizierung"
       employment: "Anstellungen"
       work: "Arbeiten"
+    format:
+      logo: "Format 220x220"
+      background: "Format 700x400"
   navigation:
     home: ""
     sign_up: "Registrieren"
