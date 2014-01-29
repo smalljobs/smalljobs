@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-feature 'List the providers' do
+feature 'Show a provider' do
   let(:broker) do
     Fabricate(:broker_with_regions)
   end

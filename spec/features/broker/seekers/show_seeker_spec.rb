@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-feature 'List the seekers' do
+feature 'SHow a seeker' do
   let(:broker) do
     Fabricate(:broker_with_regions)
   end
