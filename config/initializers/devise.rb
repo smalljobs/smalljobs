@@ -14,10 +14,6 @@ Devise.setup do |config|
   # with default "from" parameter.
   config.mailer_sender = 'hello@smalljobs.ch'
 
-  config.mailer.class_eval do
-    helper :mailer
-  end
-
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
 
@@ -291,4 +287,8 @@ Devise.setup do |config|
   end
 
   config.omniauth :facebook, '601488853251293', '959deac6afda5d02d714503aa6940f9e', { scope: 'email, offline_access', client_options: { ssl: { ca_file: '/usr/lib/ssl/certs/ca-certificates.crt' }}}
+end
+
+Devise::Mailer.class_eval do
+  helper :mailer
 end
