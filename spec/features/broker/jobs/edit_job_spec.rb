@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-feature 'Add a new job' do
+feature 'Edit a job' do
   let(:broker) { Fabricate(:broker_with_regions) }
   let(:place) { broker.regions.first.places.first }
   let(:provider) { Fabricate(:provider, place: place, firstname: 'Roberto', lastname: 'Blanco') }
