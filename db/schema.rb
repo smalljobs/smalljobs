@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140124174358) do
+ActiveRecord::Schema.define(version: 20140129120507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,8 +94,8 @@ ActiveRecord::Schema.define(version: 20140124174358) do
     t.string   "title",                                                       null: false
     t.text     "description",                                                 null: false
     t.string   "date_type",                                                   null: false
-    t.datetime "start_date"
-    t.datetime "end_date"
+    t.date     "start_date"
+    t.date     "end_date"
     t.decimal  "salary",           precision: 8, scale: 2,                    null: false
     t.string   "salary_type",                              default: "hourly", null: false
     t.integer  "manpower",                                 default: 1,        null: false

@@ -7,10 +7,10 @@ module ApplicationHelper
   #
   def provider_contact_preferences
     [
-      [I18n.t('contacts.postal'), 'postal' ],
-      [I18n.t('contacts.phone'), 'phone' ],
-      [I18n.t('contacts.email'), 'email' ],
-      [I18n.t('contacts.mobile'), 'mobile' ]
+      [I18n.t('contacts.postal'), 'postal'],
+      [I18n.t('contacts.phone'), 'phone'],
+      [I18n.t('contacts.email'), 'email'],
+      [I18n.t('contacts.mobile'), 'mobile']
     ]
   end
 
@@ -21,10 +21,35 @@ module ApplicationHelper
   #
   def seeker_contact_preferences
     [
-      [I18n.t('contacts.whatsapp'), 'whatsapp' ],
-      [I18n.t('contacts.mobile'), 'mobile' ],
-      [I18n.t('contacts.email'), 'email' ],
-      [I18n.t('contacts.phone'), 'phone' ]
+      [I18n.t('contacts.whatsapp'), 'whatsapp'],
+      [I18n.t('contacts.mobile'), 'mobile'],
+      [I18n.t('contacts.email'), 'email'],
+      [I18n.t('contacts.phone'), 'phone']
+    ]
+  end
+
+  # Get the translated select options for
+  # the job date types.
+  #
+  # @return [Array<String, String>] the date types
+  #
+  def job_date_types
+    [
+      [I18n.t('jobs.date_types.agreement'), 'agreement'],
+      [I18n.t('jobs.date_types.date'), 'date'],
+      [I18n.t('jobs.date_types.date_range'), 'date_range'],
+    ]
+  end
+
+  # Get the translated select options for
+  # the job salary types.
+  #
+  # @return [Array<String, String>] the salary types
+  #
+  def job_salary_types
+    [
+      [I18n.t('jobs.salary_types.hourly'), 'hourly'],
+      [I18n.t('jobs.salary_types.fixed'), 'fixed'],
     ]
   end
 
@@ -59,6 +84,20 @@ module ApplicationHelper
 
   alias_method :seeker_status_class, :provider_status_class
 
+  # Get the table bootstrap class depending
+  # on the job status
+  #
+  # @param [Job] the job
+  # @return [String] the bootstrap class
+  #
+  def job_status_class(job)
+    if job.seekers.size == 0
+      'warning'
+    else
+      ''
+    end
+  end
+
   # Get the table label depending
   # on the provider status
   #
@@ -76,6 +115,20 @@ module ApplicationHelper
   end
 
   alias_method :seeker_label, :provider_label
+
+  # Get the table label depending
+  # on the job status
+  #
+  # @param [Job] the job
+  # @return [Array<String>] the label type and text
+  #
+  def job_label(job)
+    if job.seekers.size == 0
+      bootstrap_label('warning', I18n.t('common.unassigned'))
+    else
+      bootstrap_label('success', I18n.t('common.assigned'))
+    end
+  end
 
   # Creates a bootstrap label
   #

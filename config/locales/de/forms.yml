@@ -12,3 +12,4 @@ de:
       defaults:
         contact_availability: "Wann sind Sie am Besten per Telefon zu erreichen?"
         date_of_birth: "Du solltest zwischen 13 und 18 Jahre als sein."
+        duration: "Ungefähre Dauer in Minuten"

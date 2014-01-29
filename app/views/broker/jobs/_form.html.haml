@@ -6,18 +6,27 @@
 
   %fieldset
     %legend
+      = t('legends.assignments')
+      %i.fa.fa-2x.fa-link.pull-right
+
+    .form-inputs
+      = f.association :provider, required: true, autofocus: true, collection: current_region.providers
+      = f.association :work_category, required: true
+      = f.association :seekers, as: :check_boxes, collection: current_region.seekers
+
+  %fieldset
+    %legend
       = t('legends.job')
       %i.fa.fa-2x.fa-user.pull-right
 
     .form-inputs
-      = f.input :provider, required: true, autofocus: true
-      = f.input :work_category, required: true
       = f.input :title, required: true
       = f.input :description, required: true
 
+  %fieldset
     %legend
       = t('legends.date')
-      %i.fa.fa-2x.fa-home.pull-right
+      %i.fa.fa-2x.fa-calendar.pull-right
 
     .form-inputs
       = f.input :date_type, collection: job_date_types
@@ -27,7 +36,7 @@
   %fieldset
     %legend
       = t('legends.salary')
-      %i.fa.fa-2x.fa-phone.pull-right
+      %i.fa.fa-2x.fa-money.pull-right
 
     .form-inputs
       = f.input :salary_type, collection: job_salary_types
@@ -36,7 +45,7 @@
   %fieldset
     %legend
       = t('legends.workers')
-      %i.fa.fa-2x.fa-lock.pull-right
+      %i.fa.fa-2x.fa-clock-o.pull-right
 
     .form-inputs
       = f.input :manpower, require: true

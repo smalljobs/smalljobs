@@ -24,6 +24,25 @@ describe ApplicationHelper do
     end
   end
 
+  describe '#seeker_contact_preferences' do
+    it 'returns the translated contact preferences for job seekers' do
+      expect(helper.job_date_types).to eq([
+        ['Nach Absprache', 'agreement'],
+        ['An einem bestimmten Tag', 'date'],
+        ['In einem bestimmten Zeitraum', 'date_range'],
+      ])
+    end
+  end
+
+  describe '#seeker_contact_preferences' do
+    it 'returns the translated contact preferences for job seekers' do
+      expect(helper.job_salary_types).to eq([
+        ['Stundenlohn', 'hourly'],
+        ['Fixer Preis', 'fixed'],
+      ])
+    end
+  end
+
   describe '#flash_class' do
     it 'maps a notice to an info alert' do
       expect(helper.flash_class(:notice)).to eq('alert-info')
@@ -55,6 +74,18 @@ describe ApplicationHelper do
     end
   end
 
+  describe '#job_status_class' do
+    it 'maps an job without seekers to the warning class' do
+      job = Fabricate(:job)
+      expect(helper.job_status_class(job)).to eq('warning')
+    end
+
+    it 'maps an job with seekers to the no class' do
+      job = Fabricate(:job, seekers: [Fabricate(:seeker)])
+      expect(helper.job_status_class(job)).to eq('')
+    end
+  end
+
   describe '#provider_label' do
     it 'labels an unconfirmed provider' do
       provider = Fabricate(:provider, confirmed: false, active: false)
@@ -69,6 +100,18 @@ describe ApplicationHelper do
     it 'labels an confirmed, active provider' do
       provider = Fabricate(:provider, confirmed: true, active: true)
       expect(helper.provider_label(provider)).to eq('<span class="label label-success">Aktiv</span>')
+    end
+  end
+
+  describe '#job_label' do
+    it 'labels an job without seekers' do
+      job = Fabricate(:job)
+      expect(helper.job_label(job)).to eq('<span class="label label-warning">Nicht zugewiesen</span>')
+    end
+
+    it 'labels an confirmed, inactive jobn' do
+      job = Fabricate(:job, seekers: [Fabricate(:seeker)])
+      expect(helper.job_label(job)).to eq('<span class="label label-success">Zugewiesen</span>')
     end
   end
 

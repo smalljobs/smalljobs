@@ -28,6 +28,9 @@ de:
       employment:
         one: "Anstellung"
         other: "Anstellungen"
+      job:
+        one: "Job"
+        other: "Jobs"
     attributes:
       work_category:
         name: "Name"
@@ -121,6 +124,19 @@ de:
         <<: *USER
       admin:
         <<: *USER
+      job:
+        provider: "Anbieter"
+        seekers: "Jugendliche"
+        work_category: "Arbeitskategorie"
+        title: "Titel"
+        description: "Beschreibung"
+        date_type: "Zeitraum"
+        start_date: "Startdatum"
+        end_date: "Enddatum"
+        salary: "Lohn"
+        salary_type: "Art des Lohnes"
+        manpower: "Arbeitskräfte"
+        duration: "Dauer"
     errors:
       messages:
         invalid_seeker_age: "muss zwischen 13 und 18 Jahre alt sein"
