@@ -5,7 +5,7 @@ describe Broker::JobsController do
   it_behaves_like 'a protected controller', :broker, :job, :all do
     let(:broker)    { Fabricate(:broker_with_regions) }
     let(:job)       { Fabricate(:job, provider: Fabricate(:provider, place: broker.places.first)) }
-    let(:jok_attrs) { Fabricate.attributes_for(:job, provider: Fabricate(:provider, place: broker.places.first)) }
+    let(:job_attrs) { Fabricate.attributes_for(:job, provider: Fabricate(:provider, place: broker.places.first)) }
   end
 
   describe '#index' do
@@ -19,7 +19,7 @@ describe Broker::JobsController do
 
     it 'shows only jobs in the broker regions' do
       get :index
-      #TODO: expect(assigns(:jobs).count).to eql(2)
+      expect(assigns(:jobs).count).to eql(2)
     end
   end
 end

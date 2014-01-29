@@ -2,7 +2,7 @@ class Broker::JobsController < InheritedResources::Base
 
   before_filter :authenticate_broker!
 
-  load_and_authorize_resource :job, through: :current_broker, except: :new
+  load_and_authorize_resource :job, through: :current_region, except: :new
 
   protected
 
