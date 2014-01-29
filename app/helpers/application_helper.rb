@@ -123,10 +123,15 @@ module ApplicationHelper
   # @return [Array<String>] the label type and text
   #
   def job_label(job)
-    if job.seekers.size == 0
-      bootstrap_label('warning', I18n.t('common.unassigned'))
-    else
-      bootstrap_label('success', I18n.t('common.assigned'))
+    case job.state
+    when 'created'
+      bootstrap_label('warning', I18n.t('common.created'))
+    when 'available'
+      bootstrap_label('info', I18n.t('common.available'))
+    when 'connected'
+      bootstrap_label('primary', I18n.t('common.connected'))
+    when 'rated'
+      bootstrap_label('success', I18n.t('common.rated'))
     end
   end
 

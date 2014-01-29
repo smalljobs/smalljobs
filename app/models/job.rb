@@ -9,6 +9,8 @@ class Job < ActiveRecord::Base
   validates :provider, presence: true
   validates :work_category, presence: true
 
+  validates :state, presence: true, inclusion: { in: lambda { |m| m.state_enum }}
+
   validates :title, presence: true
   validates :description, presence: true
 
@@ -35,6 +37,14 @@ class Job < ActiveRecord::Base
   #
   def date_type_enum
     %w(agreement date date_range)
+  end
+
+  # Available status types
+  #
+  # @return [Array<String>] list of possible job states
+  #
+  def state_enum
+    %w(created available connected rated)
   end
 
   # Available salary types

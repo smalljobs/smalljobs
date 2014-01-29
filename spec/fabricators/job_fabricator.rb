@@ -2,6 +2,8 @@ Fabricator(:job) do
   provider
   work_category
 
+  state 'created'
+
   title 'A nice job'
   description 'Help me understand the Internet'
 

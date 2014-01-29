@@ -99,8 +99,10 @@ de:
     unconfirmed: "Unbestätigt"
     active: "Aktiv"
     inactive: "Inaktiv"
-    unassigned: "Nicht zugewiesen"
-    assigned: "Zugewiesen"
+    created: "Erstellt"
+    available: "Verfügbar"
+    connected: "Vermittelt"
+    rated: "Bewerted"
   devise_views:
     no_broker_registration: "Sie können sich nicht selber als Anbieter registrieren. Bitte kontaktieren Sie uns unter hello@smalljobs.ch"
     wait_confirmation: "Warte auf die Bestätigung von: %{email}"

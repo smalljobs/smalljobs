@@ -20,6 +20,16 @@ describe Job do
       end
     end
 
+    describe '#state' do
+      it 'must be one of created, available, connected or rated' do
+        expect(Fabricate.build(:job, state: 'abc123')).not_to be_valid
+        expect(Fabricate.build(:job, state: 'created')).to be_valid
+        expect(Fabricate.build(:job, state: 'available')).to be_valid
+        expect(Fabricate.build(:job, state: 'connected')).to be_valid
+        expect(Fabricate.build(:job, state: 'rated')).to be_valid
+      end
+    end
+
     describe '#title' do
       it 'is not valid without a title' do
         expect(Fabricate.build(:job, title: nil)).not_to be_valid

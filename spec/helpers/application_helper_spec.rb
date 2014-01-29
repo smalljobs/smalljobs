@@ -104,14 +104,24 @@ describe ApplicationHelper do
   end
 
   describe '#job_label' do
-    it 'labels an job without seekers' do
-      job = Fabricate(:job)
-      expect(helper.job_label(job)).to eq('<span class="label label-warning">Nicht zugewiesen</span>')
+    it 'marks a job in the created state' do
+      job = Fabricate(:job, state: 'created')
+      expect(helper.job_label(job)).to eq('<span class="label label-warning">Erstellt</span>')
     end
 
-    it 'labels an confirmed, inactive jobn' do
-      job = Fabricate(:job, seekers: [Fabricate(:seeker)])
-      expect(helper.job_label(job)).to eq('<span class="label label-success">Zugewiesen</span>')
+    it 'marks a job in the available state' do
+      job = Fabricate(:job, state: 'available')
+      expect(helper.job_label(job)).to eq('<span class="label label-info">Verfügbar</span>')
+    end
+
+    it 'marks a job in the connected state' do
+      job = Fabricate(:job, state: 'connected')
+      expect(helper.job_label(job)).to eq('<span class="label label-primary">Vermittelt</span>')
+    end
+
+    it 'marks a job in the rated state' do
+      job = Fabricate(:job, state: 'rated')
+      expect(helper.job_label(job)).to eq('<span class="label label-success">Bewerted</span>')
     end
   end
 
