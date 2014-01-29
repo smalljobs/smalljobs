@@ -55,10 +55,10 @@ de:
   jobs:
     at: "Am %{at}"
     between: "Zwischen dem %{from} und dem %{to}"
-    manpower: "Benötige Arbeitskräfte: %{manpower}"
+    manpower: "Benötigte Arbeitskräfte: %{manpower}"
     duration: "Ungefähre Dauer: %{duration} Minuten"
     no_seekers_assigned: "Noch keine Jugendlichen zugewiesen!"
-    seekers_assigend: "Zugewiesene Jugendliche"
+    seekers_assigned: "Zugewiesene Jugendliche"
     salary_types:
       hourly: "Stundenlohn"
       fixed: "Fixer Preis"
@@ -78,7 +78,8 @@ de:
     index:
       title: "Alle Jobs"
       lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
-      add_new: "Neuen Job erfassen"
+      add_new: "Neuen Job hinzufügen"
+      no_jobs: "Es sind noch keine Jobs in deiner Region erfasst"
   validators:
     subdomain:
       reserved: "darf nicht ein reservierter Name sein"

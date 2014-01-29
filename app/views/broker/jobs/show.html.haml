@@ -16,7 +16,7 @@
 
         - if @job.date_type == 'date'
           %p= t('jobs.at', at: l(@job.start_date, format: :long))
-        - else
+        - elsif @job.date_type == 'date_range'
           %p= t('jobs.between', from: l(@job.start_date), to: l(@job.end_date))
 
       .col-lg-6
