@@ -10,9 +10,9 @@
       %i.fa.fa-2x.fa-link.pull-right
 
     .form-inputs
-      = f.association :provider, required: true, autofocus: true, collection: current_region.providers
-      = f.association :work_category, required: true
-      = f.association :seekers, as: :check_boxes, collection: current_region.seekers
+      = f.association :provider, required: true, autofocus: true, collection: current_region.providers, include_blank: false
+      = f.association :work_category, required: true, include_blank: false
+      = f.association :seekers, as: :check_boxes, collection: current_region.seekers, include_blank: false
 
   %fieldset
     %legend
@@ -29,7 +29,7 @@
       %i.fa.fa-2x.fa-calendar.pull-right
 
     .form-inputs
-      = f.input :date_type, collection: job_date_types
+      = f.input :date_type, collection: job_date_types, include_blank: false
       = f.input :start_date
       = f.input :end_date
 
@@ -39,7 +39,7 @@
       %i.fa.fa-2x.fa-money.pull-right
 
     .form-inputs
-      = f.input :salary_type, collection: job_salary_types
+      = f.input :salary_type, collection: job_salary_types, include_blank: false
       = f.input :salary, required: true
 
   %fieldset

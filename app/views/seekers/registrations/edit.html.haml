@@ -31,7 +31,7 @@
       = f.input :firstname, required: true
       = f.input :lastname, required: true
       = f.input :street, required: true
-      = f.association :place, required: true, collection: current_region.places
+      = f.association :place, required: true, collection: current_region.places, include_blank: false
 
   %fieldset
     %legend
@@ -41,7 +41,7 @@
     .form-inputs
       = f.input :phone
       = f.input :mobile
-      = f.input :contact_preference, collection: seeker_contact_preferences
+      = f.input :contact_preference, collection: seeker_contact_preferences, include_blank: false
       = f.input :contact_availability
 
   %fieldset
