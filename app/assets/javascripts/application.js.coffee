@@ -4,7 +4,7 @@
 #= require bootstrap
 #= require_tree .
 
-$(->
+ready = ->
   $('#job_date_type').change(->
     switch $(@).val()
       when 'agreement', ''
@@ -17,4 +17,6 @@ $(->
         $('.job_start_date').slideDown()
         $('.job_end_date').slideDown()
   ).change()
-)
+
+$(document).ready(ready)
+$(document).on('page:load', ready)
