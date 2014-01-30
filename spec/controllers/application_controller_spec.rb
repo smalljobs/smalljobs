@@ -56,36 +56,10 @@ describe ApplicationController do
   end
 
   describe '#current_user' do
-    context 'with a logged in admin' do
-      auth_admin(:admin) { Fabricate(:admin) }
-
-      it 'returns the admin' do
-        expect(controller.send(:current_user)).to eq(admin)
-      end
-    end
-
-    context 'with a logged in broker' do
-      auth_broker(:broker) { Fabricate(:broker) }
-
-      it 'returns the broker' do
-        expect(controller.send(:current_user)).to eq(broker)
-      end
-    end
-
-    context 'with a logged in provider' do
-      auth_provider(:provider) { Fabricate(:provider) }
-
-      it 'returns the provider' do
-        expect(controller.send(:current_user)).to eq(provider)
-      end
-    end
-
-    context 'with a logged in seeker' do
-      auth_seeker(:seeker) { Fabricate(:seeker) }
-
-      it 'returns the seeker' do
-        expect(controller.send(:current_user)).to eq(seeker)
-      end
+    it 'returns the seeker' do
+      expect {
+        controller.send(:current_user)
+      }.to raise_error(NotImplementedError)
     end
   end
 

@@ -5,4 +5,10 @@ class Provider::DashboardsController < ApplicationController
   def show
   end
 
+  protected
+
+  def current_user
+    current_provider
+  end
+
 end

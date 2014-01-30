@@ -13,6 +13,10 @@ class Broker::JobsController < InheritedResources::Base
 
   protected
 
+  def current_user
+    current_broker
+  end
+
   def permitted_params
     params.permit(job: [:id, :provider_id, :work_category_id, :title, :description, :date_type, :start_date, :end_date, :salary, :salary_type, :manpower, :duration, seeker_ids: []])
   end

@@ -5,4 +5,10 @@ class Broker::DashboardsController < ApplicationController
   def show
   end
 
+  protected
+
+  def current_user
+    current_broker
+  end
+
 end

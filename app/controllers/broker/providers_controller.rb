@@ -7,6 +7,10 @@ class Broker::ProvidersController < InheritedResources::Base
 
   protected
 
+  def current_user
+    current_broker
+  end
+
   def optional_password
     if params[:provider][:password].blank?
       params[:provider].delete(:password)

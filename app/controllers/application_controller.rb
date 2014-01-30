@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def current_user
-    current_admin || current_broker || current_provider || current_seeker
+    raise NotImplementedError.new("Controller #{ controller_name } needs to implement `current_user`")
   end
 
   def current_region

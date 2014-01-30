@@ -5,4 +5,10 @@ class Seeker::DashboardsController < ApplicationController
   def show
   end
 
+  protected
+
+  def current_user
+    current_seeker
+  end
+
 end
