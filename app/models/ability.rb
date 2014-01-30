@@ -12,6 +12,9 @@ class Ability
       can :manage, Provider, place: { id: places }
       can :manage, Seeker, place: { id: places }
       can :manage, Job, provider: { place: { id: places } }
+
+    elsif user.is_a?(Provider)
+      can :manage, Job, provider: user
     end
   end
 end
