@@ -15,9 +15,11 @@ module Support
     def visit_on(model, path='')
       case model
       when Region
-        visit("http://#{ region.subdomain }.lvh.me/#{ path }")
+        visit("http://#{ model.subdomain }.lvh.me/#{ path }")
       when Broker
-        visit("http://#{ broker.regions.first.subdomain }.lvh.me/#{ path }")
+        visit("http://#{ model.regions.first.subdomain }.lvh.me/#{ path }")
+      when Provider, Seeker
+        visit("http://#{ model.place.region.subdomain }.lvh.me/#{ path }")
       when String
         visit("http://www.lvh.me/#{ model }")
       end

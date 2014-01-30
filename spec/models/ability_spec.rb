@@ -47,4 +47,17 @@ describe Ability do
       expect(ability).to_not be_able_to(:read, Fabricate(:job, provider: Fabricate(:provider, place: Fabricate(:place, zip: '9999'))))
     end
   end
+
+  context 'for a provider' do
+    let(:user) { Fabricate(:provider) }
+    let(:ability) { Ability.new(user) }
+
+    it 'can manage his jobs' do
+      expect(ability).to be_able_to(:manage, Fabricate(:job, provider: user))
+    end
+
+    it 'cannot manage other providers jobs' do
+      expect(ability).to_not be_able_to(:manage, Fabricate(:job))
+    end
+  end
 end

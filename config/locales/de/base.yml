@@ -66,20 +66,38 @@ de:
       agreement: "Nach Absprache"
       date: "An einem bestimmten Tag"
       date_range: "In einem bestimmten Zeitraum"
-    new:
-      title: "Job erfassen"
-      lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
-    edit:
-      title: "Job bearbeiten"
-      lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
-    show:
-      title: "Job Details"
-      lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
-    index:
-      title: "Alle Jobs"
-      lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
-      add_new: "Neuen Job hinzufügen"
-      no_jobs: "Es sind noch keine Jobs in deiner Region erfasst"
+  broker:
+    jobs:
+      new:
+        title: "Job erfassen"
+        lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+      edit:
+        title: "Job bearbeiten"
+        lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+      show:
+        title: "Job Details"
+        lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+      index:
+        title: "Alle Jobs"
+        lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+        add_new: "Neuen Job hinzufügen"
+        no_jobs: "Es sind noch keine Jobs in deiner Region erfasst"
+  provider:
+    jobs:
+      new:
+        title: "Job erfassen"
+        lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+      edit:
+        title: "Job bearbeiten"
+        lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+      show:
+        title: "Job Details"
+        lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+      index:
+        title: "Alle ihre Jobs"
+        lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+        add_new: "Neuen Job hinzufügen"
+        no_jobs: "Sie haben noch keine Jobs erfasst"
   validators:
     subdomain:
       reserved: "darf nicht ein reservierter Name sein"
@@ -256,6 +274,8 @@ de:
       lead: "Vielen Dank für ihre Anmeldung. Ihr Benutzerkonto wurde erfolgreich bestätigt und wir werden Sie so bald wie möglich persönlich kontaktieren und ihre Benutzerkonto anschliessend aktivieren."
   provider_dashboard:
     title: 'Übersicht'
+    lead: "Veggies sunt bona vobis, proinde vos postulo esse magis dandelion ricebean courgette pumpkin tomatillo sea lettuce epazote gumbo summer purslane kakadu plum."
+    job_list: 'Alle ihre Jobs anzeigen'
   broker_dashboard:
     title: 'Übersicht'
     lead: "Veggies sunt bona vobis, proinde vos postulo esse magis dandelion ricebean courgette pumpkin tomatillo sea lettuce epazote gumbo summer purslane kakadu plum."

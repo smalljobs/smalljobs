@@ -5,7 +5,7 @@ describe 'broker/jobs/index.html.haml' do
   let(:job_A) { Fabricate(:job, title: 'Job A', provider: Fabricate(:provider, firstname: 'John', lastname: 'Johnetty')) }
   let(:job_B) { Fabricate(:job, title: 'Job B', provider: Fabricate(:provider, firstname: 'Jasmine', lastname: 'Jassetty')) }
 
-  context 'with providers' do
+  context 'with jobs' do
     before do
       assign(:jobs, [job_A, job_B])
       render

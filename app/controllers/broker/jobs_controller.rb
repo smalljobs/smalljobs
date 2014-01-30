@@ -2,7 +2,8 @@ class Broker::JobsController < InheritedResources::Base
 
   before_filter :authenticate_broker!
 
-  load_and_authorize_resource :job, through: :current_region, except: :new
+  load_and_authorize_resource :job, through: :current_region
+  skip_authorize_resource :job, only: :new
 
   def create
     @job = Job.new(permitted_params[:job])

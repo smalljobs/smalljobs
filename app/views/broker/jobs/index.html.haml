@@ -1,5 +1,5 @@
-%h1= t('jobs.index.title')
-%p.lead= t('jobs.index.lead')
+%h1= t('broker.jobs.index.title')
+%p.lead= t('broker.jobs.index.lead')
 
 .table-responsive
   %table.table.table-striped
@@ -11,7 +11,7 @@
 
     - if @jobs.size == 0
       %tr
-        %td{ colspan: 8 }= t('jobs.index.no_jobs')
+        %td{ colspan: 8 }= t('broker.jobs.index.no_jobs')
 
     - @jobs.each do |job|
       %tr{ class: job_status_class(job) }
@@ -24,4 +24,4 @@
         %td= link_to '', edit_broker_job_path(job), class: 'fa fa-pencil', title: t('common.edit_title', who: job.title)
         %td= link_to '', broker_job_path(job), method: :delete, title: t('common.destroy_title', who: job.title), data: { confirm: t('common.sure') }, class: 'fa fa-trash-o'
 
-= link_to t('jobs.index.add_new'), new_broker_job_path, class: 'btn btn-primary'
+= link_to t('broker.jobs.index.add_new'), new_broker_job_path, class: 'btn btn-primary'

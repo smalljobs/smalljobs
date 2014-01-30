@@ -1,5 +1,5 @@
-%h1= t('broker.jobs.show.title')
-%p.lead= t('broker.jobs.show.lead')
+%h1= t('provider.jobs.show.title')
+%p.lead= t('provider.jobs.show.lead')
 
 .panel.panel-default
   .panel-body
@@ -47,8 +47,8 @@
 
           %ul
             - @job.seekers.each do |seeker|
-              %ul= link_to(seeker.name, broker_seeker_path(seeker))
+              %ul= seeker.name
 
 %ul.nav.nav-pills
-  %li= link_to t('common.edit'), edit_broker_job_path(@job)
-  %li= link_to t('common.back'), broker_jobs_path
+  %li= link_to t('common.edit'), edit_provider_job_path(@job)
+  %li= link_to t('common.back'), provider_jobs_path

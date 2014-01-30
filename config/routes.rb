@@ -50,6 +50,7 @@ Smalljobs::Application.routes.draw do
 
     namespace :provider do
       resource :dashboard, only: :show
+      resources :jobs
     end
 
     namespace :seeker do

@@ -1,0 +1,49 @@
+= simple_form_for([:provider, @job], html: { novalidate: true }) do |f|
+
+  - if notification = f.error_notification
+    .alert.alert-danger
+      = notification
+
+  %fieldset
+    %legend
+      = t('legends.job')
+      %i.fa.fa-2x.fa-user.pull-right
+
+    .form-inputs
+      = f.association :work_category, required: true, include_blank: false
+      = f.input :title, required: true
+      = f.input :description, required: true
+
+  %fieldset
+    %legend
+      = t('legends.date')
+      %i.fa.fa-2x.fa-calendar.pull-right
+
+    .form-inputs
+      = f.input :date_type, collection: job_date_types, include_blank: false
+      = f.input :start_date, include_blank: true
+      = f.input :end_date, include_blank: true
+
+  %fieldset
+    %legend
+      = t('legends.salary')
+      %i.fa.fa-2x.fa-money.pull-right
+
+    .form-inputs
+      = f.input :salary_type, collection: job_salary_types, include_blank: false
+      = f.input :salary, required: true
+
+  %fieldset
+    %legend
+      = t('legends.workers')
+      %i.fa.fa-2x.fa-clock-o.pull-right
+
+    .form-inputs
+      = f.input :manpower, require: true
+      = f.input :duration, require: true
+
+  .form-actions
+    - if @job.new_record?
+      = f.button :submit, t('common.create'), class: 'btn btn-primary'
+    - else
+      = f.button :submit, t('common.edit'), class: 'btn btn-primary'

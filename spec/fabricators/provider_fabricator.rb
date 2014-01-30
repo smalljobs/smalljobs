@@ -23,3 +23,9 @@ Fabricator(:provider) do
     user.confirm! if transients[:confirmed]
   end
 end
+
+Fabricator(:provider_with_region, from: :provider) do
+  after_create do |user|
+    Fabricate(:region, places: [user.place])
+  end
+end
