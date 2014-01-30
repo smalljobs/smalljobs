@@ -2,6 +2,7 @@ require 'subdomain_validator'
 
 class Region < ActiveRecord::Base
   has_many :places, inverse_of: :region
+  has_many :jobs, through: :places
 
   has_many :employments, inverse_of: :region
   has_many :brokers, through: :employments

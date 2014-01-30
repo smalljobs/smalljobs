@@ -59,6 +59,8 @@ de:
     duration: "Ungefähre Dauer: %{duration} Minuten"
     no_seekers_assigned: "Noch keine Jugendlichen zugewiesen!"
     seekers_assigned: "Zugewiesene Jugendliche"
+    show_job: "Job anzeigen"
+    show_job_title: "Job %{title} anzeigen"
     salary_types:
       hourly: "Stundenlohn"
       fixed: "Fixer Preis"
@@ -66,6 +68,8 @@ de:
       agreement: "Nach Absprache"
       date: "An einem bestimmten Tag"
       date_range: "In einem bestimmten Zeitraum"
+    fixed_price: "Fixpreis: %{salary}"
+    hourly_rate: "%{salary} pro Stunde"
   broker:
     jobs:
       new:
@@ -121,6 +125,7 @@ de:
     available: "Verfügbar"
     connected: "Vermittelt"
     rated: "Bewerted"
+    back_to_region: "Zurück zur Region %{name}"
   devise_views:
     no_broker_registration: "Sie können sich nicht selber als Anbieter registrieren. Bitte kontaktieren Sie uns unter hello@smalljobs.ch"
     wait_confirmation: "Warte auf die Bestätigung von: %{email}"

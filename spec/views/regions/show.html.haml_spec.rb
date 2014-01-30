@@ -4,7 +4,17 @@ describe 'regions/show.html.haml' do
 
   let(:organization) { Fabricate(:org_lenzburg) }
 
+  let(:place_1) { Fabricate(:place, zip: '1234', name: 'Süliswil') }
+  let(:place_2) { Fabricate(:place, zip: '5432', name: 'Saubode') }
+
+  let(:provider_1) { Fabricate(:provider, firstname: 'Mada', lastname: 'Makowski', street: 'Im Rau 2', place: place_1 )}
+  let(:provider_2) { Fabricate(:provider, firstname: 'Rolf', lastname: 'Gümmeli', street: 'Am Eg 1a', place: place_2 )}
+
+  let(:job_1) { Fabricate(:job, title: 'Job 1', salary: 12, provider: provider_1) }
+  let(:job_2) { Fabricate(:job, title: 'Job 2', salary: 14, provider: provider_2) }
+
   before do
+    assign(:jobs, [job_1, job_2])
     assign(:organization, organization)
   end
 
@@ -64,4 +74,34 @@ describe 'regions/show.html.haml' do
     end
   end
 
+  context 'for the jobs' do
+    before do
+      render
+    end
+
+    it 'renders the job titles' do
+      expect(rendered).to have_text('Job 1')
+      expect(rendered).to have_text('Job 1')
+    end
+
+    it 'renders the job salaries' do
+      expect(rendered).to have_text('CHF 12')
+      expect(rendered).to have_text('CHF 14')
+    end
+
+    it 'renders the provider name' do
+      expect(rendered).to have_text('Mada Makowski')
+      expect(rendered).to have_text('Rolf Gümmeli')
+    end
+
+    it 'renders the provider place' do
+      expect(rendered).to have_text('1234 Süliswil')
+      expect(rendered).to have_text('5432 Saubode')
+    end
+
+    it 'renders the links to the jobs' do
+      expect(rendered).to have_link('Job anzeigen', job_path(job_1))
+      expect(rendered).to have_link('Job anzeigen', job_path(job_2))
+    end
+  end
 end

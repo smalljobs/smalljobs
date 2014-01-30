@@ -53,3 +53,13 @@
           = broker.phone.phony_formatted
           %br
 
+%h1= t('regions.show.jobs')
+
+- @jobs.each_slice(2) do |left, right|
+  .row
+    .col-lg-6
+      = render('shared/job', job: left)
+    - if right.present?
+      .col-lg-6
+        = render('shared/job', job: right)
+

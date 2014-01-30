@@ -1,0 +1,53 @@
+%h1= t('provider.jobs.show.title')
+%p.lead= t('provider.jobs.show.lead')
+
+.panel.panel-default
+  .panel-body
+    .label.label-info= @job.work_category.name
+    .status.pull-right= job_label(@job)
+
+    %h2= @job.title
+    %p= @job.description
+
+    .row
+      .col-lg-6
+        %h3= t('legends.date')
+        %p= t("jobs.date_types.#{ @job.date_type }")
+
+        - if @job.date_type == 'date'
+          %p= t('jobs.at', at: l(@job.start_date, format: :long))
+        - elsif @job.date_type == 'date_range'
+          %p= t('jobs.between', from: l(@job.start_date), to: l(@job.end_date))
+
+      .col-lg-6
+        %h3= t('legends.salary')
+        %p= t("jobs.salary_types.#{ @job.salary_type }")
+        %p= number_to_currency(@job.salary)
+
+    .row
+      .col-lg-6
+        %h3= t('legends.provider')
+        %address
+          %strong= @job.provider.name
+          %br
+          = @job.provider.street
+          %br
+          = "#{ @job.provider.place.zip } #{ @job.provider.place.name }"
+
+      .col-lg-6
+        %h3= t('legends.seekers')
+        %p= t('jobs.manpower', manpower: @job.manpower)
+        %p= t('jobs.duration', duration: @job.duration)
+
+        - if @job.seekers.length == 0
+          %p
+            %strong= t('jobs.no_seekers_assigned')
+        - else
+          %p= t('jobs.seekers_assigned')
+
+          %ul
+            - @job.seekers.each do |seeker|
+              %ul= seeker.name
+
+%ul.nav.nav-pills
+  %li= link_to t('common.back_to_region', name: current_region.name), root_path
