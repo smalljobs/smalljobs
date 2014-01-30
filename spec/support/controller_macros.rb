@@ -16,7 +16,7 @@ module Support
       def authenticate(mapping, user)
         @request.env['devise.mapping'] = Devise.mappings[mapping]
 
-        if user.respond_to?(:regions)
+        if user.respond_to?(:regions) && user.regions.first.present?
           @request.host = "#{ user.regions.first.subdomain }.test.host"
         end
 
