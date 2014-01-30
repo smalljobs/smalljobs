@@ -4,6 +4,13 @@ class Broker::JobsController < InheritedResources::Base
 
   load_and_authorize_resource :job, through: :current_region, except: :new
 
+  def create
+    @job = Job.new(permitted_params[:job])
+    @job.state  = 'available'
+
+    create!
+  end
+
   protected
 
   def permitted_params

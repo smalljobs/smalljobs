@@ -22,4 +22,17 @@ describe Broker::JobsController do
       expect(assigns(:jobs).count).to eql(2)
     end
   end
+
+  describe '#create' do
+    auth_broker(:broker) { Fabricate(:broker_with_regions) }
+    let(:provider) { Fabricate(:provider, place: broker.places.first) }
+
+    it 'creates a job in the available state' do
+      params = { format: :json }
+      params[:job] = Fabricate.attributes_for(:job, provider: provider)
+
+      post :create, params
+      expect(Job.first.state).to eql('available')
+    end
+  end
 end
