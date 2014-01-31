@@ -1,0 +1,31 @@
+# Hallo <%= @provider.name %>
+
+<% if @on_behalf_of %>
+** Der Anbieter hat keine Email-Adresse, daher muss diese Information vom Vermittler weitergeleitet werden.**
+
+<%= link_to 'Zum Anbieter', broker_provider_url(@provider, subdomain: subdomain_for(@provider)) %>
+
+<% end %>
+Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
+
+Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
+
+## Job
+
+**<%= @job.title %>**
+<%= @job.description %>
+
+## Jugendliche(r)
+
+<% @seekers.each do |seeker| %>
+  **<%= seeker.name %>**
+  <%= seeker.street %>
+  <%= seeker.place.zip %> <%= seeker.place.name %>
+
+  <%= seeker.email %>
+  <%= seeker.phone.try(:phony_formatted) %>
+  <%= seeker.mobile.try(:phony_formatted) %>
+
+<% end %>
+
+<%= link_to "Zum Job", provider_job_url(@job, subdomain: subdomain_for(@job.provider)) %>

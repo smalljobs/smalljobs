@@ -52,6 +52,16 @@ de:
     phone: "Telefon"
     mobile: "Mobiltelefon"
     whatsapp: "WhatsApp"
+  mail:
+    send_agreement_for_seeker: "Vereinbarung mit SmallJobs"
+    new_seeker_signup_for_broker: "Neuer Jobsucher zur Freischaltung"
+    new_provider_signup_for_broker: "Neuer Jobanbieter zur Freischaltung"
+    provider_activated_for_provider: "Ihr SmallJob Profil wurde aktiviert"
+    job_created_for_broker: "Ein neuer Job zur Überprüfung wurde erstellt"
+    job_connected_for_provider: "Ihre Job wurde zugewiesen"
+    job_connected_for_seeker: "Du hast einen Job!"
+    job_rating_reminder_for_provider: "Bewerten Sie die Arbeite ihres Jobs"
+    job_rating_reminder_for_seeker: "Bewerte deinen durchgeführten Job"
   jobs:
     at: "Am %{at}"
     between: "Zwischen dem %{from} und dem %{to}"

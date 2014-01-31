@@ -1,0 +1,25 @@
+# Hallo <%= @seeker.name %>
+
+Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
+
+Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
+
+## Organisation
+
+**<%= @organization.name %>**
+<%= @organization.street %>
+<%= @organization.place.zip %> <%= @organization.place.name %>
+
+<%= @organization.phone %>
+<%= @organization.email %>
+<%= @organization.website %>
+
+## Ansprechspersonen
+
+<% @brokers.each do |broker| %>
+  **<%= broker.name %>**
+  <%= broker.email %>
+  <%= broker.phone.try(:phony_formatted) %>
+  <%= broker.mobile.try(:phony_formatted) %>
+
+<% end %>

@@ -1,0 +1,9 @@
+# Hallo <%= @brokers.pluck(:firstname).to_sentence %>
+
+Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
+
+**<%= @job.title %>**
+<%= @job.description %>
+
+<%= link_to "Schalte den Job frei", broker_job_url(@job, subdomain: subdomain_for(@job.provider)) %>
+
