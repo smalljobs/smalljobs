@@ -1,6 +1,6 @@
 # Hallo <%= @brokers.pluck(:firstname).to_sentence %>
 
-Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
+Es gibt einen neuen Job in deiner Region:
 
 **<%= @job.title %>**
 <%= @job.description %>
