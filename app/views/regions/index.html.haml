@@ -4,26 +4,10 @@
 
 %h2= t('regions.index.organizations')
 
-- @organizations.each_slice(2) do |org_a, org_b|
+- @organizations.each_slice(2) do |left, right|
   .row
     .col-lg-6
-      %h3= org_a.name
-      %dl
-        - for region in org_a.regions
-          %dt= t('regions.index.region', name: region.name)
-          %dd
-            = region.places.pluck(:name).to_sentence
-            %br
-            = link_to(t('regions.index.visit', name: region.name), root_url(subdomain: region.subdomain))
-
-    - if org_b.present?
+      = render('shared/organization', organization: left)
+    - if right.present?
       .col-lg-6
-        %h3= org_b.name
-        %dl
-          - for region in org_b.regions
-            %dt= t('regions.index.region', name: region.name)
-            %dd
-              = region.places.pluck(:name).to_sentence
-              %br
-              = link_to(t('regions.index.visit', name: region.name), root_url(subdomain: region.subdomain))
-
+        = render('shared/organization', organization: right)

@@ -8,6 +8,7 @@ Fabricator(:broker) do
   password  { Forgery(:basic).password.rjust(10, 'a') }
 
   phone     { '044 444 44 44' }
+  mobile    { '079 444 44 44' }
 
   active    { true }
 

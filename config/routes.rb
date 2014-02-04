@@ -17,13 +17,11 @@ Smalljobs::Application.routes.draw do
     confirmations: 'confirmations'
   }
 
-  constraints(MainSubdomain) do
-    get 'about_us',         to: 'pages#about_us'
-    get 'privacy_policy',   to: 'pages#privacy_policy'
-    get 'terms_of_service', to: 'pages#terms_of_service'
-    get 'features',         to: 'pages#features'
-    get 'join_us',          to: 'pages#join_us'
-  end
+  get 'about_us',         to: 'pages#about_us'
+  get 'privacy_policy',   to: 'pages#privacy_policy'
+  get 'terms_of_service', to: 'pages#terms_of_service'
+  get 'features',         to: 'pages#features'
+  get 'join_us',          to: 'pages#join_us'
 
   constraints(RegionSubdomain) do
     devise_for :brokers, except: :confirmation, controllers: {
@@ -50,11 +48,14 @@ Smalljobs::Application.routes.draw do
 
     namespace :provider do
       resource :dashboard, only: :show
+      resources :jobs
     end
 
     namespace :seeker do
       resource :dashboard, only: :show
     end
+
+    resources :jobs, only: :show
 
     get '/' => 'regions#show'
   end

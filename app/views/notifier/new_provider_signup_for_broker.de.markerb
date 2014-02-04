@@ -1,0 +1,6 @@
+# Hallo <%= @brokers.pluck(:firstname).to_sentence %>
+
+Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
+
+<%= link_to "Schalte #{ @provider.name } frei", broker_provider_url(@provider, subdomain: subdomain_for(@provider)) %>
+

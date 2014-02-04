@@ -7,7 +7,7 @@
     .status.pull-right= provider_label(@provider)
 
     .row
-      .col-sm-6
+      .col-lg-6
         .address
           %strong= @provider.name
           %br
@@ -33,7 +33,7 @@
             %a{ href: 'mailto:#' }= @provider.email
             %br
 
-      .col-sm-6
+      .col-lg-6
         %br
 
         - if @provider.contact_availability.present?

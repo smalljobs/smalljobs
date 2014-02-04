@@ -183,6 +183,7 @@ RailsAdmin.config do |config|
         label I18n.t('admin.groups.administration')
 
         field :active
+        field :confirmed
       end
     end
   end
@@ -230,6 +231,7 @@ RailsAdmin.config do |config|
         label I18n.t('admin.groups.administration')
 
         field :active
+        field :confirmed, :boolean
       end
     end
   end
@@ -282,6 +284,7 @@ RailsAdmin.config do |config|
         label I18n.t('admin.groups.administration')
 
         field :active
+        field :confirmed
       end
     end
   end

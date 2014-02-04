@@ -2,6 +2,7 @@ class Place < ActiveRecord::Base
   belongs_to :region, inverse_of: :places
 
   has_many :providers
+  has_many :jobs, through: :providers
   has_many :seekers
   has_one :organization
 

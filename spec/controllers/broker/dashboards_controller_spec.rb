@@ -27,6 +27,6 @@ describe Broker::DashboardsController do
         expect(response.status).to eql(200)
        end
     end
-
   end
+
 end

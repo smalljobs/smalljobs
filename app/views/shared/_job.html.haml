@@ -1,0 +1,14 @@
+.label.label-info= job.work_category.name
+%h4= job.title
+
+- if job.salary_type == 'fixed'
+  %p= t('jobs.fixed_price', salary: number_to_currency(job.salary))
+
+- elsif job.salary_type == 'hourly'
+  %p= t('jobs.hourly_rate', salary: number_to_currency(job.salary))
+
+%p= job.provider.name + ', ' + job.provider.place.zip + ' ' + job.provider.place.name
+
+= link_to job_path(job), title: t('jobs.show_job_title', title: job.title) do
+  %i.fa.fa-arrow-right
+  = t('jobs.show_job')

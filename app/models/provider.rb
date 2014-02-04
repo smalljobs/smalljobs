@@ -33,7 +33,7 @@ class Provider < ActiveRecord::Base
 
   # Available options for the contact preference
   #
-  # @param [Array<String>] the contact options
+  # @return [Array<String>] the contact options
   #
   def contact_preference_enum
     %w(email phone mobile postal)

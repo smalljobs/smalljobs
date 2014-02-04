@@ -3,9 +3,13 @@ class Broker::ProvidersController < InheritedResources::Base
   before_filter :authenticate_broker!
   before_filter :optional_password, only: [:update]
 
-  load_and_authorize_resource :provider, through: :current_broker, except: :new
+  load_and_authorize_resource :provider, through: :current_region, except: :new
 
   protected
+
+  def current_user
+    current_broker
+  end
 
   def optional_password
     if params[:provider][:password].blank?

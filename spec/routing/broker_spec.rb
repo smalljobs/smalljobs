@@ -171,8 +171,8 @@ describe 'broker routing' do
     end
 
     it 'routes deleting to /broker/jobs/12 to broker/jobs#destroy' do
-      expect(delete: 'http://bremgarten.example.com/broker/providers/12').to route_to(
-        controller: 'broker/providers',
+      expect(delete: 'http://bremgarten.example.com/broker/jobs/12').to route_to(
+        controller: 'broker/jobs',
         action:     'destroy',
         id:         '12'
       )

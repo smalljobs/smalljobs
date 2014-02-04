@@ -8,7 +8,7 @@ feature 'Organization subdomain' do
   let(:region) { org.regions.first }
 
   scenario 'shows the organization details' do
-    visit_on region, '/brokers/sign_up'
+    visit_on region, '/'
 
     expect(page).to have_content('Jugendarbeit Lenzburg')
     expect(page).to have_content('regionale Jugendarbeit Lotten')

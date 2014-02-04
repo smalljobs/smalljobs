@@ -1,0 +1,22 @@
+# Hallo <%= @seekers.pluck(:firstname).to_sentence %>
+
+Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
+
+Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
+
+## Job
+
+**<%= @job.title %>**
+<%= @job.description %>
+
+## Anbieter
+
+**<%= @provider.name %>**
+<%= @provider.street %>
+<%= @provider.place.zip %> <%= @provider.place.name %>
+
+<%= @provider.email %>
+<%= @provider.phone.try(:phony_formatted) %>
+<%= @provider.mobile.try(:phony_formatted) %>
+
+<%= link_to "Zum Job", job_url(@job, subdomain: subdomain_for(@job.provider)) %>

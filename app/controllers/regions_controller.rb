@@ -6,6 +6,9 @@ class RegionsController < ApplicationController
 
   def show
     @organization = current_region.organizations.first
+    @jobs = current_region.jobs
   end
 
+  def current_user
+  end
 end

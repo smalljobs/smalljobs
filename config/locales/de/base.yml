@@ -40,12 +40,78 @@ de:
     contact: "Kontakt"
     work: "Arbeit"
     admin: "Administration"
+    date: "Zeitraum"
+    salary: "Bezahlung"
+    workers: "Arbeit"
+    provider: "Anbieter"
+    seekers: "Arbeitskräfte"
+    assignments: "Zuweisungen"
   contacts:
     postal: "Per Post"
     email: "Email"
     phone: "Telefon"
     mobile: "Mobiltelefon"
     whatsapp: "WhatsApp"
+  mail:
+    send_agreement_for_seeker: "Vereinbarung mit SmallJobs"
+    new_seeker_signup_for_broker: "Neuer Jobsucher zur Freischaltung"
+    new_provider_signup_for_broker: "Neuer Jobanbieter zur Freischaltung"
+    provider_activated_for_provider: "Ihr SmallJob Profil wurde aktiviert"
+    job_created_for_broker: "Ein neuer Job zur Überprüfung wurde erstellt"
+    job_connected_for_provider: "Ihre Job wurde zugewiesen"
+    job_connected_for_seeker: "Du hast einen Job!"
+    job_rating_reminder_for_provider: "Bewerten Sie die Arbeite ihres Jobs"
+    job_rating_reminder_for_seeker: "Bewerte deinen durchgeführten Job"
+  jobs:
+    at: "Am %{at}"
+    between: "Zwischen dem %{from} und dem %{to}"
+    manpower: "Benötigte Arbeitskräfte: %{manpower}"
+    duration: "Ungefähre Dauer: %{duration} Minuten"
+    no_seekers_assigned: "Noch keine Jugendlichen zugewiesen!"
+    seekers_assigned: "Zugewiesene Jugendliche"
+    show_job: "Job anzeigen"
+    show_job_title: "Job %{title} anzeigen"
+    salary_types:
+      hourly: "Stundenlohn"
+      fixed: "Fixer Preis"
+    date_types:
+      agreement: "Nach Absprache"
+      date: "An einem bestimmten Tag"
+      date_range: "In einem bestimmten Zeitraum"
+    fixed_price: "Fixpreis: %{salary}"
+    hourly_rate: "%{salary} pro Stunde"
+  broker:
+    jobs:
+      new:
+        title: "Job erfassen"
+        lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+      edit:
+        title: "Job bearbeiten"
+        lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+      show:
+        title: "Job Details"
+        lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+      index:
+        title: "Alle Jobs"
+        lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+        add_new: "Neuen Job hinzufügen"
+        no_jobs: "Es sind noch keine Jobs in deiner Region erfasst"
+  provider:
+    jobs:
+      new:
+        title: "Job erfassen"
+        lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+      edit:
+        title: "Job bearbeiten"
+        lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+      show:
+        title: "Job Details"
+        lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+      index:
+        title: "Alle ihre Jobs"
+        lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+        add_new: "Neuen Job hinzufügen"
+        no_jobs: "Sie haben noch keine Jobs erfasst"
   validators:
     subdomain:
       reserved: "darf nicht ein reservierter Name sein"
@@ -65,6 +131,11 @@ de:
     unconfirmed: "Unbestätigt"
     active: "Aktiv"
     inactive: "Inaktiv"
+    created: "Erstellt"
+    available: "Verfügbar"
+    connected: "Vermittelt"
+    rated: "Bewerted"
+    back_to_region: "Zurück zur Region %{name}"
   devise_views:
     no_broker_registration: "Sie können sich nicht selber als Anbieter registrieren. Bitte kontaktieren Sie uns unter hello@smalljobs.ch"
     wait_confirmation: "Warte auf die Bestätigung von: %{email}"
@@ -78,16 +149,16 @@ de:
     no_unlock: "Keine Email zum Entsperren erhalten?"
     confirmations:
       title: "Bestätigung erneut senden"
-      lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+      lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
       action: "Bestätigung senden"
     passwords:
       new:
         title: "Passwort vergessen?"
-        lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+        lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
         action: "Passwort zurücksetzen"
       edit:
         title: "Passwort ändern"
-        lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+        lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
         new_password: "Neues Passwort"
         confirmation: "Passwort wiederholen"
         action: "Passwort ändern"
@@ -110,18 +181,18 @@ de:
       new:
         title: "Als Anbieter registrieren"
         register: "Als Anbieter registrieren"
-        lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+        lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
       edit:
         title: "Ihre Daten ändern"
-        lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+        lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
         action: "Ändern"
         cancel:
           title: "Ihr Benutzerkonto deaktivieren"
-          lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+          lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
           action: "Deaktivieren"
     sessions:
       title: "Als Anbieter anmelden"
-      lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+      lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
       action: "Als Anbieter anmelden"
   seekers:
     index:
@@ -142,38 +213,38 @@ de:
       new:
         title: "Als Sucher registrieren"
         register: "Als Sucher registrieren"
-        lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+        lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
       edit:
         title: "Ihre Daten ändern"
-        lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+        lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
         action: "Ändern"
         cancel:
           title: "Ihr Benutzerkonto deaktivieren"
-          lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+          lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
           action: "Deaktivieren"
     sessions:
       title: "Als Sucher anmelden"
-      lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+      lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
       action: "Als Sucher anmelden"
   brokers:
     not_responsible: "Sie können keinen Provider ausserhalb ihrer Region definieren."
     registrations:
       edit:
         title: "Ihre Daten ändern"
-        lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+        lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
         action: "Ändern"
         cancel:
           title: "Ihr Benutzerkonto deaktivieren"
-          lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+          lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
           action: "Deaktivieren"
     sessions:
       title: "Als Vermittler anmelden"
-      lead: "Epazote mung bean daikon brussels sprout cauliflower salad cucumber beet greens sea lettuce potato garbanzo silver beet. Beet greens jícama seakale nori broccoli gram gourd carrot zucchini. Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+      lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
       action: "Als Vermittler anmelden"
   regions:
     index:
       teaser: "Willkommen bei SmallJobs"
-      lead: "Pea sprouts pea parsley water spinach radish plantain. Gourd tomato dulse kale black-eyed pea earthnut pea okra corn caulie garlic. Bell pepper sweet pepper turnip greens welsh onion horseradish cucumber caulie tomatillo."
+      lead: "Pea sprouts pea parsley water spinach radish plantain."
       organizations: "Unsere Organisationen"
       region: "Region %{name}"
       visit: "Besuche %{name}"
@@ -188,7 +259,7 @@ de:
       title: "SmallJobs"
     features:
       teaser: "Willkommen bei SmallJobs"
-      lead: "Pea sprouts pea parsley water spinach radish plantain. Gourd tomato dulse kale black-eyed pea earthnut pea okra corn caulie garlic. Bell pepper sweet pepper turnip greens welsh onion horseradish cucumber caulie tomatillo."
+      lead: "Pea sprouts pea parsley water spinach radish plantain."
       signup_provider: "Als Anbieter registrieren"
       signup_seeker: "Als Sucher registrieren"
       marketing:
@@ -218,6 +289,8 @@ de:
       lead: "Vielen Dank für ihre Anmeldung. Ihr Benutzerkonto wurde erfolgreich bestätigt und wir werden Sie so bald wie möglich persönlich kontaktieren und ihre Benutzerkonto anschliessend aktivieren."
   provider_dashboard:
     title: 'Übersicht'
+    lead: "Veggies sunt bona vobis, proinde vos postulo esse magis dandelion ricebean courgette pumpkin tomatillo sea lettuce epazote gumbo summer purslane kakadu plum."
+    job_list: 'Alle ihre Jobs anzeigen'
   broker_dashboard:
     title: 'Übersicht'
     lead: "Veggies sunt bona vobis, proinde vos postulo esse magis dandelion ricebean courgette pumpkin tomatillo sea lettuce epazote gumbo summer purslane kakadu plum."
