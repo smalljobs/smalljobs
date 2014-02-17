@@ -1,14 +1,28 @@
-# Hallo <%= @provider.name %>
+# Guten Tag <%= @provider.name %>
 
 <% if @on_behalf_of %>
-** Der Anbieter hat keine Email-Adresse, daher muss diese Information vom Vermittler weitergeleitet werden.**
+** Der Anbieter hat keine Email-Adresse, daher muss diese Information von Dir (per Post/Telefon) weitergeleitet werden.**
 
 <%= link_to 'Zum Anbieter', broker_provider_url(@provider, subdomain: subdomain_for(@provider)) %>
 
 <% end %>
-Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
 
-Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
+Ihre Adresse wurde überprüft und Sie sind nun erfolgreich aufgeschaltet und können nun Jobs auf smalljobs.ch erfassen.
+
+
+Bei Problemen melden Sie sich bitte direkt bei:
+
+
+## Ansprechsperson(en):
+
+<% @brokers.each do |broker| %>
+  **<%= broker.name %>**
+  <%= broker.email %>
+  <%= broker.phone.try(:phony_formatted) %>
+  <%= broker.mobile.try(:phony_formatted) %>
+
+<% end %>
+
 
 ## Organisation
 
@@ -20,12 +34,7 @@ Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion dai
 <%= @organization.email %>
 <%= @organization.website %>
 
-## Ansprechspersonen
 
-<% @brokers.each do |broker| %>
-  **<%= broker.name %>**
-  <%= broker.email %>
-  <%= broker.phone.try(:phony_formatted) %>
-  <%= broker.mobile.try(:phony_formatted) %>
+viel Erfolg
 
-<% end %>
+smalljobs.ch

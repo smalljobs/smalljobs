@@ -1,9 +1,13 @@
 # Hallo <%= @seekers.pluck(:firstname).to_sentence %>
 
-Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
+Du hast vor einiger Zeit den smalljobs : **<%= @job.title %>** ausgeführt.
 
-**<%= @job.title %>**
 
-Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
-
+Danke, dass du noch eine Bewertung für diesen Job abgibst:
 <%= link_to "Job bewerten", job_url(@job, subdomain: subdomain_for(@job.provider)) %>
+
+So können wir dich besser weitervermitteln.
+
+
+Liebe Grüsse
+smalljobs.ch

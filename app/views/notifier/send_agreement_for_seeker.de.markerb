@@ -1,18 +1,11 @@
 # Hallo <%= @seeker.name %>
 
-Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
+Du hast dich bei smalljobs.ch registriert.
+Bitte fülle as angehängte Formular "Elterliche Bestätigung" aus, lass es von deinen Eltern (geseztliche Vertretung) unterschreiben und sende es uns zurück.
+Per Post, eingescannt als EMail, oder bringe es uns einfach während unseren Bürozeiten vorbei.
 
-Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
 
-## Organisation
 
-**<%= @organization.name %>**
-<%= @organization.street %>
-<%= @organization.place.zip %> <%= @organization.place.name %>
-
-<%= @organization.phone %>
-<%= @organization.email %>
-<%= @organization.website %>
 
 ## Ansprechspersonen
 
@@ -23,3 +16,15 @@ Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion dai
   <%= broker.mobile.try(:phony_formatted) %>
 
 <% end %>
+
+
+## Organisation
+
+**<%= @organization.name %>**
+<%= @organization.street %>
+<%= @organization.place.zip %> <%= @organization.place.name %>
+
+Tel: <%= @organization.phone %>
+Mail: <%= @organization.email %>
+Webseite: <%= @organization.website %>
+

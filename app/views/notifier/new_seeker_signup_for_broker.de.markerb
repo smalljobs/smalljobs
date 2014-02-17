@@ -1,6 +1,9 @@
 # Hallo <%= @brokers.pluck(:firstname).to_sentence %>
 
-Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
+Ein neuer Jugendlicher hat sich registriert.
+Sobald er dir das Anmeldeblatt/Papier vorbeigebracht hat, kannst du ihn hier freischalten:
 
 <%= link_to "Schalte #{ @seeker.name } frei", broker_seeker_url(@seeker, subdomain: subdomain_for(@seeker)) %>
 
+Liebe Grüsse
+SmallJobs.ch

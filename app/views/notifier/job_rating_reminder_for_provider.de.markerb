@@ -1,15 +1,23 @@
-# Hallo <%= @provider.name %>
+# Guten Tag <%= @provider.name %>
 
 <% if @on_behalf_of %>
-** Der Anbieter hat keine Email-Adresse, daher muss diese Information vom Vermittler weitergeleitet werden.**
+** Der Anbieter hat keine Email-Adresse, daher muss diese Information von dir weitereleitet werden. (entweder per Post oder Telefon)**
 
 <%= link_to 'Zum Anbieter', broker_provider_url(@provider, subdomain: subdomain_for(@provider)) %>
 
 <% end %>
-Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
 
-**<%= @job.title %>**
+Wir haben ihnen einen vor einiger Zeit einen Jugendlichen für den Job: **<%= @job.title %>**
+vermittelt.
 
-Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
+Wir hoffen es hat alles geklappt.
+Wie waren sie mit dem Jugendlichen zufrieden?
+Helfen sie mit, die Jugendlichen noch besser zu vermitteln und bewerten Sie bitte den Job:
 
-<%= link_to "Job bewerten", provider_job_url(@job, subdomain: subdomain_for(@job.provider)) %>
+   <%= link_to "Job bewerten", provider_job_url(@job, subdomain: subdomain_for(@job.provider)) %>
+
+
+Herzlichen Dank für ihre Teilnahm und ihre Mithilfe!
+
+Liebe Grüsse
+smalljobs.ch
