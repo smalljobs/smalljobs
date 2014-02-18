@@ -22,7 +22,9 @@ class ApplicationController < ActionController::Base
   protected
 
   def current_user
-    case self.resource_name
+    role = self.respond_to?(:resource_name) ? self.resource_name : nil
+
+    case role
     when :broker
       current_broker
     when :provider
