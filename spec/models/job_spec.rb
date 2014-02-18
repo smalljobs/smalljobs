@@ -144,4 +144,99 @@ describe Job do
       job.update_attributes(state: 'connected')
     end
   end
+
+  describe '.send_rating_reminders' do
+    let(:seeker) { Fabricate(:seeker) }
+    let(:mailer) { double('mailer') }
+
+    context 'with a job on a specific date' do
+      let!(:job) { Fabricate(:job, state: 'connected', place: seeker.place, seekers: [seeker], date_type: 'date', start_date: 2.week.ago) }
+
+      before do
+        # Jobs that should not appear
+        Fabricate(:job)
+        Fabricate(:job, state: 'connected', place: seeker.place, seekers: [seeker], date_type: 'date', start_date: 1.week.ago)
+        Fabricate(:job, state: 'connected', place: seeker.place, seekers: [seeker], date_type: 'date', start_date: 2.week.ago, rating_reminder_sent: true)
+      end
+
+      it 'sends a reminder to the provider' do
+        expect(Notifier).to receive(:job_rating_reminder_for_provider).with(job).and_return(mailer)
+        expect(mailer).to receive(:deliver)
+        Job.send_rating_reminders
+      end
+
+      it 'sends a reminder to the seeker' do
+        expect(Notifier).to receive(:job_rating_reminder_for_seekers).with(job).and_return(mailer)
+        expect(mailer).to receive(:deliver)
+        Job.send_rating_reminders
+      end
+
+      it 'remembers that the reminder has been sent' do
+        Job.send_rating_reminders
+        expect(job.reload.rating_reminder_sent).to be_true
+      end
+    end
+
+    context 'with a job in a date range' do
+      let!(:job) { Fabricate(:job, state: 'connected', place: seeker.place, seekers: [seeker], date_type: 'date_range', start_date: 1.week.ago, end_date: 2.weeks.ago) }
+
+      before do
+        # Jobs that should not appear
+        Fabricate(:job)
+        Fabricate(:job, state: 'connected', place: seeker.place, seekers: [seeker], date_type: 'date_range', start_date: 1.week.ago, end_date: 8.days.ago)
+        Fabricate(:job, state: 'connected', place: seeker.place, seekers: [seeker], date_type: 'date_range', start_date: 1.week.ago, end_date: 2.days.ago, rating_reminder_sent: true)
+      end
+
+      it 'sends a reminder to the provider' do
+        expect(Notifier).to receive(:job_rating_reminder_for_provider).with(job).and_return(mailer)
+        expect(mailer).to receive(:deliver)
+        Job.send_rating_reminders
+      end
+
+      it 'sends a reminder to the seeker' do
+        expect(Notifier).to receive(:job_rating_reminder_for_seekers).with(job).and_return(mailer)
+        expect(mailer).to receive(:deliver)
+        Job.send_rating_reminders
+      end
+
+      it 'remembers that the reminder has been sent' do
+        Job.send_rating_reminders
+        expect(job.reload.rating_reminder_sent).to be_true
+      end
+    end
+
+    context 'with a job on agreement' do
+      let!(:job) { Fabricate(:job, state: 'connected', place: seeker.place, seekers: [seeker], date_type: 'agreement') }
+
+      before do
+        job.update_attribute(:updated_at, 2.week.ago)
+
+        # Jobs that should not appear
+        Fabricate(:job)
+        job_1 = Fabricate(:job, state: 'connected', place: seeker.place, seekers: [seeker], date_type: 'agreement')
+        job_1.update_attribute(:updated_at, 1.week.ago)
+
+        job_2 = Fabricate(:job, state: 'connected', place: seeker.place, seekers: [seeker], date_type: 'agreement', rating_reminder_sent: true)
+        job_2.update_attribute(:updated_at, 2.week.ago)
+      end
+
+      it 'sends a reminder to the provider' do
+        expect(Notifier).to receive(:job_rating_reminder_for_provider).with(job).and_return(mailer)
+        expect(mailer).to receive(:deliver)
+        Job.send_rating_reminders
+      end
+
+      it 'sends a reminder to the seeker' do
+        expect(Notifier).to receive(:job_rating_reminder_for_seekers).with(job).and_return(mailer)
+        expect(mailer).to receive(:deliver)
+        Job.send_rating_reminders
+      end
+
+      it 'remembers that the reminder has been sent' do
+        Job.send_rating_reminders
+        expect(job.reload.rating_reminder_sent).to be_true
+      end
+    end
+  end
+
 end

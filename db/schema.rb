@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140129193807) do
+ActiveRecord::Schema.define(version: 20140218151515) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,20 +89,21 @@ ActiveRecord::Schema.define(version: 20140129193807) do
   end
 
   create_table "jobs", force: true do |t|
-    t.integer  "provider_id",                                                  null: false
-    t.integer  "work_category_id",                                             null: false
-    t.string   "title",                                                        null: false
-    t.text     "description",                                                  null: false
-    t.string   "date_type",                                                    null: false
+    t.integer  "provider_id",                                                      null: false
+    t.integer  "work_category_id",                                                 null: false
+    t.string   "title",                                                            null: false
+    t.text     "description",                                                      null: false
+    t.string   "date_type",                                                        null: false
     t.date     "start_date"
     t.date     "end_date"
-    t.decimal  "salary",           precision: 8, scale: 2,                     null: false
-    t.string   "salary_type",                              default: "hourly",  null: false
-    t.integer  "manpower",                                 default: 1,         null: false
-    t.integer  "duration",                                                     null: false
+    t.decimal  "salary",               precision: 8, scale: 2,                     null: false
+    t.string   "salary_type",                                  default: "hourly",  null: false
+    t.integer  "manpower",                                     default: 1,         null: false
+    t.integer  "duration",                                                         null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "state",                                    default: "created"
+    t.string   "state",                                        default: "created"
+    t.boolean  "rating_reminder_sent",                         default: false
   end
 
   add_index "jobs", ["title"], name: "index_jobs_on_title", using: :btree

@@ -72,4 +72,23 @@ class Job < ActiveRecord::Base
     Notifier.job_connected_for_provider(self).deliver
   end
 
+  # Sends rating reminders to the provider and seekers
+  # once the job has been done.
+  #
+  def self.send_rating_reminders
+    condition = <<-SQL
+      state = 'connected' AND rating_reminder_sent = false AND (
+        (date_type = 'date' AND start_date <= :ago) OR
+        (date_type = 'date_range' AND end_date <= :ago) OR
+        (date_type = 'agreement' AND DATE(updated_at) <= :ago)
+      )
+    SQL
+
+    Job.where(condition, ago: 2.weeks.ago).find_each do |job|
+      Notifier.job_rating_reminder_for_provider(job).deliver
+      Notifier.job_rating_reminder_for_seekers(job).deliver
+      job.update_attribute(:rating_reminder_sent, true)
+    end
+  end
+
 end
