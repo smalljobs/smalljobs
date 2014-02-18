@@ -33,8 +33,7 @@ Smalljobs::Application.routes.draw do
     }
 
     devise_for :seekers, except: :confirmation, controllers: {
-      registrations:      'registrations',
-      omniauth_callbacks: 'omniauth_callbacks'
+      registrations:      'registrations'
     }
 
     get 'sign_in', to: 'pages#sign_in'

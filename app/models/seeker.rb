@@ -1,6 +1,6 @@
 class Seeker < ActiveRecord::Base
 
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable, omniauth_providers: [:facebook]
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   include ConfirmToggle
 
@@ -61,47 +61,6 @@ class Seeker < ActiveRecord::Base
   #
   def unauthenticated_message
     confirmed? ? :inactive : :unconfirmed
-  end
-
-  # @!endgroup
-  # @!group Omniauth
-
-  # Find or create a user when doing oauth signup/login
-  #
-  # @param [OpenStuct] auth the oauth params
-  # @param [Seeker] signed_in_resource alreadt signed in seeker
-  #
-  def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
-    user = Seeker.where(provider: auth.provider, uid: auth.uid).first
-
-    unless user
-      user = Seeker.new(
-        firstname: auth.extra.raw_info.first_name,
-        lastname:  auth.extra.raw_info.last_name,
-        provider:  auth.provider,
-        uid:       auth.uid,
-        email:     auth.info.email,
-        password:  Devise.friendly_token[0,20]
-      )
-      user.save(validate: false)
-    end
-
-    user
-  end
-
-  # Initialize a seeker with oauth retreived data
-  #
-  # @param [OpenStuct] params the oauth params
-  # @param [Session] session the rails session
-  #
-  def self.new_with_session(params, session)
-    super.tap do |seeker|
-      if data = session['devise.facebook_data'] && session['devise.facebook_data']['extra']['raw_info']
-        seeker.email     = data['email']
-        seeker.firstname = data['first_name']
-        seeker.lastname  = data['last_name']
-      end
-    end
   end
 
   # @!endgroup
