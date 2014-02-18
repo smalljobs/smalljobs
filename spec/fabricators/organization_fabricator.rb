@@ -1,5 +1,5 @@
 Fabricator(:organization) do
-  name { sequence(:name) { |n| Forgery(:name).company_name + ' 1' } }
+  name { sequence(:name) { |n| "#{ Forgery(:name).company_name } #{ n }" } }
   website { "http://#{ Forgery(:internet).domain_name }" }
   street { "#{ Forgery(:address).street_name } #{ Forgery(:address).street_number }" }
   place
