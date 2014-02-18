@@ -13,7 +13,18 @@ class ApplicationController < ActionController::Base
     if referer.present? && referer != request.env['REQUEST_URI']
       redirect_to(referer, alert: exception.message)
     else
-      redirect_to(root_url, alert: exception.message)
+      case request.path
+      when /^\/admin/
+        redirect_to('/admins/sign_in', alert: exception.message)
+      when /^\/broker/
+        redirect_to('/brokers/sign_in', alert: exception.message)
+      when /^\/provider/
+        redirect_to('/providers/sign_in', alert: exception.message)
+      when /^\/seeker/
+        redirect_to('/seekers/sign_in', alert: exception.message)
+      else
+        redirect_to(root_url, alert: exception.message)
+      end
     end
   end
 
@@ -32,7 +43,7 @@ class ApplicationController < ActionController::Base
     when :seeker
       current_seeker
     else
-      raise NotImplementedError.new("Controller #{ controller_name } needs to implement `current_user`")
+      current_admin
     end
   end
 

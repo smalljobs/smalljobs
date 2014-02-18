@@ -42,14 +42,64 @@ describe ApplicationController do
         end
       end
 
-      context 'without a referer' do
-        before do
-          request.env['HTTP_REFERER'] = nil
+      context 'without referer' do
+        context 'within the /admin path' do
+          before do
+            request.env['HTTP_REFERER'] = nil
+            request.stub(path: '/admin')
+          end
+
+          it 'redirects back to the home page' do
+            get :index
+            expect(response).to redirect_to('/admins/sign_in')
+          end
         end
 
-        it 'redirects back to the home page' do
-          get :index
-          expect(response).to redirect_to('/')
+        context 'within the /broker path' do
+          before do
+            request.env['HTTP_REFERER'] = nil
+            request.stub(path: '/broker')
+          end
+
+          it 'redirects to the broker login' do
+            get :index
+            expect(response).to redirect_to('/brokers/sign_in')
+          end
+        end
+
+        context 'within the /provider path' do
+          before do
+            request.env['HTTP_REFERER'] = nil
+            request.stub(path: '/provider')
+          end
+
+          it 'returns to the provider login' do
+            get :index
+            expect(response).to redirect_to('/providers/sign_in')
+          end
+        end
+
+        context 'within the /seeker path' do
+          before do
+            request.env['HTTP_REFERER'] = nil
+            request.stub(path: '/seeker')
+          end
+
+          it 'redirects to the seeker login' do
+            get :index
+            expect(response).to redirect_to('/seekers/sign_in')
+          end
+        end
+
+        context 'without a known path' do
+          before do
+            request.env['HTTP_REFERER'] = nil
+          end
+
+          it 'redirects back to the home page' do
+            get :index
+            expect(response).to redirect_to('/')
+          end
         end
       end
     end
@@ -64,10 +114,10 @@ describe ApplicationController do
           resource_name: :broker,
           current_broker: broker
         })
+      end
 
-        it 'returns the current broker' do
-          expect(controller.send(:current_user)).to eql(broker)
-        end
+      it 'returns the current broker' do
+        expect(controller.send(:current_user)).to eql(broker)
       end
     end
 
@@ -79,10 +129,10 @@ describe ApplicationController do
           resource_name: :provider,
           current_provider: provider
         })
+      end
 
-        it 'returns the current provider' do
-          expect(controller.send(:current_user)).to eql(provider)
-        end
+      it 'returns the current provider' do
+        expect(controller.send(:current_user)).to eql(provider)
       end
     end
 
@@ -94,18 +144,24 @@ describe ApplicationController do
           resource_name: :seeker,
           current_seeker: seeker
         })
+      end
 
-        it 'returns the current seeker' do
-          expect(controller.send(:current_user)).to eql(seeker)
-        end
+      it 'returns the current seeker' do
+        expect(controller.send(:current_user)).to eql(seeker)
       end
     end
 
     context 'without a scope' do
-      it 'throws an error' do
-        expect {
-          controller.send(:current_user)
-        }.to raise_error(NotImplementedError)
+      let(:admin) { Fabricate(:admin) }
+
+      before do
+        controller.stub({
+          current_admin: admin
+        })
+      end
+
+      it 'returns the current admin' do
+        expect(controller.send(:current_user)).to eql(admin)
       end
     end
   end

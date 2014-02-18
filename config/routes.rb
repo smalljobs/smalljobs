@@ -4,6 +4,7 @@ require 'region_subdomain'
 Smalljobs::Application.routes.draw do
 
   devise_for :admins
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   devise_for :brokers, only: :confirmations, controllers: {
     confirmations: 'confirmations'
@@ -33,7 +34,7 @@ Smalljobs::Application.routes.draw do
     }
 
     devise_for :seekers, except: :confirmation, controllers: {
-      registrations:      'registrations'
+      registrations: 'registrations'
     }
 
     get 'sign_in', to: 'pages#sign_in'
@@ -58,8 +59,6 @@ Smalljobs::Application.routes.draw do
 
     get '/' => 'regions#show'
   end
-
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   root 'regions#index'
 end
