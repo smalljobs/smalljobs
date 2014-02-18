@@ -24,11 +24,14 @@ feature 'List the jobs' do
       title: 'Job 2'
     })
 
+    place = Fabricate(:place, zip: '1236', name: 'Dawil')
+    Fabricate(:broker_with_regions, place: place)
+
     Fabricate(:job, {
       provider: Fabricate(:provider, {
         firstname: 'Jan',
         lastname: 'Janetty' }),
-      place: Fabricate(:place, zip: '5432', name: 'Dawil'),
+      place: place,
       title: 'Job 3'
     })
 
