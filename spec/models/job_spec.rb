@@ -113,6 +113,35 @@ describe Job do
         expect(Fabricate.build(:job, duration: 29)).not_to be_valid
       end
     end
+  end
 
+  describe '#send_job_created' do
+    let(:provider) { Fabricate(:provider) }
+    let(:job) { Fabricate.build(:job, state: 'created', provider: provider) }
+    let(:mailer) { double('mailer') }
+
+    it 'sends an email to the broker when a job is created' do
+      expect(Notifier).to receive(:job_created_for_broker).with(job).and_return(mailer)
+      expect(mailer).to receive(:deliver)
+      job.save
+    end
+  end
+
+  describe '#send_job_connected' do
+    let(:seeker) { Fabricate(:seeker) }
+    let(:job) { Fabricate(:job, state: 'available', place: seeker.place, seekers: [seeker]) }
+    let(:mailer) { double('mailer') }
+
+    it 'sends an email to the seeker when a job is connected' do
+      expect(Notifier).to receive(:job_connected_for_seekers).with(job).and_return(mailer)
+      expect(mailer).to receive(:deliver)
+      job.update_attributes(state: 'connected')
+    end
+
+    it 'sends an email to the provider when a job is connected' do
+      expect(Notifier).to receive(:job_connected_for_provider).with(job).and_return(mailer)
+      expect(mailer).to receive(:deliver)
+      job.update_attributes(state: 'connected')
+    end
   end
 end

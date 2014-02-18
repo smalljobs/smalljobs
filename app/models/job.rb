@@ -31,6 +31,9 @@ class Job < ActiveRecord::Base
     greater_than_or_equal_to: 30
   }
 
+  after_create :send_job_created,   if: proc { |s| s.state == 'created' }
+  after_save   :send_job_connected, if: proc { |s| s.state_changed? && s.state_was == 'available' && s.state == 'connected' }
+
   # Available date types
   #
   # @return [Array<String>] list of possible dates types
@@ -54,4 +57,19 @@ class Job < ActiveRecord::Base
   def salary_type_enum
     %w(hourly fixed)
   end
+
+  # Sends a notification when a job in the
+  # created state is created.
+  #
+  def send_job_created
+    Notifier.job_created_for_broker(self).deliver
+  end
+
+  # Sends a notification when a job is connected.
+  #
+  def send_job_connected
+    Notifier.job_connected_for_seekers(self).deliver
+    Notifier.job_connected_for_provider(self).deliver
+  end
+
 end
