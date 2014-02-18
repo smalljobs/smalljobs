@@ -27,6 +27,8 @@ class Seeker < ActiveRecord::Base
   validate :ensure_seeker_age
   validate :ensure_work_category
 
+  after_save :send_agreement_email, if: proc { |s| s.confirmed_at_changed? && s.confirmed_at_was.nil? }
+
   # Returns the display name
   #
   # @return [String] the name
@@ -124,6 +126,13 @@ class Seeker < ActiveRecord::Base
     if work_categories.size == 0
       errors.add(:work_categories, :invalid_work_category)
     end
+  end
+
+  # Send the seeker a welcome email
+  # with the agreement pdf to sign and return.
+  #
+  def send_agreement_email
+    Notifier.send_agreement_for_seeker(self).deliver if self.valid?
   end
 
 end

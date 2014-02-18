@@ -18,24 +18,33 @@ Fabricator(:broker) do
 end
 
 Fabricator(:broker_with_regions, from: :broker) do
+  transient :place
+
   after_create do |user, transients|
-      place_1        = Fabricate(:place, zip: '1234', name: 'Vessy')
-      region_1       = Fabricate(:region, places: [place_1])
-      organization_1 = Fabricate(:organization)
+    if transients[:place]
+      unless transients[:place].region
+        Fabricate(:region, places: [transients[:place]])
+      end
 
       Fabricate(:employment,
-                organization: organization_1,
-                region: region_1,
+                organization: Fabricate(:organization),
+                region: transients[:place].region,
                 broker: user)
-
-      place_2        = Fabricate(:place, zip: '1235', name: 'Ausserwil')
-      place_3        = Fabricate(:place, zip: '1236', name: 'Cartigny')
-      region_2       = Fabricate(:region, places: [place_2, place_3])
-      organization_2 = Fabricate(:organization)
+    else
+      Fabricate(:employment,
+                organization: Fabricate(:organization),
+                region: Fabricate(:region, places: [
+                  Fabricate(:place, zip: '1234', name: 'Vessy')
+                ]),
+                broker: user)
 
       Fabricate(:employment,
-                organization: organization_2,
-                region: region_2,
+                organization: Fabricate(:organization),
+                region: Fabricate(:region, places: [
+                  Fabricate(:place, zip: '1235', name: 'Ausserwil'),
+                  Fabricate(:place, zip: '1236', name: 'Cartigny')
+                ]),
                 broker: user)
+    end
   end
 end

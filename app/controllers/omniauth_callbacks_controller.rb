@@ -22,4 +22,10 @@ class OmniauthCallbacksController < ::Devise::OmniauthCallbacksController
     end
   end
 
+  private
+
+  def current_user
+    current_seeker
+  end
+
 end

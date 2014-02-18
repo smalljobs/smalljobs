@@ -11,7 +11,7 @@ feature 'Edit a job' do
     Fabricate(:provider, place: place, firstname: 'Lisbet', lastname: 'Lesbos')
 
     Fabricate.times(3, :seeker, place: place)
-    Fabricate(:seeker, firstname: 'Susi', lastname: 'Sucher', place: place)
+    Fabricate(:seeker, firstname: 'Susanna-Maria', lastname: 'Sucher', place: place)
 
     Fabricate(:work_category, name: 'Tiere')
     Fabricate(:work_category, name: 'Computer')

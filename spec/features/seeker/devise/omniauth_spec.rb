@@ -12,7 +12,7 @@ feature 'Omniauth registration' do
       mock_facebook_oauth(Fabricate.build(:seeker, email: 'rolf@example.com', confirmed: false, active: false))
     end
 
-    scenario 'registers for confirmation' do
+    scenario 'registers for confirmation', js: true do
       visit_on region, '/'
       click_on 'Als Sucher registrieren'
       click_on 'Mit Facebook anmelden'

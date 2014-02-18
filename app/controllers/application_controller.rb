@@ -22,7 +22,16 @@ class ApplicationController < ActionController::Base
   protected
 
   def current_user
-    raise NotImplementedError.new("Controller #{ controller_name } needs to implement `current_user`")
+    case self.resource_name
+    when :broker
+      current_broker
+    when :provider
+      current_provider
+    when :seeker
+      current_seeker
+    else
+      raise NotImplementedError.new("Controller #{ controller_name } needs to implement `current_user`")
+    end
   end
 
   def current_region

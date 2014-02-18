@@ -8,8 +8,8 @@ describe 'Notifier' do
   let(:place) { region.places.first }
   let(:org) { Fabricate(:organization, place: place) }
 
-  let(:seeker_1) { Fabricate(:seeker, place: place) }
-  let(:seeker_2) { Fabricate(:seeker, place: place) }
+  let(:seeker_1) { Fabricate(:seeker, place: place, broker: false) }
+  let(:seeker_2) { Fabricate(:seeker, place: place, broker: false) }
 
   let(:provider_1) { Fabricate(:provider, place: place) }
   let(:provider_2) { Fabricate(:provider, place: place) }

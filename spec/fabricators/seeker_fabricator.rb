@@ -1,5 +1,5 @@
 Fabricator(:seeker) do
-  transient confirmed: true
+  transient confirmed: true, broker: true
 
   firstname { Forgery(:name).first_name }
   lastname  { Forgery(:name).last_name }
@@ -25,6 +25,12 @@ Fabricator(:seeker) do
   work_categories(count: 1)
 
   active { true }
+
+  after_build do |user, transients|
+    if transients[:broker]
+      Fabricate(:broker_with_regions, place: user.place)
+    end
+  end
 
   after_create do |user, transients|
     user.confirm! if transients[:confirmed]

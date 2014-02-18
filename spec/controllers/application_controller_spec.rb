@@ -56,10 +56,57 @@ describe ApplicationController do
   end
 
   describe '#current_user' do
-    it 'returns the seeker' do
-      expect {
-        controller.send(:current_user)
-      }.to raise_error(NotImplementedError)
+    context 'with a broker scope' do
+      let(:broker) { Fabricate(:broker) }
+
+      before do
+        controller.stub({
+          resource_name: :broker,
+          current_broker: broker
+        })
+
+        it 'returns the current broker' do
+          expect(controller.send(:current_user)).to eql(broker)
+        end
+      end
+    end
+
+    context 'with a provider scope' do
+      let(:provider) { Fabricate(:provider) }
+
+      before do
+        controller.stub({
+          resource_name: :provider,
+          current_provider: provider
+        })
+
+        it 'returns the current provider' do
+          expect(controller.send(:current_user)).to eql(provider)
+        end
+      end
+    end
+
+    context 'with a seeker scope' do
+      let(:seeker) { Fabricate(:seeker) }
+
+      before do
+        controller.stub({
+          resource_name: :seeker,
+          current_seeker: seeker
+        })
+
+        it 'returns the current seeker' do
+          expect(controller.send(:current_user)).to eql(seeker)
+        end
+      end
+    end
+
+    context 'without a scope' do
+      it 'throws an error' do
+        expect {
+          controller.send(:current_user)
+        }.to raise_error(NotImplementedError)
+      end
     end
   end
 
