@@ -23,6 +23,8 @@ class Provider < ActiveRecord::Base
   phony_normalize :phone,  default_country_code: 'CH'
   phony_normalize :mobile, default_country_code: 'CH'
 
+  after_save :send_registration_email, if: proc { |s| s.confirmed_at_changed? && s.confirmed_at_was.nil? }
+
   # Returns the display name
   #
   # @return [String] the name
@@ -86,6 +88,12 @@ class Provider < ActiveRecord::Base
   #
   def nullify_blank_email
     self.email = nil if self.email.blank?
+  end
+
+  # Send the broker an email about the new seeker.
+  #
+  def send_registration_email
+    Notifier.new_provider_signup_for_broker(self).deliver
   end
 
 end

@@ -161,4 +161,14 @@ describe Provider do
     end
   end
 
+  describe '#send_registration_email' do
+    let(:provider) { Fabricate(:provider, confirmed: false) }
+    let(:mailer) { double('mailer') }
+
+    it 'sends an email when a provider is registered' do
+      expect(Notifier).to receive(:new_provider_signup_for_broker).with(provider).and_return mailer
+      expect(mailer).to receive(:deliver)
+      provider.confirm!
+    end
+  end
 end

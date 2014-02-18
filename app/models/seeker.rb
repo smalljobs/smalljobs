@@ -27,7 +27,8 @@ class Seeker < ActiveRecord::Base
   validate :ensure_seeker_age
   validate :ensure_work_category
 
-  after_save :send_agreement_email, if: proc { |s| s.confirmed_at_changed? && s.confirmed_at_was.nil? }
+  after_save :send_agreement_email,    if: proc { |s| s.confirmed_at_changed? && s.confirmed_at_was.nil? }
+  after_save :send_registration_email, if: proc { |s| s.confirmed_at_changed? && s.confirmed_at_was.nil? }
 
   # Returns the display name
   #
@@ -92,6 +93,12 @@ class Seeker < ActiveRecord::Base
   #
   def send_agreement_email
     Notifier.send_agreement_for_seeker(self).deliver
+  end
+
+  # Send the broker an email about the new seeker.
+  #
+  def send_registration_email
+    Notifier.new_seeker_signup_for_broker(self).deliver
   end
 
 end
