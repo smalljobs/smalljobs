@@ -4,7 +4,7 @@ require 'spec_helper'
 
 feature 'List the jobs' do
   let(:provider) do
-    Fabricate(:provider_with_region)
+    Fabricate(:provider)
   end
 
   background do

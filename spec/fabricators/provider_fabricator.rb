@@ -1,5 +1,5 @@
 Fabricator(:provider) do
-  transient confirmed: true
+  transient confirmed: true, broker: true
 
   username  { sequence(:username) { |i| "user#{ i }" }}
   password  { Forgery(:basic).password.rjust(10, 'a') }
@@ -19,13 +19,13 @@ Fabricator(:provider) do
 
   active { true }
 
+  after_build do |user, transients|
+    if transients[:broker]
+      Fabricate(:broker_with_regions, place: user.place)
+    end
+  end
+
   after_create do |user, transients|
     user.confirm! if transients[:confirmed]
-  end
-end
-
-Fabricator(:provider_with_region, from: :provider) do
-  after_create do |user|
-    Fabricate(:region, places: [user.place])
   end
 end

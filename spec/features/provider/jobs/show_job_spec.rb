@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 feature 'Show a job' do
-  let(:provider) { Fabricate(:provider_with_region, firstname: 'Roberto', lastname: 'Blanco', street: 'Hubacker 12') }
+  let(:provider) { Fabricate(:provider, firstname: 'Roberto', lastname: 'Blanco', street: 'Hubacker 12') }
   let(:place) { provider.place }
   let(:work_category) { Fabricate(:work_category, name: 'Garten') }
 

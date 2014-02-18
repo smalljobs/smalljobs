@@ -24,6 +24,7 @@ class Provider < ActiveRecord::Base
   phony_normalize :mobile, default_country_code: 'CH'
 
   after_save :send_registration_email, if: proc { |s| s.confirmed_at_changed? && s.confirmed_at_was.nil? }
+  after_save :send_activation_email,   if: proc { |s| s.active_changed? && s.active_was == false }
 
   # Returns the display name
   #
@@ -94,6 +95,12 @@ class Provider < ActiveRecord::Base
   #
   def send_registration_email
     Notifier.new_provider_signup_for_broker(self).deliver
+  end
+
+  # Send the provider an email about his activation.
+  #
+  def send_activation_email
+    Notifier.provider_activated_for_provider(self).deliver
   end
 
 end

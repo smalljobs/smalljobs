@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 feature 'Add a new job' do
-  let(:provider) { Fabricate(:provider_with_region) }
+  let(:provider) { Fabricate(:provider) }
   let(:place) { provider.place }
 
   background do

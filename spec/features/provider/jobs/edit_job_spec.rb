@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 feature 'Edit a job' do
-  let(:provider) { Fabricate(:provider_with_region) }
+  let(:provider) { Fabricate(:provider) }
   let(:place) { provider.place }
   let(:work_category) { Fabricate(:work_category, name: 'Garten') }
 

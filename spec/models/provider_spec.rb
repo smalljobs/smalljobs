@@ -166,9 +166,21 @@ describe Provider do
     let(:mailer) { double('mailer') }
 
     it 'sends an email when a provider is registered' do
-      expect(Notifier).to receive(:new_provider_signup_for_broker).with(provider).and_return mailer
+      expect(Notifier).to receive(:new_provider_signup_for_broker).with(provider).and_return(mailer)
       expect(mailer).to receive(:deliver)
       provider.confirm!
     end
   end
+
+  describe '#send_activation_email' do
+    let(:provider) { Fabricate(:provider, active: false) }
+    let(:mailer) { double('mailer') }
+
+    it 'sends an email when a provider is activated' do
+      expect(Notifier).to receive(:provider_activated_for_provider).and_return(mailer)
+      expect(mailer).to receive(:deliver)
+      provider.update_attributes(active: true)
+    end
+  end
+
 end

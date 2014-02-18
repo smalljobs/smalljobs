@@ -162,7 +162,7 @@ describe Seeker do
     let(:mailer) { double('mailer') }
 
     it 'sends an email when a seeker is confirmed' do
-      expect(Notifier).to receive(:send_agreement_for_seeker).with(seeker).and_return mailer
+      expect(Notifier).to receive(:send_agreement_for_seeker).with(seeker).and_return(mailer)
       expect(mailer).to receive(:deliver)
       seeker.confirm!
     end
@@ -173,7 +173,7 @@ describe Seeker do
     let(:mailer) { double('mailer') }
 
     it 'sends an email when a seeker is registered' do
-      expect(Notifier).to receive(:new_seeker_signup_for_broker).with(seeker).and_return mailer
+      expect(Notifier).to receive(:new_seeker_signup_for_broker).with(seeker).and_return(mailer)
       expect(mailer).to receive(:deliver)
       seeker.confirm!
     end

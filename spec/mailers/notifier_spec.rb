@@ -11,8 +11,8 @@ describe 'Notifier' do
   let(:seeker_1) { Fabricate(:seeker, place: place, broker: false) }
   let(:seeker_2) { Fabricate(:seeker, place: place, broker: false) }
 
-  let(:provider_1) { Fabricate(:provider, place: place) }
-  let(:provider_2) { Fabricate(:provider, place: place) }
+  let(:provider_1) { Fabricate(:provider, place: place, broker: false) }
+  let(:provider_2) { Fabricate(:provider, place: place, broker: false) }
 
   let(:broker_1) { Fabricate(:broker) }
   let(:broker_2) { Fabricate(:broker) }
@@ -157,7 +157,7 @@ describe 'Notifier' do
     end
 
     context 'with a provider that does not have an email' do
-      let(:provider_1) { Fabricate(:provider, email: nil, place: place) }
+      let(:provider_1) { Fabricate(:provider, email: nil, place: place, broker: false) }
 
       it 'sends the mail to the brokers email' do
         mail.should deliver_to(broker_mails)
@@ -276,7 +276,7 @@ describe 'Notifier' do
     end
 
     context 'with a provider that does not have an email' do
-      let(:provider_1) { Fabricate(:provider, email: nil, place: place) }
+      let(:provider_1) { Fabricate(:provider, email: nil, place: place, broker: false) }
 
       it 'sends the mail to the brokers email' do
         mail.should deliver_to(broker_mails)
@@ -365,7 +365,7 @@ describe 'Notifier' do
     end
 
     context 'with a provider that does not have an email' do
-      let(:provider_1) { Fabricate(:provider, email: nil, place: place) }
+      let(:provider_1) { Fabricate(:provider, email: nil, place: place, broker: false) }
 
       it 'sends the mail to the brokers email' do
         mail.should deliver_to(broker_mails)

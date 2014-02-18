@@ -4,7 +4,7 @@ require 'spec_helper'
 
 feature 'Destroy a job' do
   let(:provider) do
-    Fabricate(:provider_with_region)
+    Fabricate(:provider)
   end
 
   background do
