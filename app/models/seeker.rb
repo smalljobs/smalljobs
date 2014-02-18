@@ -91,7 +91,7 @@ class Seeker < ActiveRecord::Base
   # with the agreement pdf to sign and return.
   #
   def send_agreement_email
-    Notifier.send_agreement_for_seeker(self).deliver if self.valid?
+    Notifier.send_agreement_for_seeker(self).deliver
   end
 
 end

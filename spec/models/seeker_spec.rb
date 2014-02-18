@@ -151,10 +151,20 @@ describe Seeker do
     end
   end
 
-  describe "#name" do
+  describe '#name' do
     it 'uses the first and last as name' do
       expect(Fabricate(:seeker, firstname: 'Otto', lastname: 'Biber').name).to eql('Otto Biber')
     end
   end
 
+  describe '#send_agreement_email' do
+    let(:seeker) { Fabricate(:seeker, confirmed: false) }
+    let(:mailer) { mock('mailer') }
+
+    it 'sends an email when a seeker is confirmed' do
+      expect(Notifier).to receive(:send_agreement_for_seeker).with(seeker).and_return mailer
+      expect(mailer).to receive(:deliver)
+      seeker.confirm!
+    end
+  end
 end
