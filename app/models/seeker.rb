@@ -7,6 +7,11 @@ class Seeker < ActiveRecord::Base
   has_and_belongs_to_many :work_categories
   has_and_belongs_to_many :jobs
 
+  has_many :applications
+  has_many :proposals
+  has_many :allocations
+  has_many :reviews
+
   belongs_to :place, inverse_of: :seekers
 
   validates :firstname, :lastname, presence: true

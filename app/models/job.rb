@@ -4,6 +4,11 @@ class Job < ActiveRecord::Base
   belongs_to :provider, inverse_of: :jobs
   belongs_to :work_category, inverse_of: :jobs
 
+  has_many :applications
+  has_many :proposals
+  has_many :allocations
+  has_many :reviews
+
   has_one :place, through: :provider
 
   validates :provider, presence: true

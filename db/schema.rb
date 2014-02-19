@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140218151515) do
+ActiveRecord::Schema.define(version: 20140219200836) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,22 @@ ActiveRecord::Schema.define(version: 20140218151515) do
   add_index "admins", ["invitation_token"], name: "index_admins_on_invitation_token", unique: true, using: :btree
   add_index "admins", ["invited_by_id"], name: "index_admins_on_invited_by_id", using: :btree
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
+
+  create_table "allocations", force: true do |t|
+    t.integer  "job_id"
+    t.integer  "seeker_id"
+    t.text     "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "applications", force: true do |t|
+    t.integer  "job_id"
+    t.integer  "seeker_id"
+    t.text     "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "brokers", force: true do |t|
     t.string   "firstname",                             null: false
@@ -145,6 +161,14 @@ ActiveRecord::Schema.define(version: 20140218151515) do
   add_index "places", ["name"], name: "index_places_on_name", using: :btree
   add_index "places", ["zip"], name: "index_places_on_zip", using: :btree
 
+  create_table "proposals", force: true do |t|
+    t.integer  "job_id"
+    t.integer  "seeker_id"
+    t.text     "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "providers", force: true do |t|
     t.string   "email"
     t.string   "firstname",                                null: false
@@ -213,6 +237,15 @@ ActiveRecord::Schema.define(version: 20140218151515) do
 
   add_index "regions", ["name"], name: "index_regions_on_name", unique: true, using: :btree
   add_index "regions", ["subdomain"], name: "index_regions_on_subdomain", using: :btree
+
+  create_table "reviews", force: true do |t|
+    t.integer  "job_id"
+    t.integer  "seeker_id"
+    t.integer  "rating"
+    t.text     "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "seekers", force: true do |t|
     t.string   "firstname",                                   null: false
