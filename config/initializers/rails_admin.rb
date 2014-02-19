@@ -1,6 +1,5 @@
 RailsAdmin.config do |config|
   config.main_app_name = ['Small Jobs', 'Adminstration']
-  config.authorize_with :cancan
 
   config.model Place do
     navigation_label I18n.t('admin.menu.geo')
