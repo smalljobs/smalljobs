@@ -31,6 +31,18 @@ de:
       job:
         one: "Job"
         other: "Jobs"
+      allocation:
+        one: "Zuweisung"
+        other: "Zuweisungen"
+      proposal:
+        one: "Vorschlag"
+        other: "Vorschläge"
+      review:
+        one: "Bewertung"
+        other: "Bewertungen"
+      application:
+        one: "Bewerbung"
+        other: "Bewerbungen"
     attributes:
       work_category:
         name: "Name"
@@ -137,6 +149,29 @@ de:
         salary_type: "Art des Lohnes"
         manpower: "Arbeitskräfte"
         duration: "Dauer"
+        created_at: "Erstellt"
+        allocations: "Zuweisungen"
+        applications: "Bewerbungen"
+        proposals: "Vorschläge"
+        reviews: "Bewertungen"
+        place: "Ort"
+      application:
+        seeker: "Jugendlicher"
+        message: "Nachricht"
+        created_at: "Erstellt"
+      allocation:
+        seeker: "Jugendlicher"
+        message: "Nachricht"
+        created_at: "Erstellt"
+      review:
+        seeker: "Jugendlicher"
+        message: "Nachricht"
+        rating: "Bewertung"
+        created_at: "Erstellt"
+      proposal:
+        seeker: "Jugendlicher"
+        message: "Nachricht"
+        created_at: "Erstellt"
     errors:
       messages:
         invalid_seeker_age: "muss zwischen 13 und 18 Jahre alt sein"

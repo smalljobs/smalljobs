@@ -5,6 +5,7 @@ de:
       job: "Jobs"
       geo: "Orte"
       org: "Jugendarbeit"
+      application: "Bewerbungsprozess"
     groups:
       place: "Ortschaft"
       political: "Politisch"
@@ -18,6 +19,10 @@ de:
       authenticatable: "Authentifizierung"
       employment: "Anstellungen"
       work: "Arbeiten"
+      date: "Ausführungsdatum"
+      seekers: "Jugendliche"
+      job: "Job"
+      salary: "Lohn"
     format:
       logo: "Format 220x220"
       background: "Format 700x400"

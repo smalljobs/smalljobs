@@ -299,4 +299,144 @@ RailsAdmin.config do |config|
       field :name
     end
   end
+
+  config.model Application do
+    navigation_label I18n.t('admin.menu.application')
+
+    list do
+      field :job
+      field :seeker
+      field :message
+
+      field :created_at do
+        date_format :short
+      end
+    end
+
+    edit do
+      field :job
+      field :seeker
+      field :message
+    end
+  end
+
+  config.model Proposal do
+    navigation_label I18n.t('admin.menu.application')
+
+    list do
+      field :job
+      field :seeker
+      field :message
+
+      field :created_at do
+        date_format :short
+      end
+    end
+
+    edit do
+      field :job
+      field :seeker
+      field :message
+    end
+  end
+
+  config.model Allocation do
+    navigation_label I18n.t('admin.menu.application')
+
+    list do
+      field :job
+      field :seeker
+      field :message
+
+      field :created_at do
+        date_format :short
+      end
+    end
+
+    edit do
+      field :job
+      field :seeker
+      field :message
+    end
+  end
+
+  config.model Review do
+    navigation_label I18n.t('admin.menu.application')
+
+    list do
+      field :job
+      field :seeker
+      field :message
+
+      field :created_at do
+        date_format :short
+      end
+    end
+
+    edit do
+      field :job
+      field :seeker
+      field :message
+      field :rating
+    end
+  end
+
+  config.model Job do
+    navigation_label I18n.t('admin.menu.job')
+
+    list do
+      field :provider
+      field :title
+      field :place
+
+      field :allocations
+      field :applications
+      field :proposals
+      field :reviews
+
+      field :created_at do
+        date_format :short
+      end
+    end
+
+    edit do
+      group :job do
+        label I18n.t('admin.groups.job')
+
+        field :provider
+        field :work_category
+        field :title
+        field :description
+      end
+
+      group :date do
+        label I18n.t('admin.groups.date')
+
+        field :date_type
+        field :start_date
+        field :end_date
+      end
+
+      group :salary do
+        label I18n.t('admin.groups.salary')
+
+        field :salary_type
+        field :salary
+      end
+
+      group :seekers do
+        label I18n.t('admin.groups.seekers')
+
+        field :manpower
+        field :duration
+      end
+
+      group :administration do
+        label I18n.t('admin.groups.administration')
+
+        field :state
+        field :rating_reminder_sent
+      end
+    end
+  end
 end
