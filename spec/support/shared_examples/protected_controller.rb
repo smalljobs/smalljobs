@@ -3,7 +3,7 @@ shared_examples_for 'a protected controller' do |role, resource, actions|
   if actions == :all
     actions = [:index, :new, :create, :show, :edit, :update, :destroy]
   else
-    actions = Array(action)
+    actions = Array(actions)
   end
 
   ([:anonymous, :broker, :provider, :seeker] - [role]).each do |scope|

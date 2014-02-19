@@ -14,7 +14,7 @@ feature 'Organization subdomain' do
     expect(page).to have_content('regionale Jugendarbeit Lotten')
 
     expect(page).to have_content('c/o JA Lenzburg, Soziale Dienste')
-    expect(page).to have_content('5600 Lenzburg')
+    expect(page).to have_content('5702 Niederlenz')
 
     expect(page).to have_content('062 508 13 14')
     expect(page).to have_content('info@jugendarbeit-lotten.ch')

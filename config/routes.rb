@@ -44,6 +44,7 @@ Smalljobs::Application.routes.draw do
       resources :providers
       resources :seekers
       resources :jobs
+      resource :organization, only: [:edit, :update]
     end
 
     namespace :provider do

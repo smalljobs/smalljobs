@@ -33,7 +33,7 @@ describe 'regions/show.html.haml' do
 
     it 'shows the organization address' do
       expect(rendered).to have_text('c/o JA Lenzburg, Soziale Dienste')
-      expect(rendered).to have_text('5600 Lenzburg')
+      expect(rendered).to have_text('5702 Niederlenz')
     end
 
     it 'shows the organization contact info' do

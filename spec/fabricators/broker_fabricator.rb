@@ -27,21 +27,21 @@ Fabricator(:broker_with_regions, from: :broker) do
       end
 
       Fabricate(:employment,
-                organization: Fabricate(:organization),
+                organization: Fabricate(:organization, place: transients[:place]),
                 region: transients[:place].region,
                 broker: user)
     else
+      place_1 = Fabricate(:place, zip: '1234', name: 'Vessy')
       Fabricate(:employment,
-                organization: Fabricate(:organization),
-                region: Fabricate(:region, places: [
-                  Fabricate(:place, zip: '1234', name: 'Vessy')
-                ]),
+                organization: Fabricate(:organization, place: place_1),
+                region: Fabricate(:region, places: [place_1]),
                 broker: user)
 
+      place_2 = Fabricate(:place, zip: '1235', name: 'Ausserwil')
       Fabricate(:employment,
-                organization: Fabricate(:organization),
+                organization: Fabricate(:organization, place: place_2),
                 region: Fabricate(:region, places: [
-                  Fabricate(:place, zip: '1235', name: 'Ausserwil'),
+                  place_2,
                   Fabricate(:place, zip: '1236', name: 'Cartigny')
                 ]),
                 broker: user)

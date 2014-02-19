@@ -178,4 +178,21 @@ describe 'broker routing' do
       )
     end
   end
+
+  context 'routing to the organization' do
+    it 'routes /broker/organization/edit to broker/organizations#edit' do
+      expect(get: 'http://bremgarten.example.com/broker/organization/edit').to route_to(
+        controller: 'broker/organizations',
+        action:     'edit'
+      )
+    end
+
+    it 'routes patching to /broker/organization to broker/organizations#update' do
+      expect(patch: 'http://bremgarten.example.com/broker/organization').to route_to(
+        controller: 'broker/organizations',
+        action:     'update'
+      )
+    end
+
+  end
 end

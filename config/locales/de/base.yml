@@ -46,6 +46,8 @@ de:
     provider: "Anbieter"
     seekers: "Arbeitskräfte"
     assignments: "Zuweisungen"
+    organization: "Organisation"
+    branding: "Branding"
   contacts:
     postal: "Per Post"
     email: "Email"
@@ -294,6 +296,7 @@ de:
   broker_dashboard:
     title: 'Übersicht'
     lead: "Veggies sunt bona vobis, proinde vos postulo esse magis dandelion ricebean courgette pumpkin tomatillo sea lettuce epazote gumbo summer purslane kakadu plum."
+    edit_organization: 'Organisation bearbeiten'
     provider_list: 'Alle Anbieter anzeigen'
     seeker_list: 'Alle Sucher anzeigen'
     job_list: 'Alle Jobs anzeigen'

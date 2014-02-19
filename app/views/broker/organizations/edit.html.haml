@@ -1,0 +1,41 @@
+= simple_form_for([:broker, @organization], html: { novalidate: true }) do |f|
+
+  - if notification = f.error_notification
+    .alert.alert-danger
+      = notification
+
+  %fieldset
+    %legend
+      = t('legends.organization')
+      %i.fa.fa-2x.fa-home.pull-right
+
+    .form-inputs
+      = f.input :name, required: true
+      = f.input :description, required: true
+      = f.input :street, required: true
+      = f.association :place, required: true, collection: current_region.places, include_blank: false
+
+  %fieldset
+    %legend
+      = t('legends.contact')
+      %i.fa.fa-2x.fa-phone.pull-right
+
+    .form-inputs
+      = f.input :website
+      = f.input :email
+      = f.input :phone
+
+  %fieldset
+    %legend
+      = t('legends.branding')
+      %i.fa.fa-2x.fa-phone.pull-right
+
+    .form-inputs
+      = f.input :logo, as: :image_preview, input_html: { preview_version: :web }
+      = f.input :background, as: :image_preview, input_html: { preview_version: :web }
+
+  .form-actions
+    = f.button :submit, t('common.edit'), class: 'btn btn-primary'
+
+%ul.nav.nav-pills
+  %li= link_to t('common.back'), broker_dashboard_path

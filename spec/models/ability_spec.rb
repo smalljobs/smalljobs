@@ -23,6 +23,14 @@ describe Ability do
     let(:user) { Fabricate(:broker_with_regions) }
     let(:ability) { Ability.new(user) }
 
+    it 'can manage its organizations' do
+      expect(ability).to be_able_to(:manage, Organization)
+    end
+
+    it 'cannot read other organizations' do
+      expect(ability).to_not be_able_to(:read, Fabricate(:organization, place: Fabricate(:place, zip: '9999')))
+    end
+
     it 'can manage all providers' do
       expect(ability).to be_able_to(:manage, Provider)
     end

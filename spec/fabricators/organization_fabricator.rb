@@ -20,16 +20,18 @@ end
 Fabricator(:org_lenzburg, from: :organization) do
   name 'Jugendarbeit Lenzburg'
   description 'regionale Jugendarbeit Lotten'
-  place { Fabricate(:place, zip: '5600', name: 'Lenzburg')}
   email 'info@jugendarbeit-lotten.ch '
   phone '062 508 13 14'
   website 'http://www.jugendarbeit-lotten.ch'
   street 'c/o JA Lenzburg, Soziale Dienste'
 
-  after_create do |o|
+  after_build do |o|
+    region = Fabricate(:region_lenzburg)
+    o.place = region.places.first
+
     Fabricate(:employment,
               organization: o,
-              region: Fabricate(:region_lenzburg),
+              region: region,
               broker: Fabricate(:broker,
                                 firstname: 'Mich',
                                 lastname: 'Wyser',

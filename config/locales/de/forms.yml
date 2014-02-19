@@ -13,3 +13,6 @@ de:
         contact_availability: "Wann sind Sie am Besten per Telefon zu erreichen?"
         date_of_birth: "Du solltest zwischen 13 und 18 Jahre als sein."
         duration: "Ungefähre Dauer in Minuten"
+        logo: "Empfohlene Grösse ist 220x220 Pixels"
+        background: "Empfohlene Grösse ist 700x400 Pixels"
+
