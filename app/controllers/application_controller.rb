@@ -59,6 +59,8 @@ class ApplicationController < ActionController::Base
       provider_dashboard_url(subdomain: ensure_subdomain_for(resource))
     when Seeker
       seeker_dashboard_url(subdomain: ensure_subdomain_for(resource))
+    when Admin
+      rails_admin.dashboard_url(subdomain: request.subdomain)
     else
       super
     end

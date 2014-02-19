@@ -206,6 +206,13 @@ describe ApplicationController do
       end
     end
 
+    context 'for an admihn' do
+      let(:admin) { Fabricate(:admin) }
+
+      it 'returns the path to the admin dashboard for a admin' do
+        expect(controller.send(:after_sign_in_path_for, admin)).to eq('http://test.host/admin/')
+      end
+    end
   end
 
   describe '#ensure_subdomain_for' do
