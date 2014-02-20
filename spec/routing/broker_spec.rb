@@ -193,6 +193,217 @@ describe 'broker routing' do
         action:     'update'
       )
     end
+  end
 
+  context 'routing to the broker job proposals management' do
+    it 'routes /broker/jobs/12/proposals to broker/proposals#index' do
+      expect(get: 'http://bremgarten.example.com/broker/jobs/12/proposals').to route_to(
+        controller: 'broker/proposals',
+        action:     'index',
+        job_id:     '12'
+      )
+    end
+
+    it 'routes /broker/jobs/12/proposals/new to broker/proposals#new' do
+      expect(get: 'http://bremgarten.example.com/broker/jobs/12/proposals/new').to route_to(
+        controller: 'broker/proposals',
+        action:     'new',
+        job_id:     '12'
+      )
+    end
+
+    it 'routes posting to /broker/jobs/12/proposals to broker/proposals#create' do
+      expect(post: 'http://bremgarten.example.com/broker/jobs/12/proposals').to route_to(
+        controller: 'broker/proposals',
+        action:     'create',
+        job_id:     '12'
+      )
+    end
+
+    it 'routes /broker/jobs/12/proposals/99/edit to broker/jobs#edit' do
+      expect(get: 'http://bremgarten.example.com/broker/jobs/12/proposals/99/edit').to route_to(
+        controller: 'broker/proposals',
+        action:     'edit',
+        job_id:     '12',
+        id:         '99'
+      )
+    end
+
+    it 'routes patching to /broker/jobs/12/proposals/99/ to broker/jobs#update' do
+      expect(patch: 'http://bremgarten.example.com/broker/jobs/12/proposals/99').to route_to(
+        controller: 'broker/proposals',
+        action:     'update',
+        job_id:     '12',
+        id:         '99'
+      )
+    end
+
+    it 'routes deleting to /broker/jobs/12/proposals/99/ to broker/jobs#destroy' do
+      expect(delete: 'http://bremgarten.example.com/broker/jobs/12/proposals/99').to route_to(
+        controller: 'broker/proposals',
+        action:     'destroy',
+        job_id:     '12',
+        id:         '99'
+      )
+    end
+  end
+
+  context 'routing to the broker job applications management' do
+    it 'routes /broker/jobs/12/applications to broker/applications#index' do
+      expect(get: 'http://bremgarten.example.com/broker/jobs/12/applications').to route_to(
+        controller: 'broker/applications',
+        action:     'index',
+        job_id:     '12'
+      )
+    end
+
+    it 'routes /broker/jobs/12/applications/new to broker/applications#new' do
+      expect(get: 'http://bremgarten.example.com/broker/jobs/12/applications/new').to route_to(
+        controller: 'broker/applications',
+        action:     'new',
+        job_id:     '12'
+      )
+    end
+
+    it 'routes posting to /broker/jobs/12/applications to broker/applications#create' do
+      expect(post: 'http://bremgarten.example.com/broker/jobs/12/applications').to route_to(
+        controller: 'broker/applications',
+        action:     'create',
+        job_id:     '12'
+      )
+    end
+
+    it 'routes /broker/jobs/12/applications/99/edit to broker/jobs#edit' do
+      expect(get: 'http://bremgarten.example.com/broker/jobs/12/applications/99/edit').to route_to(
+        controller: 'broker/applications',
+        action:     'edit',
+        job_id:     '12',
+        id:         '99'
+      )
+    end
+
+    it 'routes patching to /broker/jobs/12/applications/99/ to broker/jobs#update' do
+      expect(patch: 'http://bremgarten.example.com/broker/jobs/12/applications/99').to route_to(
+        controller: 'broker/applications',
+        action:     'update',
+        job_id:     '12',
+        id:         '99'
+      )
+    end
+
+    it 'routes deleting to /broker/jobs/12/applications/99/ to broker/jobs#destroy' do
+      expect(delete: 'http://bremgarten.example.com/broker/jobs/12/applications/99').to route_to(
+        controller: 'broker/applications',
+        action:     'destroy',
+        job_id:     '12',
+        id:         '99'
+      )
+    end
+  end
+
+  context 'routing to the broker job allocations management' do
+    it 'routes /broker/jobs/12/allocations to broker/allocations#index' do
+      expect(get: 'http://bremgarten.example.com/broker/jobs/12/allocations').to route_to(
+        controller: 'broker/allocations',
+        action:     'index',
+        job_id:     '12'
+      )
+    end
+
+    it 'routes /broker/jobs/12/allocations/new to broker/allocations#new' do
+      expect(get: 'http://bremgarten.example.com/broker/jobs/12/allocations/new').to route_to(
+        controller: 'broker/allocations',
+        action:     'new',
+        job_id:     '12'
+      )
+    end
+
+    it 'routes posting to /broker/jobs/12/allocations to broker/allocations#create' do
+      expect(post: 'http://bremgarten.example.com/broker/jobs/12/allocations').to route_to(
+        controller: 'broker/allocations',
+        action:     'create',
+        job_id:     '12'
+      )
+    end
+
+    it 'routes /broker/jobs/12/allocations/99/edit to broker/jobs#edit' do
+      expect(get: 'http://bremgarten.example.com/broker/jobs/12/allocations/99/edit').to route_to(
+        controller: 'broker/allocations',
+        action:     'edit',
+        job_id:     '12',
+        id:         '99'
+      )
+    end
+
+    it 'routes patching to /broker/jobs/12/allocations/99/ to broker/jobs#update' do
+      expect(patch: 'http://bremgarten.example.com/broker/jobs/12/allocations/99').to route_to(
+        controller: 'broker/allocations',
+        action:     'update',
+        job_id:     '12',
+        id:         '99'
+      )
+    end
+
+    it 'routes deleting to /broker/jobs/12/allocations/99/ to broker/jobs#destroy' do
+      expect(delete: 'http://bremgarten.example.com/broker/jobs/12/allocations/99').to route_to(
+        controller: 'broker/allocations',
+        action:     'destroy',
+        job_id:     '12',
+        id:         '99'
+      )
+    end
+  end
+
+  context 'routing to the broker job reviews management' do
+    it 'routes /broker/jobs/12/reviews to broker/reviews#index' do
+      expect(get: 'http://bremgarten.example.com/broker/jobs/12/reviews').to route_to(
+        controller: 'broker/reviews',
+        action:     'index',
+        job_id:     '12'
+      )
+    end
+
+    it 'routes /broker/jobs/12/reviews/new to broker/reviews#new' do
+      expect(get: 'http://bremgarten.example.com/broker/jobs/12/reviews/new').to route_to(
+        controller: 'broker/reviews',
+        action:     'new',
+        job_id:     '12'
+      )
+    end
+
+    it 'routes posting to /broker/jobs/12/reviews to broker/reviews#create' do
+      expect(post: 'http://bremgarten.example.com/broker/jobs/12/reviews').to route_to(
+        controller: 'broker/reviews',
+        action:     'create',
+        job_id:     '12'
+      )
+    end
+
+    it 'routes /broker/jobs/12/reviews/99/edit to broker/jobs#edit' do
+      expect(get: 'http://bremgarten.example.com/broker/jobs/12/reviews/99/edit').to route_to(
+        controller: 'broker/reviews',
+        action:     'edit',
+        job_id:     '12',
+        id:         '99'
+      )
+    end
+
+    it 'routes patching to /broker/jobs/12/reviews/99/ to broker/jobs#update' do
+      expect(patch: 'http://bremgarten.example.com/broker/jobs/12/reviews/99').to route_to(
+        controller: 'broker/reviews',
+        action:     'update',
+        job_id:     '12',
+        id:         '99'
+      )
+    end
+
+    it 'routes deleting to /broker/jobs/12/reviews/99/ to broker/jobs#destroy' do
+      expect(delete: 'http://bremgarten.example.com/broker/jobs/12/reviews/99').to route_to(
+        controller: 'broker/reviews',
+        action:     'destroy',
+        job_id:     '12',
+        id:         '99'
+      )
+    end
   end
 end

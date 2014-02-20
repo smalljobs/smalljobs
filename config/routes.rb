@@ -41,19 +41,37 @@ Smalljobs::Application.routes.draw do
 
     namespace :broker do
       resource :dashboard, only: :show
+      resource :organization, only: [:edit, :update]
+
       resources :providers
       resources :seekers
-      resources :jobs
-      resource :organization, only: [:edit, :update]
+
+      resources :jobs do
+        resources :proposals, except: :show
+        resources :applications, except: :show
+        resources :allocations, except: :show
+        resources :reviews, except: :show
+      end
     end
 
     namespace :provider do
       resource :dashboard, only: :show
-      resources :jobs
+
+      resources :jobs do
+        resources :allocations, only: [:index, :show]
+        resources :reviews, except: :show
+      end
     end
 
     namespace :seeker do
       resource :dashboard, only: :show
+
+      resources :jobs, only: [:index, :show] do
+        resources :proposals, only: [:index, :show]
+        resources :applications, except: :show
+        resources :allocations, only: [:index, :show]
+        resources :reviews, except: :show
+      end
     end
 
     resources :jobs, only: :show
