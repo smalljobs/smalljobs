@@ -129,7 +129,7 @@ describe Job do
 
   describe '#send_job_connected' do
     let(:seeker) { Fabricate(:seeker) }
-    let(:job) { Fabricate(:job, state: 'available', place: seeker.place, seekers: [seeker]) }
+    let(:job) { Fabricate(:job, state: 'available', place: seeker.place, allocations: [seeker]) }
     let(:mailer) { double('mailer') }
 
     it 'sends an email to the seeker when a job is connected' do
@@ -150,13 +150,13 @@ describe Job do
     let(:mailer) { double('mailer') }
 
     context 'with a job on a specific date' do
-      let!(:job) { Fabricate(:job, state: 'connected', place: seeker.place, seekers: [seeker], date_type: 'date', start_date: 2.week.ago) }
+      let!(:job) { Fabricate(:job, state: 'connected', place: seeker.place, allocations: [seeker], date_type: 'date', start_date: 2.week.ago) }
 
       before do
         # Jobs that should not appear
         Fabricate(:job)
-        Fabricate(:job, state: 'connected', place: seeker.place, seekers: [seeker], date_type: 'date', start_date: 1.week.ago)
-        Fabricate(:job, state: 'connected', place: seeker.place, seekers: [seeker], date_type: 'date', start_date: 2.week.ago, rating_reminder_sent: true)
+        Fabricate(:job, state: 'connected', place: seeker.place, allocations: [seeker], date_type: 'date', start_date: 1.week.ago)
+        Fabricate(:job, state: 'connected', place: seeker.place, allocations: [seeker], date_type: 'date', start_date: 2.week.ago, rating_reminder_sent: true)
       end
 
       it 'sends a reminder to the provider' do
@@ -178,13 +178,13 @@ describe Job do
     end
 
     context 'with a job in a date range' do
-      let!(:job) { Fabricate(:job, state: 'connected', place: seeker.place, seekers: [seeker], date_type: 'date_range', start_date: 1.week.ago, end_date: 2.weeks.ago) }
+      let!(:job) { Fabricate(:job, state: 'connected', place: seeker.place, allocations: [seeker], date_type: 'date_range', start_date: 1.week.ago, end_date: 2.weeks.ago) }
 
       before do
         # Jobs that should not appear
         Fabricate(:job)
-        Fabricate(:job, state: 'connected', place: seeker.place, seekers: [seeker], date_type: 'date_range', start_date: 1.week.ago, end_date: 8.days.ago)
-        Fabricate(:job, state: 'connected', place: seeker.place, seekers: [seeker], date_type: 'date_range', start_date: 1.week.ago, end_date: 2.days.ago, rating_reminder_sent: true)
+        Fabricate(:job, state: 'connected', place: seeker.place, allocations: [seeker], date_type: 'date_range', start_date: 1.week.ago, end_date: 8.days.ago)
+        Fabricate(:job, state: 'connected', place: seeker.place, allocations: [seeker], date_type: 'date_range', start_date: 1.week.ago, end_date: 2.days.ago, rating_reminder_sent: true)
       end
 
       it 'sends a reminder to the provider' do
@@ -206,17 +206,17 @@ describe Job do
     end
 
     context 'with a job on agreement' do
-      let!(:job) { Fabricate(:job, state: 'connected', place: seeker.place, seekers: [seeker], date_type: 'agreement') }
+      let!(:job) { Fabricate(:job, state: 'connected', place: seeker.place, allocations: [seeker], date_type: 'agreement') }
 
       before do
         job.update_attribute(:updated_at, 2.week.ago)
 
         # Jobs that should not appear
         Fabricate(:job)
-        job_1 = Fabricate(:job, state: 'connected', place: seeker.place, seekers: [seeker], date_type: 'agreement')
+        job_1 = Fabricate(:job, state: 'connected', place: seeker.place, allocations: [seeker], date_type: 'agreement')
         job_1.update_attribute(:updated_at, 1.week.ago)
 
-        job_2 = Fabricate(:job, state: 'connected', place: seeker.place, seekers: [seeker], date_type: 'agreement', rating_reminder_sent: true)
+        job_2 = Fabricate(:job, state: 'connected', place: seeker.place, allocations: [seeker], date_type: 'agreement', rating_reminder_sent: true)
         job_2.update_attribute(:updated_at, 2.week.ago)
       end
 

@@ -4,8 +4,7 @@ describe 'broker/jobs/edit.html.haml' do
 
   let(:region) { Fabricate(:region) }
   let(:provider) { Fabricate(:provider, firstname: 'Chuck', lastname: 'Norris', place: region.places.first) }
-  let(:seeker) { Fabricate(:seeker, firstname: 'Gandalf', lastname: 'Der Graue')}
-  let(:job) { Fabricate(:job, provider: provider, seekers: [seeker]) }
+  let(:job) { Fabricate(:job, provider: provider) }
 
   before do
     assign(:job, job)

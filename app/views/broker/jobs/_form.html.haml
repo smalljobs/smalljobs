@@ -12,7 +12,6 @@
     .form-inputs
       = f.association :provider, required: true, autofocus: true, collection: current_region.providers, include_blank: false
       = f.association :work_category, required: true, include_blank: false
-      = f.association :seekers, as: :check_boxes, collection: current_region.seekers, include_blank: false
 
   %fieldset
     %legend

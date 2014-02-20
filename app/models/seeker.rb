@@ -5,7 +5,6 @@ class Seeker < ActiveRecord::Base
   include ConfirmToggle
 
   has_and_belongs_to_many :work_categories
-  has_and_belongs_to_many :jobs
 
   has_many :applications
   has_many :proposals

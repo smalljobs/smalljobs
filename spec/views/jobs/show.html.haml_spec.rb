@@ -133,7 +133,7 @@ describe 'jobs/show.html.haml' do
       let(:seeker_b) { Fabricate(:seeker, firstname: 'Susi', lastname: 'Strolch') }
 
       let(:job) { Fabricate(:job,
-                            seekers: [seeker_a, seeker_b],
+                            allocations: [seeker_a, seeker_b],
                             provider: provider) }
 
       it 'shows the assigned seeker names' do

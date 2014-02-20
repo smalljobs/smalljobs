@@ -1,6 +1,4 @@
 class Job < ActiveRecord::Base
-  has_and_belongs_to_many :seekers
-
   belongs_to :provider, inverse_of: :jobs
   belongs_to :work_category, inverse_of: :jobs
 
@@ -8,6 +6,8 @@ class Job < ActiveRecord::Base
   has_many :proposals
   has_many :allocations
   has_many :reviews
+
+  has_many :seekers, through: :allocations
 
   has_one :place, through: :provider
 

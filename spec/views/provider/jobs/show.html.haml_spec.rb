@@ -126,12 +126,12 @@ describe 'provider/jobs/show.html.haml' do
       end
     end
 
-    context 'with seekers' do
+    context 'with allocated seekers' do
       let(:seeker_a) { Fabricate(:seeker, firstname: 'Robert', lastname: 'Buholzer') }
       let(:seeker_b) { Fabricate(:seeker, firstname: 'Susi', lastname: 'Strolch') }
 
       let(:job) { Fabricate(:job,
-                            seekers: [seeker_a, seeker_b],
+                            allocations: [seeker_a, seeker_b],
                             provider: provider) }
 
       it 'shows the assigned seeker names' do

@@ -11,9 +11,6 @@ feature 'Edit a job' do
   background do
     Fabricate(:provider, place: place, firstname: 'Lisbet', lastname: 'Lesbos')
 
-    Fabricate.times(3, :seeker, place: place)
-    Fabricate(:seeker, firstname: 'Susi', lastname: 'Sucher', place: place)
-
     Fabricate(:work_category, name: 'Tiere')
     Fabricate(:work_category, name: 'Computer')
 
@@ -36,10 +33,6 @@ feature 'Edit a job' do
 
     click_on 'Alle Jobs anzeigen'
     click_on 'Hunde gassi gehen bearbeiten'
-
-    within_fieldset 'Zuweisungen' do
-      check 'Susi Sucher'
-    end
 
     within_fieldset 'Job' do
       fill_in 'Titel', with: 'Hunde spazieren gehen'

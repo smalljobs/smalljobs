@@ -1,4 +1,6 @@
 Fabricator(:job) do
+  transient :proposals, :applications, :allocations, :reviews
+
   provider
   work_category
 
@@ -16,4 +18,30 @@ Fabricator(:job) do
 
   manpower 1
   duration 120
+
+  after_create do |job, transients|
+    if transients[:proposals]
+      transients[:proposals].each do |seeker|
+        Fabricate(:proposal, job: job, seeker: seeker)
+      end
+    end
+
+    if transients[:applications]
+      transients[:applications].each do |seeker|
+        Fabricate(:application, job: job, seeker: seeker)
+      end
+    end
+
+    if transients[:allocations]
+      transients[:allocations].each do |seeker|
+        Fabricate(:allocation, job: job, seeker: seeker)
+      end
+    end
+
+    if transients[:reviews]
+      transients[:reviews].each do |seeker|
+        Fabricate(:review, job: job, seeker: seeker)
+      end
+    end
+  end
 end

@@ -20,7 +20,7 @@ describe 'Notifier' do
   let(:broker_mails) { [broker_1.email, broker_2.email] }
   let(:seeker_mails) { [seeker_1.email, seeker_2.email] }
 
-  let(:job) { Fabricate(:job, provider: provider_1, seekers: [seeker_1, seeker_2]) }
+  let(:job) { Fabricate(:job, provider: provider_1, allocations: [seeker_1, seeker_2]) }
 
   before do
     Fabricate(:employment, organization: org, region: region, broker: broker_1)

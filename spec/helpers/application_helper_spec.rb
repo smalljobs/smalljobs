@@ -81,7 +81,8 @@ describe ApplicationHelper do
     end
 
     it 'maps an job with seekers to the no class' do
-      job = Fabricate(:job, seekers: [Fabricate(:seeker)])
+      job = Fabricate(:job)
+      Fabricate(:application, job: job)
       expect(helper.job_status_class(job)).to eq('')
     end
   end

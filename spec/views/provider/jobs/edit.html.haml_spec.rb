@@ -3,8 +3,7 @@ require 'spec_helper'
 describe 'provider/jobs/edit.html.haml' do
 
   let(:provider) { Fabricate(:provider, firstname: 'Chuck', lastname: 'Norris') }
-  let(:seeker) { Fabricate(:seeker, firstname: 'Gandalf', lastname: 'Der Graue')}
-  let(:job) { Fabricate(:job, provider: provider, seekers: [seeker]) }
+  let(:job) { Fabricate(:job, provider: provider) }
 
   before do
     assign(:job, job)

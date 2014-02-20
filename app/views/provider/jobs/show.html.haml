@@ -39,15 +39,15 @@
         %p= t('jobs.manpower', manpower: @job.manpower)
         %p= t('jobs.duration', duration: @job.duration)
 
-        - if @job.seekers.length == 0
+        - if @job.allocations.length == 0
           %p
             %strong= t('jobs.no_seekers_assigned')
         - else
           %p= t('jobs.seekers_assigned')
 
           %ul
-            - @job.seekers.each do |seeker|
-              %ul= seeker.name
+            - @job.allocations.each do |allocation|
+              %ul= allocation.seeker.name
 
 %ul.nav.nav-pills
   %li= link_to t('common.edit'), edit_provider_job_path(@job)
