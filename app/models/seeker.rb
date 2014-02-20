@@ -11,6 +11,8 @@ class Seeker < ActiveRecord::Base
   has_many :allocations
   has_many :reviews
 
+  has_many :jobs, through: :allocations
+
   belongs_to :place, inverse_of: :seekers
 
   validates :firstname, :lastname, presence: true
