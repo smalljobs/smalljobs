@@ -90,6 +90,10 @@ de:
       date_range: "In einem bestimmten Zeitraum"
     fixed_price: "Fixpreis: %{salary}"
     hourly_rate: "%{salary} pro Stunde"
+    proposals: "Vorschläge"
+    applications: "Bewerbungen"
+    allocations: "Zuweisungen"
+    reviews: "Bewertungen"
   broker:
     jobs:
       new:

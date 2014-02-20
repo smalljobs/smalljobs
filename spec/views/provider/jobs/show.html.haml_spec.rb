@@ -142,6 +142,16 @@ describe 'provider/jobs/show.html.haml' do
     end
   end
 
+  context 'job process actions' do
+    it 'contains the link to list the job proposals' do
+      expect(rendered).to have_link('Zuweisungen', broker_job_allocations_path(job))
+    end
+
+    it 'contains the link to list the job proposals' do
+      expect(rendered).to have_link('Bewertungen', broker_job_reviews_path(job))
+    end
+  end
+
   context 'global actions' do
     it 'contains the link to edit the job' do
       expect(rendered).to have_link('Bearbeiten', edit_provider_job_path(job))
