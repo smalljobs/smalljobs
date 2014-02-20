@@ -144,4 +144,14 @@ module ApplicationHelper
     content_tag(:span, text, class: "label label-#{ type }")
   end
 
+  # Test if the given filter is active
+  #
+  # @param [String] filter the filter query param
+  #
+  def current_filter_class(filter = '')
+    p = params.except(:action, :controller)
+    active = p.has_key?(filter) || (filter.empty? && p.empty?)
+    active ? 'active' :  nil
+  end
+
 end

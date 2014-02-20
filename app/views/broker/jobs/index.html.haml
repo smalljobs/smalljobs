@@ -1,6 +1,12 @@
 %h1= t('broker.jobs.index.title')
 %p.lead= t('broker.jobs.index.lead')
 
+%ul.nav.nav-tabs.pull-right
+  %li{ class: current_filter_class }
+    %a{ href: '?' }= t('filters.all')
+  %li{ class: current_filter_class('without_applications')}
+    %a{ href: '?without_applications=true' }= t('filters.without_applications')
+
 .table-responsive
   %table.table.table-striped
     %tr

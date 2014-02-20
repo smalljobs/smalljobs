@@ -380,6 +380,7 @@ DEPENDENCIES
   guard-livereload
   guard-rspec
   haml-rails
+  has_scope
   inherited_resources
   jbuilder
   jquery-rails

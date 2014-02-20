@@ -26,6 +26,9 @@ de:
     format:
       logo: "Format 220x220"
       background: "Format 700x400"
+  filters:
+    all: "Alle"
+    without_applications: "Ohne Bewerbungen"
   navigation:
     home: ""
     sign_up: "Registrieren"

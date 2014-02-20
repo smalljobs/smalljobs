@@ -131,4 +131,37 @@ describe ApplicationHelper do
     end
   end
 
+  describe '#current_filter_class' do
+    context 'without request params' do
+      context 'without filter' do
+        it 'returns a class' do
+          expect(helper.current_filter_class).to eql('active')
+        end
+      end
+
+      context 'with filter' do
+        it 'does not return a class' do
+          expect(helper.current_filter_class('filter_param')).to be_nil
+        end
+      end
+    end
+
+    context 'with request param' do
+      before do
+        helper.stub(:params) { { filter_param: true }.with_indifferent_access }
+      end
+
+      context 'without filter' do
+        it 'returns a class' do
+          expect(helper.current_filter_class).to be_nil
+        end
+      end
+
+      context 'with filter' do
+        it 'does not return a class' do
+          expect(helper.current_filter_class('filter_param')).to eql('active')
+        end
+      end
+    end
+  end
 end

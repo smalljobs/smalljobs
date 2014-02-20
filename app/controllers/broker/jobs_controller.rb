@@ -5,6 +5,8 @@ class Broker::JobsController < InheritedResources::Base
   load_and_authorize_resource :job, through: :current_region
   skip_authorize_resource :job, only: :new
 
+  has_scope :without_applications, type: :boolean
+
   def create
     @job = Job.new(permitted_params[:job])
     @job.state  = 'available'

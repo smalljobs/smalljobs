@@ -39,6 +39,8 @@ class Job < ActiveRecord::Base
   after_create :send_job_created,   if: proc { |s| s.state == 'created' }
   after_save   :send_job_connected, if: proc { |s| s.state_changed? && s.state_was == 'available' && s.state == 'connected' }
 
+  scope :without_applications, -> { includes(:applications).where('applications.id IS NULL') }
+
   # Available date types
   #
   # @return [Array<String>] list of possible dates types
