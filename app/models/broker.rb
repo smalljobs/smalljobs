@@ -1,5 +1,8 @@
 class Broker < ActiveRecord::Base
+
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :confirmable, :registerable
+
+  include ConfirmToggle
 
   has_many :employments, inverse_of: :broker
   has_many :organizations, through: :employments
