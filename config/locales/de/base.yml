@@ -24,7 +24,7 @@ de:
       job: "Job"
       salary: "Lohn"
     format:
-      logo: "Format 220x220"
+      logo: "Format 400x220"
       background: "Format 700x400"
   filters:
     all: "Alle"

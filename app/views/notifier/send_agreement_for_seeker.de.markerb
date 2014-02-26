@@ -1,13 +1,13 @@
 # Hallo <%= @seeker.name %>
 
 Du hast dich bei smalljobs.ch registriert.
-Bitte fülle as angehängte Formular "Elterliche Bestätigung" aus, lass es von deinen Eltern (geseztliche Vertretung) unterschreiben und sende es uns zurück.
-Per Post, eingescannt als EMail, oder bringe es uns einfach während unseren Bürozeiten vorbei.
+Bitte fülle das angehängte Formular "Elterliche Bestätigung" aus, lass es von deinen Eltern (geseztliche Vertretung) unterschreiben und sende es uns zurück.
+Per Post, eingescannt als E-Mail, oder bringe es uns einfach während unseren Bürozeiten vorbei.
 
 
 
 
-## Ansprechspersonen
+## Deine Ansprechspersonen
 
 <% @brokers.each do |broker| %>
   **<%= broker.name %>**
