@@ -8,8 +8,8 @@ de:
         one: "Vermittler"
         other: "Vermittler"
       seeker:
-        one: "Sucher"
-        other: "Sucher"
+        one: "Jugendlicher"
+        other: "Jugendlicher"
       provider:
         one: "Anbieter"
         other: "Anbieter"
