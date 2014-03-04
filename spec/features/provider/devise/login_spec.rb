@@ -32,7 +32,7 @@ feature 'Login' do
         click_on 'Als Anbieter anmelden'
 
         within_notifications do
-          expect(page).to have_content('Wir werden Sie in Kürze kontaktieren um ihren Konto zu bestätigen.')
+          expect(page).to have_content('Wir werden Sie in Kürze kontaktieren um ihr Konto zu bestätigen.')
         end
       end
     end
@@ -61,7 +61,7 @@ feature 'Login' do
         click_on 'Als Anbieter anmelden'
 
         within_notifications do
-          expect(page).to have_content('Sie müssen Ihren Email bestätigen, bevor Sie fortfahren können.')
+          expect(page).to have_content('Sie müssen Ihre Email bestätigen, bevor Sie fortfahren können.')
         end
       end
     end

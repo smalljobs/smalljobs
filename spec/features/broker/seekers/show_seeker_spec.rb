@@ -31,7 +31,7 @@ feature 'SHow a seeker' do
   scenario 'displays all the user details' do
     visit_on broker, '/broker/dashboard'
 
-    click_on 'Alle Sucher anzeigen'
+    click_on 'Alle Jugendlichen anzeigen'
     click_on 'John Johnetty anzeigen'
 
     expect(page).to have_content('John')

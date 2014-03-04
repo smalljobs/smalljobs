@@ -14,8 +14,8 @@ de:
       not_found_in_database: Ungültige Anmeldedaten.
       timeout: Ihre Sitzung ist abgelaufen, bitte melden Sie sich erneut an.
       unauthenticated: Sie müssen sich anmelden oder registrieren, bevor Sie fortfahren können.
-      unconfirmed: Sie müssen Ihren Email bestätigen, bevor Sie fortfahren können.
-      unconfirmed_manual: Wir werden Sie in Kürze kontaktieren um ihren Konto zu bestätigen.
+      unconfirmed: Sie müssen Ihre Email bestätigen, bevor Sie fortfahren können.
+      unconfirmed_manual: Wir werden Sie in Kürze kontaktieren um ihr Konto zu bestätigen.
     mailer:
       confirmation_instructions:
         subject: Anleitung zur Bestätigung Ihres Kontos
@@ -48,7 +48,7 @@ de:
       signed_in: Erfolgreich angemeldet.
       signed_out: Erfolgreich abgemeldet.
     unlocks:
-      send_instructions: Sie erhalten in wenigen Minuten eine E-Mail mit der Anleitung, wie Sie Ihren Konto entsperren können.
+      send_instructions: Sie erhalten in wenigen Minuten eine E-Mail mit der Anleitung, wie Sie Ihr Konto entsperren können.
       send_paranoid_instructions: Falls Ihre E-Mail-Adresse in unserer Datenbank existiert, erhalten Sie in wenigen Minuten eine E-Mail mit der Anleitung, wie Sie Ihr Konto entsperren können.
       unlocked: Ihr Konto wurde entsperrt. Sie sind jetzt angemeldet.
   errors:

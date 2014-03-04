@@ -58,7 +58,8 @@ describe 'broker/seekers/index.html.haml' do
     end
 
     it 'shows a message that no seekers are found' do
-      expect(rendered).to have_text('Es sind noch keine Sucher in deiner Region erfasst')
+      expect(rendered).to have_text('Es sind noch keine Jugendlichen in deiner Region erfasst')
+
     end
   end
 
@@ -69,7 +70,7 @@ describe 'broker/seekers/index.html.haml' do
     end
 
     it 'contains the link to add a new seeker' do
-      expect(rendered).to have_link('Neuen Sucher hinzufügen', new_seeker_registration_path)
+      expect(rendered).to have_link('Neuen Jugendlichen hinzufügen', new_seeker_registration_path)
     end
   end
 end

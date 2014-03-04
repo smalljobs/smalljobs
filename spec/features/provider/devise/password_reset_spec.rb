@@ -44,7 +44,7 @@ feature 'Password reset' do
 
       within_notifications do
         expect(page).to have_content('Ihr Passwort wurde geändert.')
-        expect(page).to have_content('Sie müssen Ihren Email bestätigen, bevor Sie fortfahren können.')
+        expect(page).to have_content('Sie müssen Ihre Email bestätigen, bevor Sie fortfahren können.')
       end
     end
   end

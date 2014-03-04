@@ -19,8 +19,8 @@ feature 'Add a new seeker' do
   scenario 'with a duplicate email' do
     visit_on broker, '/broker/dashboard'
 
-    click_on 'Alle Sucher anzeigen'
-    click_on 'Neuen Sucher hinzufügen'
+    click_on 'Alle Jugendlichen anzeigen'
+    click_on 'Neuen Jugendlichen hinzufügen'
 
     fill_in_valid_data
 
@@ -38,14 +38,14 @@ feature 'Add a new seeker' do
   scenario 'with valid data' do
     visit_on broker, '/broker/dashboard'
 
-    click_on 'Alle Sucher anzeigen'
-    click_on 'Neuen Sucher hinzufügen'
+    click_on 'Alle Jugendlichen anzeigen'
+    click_on 'Neuen Jugendlichen hinzufügen'
 
     fill_in_valid_data
     click_on 'Erstellen'
 
     within_notifications do
-      expect(page).to have_content('Sucher wurde erfolgreich erstellt.')
+      expect(page).to have_content('Jugendlicher wurde erfolgreich erstellt.')
     end
   end
 
