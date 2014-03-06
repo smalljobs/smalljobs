@@ -1,5 +1,7 @@
 shared_examples_for 'a protected controller' do |role, resource, actions|
 
+  let(:params) { {} }
+
   if actions == :all
     actions = [:index, :new, :create, :show, :edit, :update, :destroy]
   else
@@ -17,14 +19,18 @@ shared_examples_for 'a protected controller' do |role, resource, actions|
 
       if actions.include?(:index)
         it 'does not allow to list all resources' do
-          xhr :get, :index, format: :json
+          p = { format: :json }.merge(params)
+
+          xhr :get, :index, p
           expect(response.status).to eql(401)
         end
       end
 
       if actions.include?(:new)
         it 'does not allow to build a new resource' do
-          xhr :get, :new, format: :json
+          p = { format: :json }.merge(params)
+
+          xhr :get, :new, p
           expect(response.status).to eql(401)
         end
       end
@@ -35,10 +41,10 @@ shared_examples_for 'a protected controller' do |role, resource, actions|
         end
 
         it 'does not allow to create a new resource' do
-          params = { format: :json }
-          params[resource] = create_attributes
+          p = { format: :json }.merge(params)
+          p[resource] = create_attributes
 
-          xhr :post, :create, params
+          xhr :post, :create, p
           expect(response.status).to eql(401)
         end
       end
@@ -47,7 +53,9 @@ shared_examples_for 'a protected controller' do |role, resource, actions|
         let(:show_resource) { send(resource) rescue Fabricate(resource) }
 
         it 'does not allow to show a resource' do
-          xhr :get, :show, id: show_resource, format: :json
+          p = { format: :json, id: show_resource.id }.merge(params)
+
+          xhr :get, :show, p
           expect(response.status).to eql(401)
         end
       end
@@ -56,7 +64,9 @@ shared_examples_for 'a protected controller' do |role, resource, actions|
         let(:edit_resource) { send(resource) rescue Fabricate(resource) }
 
         it 'does not allow to edit a resource' do
-          xhr :get, :edit, id: edit_resource.id, format: :json
+          p = { format: :json, id: edit_resource.id }.merge(params)
+
+          xhr :get, :edit, p
           expect(response.status).to eql(401)
         end
       end
@@ -65,10 +75,10 @@ shared_examples_for 'a protected controller' do |role, resource, actions|
         let(:update_resource) { send(resource) rescue Fabricate(resource) }
 
         it 'does not allow to update a resource' do
-          params = { id: update_resource.id, format: :json }
-          params[resource] = update_resource.attributes
+          p = { id: update_resource.id, format: :json }.merge(params)
+          p[resource] = update_resource.attributes
 
-          xhr :patch, :update, params
+          xhr :patch, :update, p
           expect(response.status).to eql(401)
         end
       end
@@ -77,7 +87,9 @@ shared_examples_for 'a protected controller' do |role, resource, actions|
         let(:destroy_resource) { send(resource) rescue Fabricate(resource) }
 
         it 'does not allow to destroy a resoures' do
-          xhr :delete, :destroy, id: destroy_resource.id, format: :json
+          p = { format: :json, id: destroy_resource.id }.merge(params)
+
+          xhr :delete, :destroy, p
           expect(response.status).to eql(401)
         end
       end
@@ -93,14 +105,18 @@ shared_examples_for 'a protected controller' do |role, resource, actions|
 
     if actions.include?(:index)
       it 'does allow to list all resources' do
-        xhr :get, :index, format: :json
+        p = { format: :json }.merge(params)
+
+        xhr :get, :index, p
         expect(response.status).to eql(200)
       end
     end
 
     if actions.include?(:new)
       it 'does allow to build a new resource' do
-        xhr :get, :new, format: :json
+        p = { format: :json }.merge(params)
+
+        xhr :get, :new, p
         expect(response.status).to eql(200)
       end
     end
@@ -111,10 +127,10 @@ shared_examples_for 'a protected controller' do |role, resource, actions|
       end
 
       it 'does allow to create a new resource' do
-        params = { format: :json }
-        params[resource] = create_attributes
+        p = { format: :json }.merge(params)
+        p[resource] = create_attributes
 
-        xhr :post, :create, params
+        xhr :post, :create, p
         expect(response.status).to eql(201)
       end
     end
@@ -123,7 +139,9 @@ shared_examples_for 'a protected controller' do |role, resource, actions|
       let(:show_resource) { send(resource) rescue Fabricate(resource) }
 
       it 'does allow to show a resource' do
-        xhr :get, :show, id: show_resource.id, format: :json
+        p = { format: :json, id: show_resource.id }.merge(params)
+
+        xhr :get, :show, p
         expect(response.status).to eql(200)
       end
     end
@@ -132,7 +150,9 @@ shared_examples_for 'a protected controller' do |role, resource, actions|
       let(:edit_resource) { send(resource) rescue Fabricate(resource) }
 
       it 'does allow to edit a resource' do
-        xhr :get, :edit, id: edit_resource.id, format: :json
+        p = { format: :json, id: edit_resource.id }.merge(params)
+
+        xhr :get, :edit, p
         expect(response.status).to eql(200)
       end
     end
@@ -141,10 +161,10 @@ shared_examples_for 'a protected controller' do |role, resource, actions|
       let(:update_resource) { send(resource) rescue Fabricate(resource) }
 
       it 'does allow to update a resource' do
-        params = { id: update_resource.id, format: :json }
-        params[resource] = update_resource.attributes
+        p = { id: update_resource.id, format: :json }.merge(params)
+        p[resource] = update_resource.attributes
 
-        xhr :patch, :update, params
+        xhr :patch, :update, p
         expect(response.status).to eql(204)
       end
     end
@@ -153,7 +173,9 @@ shared_examples_for 'a protected controller' do |role, resource, actions|
       let(:destroy_resource) { send(resource) rescue Fabricate(resource) }
 
       it 'does allow to destroy a resoures' do
-        xhr :delete, :destroy, id: destroy_resource.id, format: :json
+        p = { id: destroy_resource.id, format: :json }.merge(params)
+
+        xhr :delete, :destroy, p
         expect(response.status).to eql(204)
       end
     end

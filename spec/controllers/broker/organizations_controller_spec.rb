@@ -36,6 +36,13 @@ describe Broker::OrganizationsController do
     end
 
     it 'redirects the user to the dashboard after editing' do
+      params = { format: :json }
+      params[:organization] = organization.attributes
+      params[:organization][:name] = 'Testorg'
+
+      patch :update, params
+      expect(response.location).to eql(broker_dashboard_url)
     end
+
   end
 end

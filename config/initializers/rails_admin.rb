@@ -152,7 +152,7 @@ RailsAdmin.config do |config|
       field :phone
       field :email
       field :active
-      field :confirmed?
+      field :confirmed
     end
 
     edit do
