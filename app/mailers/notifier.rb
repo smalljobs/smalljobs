@@ -18,7 +18,10 @@ class Notifier < ActionMailer::Base
 
     attachments['agreement.pdf'] = File.read(File.expand_path(File.join(Rails.root, 'docs', 'agreement.pdf')))
 
-    mail(to: seeker.email, cc: broker_emails_for(seeker), subject: t('mail.send_agreement_for_seeker'))
+    mail(to: seeker.email, cc: broker_emails_for(seeker), subject: t('mail.send_agreement_for_seeker')) do |format|
+      format.text
+      format.html
+    end
   end
 
   # Notify the region brokers about
@@ -30,7 +33,10 @@ class Notifier < ActionMailer::Base
     @brokers = brokers_for(seeker)
     @seeker = seeker
 
-    mail(to: broker_emails_for(seeker), subject: t('mail.new_seeker_signup_for_broker'))
+    mail(to: broker_emails_for(seeker), subject: t('mail.new_seeker_signup_for_broker')) do |format|
+      format.text
+      format.html
+    end
   end
 
   # Notify the region brokers about
@@ -42,7 +48,10 @@ class Notifier < ActionMailer::Base
     @brokers = brokers_for(provider)
     @provider = provider
 
-    mail(to: broker_emails_for(provider), subject: t('mail.new_provider_signup_for_broker'))
+    mail(to: broker_emails_for(provider), subject: t('mail.new_provider_signup_for_broker')) do |format|
+      format.text
+      format.html
+    end
   end
 
   # Notify a provider that he has been
@@ -55,7 +64,10 @@ class Notifier < ActionMailer::Base
     @brokers = brokers_for(provider)
     @provider = provider
 
-    mail(to: provider_or_broker_emails_for(provider), subject: t('mail.provider_activated_for_provider'))
+    mail(to: provider_or_broker_emails_for(provider), subject: t('mail.provider_activated_for_provider')) do |format|
+      format.text
+      format.html
+    end
   end
 
   # Notify a broker that a new job has
@@ -67,7 +79,10 @@ class Notifier < ActionMailer::Base
     @brokers = brokers_for(job.provider)
     @job = job
 
-    mail(to: broker_emails_for(job.provider), subject: t('mail.job_created_for_broker'))
+    mail(to: broker_emails_for(job.provider), subject: t('mail.job_created_for_broker')) do |format|
+      format.text
+      format.html
+    end
   end
 
   # Notifies the job seekers that they
@@ -80,7 +95,10 @@ class Notifier < ActionMailer::Base
     @provider = job.provider
     @seekers = job.seekers
 
-    mail(to: seeker_emails_for(job), subject: t('mail.job_created_for_seekers'))
+    mail(to: seeker_emails_for(job), subject: t('mail.job_created_for_seekers')) do |format|
+      format.text
+      format.html
+    end
   end
 
   # Notifies the job provider that
@@ -93,7 +111,10 @@ class Notifier < ActionMailer::Base
     @provider = job.provider
     @seekers = job.seekers
 
-    mail(to: provider_or_broker_emails_for(job.provider), subject: t('mail.job_connected_for_provider'))
+    mail(to: provider_or_broker_emails_for(job.provider), subject: t('mail.job_connected_for_provider')) do |format|
+      format.text
+      format.html
+    end
   end
 
   # Remind a provider to rate his job after
@@ -106,7 +127,10 @@ class Notifier < ActionMailer::Base
     @provider = job.provider
     @seekers = job.seekers
 
-    mail(to: provider_or_broker_emails_for(job.provider), subject: t('mail.job_rating_reminder_for_provider'))
+    mail(to: provider_or_broker_emails_for(job.provider), subject: t('mail.job_rating_reminder_for_provider')) do |format|
+      format.text
+      format.html
+    end
   end
 
   # Remind a seeker to rate his job after
@@ -119,7 +143,10 @@ class Notifier < ActionMailer::Base
     @provider = job.provider
     @seekers = job.seekers
 
-    mail(to: seeker_emails_for(job), subject: t('mail.job_rating_reminder_for_seeker'))
+    mail(to: seeker_emails_for(job), subject: t('mail.job_rating_reminder_for_seeker')) do |format|
+      format.text
+      format.html
+    end
   end
 
   protected
