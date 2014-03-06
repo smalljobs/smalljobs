@@ -18,7 +18,7 @@ feature 'New job seeker registration' do
   scenario 'with a duplicate email' do
     visit_on region, '/'
 
-    click_on 'Als Sucher registrieren'
+    click_on 'Als Jugendlicher registrieren'
 
     within_fieldset 'Anmeldedaten' do
       fill_in 'Email',               with: 'existing@example.com'
@@ -26,8 +26,8 @@ feature 'New job seeker registration' do
       fill_in 'Passwortbestätigung', with: 'chicksonspeed'
     end
 
-    click_on 'Als Sucher registrieren'
-
+    click_on 'Als Jugendlicher registrieren'
+    
     within_fieldset 'Anmeldedaten' do
       expect(page).to have_content('ist bereits vergeben')
     end
@@ -36,7 +36,7 @@ feature 'New job seeker registration' do
   scenario 'with valid data' do
     visit_on region, '/'
 
-    click_on 'Als Sucher registrieren'
+    click_on 'Als Jugendlicher registrieren'
 
     within_fieldset 'Anmeldedaten' do
       fill_in 'Email',               with: 'rolf@example.com'
@@ -57,10 +57,10 @@ feature 'New job seeker registration' do
       check 'Computer'
     end
 
-    click_on 'Als Sucher registrieren'
+    click_on 'Als Jugendlicher registrieren'
 
     within_notifications do
-      expect(page).to have_content('Sie erhalten in wenigen Minuten eine E-Mail mit einem Link für die Bestätigung der Registrierung. Klicken Sie auf den Link um Ihren Konto zu bestätigen.')
+      expect(page).to have_content('Sie erhalten in wenigen Minuten eine E-Mail mit einem Link für die Bestätigung der Registrierung. Klicken Sie auf den Link um Ihr Konto zu bestätigen.')
     end
 
     open_email('rolf@example.com')

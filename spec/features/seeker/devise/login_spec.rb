@@ -22,15 +22,15 @@ feature 'Login' do
       visit_on region, '/'
 
       click_on 'Anmelden'
-      click_on 'Sucher'
+      click_on 'Jugendlicher'
 
       fill_in 'Email',    with: 'rolf@example.com'
       fill_in 'Passwort', with: 'tester1234'
 
-      click_on 'Als Sucher anmelden'
+      click_on 'Als Jugendlicher anmelden'
 
       within_notifications do
-        expect(page).to have_content('Sie müssen Ihren Email bestätigen, bevor Sie fortfahren können.')
+        expect(page).to have_content('Sie müssen Ihre Email bestätigen, bevor Sie fortfahren können.')
       end
     end
   end
@@ -50,12 +50,12 @@ feature 'Login' do
       visit_on region, '/'
 
       click_on 'Anmelden'
-      click_on 'Sucher'
+      click_on 'Jugendlicher'
 
       fill_in 'Email',    with: 'rolf@example.com'
       fill_in 'Passwort', with: 'tester1234'
 
-      click_on 'Als Sucher anmelden'
+      click_on 'Als Jugendlicher anmelden'
 
       within_notifications do
         expect(page).to have_content('Ihr Konto ist nicht aktiv')
@@ -78,12 +78,12 @@ feature 'Login' do
       visit_on region, '/'
 
       click_on 'Anmelden'
-      click_on 'Sucher'
+      click_on 'Jugendlicher'
 
       fill_in 'Email',    with: 'dani'
       fill_in 'Passwort', with: 'tester'
 
-      click_on 'Als Sucher anmelden'
+      click_on 'Als Jugendlicher anmelden'
 
       within_notifications do
         expect(page).to have_content('Ungültige Anmeldedaten')
@@ -94,12 +94,12 @@ feature 'Login' do
       visit_on region, '/'
 
       click_on 'Anmelden'
-      click_on 'Sucher'
+      click_on 'Jugendlicher'
 
       fill_in 'Email',    with: 'rolf@example.com'
       fill_in 'Passwort', with: 'tester1234'
 
-      click_on 'Als Sucher anmelden'
+      click_on 'Als Jugendlicher anmelden'
 
       within_notifications do
         expect(page).to have_content('Erfolgreich angemeldet')

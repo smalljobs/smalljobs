@@ -22,7 +22,7 @@ feature 'Password reset' do
       visit_on region, '/'
 
       click_on 'Anmelden'
-      click_on 'Sucher'
+      click_on 'Jugendlicher'
       click_on 'Passwort vergessen?'
 
       fill_in 'Email', with: 'rolf@example.com'
@@ -43,7 +43,7 @@ feature 'Password reset' do
 
       within_notifications do
         expect(page).to have_content('Ihr Passwort wurde geändert.')
-        expect(page).to have_content('Sie müssen Ihren Email bestätigen, bevor Sie fortfahren können.')
+        expect(page).to have_content('Sie müssen Ihre Email bestätigen, bevor Sie fortfahren können.')
       end
     end
   end
@@ -63,7 +63,7 @@ feature 'Password reset' do
       visit_on region, '/'
 
       click_on 'Anmelden'
-      click_on 'Sucher'
+      click_on 'Jugendlicher'
       click_on 'Passwort vergessen?'
 
       fill_in 'Email', with: 'rolf@example.com'
@@ -104,7 +104,7 @@ feature 'Password reset' do
       visit_on region, '/'
 
       click_on 'Anmelden'
-      click_on 'Sucher'
+      click_on 'Jugendlicher'
       click_on 'Passwort vergessen?'
 
       fill_in 'Email', with: 'inexistent@example.com'
@@ -118,7 +118,7 @@ feature 'Password reset' do
       visit_on region, '/'
 
       click_on 'Anmelden'
-      click_on 'Sucher'
+      click_on 'Jugendlicher'
       click_on 'Passwort vergessen?'
 
       fill_in 'Email', with: 'rolf@example.com'

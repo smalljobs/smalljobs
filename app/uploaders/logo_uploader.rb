@@ -12,7 +12,7 @@ class LogoUploader < CarrierWave::Uploader::Base
   end
 
   version(:web) do
-    version(:normal) { process(resize_to_fit: [220, 220]) }
+    version(:normal) { process(resize_to_fit: [400, 220]) }
     version(:small) { process(resize_to_fit: [110, 110]) }
   end
 end

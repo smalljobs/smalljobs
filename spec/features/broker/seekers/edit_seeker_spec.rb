@@ -20,7 +20,7 @@ feature 'Edit a seeker' do
   scenario 'updates the seeker data' do
     visit_on broker, '/broker/dashboard'
 
-    click_on 'Alle Sucher anzeigen'
+    click_on 'Alle Jugendlichen anzeigen'
     click_on 'Dora Doretty bearbeiten'
 
     within_fieldset 'Anmeldedaten' do
@@ -46,7 +46,7 @@ feature 'Edit a seeker' do
     click_on 'Bearbeiten'
 
     within_notifications do
-      expect(page).to have_content('Sucher wurde erfolgreich aktualisiert.')
+      expect(page).to have_content('Jugendlicher wurde erfolgreich aktualisiert.')
     end
   end
 

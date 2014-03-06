@@ -20,11 +20,11 @@ feature 'Destroy a seeker' do
   scenario 'remove the seeker' do
     visit_on broker, '/broker/dashboard'
 
-    click_on 'Alle Sucher anzeigen'
+    click_on 'Alle Jugendlichen anzeigen'
     click_on 'Dora Doretty löschen'
 
     within_notifications do
-      expect(page).to have_content('Sucher wurde erfolgreich gelöscht.')
+      expect(page).to have_content('Jugendlicher wurde erfolgreich gelöscht.')
     end
   end
 

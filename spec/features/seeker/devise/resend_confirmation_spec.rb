@@ -11,7 +11,7 @@ feature 'Resend confirmation' do
     visit_on region, '/'
 
     click_on 'Anmelden'
-    click_on 'Sucher'
+    click_on 'Jugendlicher'
     click_on 'Keine Email zur Bestätigung erhalten?'
 
     fill_in 'Email', with: 'inexistent@example.com'
@@ -27,7 +27,7 @@ feature 'Resend confirmation' do
       visit_on region, '/'
 
       click_on 'Anmelden'
-      click_on 'Sucher'
+      click_on 'Jugendlicher'
       click_on 'Keine Email zur Bestätigung erhalten?'
 
       fill_in 'Email', with: 'rolf@example.com'
@@ -44,7 +44,7 @@ feature 'Resend confirmation' do
       visit_on region, '/'
 
       click_on 'Anmelden'
-      click_on 'Sucher'
+      click_on 'Jugendlicher'
       click_on 'Keine Email zur Bestätigung erhalten?'
 
       fill_in 'Email', with: 'rolf@example.com'
@@ -72,7 +72,7 @@ feature 'Resend confirmation' do
       visit_on region, '/'
 
       click_on 'Anmelden'
-      click_on 'Sucher'
+      click_on 'Jugendlicher'
       click_on 'Keine Email zur Bestätigung erhalten?'
 
       fill_in 'Email', with: 'rolf@example.com'

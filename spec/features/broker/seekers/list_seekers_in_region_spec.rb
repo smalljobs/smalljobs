@@ -32,7 +32,7 @@ feature 'List the seekers' do
   scenario 'displays the seeker in the broker region' do
     visit_on broker, '/broker/dashboard'
 
-    click_on 'Alle Sucher anzeigen'
+    click_on 'Alle Jugendlichen anzeigen'
 
     expect(page).to have_content 'John'
     expect(page).to have_content 'Johnetty'
@@ -47,7 +47,7 @@ feature 'List the seekers' do
 
   scenario 'hides the seeker not in the broker region' do
     visit_on broker, '/broker/dashboard'
-    click_on 'Alle Sucher anzeigen'
+    click_on 'Alle Jugendlichen anzeigen'
 
     expect(page).to_not have_content 'Jan'
     expect(page).to_not have_content 'Janetty'
