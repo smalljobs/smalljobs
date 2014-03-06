@@ -312,7 +312,7 @@ GEM
     simple_navigation_renderers (0.0.3)
       simple-navigation (~> 3.11)
     slop (3.4.7)
-    spring (1.1.1)
+    spring (1.1.2)
     spring-commands-rspec (1.0.1)
       spring (>= 0.9.1)
     sprockets (2.11.0)
