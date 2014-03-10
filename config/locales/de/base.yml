@@ -76,7 +76,7 @@ de:
     at: "Am %{at}"
     between: "Zwischen dem %{from} und dem %{to}"
     manpower: "Benötigte Arbeitskräfte: %{manpower}"
-    duration: "Ungefähre Dauer: %{duration} Minuten"
+    duration: "Ungefähre Dauer: %{duration} Stunden"
     no_seekers_assigned: "Noch keine Jugendlichen zugewiesen!"
     seekers_assigned: "Zugewiesene Jugendliche"
     show_job: "Job anzeigen"
