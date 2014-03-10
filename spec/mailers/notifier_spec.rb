@@ -60,7 +60,7 @@ describe 'Notifier' do
     end
 
     it 'contains the organization phone' do
-      mail.should have_body_text(org.phone)
+      mail.should have_body_text(org.phone.phony_formatted)
     end
 
     it 'contains the organization email' do
