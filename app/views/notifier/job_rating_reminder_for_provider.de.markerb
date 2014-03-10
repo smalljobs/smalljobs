@@ -3,7 +3,7 @@
 <% if @on_behalf_of %>
 ** Der Anbieter hat keine Email-Adresse, daher muss diese Information von dir weitereleitet werden. (entweder per Post oder Telefon)**
 
-<%= link_to 'Zum Anbieter', broker_provider_url(@provider, subdomain: subdomain_for(@provider)) %>
+[Zum Anbieter](<%= broker_provider_url(@provider, subdomain: subdomain_for(@provider)) %>)
 
 <% end %>
 
@@ -14,7 +14,7 @@ Wir hoffen es hat alles geklappt.
 Wie waren sie mit dem Jugendlichen zufrieden?
 Helfen sie mit, die Jugendlichen noch besser zu vermitteln und bewerten Sie bitte den Job:
 
-   <%= link_to "Job bewerten", provider_job_url(@job, subdomain: subdomain_for(@job.provider)) %>
+   [Job bewerten](<%= provider_job_url(@job, subdomain: subdomain_for(@job.provider)) %>)
 
 
 Herzlichen Dank für ihre Teilnahm und ihre Mithilfe!

@@ -3,7 +3,7 @@
 Ein neuer Jugendlicher hat sich registriert.
 Sobald er dir das Anmeldeblatt/Papier vorbeigebracht hat, kannst du ihn hier freischalten:
 
-<%= link_to "Schalte #{ @seeker.name } frei", broker_seeker_url(@seeker, subdomain: subdomain_for(@seeker)) %>
+[Schalte <%= @seeker.name %> frei](<%= broker_seeker_url(@seeker, subdomain: subdomain_for(@seeker)) %>)
 
 Liebe Grüsse
 SmallJobs.ch

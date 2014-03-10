@@ -2,7 +2,7 @@
 
 Es gibt einen neuen Job-Anbieter in deiner Region:
 
-<%= link_to "Schalte #{ @provider.name } frei", broker_provider_url(@provider, subdomain: subdomain_for(@provider)) %>
+[Schalte <%= @provider.name %> frei](<%= broker_provider_url(@provider, subdomain: subdomain_for(@provider)) %>)
 
 
 Liebe Grüsse

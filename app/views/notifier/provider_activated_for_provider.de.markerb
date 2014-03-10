@@ -3,7 +3,7 @@
 <% if @on_behalf_of %>
 ** Der Anbieter hat keine Email-Adresse, daher muss diese Information von Dir (per Post/Telefon) weitergeleitet werden.**
 
-<%= link_to 'Zum Anbieter', broker_provider_url(@provider, subdomain: subdomain_for(@provider)) %>
+[Zum Anbieter](<%= broker_provider_url(@provider, subdomain: subdomain_for(@provider)) %>)
 
 <% end %>
 

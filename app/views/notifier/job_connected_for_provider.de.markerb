@@ -1,8 +1,8 @@
 # Hallo <%= @provider.name %>
 
 <% if @on_behalf_of %>
-** Der Job-Anbieter hat keine Email-Adresse, daher muss diese Information von dir direkt an ihn weitergeleitet werden! (z.b per Post / Telefon)**
-<%= link_to 'Zum Anbieter', broker_provider_url(@provider, subdomain: subdomain_for(@provider)) %>
+** Der Job-Anbieter hat keine Email-Adresse, daher muss diese Information von dir direkt an ihn weitergeleitet werden! (z.B per Post / Telefon)**
+[Zum Anbieter](<%= broker_provider_url(@provider, subdomain: subdomain_for(@provider)) %>)
 
 <% end %>
 
@@ -25,4 +25,4 @@
 
 <% end %>
 
-<%= link_to "Zum Job", provider_job_url(@job, subdomain: subdomain_for(@job.provider)) %>
+[Zum Job](<%= provider_job_url(@job, subdomain: subdomain_for(@job.provider)) %>)

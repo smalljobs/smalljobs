@@ -5,5 +5,5 @@ Es gibt einen neuen Job in deiner Region:
 **<%= @job.title %>**
 <%= @job.description %>
 
-<%= link_to "Schalte den Job frei", broker_job_url(@job, subdomain: subdomain_for(@job.provider)) %>
+[Schalte den Job frei](<%= broker_job_url(@job, subdomain: subdomain_for(@job.provider)) %>)
 

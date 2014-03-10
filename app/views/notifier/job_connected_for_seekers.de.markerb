@@ -39,7 +39,7 @@ Falls etwas nicht klappt, Probleme auftauchen oder du über mehrere Tage niemand
 <%= @provider.phone.try(:phony_formatted) %>
 <%= @provider.mobile.try(:phony_formatted) %>
 
-<%= link_to "Zum Job", job_url(@job, subdomain: subdomain_for(@job.provider)) %>
+[Zum Job](<%= job_url(@job, subdomain: subdomain_for(@job.provider)) %>)
 
 
 Wir wünschen dir viel Spass bei deinem Jöbli!

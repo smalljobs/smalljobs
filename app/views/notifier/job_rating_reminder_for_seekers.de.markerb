@@ -4,7 +4,7 @@ Du hast vor einiger Zeit den smalljobs : **<%= @job.title %>** ausgeführt.
 
 
 Danke, dass du noch eine Bewertung für diesen Job abgibst:
-<%= link_to "Job bewerten", job_url(@job, subdomain: subdomain_for(@job.provider)) %>
+[Job bewerten](<%= job_url(@job, subdomain: subdomain_for(@job.provider)) %>)
 
 So können wir dich besser weitervermitteln.
 
