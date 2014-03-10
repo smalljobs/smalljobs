@@ -15,4 +15,7 @@ class PagesController < ApplicationController
   def terms_of_service
   end
 
+  def rules_of_action
+  end
+
 end

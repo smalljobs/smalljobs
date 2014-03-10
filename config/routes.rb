@@ -23,6 +23,7 @@ Smalljobs::Application.routes.draw do
   get 'terms_of_service', to: 'pages#terms_of_service'
   get 'features',         to: 'pages#features'
   get 'join_us',          to: 'pages#join_us'
+  get 'rules_of_action',  to: 'pages#rules_of_action'
 
   constraints(RegionSubdomain) do
     devise_for :brokers, except: :confirmation, controllers: {

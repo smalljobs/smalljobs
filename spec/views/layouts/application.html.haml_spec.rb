@@ -24,6 +24,11 @@ describe 'layouts/application.html.haml' do
     end
 
     context 'footer navigation' do
+      it 'renders the link to the rules of action page' do
+        render
+        expect(rendered).to match(rules_of_action_path)
+      end
+
       it 'renders the link to the privacy policy page' do
         render
         expect(rendered).to match(privacy_policy_path)
@@ -89,6 +94,11 @@ describe 'layouts/application.html.haml' do
       it 'renders the link to the about us page' do
         render
         expect(rendered).to match(about_us_path)
+      end
+
+      it 'renders the link to the rules of action page' do
+        render
+        expect(rendered).to match(rules_of_action_path)
       end
 
       it 'renders the link to the privacy policy page' do

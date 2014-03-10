@@ -36,4 +36,11 @@ describe PagesController do
       response.should be_success
     end
   end
+
+  describe "GET 'rules_of_action'" do
+    it "returns http success" do
+      get 'rules_of_action'
+      response.should be_success
+    end
+  end
 end
