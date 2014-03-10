@@ -47,6 +47,7 @@ $ RAILS_ENV=development bundle exec unicorn -p 3000 -c config/unicorn.rb
 
 and open [the site](http://dev.smalljobs.ch:3000/) or the [admin interface](http://dev.smalljobs.ch:3000/admin).
 
+
 #### Update to latest version
 
 You can update your local project with:
@@ -67,6 +68,22 @@ $ ssh vagrant
 $ cd /vagrant
 ```
 Handling of [vagrant-Box](/puppet/README.md)
+
+#### Local SMPT Server
+
+If you want to preview the app emails, you need to install [MailCatcher](http://mailcatcher.me/) with:
+
+```bash
+$ gem install mailcatcher
+```
+
+and then start the local SMTP server **before** starting the Rails app server with:
+
+```bah
+$ mailcatcher
+```
+
+Now you can browser the sent email by opening [http://localhost:1080](http://localhost:1080) in your browser.
 
 #### Testing
 
