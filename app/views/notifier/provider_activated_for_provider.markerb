@@ -16,9 +16,9 @@ Bei Problemen melden Sie sich bitte direkt bei:
 ## Ansprechsperson(en):
 
 <% @brokers.each do |broker| %>
-  **<%= broker.name %>**
-  <%= broker.email %>
-  <%= broker.phone.try(:phony_formatted) %>
+  **<%= broker.name %>**  
+  <%= broker.email %>  
+  <%= broker.phone.try(:phony_formatted) %>  
   <%= broker.mobile.try(:phony_formatted) %>
 
 <% end %>
@@ -26,12 +26,12 @@ Bei Problemen melden Sie sich bitte direkt bei:
 
 ## Organisation
 
-**<%= @organization.name %>**
-<%= @organization.street %>
+**<%= @organization.name %>**  
+<%= @organization.street %>  
 <%= @organization.place.zip %> <%= @organization.place.name %>
 
-<%= @organization.phone %>
-<%= @organization.email %>
+<%= @organization.phone %>  
+<%= @organization.email %>  
 <%= @organization.website %>
 
 

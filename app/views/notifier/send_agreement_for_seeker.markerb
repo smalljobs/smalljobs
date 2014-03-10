@@ -9,9 +9,9 @@ Sobald das Blatt bei uns angekommen ist, können wir dir aktiv Jobs vermitteln.
 ## 	Deine Ansprechspersonen
 
 <% @brokers.each do |broker| %>
-  **<%= broker.name %>**
-  <%= broker.email %>
-  <%= broker.phone.try(:phony_formatted) %>
+  **<%= broker.name %>**  
+  <%= broker.email %>  
+  <%= broker.phone.try(:phony_formatted) %>  
   <%= broker.mobile.try(:phony_formatted) %>
 
 <% end %>
@@ -19,11 +19,11 @@ Sobald das Blatt bei uns angekommen ist, können wir dir aktiv Jobs vermitteln.
 
 ## Organisation
 
-**<%= @organization.name %>**
-<%= @organization.street %>
+**<%= @organization.name %>**  
+<%= @organization.street %>  
 <%= @organization.place.zip %> <%= @organization.place.name %>
 
-Tel: <%= @organization.phone %>
-Mail: <%= @organization.email %>
+Tel: <%= @organization.phone.try(:phony_formatted) %>  
+Mail: <%= @organization.email %>  
 Webseite: <%= @organization.website %>
 

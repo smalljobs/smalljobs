@@ -9,18 +9,18 @@
 
 ## Job
 
-**<%= @job.title %>**
+**<%= @job.title %>**  
 <%= @job.description %>
 
 ## Jugendliche(r)
 
 <% @seekers.each do |seeker| %>
-  **<%= seeker.name %>**
-  <%= seeker.street %>
+  **<%= seeker.name %>**  
+  <%= seeker.street %>  
   <%= seeker.place.zip %> <%= seeker.place.name %>
 
-  <%= seeker.email %>
-  <%= seeker.phone.try(:phony_formatted) %>
+  <%= seeker.email %>  
+  <%= seeker.phone.try(:phony_formatted) %>  
   <%= seeker.mobile.try(:phony_formatted) %>
 
 <% end %>
