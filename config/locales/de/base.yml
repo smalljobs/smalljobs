@@ -64,6 +64,10 @@ de:
     phone: "Telefon"
     mobile: "Mobiltelefon"
     whatsapp: "WhatsApp"
+  sex:
+    male: "Männlich"
+    female: "Weiblich"
+    other: "Anderes"
   mail:
     send_agreement_for_seeker: "Eleterliche Vereinbarung mit SmallJobs"
     new_seeker_signup_for_broker: "Neuer Jugendlicher zur Freischaltung"

@@ -74,6 +74,7 @@ feature 'New job seeker registration' do
       fill_in 'Passwort',            with: 'chicksonspeed'
       fill_in 'Passwortbestätigung', with: 'chicksonspeed'
       select_date 15.years.ago,      from: 'Geburtsdatum'
+      select 'Männlich',             from: 'Geschlecht'
     end
 
     within_fieldset 'Adresse' do

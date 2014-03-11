@@ -8,6 +8,7 @@ Fabricator(:seeker) do
   place
 
   date_of_birth { 15.years.ago }
+  sex { ['male', 'female', 'other'].sample }
 
   password { Forgery(:basic).password.rjust(10, 'a') }
   email    { sequence(:email)  { |i| "seeker#{ i }@example.com" }}

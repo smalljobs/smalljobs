@@ -15,6 +15,19 @@ module ApplicationHelper
   end
 
   # Get the translated select options for
+  # the seeker sex.
+  #
+  # @return [Array<String, String>] the preferences
+  #
+  def seeker_sex
+    [
+      [I18n.t('sex.male'), 'male'],
+      [I18n.t('sex.female'), 'female'],
+      [I18n.t('sex.other'), 'other']
+    ]
+  end
+
+  # Get the translated select options for
   # the seeker contact preferences.
   #
   # @return [Array<String, String>] the preferences

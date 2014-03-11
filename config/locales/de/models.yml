@@ -126,6 +126,7 @@ de:
         confirmed: "Bestätigt"
         active: "Aktiviert"
         terms: "Bedingungen"
+        sex: "Geschlecht"
       seeker:
         <<: *USER
       broker:

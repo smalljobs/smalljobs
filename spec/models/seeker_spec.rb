@@ -86,6 +86,15 @@ describe Seeker do
       end
     end
 
+    describe '#sex' do
+      it 'must be one of male, female or other' do
+        expect(Fabricate.build(:seeker, sex: 'abc123')).not_to be_valid
+        expect(Fabricate.build(:seeker, sex: 'male')).to be_valid
+        expect(Fabricate.build(:seeker, sex: 'female')).to be_valid
+        expect(Fabricate.build(:seeker, sex: 'other')).to be_valid
+      end
+    end
+
     describe '#contact_preference' do
       it 'must be one of email, phone, mobile or postal' do
         expect(Fabricate.build(:seeker, contact_preference: 'abc123')).not_to be_valid

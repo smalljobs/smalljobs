@@ -13,6 +13,16 @@ describe ApplicationHelper do
     end
   end
 
+  describe '#seeker_sex' do
+    it 'returns the translated sex for job seekers' do
+      expect(helper.seeker_sex).to eq([
+        ['Männlich', 'male'],
+        ['Weiblich', 'female'],
+        ['Anderes', 'other']
+      ])
+    end
+  end
+
   describe '#seeker_contact_preferences' do
     it 'returns the translated contact preferences for job seekers' do
       expect(helper.seeker_contact_preferences).to eq([

@@ -23,6 +23,7 @@ class Seeker < ActiveRecord::Base
   validates :phone, :mobile, phony_plausible: true
 
   validates :date_of_birth, presence: true
+  validates :sex, inclusion: { in: lambda { |m| m.sex_enum } }
 
   validates :contact_preference, inclusion: { in: lambda { |m| m.contact_preference_enum } }
   validates :contact_availability, presence: true, if: lambda { %w(phone mobile).include?(self.contact_preference) }
@@ -46,9 +47,17 @@ class Seeker < ActiveRecord::Base
     "#{ firstname } #{ lastname }"
   end
 
+  # Available options for the sex
+  #
+  # @return [Array<String>] the possible seeker sex
+  #
+  def sex_enum
+    %w(male female other)
+  end
+
   # Available options for the contact preference
   #
-  # @param [Array<String>] the contact options
+  # @return [Array<String>] the possible seeker contact preferences
   #
   def contact_preference_enum
     %w(email phone mobile postal whatsapp)
