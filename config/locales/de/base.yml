@@ -290,6 +290,7 @@ de:
       places: "Unsere Orte: %{places}"
       people: "Mitarbeiter"
       address: "Adresse"
+      responsible: "Zuständig für"
   pages:
     layout:
       title: "SmallJobs"

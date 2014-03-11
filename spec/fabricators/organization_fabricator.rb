@@ -35,6 +35,16 @@ Fabricator(:org_lenzburg, from: :organization) do
               broker: Fabricate(:broker,
                                 firstname: 'Mich',
                                 lastname: 'Wyser',
-                                phone: '062 897 01 21'))
+                                phone: '062 897 01 21',
+                                mobile: '079 933 32 94 '))
+
+    Fabricate(:employment,
+              organization: o,
+              region: region,
+              broker: Fabricate(:broker,
+                                firstname: 'Agate',
+                                lastname: 'Soundso',
+                                phone: '062 897 01 21',
+                                mobile: '079 933 32 94 '))
   end
 end
