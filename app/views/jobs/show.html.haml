@@ -11,6 +11,13 @@
 
     .row
       .col-lg-6
+        %h3= t('legends.provider')
+        %address
+          %strong= @job.provider.name
+          %br
+          = "#{ @job.provider.place.zip } #{ @job.provider.place.name }"
+
+      .col-lg-6
         %h3= t('legends.date')
         %p= t("jobs.date_types.#{ @job.date_type }")
 
@@ -19,25 +26,14 @@
         - elsif @job.date_type == 'date_range'
           %p= t('jobs.between', from: l(@job.start_date), to: l(@job.end_date))
 
-      .col-lg-6
-        %h3= t('legends.salary')
-        %p= t("jobs.salary_types.#{ @job.salary_type }")
-        %p= number_to_currency(@job.salary)
-
     .row
       .col-lg-6
-        %h3= t('legends.provider')
-        %address
-          %strong= @job.provider.name
-          %br
-          = @job.provider.street
-          %br
-          = "#{ @job.provider.place.zip } #{ @job.provider.place.name }"
+        %h3= t('legends.work')
+        %p= t('jobs.manpower', manpower: @job.manpower)
+        %p= t('jobs.duration', duration: @job.duration)
 
       .col-lg-6
         %h3= t('legends.seekers')
-        %p= t('jobs.manpower', manpower: @job.manpower)
-        %p= t('jobs.duration', duration: @job.duration)
 
         - if @job.seekers.length == 0
           %p

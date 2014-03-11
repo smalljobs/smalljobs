@@ -58,36 +58,6 @@ describe 'jobs/show.html.haml' do
         expect(rendered).to have_text('Zwischen dem 31.03.2014 und dem 30.04.2014')
       end
     end
-
-    context 'with a fixed job salary' do
-      let(:job) { Fabricate(:job,
-                            salary_type: 'fixed',
-                            salary: 150,
-                            provider: provider) }
-
-      it 'shows that the salary is fixed' do
-        expect(rendered).to have_text('Fixer Preis')
-      end
-
-      it 'shows the fixed price' do
-        expect(rendered).to have_text('CHF 150.00')
-      end
-    end
-
-    context 'with an hourly job salary' do
-      let(:job) { Fabricate(:job,
-                            salary_type: 'hourly',
-                            salary: 12,
-                            provider: provider) }
-
-      it 'shows that the salary is hourly' do
-        expect(rendered).to have_text('Stundenlohn')
-      end
-
-      it 'shows the hourly price' do
-        expect(rendered).to have_text('CHF 12.00')
-      end
-    end
   end
 
   context 'the provider' do
@@ -95,9 +65,6 @@ describe 'jobs/show.html.haml' do
       expect(rendered).to have_text(provider.name)
     end
 
-    it 'shows the provider street' do
-      expect(rendered).to have_text(provider.street)
-    end
 
     it 'shows the provider zip' do
       expect(rendered).to have_text(provider.place.zip)
