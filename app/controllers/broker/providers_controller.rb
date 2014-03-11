@@ -5,6 +5,13 @@ class Broker::ProvidersController < InheritedResources::Base
 
   load_and_authorize_resource :provider, through: :current_region, except: :new
 
+  def create
+    @provider = Provider.new(permitted_params[:provider])
+    @provider.terms = '1'
+
+    create!
+  end
+
   protected
 
   def current_user

@@ -27,9 +27,40 @@ feature 'New job seeker registration' do
     end
 
     click_on 'Als Jugendlicher registrieren'
-    
+
     within_fieldset 'Anmeldedaten' do
       expect(page).to have_content('ist bereits vergeben')
+    end
+  end
+
+  scenario 'without accepting the terms' do
+    visit_on region, '/'
+
+    click_on 'Als Jugendlicher registrieren'
+
+    within_fieldset 'Anmeldedaten' do
+      fill_in 'Email',               with: 'rolf@example.com'
+      fill_in 'Passwort',            with: 'chicksonspeed'
+      fill_in 'Passwortbestätigung', with: 'chicksonspeed'
+      select_date 15.years.ago,      from: 'Geburtsdatum'
+    end
+
+    within_fieldset 'Adresse' do
+      fill_in 'Vorname',  with: 'Rolf'
+      fill_in 'Nachname', with: 'Meier'
+      fill_in 'Strasse',  with: 'Hühnerstall 12'
+
+      select 'Lenzburg', from: 'Ort'
+    end
+
+    within_fieldset 'Arbeit' do
+      check 'Computer'
+    end
+
+    click_on 'Als Jugendlicher registrieren'
+
+    within_fieldset 'Bedingungen' do
+      expect(page).to have_content('Die Bedingungen müssen akzeptiert werden.')
     end
   end
 
@@ -55,6 +86,10 @@ feature 'New job seeker registration' do
 
     within_fieldset 'Arbeit' do
       check 'Computer'
+    end
+
+    within_fieldset 'Bedingungen' do
+      check 'Ich akzeptiere'
     end
 
     click_on 'Als Jugendlicher registrieren'

@@ -1,3 +1,16 @@
-%h1 Richtlinien
+- content_for(:rules_of_action) do
+  %p TODO
 
-%p TODO
+- if request.xhr?
+  .modal-header
+    %button{ type: 'button', class: 'close', data: { dismiss: 'modal' }, aria: { hidden: 'true' }} &times;
+    %h1 Richtlinien
+  .modal-body
+    = yield(:rules_of_action)
+  .modal-footer
+    %button{ type: 'button', class: 'btn btn-default', data: { dismiss: 'modal' }}= t('common.ok')
+
+- else
+  %h1 Richtlinien
+
+  = yield(:rules_of_action)

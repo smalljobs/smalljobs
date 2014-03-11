@@ -5,6 +5,13 @@ class Broker::SeekersController < InheritedResources::Base
 
   load_and_authorize_resource :seeker, through: :current_region, except: :new
 
+  def create
+    @seeker = Seeker.new(permitted_params[:seeker])
+    @seeker.terms = '1'
+
+    create!
+  end
+
   protected
 
   def current_user
@@ -19,7 +26,7 @@ class Broker::SeekersController < InheritedResources::Base
   end
 
   def permitted_params
-    params.permit(seeker: [:id, :password, :password_confirmation, :firstname, :lastname, :street, :place_id, :email, :phone, :mobile, :date_of_birth, :contact_preference, :contact_availability, :active, :confirmed, work_category_ids: []])
+    params.permit(seeker: [:id, :password, :password_confirmation, :firstname, :lastname, :street, :place_id, :email, :phone, :mobile, :date_of_birth, :contact_preference, :contact_availability, :active, :confirmed, :terms, work_category_ids: []])
   end
 
 end

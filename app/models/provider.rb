@@ -20,6 +20,8 @@ class Provider < ActiveRecord::Base
   validates :contact_preference, inclusion: { in: lambda { |m| m.contact_preference_enum } }
   validates :contact_availability, presence: true, if: lambda { %w(phone mobile).include?(self.contact_preference) }
 
+  validates_acceptance_of :terms, allow_nil: false, on: :create
+
   phony_normalize :phone,  default_country_code: 'CH'
   phony_normalize :mobile, default_country_code: 'CH'
 

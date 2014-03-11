@@ -119,7 +119,7 @@ describe 'jobs/show.html.haml' do
     end
 
     it 'shows the expected duration' do
-      expect(rendered).to have_text('Ungefähre Dauer: 62 Minuten')
+      expect(rendered).to have_text('Ungefähre Dauer: 62 Stunden')
     end
 
     context 'without seekers' do

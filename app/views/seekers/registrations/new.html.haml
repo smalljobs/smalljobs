@@ -48,7 +48,30 @@
     .form-inputs
       = f.association :work_categories, as: :check_boxes
 
+  %fieldset
+    %legend
+      = t('legends.terms')
+      %i.fa.fa-2x.fa-legal.pull-right
+
+    .form-inputs
+      = f.input :terms, as: :boolean, label: I18n.t('common.terms', rules_of_action: link_to(t('navigation.rules_of_action'), rules_of_action_path, data: { toggle: 'modal', target: '#rules-of-action-modal' }), terms_of_service: link_to(t('navigation.terms_of_service'), terms_of_service_path, data: { toggle: 'modal', target: '#terms-of-service-modal' }), privacy_policy: link_to(t('navigation.privacy_policy'), privacy_policy_path, data: { toggle: 'modal', target: '#privacy-policy-modal' })).html_safe
+
   .form-actions
     = f.button :submit, t('seekers.registrations.new.register'), class: 'btn btn-primary'
+
+#rules-of-action-modal.modal.fade
+  .modal-dialog
+    .modal-content
+      = t('common.loading')
+
+#terms-of-service-modal.modal.fade
+  .modal-dialog
+    .modal-content
+      = t('common.loading')
+
+#privacy-policy-modal.modal.fade
+  .modal-dialog
+    .modal-content
+      = t('common.loading')
 
 = render 'devise/shared/links'

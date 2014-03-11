@@ -46,6 +46,36 @@ feature 'New job provider registration' do
     end
   end
 
+  scenario 'without accepting the terms' do
+    visit_on region, '/'
+
+    click_on 'Als Anbieter registrieren'
+
+    within_fieldset 'Anmeldedaten' do
+      fill_in 'Benutzername',        with: 'meier'
+      fill_in 'Passwort',            with: 'chicksonspeed'
+      fill_in 'Passwortbestätigung', with: 'chicksonspeed'
+    end
+
+    within_fieldset 'Adresse' do
+      fill_in 'Vorname',  with: 'Rolf'
+      fill_in 'Nachname', with: 'Meier'
+      fill_in 'Strasse',  with: 'Hühnerstall 12'
+
+      select 'Lenzburg', from: 'Ort'
+    end
+
+    within_fieldset 'Kontakt' do
+      fill_in 'Email',  with: 'rolf@example.com'
+    end
+
+    click_on 'Als Anbieter registrieren'
+
+    within_fieldset 'Bedingungen' do
+      expect(page).to have_content('Die Bedingungen müssen akzeptiert werden.')
+    end
+  end
+
   scenario 'without an email' do
     visit_on region, '/'
 
@@ -63,6 +93,10 @@ feature 'New job provider registration' do
       fill_in 'Strasse',  with: 'Hühnerstall 12'
 
       select 'Lenzburg', from: 'Ort'
+    end
+
+    within_fieldset 'Bedingungen' do
+      check 'Ich akzeptiere'
     end
 
     click_on 'Als Anbieter registrieren'
@@ -95,6 +129,10 @@ feature 'New job provider registration' do
 
     within_fieldset 'Kontakt' do
       fill_in 'Email',  with: 'rolf@example.com'
+    end
+
+    within_fieldset 'Bedingungen' do
+      check 'Ich akzeptiere'
     end
 
     click_on 'Als Anbieter registrieren'

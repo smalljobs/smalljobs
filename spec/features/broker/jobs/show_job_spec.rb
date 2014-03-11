@@ -46,7 +46,7 @@ feature 'Show a job' do
     expect(page).to have_content('Stundenlohn')
     expect(page).to have_content('CHF 15.00')
     expect(page).to have_content('Benötigte Arbeitskräfte: 2')
-    expect(page).to have_content('Ungefähre Dauer: 30 Minuten')
+    expect(page).to have_content('Ungefähre Dauer: 30 Stunden')
   end
 
 end

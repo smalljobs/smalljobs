@@ -18,6 +18,7 @@ Fabricator(:provider) do
   contact_availability { 'all day' }
 
   active { true }
+  terms { '1' }
 
   after_build do |user, transients|
     if transients[:broker]

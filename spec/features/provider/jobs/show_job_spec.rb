@@ -20,7 +20,7 @@ feature 'Show a job' do
               provider: provider,
               work_category: work_category,
               title: 'Hunde gassi gehen',
-              description: 'Habe 25 hunde due am Wochenende raus müssen',
+              description: 'Habe 25 Hunde die am Wochenende raus müssen',
               date_type: 'agreement',
               salary_type: 'hourly',
               salary: 15,
@@ -40,12 +40,12 @@ feature 'Show a job' do
     expect(page).to have_content('Hubacker 12')
     expect(page).to have_content('Garten')
     expect(page).to have_content('Hunde gassi gehen')
-    expect(page).to have_content('Habe 25 hunde due am Wochenende raus müssen')
+    expect(page).to have_content('Habe 25 Hunde die am Wochenende raus müssen')
     expect(page).to have_content('Nach Absprache')
     expect(page).to have_content('Stundenlohn')
     expect(page).to have_content('CHF 15.00')
     expect(page).to have_content('Benötigte Arbeitskräfte: 2')
-    expect(page).to have_content('Ungefähre Dauer: 30 Minuten')
+    expect(page).to have_content('Ungefähre Dauer: 30 Stunden')
   end
 
 end

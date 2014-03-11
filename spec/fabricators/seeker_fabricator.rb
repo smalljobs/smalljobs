@@ -25,6 +25,7 @@ Fabricator(:seeker) do
   work_categories(count: 1)
 
   active { true }
+  terms { '1' }
 
   after_build do |user, transients|
     if transients[:broker]

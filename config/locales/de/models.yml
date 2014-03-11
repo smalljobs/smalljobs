@@ -125,6 +125,7 @@ de:
         confirmed?: "Bestätigt"
         confirmed: "Bestätigt"
         active: "Aktiviert"
+        terms: "Bedingungen"
       seeker:
         <<: *USER
       broker:
@@ -181,10 +182,14 @@ de:
           attributes:
             phone:
               improbable_phone: "ist keine gültige Telefonnummer"
+            terms:
+              accepted: "Die Bedingungen müssen akzeptiert werden."
         provider:
           attributes:
             phone:
               improbable_phone: "ist keine gültige Telefonnummer"
+            terms:
+              accepted: "Die Bedingungen müssen akzeptiert werden."
         broker:
           attributes:
             phone:

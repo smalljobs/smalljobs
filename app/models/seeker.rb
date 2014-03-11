@@ -33,6 +33,8 @@ class Seeker < ActiveRecord::Base
   validate :ensure_seeker_age
   validate :ensure_work_category
 
+  validates_acceptance_of :terms, allow_nil: false, on: :create
+
   after_save :send_agreement_email,    if: proc { |s| s.confirmed_at_changed? && s.confirmed_at_was.nil? }
   after_save :send_registration_email, if: proc { |s| s.confirmed_at_changed? && s.confirmed_at_was.nil? }
 
