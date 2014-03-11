@@ -52,6 +52,15 @@ describe 'regions/show.html.haml' do
     it 'shows the organization brokers' do
       expect(rendered).to have_text('Mich Wyser')
       expect(rendered).to have_text('062 897 01 21')
+      expect(rendered).to have_text('079 933 32 94')
+    end
+
+    it 'shows the organization brokers places' do
+      expect(rendered).to have_text('Niederlenz')
+      expect(rendered).to have_text('Boniswil')
+      expect(rendered).to have_text('Egliswil')
+      expect(rendered).to have_text('Seon')
+      expect(rendered).to have_text('Lenzburg')
     end
   end
 

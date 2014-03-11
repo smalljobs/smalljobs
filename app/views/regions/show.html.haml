@@ -44,14 +44,27 @@
   .col-lg-6
 
     %h2= t('regions.show.people')
-    - @organization.brokers.each do |broker|
-      %address
-        = broker.name
-        %br
+    - @organization.brokers.order(:lastname, :firstname).each_with_index do |broker, index|
+      - if index > 0
+        %hr
+
+      %h4= broker.name
+
+      %p
         - if broker.phone
           %abbr{ title: t('activerecord.attributes.provider.phone') } T:
           = broker.phone.phony_formatted
           %br
+
+        - if broker.mobile
+          %abbr{ title: t('activerecord.attributes.provider.mobile') } M:
+          = broker.mobile.phony_formatted
+
+      %p.regions
+        = succeed ':' do
+          %strong= t('regions.show.responsible')
+
+        = broker.places.pluck(:name).to_sentence
 
 %h1= t('regions.show.jobs')
 

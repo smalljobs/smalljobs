@@ -161,6 +161,7 @@ RailsAdmin.config do |config|
 
         field :email
         field :password
+        field :password_confirmation
       end
 
       group :contact do
@@ -182,7 +183,7 @@ RailsAdmin.config do |config|
         label I18n.t('admin.groups.administration')
 
         field :active
-        field :confirmed
+        field :confirmed, :boolean
       end
     end
   end
@@ -197,7 +198,7 @@ RailsAdmin.config do |config|
       field :phone
       field :email
       field :active
-      field :confirmed?
+      field :confirmed
     end
 
     edit do
@@ -206,6 +207,7 @@ RailsAdmin.config do |config|
 
         field :username
         field :password
+        field :password_confirmation
       end
 
       group :address do
@@ -245,7 +247,7 @@ RailsAdmin.config do |config|
       field :phone
       field :email
       field :active
-      field :confirmed?
+      field :confirmed
     end
 
     edit do
@@ -254,7 +256,9 @@ RailsAdmin.config do |config|
 
         field :email
         field :password
-        field :date_of_birth, :string
+        field :password_confirmation
+        field :date_of_birth
+        field :sex
       end
 
       group :address do
@@ -283,7 +287,7 @@ RailsAdmin.config do |config|
         label I18n.t('admin.groups.administration')
 
         field :active
-        field :confirmed
+        field :confirmed, :boolean
       end
     end
   end
