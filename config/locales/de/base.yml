@@ -275,7 +275,7 @@ de:
           action: "Deaktivieren"
     sessions:
       title: "Als Vermittler anmelden"
-      lead: "Hier können sie sich als Vermitter mit ihren Benutzerangaben anmelden."
+      lead: "Hier können sie sich als Vermittler mit ihren Benutzerangaben anmelden."
       action: "Als Vermittler anmelden"
   regions:
     index:
