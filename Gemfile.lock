@@ -312,6 +312,7 @@ GEM
     simple_navigation_renderers (0.0.3)
       simple-navigation (~> 3.11)
     slop (3.4.7)
+    social-share-button (0.1.5)
     spring (1.1.2)
     spring-commands-rspec (1.0.1)
       spring (>= 0.9.1)
@@ -406,6 +407,7 @@ DEPENDENCIES
   selenium-webdriver
   simple_form
   simple_navigation_renderers
+  social-share-button
   spring
   spring-commands-rspec
   therubyracer

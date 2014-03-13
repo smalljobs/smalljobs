@@ -44,6 +44,8 @@
           %ul
             - @job.seekers.each do |seeker|
               %ul= seeker.name
+  .panel-footer
+    = social_share_button_tag(@job.title, url: job_url(@job))
 
 %ul.nav.nav-pills
   %li= link_to t('common.back_to_region', name: current_region.name), root_path

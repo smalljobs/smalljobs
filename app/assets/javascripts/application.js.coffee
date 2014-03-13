@@ -2,6 +2,7 @@
 #= require jquery_ujs
 #= require turbolinks
 #= require bootstrap
+#= require social-share-button
 #= require_tree .
 
 ready = ->

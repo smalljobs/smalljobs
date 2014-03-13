@@ -111,6 +111,20 @@ describe 'jobs/show.html.haml' do
     end
   end
 
+  context 'share buttons' do
+    it 'contains the twitter share button' do
+      expect(rendered).to have_selector('a.social-share-button-twitter')
+    end
+
+    it 'contains the facebook share button' do
+      expect(rendered).to have_selector('a.social-share-button-facebook')
+    end
+
+    it 'contains the google plus share button' do
+      expect(rendered).to have_selector('a.social-share-button-google_plus')
+    end
+  end
+
   context 'global actions' do
     it 'contains the link to the region home' do
       expect(rendered).to have_link('Zurück zur Region Lenzburg', root_path)
