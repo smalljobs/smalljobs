@@ -157,10 +157,6 @@ de:
         proposals: "Vorschläge"
         reviews: "Bewertungen"
         place: "Ort"
-      application:
-        seeker: "Jugendlicher"
-        message: "Nachricht"
-        created_at: "Erstellt"
       allocation:
         seeker: "Jugendlicher"
         message: "Nachricht"

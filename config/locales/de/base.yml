@@ -59,6 +59,7 @@ de:
     branding: "Branding"
     terms: "Bedingungen"
     message: "Nachricht"
+    review: "Bewertung"
   contacts:
     postal: "Per Post"
     email: "Email"
@@ -137,6 +138,18 @@ de:
           title: "Bewerbung für %{title}"
           lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
           no_applications: "Es sind noch keine Bewerbungen für diesen Job eingegangen."
+      reviews:
+        new:
+          title: "Bewertung erfassen"
+          lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+        edit:
+          title: "Bewertung bearbeiten"
+          lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+        index:
+          title: "Bewertungen für %{title}"
+          lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+          add_new: "Neuen Bewertung hinzufügen"
+          no_reviews: "Es sind noch keine Bewertungen für diesen Job erfasst"
   provider:
     jobs:
       new:
@@ -178,6 +191,7 @@ de:
     rated: "Bewerted"
     back_to_region: "Zurück zur Region %{name}"
     terms: "Ich akzeptiere die %{rules_of_action}, die %{terms_of_service} und die %{privacy_policy}"
+    rating: "%{rating} Punkte"
   devise_views:
     no_broker_registration: "Sie können sich nicht selber als Anbieter registrieren. Bitte kontaktieren Sie uns unter hello@smalljobs.ch"
     wait_confirmation: "Warte auf die Bestätigung von: %{email}"
