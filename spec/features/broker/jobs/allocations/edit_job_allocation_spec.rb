@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-feature 'Edit a job application' do
+feature 'Edit a job allocation' do
   let(:broker) { Fabricate(:broker_with_regions) }
   let(:seeker) { Fabricate(:seeker, place: broker.places.first, firstname: 'Roberto', lastname: 'Blanco') }
 
@@ -17,10 +17,10 @@ feature 'Edit a job application' do
   end
 
   background do
-    Fabricate(:application, {
+    Fabricate(:allocation, {
       job: job,
       seeker: seeker,
-      message: 'Das ist für mich',
+      message: 'Das ist doch was für dich',
     })
 
     login_as(broker, scope: :broker)
@@ -32,17 +32,17 @@ feature 'Edit a job application' do
     click_on 'Alle Jobs anzeigen'
     click_on 'Job 1 anzeigen'
 
-    click_on 'Bewerbungen'
+    click_on 'Zuweisungen'
     click_on 'Roberto Blanco Job 1 bearbeiten'
 
-    within_fieldset 'Bewerbung' do
+    within_fieldset 'Zuweisung' do
       fill_in 'Nachricht', with: 'Check this out'
     end
 
     click_on 'Bearbeiten'
 
     within_notifications do
-      expect(page).to have_content('Bewerbung wurde erfolgreich aktualisiert.')
+      expect(page).to have_content('Zuweisung wurde erfolgreich aktualisiert.')
     end
   end
 

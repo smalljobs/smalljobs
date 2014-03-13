@@ -60,6 +60,9 @@ de:
     terms: "Bedingungen"
     message: "Nachricht"
     review: "Bewertung"
+    allocation: "Zuweisung"
+    application: "Bewerbung"
+    proposal: "Vorschlag"
   contacts:
     postal: "Per Post"
     email: "Email"
@@ -138,6 +141,18 @@ de:
           title: "Bewerbung für %{title}"
           lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
           no_applications: "Es sind noch keine Bewerbungen für diesen Job eingegangen."
+      allocations:
+        new:
+          title: "Zuweisung erfassen"
+          lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+        edit:
+          title: "Zuweisung bearbeiten"
+          lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+        index:
+          title: "Zuweisungen für %{title}"
+          lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+          add_new: "Neuen Zuweisung hinzufügen"
+          no_allocations: "Es sind noch keine Zuweisungen für diesen Job erfasst"
       reviews:
         new:
           title: "Bewertung erfassen"

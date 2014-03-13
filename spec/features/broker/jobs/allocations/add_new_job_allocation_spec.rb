@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-feature 'Add a new job proposal' do
+feature 'Add a new job allocation' do
   let(:broker) { Fabricate(:broker_with_regions) }
 
   background do
@@ -25,10 +25,10 @@ feature 'Add a new job proposal' do
     click_on 'Alle Jobs anzeigen'
     click_on 'Job 1 anzeigen'
 
-    click_on 'Vorschläge'
-    click_on 'Neuen Vorschlag hinzufügen'
+    click_on 'Zuweisungen'
+    click_on 'Neuen Zuweisung hinzufügen'
 
-    within_fieldset 'Vorschlag' do
+    within_fieldset 'Zuweisung' do
       select 'Roberto Blanco', from: 'Jugendlicher'
       fill_in 'Nachricht', with: 'Das wäre doch etwas für dich'
     end
@@ -36,7 +36,7 @@ feature 'Add a new job proposal' do
     click_on 'Erstellen'
 
     within_notifications do
-      expect(page).to have_content('Vorschlag wurde erfolgreich erstellt.')
+      expect(page).to have_content('Zuweisung wurde erfolgreich erstellt.')
     end
   end
 

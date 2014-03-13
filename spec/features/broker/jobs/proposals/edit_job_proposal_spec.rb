@@ -35,7 +35,7 @@ feature 'Edit a job proposal' do
     click_on 'Vorschläge'
     click_on 'Roberto Blanco Job 1 bearbeiten'
 
-    within_fieldset 'Nachricht' do
+    within_fieldset 'Vorschlag' do
       fill_in 'Nachricht', with: 'Check this out'
     end
 

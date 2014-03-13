@@ -1,4 +1,4 @@
-= simple_form_for([:broker, @job, @proposal], html: { novalidate: true }) do |f|
+= simple_form_for([:broker, @job, @allocation], html: { novalidate: true }) do |f|
 
   - if notification = f.error_notification
     .alert.alert-danger
@@ -6,7 +6,7 @@
 
   %fieldset
     %legend
-      = t('legends.proposal')
+      = t('legends.allocation')
       %i.fa.fa-2x.fa-envelope.pull-right
 
     .form-inputs
@@ -14,7 +14,7 @@
       = f.input :message
 
   .form-actions
-    - if @proposal.new_record?
+    - if @allocation.new_record?
       = f.button :submit, t('common.create'), class: 'btn btn-primary'
     - else
       = f.button :submit, t('common.edit'), class: 'btn btn-primary'
