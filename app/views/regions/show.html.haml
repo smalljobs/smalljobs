@@ -60,6 +60,13 @@
           %abbr{ title: t('activerecord.attributes.provider.mobile') } M:
           = broker.mobile.phony_formatted
 
+      - if broker.contact_availability.present?
+        %p.available
+          = succeed ':' do
+            %strong= t('regions.show.available')
+
+          = broker.contact_availability
+
       %p.regions
         = succeed ':' do
           %strong= t('regions.show.responsible')

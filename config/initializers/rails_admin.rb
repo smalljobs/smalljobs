@@ -171,6 +171,8 @@ RailsAdmin.config do |config|
         field :lastname
         field :phone
         field :mobile
+
+        field :contact_availability
       end
 
       group :employment do

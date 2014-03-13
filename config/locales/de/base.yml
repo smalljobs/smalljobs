@@ -326,6 +326,7 @@ de:
       people: "Mitarbeiter"
       address: "Adresse"
       responsible: "Zuständig für"
+      available: "Am Besten zu erreichen"
   pages:
     layout:
       title: "SmallJobs"
