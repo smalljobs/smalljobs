@@ -19,7 +19,7 @@ describe Proposal do
         expect(Fabricate.build(:proposal, seeker: nil)).not_to be_valid
       end
 
-      it 'cannot give to proposals for the same seeker and job' do
+      it 'cannot have two proposals for the same seeker and job' do
         proposal = Fabricate(:proposal)
         expect(Fabricate.build(:proposal,
                                job: proposal.job,

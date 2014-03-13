@@ -1,0 +1,23 @@
+%h1= t('broker.jobs.applications.index.title', title: @job.title)
+%p.lead= t('broker.jobs.applications.lead')
+
+.table-responsive
+  %table.table.table-striped
+    %tr
+      %th= t('activerecord.attributes.application.seeker')
+      %th= t('activerecord.attributes.application.message')
+      %th{ colspan: 2 }
+
+    - if @applications.size == 0
+      %tr
+        %td{ colspan: 5 }= t('broker.jobs.applications.index.no_applications')
+
+    - @applications.each do |application|
+      %tr
+        %td= application.seeker.name
+        %td= application.message
+
+        %td= link_to '', edit_broker_job_application_path(@job, application), class: 'fa fa-pencil', title: t('common.edit_title', who: application.name)
+        %td= link_to '', broker_job_application_path(@job, application), method: :delete, title: t('common.destroy_title', who: application.name), data: { confirm: t('common.sure') }, class: 'fa fa-trash-o'
+
+= link_to t('common.back'), broker_job_path(@job)

@@ -124,14 +124,19 @@ de:
         edit:
           title: "Vorschlag bearbeiten"
           lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
-        show:
-          title: "Vorschlag Details"
-          lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
         index:
           title: "Vorschläge für %{title}"
           lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
           add_new: "Neuen Vorschlag hinzufügen"
           no_proposals: "Es sind noch keine Vorschläge für diesen Job erfasst"
+      applications:
+        edit:
+          title: "Bewerbung bearbeiten"
+          lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+        index:
+          title: "Bewerbung für %{title}"
+          lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+          no_applications: "Es sind noch keine Bewerbungen für diesen Job eingegangen."
   provider:
     jobs:
       new:

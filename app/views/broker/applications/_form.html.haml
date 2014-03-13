@@ -1,0 +1,20 @@
+= simple_form_for([:broker, @job, @application], html: { novalidate: true }) do |f|
+
+  - if notification = f.error_notification
+    .alert.alert-danger
+      = notification
+
+  %fieldset
+    %legend
+      = t('legends.message')
+      %i.fa.fa-2x.fa-envelope.pull-right
+
+    .form-inputs
+      = f.association :seeker, required: true, collection: current_region.seekers, include_blank: true
+      = f.input :message
+
+  .form-actions
+    - if @application.new_record?
+      = f.button :submit, t('common.create'), class: 'btn btn-primary'
+    - else
+      = f.button :submit, t('common.edit'), class: 'btn btn-primary'
