@@ -58,6 +58,7 @@ de:
     organization: "Organisation"
     branding: "Branding"
     terms: "Bedingungen"
+    message: "Nachricht"
   contacts:
     postal: "Per Post"
     email: "Email"
