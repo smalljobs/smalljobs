@@ -26,7 +26,7 @@ feature 'Add a new job allocation' do
     click_on 'Job 1 anzeigen'
 
     click_on 'Zuweisungen'
-    click_on 'Neuen Zuweisung hinzufügen'
+    click_on 'Neue Zuweisung hinzufügen'
 
     within_fieldset 'Zuweisung' do
       select 'Roberto Blanco', from: 'Jugendlicher'
