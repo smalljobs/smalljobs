@@ -151,7 +151,7 @@ de:
         index:
           title: "Zuweisungen für %{title}"
           lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
-          add_new: "Neuen Zuweisung hinzufügen"
+          add_new: "Neue Zuweisung hinzufügen"
           no_allocations: "Es sind noch keine Zuweisungen für diesen Job erfasst"
       reviews:
         new:

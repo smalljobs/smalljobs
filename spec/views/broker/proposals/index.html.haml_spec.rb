@@ -30,12 +30,12 @@ describe 'broker/proposals/index.html.haml' do
       end
 
       context 'list item data' do
-        it 'contains the link to edit the jobs details' do
+        it 'contains the link to edit the proposal details' do
           expect(rendered).to have_link('Seeker A Job A bearbeiten', href: edit_broker_job_proposal_path(job, proposal_A))
           expect(rendered).to have_link('Seeker B Job A bearbeiten', href: edit_broker_job_proposal_path(job, proposal_B))
         end
 
-        it 'contains the link to destroy the jobs' do
+        it 'contains the link to destroy the proposal' do
           expect(rendered).to have_link('Seeker A Job A löschen', href: broker_job_proposal_path(job, proposal_A))
           expect(rendered).to have_link('Seeker B Job A löschen', href: broker_job_proposal_path(job, proposal_B))
         end
