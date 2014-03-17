@@ -39,7 +39,7 @@
 
     .form-inputs
       = f.input :salary_type, collection: job_salary_types, include_blank: false
-      = f.input :salary, required: true
+      = f.input :salary, required: true, input_html: { value: @job.try(:salary) || current_region.organizations.first.default_hourly_per_age }
 
   %fieldset
     %legend

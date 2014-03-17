@@ -15,4 +15,10 @@ de:
         duration: "Ungefähre Dauer in Stunden"
         logo: "Empfohlene Grösse ist 220x220 Pixels"
         background: "Empfohlene Grösse ist 700x400 Pixels"
+        salary_type: >
+          <ul>
+          <li><b>Stundenlohn pro Altersjahr:</b> Der Jugendliche erhält den angegebenen Lohn * sein Alter.</li>
+          <li><b>Stundenlohn:</b> Altersunabhängiger Stundenlohn.</li>
+          <li><b>Fixer Preis:</b> Der Lohn ist unabhängig von der Dauer der Arbeit und Alter des Jugendlichen.</li>
+          </ul>
 

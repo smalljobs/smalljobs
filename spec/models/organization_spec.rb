@@ -59,6 +59,22 @@ describe Organization do
     end
   end
 
+  describe '#default_hourly_per_age' do
+    it 'must be a number' do
+      expect(Fabricate.build(:organization, default_hourly_per_age: 1.00)).to be_valid
+      expect(Fabricate.build(:organization, default_hourly_per_age: 'A')).not_to be_valid
+    end
+
+    it 'must be positive' do
+      expect(Fabricate.build(:organization, default_hourly_per_age: -1.00)).not_to be_valid
+    end
+
+
+    it 'must be present' do
+      expect(Fabricate.build(:organization, default_hourly_per_age: nil)).not_to be_valid
+    end
+  end
+
   describe '#active' do
     it 'is active by default' do
       expect(Fabricate(:organization)).to be_active

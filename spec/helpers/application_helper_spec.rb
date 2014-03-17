@@ -47,8 +47,9 @@ describe ApplicationHelper do
   describe '#seeker_contact_preferences' do
     it 'returns the translated contact preferences for job seekers' do
       expect(helper.job_salary_types).to eq([
+        ['Stundenlohn pro Altersjahr', 'hourly_per_age'],
         ['Stundenlohn', 'hourly'],
-        ['Fixer Preis', 'fixed'],
+        ['Fixer Preis', 'fixed']
       ])
     end
   end

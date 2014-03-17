@@ -50,7 +50,7 @@ module ApplicationHelper
     [
       [I18n.t('jobs.date_types.agreement'), 'agreement'],
       [I18n.t('jobs.date_types.date'), 'date'],
-      [I18n.t('jobs.date_types.date_range'), 'date_range'],
+      [I18n.t('jobs.date_types.date_range'), 'date_range']
     ]
   end
 
@@ -61,8 +61,9 @@ module ApplicationHelper
   #
   def job_salary_types
     [
+      [I18n.t('jobs.salary_types.hourly_per_age'), 'hourly_per_age'],
       [I18n.t('jobs.salary_types.hourly'), 'hourly'],
-      [I18n.t('jobs.salary_types.fixed'), 'fixed'],
+      [I18n.t('jobs.salary_types.fixed'), 'fixed']
     ]
   end
 

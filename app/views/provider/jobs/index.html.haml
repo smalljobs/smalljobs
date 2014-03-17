@@ -5,13 +5,12 @@
   %table.table.table-striped
     %tr
       %th
-      %th= t('activerecord.attributes.job.provider')
       %th= t('activerecord.attributes.job.title')
       %th{ colspan: 3 }
 
     - if @jobs.size == 0
       %tr
-        %td{ colspan: 8 }= t('provider.jobs.index.no_jobs')
+        %td{ colspan: 5 }= t('provider.jobs.index.no_jobs')
 
     - @jobs.each do |job|
       %tr{ class: job_status_class(job) }

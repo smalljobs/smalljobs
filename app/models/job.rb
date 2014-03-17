@@ -62,7 +62,7 @@ class Job < ActiveRecord::Base
   # @return [Array<String>] list of possible salary types
   #
   def salary_type_enum
-    %w(hourly fixed)
+    %w(hourly fixed hourly_per_age)
   end
 
   # Sends a notification when a job in the

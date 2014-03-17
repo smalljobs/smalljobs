@@ -32,6 +32,10 @@ feature 'Edit a provider' do
       fill_in 'Telefon',  with: '044 123 12 33'
     end
 
+    within_fieldset 'Lohnvorschlag' do
+      fill_in 'Empfehlung Stundenlohn pro Altersjahr', with: '2.00'
+    end
+
     click_on 'Bearbeiten'
 
     within_notifications do

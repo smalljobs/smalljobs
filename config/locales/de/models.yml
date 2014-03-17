@@ -74,6 +74,7 @@ de:
         place: "Ort"
         email: "Email"
         phone: "Telefon"
+        default_hourly_per_age: "Empfehlung Stundenlohn pro Altersjahr"
         mobile: "Mobile"
         active: "Aktiv"
         employments: "Vermittler"

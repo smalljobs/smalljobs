@@ -34,6 +34,14 @@
       = f.input :logo, as: :image_preview, input_html: { preview_version: :web }
       = f.input :background, as: :image_preview, input_html: { preview_version: :web }
 
+  %fieldset
+    %legend
+      = t('legends.seeker_salary')
+      %i.fa.fa-2x.fa-money.pull-right
+
+    .form-inputs
+      = f.input :default_hourly_per_age
+
   .form-actions
     = f.button :submit, t('common.edit'), class: 'btn btn-primary'
 

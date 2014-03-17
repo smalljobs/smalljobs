@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140317153653) do
+ActiveRecord::Schema.define(version: 20140317213439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,17 +106,17 @@ ActiveRecord::Schema.define(version: 20140317153653) do
   end
 
   create_table "jobs", force: true do |t|
-    t.integer  "provider_id",                                                      null: false
-    t.integer  "work_category_id",                                                 null: false
-    t.string   "title",                                                            null: false
-    t.text     "description",                                                      null: false
-    t.string   "date_type",                                                        null: false
+    t.integer  "provider_id",                                                             null: false
+    t.integer  "work_category_id",                                                        null: false
+    t.string   "title",                                                                   null: false
+    t.text     "description",                                                             null: false
+    t.string   "date_type",                                                               null: false
     t.date     "start_date"
     t.date     "end_date"
-    t.decimal  "salary",               precision: 8, scale: 2,                     null: false
-    t.string   "salary_type",                                  default: "hourly",  null: false
-    t.integer  "manpower",                                     default: 1,         null: false
-    t.integer  "duration",                                                         null: false
+    t.decimal  "salary",               precision: 8, scale: 2,                            null: false
+    t.string   "salary_type",                                  default: "hourly_per_age", null: false
+    t.integer  "manpower",                                     default: 1,                null: false
+    t.integer  "duration",                                     default: 1,                null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "state",                                        default: "created"
@@ -128,16 +128,17 @@ ActiveRecord::Schema.define(version: 20140317153653) do
   create_table "organizations", force: true do |t|
     t.string   "logo"
     t.string   "background"
-    t.string   "name",                       null: false
+    t.string   "name",                                                          null: false
     t.string   "website"
     t.text     "description"
-    t.string   "street",                     null: false
-    t.string   "email",                      null: false
+    t.string   "street",                                                        null: false
+    t.string   "email",                                                         null: false
     t.string   "phone"
-    t.boolean  "active",      default: true
+    t.boolean  "active",                                         default: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "place_id"
+    t.decimal  "default_hourly_per_age", precision: 8, scale: 2, default: 1.0
   end
 
   add_index "organizations", ["name"], name: "index_organizations_on_name", unique: true, using: :btree

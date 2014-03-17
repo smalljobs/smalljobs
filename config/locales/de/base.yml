@@ -63,6 +63,7 @@ de:
     allocation: "Zuweisung"
     application: "Bewerbung"
     proposal: "Vorschlag"
+    seeker_salary: "Lohnvorschlag"
   contacts:
     postal: "Per Post"
     email: "Email"
@@ -95,6 +96,7 @@ de:
     salary_types:
       hourly: "Stundenlohn"
       fixed: "Fixer Preis"
+      hourly_per_age: "Stundenlohn pro Altersjahr"
     date_types:
       agreement: "Nach Absprache"
       date: "An einem bestimmten Tag"

@@ -90,6 +90,7 @@ describe Job do
         expect(Fabricate.build(:job, salary_type: 'abc123')).not_to be_valid
         expect(Fabricate.build(:job, salary_type: 'hourly')).to be_valid
         expect(Fabricate.build(:job, salary_type: 'fixed')).to be_valid
+        expect(Fabricate.build(:job, salary_type: 'hourly_per_age')).to be_valid
       end
     end
 
