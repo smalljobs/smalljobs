@@ -61,5 +61,9 @@ describe 'broker/jobs/index.html.haml' do
     it 'contains the link to add a new provider' do
       expect(rendered).to have_link('Neuen Job hinzufügen', new_broker_job_path)
     end
+
+    it 'contains the link to go back to the dashboard' do
+      expect(rendered).to have_link('Zurück', broker_dashboard_path)
+    end
   end
 end

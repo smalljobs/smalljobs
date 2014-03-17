@@ -71,5 +71,9 @@ describe 'broker/providers/index.html.haml' do
     it 'contains the link to add a new provider' do
       expect(rendered).to have_link('Neuen Anbieter hinzufügen', new_provider_registration_path)
     end
+
+    it 'contains the link to go back to the dashboard' do
+      expect(rendered).to have_link('Zurück', broker_dashboard_path)
+    end
   end
 end

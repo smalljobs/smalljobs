@@ -7,7 +7,7 @@ describe 'broker/allocations/index.html.haml' do
   let(:allocation_A) { Fabricate(:allocation, job: job, message: 'Try this', seeker: Fabricate(:seeker, firstname: 'Seeker', lastname: 'A')) }
   let(:allocation_B) { Fabricate(:allocation, job: job, message: 'Another one', seeker: Fabricate(:seeker, firstname: 'Seeker', lastname: 'B')) }
 
-  context 'with jobs' do
+  context 'with allocations' do
     before do
       assign(:job, job)
       assign(:allocations, [allocation_A, allocation_B])
@@ -64,6 +64,10 @@ describe 'broker/allocations/index.html.haml' do
 
     it 'contains the link to add a new allocation' do
       expect(rendered).to have_link('Neue Zuweisung hinzufügen', new_broker_job_allocation_path(job))
+    end
+
+    it 'contains the link to go back to the job' do
+      expect(rendered).to have_link('Zurück', broker_job_path(job))
     end
   end
 end

@@ -26,7 +26,7 @@ feature 'Add a new job review' do
     click_on 'Job 1 anzeigen'
 
     click_on 'Bewertungen'
-    click_on 'Neuen Bewertung hinzufügen'
+    click_on 'Neue Bewertung hinzufügen'
 
     within_fieldset 'Bewertung' do
       select 'Roberto Blanco', from: 'Jugendlicher'

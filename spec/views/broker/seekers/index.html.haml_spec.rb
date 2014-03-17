@@ -72,5 +72,9 @@ describe 'broker/seekers/index.html.haml' do
     it 'contains the link to add a new seeker' do
       expect(rendered).to have_link('Neuen Jugendlichen hinzufügen', new_seeker_registration_path)
     end
+
+    it 'contains the link to go back to the dashboard' do
+      expect(rendered).to have_link('Zurück', broker_dashboard_path)
+    end
   end
 end

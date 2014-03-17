@@ -65,5 +65,9 @@ describe 'broker/proposals/index.html.haml' do
     it 'contains the link to add a new proposal' do
       expect(rendered).to have_link('Neuen Vorschlag hinzufügen', new_broker_job_proposal_path(job))
     end
+
+    it 'contains the link to go back to the job' do
+      expect(rendered).to have_link('Zurück', broker_job_path(job))
+    end
   end
 end

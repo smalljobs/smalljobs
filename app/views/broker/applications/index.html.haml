@@ -20,4 +20,5 @@
         %td= link_to '', edit_broker_job_application_path(@job, application), class: 'fa fa-pencil', title: t('common.edit_title', who: application.name)
         %td= link_to '', broker_job_application_path(@job, application), method: :delete, title: t('common.destroy_title', who: application.name), data: { confirm: t('common.sure') }, class: 'fa fa-trash-o'
 
-= link_to t('common.back'), broker_job_path(@job)
+%ul.nav.nav-pills
+  %li= link_to t('common.back'), broker_job_path(@job)

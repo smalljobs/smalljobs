@@ -29,3 +29,6 @@
         %td= link_to '', broker_provider_path(provider), method: :delete, title: t('common.destroy_title', who: provider.name), data: { confirm: t('common.sure') }, class: 'fa fa-trash-o'
 
 = link_to t('providers.index.add_new'), new_broker_provider_path, class: 'btn btn-primary'
+
+%ul.nav.nav-pills
+  %li= link_to t('common.back'), broker_dashboard_path

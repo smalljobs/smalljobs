@@ -1,7 +1,7 @@
-%h1= t('broker.jobs.reviews.edit.title')
-%p.lead= t('broker.jobs.reviews.edit.lead')
+%h1= t('provider.jobs.reviews.edit.title')
+%p.lead= t('provider.jobs.reviews.edit.lead')
 
 = render 'form'
 
 %ul.nav.nav-pills
-  %li= link_to t('common.back'), broker_job_path(@review.job)
+  %li= link_to t('common.back'), provider_job_path(@review.job)

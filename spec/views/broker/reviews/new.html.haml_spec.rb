@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'broker/reviews/new.html.haml' do
+describe 'provider/reviews/new.html.haml' do
 
   let(:region) { Fabricate(:region) }
   let(:job) { Fabricate(:job) }
@@ -28,7 +28,7 @@ describe 'broker/reviews/new.html.haml' do
 
   context 'global actions' do
     it 'contains the link to the job' do
-      expect(rendered).to have_link('Zurück', broker_job_path(job))
+      expect(rendered).to have_link('Zurück', provider_job_path(job))
     end
   end
 end

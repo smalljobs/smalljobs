@@ -42,4 +42,14 @@ describe 'seeker/jobs/index.html.haml' do
     end
   end
 
+  context 'global actions' do
+    before do
+      assign(:jobs, [])
+      render
+    end
+
+    it 'contains the link to go back to the dashboard' do
+      expect(rendered).to have_link('Zurück', seeker_dashboard_path)
+    end
+  end
 end

@@ -7,7 +7,7 @@ describe 'broker/reviews/index.html.haml' do
   let(:review_A) { Fabricate(:review, job: job, message: 'Try this', seeker: Fabricate(:seeker, firstname: 'Seeker', lastname: 'A')) }
   let(:review_B) { Fabricate(:review, job: job, message: 'Another one', seeker: Fabricate(:seeker, firstname: 'Seeker', lastname: 'B')) }
 
-  context 'with jobs' do
+  context 'with reviews' do
     before do
       assign(:job, job)
       assign(:reviews, [review_A, review_B])
@@ -63,7 +63,11 @@ describe 'broker/reviews/index.html.haml' do
     end
 
     it 'contains the link to add a new review' do
-      expect(rendered).to have_link('Neuen Bewertung hinzufügen', new_broker_job_review_path(job))
+      expect(rendered).to have_link('Neue Bewertung hinzufügen', new_broker_job_review_path(job))
+    end
+
+    it 'contains the link to go back to the job' do
+      expect(rendered).to have_link('Zurück', broker_job_path(job))
     end
   end
 end

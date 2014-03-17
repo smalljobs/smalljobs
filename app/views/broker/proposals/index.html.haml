@@ -21,4 +21,6 @@
         %td= link_to '', broker_job_proposal_path(@job, proposal), method: :delete, title: t('common.destroy_title', who: proposal.name), data: { confirm: t('common.sure') }, class: 'fa fa-trash-o'
 
 = link_to t('broker.jobs.proposals.index.add_new'), new_broker_job_proposal_path(@job), class: 'btn btn-primary'
-= link_to t('common.back'), broker_job_path(@job)
+
+%ul.nav.nav-pills
+  %li= link_to t('common.back'), broker_job_path(@job)

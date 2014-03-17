@@ -53,6 +53,10 @@ describe 'broker/applications/index.html.haml' do
     it 'shows a message that no applications are found' do
       expect(rendered).to have_text('Es sind noch keine Bewerbungen für diesen Job eingegangen')
     end
+
+    it 'contains the link to go back to the job' do
+      expect(rendered).to have_link('Zurück', broker_job_path(job))
+    end
   end
 
 end

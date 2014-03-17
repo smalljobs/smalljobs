@@ -21,3 +21,7 @@
         %td= job.title
 
         %td= link_to '', seeker_job_path(job), class: 'fa fa-eye', title: t('common.show_title', who: job.title)
+
+
+%ul.nav.nav-pills
+  %li= link_to t('common.back'), seeker_dashboard_path
