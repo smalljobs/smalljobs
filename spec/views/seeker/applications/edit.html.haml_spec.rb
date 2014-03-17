@@ -9,6 +9,8 @@ describe 'seeker/applications/edit.html.haml' do
   before do
     assign(:job, job)
     assign(:application, application)
+
+    view.stub(current_seeker: Fabricate(:seeker))
     view.stub(current_region: region)
     render
   end

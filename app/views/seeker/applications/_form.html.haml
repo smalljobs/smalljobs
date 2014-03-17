@@ -1,4 +1,5 @@
 = simple_form_for([:seeker, @job, @application], html: { novalidate: true }) do |f|
+  = f.input :seeker_id, as: :hidden, input_html: { value: current_seeker.id }
 
   - if notification = f.error_notification
     .alert.alert-danger

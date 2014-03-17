@@ -11,4 +11,3 @@ describe Seeker::ApplicationsController do
   end
 
 end
-
