@@ -29,7 +29,7 @@ feature 'Edit a provider' do
     within_fieldset 'Kontakt' do
       fill_in 'Webseite', with: 'http://www.jugendplus.ch'
       fill_in 'Email',    with: 'jugend@jugendplus.ch'
-      fill_in 'Telefon',  with: '044 123 123'
+      fill_in 'Telefon',  with: '044 123 12 33'
     end
 
     click_on 'Bearbeiten'

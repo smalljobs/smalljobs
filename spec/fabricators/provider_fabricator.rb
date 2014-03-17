@@ -11,8 +11,8 @@ Fabricator(:provider) do
   place
 
   email  { sequence(:email)  { |i| "provider#{ i }@example.com" }}
-  phone  { sequence(:phone)  { |i| "0041 056 111 22 3#{ i }" }}
-  mobile { sequence(:mobile) { |i| "0041 079 111 22 3#{ i }" }}
+  phone  { sequence(:phone)  { |i| "0041 056 111 22 3#{ rand(9) }" }}
+  mobile { sequence(:mobile) { |i| "0041 079 111 22 3#{ rand(9) }" }}
 
   contact_preference  { 'mobile' }
   contact_availability { 'all day' }

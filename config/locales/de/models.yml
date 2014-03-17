@@ -181,18 +181,24 @@ de:
       models:
         seeker:
           attributes:
+            mobile:
+              improbable_phone: "ist keine gültige Telefonnummer"
             phone:
               improbable_phone: "ist keine gültige Telefonnummer"
             terms:
               accepted: "Die Bedingungen müssen akzeptiert werden."
         provider:
           attributes:
+            mobile:
+              improbable_phone: "ist keine gültige Telefonnummer"
             phone:
               improbable_phone: "ist keine gültige Telefonnummer"
             terms:
               accepted: "Die Bedingungen müssen akzeptiert werden."
         broker:
           attributes:
+            mobile:
+              improbable_phone: "ist keine gültige Telefonnummer"
             phone:
               improbable_phone: "ist keine gültige Telefonnummer"
         organization:

@@ -7,8 +7,8 @@ Fabricator(:broker) do
   email     { Forgery(:internet).email_address }
   password  { Forgery(:basic).password.rjust(10, 'a') }
 
-  phone     { '044 444 44 44' }
-  mobile    { '079 444 44 44' }
+  phone     { "0041 044 444 44 4#{ rand(9) }" }
+  mobile    { "0041 079 444 44 4#{ rand(9) }" }
 
   active    { true }
 
