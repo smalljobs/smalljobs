@@ -144,6 +144,24 @@ describe 'seeker/jobs/show.html.haml' do
     end
   end
 
+  context 'job process actions' do
+    it 'contains the link to list the job proposals' do
+      expect(rendered).to have_link('Vorschläge', broker_job_proposals_path(job))
+    end
+
+    it 'contains the link to list the job applications' do
+      expect(rendered).to have_link('Bewerbungen', broker_job_applications_path(job))
+    end
+
+    it 'contains the link to list the job proposals' do
+      expect(rendered).to have_link('Zuweisungen', broker_job_allocations_path(job))
+    end
+
+    it 'contains the link to list the job proposals' do
+      expect(rendered).to have_link('Bewertungen', broker_job_reviews_path(job))
+    end
+  end
+
   context 'global actions' do
     it 'contains the link to the jobs list' do
       expect(rendered).to have_link('Zurück', broker_jobs_path)

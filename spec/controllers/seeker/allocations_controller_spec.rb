@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe Broker::AllocationsController do
+describe Seeker::AllocationsController do
 
-  it_behaves_like 'a protected controller', :broker, :allocation, [:index, :new, :create, :edit, :update, :destroy] do
-    let(:broker)           { Fabricate(:broker_with_regions) }
-    let(:job)              { Fabricate(:job, provider: Fabricate(:provider, place: broker.places.first)) }
+  it_behaves_like 'a protected controller', :seeker, :allocation, :index do
+    let(:seeker)           { Fabricate(:seeker) }
+    let(:job)              { Fabricate(:job, provider: Fabricate(:provider, place: seeker.place)) }
     let(:allocation)       { Fabricate(:allocation, job: job) }
     let(:allocation_attrs) { Fabricate.attributes_for(:allocation) }
     let(:params)           { { job_id: job.id } }

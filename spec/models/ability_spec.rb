@@ -154,7 +154,7 @@ describe Ability do
     end
 
     it 'can manage his reviews' do
-      expect(ability).to be_able_to(:manage, Fabricate(:review, seeker: user))
+      expect(ability).to be_able_to(:manage, Fabricate(:review, provider: Fabricate(:provider, place: user.place)))
     end
 
     it 'cannot manage other providers reviews' do

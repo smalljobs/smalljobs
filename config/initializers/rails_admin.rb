@@ -371,6 +371,7 @@ RailsAdmin.config do |config|
 
     list do
       field :job
+      field :provider
       field :seeker
       field :message
 

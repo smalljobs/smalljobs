@@ -5,7 +5,7 @@ describe 'broker/reviews/index.html.haml' do
   let(:job) { Fabricate(:job, title: 'Job A') }
 
   let(:review_A) { Fabricate(:review, job: job, message: 'Try this', seeker: Fabricate(:seeker, firstname: 'Seeker', lastname: 'A')) }
-  let(:review_B) { Fabricate(:review, job: job, message: 'Another one', seeker: Fabricate(:seeker, firstname: 'Seeker', lastname: 'B')) }
+  let(:review_B) { Fabricate(:review, job: job, message: 'Another one', provider: Fabricate(:provider, firstname: 'Provider', lastname: 'B')) }
 
   context 'with reviews' do
     before do
@@ -24,20 +24,23 @@ describe 'broker/reviews/index.html.haml' do
         expect(rendered).to have_text('Another one')
       end
 
-      it 'render the seekers name' do
+      it 'render the rated seeker name' do
         expect(rendered).to have_text('Seeker A')
-        expect(rendered).to have_text('Seeker B')
+      end
+
+      it 'render the rated provider name' do
+        expect(rendered).to have_text('Provider B')
       end
 
       context 'list item data' do
         it 'contains the link to edit the reviews details' do
           expect(rendered).to have_link('Seeker A Job A bearbeiten', href: edit_broker_job_review_path(job, review_A))
-          expect(rendered).to have_link('Seeker B Job A bearbeiten', href: edit_broker_job_review_path(job, review_B))
+          expect(rendered).to have_link('Provider B Job A bearbeiten', href: edit_broker_job_review_path(job, review_B))
         end
 
         it 'contains the link to destroy the review' do
           expect(rendered).to have_link('Seeker A Job A löschen', href: broker_job_review_path(job, review_A))
-          expect(rendered).to have_link('Seeker B Job A löschen', href: broker_job_review_path(job, review_B))
+          expect(rendered).to have_link('Provider B Job A löschen', href: broker_job_review_path(job, review_B))
         end
       end
     end

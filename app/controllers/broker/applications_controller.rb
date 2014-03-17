@@ -5,7 +5,7 @@ class Broker::ApplicationsController < InheritedResources::Base
   belongs_to :job
 
   load_and_authorize_resource :job
-  load_and_authorize_resource :proposal, through: :job
+  load_and_authorize_resource :application, through: :job
 
   actions :all, except: [:new, :create, :show]
 

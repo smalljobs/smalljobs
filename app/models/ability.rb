@@ -33,7 +33,7 @@ class Ability
       can :read, Proposal, seeker: { id: user.id }
       can :manage, Application, seeker: { id: user.id }
       can :read, Allocation, seeker: { id: user.id }
-      can :manage, Review, seeker: { id: user.id }
+      can :manage, Review, provider: { place: { id: user.place.id }}
     end
   end
 end

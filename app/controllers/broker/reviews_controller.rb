@@ -18,6 +18,6 @@ class Broker::ReviewsController < InheritedResources::Base
   end
 
   def permitted_params
-    params.permit(review: [:id, :job_id, :seeker_id, :rating, :message])
+    params.permit(review: [:id, :job_id, :provider_id, :seeker_id, :rating, :message])
   end
 end

@@ -49,5 +49,11 @@
             - @job.allocations.each do |allocation|
               %ul= allocation.seeker.name
 
+%ul.nav.nav-pills.job-process
+  %li= link_to t('jobs.proposals'), seeker_job_proposals_path(@job)
+  %li= link_to t('jobs.applications'), seeker_job_applications_path(@job)
+  %li= link_to t('jobs.allocations'), seeker_job_allocations_path(@job)
+  %li= link_to t('jobs.reviews'), seeker_job_reviews_path(@job)
+
 %ul.nav.nav-pills
   %li= link_to t('common.back'), seeker_jobs_path

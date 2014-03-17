@@ -162,6 +162,7 @@ de:
         message: "Nachricht"
         created_at: "Erstellt"
       review:
+        provider: "Anbieter"
         seeker: "Jugendlicher"
         message: "Nachricht"
         rating: "Bewertung"
@@ -178,6 +179,8 @@ de:
       messages:
         invalid_seeker_age: "muss zwischen 13 und 18 Jahre alt sein"
         invalid_work_category: "muss mindestens eine Kategorie beinhalten"
+        cannot_have_seeker_and_provider: "kann nicht gleichzeitig ein Jugendlicher und einen Anbieter bewerten"
+        must_have_seeker_or_provider: "muss entweder einen Jugendlichen oder einen Anbieter bewerten"
       models:
         seeker:
           attributes:

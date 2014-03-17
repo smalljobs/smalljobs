@@ -4,6 +4,7 @@
 .table-responsive
   %table.table.table-striped
     %tr
+      %th= t('activerecord.attributes.review.provider')
       %th= t('activerecord.attributes.review.seeker')
       %th= t('activerecord.attributes.review.rating')
       %th= t('activerecord.attributes.review.message')
@@ -15,7 +16,8 @@
 
     - @reviews.each do |review|
       %tr
-        %td= review.seeker.name
+        %td= review.provider.try(:name) || '-'
+        %td= review.seeker.try(:name) || '-'
         %td= I18n.t('common.rating', rating: review.rating)
         %td= review.message
 
