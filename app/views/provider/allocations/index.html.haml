@@ -1,0 +1,26 @@
+%h1= t('provider.jobs.allocations.index.title', title: @job.title)
+%p.lead= t('provider.jobs.allocations.lead')
+
+.table-responsive
+  %table.table.table-striped
+    %tr
+      %th= t('activerecord.attributes.allocation.seeker')
+      %th= t('activerecord.attributes.seeker.street')
+      %th= t('activerecord.attributes.seeker.email')
+      %th= t('activerecord.attributes.seeker.phone')
+      %th= t('activerecord.attributes.seeker.mobile')
+
+    - if @allocations.size == 0
+      %tr
+        %td{ colspan: 5 }= t('provider.jobs.allocations.index.no_allocations')
+
+    - @allocations.each do |allocation|
+      %tr
+        %td= allocation.seeker.name
+        %td= allocation.seeker.street
+        %td= allocation.seeker.email
+        %td= allocation.seeker.phone.try(:phony_formatted)
+        %td= allocation.seeker.mobile.try(:phony_formatted)
+
+%ul.nav.nav-pills
+  %li= link_to t('common.back'), provider_job_path(@job)

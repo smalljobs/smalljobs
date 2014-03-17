@@ -163,7 +163,7 @@ de:
         index:
           title: "Bewertungen für %{title}"
           lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
-          add_new: "Neuen Bewertung hinzufügen"
+          add_new: "Neue Bewertung hinzufügen"
           no_reviews: "Es sind noch keine Bewertungen für diesen Job erfasst"
   provider:
     jobs:
@@ -181,6 +181,24 @@ de:
         lead: "Hier finden sie alle von ihnen erfassten Jobs."
         add_new: "Neuen Job hinzufügen"
         no_jobs: "Sie haben noch keine Jobs erfasst. Erfassen Sie einen neuen mit 'Neuen Job hinzufügen'"
+      allocations:
+        index:
+          title: "Zuweisungen für %{title}"
+          lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+          add_new: "Neue Zuweisung hinzufügen"
+          no_allocations: "Es sind noch keine Zuweisungen für diesen Job erfasst"
+      reviews:
+        new:
+          title: "Bewertung erfassen"
+          lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+        edit:
+          title: "Bewertung bearbeiten"
+          lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+        index:
+          title: "Bewertungen für %{title}"
+          lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+          add_new: "Neue Bewertung hinzufügen"
+          no_reviews: "Es sind noch keine Bewertungen für diesen Job erfasst"
   validators:
     subdomain:
       reserved: "darf nicht ein reservierter Name sein"
