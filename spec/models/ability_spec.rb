@@ -121,8 +121,12 @@ describe Ability do
     let(:user) { Fabricate(:seeker) }
     let(:ability) { Ability.new(user) }
 
-    it 'can read all jobs' do
-      expect(ability).to be_able_to(:read, Fabricate(:job))
+    it 'can read jobs in his region' do
+      expect(ability).to be_able_to(:read, Fabricate(:job, provider: Fabricate(:provider, place: user.place)))
+    end
+
+    it 'cannot read jobs in other regions' do
+      expect(ability).to_not be_able_to(:read, Fabricate(:job))
     end
 
     it 'can read his proposals' do

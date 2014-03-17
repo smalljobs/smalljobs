@@ -14,7 +14,7 @@ class Ability
       can :manage, Provider, place: { id: places }
       can :manage, Seeker, place: { id: places }
 
-      can :manage, Job, provider: { place: { id: places } }
+      can :manage, Job, provider: { place: { id: places }}
 
       can :manage, Proposal, job: { provider: { place: { id: places }}}
       can :manage, Application, job: { provider: { place: { id: places }}}
@@ -28,7 +28,7 @@ class Ability
       can :manage, Review, job: { provider: { id: user.id }}
 
     elsif user.is_a?(Seeker)
-      can :read, Job
+      can :read, Job, provider: { place: { id: user.place.id }}
 
       can :read, Proposal, seeker: { id: user.id }
       can :manage, Application, seeker: { id: user.id }

@@ -4,11 +4,12 @@ class Seeker::JobsController < InheritedResources::Base
 
   load_and_authorize_resource :job, through: :current_region
   skip_authorize_resource :job, only: :new
+  actions :index, :show
 
   protected
 
   def current_user
-    current_broker
+    current_seeker
   end
 
 end

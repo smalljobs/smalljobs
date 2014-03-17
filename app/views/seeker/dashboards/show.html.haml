@@ -1,1 +1,6 @@
 %h2= t('seeker_dashboard.title')
+%p.lead= t('seeker_dashboard.lead')
+
+%ul.list-group
+  %li.list-group-item
+    = link_to t('seeker_dashboard.job_list'), seeker_jobs_path

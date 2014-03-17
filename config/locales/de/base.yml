@@ -266,6 +266,14 @@ de:
       lead: "Hier können Sie sich mit ihren Benutzerdaten anmelden."
       action: "Als Anbieter anmelden"
   seekers:
+    jobs:
+      show:
+        title: "Job Details"
+        lead: "Hier findest du die Details des Jobs."
+      index:
+        title: "Alle Jobs"
+        lead: "Hier siehst du eine Übersicht aller vorhandender Jobs."
+        no_jobs: "Es sind noch keine Jobs in deiner Region erfasst"
     index:
       title: "Jugendlich in deiner Region"
       lead: "Hier findest du die regsitrierten Jugendlichen in deiner Region."
@@ -373,6 +381,8 @@ de:
     job_list: 'Alle Jobs anzeigen'
   seeker_dashboard:
     title: 'Übersicht'
+    lead: "Hier findest du alle verfügbaren Aktionen."
+    job_list: 'Alle Jobs in der Region anzeigen'
   social_share_button:
     share_to: 'Job teilen'
   errors:

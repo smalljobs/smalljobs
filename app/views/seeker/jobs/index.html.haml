@@ -1,0 +1,23 @@
+%h1= t('seekers.jobs.index.title')
+%p.lead= t('seekers.jobs.index.lead')
+
+.table-responsive
+  %table.table.table-striped
+    %tr
+      %th
+      %th= t('activerecord.attributes.job.provider')
+      %th= t('activerecord.attributes.job.title')
+      %th{ colspan: 3 }
+
+    - if @jobs.size == 0
+      %tr
+        %td{ colspan: 4 }= t('seekers.jobs.index.no_jobs')
+
+    - @jobs.each do |job|
+      %tr{ class: job_status_class(job) }
+        %td
+          = job_label(job)
+        %td= job.provider.name
+        %td= job.title
+
+        %td= link_to '', seeker_job_path(job), class: 'fa fa-eye', title: t('common.show_title', who: job.title)
