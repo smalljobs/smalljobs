@@ -116,6 +116,42 @@ describe Job do
     end
   end
 
+  describe '#update_status' do
+    let(:provider) { Fabricate(:provider) }
+    let(:job) { Fabricate.build(:job, manpower: 2, state: 'created', provider: provider) }
+
+    context 'when the job is rated by all participants' do
+      it 'sets the state to rated' do
+        Fabricate(:allocation, job: job)
+        Fabricate(:allocation, job: job)
+
+        Fabricate(:review, job: job, provider: job.provider)
+        Fabricate(:review, job: job, seeker: job.seekers.first)
+        Fabricate(:review, job: job, seeker: job.seekers.last)
+
+        job.reload.send(:evaluate_state, nil)
+        expect(job.reload.state).to eql('rated')
+      end
+    end
+
+    context 'when the job has the manpower needed assigned' do
+      it 'sets the state to connected' do
+        Fabricate(:allocation, job: job)
+        Fabricate(:allocation, job: job)
+
+        job.reload.send(:evaluate_state, nil)
+        expect(job.reload.state).to eql('connected')
+      end
+    end
+
+    context 'when the job has not enough manpower' do
+      it 'sets the state to available' do
+        job.send(:evaluate_state, nil)
+        expect(job.reload.state).to eql('available')
+      end
+    end
+  end
+
   describe '#send_job_created' do
     let(:provider) { Fabricate(:provider) }
     let(:job) { Fabricate.build(:job, state: 'created', provider: provider) }

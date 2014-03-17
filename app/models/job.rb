@@ -4,8 +4,8 @@ class Job < ActiveRecord::Base
 
   has_many :applications
   has_many :proposals
-  has_many :allocations
-  has_many :reviews
+  has_many :allocations, after_add: :evaluate_state, after_remove: :evaluate_state
+  has_many :reviews, after_add: :evaluate_state, after_remove: :evaluate_state
 
   has_many :seekers, through: :allocations
 
@@ -63,6 +63,21 @@ class Job < ActiveRecord::Base
   #
   def salary_type_enum
     %w(hourly fixed hourly_per_age)
+  end
+
+  # Update the job status when new allocations
+  # and reviews arrives
+  #
+  def evaluate_state(assoc)
+    if self.reviews.count >= self.manpower + 1
+      self.update_attribute(:state, 'rated')
+
+    elsif self.allocations.count >= self.manpower
+      self.update_attribute(:state, 'connected')
+
+    else
+      self.update_attribute(:state, 'available')
+    end
   end
 
   # Sends a notification when a job in the
