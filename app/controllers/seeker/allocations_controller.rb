@@ -7,8 +7,6 @@ class Seeker::AllocationsController < InheritedResources::Base
   load_and_authorize_resource :job
   load_and_authorize_resource :allocation, through: :job
 
-  skip_authorize_resource :allocation, only: :new
-
   actions :index
 
   protected

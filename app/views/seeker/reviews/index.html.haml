@@ -1,0 +1,30 @@
+%h1= t('seeker.jobs.reviews.index.title', title: @job.title)
+%p.lead= t('seeker.jobs.reviews.lead')
+
+.table-responsive
+  %table.table.table-striped
+    %tr
+      %th= t('activerecord.attributes.review.provider')
+      %th= t('activerecord.attributes.review.seeker')
+      %th= t('activerecord.attributes.review.rating')
+      %th= t('activerecord.attributes.review.message')
+      %th{ colspan: 2 }
+
+    - if @reviews.size == 0
+      %tr
+        %td{ colspan: 5 }= t('seeker.jobs.reviews.index.no_reviews')
+
+    - @reviews.each do |review|
+      %tr
+        %td= review.provider.try(:name) || '-'
+        %td= review.seeker.try(:name) || '-'
+        %td= I18n.t('common.rating', rating: review.rating)
+        %td= review.message
+
+        %td= link_to '', edit_seeker_job_review_path(@job, review), class: 'fa fa-pencil', title: t('common.edit_title', who: review.name)
+        %td= link_to '', seeker_job_review_path(@job, review), method: :delete, title: t('common.destroy_title', who: review.name), data: { confirm: t('common.sure') }, class: 'fa fa-trash-o'
+
+= link_to t('seeker.jobs.reviews.index.add_new'), new_seeker_job_review_path(@job), class: 'btn btn-primary'
+
+%ul.nav.nav-pills
+  %li= link_to t('common.back'), seeker_job_path(@job)

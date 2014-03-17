@@ -1,5 +1,5 @@
-%h1= t('seekers.jobs.index.title')
-%p.lead= t('seekers.jobs.index.lead')
+%h1= t('seeker.jobs.index.title')
+%p.lead= t('seeker.jobs.index.lead')
 
 .table-responsive
   %table.table.table-striped
@@ -11,7 +11,7 @@
 
     - if @jobs.size == 0
       %tr
-        %td{ colspan: 4 }= t('seekers.jobs.index.no_jobs')
+        %td{ colspan: 4 }= t('seeker.jobs.index.no_jobs')
 
     - @jobs.each do |job|
       %tr{ class: job_status_class(job) }

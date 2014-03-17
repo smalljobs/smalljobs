@@ -1,4 +1,4 @@
-= simple_form_for([:provider, @job, @review], html: { novalidate: true }) do |f|
+= simple_form_for([:seeker, @job, @review], html: { novalidate: true }) do |f|
 
   - if notification = f.error_notification
     .alert.alert-danger
@@ -10,7 +10,7 @@
       %i.fa.fa-2x.fa-envelope.pull-right
 
     .form-inputs
-      = f.association :seeker, required: true, collection: @job.seekers, include_blank: true
+      = f.association :provider, required: true, collection: [@job.provider]
       = f.input :rating, collection: 0..5, include_blank: false
       = f.input :message
 

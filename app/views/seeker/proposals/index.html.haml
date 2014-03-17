@@ -1,0 +1,20 @@
+%h1= t('seeker.jobs.proposals.index.title', title: @job.title)
+%p.lead= t('seeker.jobs.proposals.lead')
+
+.table-responsive
+  %table.table.table-striped
+    %tr
+      %th= t('activerecord.attributes.proposal.seeker')
+      %th= t('activerecord.attributes.proposal.message')
+
+    - if @proposals.size == 0
+      %tr
+        %td{ colspan: 3 }= t('seeker.jobs.proposals.index.no_proposals')
+
+    - @proposals.each do |proposal|
+      %tr
+        %td= proposal.seeker.name
+        %td= proposal.message
+
+%ul.nav.nav-pills
+  %li= link_to t('common.back'), seeker_job_path(@job)
