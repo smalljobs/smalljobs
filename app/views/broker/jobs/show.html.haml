@@ -56,5 +56,7 @@
   %li= link_to t('jobs.reviews'), broker_job_reviews_path(@job)
 
 %ul.nav.nav-pills
+  - if @job.state == 'created'
+    %li= link_to t('jobs.activate'), activate_broker_job_path(@job), method: :post, class: 'btn btn-primary'
   %li= link_to t('common.edit'), edit_broker_job_path(@job)
   %li= link_to t('common.back'), broker_jobs_path

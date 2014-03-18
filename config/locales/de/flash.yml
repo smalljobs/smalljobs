@@ -8,5 +8,7 @@ de:
       destroy:
         notice: "%{resource_name} wurde erfolgreich gelöscht."
         alert: "%{resource_name} konnte nicht gelöscht werden."
+      activate:
+        notice: "%{resource_name} wurde erfolgreich aktiviert."
   unauthorized:
     default: "Sie haben keinen Zugriff auf diese Seite."

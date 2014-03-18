@@ -35,4 +35,29 @@ describe Broker::JobsController do
       expect(Job.first.state).to eql('available')
     end
   end
+
+  describe '#activate' do
+    auth_broker(:broker) { Fabricate(:broker_with_regions) }
+    let(:job) { Fabricate(:job, provider: provider) }
+
+    context 'with a job in the broker region' do
+      let(:provider) { Fabricate(:provider, place: broker.places.first) }
+
+      it 'activates the job' do
+        params = { format: :json, id: job.id }
+        post :activate, params
+        expect(job.reload.state).to eql('available')
+      end
+    end
+
+    context 'with a job not in the broker region' do
+      let(:provider) { Fabricate(:provider) }
+
+      it 'does not activate the job' do
+        params = { format: :json, id: job.id }
+        post :activate, params
+        expect(job.reload.state).to eql('created')
+      end
+    end
+  end
 end

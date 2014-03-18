@@ -93,6 +93,7 @@ de:
     seekers_assigned: "Zugewiesene Jugendliche"
     show_job: "Job anzeigen"
     show_job_title: "Job %{title} anzeigen"
+    activate: "Freischalten"
     salary_types:
       hourly: "Stundenlohn"
       fixed: "Fixer Preis"

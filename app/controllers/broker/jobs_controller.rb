@@ -4,6 +4,7 @@ class Broker::JobsController < InheritedResources::Base
 
   load_and_authorize_resource :job, through: :current_region
   skip_authorize_resource :job, only: :new
+  custom_actions resource: :activate
 
   has_scope :without_applications, type: :boolean
 
@@ -12,6 +13,14 @@ class Broker::JobsController < InheritedResources::Base
     @job.state  = 'available'
 
     create!
+  end
+
+  def activate
+    authorize! :activate, @job
+
+    activate! do
+      @job.update_attribute(:state, 'available')
+    end
   end
 
   protected

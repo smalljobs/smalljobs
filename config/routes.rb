@@ -48,6 +48,10 @@ Smalljobs::Application.routes.draw do
       resources :seekers
 
       resources :jobs do
+        member do
+          post 'activate'
+        end
+
         resources :proposals, except: :show
         resources :applications, except: :show
         resources :allocations, except: :show

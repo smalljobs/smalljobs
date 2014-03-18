@@ -177,6 +177,14 @@ describe 'broker routing' do
         id:         '12'
       )
     end
+
+    it 'routes posting to /broker/jobs/12/activate to broker/jobs#activate' do
+      expect(post: 'http://bremgarten.example.com/broker/jobs/12/activate').to route_to(
+        controller: 'broker/jobs',
+        action:     'activate',
+        id:         '12'
+      )
+    end
   end
 
   context 'routing to the organization' do

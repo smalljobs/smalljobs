@@ -15,6 +15,7 @@ class Ability
       can :manage, Seeker, place: { id: places }
 
       can :manage, Job, provider: { place: { id: places }}
+      can :activate, Job, provider: { place: { id: places }}
 
       can :manage, Proposal, job: { provider: { place: { id: places }}}
       can :manage, Application, job: { provider: { place: { id: places }}}

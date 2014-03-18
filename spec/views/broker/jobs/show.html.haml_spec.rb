@@ -7,13 +7,13 @@ describe 'broker/jobs/show.html.haml' do
   let(:provider) { Fabricate(:provider, place: region.places.first) }
   let(:job) { Fabricate(:job, provider: provider, work_category: work_category) }
 
-  before do
-    assign(:job, job)
-    view.stub(current_region: region)
-    render
-  end
-
   context 'the job' do
+    before do
+      assign(:job, job)
+      view.stub(current_region: region)
+      render
+    end
+
     it 'shows the job title' do
       expect(rendered).to have_text(job.title)
     end
@@ -91,6 +91,12 @@ describe 'broker/jobs/show.html.haml' do
   end
 
   context 'the provider' do
+    before do
+      assign(:job, job)
+      view.stub(current_region: region)
+      render
+    end
+
     it 'shows the provider name' do
       expect(rendered).to have_text(provider.name)
     end
@@ -114,6 +120,12 @@ describe 'broker/jobs/show.html.haml' do
                           duration: 62,
                           provider: provider) }
 
+    before do
+      assign(:job, job)
+      view.stub(current_region: region)
+      render
+    end
+
     it 'shows the needed manpower' do
       expect(rendered).to have_text('Benötigte Arbeitskräfte: 2')
     end
@@ -136,6 +148,12 @@ describe 'broker/jobs/show.html.haml' do
                             allocations: [seeker_a, seeker_b],
                             provider: provider) }
 
+      before do
+        assign(:job, job)
+        view.stub(current_region: region)
+        render
+      end
+
       it 'shows and links the assigned seekers' do
         expect(rendered).to have_text('Zugewiesene Jugendliche')
         expect(rendered).to have_link('Robert Buholzer', edit_broker_seeker_path(seeker_a))
@@ -144,7 +162,40 @@ describe 'broker/jobs/show.html.haml' do
     end
   end
 
+  context 'job actions' do
+    context 'with a job in created state' do
+      before do
+        job.update_attributes(state: 'created')
+        assign(:job, job)
+        render
+      end
+
+      it 'shows the activation link' do
+        expect(rendered).to have_link('Freischalten', activate_broker_job_path(job))
+      end
+    end
+
+    context 'with a job not in the created state' do
+      before do
+        job.update_attributes(state: 'available')
+        assign(:job, job)
+        view.stub(current_region: region)
+        render
+      end
+
+      it 'does not show the activation link' do
+        expect(rendered).not_to have_link('Freischalten', activate_broker_job_path(job))
+      end
+    end
+  end
+
   context 'job process actions' do
+    before do
+      assign(:job, job)
+      view.stub(current_region: region)
+      render
+    end
+
     it 'contains the link to list the job proposals' do
       expect(rendered).to have_link('Vorschläge', broker_job_proposals_path(job))
     end
@@ -163,6 +214,12 @@ describe 'broker/jobs/show.html.haml' do
   end
 
   context 'global actions' do
+    before do
+      assign(:job, job)
+      view.stub(current_region: region)
+      render
+    end
+
     it 'contains the link to edit the job' do
       expect(rendered).to have_link('Bearbeiten', edit_broker_job_path(job))
     end

@@ -51,6 +51,14 @@ describe Ability do
       expect(ability).to be_able_to(:manage, Job)
     end
 
+    it 'can activate jobs' do
+      expect(ability).to be_able_to(:activate, Job)
+    end
+
+    it 'cannot activate jobs not in his region' do
+      expect(ability).to_not be_able_to(:activate, Fabricate(:job, provider: Fabricate(:provider, place: Fabricate(:place, zip: '9999'))))
+    end
+
     it 'cannot read jobs not in his region' do
       expect(ability).to_not be_able_to(:read, Fabricate(:job, provider: Fabricate(:provider, place: Fabricate(:place, zip: '9999'))))
     end
