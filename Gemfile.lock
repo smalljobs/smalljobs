@@ -49,7 +49,7 @@ GEM
     byebug (2.7.0)
       columnize (~> 0.3)
       debugger-linecache (~> 1.2)
-    cancan (1.6.10)
+    cancancan (1.7.0)
     capybara (2.2.1)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -367,7 +367,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass
-  cancan
+  cancancan
   capybara
   capybara-email
   carrierwave
