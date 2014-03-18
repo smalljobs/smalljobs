@@ -110,8 +110,8 @@ describe Job do
         expect(Fabricate.build(:job, duration: nil)).not_to be_valid
       end
 
-      it 'is not valid with a duration of less than 30 minutes' do
-        expect(Fabricate.build(:job, duration: 29)).not_to be_valid
+      it 'is not valid with a duration of less than 1 hour' do
+        expect(Fabricate.build(:job, duration: 0)).not_to be_valid
       end
     end
   end
