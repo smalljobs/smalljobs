@@ -329,7 +329,8 @@ de:
           action: "Deaktivieren"
     sessions:
       title: "Als Anbieter anmelden"
-      lead: "Geben Sie hier bitte Ihre Zugangsdaten ein, um sich als Anbieter anzumelden:"      action: "Als Anbieter anmelden"
+      lead: "Geben Sie hier bitte Ihre Zugangsdaten ein, um sich als Anbieter anzumelden:"
+      action: "Als Anbieter anmelden"
   seekers:
     index:
       title: "Jugendlich in deiner Region"
