@@ -82,10 +82,15 @@ package { ['libxml2', 'libxml2-dev', 'libxslt1-dev']:
 
 # --- Ruby ---------------------------------------------------------------------
 
+
 exec { 'install_rvm':
   command => "${as_vagrant} 'curl -L https://get.rvm.io | bash -s stable'",
   creates => "${home}/.rvm/bin/rvm",
   require => Package['curl']
+}
+
+exec {'rvm_pgp_keys':
+  command => "${as_vagrant} 'gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3 BF04FF17'",
 }
 
 exec { 'install_ruby':
@@ -96,7 +101,7 @@ exec { 'install_ruby':
   # Thanks to @mpapis for this tip.
   command => "${as_vagrant} '${home}/.rvm/bin/rvm install 2.1.0 --autolibs=enabled && rvm --fuzzy alias create default 2.1.0'",
   creates => "${home}/.rvm/bin/ruby",
-  require => Exec['install_rvm']
+  require => Exec['install_rvm','rvm_pgp_keys']
 }
 
 exec { "${as_vagrant} 'gem install bundler --no-rdoc --no-ri'":
