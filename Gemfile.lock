@@ -169,6 +169,7 @@ GEM
     kgio (2.9.2)
     launchy (2.4.2)
       addressable (~> 2.3)
+    libv8 (3.16.14.13)
     listen (2.7.1)
       celluloid (>= 0.15.2)
       celluloid-io (>= 0.15.0)
@@ -269,6 +270,7 @@ GEM
     rdoc (4.1.1)
       json (~> 1.4)
     redcarpet (3.1.1)
+    ref (2.0.0)
     remotipart (1.2.1)
     responders (1.0.0)
       railties (>= 3.2, < 5)
@@ -328,6 +330,9 @@ GEM
       activesupport (>= 3.0)
       sprockets (~> 2.8)
     subexec (0.2.3)
+    therubyracer (0.12.2)
+      libv8 (~> 3.16.14.0)
+      ref
     thor (0.18.1)
     thread_safe (0.2.0)
       atomic (>= 1.1.7, < 2)
@@ -407,6 +412,7 @@ DEPENDENCIES
   social-share-button
   spring
   spring-commands-rspec
+  therubyracer
   uglifier
   unf
   unicorn
