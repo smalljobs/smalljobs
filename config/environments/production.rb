@@ -90,5 +90,5 @@ Smalljobs::Application.configure do
   }
 
   # Mailer default link host
-  config.action_mailer.default_url_options = { host: 'www.smalljobs.ch' }
+  config.action_mailer.default_url_options = { host: 'smalljobs-demo.blackbeans.io' }
 end
