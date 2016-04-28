@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.2.5'
 
-gem 'rails', '4.0.4'
+gem 'rails', '~>4.0.4'
 
 gem 'activevalidators'
 gem 'bootstrap-sass'
