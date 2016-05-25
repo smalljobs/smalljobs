@@ -17,3 +17,5 @@
 
 # Ignore Vagrant
 .vagrant
+
+.DS_Store
