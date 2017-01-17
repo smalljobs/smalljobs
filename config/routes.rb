@@ -39,6 +39,7 @@ Smalljobs::Application.routes.draw do
     }
 
     get 'sign_in', to: 'pages#sign_in'
+    get 'sign_up', to: 'pages#sign_up'
 
     namespace :broker do
       resource :dashboard, only: :show

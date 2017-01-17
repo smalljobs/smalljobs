@@ -18,7 +18,7 @@ SimpleNavigation::Configuration.run do |navigation|
       primary.item :sign_out,  { icon: 'fa fa-sign-out', text: I18n.t('navigation.sign_out') }, destroy_seeker_session_path, method: :delete
 
     else
-      primary.item :registration, { icon: 'fa fa-user', text: I18n.t('navigation.sign_up') }, root_path
+      primary.item :registration, { icon: 'fa fa-user', text: I18n.t('navigation.sign_up') }, sign_up_path
       primary.item :sign_in,      { icon: 'fa fa-sign-in', text: I18n.t('navigation.sign_in') }, sign_in_path
     end
 
