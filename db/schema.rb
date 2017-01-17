@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140317213439) do
+ActiveRecord::Schema.define(version: 20170117103938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "admins", force: true do |t|
     t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: ""
+    t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -29,18 +29,9 @@ ActiveRecord::Schema.define(version: 20140317213439) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "invitation_token"
-    t.datetime "invitation_created_at"
-    t.datetime "invitation_sent_at"
-    t.datetime "invitation_accepted_at"
-    t.integer  "invitation_limit"
-    t.integer  "invited_by_id"
-    t.string   "invited_by_type"
   end
 
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
-  add_index "admins", ["invitation_token"], name: "index_admins_on_invitation_token", unique: true, using: :btree
-  add_index "admins", ["invited_by_id"], name: "index_admins_on_invited_by_id", using: :btree
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
 
   create_table "allocations", force: true do |t|
@@ -66,7 +57,7 @@ ActiveRecord::Schema.define(version: 20140317213439) do
     t.string   "mobile"
     t.boolean  "active",                 default: true
     t.string   "email",                  default: "",   null: false
-    t.string   "encrypted_password",     default: ""
+    t.string   "encrypted_password",     default: "",   null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -81,20 +72,11 @@ ActiveRecord::Schema.define(version: 20140317213439) do
     t.string   "unconfirmed_email"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "invitation_token"
-    t.datetime "invitation_created_at"
-    t.datetime "invitation_sent_at"
-    t.datetime "invitation_accepted_at"
-    t.integer  "invitation_limit"
-    t.integer  "invited_by_id"
-    t.string   "invited_by_type"
     t.text     "contact_availability"
   end
 
   add_index "brokers", ["confirmation_token"], name: "index_brokers_on_confirmation_token", unique: true, using: :btree
   add_index "brokers", ["email"], name: "index_brokers_on_email", unique: true, using: :btree
-  add_index "brokers", ["invitation_token"], name: "index_brokers_on_invitation_token", unique: true, using: :btree
-  add_index "brokers", ["invited_by_id"], name: "index_brokers_on_invited_by_id", using: :btree
   add_index "brokers", ["reset_password_token"], name: "index_brokers_on_reset_password_token", unique: true, using: :btree
 
   create_table "employments", force: true do |t|
@@ -180,7 +162,7 @@ ActiveRecord::Schema.define(version: 20140317213439) do
     t.string   "uid"
     t.string   "name"
     t.string   "username",               default: "",      null: false
-    t.string   "encrypted_password",     default: ""
+    t.string   "encrypted_password",     default: "",      null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -195,20 +177,11 @@ ActiveRecord::Schema.define(version: 20140317213439) do
     t.string   "unconfirmed_email"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "invitation_token"
-    t.datetime "invitation_created_at"
-    t.datetime "invitation_sent_at"
-    t.datetime "invitation_accepted_at"
-    t.integer  "invitation_limit"
-    t.integer  "invited_by_id"
-    t.string   "invited_by_type"
     t.integer  "place_id"
   end
 
   add_index "providers", ["confirmation_token"], name: "index_providers_on_confirmation_token", unique: true, using: :btree
   add_index "providers", ["email"], name: "index_providers_on_email", unique: true, using: :btree
-  add_index "providers", ["invitation_token"], name: "index_providers_on_invitation_token", unique: true, using: :btree
-  add_index "providers", ["invited_by_id"], name: "index_providers_on_invited_by_id", using: :btree
   add_index "providers", ["reset_password_token"], name: "index_providers_on_reset_password_token", unique: true, using: :btree
   add_index "providers", ["username"], name: "index_providers_on_username", unique: true, using: :btree
 
@@ -259,7 +232,7 @@ ActiveRecord::Schema.define(version: 20140317213439) do
     t.string   "uid"
     t.string   "name"
     t.string   "email",                  default: "",         null: false
-    t.string   "encrypted_password",     default: ""
+    t.string   "encrypted_password",     default: "",         null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -276,6 +249,7 @@ ActiveRecord::Schema.define(version: 20140317213439) do
     t.datetime "updated_at"
     t.integer  "place_id"
     t.string   "sex"
+    t.integer  "ji_user_id"
   end
 
   add_index "seekers", ["confirmation_token"], name: "index_seekers_on_confirmation_token", unique: true, using: :btree
