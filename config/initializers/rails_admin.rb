@@ -186,7 +186,7 @@ RailsAdmin.config do |config|
 
         field :active
         field :confirmed, :boolean
-        field :terms, :boolean
+        # field :terms, :boolean
       end
     end
   end
@@ -236,7 +236,7 @@ RailsAdmin.config do |config|
 
         field :active
         field :confirmed, :boolean
-        field :terms, :boolean
+        # field :terms, :boolean
       end
     end
   end
