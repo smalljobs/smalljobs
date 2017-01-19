@@ -10,3 +10,13 @@ CSV.foreach(File.expand_path(File.join('db', 'data', 'postal_codes', 'CH.csv')),
     latitude:  row[10]
   ).first_or_create
 end
+
+Place.all.find_each do |place|
+  place.region_id = 1
+  place.save!
+end
+
+Region.all.find_each do |region|
+  region.destroy
+end
+Region.create!(subdomain: 'smalljobs', name: 'smalljobs', id: 1)
