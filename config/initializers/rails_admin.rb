@@ -309,53 +309,16 @@ RailsAdmin.config do |config|
     end
   end
 
-  config.model Application do
-    navigation_label I18n.t('admin.menu.application')
-
-    list do
-      field :job
-      field :seeker
-      field :message
-
-      field :created_at do
-        date_format :short
-      end
-    end
-
-    edit do
-      field :job
-      field :seeker
-      field :message
-    end
-  end
-
-  config.model Proposal do
-    navigation_label I18n.t('admin.menu.application')
-
-    list do
-      field :job
-      field :seeker
-      field :message
-
-      field :created_at do
-        date_format :short
-      end
-    end
-
-    edit do
-      field :job
-      field :seeker
-      field :message
-    end
-  end
-
   config.model Allocation do
     navigation_label I18n.t('admin.menu.application')
 
     list do
       field :job
       field :seeker
-      field :message
+      field :state
+      field :feedback_seeker
+      field :feedback_provider
+      field :contract_returned
 
       field :created_at do
         date_format :short
@@ -365,29 +328,10 @@ RailsAdmin.config do |config|
     edit do
       field :job
       field :seeker
-      field :message
-    end
-  end
-
-  config.model Review do
-    navigation_label I18n.t('admin.menu.application')
-
-    list do
-      field :job
-      field :provider
-      field :seeker
-      field :message
-
-      field :created_at do
-        date_format :short
-      end
-    end
-
-    edit do
-      field :job
-      field :seeker
-      field :message
-      field :rating
+      field :state
+      field :feedback_seeker
+      field :feedback_provider
+      field :contract_returned
     end
   end
 

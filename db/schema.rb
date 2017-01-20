@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170117103938) do
+ActiveRecord::Schema.define(version: 20170120112501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,15 +37,10 @@ ActiveRecord::Schema.define(version: 20170117103938) do
   create_table "allocations", force: true do |t|
     t.integer  "job_id"
     t.integer  "seeker_id"
-    t.text     "message"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "applications", force: true do |t|
-    t.integer  "job_id"
-    t.integer  "seeker_id"
-    t.text     "message"
+    t.integer  "state"
+    t.string   "feedback_seeker"
+    t.string   "feedback_provider"
+    t.boolean  "contract_returned"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -140,14 +135,6 @@ ActiveRecord::Schema.define(version: 20170117103938) do
   add_index "places", ["name"], name: "index_places_on_name", using: :btree
   add_index "places", ["zip"], name: "index_places_on_zip", using: :btree
 
-  create_table "proposals", force: true do |t|
-    t.integer  "job_id"
-    t.integer  "seeker_id"
-    t.text     "message"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "providers", force: true do |t|
     t.string   "email"
     t.string   "firstname",                                null: false
@@ -207,16 +194,6 @@ ActiveRecord::Schema.define(version: 20170117103938) do
 
   add_index "regions", ["name"], name: "index_regions_on_name", unique: true, using: :btree
   add_index "regions", ["subdomain"], name: "index_regions_on_subdomain", using: :btree
-
-  create_table "reviews", force: true do |t|
-    t.integer  "job_id"
-    t.integer  "seeker_id"
-    t.integer  "rating"
-    t.text     "message"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "provider_id"
-  end
 
   create_table "seekers", force: true do |t|
     t.string   "firstname",                                   null: false

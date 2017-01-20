@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.2.5'
 
-gem 'rails', '~>4.0.4'
+gem 'rails', '~>4.1'
 
 gem 'activevalidators'
 gem 'bootstrap-sass'
@@ -33,6 +33,8 @@ gem 'therubyracer'#, '0.12.2'
 gem 'uglifier'
 gem 'unf'
 gem 'unicorn'
+gem 'validate_url'
+gem 'email_validator'
 
 group :development, :test do
   gem 'better_errors'

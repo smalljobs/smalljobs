@@ -53,10 +53,7 @@ Smalljobs::Application.routes.draw do
           post 'activate'
         end
 
-        resources :proposals, except: :show
-        resources :applications, except: :show
         resources :allocations, except: :show
-        resources :reviews, except: :show
       end
     end
 
@@ -65,7 +62,6 @@ Smalljobs::Application.routes.draw do
 
       resources :jobs do
         resources :allocations, only: [:index, :show]
-        resources :reviews, except: :show
       end
     end
 
@@ -73,10 +69,7 @@ Smalljobs::Application.routes.draw do
       resource :dashboard, only: :show
 
       resources :jobs, only: [:index, :show] do
-        resources :proposals, only: [:index, :show]
-        resources :applications, except: :show
         resources :allocations, only: [:index, :show]
-        resources :reviews, except: :show
       end
     end
 

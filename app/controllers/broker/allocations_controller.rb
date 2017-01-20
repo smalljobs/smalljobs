@@ -18,6 +18,6 @@ class Broker::AllocationsController < InheritedResources::Base
   end
 
   def permitted_params
-    params.permit(allocation: [:id, :job_id, :seeker_id, :message])
+    params.permit(allocation: [:id, :job_id, :seeker_id, :state, :feedback_seeker, :feedback_provider, :contract_returned])
   end
 end
