@@ -14,13 +14,16 @@ class Seeker < ActiveRecord::Base
   has_many :jobs, through: :allocations
 
   belongs_to :place, inverse_of: :seekers
+  belongs_to :organization
 
   validates :firstname, :lastname, presence: true
 
   validates :street, :place, presence: true
 
+  validates :organization, presence: true
+
   validates :email, email: true
-  validates :phone, :mobile, phony_plausible: true
+  validates :phone, :mobile, phony_plausible: true, presence: true
 
   validates :date_of_birth, presence: true
   validates :sex, inclusion: { in: lambda { |m| m.sex_enum } }
