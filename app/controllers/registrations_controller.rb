@@ -11,6 +11,36 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def after_sign_up_path_for(resource)
+    case resource
+      # when Broker
+      #   broker_dashboard_url(subdomain: ensure_subdomain_for(resource))
+      # when Provider
+      #   provider_dashboard_url(subdomain: ensure_subdomain_for(resource))
+      when Seeker
+        seeker_dashboard_url(subdomain: ensure_subdomain_for(resource))
+      # when Admin
+      #   rails_admin.dashboard_url(subdomain: request.subdomain)
+      else
+        super
+    end
+  end
+
+  def after_inactive_sign_up_path_for(resource)
+    case resource
+      # when Broker
+      #   broker_dashboard_url(subdomain: ensure_subdomain_for(resource))
+      # when Provider
+      #   provider_dashboard_url(subdomain: ensure_subdomain_for(resource))
+      when Seeker
+        seeker_dashboard_url(subdomain: ensure_subdomain_for(resource))
+      # when Admin
+      #   rails_admin.dashboard_url(subdomain: request.subdomain)
+      else
+        super
+    end
+  end
+
   protected
 
   def configure_permitted_parameters

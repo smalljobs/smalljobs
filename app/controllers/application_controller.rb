@@ -48,8 +48,8 @@ class ApplicationController < ActionController::Base
   end
 
   def current_region
-    # @region ||= Region.find_by_subdomain(request.subdomain)
-    @region ||= Region.find_by_subdomain("smalljobs")
+    @region ||= Region.find_by_subdomain(request.subdomain)
+    # @region ||= Region.find_by_subdomain("smalljobs")
   end
 
   def after_sign_in_path_for(resource)
