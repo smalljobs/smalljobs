@@ -35,10 +35,18 @@
 
     .form-inputs
       = f.input :email
-      = f.input :phone
-      = f.input :mobile
+      = f.input :phone, required: true
+      = f.input :mobile, required: true
       = f.input :contact_preference, collection: provider_contact_preferences, include_blank: false
       = f.input :contact_availability
+
+  %fieldset
+    %legend
+      = t('legends.work')
+      %i.fa.fa-2x.fa-wrench.pull-right
+
+    .form-inputs
+      = f.association :organization, as: :select, required: true
 
   %fieldset
     %legend

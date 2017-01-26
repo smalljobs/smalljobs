@@ -15,8 +15,8 @@ class RegistrationsController < Devise::RegistrationsController
     case resource
       # when Broker
       #   broker_dashboard_url(subdomain: ensure_subdomain_for(resource))
-      # when Provider
-      #   provider_dashboard_url(subdomain: ensure_subdomain_for(resource))
+      when Provider
+        new_provider_job_url(subdomain: ensure_subdomain_for(resource))
       when Seeker
         seeker_dashboard_url(subdomain: ensure_subdomain_for(resource))
       # when Admin

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170126143830) do
+ActiveRecord::Schema.define(version: 20170126153742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,7 +144,7 @@ ActiveRecord::Schema.define(version: 20170126143830) do
     t.string   "mobile"
     t.string   "contact_preference",     default: "email"
     t.text     "contact_availability"
-    t.boolean  "active",                 default: false
+    t.boolean  "active",                 default: true
     t.string   "provider"
     t.string   "uid"
     t.string   "name"
@@ -165,10 +165,12 @@ ActiveRecord::Schema.define(version: 20170126143830) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "place_id"
+    t.integer  "organization_id"
   end
 
   add_index "providers", ["confirmation_token"], name: "index_providers_on_confirmation_token", unique: true, using: :btree
   add_index "providers", ["email"], name: "index_providers_on_email", unique: true, using: :btree
+  add_index "providers", ["organization_id"], name: "index_providers_on_organization_id", using: :btree
   add_index "providers", ["reset_password_token"], name: "index_providers_on_reset_password_token", unique: true, using: :btree
   add_index "providers", ["username"], name: "index_providers_on_username", unique: true, using: :btree
 
