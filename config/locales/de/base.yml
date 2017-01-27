@@ -316,9 +316,10 @@ de:
       lead: "Hier kannst du einen Anbieter bearbeiten."
     registrations:
       new:
-        title: "Als Anbieter registrieren"
-        register: "Als Anbieter registrieren"
-        lead: "Sie möchten Jobs für Jugendliche aufgeben? Dann registrieren Sie sich bitte hier neu als Anbieter."
+        title: "Job anbieten"
+        register: "Registrieren und Job erfassen"
+        lead: "Sie möchten Jobs für Jugendliche anbieten? Dann registrieren Sie sich bitte hier neu als Anbieter."
+        have_account: "Bereits registriert?"
       edit:
         title: "Ihre Daten ändern"
         lead: "Hier können sie ihre Daten ändern. Bitte bestätigen Sie die Eingaben mittels 'Ändern' am Ende der Seite."
