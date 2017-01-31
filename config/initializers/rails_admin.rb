@@ -201,7 +201,6 @@ RailsAdmin.config do |config|
       field :phone
       field :email
       field :active
-      field :confirmed
     end
 
     edit do
@@ -235,7 +234,6 @@ RailsAdmin.config do |config|
         label I18n.t('admin.groups.administration')
 
         field :active
-        field :confirmed, :boolean
         field :terms, :boolean
       end
     end
