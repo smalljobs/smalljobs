@@ -17,7 +17,7 @@
       = link_to t('devise_views.sign_in'), new_session_path(resource_name)
 
     .form-inputs
-      = f.input :username, required: true, autofocus: true
+      = f.input :login, required: true, autofocus: true, label: t('pages.sign_in.login')
       = f.input :password, required: true
       = f.input :password_confirmation, required: true
 
@@ -40,8 +40,8 @@
 
     .form-inputs
       = f.input :email
-      = f.input :phone, required: true
-      = f.input :mobile, required: true
+      = f.input :phone, required: false
+      = f.input :mobile, required: false
       = f.input :contact_preference, collection: provider_contact_preferences, include_blank: false
       = f.input :contact_availability
 

@@ -421,7 +421,7 @@ de:
       provider: "Anbieter"
       seeker: "Jugendlicher"
       broker: "Vermittler"
-      login: "* E-Mail oder Telefonnummer"
+      login: "E-Mail oder Telefonnummer"
       password: "* Passwort"
       action: "Login"
       register: "Registrieren"
