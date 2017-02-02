@@ -13,7 +13,7 @@
       %i.fa.fa-2x.fa-user.pull-right
 
     .form-inputs
-      = f.input :username, required: true, autofocus: true
+      = f.input :login, required: true, autofocus: true, label: t('pages.sign_in.login')
       = f.input :password, required: false, autocomplete: 'off', hint: t('devise_views.leave_empty')
       = f.input :password_confirmation, required: false
 
@@ -27,6 +27,7 @@
       = f.input :lastname, required: true
       = f.input :street, required: true
       = f.association :place, required: true, collection: current_region.places, include_blank: false
+      = f.association :organization, as: :select, required: true
 
   %fieldset
     %legend
@@ -36,9 +37,6 @@
     .form-inputs
       = f.input :email
       = f.input :phone
-
-      - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-        %p= t('devise_views.wait_confirmation', email: resource.unconfirmed_email)
 
       = f.input :mobile
       = f.input :contact_preference, collection: provider_contact_preferences, include_blank: false
