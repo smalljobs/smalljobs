@@ -4,7 +4,7 @@
 = simple_form_for(resource, as: resource_name, url: new_session_path(resource_name), html: { novalidate: true }) do |f|
 
   .form-inputs
-    = f.input :username, required: false, autofocus: true
+    = f.input :login, required: false, autofocus: true
     = f.input :password, required: false
     = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
 

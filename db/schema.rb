@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170126153742) do
+ActiveRecord::Schema.define(version: 20170202004538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20170126153742) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "contact_availability"
+    t.string   "login",                  default: "",   null: false
   end
 
   add_index "brokers", ["confirmation_token"], name: "index_brokers_on_confirmation_token", unique: true, using: :btree
@@ -148,7 +149,7 @@ ActiveRecord::Schema.define(version: 20170126153742) do
     t.string   "provider"
     t.string   "uid"
     t.string   "name"
-    t.string   "username",               default: "",      null: false
+    t.string   "login",                  default: "",      null: false
     t.string   "encrypted_password",     default: "",      null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -170,9 +171,9 @@ ActiveRecord::Schema.define(version: 20170126153742) do
 
   add_index "providers", ["confirmation_token"], name: "index_providers_on_confirmation_token", unique: true, using: :btree
   add_index "providers", ["email"], name: "index_providers_on_email", unique: true, using: :btree
+  add_index "providers", ["login"], name: "index_providers_on_login", unique: true, using: :btree
   add_index "providers", ["organization_id"], name: "index_providers_on_organization_id", using: :btree
   add_index "providers", ["reset_password_token"], name: "index_providers_on_reset_password_token", unique: true, using: :btree
-  add_index "providers", ["username"], name: "index_providers_on_username", unique: true, using: :btree
 
   create_table "rails_admin_histories", force: true do |t|
     t.text     "message"
@@ -230,6 +231,7 @@ ActiveRecord::Schema.define(version: 20170126153742) do
     t.string   "sex"
     t.integer  "ji_user_id"
     t.integer  "organization_id"
+    t.string   "login",                  default: "",         null: false
   end
 
   add_index "seekers", ["confirmation_token"], name: "index_seekers_on_confirmation_token", unique: true, using: :btree

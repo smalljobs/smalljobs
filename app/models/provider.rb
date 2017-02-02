@@ -1,6 +1,6 @@
 class Provider < ActiveRecord::Base
 
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, authentication_keys: [:username]
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, authentication_keys: [:login]
 
   # include ConfirmToggle
 
@@ -10,8 +10,10 @@ class Provider < ActiveRecord::Base
 
   before_save :nullify_blank_email
 
-  validates :username, presence: true, uniqueness: true
+  validates :login, presence: true, uniqueness: true
   validates :firstname, :lastname, presence: true
+
+  validates :organization, presence: true
 
   validates :street, :place, presence: true
 

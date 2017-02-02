@@ -159,7 +159,7 @@ RailsAdmin.config do |config|
       group :authenticatable do
         label I18n.t('admin.groups.authenticatable')
 
-        field :email
+        field :login
         field :password
         field :password_confirmation
       end
@@ -167,6 +167,7 @@ RailsAdmin.config do |config|
       group :contact do
         label I18n.t('admin.groups.contact')
 
+        field :email
         field :firstname
         field :lastname
         field :phone
@@ -207,7 +208,7 @@ RailsAdmin.config do |config|
       group :authenticatable do
         label I18n.t('admin.groups.authenticatable')
 
-        field :username
+        field :login
         field :password
         field :password_confirmation
       end
@@ -256,7 +257,7 @@ RailsAdmin.config do |config|
       group :authenticatable do
         label I18n.t('admin.groups.authenticatable')
 
-        field :email
+        field :login
         field :password
         field :password_confirmation
         field :date_of_birth
@@ -270,10 +271,13 @@ RailsAdmin.config do |config|
         field :lastname
         field :street
         field :place
+        field :organization
       end
 
       group :contact do
         label I18n.t('admin.groups.contact')
+
+        field :email
         field :phone
         field :mobile
         field :contact_preference
@@ -283,6 +287,7 @@ RailsAdmin.config do |config|
       group :work do
         label I18n.t('admin.groups.work')
         field :work_categories
+        field :organization
       end
 
       group :administration do

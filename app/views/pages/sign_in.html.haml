@@ -1,14 +1,14 @@
 %h1= t('pages.sign_in.title')
-%p.lead= t('pages.sign_in.lead')
 
-.row.signin
-  .col-lg-4.text-center
-    = link_to t('pages.sign_in.provider'), new_provider_session_path, class: 'btn btn-lg btn-success'
+= simple_form_for(:provider, url: new_session_path("provider"), html: { novalidate: true }) do |f|
 
-  .col-lg-4.text-center
-    = link_to t('pages.sign_in.broker'), new_broker_session_path, class: 'btn btn-lg btn-success'
+  .form-inputs
+    = f.input :login, required: false, autofocus: true, label: t('pages.sign_in.login')
+    = f.input :password, required: false, label: t('pages.sign_in.password')
 
-  .col-lg-4.text-center
-    = link_to t('pages.sign_in.seeker'), new_seeker_session_path, class: 'btn btn-lg btn-success'
+  .form-actions
+    = f.button :submit, t('pages.sign_in.action'), class: 'btn btn-primary'
+
+-#= render 'devise/shared/links'
 
 

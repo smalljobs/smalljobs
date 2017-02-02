@@ -1,6 +1,6 @@
 class Seeker < ActiveRecord::Base
 
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable, authentication_keys: [:login]
 
   include ConfirmToggle
 
@@ -15,6 +15,8 @@ class Seeker < ActiveRecord::Base
 
   belongs_to :place, inverse_of: :seekers
   belongs_to :organization
+
+  validates :login, presence: true, uniqueness: true
 
   validates :firstname, :lastname, presence: true
 

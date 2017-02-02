@@ -416,11 +416,17 @@ de:
         feature_title_6: "Dulse horseradish lentil"
         feature_text_6: "Veggies sunt bona vobis, proinde vos postulo esse magis dandelion ricebean courgette pumpkin tomatillo sea lettuce epazote gumbo summer purslane kakadu plum."
     sign_in:
-      title: "Anmelden"
+      title: "Login"
       lead: "Hier können sie sich mit ihren Benutzerangaben anmelden. Falls sie noch keine haben, registrieren Sie sich bitte zuerst."
       provider: "Anbieter"
       seeker: "Jugendlicher"
       broker: "Vermittler"
+      login: "* E-Mail oder Telefonnummer"
+      password: "* Passwort"
+      action: "Login"
+      register: "Registrieren"
+      recover_password: "Passwort vergessen?"
+      resent_confirmation: "Keine Email oder SMS zur Bestätigung erhalten?"
     sign_up:
       title: "Registrieren"
       job_offer_title: "Job anbieten"

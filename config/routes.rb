@@ -27,15 +27,18 @@ Smalljobs::Application.routes.draw do
 
   constraints(RegionSubdomain) do
     devise_for :brokers, except: :confirmation, controllers: {
-      registrations: 'registrations'
+      registrations: 'registrations',
+      sessions: 'sessions'
     }
 
     devise_for :providers, except: :confirmation, controllers: {
-      registrations: 'registrations'
+      registrations: 'registrations',
+      sessions: 'sessions'
     }
 
     devise_for :seekers, except: :confirmation, controllers: {
-      registrations: 'registrations'
+      registrations: 'registrations',
+      sessions: 'sessions'
     }
 
     get 'sign_in', to: 'pages#sign_in'
