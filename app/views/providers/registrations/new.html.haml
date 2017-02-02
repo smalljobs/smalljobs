@@ -51,7 +51,7 @@
       %i.fa.fa-2x.fa-legal.pull-right
 
     .form-inputs
-      = f.input :terms, as: :boolean, label: I18n.t('common.terms', rules_of_action: link_to(t('navigation.rules_of_action'), rules_of_action_path, data: { toggle: 'modal', target: '#rules-of-action-modal' }), terms_of_service: link_to(t('navigation.terms_of_service'), terms_of_service_path, data: { toggle: 'modal', target: '#terms-of-service-modal' }), privacy_policy: link_to(t('navigation.privacy_policy'), privacy_policy_path, data: { toggle: 'modal', target: '#privacy-policy-modal' })).html_safe
+      = f.input :terms, as: :boolean, label: false, inline_label: I18n.t('common.terms', rules_of_action: link_to(t('navigation.rules_of_action'), rules_of_action_path, data: { toggle: 'modal', target: '#rules-of-action-modal' }), terms_of_service: link_to(t('navigation.terms_of_service'), terms_of_service_path, data: { toggle: 'modal', target: '#terms-of-service-modal' }), privacy_policy: link_to(t('navigation.privacy_policy'), privacy_policy_path, data: { toggle: 'modal', target: '#privacy-policy-modal' })).html_safe
 
   .form-actions
     = f.button :submit, t('providers.registrations.new.register'), class: 'btn btn-primary'
