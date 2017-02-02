@@ -332,6 +332,7 @@ de:
       title: "Als Anbieter anmelden"
       lead: "Geben Sie hier bitte Ihre Zugangsdaten ein, um sich als Anbieter anzumelden:"
       action: "Als Anbieter anmelden"
+      remember_me: "Angemeldet bleiben"
   seekers:
     index:
       title: "Jugendlich in deiner Region"

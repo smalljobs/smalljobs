@@ -6,7 +6,7 @@
   .form-inputs
     = f.input :login, required: false, autofocus: true
     = f.input :password, required: false
-    = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
+    = f.input :remember_me, as: :boolean, label: false, inline_label: t('providers.sessions.remember_me') if devise_mapping.rememberable?
 
   .form-actions
     = f.button :submit, t('providers.sessions.action'), class: 'btn btn-primary'
