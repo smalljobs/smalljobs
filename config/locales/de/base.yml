@@ -422,7 +422,7 @@ de:
       seeker: "Jugendlicher"
       broker: "Vermittler"
       login: "E-Mail oder Telefonnummer"
-      password: "* Passwort"
+      password: "Passwort"
       action: "Login"
       register: "Registrieren"
       recover_password: "Passwort vergessen?"
