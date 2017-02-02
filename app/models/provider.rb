@@ -18,7 +18,7 @@ class Provider < ActiveRecord::Base
   validates :street, :place, presence: true
 
   validates :email, email: true, allow_blank: true, allow_nil: true
-  validates :phone, :mobile, phony_plausible: true, presence: true
+  validates :phone, :mobile, phony_plausible: true
 
   validates :contact_preference, inclusion: { in: lambda { |m| m.contact_preference_enum } }
   validates :contact_availability, presence: true, if: lambda { %w(phone mobile).include?(self.contact_preference) }
