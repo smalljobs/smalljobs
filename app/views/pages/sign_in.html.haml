@@ -2,6 +2,10 @@
 
 = simple_form_for(:provider, url: new_session_path("provider"), html: { novalidate: true }) do |f|
 
+  - if flash[:error_info] != nil
+    .alert.alert-danger
+      = flash[:error_info]
+
   .form-inputs
     = f.input :login, required: true, autofocus: true, label: t('pages.sign_in.login')
     = f.input :password, required: true, label: t('pages.sign_in.password')
@@ -10,5 +14,3 @@
     = f.button :submit, t('pages.sign_in.action'), class: 'btn btn-primary'
 
 -#= render 'devise/shared/links'
-
-

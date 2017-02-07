@@ -45,7 +45,7 @@ class SessionsController < Devise::SessionsController
     end
 
     if !authenticated
-      flash[:error] = "Invalid username or password."
+      flash[:error_info] = "Invalid username or password."
       return redirect_to sign_in_path
     end
 
