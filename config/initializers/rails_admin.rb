@@ -223,6 +223,7 @@ RailsAdmin.config do |config|
         field :lastname
         field :street
         field :place
+        field :organization
       end
 
       group :contact do
