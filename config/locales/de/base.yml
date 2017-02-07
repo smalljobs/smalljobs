@@ -283,6 +283,7 @@ de:
     sign_up: "Registrieren"
     forgot_password?: "Passwort vergessen?"
     no_confirmation: "Keine Email zur Bestätigung erhalten?"
+    no_confirmation_sms: "Keine Email oder SMS zur Bestätigung erhalten?"
     no_unlock: "Keine Email zum Entsperren erhalten?"
     confirmations:
       title: "Bestätigung erneut senden"
