@@ -105,7 +105,8 @@ module ApplicationHelper
   # @return [String] the bootstrap class
   #
   def job_status_class(job)
-    if job.applications.size == 0
+    # if job.applications.size == 0
+    if job.allocations.application_open.size == 0
       'warning'
     else
       ''
