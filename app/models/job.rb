@@ -23,8 +23,8 @@ class Job < ActiveRecord::Base
   validates :start_date, presence: true, if: lambda { |m| ['date', 'date_range'].include?(m.date_type) }
   validates :end_date, presence: true, if: lambda { |m| m.date_type == 'date_range' }
 
-  validates :salary, presence: true, numericality: true
   validates :salary_type, presence: true, inclusion: { in: lambda { |m| m.salary_type_enum }}
+  validates :salary, numericality: true, presence: true, if: lambda {|m| m.salary_type != 'hourly_per_age'}
 
   validates :manpower, presence: true, numericality: {
     only_integer: true,

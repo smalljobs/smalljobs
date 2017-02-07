@@ -8,14 +8,28 @@ ready = ->
   $('#job_date_type').change(->
     switch $(@).val()
       when 'agreement', ''
-        $('.job_start_date').slideUp()
-        $('.job_end_date').slideUp()
+        $('.job_start_date').slideUp();
+        $('.job_end_date').slideUp();
       when 'date'
-        $('.job_start_date').slideDown()
-        $('.job_end_date').slideUp()
+        $('.job_start_date').slideDown();
+        $('.job_end_date').slideUp();
       when 'date_range'
-        $('.job_start_date').slideDown()
-        $('.job_end_date').slideDown()
-  ).change()
+        $('.job_start_date').slideDown();
+        $('.job_end_date').slideDown();
+  ).change();
 
-$(document).ready(ready)
+  $('#job_salary_type').change(->
+    switch $(@).val()
+      when 'hourly_per_age'
+        $('.job_salary').slideUp();
+        $('#job_salary').prop('required', false);
+        $('#job_salary').val('');
+      when 'hourly'
+        $('.job_salary').slideDown();
+        $('#job_salary').prop('required', true);
+      when 'fixed'
+        $('.job_salary').slideDown();
+        $('#job_salary').prop('required', true);
+  ).change();
+
+$(document).ready(ready);
