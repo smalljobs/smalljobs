@@ -23,6 +23,7 @@ de:
       seekers: "Jugendliche"
       job: "Job"
       salary: "Lohn"
+      wage_factor: "Lohn = Alter * Lohnfaktor * Arbeitsdauer"
     format:
       logo: "Format 400x220"
       background: "Format 700x400"

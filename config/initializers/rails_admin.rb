@@ -53,6 +53,9 @@ RailsAdmin.config do |config|
         field :name
         field :description
         field :website
+        field :wage_factor do
+          help I18n.t('admin.groups.wage_factor')
+        end
       end
 
       group :address do

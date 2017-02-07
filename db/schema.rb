@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170202004538) do
+ActiveRecord::Schema.define(version: 20170207185617) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(version: 20170202004538) do
     t.datetime "updated_at"
     t.integer  "place_id"
     t.decimal  "default_hourly_per_age", precision: 8, scale: 2, default: 1.0
+    t.float    "wage_factor"
   end
 
   add_index "organizations", ["name"], name: "index_organizations_on_name", unique: true, using: :btree
