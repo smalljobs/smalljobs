@@ -80,6 +80,7 @@ de:
         employments: "Vermittler"
         created_at: "Erstellt"
         updated_at: "Bearbeitet"
+        wage_factor: "Lohnfaktor"
       employment:
         organization: "Organisation"
         broker: "Vermittler"
