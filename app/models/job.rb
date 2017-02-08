@@ -2,10 +2,7 @@ class Job < ActiveRecord::Base
   belongs_to :provider, inverse_of: :jobs
   belongs_to :work_category, inverse_of: :jobs
 
-  has_many :applications
-  has_many :proposals
   has_many :allocations, after_add: :evaluate_state, after_remove: :evaluate_state
-  has_many :reviews, after_add: :evaluate_state, after_remove: :evaluate_state
 
   has_many :seekers, through: :allocations
 
@@ -39,7 +36,7 @@ class Job < ActiveRecord::Base
   after_create :send_job_created,   if: proc { |s| s.state == 'created' }
   after_save   :send_job_connected, if: proc { |s| s.state_changed? && s.state_was == 'available' && s.state == 'connected' }
 
-  scope :without_applications, -> { includes(:applications).where('applications.id IS NULL') }
+  # scope :without_applications, -> { includes(:applications).where('applications.id IS NULL') }
 
   # Available date types
   #
@@ -69,15 +66,15 @@ class Job < ActiveRecord::Base
   # and reviews arrives
   #
   def evaluate_state(assoc)
-    if self.reviews.count >= self.manpower + 1
-      self.update_attribute(:state, 'rated')
-
-    elsif self.allocations.count >= self.manpower
-      self.update_attribute(:state, 'connected')
-
-    else
-      self.update_attribute(:state, 'available')
-    end
+    # if self.reviews.count >= self.manpower + 1
+    #   self.update_attribute(:state, 'rated')
+    #
+    # elsif self.allocations.count >= self.manpower
+    #   self.update_attribute(:state, 'connected')
+    #
+    # else
+    #   self.update_attribute(:state, 'available')
+    # end
   end
 
   # Sends a notification when a job in the
