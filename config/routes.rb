@@ -72,11 +72,14 @@ Smalljobs::Application.routes.draw do
       resource :dashboard, only: :show
 
       resources :jobs, only: [:index, :show] do
-        resources :allocations, only: [:index, :show]
+        # resources :allocations, only: [:index, :show]
+        resources :allocations
       end
     end
 
     resources :jobs, only: :show
+
+
 
     get '/' => 'regions#show'
   end

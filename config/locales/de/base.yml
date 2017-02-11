@@ -64,7 +64,7 @@ de:
     message: "Nachricht"
     review: "Bewertung"
     allocation: "Zuweisung"
-    application: "Bewerbung"
+    application: "Bewerben"
     proposal: "Vorschlag"
     seeker_salary: "Lohnvorschlag"
   contacts:
@@ -210,6 +210,18 @@ de:
       show:
         title: "Job Details"
         lead: "Hier findest du die Details des Jobs."
+        reject_action: 'Bewerbung löschen'
+        reject_title: 'Bewerbung läuft'
+        reject_lead: 'Deine Bewerbung wird geprüft, du wirst so bald wie möglich informiert.'
+        get_job: 'Job erhalten!'
+        procedure: 'Vorgehen:'
+        contact_supplier: '1. Anbieterln kontaktieren'
+        appointment: 'Termin vereinbaren'
+        job: '2. Arbeit'
+        job_a: 'a) Vor Arbeitsbeginn mit Anbieterln Vertrag im Doppel unterzeichnen'
+        job_b: 'b) Arbeiten'
+        job_c: 'c) Lohn in Bar erhalten'
+        contract: '3. Vertrag bringen an:'
       index:
         title: "Alle Jobs"
         lead: "Hier siehst du eine Übersicht aller vorhandender Jobs."
@@ -488,9 +500,11 @@ de:
       duration_payment: 'Dauer, Lohn'
       feedback: 'Feedback'
   seeker_dashboard:
-    title: 'Übersicht'
+    title: 'Willkommen'
     lead: "Hier findest du alle verfügbaren Aktionen."
     job_list: 'Alle Jobs in der Region anzeigen'
+    my_jobs: 'Deine Jobs'
+    all_jobs: 'Offene Jobs'
   social_share_button:
     share_to: 'Job teilen'
   errors:

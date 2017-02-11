@@ -185,6 +185,27 @@ module ApplicationHelper
     end
   end
 
+  def allocation_for_seeker_job(job, seeker)
+    allocation = Allocation.where(seeker_id: seeker.id, job_id: job.id).first
+    return allocation
+  end
+
+  def allocation_status(allocation)
+    if allocation == nil
+      return 'Keine'
+    elsif allocation.application_open?
+      return 'Laufend'
+    elsif allocation.application_rejected?
+      return 'Abgelehnt'
+    elsif allocation.active?
+      return 'Aktiv'
+    elsif allocation.finished?
+      return 'Beendet'
+    else
+      return ''
+    end
+  end
+
   # Get the table label depending
   # on the job status
   #

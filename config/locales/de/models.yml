@@ -148,6 +148,7 @@ de:
         work_category: "Arbeitskategorie"
         title: "Titel"
         status: "Status"
+        job_status: 'Deine Bewerbung'
         description: "Beschreibung"
         date_type: "Zeitraum"
         start_date: "Startdatum"
