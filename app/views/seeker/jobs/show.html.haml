@@ -62,9 +62,11 @@
         %br
         = @job.provider.place.zip + ' ' + @job.provider.place.name
       %p
-        = 'Tel: ' + @job.provider.phone
+        = 'Tel: '
+        = @job.provider.phone
         %br
-        = 'Mobile: ' + @job.provider.mobile
+        = 'Mobile: '
+        = @job.provider.mobile
       %h3= t('seeker.jobs.show.job')
       %p= t('seeker.jobs.show.job_a')
       %p= t('seeker.jobs.show.job_b')
@@ -76,7 +78,9 @@
         = @job.provider.organization.street
         %br
         = @job.provider.organization.place.zip + ' ' + @job.provider.organization.place.name
-      %p= 'Tel: ' + @job.provider.organization.phone
+      %p
+        = 'Tel: '
+        = @job.provider.organization.phone
     -#.row
     -#  .col-lg-6
     -#    %h3= t('legends.provider')
