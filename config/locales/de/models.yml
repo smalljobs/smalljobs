@@ -145,6 +145,7 @@ de:
         seekers: "Jugendliche"
         work_category: "Arbeitskategorie"
         title: "Titel"
+        status: "Status"
         description: "Beschreibung"
         date_type: "Zeitraum"
         start_date: "Startdatum"

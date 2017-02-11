@@ -44,6 +44,7 @@ de:
     profile: 'Profil'
     providers: "Anbieter"
     features: "Funktionen"
+    provide_job: "Job erfassen"
   legends:
     login: "Anmeldedaten"
     address: "Adresse"
@@ -445,9 +446,11 @@ de:
       title: "Aktivierung ausstehend"
       lead: "Vielen Dank für ihre Anmeldung. Ihr Benutzerkonto wurde erfolgreich bestätigt und wir werden Sie so bald wie möglich persönlich kontaktieren und ihre Benutzerkonto anschliessend aktivieren."
   provider_dashboard:
-    title: 'Übersicht'
+    title: 'Willkommen'
     lead: "Herzlich willkomen und danke, dass Sie bei SmallJobs mitmachen und sich bereit erklären, Jobs an Jugendliche abzugeben. Bitte lesen Sie unbedingt die Richtlinien zur Vermittlung Jobs."
     job_list: 'Alle ihre Jobs anzeigen'
+    new_job: "Neuen Job erfassen"
+    table: "Ihre Jobs:"
   broker_dashboard:
     title: 'Übersicht'
     lead: "Hallo Job-Vermittler. Hier findest du eine Übersicht über all deine möglichen Aktivitäten bei smalljobs.."

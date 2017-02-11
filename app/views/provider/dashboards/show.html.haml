@@ -1,6 +1,24 @@
-%h2= t('provider_dashboard.title')
-%p.lead= t('provider_dashboard.lead')
+%h2
+  = t('provider_dashboard.title')
+  = current_provider.firstname
 
 %ul.list-group
-  %li.list-group-item
-    = link_to t('provider_dashboard.job_list'), provider_jobs_path
+  = link_to t('provider_dashboard.new_job'), provider_jobs_path, class: 'btn btn-success'
+
+%h3= t('provider_dashboard.table')
+.table-responsive
+  %table.table.table-striped
+    %tr
+      %th= t('activerecord.attributes.job.status')
+      %th= t('activerecord.attributes.job.title')
+
+    - if @jobs.size == 0
+      %tr
+        %td{ colspan: 2 }= t('provider.jobs.index.no_jobs')
+
+    - @jobs.each do |job|
+      %tr{ class: job_status_class(job) }
+        %td
+          = job_label(job)
+        %td
+          = link_to job.title, provider_job_path(job)
