@@ -141,6 +141,8 @@ de:
       admin:
         <<: *USER
       job:
+        job: 'Job'
+        todo: 'Todo'
         provider: "Anbieter"
         seekers: "Jugendliche"
         work_category: "Arbeitskategorie"

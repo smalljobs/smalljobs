@@ -87,16 +87,41 @@ module ApplicationHelper
   # @return [String] the bootstrap class
   #
   def provider_status_class(provider)
-    if !provider.confirmed?
+    ''
+    # if !provider.confirmed?
+    #   'warning'
+    # elsif !provider.active?
+    #   'danger'
+    # else
+    #   ''
+    # end
+  end
+
+  # Get the table bootstrap class depending
+  # on the seeker status
+  #
+  # @param [Seeker] the seeker
+  # @return [String] the bootstrap class
+  #
+  def seeker_status_class(seeker)
+    if !seeker.confirmed?
       'warning'
-    elsif !provider.active?
+    elsif !seeker.active?
       'danger'
     else
       ''
     end
   end
 
-  alias_method :seeker_status_class, :provider_status_class
+  # Get the table bootstrap class depending
+  # on the assignment status
+  #
+  # @param [Assignment] the assignment
+  # @return [String] the bootstrap class
+  #
+  def assignment_status_class(assignment)
+    ''
+  end
 
   # Get the table bootstrap class depending
   # on the job status
@@ -120,16 +145,45 @@ module ApplicationHelper
   # @return [Array<String>] the label type and text
   #
   def provider_label(provider)
-    if !provider.confirmed?
+    bootstrap_label('success', I18n.t('common.active'))
+    # if !provider.confirmed?
+    #   bootstrap_label('warning', I18n.t('common.unconfirmed'))
+    # elsif !provider.active?
+    #   bootstrap_label('danger', I18n.t('common.inactive'))
+    # else
+    #   bootstrap_label('success', I18n.t('common.active'))
+    # end
+  end
+
+  # Get the table label depending
+  # on the seeker status
+  #
+  # @param [Seeker] the seeker
+  # @return [Array<String>] the label type and text
+  #
+  def seeker_label(seeker)
+    if !seeker.confirmed?
       bootstrap_label('warning', I18n.t('common.unconfirmed'))
-    elsif !provider.active?
+    elsif !seeker.active?
       bootstrap_label('danger', I18n.t('common.inactive'))
     else
       bootstrap_label('success', I18n.t('common.active'))
     end
   end
 
-  alias_method :seeker_label, :provider_label
+  # Get the table label depending
+  # on the assignment status
+  #
+  # @param [Assignment] the assignment
+  # @return [Array<String>] the label type and text
+  #
+  def assignment_label(assignment)
+    if assignment.active?
+      bootstrap_label('warning', I18n.t('common.active'))
+    else
+      bootstrap_label('success', I18n.t('common.finished'))
+    end
+  end
 
   # Get the table label depending
   # on the job status

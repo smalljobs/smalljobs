@@ -42,6 +42,7 @@ de:
     dashboard: 'Übersicht'
     sign_out: 'Abmelden'
     profile: 'Profil'
+    organization: 'Organisation'
     providers: "Anbieter"
     features: "Funktionen"
     provide_job: "Job erfassen"
@@ -267,6 +268,7 @@ de:
     back: "Zurück"
     unconfirmed: "Unbestätigt"
     active: "Aktiv"
+    finished: "Beendet"
     inactive: "Inaktiv"
     created: "Erstellt"
     available: "Verfügbar"
@@ -452,12 +454,39 @@ de:
     new_job: "Neuen Job erfassen"
     table: "Ihre Jobs:"
   broker_dashboard:
-    title: 'Übersicht'
-    lead: "Hallo Job-Vermittler. Hier findest du eine Übersicht über all deine möglichen Aktivitäten bei smalljobs.."
+    title: 'Willkommen'
+    lead: "Hallo Job-Vermittler. Hier findest du eine Übersicht über all deine möglichen Aktivitäten."
     edit_organization: 'Organisation bearbeiten'
     provider_list: 'Alle Anbieter anzeigen'
     seeker_list: 'Alle Jugendlichen anzeigen'
     job_list: 'Alle Jobs anzeigen'
+    todo: 'To do'
+    jobs: 'Jobs'
+    providers: 'Anbieter'
+    seekers: 'Jugendliche'
+    assignments: 'Einsätze'
+    todo_table:
+      date: 'Datum'
+      todo: 'Todo'
+      description: 'Beschreibung'
+    providers_table:
+      status: 'Status'
+      name: 'Anbieter'
+      address: 'Adresse'
+      plz: 'PLZ Ort'
+      jobs: 'Jobs'
+    seekers_table:
+      status: 'Status'
+      name: 'Jugendlicher'
+      address: 'Adresse'
+      plz: 'PLZ Ort'
+    assignments_table:
+      no_assignments: 'Es sind noch keine Einsatz in deiner Region erfasst.'
+      status: 'Status'
+      seeker: 'Jugendlicher'
+      provider: 'Anbieter'
+      duration_payment: 'Dauer, Lohn'
+      feedback: 'Feedback'
   seeker_dashboard:
     title: 'Übersicht'
     lead: "Hier findest du alle verfügbaren Aktionen."

@@ -1,12 +1,127 @@
-%h2= t('broker_dashboard.title')
+%h2
+  = t('broker_dashboard.title')
+  = current_broker.firstname
 %p.lead= t('broker_dashboard.lead')
 
-%ul.list-group
-  %li.list-group-item
-    = link_to t('broker_dashboard.edit_organization'), edit_broker_organization_path
-  %li.list-group-item
-    = link_to t('broker_dashboard.provider_list'), broker_providers_path
-  %li.list-group-item
-    = link_to t('broker_dashboard.seeker_list'), broker_seekers_path
-  %li.list-group-item
-    = link_to t('broker_dashboard.job_list'), broker_jobs_path
+%ul.nav.nav-pills
+  %li.active
+    %a{'data-toggle': 'tab', href: '#todo'}
+      =t('broker_dashboard.todo')
+  %li
+    %a{'data-toggle': 'tab', href: '#jobs'}
+      =t('broker_dashboard.jobs')
+  %li
+    %a{'data-toggle': 'tab', href: '#providers'}
+      =t('broker_dashboard.providers')
+  %li
+    %a{'data-toggle': 'tab', href: '#seekers'}
+      =t('broker_dashboard.seekers')
+  %li
+    %a{'data-toggle': 'tab', href: '#assignments'}
+      =t('broker_dashboard.assignments')
+
+%div.tab-content
+  %div{id: 'todo', class: 'tab-pane fade in active'}
+    .table-responsive
+      %table.table.table-striped
+        %tr
+          %th= t('broker_dashboard.todo_table.date')
+          %th= t('broker_dashboard.todo_table.todo')
+          %th= t('broker_dashboard.todo_table.description')
+  %div{id: 'jobs', class: 'tab-pane fade in'}
+    .table-responsive
+      %table.table.table-striped
+        %tr
+          %th= t('activerecord.attributes.job.status')
+          %th= t('activerecord.attributes.job.todo')
+          %th= t('activerecord.attributes.job.job')
+          %th= t('activerecord.attributes.job.provider')
+          %th
+
+        - if @jobs.size == 0
+          %tr
+            %td{ colspan: 5 }= t('broker.jobs.index.no_jobs')
+
+        - @jobs.each do |job|
+          %tr{ class: job_status_class(job) }
+            %td
+              = job_label(job)
+            %td
+            %td
+              = link_to job.title, edit_broker_job_path(job)
+            %td
+              = link_to job.provider.firstname, broker_provider_path(job.provider)
+            %td
+              %ul
+                - job.allocations.each do |allocation|
+                  %li= allocation.state
+  %div{id: 'providers', class: 'tab-pane fade in'}
+    .table-responsive
+      %table.table.table-striped
+        %tr
+          %th= t('broker_dashboard.providers_table.status')
+          %th= t('broker_dashboard.providers_table.name')
+          %th= t('broker_dashboard.providers_table.address')
+          %th= t('broker_dashboard.providers_table.plz')
+          %th= t('broker_dashboard.providers_table.jobs')
+
+        - if @providers.size == 0
+          %tr
+            %td{ colspan: 5 }= t('providers.index.no_providers')
+
+        - @providers.each do |provider|
+          %tr{ class: provider_status_class(provider) }
+            %td
+              = provider_label(provider)
+            %td= link_to provider.name, edit_broker_provider_path(provider)
+            %td= provider.street
+            %td= provider.place.zip + ' ' + provider.place.name
+            %td
+              -provider.jobs.each do |job|
+                %ul.list-unstyled
+                  %li= link_to job.title, edit_broker_job_path(job)
+  %div{id: 'seekers', class: 'tab-pane fade in'}
+    .table-responsive
+      %table.table.table-striped
+        %tr
+          %th= t('broker_dashboard.seekers_table.status')
+          %th= t('broker_dashboard.seekers_table.name')
+          %th= t('broker_dashboard.seekers_table.address')
+          %th= t('broker_dashboard.seekers_table.plz')
+
+        - if @seekers.size == 0
+          %tr
+            %td{ colspan: 4 }= t('seekers.index.no_seekers')
+
+        - @seekers.each do |seeker|
+          %tr{ class: seeker_status_class(seeker) }
+            %td
+              = seeker_label(seeker)
+            %td= link_to seeker.name, edit_broker_seeker_path(seeker)
+            %td= seeker.street
+            %td= seeker.place.zip + ' ' + seeker.place.name
+  %div{id: 'assignments', class: 'tab-pane fade in'}
+    .table-responsive
+      %table.table.table-striped
+        %tr
+          %th= t('broker_dashboard.assignments_table.status')
+          %th= t('broker_dashboard.assignments_table.seeker')
+          %th= t('broker_dashboard.assignments_table.provider')
+          %th= t('broker_dashboard.assignments_table.duration_payment')
+          %th= t('broker_dashboard.assignments_table.feedback')
+
+        - if @assignments.size == 0
+          %tr
+            %td{ colspan: 5 }= t('seekers.index.no_seekers')
+
+        - @assignments.each do |assignment|
+          %tr{ class: assignment_status_class(assignment) }
+            %td
+              = assignment_label(assignment)
+            %td
+              = link_to assignment.seeker.name, edit_broker_seeker_path(assignment.seeker)
+            %td
+              = link_to assignment.provider.name, edit_broker_provider_path(assignment.provider)
+            %td
+            %td
+              = assignment.feedback

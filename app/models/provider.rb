@@ -5,6 +5,7 @@ class Provider < ActiveRecord::Base
   # include ConfirmToggle
 
   has_many :jobs
+  has_many :assignments
   belongs_to :place, inverse_of: :providers
   belongs_to :organization
 

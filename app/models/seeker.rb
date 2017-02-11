@@ -10,6 +10,7 @@ class Seeker < ActiveRecord::Base
   has_many :proposals
   has_many :allocations
   has_many :reviews
+  has_many :assignments
 
   has_many :jobs, through: :allocations
 

@@ -5,6 +5,10 @@
       = notification
 
   %fieldset
+    .form-inputs
+      = f.input :state, as: :radio_buttons, collection: [{value: 'created', label: "Prüfen"}, {value: 'available', label: "Öffentlich"}, {value: 'connected', label: "Versteckt"}, {value: 'rated', label: "Abgeschlossen"}], label_method: ->(obj){obj[:label]}, value_method: ->(obj){obj[:value]}, label: false, inline_label: '', item_wrapper_class: 'radio-inline'
+
+  %fieldset
     %legend
       = t('legends.assignments')
       %i.fa.fa-2x.fa-link.pull-right
