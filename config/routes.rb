@@ -1,5 +1,6 @@
 require 'main_subdomain'
 require 'region_subdomain'
+require 'api_subdomain'
 
 Smalljobs::Application.routes.draw do
 
@@ -84,6 +85,26 @@ Smalljobs::Application.routes.draw do
     get '/' => 'regions#show'
   end
 
+  constraints(ApiSubdomain) do
+    post '/users/login' => 'api#login'
+    get '/users/logout' => 'api#logout'
+    post '/users/register' => 'api#register'
+    get '/users' => 'api#list_users'
+    get '/users/:id' => 'api#show_user'
+    patch '/users/:id' => 'api#update_user'
+    get '/market/regions' => 'api#list_regions'
+    get '/market/:region/organizations' => 'api#list_organizations'
+    get '/jobs' => 'api#list_jobs'
+    post '/jobs/apply' => 'api#apply'
+    get '/jobs/:id/revoke' => 'api#revoke'
+    get '/jobs/:id' => 'api#show_job'
+    get '/jobs/user/:id' => 'api#list_my_jobs'
+    post '/assignments' => 'api#create_allocation'
+    patch '/assignments/:id' => 'api#update_allocation'
+    delete '/assignments/:id' => 'api#delete_allocation'
+    get '/assignments' => 'api#list_allocations'
+    get '/assignments/:id' => 'api#show_allocation'
+  end
 
   #API
   post '/api/users/login' => 'api#login'
