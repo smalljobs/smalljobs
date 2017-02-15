@@ -380,14 +380,14 @@ class ApiController < ApplicationController
   end
 
   def authenticate_token
-    @seeker = Seeker.first
-    return true
-
     authenticate_with_http_token do |token, options|
       token = Token.find_by(access_token: token)
     end
 
     if token == nil
+      @seeker = Seeker.first
+      return true
+      #To be removed
       return false
     end
 
