@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170211121947) do
+ActiveRecord::Schema.define(version: 20170215221517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "access_tokens", force: true do |t|
+    t.string   "access_token"
+    t.string   "token_type"
+    t.string   "refresh_token"
+    t.integer  "seeker_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "admins", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -43,7 +52,12 @@ ActiveRecord::Schema.define(version: 20170211121947) do
     t.boolean  "contract_returned"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "provider_id"
+    t.datetime "start_datetime"
+    t.datetime "stop_datetime"
   end
+
+  add_index "allocations", ["provider_id"], name: "index_allocations_on_provider_id", using: :btree
 
   create_table "assignments", force: true do |t|
     t.integer  "status"
@@ -244,6 +258,7 @@ ActiveRecord::Schema.define(version: 20170211121947) do
     t.integer  "ji_user_id"
     t.integer  "organization_id"
     t.string   "login",                  default: "",         null: false
+    t.integer  "status",                 default: 1
   end
 
   add_index "seekers", ["confirmation_token"], name: "index_seekers_on_confirmation_token", unique: true, using: :btree

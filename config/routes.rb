@@ -84,5 +84,27 @@ Smalljobs::Application.routes.draw do
     get '/' => 'regions#show'
   end
 
+
+  #API
+  post '/api/users/login' => 'api#login'
+  get '/api/users/logout' => 'api#logout'
+  post '/api/users/register' => 'api#register'
+  get '/api/users' => 'api#list_users'
+  get '/api/users/:id' => 'api#show_user'
+  patch '/api/users/:id' => 'api#update_user'
+  get '/api/market/regions' => 'api#list_regions'
+  get '/api/market/:region/organizations' => 'api#list_organizations'
+  get '/api/jobs' => 'api#list_jobs'
+  post '/api/jobs/apply' => 'api#apply'
+  get '/api/jobs/:id/revoke' => 'api#revoke'
+  get '/api/jobs/:id' => 'api#show_job'
+  get '/api/jobs/user/:id' => 'api#list_my_jobs'
+  post '/api/assignments' => 'api#create_allocation'
+  patch '/api/assignments/:id' => 'api#update_allocation'
+  delete '/api/assignments/:id' => 'api#delete_allocation'
+  get '/api/assignments' => 'api#list_allocations'
+  get '/api/assignments/:id' => 'api#show_allocation'
+
+
   root 'regions#index'
 end

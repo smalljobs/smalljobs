@@ -1,6 +1,7 @@
 class Allocation < ActiveRecord::Base
   belongs_to :job
   belongs_to :seeker
+  belongs_to :provider
 
   enum state: [:application_open, :application_rejected, :proposal, :active, :finished]
 

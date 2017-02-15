@@ -537,6 +537,7 @@ DEPENDENCIES
   inherited_resources (>= 1.4.1)
   jbuilder
   jquery-rails
+  kaminari
   markerb
   mini_magick
   newrelic_rpm
