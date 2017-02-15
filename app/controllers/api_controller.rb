@@ -380,6 +380,7 @@ class ApiController < ApplicationController
   end
 
   def authenticate_token
+    token = nil
     authenticate_with_http_token do |token, options|
       token = Token.find_by(access_token: token)
     end
