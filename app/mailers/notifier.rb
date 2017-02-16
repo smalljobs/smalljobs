@@ -157,7 +157,7 @@ class Notifier < ActionMailer::Base
   # @return [Organization] the organization
   #
   def organization_for(user)
-    user.place.region.organizations.first
+    user.organization
   end
 
   # Get the brokers for the given user.
