@@ -1,8 +1,8 @@
 class Seeker < ActiveRecord::Base
 
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable, authentication_keys: [:login]
+  devise :database_authenticatable, :registerable, authentication_keys: [:login]
 
-  include ConfirmToggle
+  # include ConfirmToggle
 
   has_and_belongs_to_many :work_categories
 
@@ -25,7 +25,7 @@ class Seeker < ActiveRecord::Base
 
   validates :organization, presence: true
 
-  validates :email, email: true
+  # validates :email, email: true, allow_nil: true
   validates :phone, :mobile, phony_plausible: true, presence: true
 
   validates :date_of_birth, presence: true
@@ -40,10 +40,10 @@ class Seeker < ActiveRecord::Base
   validate :ensure_seeker_age
   validate :ensure_work_category
 
-  validates_acceptance_of :terms, allow_nil: false, on: :create
+  # validates_acceptance_of :terms, allow_nil: false, on: :create
 
-  after_save :send_agreement_email,    if: proc { |s| s.confirmed_at_changed? && s.confirmed_at_was.nil? }
-  after_save :send_registration_email, if: proc { |s| s.confirmed_at_changed? && s.confirmed_at_was.nil? }
+  # after_save :send_agreement_email,    if: proc { |s| s.confirmed_at_changed? && s.confirmed_at_was.nil? }
+  # after_save :send_registration_email, if: proc { |s| s.confirmed_at_changed? && s.confirmed_at_was.nil? }
 
   # Returns the display name
   #

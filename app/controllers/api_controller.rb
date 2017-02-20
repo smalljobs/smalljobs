@@ -37,14 +37,22 @@ class ApiController < ApplicationController
   end
 
   def register
-    seeker = Seeker.new(register_params)
+    user_params = register_params
+    user_params[:date_of_birth] = user_params[:birthdate]
+    user_params.except!(:birthdate)
+    user_params[:login] = user_params[:phone]
+    user_params[:place_id] = Place.find_by(zip: user_params[:zip]).id
+    user_params.except!(:zip)
+    user_params[:mobile] = user_params[:phone]
+    user_params[:work_category_ids] = [1]
+    seeker = Seeker.new(user_params)
     seeker.status = 1
     if !seeker.save
       render json: {code: 'users/invalid', message: seeker.errors.first}, status: 422
       return
     end
 
-    render json: {message: 'User created successfully', user: seeker, organization: seeker.organization}
+    render json: {message: 'User created successfully', user: ApiHelper::seeker_to_json(seeker), organization: ApiHelper::organization_to_json(seeker.organization, seeker.organization.regions.first.id)}
   end
 
   def list_users
