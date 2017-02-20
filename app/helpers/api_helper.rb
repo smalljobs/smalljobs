@@ -76,8 +76,8 @@ module ApiHelper
     json[:salary_type] = job.salary_type
     json[:workers] = job.manpower
     json[:date_type] = job.date_type
-    json[:start_date] = job.start_date
-    json[:end_date] = job.end_date
+    json[:start_date] = job.start_date != nil ? job.start_date.strftime('%s') : nil
+    json[:end_date] = job.end_date != nil ? job.end_date.strftime('%s') : nil
     if show_provider
       json[:provider] = provider_to_json(job.provider)
     end
