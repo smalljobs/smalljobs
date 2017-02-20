@@ -63,11 +63,13 @@ class ApiController < ApplicationController
     status = params[:status] || 1
 
     if organization_id == nil
-      Seeker.where(status: status).page(page).per(limit).find_each do |user|
+      seekers = Seeker.where(status: status).page(page).per(limit)
+      for user in seekers do
         users.append(ApiHelper::seeker_to_json(user))
       end
     else
-      Seeker.where(status: status, organization_id: organization_id).page(page).per(limit).find_each do |user|
+      seekers = Seeker.where(status: status, organization_id: organization_id).page(page).per(limit)
+      for user in seekers do
         users.append(ApiHelper::seeker_to_json(user))
       end
     end
@@ -161,21 +163,26 @@ class ApiController < ApplicationController
     jobs = []
     if organization_id == nil
       if state == nil
-        Job.all.page(page).per(limit).find_each do |job|
+        found_jobs = Job.all.page(page).per(limit)
+        for job in found_jobs do
           jobs.append(ApiHelper::job_to_json(job, job.provider.organization, show_provider, show_organization, show_assignments))
         end
       else
-        Job.where(state: state).page(page).per(limit).find_each do |job|
+        found_jobs = Job.where(state: state).page(page).per(limit)
+        for job in found_jobs do
           jobs.append(ApiHelper::job_to_json(job, job.provider.organization, show_provider, show_organization, show_assignments))
         end
       end
     else
       if state == nil
-        Job.joins(:provider).where(providers: {organization_id: organization_id}).page(page).per(limit).find_each do |job|
+        found_jobs = Job.joins(:provider).where(providers: {organization_id: organization_id}).page(page).per(limit)
+        for job in found_jobs do
+
           jobs.append(ApiHelper::job_to_json(job, job.provider.organization, show_provider, show_organization, show_assignments))
         end
       else
-        Job.joins(:provider).where(state: state, providers: {organization_id: organization_id}).page(page).per(limit).find_each do |job|
+        found_jobs = Job.joins(:provider).where(state: state, providers: {organization_id: organization_id}).page(page).per(limit)
+        for job in found_jobs do
           jobs.append(ApiHelper::job_to_json(job, job.provider.organization, show_provider, show_organization, show_assignments))
         end
       end
@@ -266,11 +273,13 @@ class ApiController < ApplicationController
 
     jobs = []
     if state == nil
-      Job.joins(:allocations).where(allocations: {seeker_id: id}).page(page).per(limit).find_each do |job|
+      found_jobs = Job.joins(:allocations).where(allocations: {seeker_id: id}).page(page).per(limit)
+      for job in found_jobs do
         jobs.append(ApiHelper::job_to_json(job, job.provider.organization, show_provider, show_organization, show_assignments))
       end
     else
-      Job.joins(:allocations).where(allocations: {seeker_id: id}, state: state).page(page).per(limit).find_each do |job|
+      found_jobs = Job.joins(:allocations).where(allocations: {seeker_id: id}, state: state).page(page).per(limit)
+      for job in found_jobs do
         jobs.append(ApiHelper::job_to_json(job, job.provider.organization, show_provider, show_organization, show_assignments))
       end
     end
@@ -349,21 +358,25 @@ class ApiController < ApplicationController
     allocations = []
     if organization_id == nil
       if state == nil
-        Allocation.all.page(page).per(limit).find_each do |allocation|
+        found_allocations = Allocation.all.page(page).per(limit)
+        for allocation in found_allocations do
           allocations.append(ApiHelper::allocation_with_data_to_json(allocation, show_provider, show_organization, show_seeker))
         end
       else
-        Allocation.where(state: state).page(page).per(limit).find_each do |allocation|
+        found_allocations = Allocation.where(state: state).page(page).per(limit)
+        for allocation in found_allocations do
           allocations.append(ApiHelper::allocation_with_data_to_json(allocation, show_provider, show_organization, show_seeker))
         end
       end
     else
       if state == nil
-        Allocation.where(organization_id: organization_id).page(page).per(limit).find_each do |allocation|
+        found_allocations = Allocation.where(organization_id: organization_id).page(page).per(limit)
+        for allocation in found_allocations do
           allocations.append(ApiHelper::allocation_with_data_to_json(allocation, show_provider, show_organization, show_seeker))
         end
       else
-        Allocation.where(organization_id: organization_id, state: state).page(page).per(limit).find_each do |allocation|
+        found_allocations = Allocation.where(organization_id: organization_id, state: state).page(page).per(limit)
+        for allocation in found_allocations do
           allocations.append(ApiHelper::allocation_with_data_to_json(allocation, show_provider, show_organization, show_seeker))
         end
       end
