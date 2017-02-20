@@ -92,7 +92,15 @@ class ApiController < ApplicationController
       return
     end
 
-    if seeker.update(update_params)
+    user_params = update_params
+    user_params[:date_of_birth] = user_params[:birthdate]
+    user_params.except!(:birthdate)
+    if user_params[:zip] != nil
+      user_params[:place] = Place.find_by(zip: user_params[:zip]).id
+      user_params.except!(:zip)
+    end
+
+    if seeker.update(user_params)
       render json: {'message': 'User updated successfully'}, status: 200
     else
       render json: {code: 'users/invalid', message: seeker.errors.first}, status: 422
