@@ -255,7 +255,7 @@ class ApiController < ApplicationController
 
   def list_my_jobs
     id = params[:id]
-    status = params[:status]
+    status = params[:status].to_i
     show_provider = true?(params[:provider])
     show_organization = true?(params[:organization])
     show_assignments = true?(params[:assignments])
@@ -263,11 +263,11 @@ class ApiController < ApplicationController
     limit = params[:limit].to_i || 10
 
     state = nil
-    if status == '0'
+    if status == 0
       state = 'available'
-    elsif status == '1'
+    elsif status == 1
       state = 'connected'
-    elsif status == '2'
+    elsif status == 2
       state = 'rated'
     end
 

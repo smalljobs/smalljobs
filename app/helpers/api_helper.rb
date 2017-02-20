@@ -69,7 +69,8 @@ module ApiHelper
 
     json[:status] = status
     json[:title] = job.title
-    json[:description] = job.description
+    json[:long_description] = job.long_description
+    json[:short_description] = job.short_description
     json[:category] = category_to_json(job.work_category)
     json[:duration] = job.duration
     json[:salary] = job.salary
