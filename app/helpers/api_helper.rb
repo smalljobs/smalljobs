@@ -171,6 +171,7 @@ module ApiHelper
   def self.seeker_to_json(seeker)
     json = {}
     json[:id] = seeker.id
+    json[:app_user_id] = seeker.app_user_id
     json[:organization_id] = seeker.organization_id
     json[:created_at] = seeker.created_at.strftime('%s')
     json[:updated_at] = seeker.updated_at.strftime('%s')
