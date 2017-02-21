@@ -277,7 +277,7 @@ de:
     create: "Job erstellen"
     destroy: "Löschen"
     destroy_title: "%{who} löschen"
-    back: "Zurück"
+    back: "zurück"
     unconfirmed: "Unbestätigt"
     active: "Aktiv"
     finished: "Beendet"

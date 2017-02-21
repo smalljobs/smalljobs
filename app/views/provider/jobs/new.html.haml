@@ -1,7 +1,4 @@
+=link_to '< ' + t('common.back'), provider_jobs_path
 %h1= t('provider.jobs.new.title')
 %p.lead= t('provider.jobs.new.lead')
-
 = render 'form'
-
-%ul.nav.nav-pills
-  %li= link_to t('common.back'), provider_jobs_path
