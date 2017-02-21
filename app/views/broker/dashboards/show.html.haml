@@ -56,6 +56,8 @@
                 - job.allocations.each do |allocation|
                   %li= allocation.state
   %div{id: 'providers', class: 'tab-pane fade in'}
+    %br
+    = link_to t('providers.index.add_new'), new_broker_provider_path, class: 'btn btn-success'
     .table-responsive
       %table.table.table-striped
         %tr

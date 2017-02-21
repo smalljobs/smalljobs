@@ -320,7 +320,7 @@ de:
     index:
       title: "Anbieter in deiner Region"
       lead: "Folgende Anbieter bieten in deiner Region Jobs an."
-      add_new: "Neuen Anbieter hinzufügen"
+      add_new: "Neuen Anbieter"
       no_providers: "Es sind noch keine Anbieter in deiner Region erfasst."
     show:
       title: "Anbieter %{name}"
