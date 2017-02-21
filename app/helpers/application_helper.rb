@@ -104,13 +104,14 @@ module ApplicationHelper
   # @return [String] the bootstrap class
   #
   def seeker_status_class(seeker)
-    if !seeker.confirmed?
-      'warning'
-    elsif !seeker.active?
-      'danger'
-    else
-      ''
-    end
+    # if !seeker.confirmed?
+    #   'warning'
+    # elsif !seeker.active?
+    #   'danger'
+    # else
+    #   ''
+    # end
+    return ''
   end
 
   # Get the table bootstrap class depending
@@ -162,13 +163,14 @@ module ApplicationHelper
   # @return [Array<String>] the label type and text
   #
   def seeker_label(seeker)
-    if !seeker.confirmed?
-      bootstrap_label('warning', I18n.t('common.unconfirmed'))
-    elsif !seeker.active?
-      bootstrap_label('danger', I18n.t('common.inactive'))
-    else
-      bootstrap_label('success', I18n.t('common.active'))
-    end
+    # if !seeker.confirmed?
+    #   bootstrap_label('warning', I18n.t('common.unconfirmed'))
+    # elsif !seeker.active?
+    #   bootstrap_label('danger', I18n.t('common.inactive'))
+    # else
+    #   bootstrap_label('success', I18n.t('common.active'))
+    # end
+    bootstrap_label('success', I18n.t('common.active'))
   end
 
   # Get the table label depending
