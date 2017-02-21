@@ -1,8 +1,7 @@
-%h1= t('providers.edit.title', name: @provider.name)
-%p.lead= t('providers.edit.lead')
+= link_to '< ' + t('common.back'), broker_dashboard_path
+%h1= t('providers.edit.title') + ' ' + @provider.name
 
 = render 'form'
 
 %ul.nav.nav-pills
   %li= link_to t('common.show'), broker_provider_path(@provider)
-  %li= link_to t('common.back'), broker_providers_path

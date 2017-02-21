@@ -32,4 +32,13 @@ ready = ->
         $('#job_salary').prop('required', true);
   ).change();
 
+  $('#provider_contract').change(->
+    if $(@)[0].checked
+      $('#provider_active_true').prop('disabled', false)
+    else
+      $('#provider_active_true').prop('disabled', true)
+      $('#provider_active_false').prop('checked', true)
+  ).change();
+
+
 $(document).ready(ready);

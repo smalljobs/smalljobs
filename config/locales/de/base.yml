@@ -329,7 +329,7 @@ de:
       title: "Neuen Anbieter erstellen"
       lead: "Erstelle hier einen neuen Anbieter, der sich per Telefon registriert oder keinen Zugriff auf das Internet hat. (du kriegst als Stellvereter sämtliche Kommunikation von ihm und kannst diese Infos dann per Post/Telefon weiterleiten)"
     edit:
-      title: "Anbieter %{name} bearbeiten"
+      title: "Anbieter"
       lead: "Hier kannst du einen Anbieter bearbeiten."
     registrations:
       new:

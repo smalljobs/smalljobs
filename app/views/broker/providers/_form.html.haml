@@ -5,11 +5,16 @@
       = notification
 
   %fieldset
+    .form-inputs
+      = f.input :active, as: :radio_buttons, collection: [{value: false, label: 'Inaktiv'}, {value: true, label: 'Aktiv'}], label_method: ->(obj){obj[:label]}, value_method: ->(obj){obj[:value]}, label: false, inline_label: '', item_wrapper_class: 'radio-inline'
+
+  %fieldset
     %legend
       = t('legends.login')
       %i.fa.fa-2x.fa-user.pull-right
 
     .form-inputs
+      = f.input :contract, required: true, label: false, inline_label: 'Verträge gesendet'
       = f.input :login, required: true, autofocus: true
 
       - if @provider.new_record?
@@ -44,13 +49,13 @@
       = f.input :contact_preference, collection: provider_contact_preferences, include_blank: false
       = f.input :contact_availability, hint: ''
 
-  %fieldset
-    %legend
-      = t('legends.admin')
-      %i.fa.fa-2x.fa-lock.pull-right
-
-    .form-inputs
-      = f.input :active
+  -#%fieldset
+  -#  %legend
+  -#    = t('legends.admin')
+  -#    %i.fa.fa-2x.fa-lock.pull-right
+  -#
+  -#  .form-inputs
+  -#    = f.input :active
 
   .form-actions
     - if @provider.new_record?
