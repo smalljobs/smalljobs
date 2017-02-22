@@ -42,7 +42,13 @@ class ApiController < ApplicationController
     user_params[:date_of_birth] = DateTime.strptime(user_params[:birthdate], '%s')
     user_params.except!(:birthdate)
     user_params[:login] = user_params[:phone]
-    user_params[:place_id] = Place.find_by(zip: user_params[:zip]).id
+    place = Place.find_by(zip: user_params[:zip])
+    if place == nil
+      render json: {code: 'users/invalid', message: 'Place by zip code not found'}, status: 422
+      return
+    end
+
+    user_params[:place_id] = place.id
     user_params.except!(:city)
     user_params.except!(:zip)
     user_params[:mobile] = user_params[:phone]
