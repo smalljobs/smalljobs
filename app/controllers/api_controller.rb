@@ -42,15 +42,6 @@ class ApiController < ApplicationController
     user_params[:date_of_birth] = DateTime.strptime(user_params[:birthdate], '%s')
     user_params.except!(:birthdate)
     user_params[:login] = user_params[:phone]
-    place = Place.find_by(zip: user_params[:zip])
-    if place == nil
-      render json: {code: 'users/invalid', message: 'Place by zip code not found'}, status: 422
-      return
-    end
-
-    user_params[:place_id] = place.id
-    user_params.except!(:city)
-    user_params.except!(:zip)
     user_params[:mobile] = user_params[:phone]
     user_params[:work_category_ids] = user_params[:categories]
     user_params.except!(:categories)
@@ -105,11 +96,15 @@ class ApiController < ApplicationController
     end
 
     user_params = update_params
-    user_params[:date_of_birth] = user_params[:birthdate]
+    user_params[:date_of_birth] = DateTime.strptime(user_params[:birthdate], '%s')
     user_params.except!(:birthdate)
-    if user_params[:zip] != nil
-      user_params[:place] = Place.find_by(zip: user_params[:zip]).id
-      user_params.except!(:zip)
+    if user_params[:categories] != nil
+      user_params[:work_category_ids] = user_params[:categories]
+      user_params.except!(:categories)
+    end
+
+    if user_params[:password] != nil
+      user_params[:password_confirmation] = user_params[:password]
     end
 
     if seeker.update(user_params)
@@ -449,10 +444,10 @@ class ApiController < ApplicationController
   end
 
   def register_params
-    params.permit(:phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :city, :zip, :street, :sex, categories: [])
+    params.permit(:phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id, :street, :sex, categories: [])
   end
 
   def update_params
-    params.permit(:phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :city, :zip, :street, :sex, :status)
+    params.permit(:phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id, :street, :sex, :status, categories: [])
   end
 end
