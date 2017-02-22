@@ -449,7 +449,7 @@ class ApiController < ApplicationController
   end
 
   def register_params
-    params.permit(:phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :city, :zip, :street, :sex, :categories)
+    params.permit(:phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :city, :zip, :street, :sex, categories: [])
   end
 
   def update_params
