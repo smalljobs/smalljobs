@@ -1,5 +1,6 @@
 class ApiController < ApplicationController
   before_action :authenticate, except: [:login, :register]
+  skip_before_filter :verify_authenticity_token
 
   def login
     seeker = Seeker.find_by(phone: login_params[:phone])
