@@ -3,10 +3,7 @@ class ApiController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   def login
-    seeker = Seeker.find_by(login: login_params[:phone])
-    if seeker == nil
-      seeker = Seeker.find_by(phone: login_params[:phone])
-    end
+    seeker = Seeker.find_by(login: login_params[:phone]) || Seeker.find_by(phone: login_params[:phone])
 
     if seeker == nil
       render json: {code: 'users/not_found', message: 'User not found'}, status: 404
