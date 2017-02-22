@@ -55,7 +55,8 @@ class ApiController < ApplicationController
     user_params[:work_category_ids] = user_params[:categories]
     user_params.except![:categories]
     user_params[:password_confirmation] = user_params[:password]
-    render json: {code: 'users/invalid', message: seeker.errors.first, user: user_params}, status: 422
+    render json: {code: 'users/invalid',  user: user_params}, status: 422
+    return
     seeker = Seeker.new(user_params)
     seeker.status = 1
     if !seeker.save
