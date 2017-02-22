@@ -29,6 +29,8 @@
           %th= t('broker_dashboard.todo_table.todo')
           %th= t('broker_dashboard.todo_table.description')
   %div{id: 'jobs', class: 'tab-pane fade in'}
+    %br
+    = link_to t('broker.jobs.index.add_new'), new_broker_job_path, class: 'btn btn-success'
     .table-responsive
       %table.table.table-striped
         %tr
@@ -83,6 +85,8 @@
                 %ul.list-unstyled
                   %li= link_to job.title, edit_broker_job_path(job)
   %div{id: 'seekers', class: 'tab-pane fade in'}
+    %br
+    = link_to t('seekers.index.add_new'), new_broker_seeker_path, class: 'btn btn-success'
     .table-responsive
       %table.table.table-striped
         %tr

@@ -41,8 +41,8 @@
     .form-inputs
       = f.input :phone
 
-      - if @seeker.pending_reconfirmation?
-        %p= t('devise_views.wait_confirmation', email: @seeker.unconfirmed_email)
+      -#- if @seeker.pending_reconfirmation?
+      -#  %p= t('devise_views.wait_confirmation', email: @seeker.unconfirmed_email)
 
       = f.input :mobile
       = f.input :contact_preference, collection: seeker_contact_preferences, include_blank: false
@@ -56,14 +56,14 @@
     .form-inputs
       = f.association :work_categories, as: :check_boxes
 
-  %fieldset
-    %legend
-      = t('legends.admin')
-      %i.fa.fa-2x.fa-lock.pull-right
-
-    .form-inputs
-      = f.input :active
-      = f.input :confirmed, as: :boolean
+  -#%fieldset
+  -#  %legend
+  -#    = t('legends.admin')
+  -#    %i.fa.fa-2x.fa-lock.pull-right
+  -#
+  -#  .form-inputs
+      -#= f.input :active
+      -#= f.input :confirmed, as: :boolean
 
   .form-actions
     - if @seeker.new_record?
