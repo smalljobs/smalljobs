@@ -97,8 +97,11 @@ class ApiController < ApplicationController
     end
 
     user_params = update_params
-    user_params[:date_of_birth] = DateTime.strptime(user_params[:birthdate], '%s')
-    user_params.except!(:birthdate)
+    if user_params[:birthdate] != nil
+      user_params[:date_of_birth] = DateTime.strptime(user_params[:birthdate], '%s')
+      user_params.except!(:birthdate)
+    end
+
     if user_params[:categories] != nil
       user_params[:work_category_ids] = user_params[:categories]
       user_params.except!(:categories)
