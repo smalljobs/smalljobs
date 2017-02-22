@@ -58,7 +58,7 @@ class ApiController < ApplicationController
     seeker = Seeker.new(user_params)
     seeker.status = 1
     if !seeker.save
-      render json: {code: 'users/invalid', message: seeker.errors.first}, status: 422
+      render json: {code: 'users/invalid', message: seeker.errors.first, categories: user_params[:work_category_ids]}, status: 422
       return
     end
 
