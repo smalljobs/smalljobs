@@ -184,7 +184,17 @@ module ApiHelper
     json[:status] = seeker.status
     json[:sex] = seeker.sex
     json[:place] = place_to_json(seeker.place)
+    json[:categories] = []
+    for category in seeker.work_categories
+      json[:categories].append(category_to_json(category))
+    end
 
     return json
+  end
+
+  def self.category_to_json(category)
+    json = {}
+    json[:id] = category.id
+    json[:name] = category.name
   end
 end
