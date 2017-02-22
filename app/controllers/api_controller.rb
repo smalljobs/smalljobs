@@ -52,9 +52,10 @@ class ApiController < ApplicationController
     user_params.except!(:city)
     user_params.except!(:zip)
     user_params[:mobile] = user_params[:phone]
-    user_params[:work_category_ids] = user_params['categories']
-    user_params.except!['categories']
+    user_params[:work_category_ids] = user_params[:categories]
+    user_params.except![:categories]
     user_params[:password_confirmation] = user_params[:password]
+    render json: {code: 'users/invalid', message: seeker.errors.first, user: user_params}, status: 422
     seeker = Seeker.new(user_params)
     seeker.status = 1
     if !seeker.save
