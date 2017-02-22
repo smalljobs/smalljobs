@@ -39,7 +39,7 @@ class ApiController < ApplicationController
 
   def register
     user_params = register_params
-    user_params[:date_of_birth] = DateTime.parse(user_params[:birthdate])
+    user_params[:date_of_birth] = DateTime.strptime(user_params[:birthdate], '%s')
     user_params.except!(:birthdate)
     user_params[:login] = user_params[:phone]
     user_params[:place_id] = Place.find_by(zip: user_params[:zip]).id
