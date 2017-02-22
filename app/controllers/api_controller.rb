@@ -53,6 +53,7 @@ class ApiController < ApplicationController
     user_params.except!(:zip)
     user_params[:mobile] = user_params[:phone]
     user_params[:work_category_ids] = [1]
+    user_params[:password_confirmation] = user_params[:password]
     seeker = Seeker.new(user_params)
     seeker.status = 1
     if !seeker.save
