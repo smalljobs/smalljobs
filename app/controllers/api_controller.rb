@@ -134,10 +134,13 @@ class ApiController < ApplicationController
   end
 
   def list_organizations
-    region = Region.find_by(id: params[:region])
-    if region == nil
-      render json: {code: 'market/not_found', message: 'Region not found'}, status: 404
-      return
+    region = nil
+    if params[:region] != nil
+      region = Region.find_by(id: params[:region])
+      if region == nil
+        render json: {code: 'market/not_found', message: 'Region not found'}, status: 404
+        return
+      end
     end
 
     active = params[:active]
@@ -148,13 +151,30 @@ class ApiController < ApplicationController
     end
 
     organizations = []
-    for organization in region.organizations
-      if organization.active == active
-        organizations.append(ApiHelper::organization_to_json(organization, region.id))
+    if region != nil
+      for organization in region.organizations
+        if organization.active == active
+          organizations.append(ApiHelper::organization_to_json(organization, region.id))
+        end
+      end
+    else
+      Organization.where(active: active).find_each do |organization|
+        organizations.append(ApiHelper::organization_to_json(organization, organization.regions.first.id))
       end
     end
 
+
     render json: organizations, status: 200
+  end
+
+  def show_organization
+    organization = Organization.find_by(id: params[:id])
+    if organization == nil
+      render json: {code: 'market/not_found', message: 'Organization not found'}, status: 404
+      return
+    end
+
+    render json: ApiHelper::organization_to_json(organization, organization.regions.first.id), status: 200
   end
 
   def list_jobs
