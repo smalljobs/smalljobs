@@ -123,6 +123,16 @@ class ApiController < ApplicationController
     render json: regions, status: 200
   end
 
+  def show_region
+    region = Region.find_by(id: params[:id])
+    if region == nil
+      render json: {code: 'market/not_found', message: 'Region not found'}, status: 404
+      return
+    end
+
+    render json: ApiHelper::region_to_json(region), status: 200
+  end
+
   def list_organizations
     region = Region.find_by(id: params[:region])
     if region == nil
