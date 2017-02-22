@@ -125,7 +125,7 @@ de:
       index:
         title: "Alle Jobs"
         lead: "Hier siehst du eine Übersicht aller vorhandender Jobs."
-        add_new: "Neuen Job hinzufügen"
+        add_new: "Neuen Job"
         no_jobs: "Es sind noch keine Jobs in deiner Region erfasst"
       proposals:
         new:
@@ -354,7 +354,7 @@ de:
     index:
       title: "Jugendlich in deiner Region"
       lead: "Hier findest du die registrierten Jugendlichen in deiner Region."
-      add_new: "Neuen Jugendlichen hinzufügen"
+      add_new: "Neuen Jugendlichen"
       no_seekers: "Es sind noch keine Jugendlichen in deiner Region erfasst."
     show:
       title: "Jugenlicher %{name}"
