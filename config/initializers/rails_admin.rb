@@ -361,6 +361,8 @@ RailsAdmin.config do |config|
         field :work_category
         field :title
         field :description
+        field :short_description
+        field :long_description
       end
 
       group :date do
