@@ -7,10 +7,10 @@ module ApplicationHelper
   #
   def provider_contact_preferences
     [
-      [I18n.t('contacts.postal'), 'postal'],
-      [I18n.t('contacts.phone'), 'phone'],
-      [I18n.t('contacts.email'), 'email'],
-      [I18n.t('contacts.mobile'), 'mobile']
+        [I18n.t('contacts.postal'), 'postal'],
+        [I18n.t('contacts.phone'), 'phone'],
+        [I18n.t('contacts.email'), 'email'],
+        [I18n.t('contacts.mobile'), 'mobile']
     ]
   end
 
@@ -21,9 +21,9 @@ module ApplicationHelper
   #
   def seeker_sex
     [
-      [I18n.t('sex.male'), 'male'],
-      [I18n.t('sex.female'), 'female'],
-      [I18n.t('sex.other'), 'other']
+        [I18n.t('sex.male'), 'male'],
+        [I18n.t('sex.female'), 'female'],
+        [I18n.t('sex.other'), 'other']
     ]
   end
 
@@ -34,10 +34,10 @@ module ApplicationHelper
   #
   def seeker_contact_preferences
     [
-      [I18n.t('contacts.whatsapp'), 'whatsapp'],
-      [I18n.t('contacts.mobile'), 'mobile'],
-      [I18n.t('contacts.email'), 'email'],
-      [I18n.t('contacts.phone'), 'phone']
+        [I18n.t('contacts.whatsapp'), 'whatsapp'],
+        [I18n.t('contacts.mobile'), 'mobile'],
+        [I18n.t('contacts.email'), 'email'],
+        [I18n.t('contacts.phone'), 'phone']
     ]
   end
 
@@ -48,9 +48,9 @@ module ApplicationHelper
   #
   def job_date_types
     [
-      [I18n.t('jobs.date_types.agreement'), 'agreement'],
-      [I18n.t('jobs.date_types.date'), 'date'],
-      [I18n.t('jobs.date_types.date_range'), 'date_range']
+        [I18n.t('jobs.date_types.agreement'), 'agreement'],
+        [I18n.t('jobs.date_types.date'), 'date'],
+        [I18n.t('jobs.date_types.date_range'), 'date_range']
     ]
   end
 
@@ -61,9 +61,9 @@ module ApplicationHelper
   #
   def job_salary_types
     [
-      [I18n.t('jobs.salary_types.hourly_per_age'), 'hourly_per_age'],
-      [I18n.t('jobs.salary_types.hourly'), 'hourly'],
-      [I18n.t('jobs.salary_types.fixed'), 'fixed']
+        [I18n.t('jobs.salary_types.hourly_per_age'), 'hourly_per_age'],
+        [I18n.t('jobs.salary_types.hourly'), 'hourly'],
+        [I18n.t('jobs.salary_types.fixed'), 'fixed']
     ]
   end
 
@@ -74,9 +74,12 @@ module ApplicationHelper
   #
   def flash_class(kind)
     case kind
-    when :notice then 'alert-info'
-    when :error then 'alert-error'
-    when :alert then 'alert-warning'
+      when :notice then
+        'alert-info'
+      when :error then
+        'alert-error'
+      when :alert then
+        'alert-warning'
     end
   end
 
@@ -216,14 +219,16 @@ module ApplicationHelper
   #
   def job_label(job)
     case job.state
-    when 'created'
-      bootstrap_label('warning', I18n.t('common.created'))
-    when 'available'
-      bootstrap_label('info', I18n.t('common.available'))
-    when 'connected'
-      bootstrap_label('primary', I18n.t('common.connected'))
-    when 'rated'
-      bootstrap_label('success', I18n.t('common.rated'))
+      when 'hidden'
+        bootstrap_label('warning', I18n.t('common.hidden'))
+      when 'public'
+        bootstrap_label('info', I18n.t('common.public'))
+      when 'running'
+        bootstrap_label('info', I18n.t('common.available'))
+      when 'feedback'
+        bootstrap_label('primary', I18n.t('common.feedback'))
+      when 'finished'
+        bootstrap_label('success', I18n.t('common.completed'))
     end
   end
 
@@ -243,7 +248,7 @@ module ApplicationHelper
   def current_filter_class(filter = '')
     p = params.except(:action, :controller)
     active = p.has_key?(filter) || (filter.empty? && p.empty?)
-    active ? 'active' :  nil
+    active ? 'active' : nil
   end
 
 end
