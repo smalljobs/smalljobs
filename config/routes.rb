@@ -101,11 +101,11 @@ Smalljobs::Application.routes.draw do
     get '/jobs/:id/revoke' => 'api#revoke'
     get '/jobs/:id' => 'api#show_job'
     get '/jobs/user/:id' => 'api#list_my_jobs'
-    post '/assignments' => 'api#create_allocation'
-    patch '/assignments/:id' => 'api#update_allocation'
-    delete '/assignments/:id' => 'api#delete_allocation'
-    get '/assignments' => 'api#list_allocations'
-    get '/assignments/:id' => 'api#show_allocation'
+    post '/assignments' => 'api#create_assignment'
+    patch '/assignments/:id' => 'api#update_assignment'
+    delete '/assignments/:id' => 'api#delete_assignment'
+    get '/assignments' => 'api#list_assignments'
+    get '/assignments/:id' => 'api#show_assignment'
   end
 
   #API
@@ -124,11 +124,11 @@ Smalljobs::Application.routes.draw do
   get '/api/jobs/:id/revoke' => 'api#revoke'
   get '/api/jobs/:id' => 'api#show_job'
   get '/api/jobs/user/:id' => 'api#list_my_jobs'
-  post '/api/assignments' => 'api#create_allocation'
-  patch '/api/assignments/:id' => 'api#update_allocation'
-  delete '/api/assignments/:id' => 'api#delete_allocation'
-  get '/api/assignments' => 'api#list_allocations'
-  get '/api/assignments/:id' => 'api#show_allocation'
+  post '/api/assignments' => 'api#create_assignment'
+  patch '/api/assignments/:id' => 'api#update_assignment'
+  delete '/api/assignments/:id' => 'api#delete_assignment'
+  get '/api/assignments' => 'api#list_assignments'
+  get '/api/assignments/:id' => 'api#show_assignment'
 
 
   root 'regions#index'

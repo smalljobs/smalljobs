@@ -65,9 +65,9 @@ class ApiController < ApplicationController
   def list_users
     users = []
     organization_id = params[:organization_id]
-    page = params[:page] || 1
-    limit = params[:limit] || 10
-    status = params[:status] || 1
+    page = params[:page] == nil ? 1 : params[:page].to_i
+    limit = params[:limit] == nil ? 10 : params[:limit].to_i
+    status = params[:status] == nil ? 1 : params[:status].to_i
 
     if organization_id == nil
       seekers = Seeker.where(status: status).page(page).per(limit)
@@ -188,15 +188,12 @@ class ApiController < ApplicationController
 
   def list_jobs
     organization_id = params[:organization_id]
-    status = params[:status]
-    if status != nil
-      status = status.to_i
-    end
+    status = params[:status] == nil ? nil : params[:status].to_i
     show_provider = true?(params[:provider])
     show_organization = true?(params[:organization])
     show_assignments = true?(params[:assignments])
-    page = params[:page].to_i || 1
-    limit = params[:limit].to_i || 10
+    page = params[:page] == nil ? 1 : params[:page].to_i
+    limit = params[:limit] == nil ? 10 : params[:limit].to_i
 
     state = Job::state_from_integer(status)
 
@@ -301,12 +298,12 @@ class ApiController < ApplicationController
 
   def list_my_jobs
     id = params[:id]
-    status = params[:status].to_i
+    status = params[:status] == nil ? nil : params[:status].to_i
     show_provider = true?(params[:provider])
     show_organization = true?(params[:organization])
     show_assignments = true?(params[:assignments])
-    page = params[:page].to_i || 1
-    limit = params[:limit].to_i || 10
+    page = params[:page] == nil ? 1 : params[:page].to_i
+    limit = params[:limit] == nil ? 10 : params[:limit].to_i
 
     state = nil
     if status == 0
@@ -333,116 +330,135 @@ class ApiController < ApplicationController
     render json: jobs, status: 200
   end
 
-  def create_allocation
-    allocation = Allocation.new(state: :application_open, job_id: params[:job_id], seeker_id: params[:user_id], provider_id: params[:provider_id], feedback_seeker: params[:message], start_datetime: params[:start_timestamp])
-    if !allocation.save
-      render json: {code: 'assignments/invalid', message: allocation.errors.first}, status: 422
+  def create_assignment
+    start_datetime = params[:start_timestamp]
+    if start_datetime != nil
+      start_datetime = DateTime.strptime(start_datetime, '%s')
+    end
+
+    assignment = Assignment.new(status: :active, job_id: params[:job_id], seeker_id: params[:user_id], provider_id: params[:provider_id], feedback: params[:message], start_time: start_datetime)
+    if !assignment.save
+      render json: {code: 'assignments/invalid', message: assignment.errors.first}, status: 422
       return
     end
 
-    render json: ApiHelper::allocation_to_json(allocation), status: 201
+    render json: ApiHelper::assignment_to_json(assignment), status: 201
   end
 
-  def update_allocation
-    allocation = Allocation.find_by(id: params[:id])
-    if allocation == nil
+  def update_assignment
+    assignment = Assignment.find_by(id: params[:id])
+    if assignment == nil
       render json: {code: 'assignments/not_found', message: 'Assignment not found'}, status: 404
       return
     end
 
     data = {}
     if params[:status] != nil
-      data[:status] = params[:status]
+      data[:status] = params[:status].to_i
+      if data[:status] == 0
+        data[:status] = :active
+      else
+        data[:status] = :finished
+      end
     end
 
     if params[:message] != nil
-      data[:feedback_seeker] = params[:message]
+      data[:feedback] = params[:message]
     end
 
     if params[:start_timestamp] != nil
-      data[:start_datetime] = params[:start_timestamp]
+      data[:start_time] = DateTime.strptime(params[:start_timestamp], '%s')
     end
 
     if params[:stop_timestamp] != nil
-      data[:stop_datetime] = params[:stop_timestamp]
+      data[:end_time] = DateTime.strptime(params[:stop_timestamp], '%s')
     end
 
-    if allocation.update(data)
-      render json: ApiHelper::allocation_to_json(allocation), status: 200
+    if params[:duration] != nil
+      data[:duration] = params[:duration].to_i
+    end
+
+    if assignment.update(data)
+      render json: ApiHelper::assignment_to_json(assignment), status: 200
     else
-      render json: {code: 'assignments/invalid', message: allocation.errors.first}, status: 422
+      render json: {code: 'assignments/invalid', message: assignment.errors.first}, status: 422
     end
   end
 
-  def delete_allocation
-    allocation = Allocation.find_by(id: params[:id])
-    if allocation == nil
+  def delete_assignment
+    assignment = Assignment.find_by(id: params[:id])
+    if assignment == nil
       render json: {code: 'assignments/not_found', message: 'Assignment not found'}, status: 404
       return
     end
 
-    allocation.destroy!
+    if assignment.seeker_id != @seeker.id
+      render json: {code: 'assignments/invalid', message: 'Assignment not owned'}, status: 422
+      return
+    end
+
+    assignment.destroy!
     render json: {message: 'Assignment deleted.', id: params[:id]}
   end
 
-  def list_allocations
+  def list_assignments
     organization_id = params[:organization_id]
-    status = params[:status]
+    status = params[:status] == nil ? nil : params[:status].to_i
     show_provider = true?(params[:provider])
     show_organization = true?(params[:organization])
     show_seeker = true?(params[:user])
-    page = params[:page].to_i || 1
-    limit = params[:limit].to_i || 10
+    page = params[:page] == nil ? 1 : params[:page].to_i
+    limit = params[:limit] == nil ? 10 : params[:limit].to_i
 
     state = nil
-    if status == '0'
-      state = 4
-    elsif status == '1'
-      state = 5
+    if status == 0
+      state = 0
+    elsif status == 1
+      state = 1
     end
 
-    allocations = []
+    assignments = []
     if organization_id == nil
       if state == nil
-        found_allocations = Allocation.all.page(page).per(limit)
-        for allocation in found_allocations do
-          allocations.append(ApiHelper::allocation_with_data_to_json(allocation, show_provider, show_organization, show_seeker))
+        found_assignments = Assignment.all.page(page).per(limit)
+        for assignment in found_assignments do
+          assignments.append(ApiHelper::assignment_with_data_to_json(assignment, show_provider, show_organization, show_seeker))
         end
       else
-        found_allocations = Allocation.where(state: state).page(page).per(limit)
-        for allocation in found_allocations do
-          allocations.append(ApiHelper::allocation_with_data_to_json(allocation, show_provider, show_organization, show_seeker))
+        found_assignments = Assignment.where(status: state).page(page).per(limit)
+        for assignment in found_assignments do
+          assignments.append(ApiHelper::assignment_with_data_to_json(assignment, show_provider, show_organization, show_seeker))
         end
       end
     else
       if state == nil
-        found_allocations = Allocation.where(organization_id: organization_id).page(page).per(limit)
-        for allocation in found_allocations do
-          allocations.append(ApiHelper::allocation_with_data_to_json(allocation, show_provider, show_organization, show_seeker))
+        found_assignments = Assignment.joins(:provider).where(providers: {organization_id: organization_id}).page(page).per(limit)
+        for assignment in found_assignments do
+          assignments.append(ApiHelper::assignment_with_data_to_json(assignment, show_provider, show_organization, show_seeker))
         end
       else
-        found_allocations = Allocation.where(organization_id: organization_id, state: state).page(page).per(limit)
-        for allocation in found_allocations do
-          allocations.append(ApiHelper::allocation_with_data_to_json(allocation, show_provider, show_organization, show_seeker))
+        found_assignments = Assignment.joins(:provider).where(providers: {organization_id: organization_id}, status: state).page(page).per(limit)
+        for assignment in found_assignments do
+          assignments.append(ApiHelper::assignment_with_data_to_json(assignment, show_provider, show_organization, show_seeker))
         end
       end
     end
 
-    render json: allocations, status: 200
+    render json: assignments, status: 200
   end
 
-  def show_allocation
+  def show_assignment
     id = params[:id]
     show_provider = true?(params[:provider])
     show_organization = true?(params[:organization])
     show_seeker = true?(params[:user])
-    allocation = Allocation.find_by(id: id)
-    if allocation == nil
+    assignment = Assignment.find_by(id: id)
+    if assignment == nil
       render json: {code: 'assignments/not_found', message: 'Assignment not found'}, status: 404
       return
     end
 
-    render json: ApiHelper::allocation_with_data_to_json(allocation, show_provider, show_organization, show_seeker)
+    render json: ApiHelper::assignment_with_data_to_json(assignment, show_provider, show_organization, show_seeker)
   end
 
   protected

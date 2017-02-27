@@ -360,6 +360,7 @@ RailsAdmin.config do |config|
       field :feedback
       field :start_time
       field :end_time
+      field :duration
     end
   end
 

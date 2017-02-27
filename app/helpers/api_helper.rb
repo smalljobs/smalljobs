@@ -93,19 +93,18 @@ module ApiHelper
   def self.assignment_to_json(assignment)
     json = {}
     json[:id] = assignment.id
-    json[:status] = assignment.status.to_i
+    if assignment.active?
+      json[:status] = 0
+    else
+      json[:status] = 1
+    end
     json[:message] = assignment.feedback
     json[:job_id] = assignment.job.id
     json[:user_id] = assignment.seeker.id
     json[:provider_id] = assignment.provider.id
     json[:start_datetime] = assignment.start_time != nil ? assignment.start_time.strftime('%s') : nil
     json[:stop_datetime] = assignment.end_time != nil ? assignment.end_time.strftime('%s') : nil
-    duration = nil
-    if assignment.start_time != nil &&  assignment.end_time != nil
-      duration = assignment.end_time - assignment.start_time
-    end
-
-    json[:duration] = duration
+    json[:duration] = assignment.duration
     json[:payment] = assignment.job.salary # TODO change
     return json
   end
@@ -145,6 +144,39 @@ module ApiHelper
     end
 
     json[:duration] = duration
+    return json
+  end
+
+  def self.assignment_with_data_to_json(assignment, show_provider, show_organization, show_seeker)
+    json = {}
+    json[:id] = assignment.id
+    if assignment.active?
+      json[:status] = 0
+    else
+      json[:status] = 1
+    end
+
+    json[:message] = assignment.feedback
+    json[:job_id] = assignment.job.id
+    json[:user_id] = assignment.seeker.id
+    json[:provider_id] = assignment.provider.id
+    json[:start_datetime] = assignment.start_time != nil ? assignment.start_time.strftime('%s') : nil
+    json[:stop_datetime] = assignment.end_time != nil ? assignment.end_time.strftime('%s') : nil
+    json[:duration] = assignment.duration
+    json[:payment] = assignment.job.salary # TODO change
+
+    if show_provider
+      json[:provider] = provider_to_json(assignment.provider)
+    end
+
+    if show_organization
+      json[:organization] = organization_to_json(assignment.provider.organization, assignment.provider.organization.regions.first.id)
+    end
+
+    if show_seeker
+      json[:user] =seeker_to_json(assignment.seeker)
+    end
+
     return json
   end
 
