@@ -264,7 +264,13 @@ class ApiController < ApplicationController
       return
     end
 
-    allocation.destroy!
+    if allocation.cancelled?
+      render json: {code: 'jobs/cancelled', message: 'Application already cancelled'}, status: 422
+      return
+    end
+
+    allocation.state = :cancelled
+    allocation.save!
     render json: {message: 'Success.'}, status: 200
   end
 
@@ -448,18 +454,17 @@ class ApiController < ApplicationController
 
   def authenticate_token
     token = nil
-    authenticate_with_http_token do |token, options|
-      token = Token.find_by(access_token: token)
+    authorization_header = request.authorization()
+    if authorization_header != nil
+      token = authorization_header.split(" ")[1]
+      token = AccessToken.find_by(access_token: token)
     end
 
     if token == nil
-      @seeker = Seeker.first
-      return true
-      #To be removed
       return false
     end
 
-    expiration_date = token.created_at + 30
+    expiration_date = token.created_at + 30.days
     if expiration_date < DateTime.now
       return false
     end
