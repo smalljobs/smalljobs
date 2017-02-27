@@ -3,83 +3,90 @@
     = image_tag(@organization.logo.url(:web, :normal), alt: @organization.name)
   - else
     %h1= @organization.name
+  %p.lead
+    = "Die Jobbörse für Sackgeldjobs und eitan aliquip quis cardigan american apparel, butcher voluptate nisi qui cardigan american apparel."
+    = link_to "Mehr über uns", about_us_path
 
-  .row.signup
-    .col-lg-6
-      = link_to t('regions.show.signup_provider'), new_provider_registration_path, class: 'btn btn-lg btn-success'
-    .col-lg-6.top-buffer
-      = link_to t('regions.show.signup_seeker'), new_seeker_registration_path, class: 'btn btn-lg btn-success'
 
-%h1= @organization.name
-%p.lead= @organization.description
-%p.places= t('regions.show.places', places: @organization.places.pluck(:name).to_sentence)
+%h1= "Job anbieten"
+%p.lead= "Sie haben einen Job zu vergeben? orem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna"
+= link_to "Job ausschreiben", new_provider_registration_path, class: 'btn btn-success'
 
-.row
-  .col-lg-6
+%br
+%br
+%br
+%h1= "Auf Job bewerben"
+%p.lead= "Offene Jobs"
+.table-responsive
+  %table.table.table-striped
+    - if @jobs.size == 0
+      %tr
+        %td{ colspan: 2 }= t('provider.jobs.index.no_jobs')
 
-    %h2= t('regions.show.address')
-    %address
-      = @organization.name
+    - @jobs.each do |job|
+      %tr
+        %td
+          = link_to job.title, provider_job_path(job)
+        %td
+          = job.place.name
+
+%br
+%br
+%h1= "Kontakt"
+%h2= t('regions.show.address')
+%address
+  = @organization.name
+  %br
+  = @organization.street
+  %br
+
+  = @organization.place.zip + ' ' + @organization.place.name
+  %br
+  %br
+
+  - if @organization.phone
+    %abbr{ title: t('activerecord.attributes.provider.phone') } T:
+    = @organization.phone.phony_formatted
+    %br
+
+  - if @organization.email
+    %a{ href: 'mailto:#' }= @organization.email
+    %br
+
+  - if @organization.website
+    = link_to @organization.website, @organization.website
+    %br
+
+%h2= "Orte"
+%p.places= @organization.places.pluck(:name).to_sentence
+
+%h2= t('regions.show.people')
+- @organization.brokers.order(:lastname, :firstname).each_with_index do |broker, index|
+  - if index > 0
+    %hr
+
+  %h4= broker.name
+
+  %p
+    - if broker.phone
+      %abbr{ title: t('activerecord.attributes.provider.phone') } T:
+      = broker.phone.phony_formatted
       %br
-      = @organization.street
-      %br
 
-      = @organization.place.zip + ' ' + @organization.place.name
-      %br
-      %br
+    - if broker.mobile
+      %abbr{ title: t('activerecord.attributes.provider.mobile') } M:
+      = broker.mobile.phony_formatted
 
-      - if @organization.phone
-        %abbr{ title: t('activerecord.attributes.provider.phone') } T:
-        = @organization.phone.phony_formatted
-        %br
+  - if broker.contact_availability.present?
+    %p.available
+      = succeed ':' do
+        %strong= t('regions.show.available')
 
-      - if @organization.email
-        %a{ href: 'mailto:#' }= @organization.email
-        %br
+      = broker.contact_availability
 
-      - if @organization.website
-        = link_to @organization.website, @organization.website
-        %br
+  %p.regions
+    = succeed ':' do
+      %strong= t('regions.show.responsible')
 
-  .col-lg-6
-
-    %h2= t('regions.show.people')
-    - @organization.brokers.order(:lastname, :firstname).each_with_index do |broker, index|
-      - if index > 0
-        %hr
-
-      %h4= broker.name
-
-      %p
-        - if broker.phone
-          %abbr{ title: t('activerecord.attributes.provider.phone') } T:
-          = broker.phone.phony_formatted
-          %br
-
-        - if broker.mobile
-          %abbr{ title: t('activerecord.attributes.provider.mobile') } M:
-          = broker.mobile.phony_formatted
-
-      - if broker.contact_availability.present?
-        %p.available
-          = succeed ':' do
-            %strong= t('regions.show.available')
-
-          = broker.contact_availability
-
-      %p.regions
-        = succeed ':' do
-          %strong= t('regions.show.responsible')
-
-        = broker.places.pluck(:name).to_sentence
-
-%h1= t('regions.show.jobs')
-
-- @jobs.each_slice(2) do |left, right|
-  .row
-    .col-lg-6
-      = render('shared/job', job: left)
-    - if right.present?
-      .col-lg-6
-        = render('shared/job', job: right)
+    = broker.places.pluck(:name).to_sentence
 
