@@ -30,7 +30,9 @@ class ApiController < ApplicationController
   end
 
   def logout
-    authenticate_or_request_with_http_token do |token, options|
+    authorization_header = request.authorization()
+    if authorization_header != nil
+      token = authorization_header.split(" ")[1]
       token = AccessToken.find_by(access_token: token)
       token.destroy!
     end
@@ -244,7 +246,7 @@ class ApiController < ApplicationController
       return
     end
 
-    allocation = Allocation.new(job_id: id, seeker_id: @seeker.id, state: :application_open, feedback_seeker: message, provider_id: job.provider.id)
+    allocation = Allocation.new(job_id: id, seeker_id: @seeker.id, state: :application_open, feedback_seeker: message)
     allocation.save!
 
     render json: {message: 'Success. Please wait for a message from broker.'}, status: 201
