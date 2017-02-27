@@ -38,7 +38,7 @@ class Seeker < ActiveRecord::Base
   phony_normalize :mobile, default_country_code: 'CH'
 
   validate :ensure_seeker_age
-  validate :ensure_work_category
+  # validate :ensure_work_category
 
   # validates_acceptance_of :terms, allow_nil: false, on: :create
 

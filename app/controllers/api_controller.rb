@@ -44,8 +44,11 @@ class ApiController < ApplicationController
     user_params.except!(:birthdate)
     user_params[:login] = user_params[:phone]
     user_params[:mobile] = user_params[:phone]
-    user_params[:work_category_ids] = JSON.parse user_params[:categories]
-    user_params.except!(:categories)
+    if user_params[:categories] != nil
+      user_params[:work_category_ids] = JSON.parse user_params[:categories]
+      user_params.except!(:categories)
+    end
+
     user_params[:password_confirmation] = user_params[:password]
     seeker = Seeker.new(user_params)
     seeker.status = 1
@@ -478,10 +481,10 @@ class ApiController < ApplicationController
   end
 
   def register_params
-    params.permit(:phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id, :street, :sex, categories: [])
+    params.permit(:phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id, :street, :sex, :categories)
   end
 
   def update_params
-    params.permit(:phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id, :street, :sex, :status, categories: [])
+    params.permit(:phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id, :street, :sex, :status, :categories)
   end
 end
