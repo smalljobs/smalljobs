@@ -5,6 +5,10 @@ class Provider::JobsController < InheritedResources::Base
   load_and_authorize_resource :job, through: :current_provider, parent: false
   skip_authorize_resource :job, only: [:new, :create]
 
+  def show
+    redirect_to provider_dashboard_url
+  end
+
   def new
     @job = Job.new(state: 'hidden')
   end
