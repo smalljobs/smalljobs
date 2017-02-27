@@ -28,7 +28,12 @@
           = render_navigation(context: :header_region, expand_all: true)
 
         %h3
-          = link_to t('pages.layout.title'), root_path
+          - if broker_signed_in?
+            = link_to t('pages.layout.title'), broker_dashboard_path
+          - elsif provider_signed_in?
+            = link_to t('pages.layout.title'), provider_dashboard_path
+          - else
+            = link_to t('pages.layout.title'), root_path
 
       .notifications
         - [:notice, :error, :alert].each do |level|
