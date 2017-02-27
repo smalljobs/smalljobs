@@ -6,7 +6,7 @@
 
   %p
     = "Status: "
-    = @job.state
+    = I18n.t("common.#{@job.state}")
 
   %fieldset
     %legend

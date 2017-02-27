@@ -224,11 +224,11 @@ module ApplicationHelper
       when 'public'
         bootstrap_label('info', I18n.t('common.public'))
       when 'running'
-        bootstrap_label('info', I18n.t('common.available'))
+        bootstrap_label('info', I18n.t('common.running'))
       when 'feedback'
         bootstrap_label('primary', I18n.t('common.feedback'))
       when 'finished'
-        bootstrap_label('success', I18n.t('common.completed'))
+        bootstrap_label('success', I18n.t('common.finished'))
     end
   end
 
