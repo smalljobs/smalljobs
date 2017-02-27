@@ -4,6 +4,10 @@
     .alert.alert-danger
       = notification
 
+  %p
+    = "Status: "
+    = @job.state
+
   %fieldset
     %legend
       = t('legends.job')
