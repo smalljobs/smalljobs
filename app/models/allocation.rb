@@ -3,11 +3,13 @@ class Allocation < ActiveRecord::Base
   belongs_to :seeker
   belongs_to :provider
 
-  enum state: [:application_open, :application_rejected, :proposal, :active, :finished]
+  enum state: [:application_open, :application_rejected, :proposal, :active, :finished, :cancelled]
 
   validates :job, presence: true
   validates :seeker, presence: true
   validates :seeker, uniqueness: { scope: :job_id }, if: Proc.new { |p| p.job && p.seeker }
+
+  # TODO update state last change datetime
 
   def name
     "#{ seeker.try(:name) } #{ job.try(:title) }"

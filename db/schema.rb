@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170227114919) do
+ActiveRecord::Schema.define(version: 20170227121907) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,17 +47,16 @@ ActiveRecord::Schema.define(version: 20170227114919) do
     t.integer  "job_id"
     t.integer  "seeker_id"
     t.integer  "state"
-    t.string   "feedback_seeker"
-    t.string   "feedback_provider"
+    t.text     "feedback_seeker"
+    t.text     "feedback_provider"
     t.boolean  "contract_returned"
+    t.datetime "last_change_of_state"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "provider_id"
-    t.datetime "start_datetime"
-    t.datetime "stop_datetime"
   end
 
-  add_index "allocations", ["provider_id"], name: "index_allocations_on_provider_id", using: :btree
+  add_index "allocations", ["job_id"], name: "index_allocations_on_job_id", using: :btree
+  add_index "allocations", ["seeker_id"], name: "index_allocations_on_seeker_id", using: :btree
 
   create_table "assignments", force: true do |t|
     t.integer  "status"
