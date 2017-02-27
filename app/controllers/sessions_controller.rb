@@ -14,6 +14,7 @@ class SessionsController < Devise::SessionsController
     provider = Provider.where(["lower(login) = :value", { :value => login.downcase }]).first
     broker = Broker.where(["lower(login) = :value", { :value => login.downcase }]).first
     seeker = Seeker.where(["lower(login) = :value", { :value => login.downcase }]).first
+    admin = Admin.where(email: login.downcase).first
 
     authenticated = false
 
@@ -40,6 +41,15 @@ class SessionsController < Devise::SessionsController
       self.resource = seeker
 
       if seeker.valid_password?(password)
+        authenticated = true
+      end
+    end
+
+    if admin != nil
+      resource_name = :admin
+      self.resource = admin
+
+      if admin.valid_password?(password)
         authenticated = true
       end
     end
