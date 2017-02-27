@@ -58,14 +58,7 @@ module ApiHelper
     json[:id] = job.id
     json[:organization_id] = organization.id
 
-    status = 0
-    if job.state == 'available'
-      status = 0
-    elsif job.state == 'connected'
-      status = 1
-    elsif job.state == 'rated'
-      status = 2
-    end
+    status = Job::state_to_integer(job.state)
 
     json[:status] = status
     json[:title] = job.title
@@ -86,14 +79,34 @@ module ApiHelper
       json[:organization] = organization_to_json(organization, organization.regions.first.id)
     end
     if show_assignments
-      allocations = []
-      for allocation in job.allocations
-        allocations.append(allocation_to_json(allocation))
+      assignments = []
+      for assignment in job.assignments
+        assignments.append(assignment_to_json(assignment))
       end
 
-      json[:assignments] = allocations
+      json[:assignments] = assignments
     end
 
+    return json
+  end
+
+  def self.assignment_to_json(assignment)
+    json = {}
+    json[:id] = assignment.id
+    json[:status] = assignment.status.to_i
+    json[:message] = assignment.feedback
+    json[:job_id] = assignment.job.id
+    json[:user_id] = assignment.seeker.id
+    json[:provider_id] = assignment.provider.id
+    json[:start_datetime] = assignment.start_time != nil ? assignment.start_time.strftime('%s') : nil
+    json[:stop_datetime] = assignment.end_time != nil ? assignment.end_time.strftime('%s') : nil
+    duration = nil
+    if assignment.start_time != nil &&  assignment.end_time != nil
+      duration = assignment.end_time - assignment.start_time
+    end
+
+    json[:duration] = duration
+    json[:payment] = assignment.job.salary # TODO change
     return json
   end
 
@@ -122,8 +135,8 @@ module ApiHelper
     json[:job_id] = allocation.job_id
     json[:user_id] = allocation.seeker_id
     json[:provider_id] = allocation.provider_id
-    json[:start_datetime] = allocation.start_datetime
-    json[:stop_datetime] = allocation.stop_datetime
+    json[:start_datetime] = allocation.start_datetime != nil ? allocation.start_datetime.strftime('%s') : nil
+    json[:stop_datetime] = allocation.stop_datetime != nil ? allocation.stop_datetime.strftime('%s') : nil
     json[:payment] = allocation.job.salary
 
     duration = nil

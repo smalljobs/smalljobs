@@ -338,6 +338,31 @@ RailsAdmin.config do |config|
     end
   end
 
+  config.model Assignment do
+    navigation_label I18n.t('admin.menu.assignment')
+
+    list do
+      field :status
+
+      field :provider
+      field :seeker
+      field :job
+
+      field :feedback
+    end
+
+    edit do
+      field :provider
+      field :seeker
+      field :job
+
+      field :status
+      field :feedback
+      field :start_time
+      field :end_time
+    end
+  end
+
   config.model Job do
     navigation_label I18n.t('admin.menu.job')
 

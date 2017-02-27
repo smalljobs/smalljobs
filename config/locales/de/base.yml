@@ -6,6 +6,7 @@ de:
       geo: "Orte"
       org: "Jugendarbeit"
       application: "Bewerbungsprozess"
+      assignment: "Einsatz"
     groups:
       place: "Ortschaft"
       political: "Politisch"

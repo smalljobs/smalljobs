@@ -187,20 +187,16 @@ class ApiController < ApplicationController
   def list_jobs
     organization_id = params[:organization_id]
     status = params[:status]
+    if status != nil
+      status = status.to_i
+    end
     show_provider = true?(params[:provider])
     show_organization = true?(params[:organization])
     show_assignments = true?(params[:assignments])
     page = params[:page].to_i || 1
     limit = params[:limit].to_i || 10
 
-    state = nil
-    if status == '0'
-      state = 'available'
-    elsif status == '1'
-      state = 'connected'
-    elsif status == '2'
-      state = 'rated'
-    end
+    state = Job::state_from_integer(status)
 
     jobs = []
     if organization_id == nil
