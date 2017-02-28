@@ -295,6 +295,7 @@ de:
     back_to_region: "Zurück zur Region %{name}"
     terms: "Ich akzeptiere die %{rules_of_action}, die %{terms_of_service} und die %{privacy_policy}"
     rating: "%{rating} Punkte"
+    invalid_username_or_password: "Falscher Benutzername oder Passwort."
   devise_views:
     no_broker_registration: "Sie können sich nicht selber als Anbieter registrieren. Bitte kontaktieren Sie uns unter hello@smalljobs.ch"
     wait_confirmation: "Warte auf die Bestätigung von: %{email}"

@@ -55,7 +55,7 @@ class SessionsController < Devise::SessionsController
     end
 
     if !authenticated
-      flash[:error_info] = "Invalid username or password."
+      flash[:error_info] = I18n.t('common.invalid_username_or_password')
       return redirect_to sign_in_path
     end
 
