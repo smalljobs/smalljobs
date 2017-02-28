@@ -26,7 +26,7 @@
     - @jobs.each do |job|
       %tr
         %td
-          = link_to job.title, provider_job_path(job)
+          = link_to job.title, app_links_path
         %td
           = job.place.name
 

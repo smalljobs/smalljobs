@@ -25,4 +25,7 @@ class PagesController < ApplicationController
     render(layout: !request.xhr?)
   end
 
+  def app_links
+  end
+
 end

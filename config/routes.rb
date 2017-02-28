@@ -25,6 +25,7 @@ Smalljobs::Application.routes.draw do
   get 'features',         to: 'pages#features'
   get 'join_us',          to: 'pages#join_us'
   get 'rules_of_action',  to: 'pages#rules_of_action'
+  get 'app_links',        to: 'pages#app_links'
 
   constraints(RegionSubdomain) do
     devise_for :brokers, except: :confirmation, controllers: {
