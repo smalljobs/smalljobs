@@ -4,12 +4,15 @@
   - else
     %h1= @region.name
   %p.lead
-    = "Die Jobbörse für Sackgeldjobs und eitan aliquip quis cardigan american apparel, butcher voluptate nisi qui cardigan american apparel."
+    = "Sackgeldjobs für Jugendliche bei Familien, SeniorInnen, anderen Erwachsenen und Firmen für Generationendialog, berufliche Integration und sozialen Zusammenhalt."
     = link_to "Mehr über uns", about_us_path
 
 
 %h1= "Job anbieten"
-%p.lead= "Sie haben einen Job zu vergeben? orem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna"
+%p.lead
+  = "Sie haben einen Job für Jugendliche? Gartenarbeit, IT-Support, Haushalt, Botengänge oder andere kleinere Arbeiten? Melden sie sich hier online an oder "
+  %a{ href: '#contact_header'}
+    = "rufen sie uns an."
 = link_to "Job ausschreiben", new_provider_registration_path, class: 'btn btn-success'
 
 %br
@@ -32,7 +35,8 @@
 
 %br
 %br
-%h1= "Kontakt"
+%h1{id: 'contact_header'}
+  = "Kontakt"
 %h2= t('regions.show.address')
 %address
   = @organization.name
