@@ -7,6 +7,7 @@ class RegionsController < ApplicationController
   def show
     @organization = current_region.organizations.first
     @jobs = current_region.jobs.where(state: 'public')
+    @region = current_region
   end
 
   def current_user

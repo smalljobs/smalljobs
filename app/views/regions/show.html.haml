@@ -2,7 +2,7 @@
   - if @organization.logo.present?
     = image_tag(@organization.logo.url(:web, :normal), alt: @organization.name)
   - else
-    %h1= @organization.name
+    %h1= @region.name
   %p.lead
     = "Die Jobbörse für Sackgeldjobs und eitan aliquip quis cardigan american apparel, butcher voluptate nisi qui cardigan american apparel."
     = link_to "Mehr über uns", about_us_path
