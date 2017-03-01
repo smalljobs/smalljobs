@@ -101,6 +101,11 @@ class ApiController < ApplicationController
       return
     end
 
+    if seeker.id != @seeker.id
+      render json: {code: 'users/not_allowed', message: 'Cannot change another user data'}, status: 401
+      return
+    end
+
     user_params = update_params
     if user_params[:birthdate] != nil
       user_params[:date_of_birth] = DateTime.strptime(user_params[:birthdate], '%s')
