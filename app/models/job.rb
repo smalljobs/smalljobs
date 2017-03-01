@@ -16,7 +16,6 @@ class Job < ActiveRecord::Base
   validates :state, presence: true, inclusion: { in: lambda { |m| m.state_enum }}
 
   validates :title, presence: true
-  validates :description, presence: true
 
   validates :date_type, presence: true, inclusion: { in: lambda { |m| m.date_type_enum }}
   validates :start_date, presence: true, if: lambda { |m| ['date', 'date_range'].include?(m.date_type) }

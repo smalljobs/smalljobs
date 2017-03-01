@@ -16,7 +16,8 @@
     .form-inputs
       = f.association :work_category, required: true, include_blank: false
       = f.input :title, required: true
-      = f.input :description, required: true
+      = f.input :long_description
+      = f.input :short_description
 
   %fieldset
     %legend

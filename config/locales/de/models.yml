@@ -150,6 +150,8 @@ de:
         status: "Status"
         job_status: 'Deine Bewerbung'
         description: "Beschreibung"
+        long_description: "lange Beschreibung"
+        short_description: "kurze Beschreibung"
         date_type: "Zeitraum"
         start_date: "Startdatum"
         end_date: "Enddatum"

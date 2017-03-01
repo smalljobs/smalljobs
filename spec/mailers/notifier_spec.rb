@@ -139,7 +139,7 @@ describe 'Notifier' do
     end
 
     it 'contains the job description' do
-      mail.should have_body_text(job.description)
+      mail.should have_body_text(job.short_description)
     end
 
     it 'contains the link to the brokers job view' do
@@ -235,7 +235,7 @@ describe 'Notifier' do
     end
 
     it 'contains the job description' do
-      mail.should have_body_text(job.description)
+      mail.should have_body_text(job.short_description)
     end
 
     it 'contains the provider name' do
@@ -296,7 +296,7 @@ describe 'Notifier' do
     end
 
     it 'contains the job description' do
-      mail.should have_body_text(job.description)
+      mail.should have_body_text(job.short_description)
     end
 
     it 'contains the names of the seekers' do

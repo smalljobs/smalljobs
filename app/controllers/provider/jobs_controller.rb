@@ -29,7 +29,7 @@ class Provider::JobsController < InheritedResources::Base
   end
 
   def permitted_params
-    params.permit(job: [:id, :work_category_id, :title, :description, :date_type, :start_date, :end_date, :salary, :salary_type, :manpower, :duration])
+    params.permit(job: [:id, :work_category_id, :title, :long_description, :short_description, :date_type, :start_date, :end_date, :salary, :salary_type, :manpower, :duration])
   end
 
 end

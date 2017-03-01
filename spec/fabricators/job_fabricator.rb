@@ -7,7 +7,8 @@ Fabricator(:job) do
   state 'created'
 
   title 'A nice job'
-  description 'Help me understand the Internet'
+  short_description 'Help me understand the Internet'
+  long_description 'Help me understand the Internet'
 
   date_type 'date_range'
   start_date Time.now + 7.days

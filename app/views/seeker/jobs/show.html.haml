@@ -10,7 +10,7 @@
         -#.label.label-info= @job.work_category.name
         -#.status.pull-right= job_label(@job)
         %h2= @job.title
-        %p= @job.description
+        %p= @job.short_description
 
         %h3= t('legends.date')
         %p= t("jobs.date_types.#{ @job.date_type }")

@@ -20,7 +20,7 @@ describe 'broker/jobs/edit.html.haml' do
 
     it 'renders the job inputs' do
       expect(rendered).to have_field('Titel', with: job.title)
-      expect(rendered).to have_field('Beschreibung', with: job.description)
+      expect(rendered).to have_field('Beschreibung', with: job.short_description)
     end
 
     it 'renders the date inputs' do

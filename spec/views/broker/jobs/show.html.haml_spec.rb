@@ -19,7 +19,7 @@ describe 'broker/jobs/show.html.haml' do
     end
 
     it 'shows the job description' do
-      expect(rendered).to have_text(job.description)
+      expect(rendered).to have_text(job.short_description)
     end
 
     it 'shows the work category' do

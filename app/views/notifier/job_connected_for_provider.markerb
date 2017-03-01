@@ -10,7 +10,7 @@
 ## Job
 
 **<%= @job.title %>**  
-<%= @job.description %>
+<%= @job.short_description %>
 
 ## Jugendliche(r)
 

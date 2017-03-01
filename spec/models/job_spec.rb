@@ -36,12 +36,6 @@ describe Job do
       end
     end
 
-    describe '#description' do
-      it 'is not valid without a description' do
-        expect(Fabricate.build(:job, description: nil)).not_to be_valid
-      end
-    end
-
     describe '#date_type' do
       it 'must be one of agreement, date or date_range' do
         expect(Fabricate.build(:job, date_type: 'abc123')).not_to be_valid

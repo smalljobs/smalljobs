@@ -29,7 +29,7 @@ Falls etwas nicht klappt, Probleme auftauchen oder du über mehrere Tage niemand
 ## Job
 
 **<%= @job.title %>**  
-<%= @job.description %>
+<%= @job.short_description %>
 
 
 ## Anbieter
