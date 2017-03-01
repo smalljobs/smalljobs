@@ -11,9 +11,9 @@ class SessionsController < Devise::SessionsController
     login = params[:provider][:login]
     password = params[:provider][:password]
 
-    provider = Provider.where(["lower(login) = :value", { :value => login.downcase }]).first
-    broker = Broker.where(["lower(login) = :value", { :value => login.downcase }]).first
-    seeker = Seeker.where(["lower(login) = :value", { :value => login.downcase }]).first
+    provider = Provider.where(["lower(email) = :email OR mobile = :mobile", {email: login.downcase, mobile: "+41#{login}"}]).first
+    broker = Broker.where(["lower(email) = :email OR mobile = :mobile", {email: login.downcase, mobile: "+41#{login}"}]).first
+    # seeker = Seeker.where(["lower(login) = :value", { :value => login.downcase }]).first
     admin = Admin.where(email: login.downcase).first
 
     authenticated = false
@@ -25,27 +25,14 @@ class SessionsController < Devise::SessionsController
       if provider.valid_password?(password)
         authenticated = true
       end
-    end
-
-    if broker != nil
+    elsif broker != nil
       resource_name = :broker
       self.resource = broker
 
       if broker.valid_password?(password)
         authenticated = true
       end
-    end
-
-    if seeker != nil
-      resource_name = :seeker
-      self.resource = seeker
-
-      if seeker.valid_password?(password)
-        authenticated = true
-      end
-    end
-
-    if admin != nil
+    elsif admin != nil
       resource_name = :admin
       self.resource = admin
 
@@ -53,6 +40,16 @@ class SessionsController < Devise::SessionsController
         authenticated = true
       end
     end
+
+
+    # if seeker != nil
+    #   resource_name = :seeker
+    #   self.resource = seeker
+    #
+    #   if seeker.valid_password?(password)
+    #     authenticated = true
+    #   end
+    # end
 
     if !authenticated
       flash[:error_info] = I18n.t('common.invalid_username_or_password')
