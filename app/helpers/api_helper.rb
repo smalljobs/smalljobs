@@ -53,10 +53,12 @@ module ApiHelper
     return json
   end
 
-  def self.job_to_json(job, organization, show_provider, show_organization, show_assignments)
+  def self.job_to_json(job, organization, show_provider, show_organization, show_assignments, allocation_id)
     json = {}
     json[:id] = job.id
     json[:organization_id] = organization.id
+
+    json[:allocation_id] = allocation_id
 
     status = Job::state_to_integer(job.state)
 
