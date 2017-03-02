@@ -5,6 +5,11 @@ class RegionsController < ApplicationController
   end
 
   def show
+    if current_provider != nil
+      redirect_to provider_dashboard_path
+      return
+    end
+
     @organization = current_region.organizations.first
     @jobs = current_region.jobs.where(state: 'public')
     @region = current_region

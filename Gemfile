@@ -60,6 +60,7 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'spring'
   gem 'spring-commands-rspec'
+  gem 'puma'
 end
 
 group :doc do
