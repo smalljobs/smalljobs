@@ -31,7 +31,7 @@
       = f.input :lastname, required: true
       = f.input :street, required: true
       = f.association :place, required: true, collection: current_region.places.order(:name), include_blank: false, label_method: :custom_name
-      = f.association :organization, as: :select, required: true
+      = f.association :organization, as: :select, required: true, label: t('providers.registrations.new.organization'), colection: current_region.organizations.order(:name)
 
   %fieldset
     %legend

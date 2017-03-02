@@ -344,10 +344,12 @@ de:
         register: "Registrieren und Job erfassen"
         lead: "Sie möchten Jobs für Jugendliche anbieten? Dann registrieren Sie sich bitte hier neu als Anbieter."
         have_account: "Bereits registriert?"
+        organization: "Wählen Sie Ihre gewünschte Jobbörse"
       edit:
         title: "Ihre Daten ändern"
         lead: "Hier können sie ihre Daten ändern. Bitte bestätigen Sie die Eingaben mittels 'Ändern' am Ende der Seite."
         action: "Ändern"
+        organization: "Wählen Sie Ihre gewünschte Jobbörse"
         cancel:
           title: "Ihr Benutzerkonto deaktivieren"
           lead: "Sie möchten SmallJobs nicht mehr benützen? Schade. **Vorsicht!** Diese Aktion kann nicht mehr rückgängig gemacht werden!"
