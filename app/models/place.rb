@@ -7,4 +7,8 @@ class Place < ActiveRecord::Base
   has_one :organization
 
   validates :zip, :name, :longitude, :latitude, presence: true
+
+  def custom_name
+    return "#{zip} #{name}"
+  end
 end
