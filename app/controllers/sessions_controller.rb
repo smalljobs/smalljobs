@@ -41,19 +41,9 @@ class SessionsController < Devise::SessionsController
       end
     end
 
-
-    # if seeker != nil
-    #   resource_name = :seeker
-    #   self.resource = seeker
-    #
-    #   if seeker.valid_password?(password)
-    #     authenticated = true
-    #   end
-    # end
-
     if !authenticated
       flash[:error_info] = I18n.t('common.invalid_username_or_password')
-      return redirect_to sign_in_path
+      return redirect_to global_sign_in_path
     end
 
     sign_in(resource_name, self.resource)

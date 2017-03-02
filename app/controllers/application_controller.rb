@@ -15,13 +15,13 @@ class ApplicationController < ActionController::Base
     else
       case request.path
       when /^\/admin/
-        redirect_to('/admins/sign_in', alert: exception.message)
+        redirect_to('/sign_in', alert: exception.message)
       when /^\/broker/
-        redirect_to('/brokers/sign_in', alert: exception.message)
+        redirect_to('/sign_in', alert: exception.message)
       when /^\/provider/
-        redirect_to('/providers/sign_in', alert: exception.message)
+        redirect_to('/sign_in', alert: exception.message)
       when /^\/seeker/
-        redirect_to('/seekers/sign_in', alert: exception.message)
+        redirect_to('/sign_in', alert: exception.message)
       else
         redirect_to(root_url, alert: exception.message)
       end
