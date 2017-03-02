@@ -9,8 +9,8 @@
 .table-responsive
   %table.table.table-striped
     %tr
-      %th= t('activerecord.attributes.job.status')
-      %th= t('activerecord.attributes.job.title')
+      %th.col-md-2= t('activerecord.attributes.job.status')
+      %th.col-md-10= t('activerecord.attributes.job.title')
 
     - if @jobs.size == 0
       %tr
@@ -18,7 +18,7 @@
 
     - @jobs.each do |job|
       %tr{ class: job_status_class(job) }
-        %td
+        %td.col-md-2
           = job_label(job)
-        %td
+        %td.col-md-10
           = link_to job.title, edit_provider_job_path(job)
