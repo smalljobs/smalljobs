@@ -158,7 +158,7 @@ de:
         salary: "Lohn"
         salary_type: "Art des Lohnes"
         manpower: "Arbeitskräfte"
-        duration: "Dauer"
+        duration: "Dauer (ungefähre Dauer in Stunden)"
         created_at: "Erstellt"
         allocations: "Zuweisungen"
         applications: "Bewerbungen"

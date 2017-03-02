@@ -1,4 +1,12 @@
 =link_to '< ' + t('common.back'), provider_dashboard_url
 %h1= t('provider.jobs.new.title')
 %p.lead= t('provider.jobs.new.lead')
-= render 'form'
+
+%div.row
+  %div.col-md-8
+    = render 'form'
+  -#%div.col-md-4.bg-info
+  -#  %h4= t('provider.jobs.new.seeker')
+  -#  - for assignment in @job.assignments
+  -#    %p= assignment.seeker.firstname
+  -#  %h4= t('provider.jobs.new.seeker_end')

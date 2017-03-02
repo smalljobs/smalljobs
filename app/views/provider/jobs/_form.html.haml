@@ -4,7 +4,7 @@
     .alert.alert-danger
       = notification
 
-  %p
+  %h3
     = "Status: "
     = I18n.t("common.#{@job.state}")
 
@@ -45,10 +45,10 @@
 
     .form-inputs
       = f.input :manpower, require: true
-      = f.input :duration, require: true
+      = f.input :duration, require: true, hint: false
 
   .form-actions
     - if @job.new_record?
-      = f.button :submit, t('common.create'), class: 'btn btn-primary'
+      = f.button :submit, t('common.create'), class: 'btn btn-primary btn-success'
     - else
-      = f.button :submit, t('common.edit'), class: 'btn btn-primary'
+      = f.button :submit, t('common.edit'), class: 'btn btn-primary btn-success'

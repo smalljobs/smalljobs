@@ -1,5 +1,20 @@
 =link_to '< ' + t('common.back'), provider_dashboard_url
 %h1= t('provider.jobs.edit.title')
-%p.lead= t('.provider.jobs.edit.lead')
+%p.lead= t('provider.jobs.edit.lead')
 
-= render 'form'
+%div.row
+  %div.col-md-8
+    = render 'form'
+  %div.col-md-4.bg-info
+    %h4= t('provider.jobs.new.seeker')
+    - for assignment in @job.assignments.active
+      %p
+        = "#{assignment.seeker.firstname} #{assignment.seeker.lastname} #{assignment.start_time == nil ?  "": assignment.start_time.strftime("%m/%d/%Y")}"
+        %br
+        = "#{assignment.seeker.street} #{assignment.seeker.phone} #{assignment.seeker.mobile}"
+    %h4= t('provider.jobs.new.seeker_end')
+    - for assignment in @job.assignments.finished
+      %p
+        = "#{assignment.seeker.firstname} #{assignment.seeker.lastname} #{assignment.end_time == nil ?  "": assignment.end_time.strftime("%m/%d/%Y")}"
+        %br
+        = "#{assignment.seeker.street} #{assignment.seeker.phone} #{assignment.seeker.mobile}"
