@@ -14,7 +14,7 @@
 
     %p
       = t('providers.registrations.new.have_account')
-      = link_to t('devise_views.sign_in'), new_session_path(resource_name)
+      = link_to t('devise_views.sign_in'), global_sign_in_path
 
     .form-inputs
       = f.input :email, required: true
