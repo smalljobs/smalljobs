@@ -1,6 +1,6 @@
 %h2
   = t('provider_dashboard.title')
-  = current_provider.firstname
+  = "#{current_provider.firstname} #{current_provider.lastname}"
 
 %ul.list-group
   = link_to t('provider_dashboard.new_job'), new_provider_job_path, class: 'btn btn-success'
