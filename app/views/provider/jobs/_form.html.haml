@@ -26,8 +26,8 @@
 
     .form-inputs
       = f.input :date_type, collection: job_date_types, include_blank: false
-      = f.input :start_date, include_blank: true
-      = f.input :end_date, include_blank: true
+      = f.input :start_date, include_blank: true, start_year: 2017
+      = f.input :end_date, include_blank: true, start_year: 2017
 
   %fieldset
     %legend
