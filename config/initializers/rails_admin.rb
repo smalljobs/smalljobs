@@ -267,6 +267,9 @@ RailsAdmin.config do |config|
         field :password_confirmation
         field :date_of_birth
         field :sex
+        field :app_user_id do
+          read_only true
+        end
       end
 
       group :address do
@@ -297,7 +300,7 @@ RailsAdmin.config do |config|
 
       group :administration do
         label I18n.t('admin.groups.administration')
-
+        field :status
         # field :terms, :boolean
       end
     end
