@@ -1,6 +1,6 @@
 class Provider < ActiveRecord::Base
 
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, authentication_keys: [:login]
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, authentication_keys: [:email]
 
   # include ConfirmToggle
 
@@ -11,18 +11,17 @@ class Provider < ActiveRecord::Base
 
   before_save :nullify_blank_email
 
-  validates :login, presence: true, uniqueness: true
   validates :firstname, :lastname, presence: true
 
   validates :organization, presence: true
 
   validates :street, :place, presence: true
 
-  validates :email, email: true, allow_blank: true, allow_nil: true
-  validates :phone, :mobile, phony_plausible: true
+  validates :email, email: true, allow_blank: false, allow_nil: false, uniqueness: true
+  validates :phone,  phony_plausible: true
+  validates :mobile, phony_plausible: true
 
   validates :contact_preference, inclusion: { in: lambda { |m| m.contact_preference_enum } }
-  validates :contact_availability, presence: true, if: lambda { %w(phone mobile).include?(self.contact_preference) }
 
   validates_acceptance_of :terms, allow_nil: false, on: :create
 

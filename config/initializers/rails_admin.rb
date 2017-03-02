@@ -215,7 +215,7 @@ RailsAdmin.config do |config|
       group :authenticatable do
         label I18n.t('admin.groups.authenticatable')
 
-        field :login
+        field :email
         field :password
         field :password_confirmation
       end
@@ -232,7 +232,6 @@ RailsAdmin.config do |config|
 
       group :contact do
         label I18n.t('admin.groups.contact')
-        field :email
         field :phone
         field :mobile
         field :contact_preference
