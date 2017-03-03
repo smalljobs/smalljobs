@@ -304,6 +304,53 @@ RailsAdmin.config do |config|
         # field :terms, :boolean
       end
     end
+
+    show do
+      group :authenticatable do
+        label I18n.t('admin.groups.authenticatable')
+
+        field :login
+        field :password
+        field :password_confirmation
+        field :date_of_birth
+        field :sex
+        field :app_user_id do
+          read_only true
+        end
+      end
+
+      group :address do
+        label I18n.t('admin.groups.address')
+
+        field :firstname
+        field :lastname
+        field :street
+        field :place
+        field :organization
+      end
+
+      group :contact do
+        label I18n.t('admin.groups.contact')
+
+        field :email
+        field :phone
+        field :mobile
+        field :contact_preference
+        field :contact_availability
+      end
+
+      group :work do
+        label I18n.t('admin.groups.work')
+        field :work_categories
+        field :organization
+      end
+
+      group :administration do
+        label I18n.t('admin.groups.administration')
+        field :status
+        # field :terms, :boolean
+      end
+    end
   end
 
   config.model WorkCategory do
