@@ -228,7 +228,7 @@ module ApiHelper
     json[:birthdate] = seeker.date_of_birth.strftime('%s')
     json[:phone] = seeker.phone
     json[:street] = seeker.street
-    json[:status] = seeker.status
+    json[:status] = Seeker.statuses[seeker.status]
     json[:sex] = seeker.sex
     json[:place] = place_to_json(seeker.place)
     json[:categories] = []
