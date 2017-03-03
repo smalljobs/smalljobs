@@ -1,5 +1,6 @@
 class ApiController < ApplicationController
   before_action :authenticate, except: [:login, :register]
+  before_action :check_status, only: [:create_assignment, :update_assignment, :apply]
   skip_before_filter :verify_authenticity_token
 
   def login
@@ -26,7 +27,7 @@ class ApiController < ApplicationController
     expires_in = token.created_at + 30
     expires_in -= token.created_at
 
-    render json: {access_token: token.access_token, token_type: token.token_type, expires_in: expires_in, created_at: token.created_at, refresh_token: token.refresh_token, user: seeker}, status: 200
+    render json: {access_token: token.access_token, token_type: token.token_type, expires_in: expires_in, created_at: token.created_at, refresh_token: token.refresh_token, user: ApiHelper::seeker_to_json(seeker)}, status: 200
   end
 
   def logout
@@ -475,6 +476,10 @@ class ApiController < ApplicationController
     obj.to_s == 'true'
   end
 
+  def check_status
+    @seeker.active? || render_unauthorized_status
+  end
+
   def authenticate
     authenticate_token || render_unauthorized
   end
@@ -502,6 +507,10 @@ class ApiController < ApplicationController
 
   def render_unauthorized
     render json: {code: 'users/invalid', message: 'Invalid access token'}, status: 422
+  end
+
+  def render_unauthorized_status
+    render json: {code: 'users/status', message: 'Invalid user status'}, status: 422
   end
 
   def login_params
