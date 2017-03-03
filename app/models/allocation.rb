@@ -9,9 +9,13 @@ class Allocation < ActiveRecord::Base
   validates :seeker, presence: true
   validates :seeker, uniqueness: { scope: :job_id }, if: Proc.new { |p| p.job && p.seeker }
 
-  # TODO update state last change datetime
+  before_save :set_state_last_change,   if: proc { |s| s.state_changed?}
 
   def name
     "#{ seeker.try(:name) } #{ job.try(:title) }"
+  end
+
+  def set_state_last_change
+    self.last_change_of_state = DateTime.now()
   end
 end

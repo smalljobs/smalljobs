@@ -179,6 +179,9 @@ de:
         lead: "Erfassen Sie bitte hier einen neuen Job, den Sie an Jugendliche weitergeben wollen."
         seeker: "Jugendliche"
         seeker_end: "Ehemalige Jugendliche"
+        allocations:
+          no_active: "Aktuell (noch) keine Jugendliche zugewiesen."
+          no_finished: "Ehemalige Jugendliche"
       edit:
         title: "Job editieren"
         lead: "Bearbeiten Sie hier den aufgegebenen Job."
