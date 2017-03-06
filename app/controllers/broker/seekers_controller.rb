@@ -30,7 +30,7 @@ class Broker::SeekersController < InheritedResources::Base
   end
 
   def permitted_params
-    params.permit(seeker: [:id, :password, :password_confirmation, :firstname, :lastname, :street, :place_id, :sex, :email, :phone, :mobile, :date_of_birth, :contact_preference, :contact_availability, :active, :confirmed, :terms, work_category_ids: []])
+    params.permit(seeker: [:id, :password, :password_confirmation, :firstname, :lastname, :street, :place_id, :sex, :email, :phone, :mobile, :date_of_birth, :contact_preference, :contact_availability, :active, :confirmed, :terms, :status, work_category_ids: []])
   end
 
 end
