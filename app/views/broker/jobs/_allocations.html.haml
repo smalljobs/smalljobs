@@ -45,3 +45,11 @@
   - for allocation in allocations
     %p
       = link_to "#{allocation.seeker.name} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_seeker_path(allocation.seeker)
+
+:javascript
+  $(document).ready(function() {
+    $("#job_seekers").on('change', function() {
+      console.log($("#job_seekers").val());
+      window.location.href = "/broker/jobs/" + "#{@job.id}" + "/allocations/" + $("#job_seekers").val()
+    });
+  });

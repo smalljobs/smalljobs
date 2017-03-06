@@ -23,13 +23,13 @@
     %legend
       = "Anbieter"
     %p
-      = @job.provider.name
+      = link_to @job.provider.name, broker_provider_path(@job.provider)
       %br
-      = @job.provider.phone
+      = link_to @job.provider.phone, broker_provider_path(@job.provider)
       %br
-      = @job.provider.street
+      = link_to @job.provider.street, broker_provider_path(@job.provider)
       %br
-      = @job.provider.place.custom_name
+      = link_to @job.provider.place.custom_name, broker_provider_path(@job.provider)
 
   %fieldset
     %legend
@@ -84,6 +84,6 @@
 
   .form-actions
     - if @job.new_record?
-      = f.button :submit, t('common.create'), class: 'btn btn-primary'
+      = f.button :submit, t('common.create'), class: 'btn btn-primary btn-success'
     - else
-      = f.button :submit, t('common.edit'), class: 'btn btn-primary'
+      = f.button :submit, t('common.edit'), class: 'btn btn-primary btn-success'

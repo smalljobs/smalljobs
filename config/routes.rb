@@ -59,7 +59,7 @@ Smalljobs::Application.routes.draw do
           post 'activate'
         end
 
-        resources :allocations, except: :show
+        resources :allocations
       end
     end
 

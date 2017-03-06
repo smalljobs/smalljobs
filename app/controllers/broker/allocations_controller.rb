@@ -9,7 +9,12 @@ class Broker::AllocationsController < InheritedResources::Base
 
   skip_authorize_resource :allocation, only: :new
 
-  actions :all, except: [:show]
+  actions :all
+
+  def show
+    @job = Job.find_by(id: params[:job_id])
+    @allocation = Allocation.find_by(id: params[:id])
+  end
 
   protected
 

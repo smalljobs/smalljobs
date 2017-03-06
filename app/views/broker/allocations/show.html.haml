@@ -1,0 +1,142 @@
+= link_to "<  zurück zu #{@job.title}", edit_broker_job_path(@job)
+
+- if @allocation.application_open?
+  %h2= "Bewerbung"
+  %p
+    = "Job: "
+    = link_to @job.title, broker_job_path(@job)
+  %p
+    = "JugendlicheR: "
+    = link_to @allocation.seeker.name, broker_seeker_path(@allocation.seeker)
+  %p
+    = "Datum: "
+    = @allocation.last_change_of_state.strftime("%d.%m.%Y")
+  %div.row
+    %div.col-md-4
+      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+        = "Anstellen"
+    %div.col-md-4
+      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+        = "Bewerbung ablehnen"
+    %div.col-md-4
+      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+        = "Nachricht senden"
+
+- if @allocation.application_rejected?
+  %h2= "Bewerbung abgelehnt"
+  %p
+    = "Job: "
+    = link_to @job.title, broker_job_path(@job)
+  %p
+    = "JugendlicheR: "
+    = link_to @allocation.seeker.name, broker_seeker_path(@allocation.seeker)
+  %p
+    = "Datum: "
+    = @allocation.last_change_of_state.strftime("%d.%m.%Y")
+  %div.row
+    %div.col-md-4
+      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+        = "Anstellen"
+    %div.col-md-4
+      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+        = "Nachricht senden"
+
+- if @allocation.proposal?
+  %h2= "Vorgeschlagen"
+  %p
+    = "Job: "
+    = link_to @job.title, broker_job_path(@job)
+  %p
+    = "JugendlicheR: "
+    = link_to @allocation.seeker.name, broker_seeker_path(@allocation.seeker)
+  %p
+    = "Datum: "
+    = @allocation.last_change_of_state.strftime("%d.%m.%Y")
+  %div.row
+    %div.col-md-4
+      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+        = "Anstellen"
+    %div.col-md-4
+      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+        = "Vorschlag löschen"
+    %div.col-md-4
+      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+        = "Nachricht senden"
+
+- if @allocation.active?
+  %h2= "Anstellung"
+  %p
+    = "Job: "
+    = link_to @job.title, broker_job_path(@job)
+  %p
+    = "JugendlicheR: "
+    = link_to @allocation.seeker.name, broker_seeker_path(@allocation.seeker)
+  %p
+    = "Datum: "
+    = @allocation.last_change_of_state.strftime("%d.%m.%Y")
+  %div.row
+    %div.col-md-4
+      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+        = "Anstellung beenden"
+    %div.col-md-4
+      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+        = "Anstellung abbrechen"
+    %div.col-md-4
+      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+        = "Nachricht senden"
+
+- if @allocation.finished?
+  %h2= "Anstellung beendet"
+  %p
+    = "Job: "
+    = link_to @job.title, broker_job_path(@job)
+  %p
+    = "JugendlicheR: "
+    = link_to @allocation.seeker.name, broker_seeker_path(@allocation.seeker)
+  %p
+    = "Datum: "
+    = @allocation.last_change_of_state.strftime("%d.%m.%Y")
+  %div.row
+    %div.col-md-4
+      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+        = "Anstellung reaktivieren"
+    %div.col-md-4
+      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+        = "Nachricht senden"
+
+- if @allocation.cancelled?
+  %h2= "Anstellung abgebrochen"
+  %p
+    = "Job: "
+    = link_to @job.title, broker_job_path(@job)
+  %p
+    = "JugendlicheR: "
+    = link_to @allocation.seeker.name, broker_seeker_path(@allocation.seeker)
+  %p
+    = "Datum: "
+    = @allocation.last_change_of_state.strftime("%d.%m.%Y")
+  %div.row
+    %div.col-md-4
+      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+        = "Anstellung reaktivieren"
+    %div.col-md-4
+      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+        = "Nachricht senden"
+
+%div.modal.fade{id: "message_modal"}
+  %div.modal-dialog
+    %div.modal-content
+      %div.modal-header
+        %button.close{"data-dismiss": "modal", type: "button"} &times;
+        %h2= "Title"
+      %div.modal-body
+        %input{type: "checkbox", checked: "true"}
+          = "Nachricht an "
+          = @allocation.seeker.name
+          = ":"
+        %textarea.form-control.resize-vertical
+          = "template"
+        %br
+        %button.btn.btn-success
+          = "Title"
+      %div.modal-footer
