@@ -34,7 +34,7 @@ class Broker::JobsController < InheritedResources::Base
   end
 
   def permitted_params
-    params.permit(job: [:id, :provider_id, :work_category_id, :state, :title, :long_description, :short_description, :date_type, :start_date, :end_date, :salary, :salary_type, :manpower, :duration, seeker_ids: []])
+    params.permit(job: [:id, :provider_id, :work_category_id, :state, :title, :long_description, :short_description, :date_type, :start_date, :end_date, :salary, :salary_type, :manpower, :duration, :notes, :organization_id, seeker_ids: []])
   end
 
 end

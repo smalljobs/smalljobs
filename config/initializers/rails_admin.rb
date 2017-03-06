@@ -441,6 +441,8 @@ RailsAdmin.config do |config|
         field :title
         field :short_description
         field :long_description
+        field :notes
+        field :organization
       end
 
       group :date do

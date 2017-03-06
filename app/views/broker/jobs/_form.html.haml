@@ -10,14 +10,14 @@
 
   %fieldset
     .form-inputs
-      = f.input :title, required: true, label: false, inline_label: ''
+      = f.input :title, required: true, label: false
     %p= "Erstellt: #{@job.created_at.strftime("%d.%m.%Y")}"
 
   %fieldset
     %legend
       = "Notizen (nur intern sichtbar)"
     .form-inputs
-      = f.input :notes, label: false, inline_label: ''
+      = f.input :notes, label: false
 
   %fieldset
     %legend
@@ -35,13 +35,13 @@
     %legend
       = "lange Beschreibung"
     .form_inputs
-      = f.input :long_description, label: false, inline_label: ''
+      = f.input :long_description, label: false
 
   %fieldset
     %legend
       = "kurze Beschreibung"
     .form_inputs
-      = f.input :short_description, label: false, inline_label: ''
+      = f.input :short_description, label: false
 
   %fieldset
     %legend
@@ -49,14 +49,14 @@
 
     .form-inputs
       -#= f.association :provider, required: true, autofocus: true, collection: current_region.providers, include_blank: false
-      = f.association :work_category, required: true, include_blank: false, label: false, inline_label: ''
+      = f.association :work_category, required: true, include_blank: false, label: false
 
   %fieldset
     %legend
       = t('legends.date')
 
     .form-inputs
-      = f.input :date_type, collection: job_date_types, include_blank: false, label: false, inline_label: ''
+      = f.input :date_type, collection: job_date_types, include_blank: false, label: false
       = f.input :start_date, include_blank: true
       = f.input :end_date, include_blank: true
 
@@ -65,7 +65,7 @@
       = t('legends.salary')
 
     .form-inputs
-      = f.input :salary_type, collection: job_salary_types, include_blank: false, label: false, inline_label: ''
+      = f.input :salary_type, collection: job_salary_types, include_blank: false, label: false
       = f.input :salary, required: true, input_html: { value: @job.try(:salary) || current_region.organizations.first.default_hourly_per_age }
 
   %fieldset
@@ -80,7 +80,7 @@
     %legend
       = "Zuständige Organisation"
     .form-inputs
-      = f.input :organization, require: true, collection: current_region.organizations.order(:name).distinct, label: false
+      = f.association :organization, require: true, collection: current_region.organizations.order(:name).distinct, label: false, include_blank: false
 
   .form-actions
     - if @job.new_record?
