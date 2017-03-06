@@ -1,6 +1,7 @@
 class Job < ActiveRecord::Base
   belongs_to :provider, inverse_of: :jobs
   belongs_to :work_category, inverse_of: :jobs
+  belongs_to :organization
 
   has_many :allocations, after_add: :evaluate_state, after_remove: :evaluate_state
 

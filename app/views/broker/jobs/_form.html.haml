@@ -6,54 +6,81 @@
 
   %fieldset
     .form-inputs
-      = f.input :state, as: :radio_buttons, collection: [{value: 'created', label: "Prüfen"}, {value: 'available', label: "Öffentlich"}, {value: 'connected', label: "Versteckt"}, {value: 'rated', label: "Abgeschlossen"}], label_method: ->(obj){obj[:label]}, value_method: ->(obj){obj[:value]}, label: false, inline_label: '', item_wrapper_class: 'radio-inline'
+      = f.input :state, as: :radio_buttons, collection: [{value: 'hidden', label: "Prüfen"}, {value: 'public', label: "Öffentlich"}, {value: 'running', label: "Versteckt"}, {value: 'feedback', label: "Abgeschlossen"}], label_method: ->(obj){obj[:label]}, value_method: ->(obj){obj[:value]}, label: false, inline_label: '', item_wrapper_class: 'radio-inline'
+
+  %fieldset
+    .form-inputs
+      = f.input :title, required: true, label: false, inline_label: ''
+    %p= "Erstellt: #{@job.created_at.strftime("%d.%m.%Y")}"
 
   %fieldset
     %legend
-      = t('legends.assignments')
-      %i.fa.fa-2x.fa-link.pull-right
-
+      = "Notizen (nur intern sichtbar)"
     .form-inputs
-      = f.association :provider, required: true, autofocus: true, collection: current_region.providers, include_blank: false
-      = f.association :work_category, required: true, include_blank: false
+      = f.input :notes, label: false, inline_label: ''
 
   %fieldset
     %legend
-      = t('legends.job')
-      %i.fa.fa-2x.fa-user.pull-right
+      = "Anbieter"
+    %p
+      = @job.provider.name
+      %br
+      = @job.provider.phone
+      %br
+      = @job.provider.street
+      %br
+      = @job.provider.place.custom_name
+
+  %fieldset
+    %legend
+      = "lange Beschreibung"
+    .form_inputs
+      = f.input :long_description, label: false, inline_label: ''
+
+  %fieldset
+    %legend
+      = "kurze Beschreibung"
+    .form_inputs
+      = f.input :short_description, label: false, inline_label: ''
+
+  %fieldset
+    %legend
+      = "Arbeitsart"
 
     .form-inputs
-      = f.input :title, required: true
-      = f.input :long_description
-      = f.input :short_description
+      -#= f.association :provider, required: true, autofocus: true, collection: current_region.providers, include_blank: false
+      = f.association :work_category, required: true, include_blank: false, label: false, inline_label: ''
 
   %fieldset
     %legend
       = t('legends.date')
-      %i.fa.fa-2x.fa-calendar.pull-right
 
     .form-inputs
-      = f.input :date_type, collection: job_date_types, include_blank: false
+      = f.input :date_type, collection: job_date_types, include_blank: false, label: false, inline_label: ''
       = f.input :start_date, include_blank: true
       = f.input :end_date, include_blank: true
 
   %fieldset
     %legend
       = t('legends.salary')
-      %i.fa.fa-2x.fa-money.pull-right
 
     .form-inputs
-      = f.input :salary_type, collection: job_salary_types, include_blank: false
+      = f.input :salary_type, collection: job_salary_types, include_blank: false, label: false, inline_label: ''
       = f.input :salary, required: true, input_html: { value: @job.try(:salary) || current_region.organizations.first.default_hourly_per_age }
 
   %fieldset
     %legend
-      = t('legends.workers')
-      %i.fa.fa-2x.fa-clock-o.pull-right
+      = "Jugendliche"
 
     .form-inputs
-      = f.input :manpower, require: true
-      = f.input :duration, require: true
+      = f.input :manpower, require: true, label: "Benötigte Arbeitskräfte:"
+      = f.input :duration, require: true, label: "Ungefähre Dauer (Stunden):", hint: false
+
+  %fieldset
+    %legend
+      = "Zuständige Organisation"
+    .form-inputs
+      = f.input :organization, require: true, collection: current_region.organizations.order(:name).distinct, label: false
 
   .form-actions
     - if @job.new_record?

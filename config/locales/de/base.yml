@@ -278,7 +278,7 @@ de:
     sure: "Sind Sie sicher?"
     show: "Anzeigen"
     show_title: "%{who} anzeigen"
-    edit: "Job speichern"
+    edit: "Speichern"
     edit_title: "%{who} bearbeiten"
     create: "Job erstellen"
     destroy: "Löschen"
