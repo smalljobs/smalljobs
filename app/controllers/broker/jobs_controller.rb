@@ -12,9 +12,15 @@ class Broker::JobsController < InheritedResources::Base
     redirect_to broker_dashboard_url
   end
 
+  def new
+    @job = Job.new()
+    @job.created_at = DateTime.now()
+    @job.state  = 'hidden'
+  end
+
   def create
     @job = Job.new(permitted_params[:job])
-    @job.state  = 'available'
+    # @job.state  = 'hidden'
 
     create!
   end

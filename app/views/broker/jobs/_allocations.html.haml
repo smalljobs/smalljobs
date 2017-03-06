@@ -1,0 +1,47 @@
+- allocations = @job.allocations.application_open
+- if allocations.count > 0
+  %h4= "Bewerbungen"
+  - for allocation in allocations
+    %p
+      = link_to "#{allocation.seeker.name} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_seeker_path(allocation.seeker)
+
+- allocations = @job.allocations.application_rejected
+- if allocations.count > 0
+  %h4= "Bewerbungen abgelehnt"
+  - for allocation in allocations
+    %p
+      = link_to "#{allocation.seeker.name} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_seeker_path(allocation.seeker)
+
+- allocations = @job.allocations.proposal
+- if allocations.count >= 0
+  %h4= "Job Vorschläge"
+  = simple_form_for([:broker, @job], html: { novalidate: true }) do |f|
+    - seekers_collection = []
+    - current_broker.seekers.find_each do |seeker|
+      - if Allocation.find_by(seeker_id: seeker.id, job_id: @job.id) == nil
+        - seekers_collection.append(seeker)
+    = f.input :seekers, collection: seekers_collection
+  - for allocation in allocations
+    %p
+      = link_to "#{allocation.seeker.name} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_seeker_path(allocation.seeker)
+
+- allocations = @job.allocations.active
+- if allocations.count > 0
+  %h4= "Bewerbungen abgelehnt"
+  - for allocation in allocations
+    %p
+      = link_to "#{allocation.seeker.name} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_seeker_path(allocation.seeker)
+
+- allocations = @job.allocations.finished
+- if allocations.count > 0
+  %h4= "Bewerbungen abgelehnt"
+  - for allocation in allocations
+    %p
+      = link_to "#{allocation.seeker.name} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_seeker_path(allocation.seeker)
+
+- allocations = @job.allocations.cancelled
+- if allocations.count > 0
+  %h4= "Abgebrochene Anstellungen"
+  - for allocation in allocations
+    %p
+      = link_to "#{allocation.seeker.name} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_seeker_path(allocation.seeker)
