@@ -23,7 +23,7 @@
 %div.tab-content
   %div{id: 'todo', class: 'tab-pane fade in active'}
     .table-responsive
-      %table.table.table-striped
+      %table.table.table-striped.sortable
         %tr
           %th= t('broker_dashboard.todo_table.date')
           %th= t('broker_dashboard.todo_table.todo')
@@ -32,13 +32,13 @@
     %br
     = link_to t('broker.jobs.index.add_new'), new_broker_job_path, class: 'btn btn-success'
     .table-responsive
-      %table.table.table-striped
+      %table.table.table-striped.sortable
         %tr
           %th= t('activerecord.attributes.job.status')
           %th= t('activerecord.attributes.job.todo')
           %th= t('activerecord.attributes.job.job')
           %th= t('activerecord.attributes.job.provider')
-          %th
+          %th.hidden
 
         - if @jobs.size == 0
           %tr
@@ -61,7 +61,7 @@
     %br
     = link_to t('providers.index.add_new'), new_broker_provider_path, class: 'btn btn-success'
     .table-responsive
-      %table.table.table-striped
+      %table.table.table-striped.sortable
         %tr
           %th= t('broker_dashboard.providers_table.status')
           %th= t('broker_dashboard.providers_table.name')
@@ -88,7 +88,7 @@
     %br
     = link_to t('seekers.index.add_new'), new_broker_seeker_path, class: 'btn btn-success'
     .table-responsive
-      %table.table.table-striped
+      %table.table.table-striped.sortable
         %tr
           %th= t('broker_dashboard.seekers_table.status')
           %th= t('broker_dashboard.seekers_table.name')
@@ -108,7 +108,7 @@
             %td= seeker.place.zip + ' ' + seeker.place.name
   %div{id: 'assignments', class: 'tab-pane fade in'}
     .table-responsive
-      %table.table.table-striped
+      %table.table.table-striped.sortable
         %tr
           %th= t('broker_dashboard.assignments_table.status')
           %th= t('broker_dashboard.assignments_table.seeker')

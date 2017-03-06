@@ -2,6 +2,7 @@
 #= require jquery_ujs
 #= require bootstrap
 #= require social-share-button
+#= require sortable.js
 #= require_tree .
 
 ready = ->
