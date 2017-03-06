@@ -5,6 +5,10 @@ class Broker::SeekersController < InheritedResources::Base
 
   load_and_authorize_resource :seeker, through: :current_region, except: :new
 
+  def show
+    redirect_to broker_dashboard_url
+  end
+
   def create
     @seeker = Seeker.new(permitted_params[:seeker])
     @seeker.terms = '1'

@@ -6,32 +6,29 @@
 
   %fieldset
     .form-inputs
-      = f.input :active, as: :radio_buttons, collection: [{value: false, label: 'Inaktiv'}, {value: true, label: 'Aktiv'}], label_method: ->(obj){obj[:label]}, value_method: ->(obj){obj[:value]}, label: false, inline_label: '', item_wrapper_class: 'radio-inline'
+      = f.input :active, as: :radio_buttons, collection: [{value: false, label: 'Inaktiv'}, {value: true, label: 'Aktiv'}, {value: false, label: 'Beendet'}], label_method: ->(obj){obj[:label]}, value_method: ->(obj){obj[:value]}, label: false, inline_label: '', item_wrapper_class: 'radio-inline'
 
   %fieldset
     %legend
-      = t('legends.login')
-      %i.fa.fa-2x.fa-user.pull-right
+      = "Anbieterln"
+    .form-inputs.form-inline
+      = f.input :firstname, required: true, label: false
+      = f.input :lastname, required: true, label: false
 
+  %fieldset
     .form-inputs
       = f.input :contract, required: true, label: false, inline_label: 'Verträge gesendet'
-      = f.input :login, required: true, autofocus: true
 
       - if @provider.new_record?
         = f.input :password, required: true, autocomplete: 'off'
         = f.input :password_confirmation, required: true
-      - else
-        = f.input :password, required: false, autocomplete: 'off', hint: t('devise_views.leave_empty')
-        = f.input :password_confirmation, required: false
+      -#- else
+      -#  = f.input :password, required: false, autocomplete: 'off', hint: t('devise_views.leave_empty')
+      -#  = f.input :password_confirmation, required: false
 
   %fieldset
-    %legend
-      = t('legends.address')
-      %i.fa.fa-2x.fa-home.pull-right
-
     .form-inputs
-      = f.input :firstname, required: true
-      = f.input :lastname, required: true
+      = f.input :notes, label: "Notizen (nur intern sichtbar)"
       = f.input :street, required: true
       = f.association :place, required: true, collection: current_region.places, include_blank: false
 
@@ -49,13 +46,11 @@
       = f.input :contact_preference, collection: provider_contact_preferences, include_blank: false
       = f.input :contact_availability, hint: ''
 
-  -#%fieldset
-  -#  %legend
-  -#    = t('legends.admin')
-  -#    %i.fa.fa-2x.fa-lock.pull-right
-  -#
-  -#  .form-inputs
-  -#    = f.input :active
+  %fieldset
+    %legend
+      = "Zuständige Organisation"
+    .form-inputs
+      = f.association :organization, required: true, include_blank: false, label: false
 
   .form-actions
     - if @provider.new_record?
