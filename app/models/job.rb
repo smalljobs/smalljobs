@@ -36,6 +36,7 @@ class Job < ActiveRecord::Base
 
   after_create :send_job_created,   if: proc { |s| s.state == 'created' }
   after_save   :send_job_connected, if: proc { |s| s.state_changed? && s.state_was == 'available' && s.state == 'connected' }
+  before_save :set_state_last_change,   if: proc { |s| s.state_changed?}
 
   # scope :without_applications, -> { includes(:applications).where('applications.id IS NULL') }
 
@@ -110,6 +111,11 @@ class Job < ActiveRecord::Base
       Notifier.job_rating_reminder_for_seekers(job).deliver
       job.update_attribute(:rating_reminder_sent, true)
     end
+  end
+
+  # Sets date of last change of state
+  def set_state_last_change
+    self.last_change_of_state = DateTime.now()
   end
 
   def self.state_from_integer(state_int)

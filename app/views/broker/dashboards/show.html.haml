@@ -25,8 +25,8 @@
     .table-responsive
       %table.table.table-striped.sortable
         %tr
-          %th= t('broker_dashboard.todo_table.date')
-          %th= t('broker_dashboard.todo_table.todo')
+          %th.sortable= t('broker_dashboard.todo_table.date')
+          %th.sortable= t('broker_dashboard.todo_table.todo')
           %th= t('broker_dashboard.todo_table.description')
   %div{id: 'jobs', class: 'tab-pane fade in'}
     %br
@@ -34,11 +34,11 @@
     .table-responsive
       %table.table.table-striped.sortable
         %tr
-          %th= t('activerecord.attributes.job.status')
-          %th= t('activerecord.attributes.job.todo')
-          %th= t('activerecord.attributes.job.job')
-          %th= t('activerecord.attributes.job.provider')
-          %th.hidden
+          %th.sortable= t('activerecord.attributes.job.status')
+          %th.sortable= t('activerecord.attributes.job.todo')
+          %th.sortable= t('activerecord.attributes.job.job')
+          %th.sortable= t('activerecord.attributes.job.provider')
+          %th
 
         - if @jobs.size == 0
           %tr
@@ -47,7 +47,7 @@
         - @jobs.each do |job|
           %tr{ class: job_status_class(job) }
             %td
-              = job_label(job)
+              = job.last_change_of_state == nil ?  "": job.last_change_of_state.strftime("%d.%m.%Y")
             %td
             %td
               = link_to job.title, edit_broker_job_path(job)
@@ -63,11 +63,11 @@
     .table-responsive
       %table.table.table-striped.sortable
         %tr
-          %th= t('broker_dashboard.providers_table.status')
-          %th= t('broker_dashboard.providers_table.name')
-          %th= t('broker_dashboard.providers_table.address')
-          %th= t('broker_dashboard.providers_table.plz')
-          %th= t('broker_dashboard.providers_table.jobs')
+          %th.sortable= t('broker_dashboard.providers_table.status')
+          %th.sortable= t('broker_dashboard.providers_table.name')
+          %th.sortable= t('broker_dashboard.providers_table.address')
+          %th.sortable= t('broker_dashboard.providers_table.plz')
+          %th.sortable= t('broker_dashboard.providers_table.jobs')
 
         - if @providers.size == 0
           %tr
@@ -90,10 +90,10 @@
     .table-responsive
       %table.table.table-striped.sortable
         %tr
-          %th= t('broker_dashboard.seekers_table.status')
-          %th= t('broker_dashboard.seekers_table.name')
-          %th= t('broker_dashboard.seekers_table.address')
-          %th= t('broker_dashboard.seekers_table.plz')
+          %th.sortable= t('broker_dashboard.seekers_table.status')
+          %th.sortable= t('broker_dashboard.seekers_table.name')
+          %th.sortable= t('broker_dashboard.seekers_table.address')
+          %th.sortable= t('broker_dashboard.seekers_table.plz')
 
         - if @seekers.size == 0
           %tr
@@ -110,11 +110,11 @@
     .table-responsive
       %table.table.table-striped.sortable
         %tr
-          %th= t('broker_dashboard.assignments_table.status')
-          %th= t('broker_dashboard.assignments_table.seeker')
-          %th= t('broker_dashboard.assignments_table.provider')
-          %th= t('broker_dashboard.assignments_table.duration_payment')
-          %th= t('broker_dashboard.assignments_table.feedback')
+          %th.sortable= t('broker_dashboard.assignments_table.status')
+          %th.sortable= t('broker_dashboard.assignments_table.seeker')
+          %th.sortable= t('broker_dashboard.assignments_table.provider')
+          %th.sortable= t('broker_dashboard.assignments_table.duration_payment')
+          %th.sortable= t('broker_dashboard.assignments_table.feedback')
 
         - if @assignments.size == 0
           %tr

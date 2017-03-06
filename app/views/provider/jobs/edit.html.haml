@@ -10,7 +10,7 @@
     - if @job.allocations.active.count > 0
       - for assignment in @job.allocations.active
         %p
-          = "#{assignment.seeker.firstname} #{assignment.seeker.lastname} #{assignment.last_change_of_state == nil ?  "": assignment.last_change_of_state.strftime("%m/%d/%Y")}"
+          = "#{assignment.seeker.firstname} #{assignment.seeker.lastname} #{assignment.last_change_of_state == nil ?  "": assignment.last_change_of_state.strftime("%d.%m.%Y")}"
           %br
           = "#{assignment.seeker.street} #{assignment.seeker.phone} #{assignment.seeker.mobile}"
     - else
@@ -19,7 +19,7 @@
       %h4= t('provider.jobs.new.seeker_end')
       - for assignment in @job.allocations.finished
         %p
-          = "#{assignment.seeker.firstname} #{assignment.seeker.lastname} #{assignment.last_change_of_state == nil ?  "": assignment.last_change_of_state.strftime("%m/%d/%Y")}"
+          = "#{assignment.seeker.firstname} #{assignment.seeker.lastname} #{assignment.last_change_of_state == nil ?  "": assignment.last_change_of_state.strftime("%d.%m.%Y")}"
           %br
           = "#{assignment.seeker.street} #{assignment.seeker.phone} #{assignment.seeker.mobile}"
     - else

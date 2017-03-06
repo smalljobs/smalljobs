@@ -15,6 +15,7 @@ class Allocation < ActiveRecord::Base
     "#{ seeker.try(:name) } #{ job.try(:title) }"
   end
 
+  # Sets date of last change of state
   def set_state_last_change
     self.last_change_of_state = DateTime.now()
   end
