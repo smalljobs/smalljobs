@@ -45,6 +45,7 @@
             %td{ colspan: 5 }= t('broker.jobs.index.no_jobs')
 
         - @jobs.each do |job|
+          - @job = job
           %tr{ class: job_status_class(job) }
             %td
               = job.last_change_of_state == nil ?  "": job.last_change_of_state.strftime("%d.%m.%Y")
@@ -54,9 +55,7 @@
             %td
               = link_to job.provider.firstname, broker_provider_path(job.provider)
             %td
-              %ul
-                - job.allocations.each do |allocation|
-                  %li= allocation.state
+              = render 'allocations'
   %div{id: 'providers', class: 'tab-pane fade in'}
     %br
     = link_to t('providers.index.add_new'), new_broker_provider_path, class: 'btn btn-success'
