@@ -107,7 +107,7 @@ module ApiHelper
     json[:start_datetime] = assignment.start_time != nil ? assignment.start_time.strftime('%s') : nil
     json[:stop_datetime] = assignment.end_time != nil ? assignment.end_time.strftime('%s') : nil
     json[:duration] = assignment.duration
-    json[:payment] = assignment.job.salary # TODO change
+    json[:payment] = assignment.payment
     return json
   end
 
@@ -165,7 +165,7 @@ module ApiHelper
     json[:start_datetime] = assignment.start_time != nil ? assignment.start_time.strftime('%s') : nil
     json[:stop_datetime] = assignment.end_time != nil ? assignment.end_time.strftime('%s') : nil
     json[:duration] = assignment.duration
-    json[:payment] = assignment.job.salary # TODO change
+    json[:payment] = assignment.payment
 
     if show_provider
       json[:provider] = provider_to_json(assignment.provider)

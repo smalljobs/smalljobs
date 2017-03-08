@@ -388,6 +388,10 @@ class ApiController < ApplicationController
       data[:duration] = params[:duration].to_i
     end
 
+    if params[:payment] != nil
+      data[:payment] = params[:payment].to_f
+    end
+
     if assignment.update(data)
       render json: ApiHelper::assignment_to_json(assignment), status: 200
     else
