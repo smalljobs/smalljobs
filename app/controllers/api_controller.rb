@@ -22,9 +22,10 @@ class ApiController < ApplicationController
     end
 
     token = AccessToken.new(seeker_id: seeker.id, token_type: 'bearer')
+    token.expire_at = DateTime.now() + 30.days
     token.save!
 
-    expires_in = token.created_at + 30
+    expires_in = token.created_at + 30.days
     expires_in -= token.created_at
 
     render json: {access_token: token.access_token, token_type: token.token_type, expires_in: expires_in, created_at: token.created_at, refresh_token: token.refresh_token, user: ApiHelper::seeker_to_json(seeker)}, status: 200
@@ -502,7 +503,7 @@ class ApiController < ApplicationController
       return false
     end
 
-    expiration_date = token.created_at + 30.days
+    expiration_date = token.expire_at || (token.created_at + 30.days)
     if expiration_date < DateTime.now
       return false
     end
