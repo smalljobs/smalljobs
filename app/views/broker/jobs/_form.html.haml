@@ -6,7 +6,7 @@
 
   %fieldset
     .form-inputs
-      = f.input :state, as: :radio_buttons, collection: [{value: 'hidden', label: "Prüfen"}, {value: 'public', label: "Öffentlich"}, {value: 'running', label: "Versteckt"}, {value: 'feedback', label: "Abgeschlossen"}], label_method: ->(obj){obj[:label]}, value_method: ->(obj){obj[:value]}, label: false, inline_label: '', item_wrapper_class: 'radio-inline'
+      = f.input :state, as: :radio_buttons, collection: [{value: 'running', label: "Prüfen"}, {value: 'public', label: "Öffentlich"}, {value: 'hidden', label: "Versteckt"}, {value: 'feedback', label: "Abgeschlossen"}], label_method: ->(obj){obj[:label]}, value_method: ->(obj){obj[:value]}, label: false, inline_label: '', item_wrapper_class: 'radio-inline'
 
   %fieldset
     .form-inputs
@@ -19,17 +19,21 @@
     .form-inputs
       = f.input :notes, label: false
 
+
   %fieldset
     %legend
       = "Anbieter"
-    %p
-      = link_to @job.provider.name, broker_provider_path(@job.provider)
-      %br
-      = link_to @job.provider.phone, broker_provider_path(@job.provider)
-      %br
-      = link_to @job.provider.street, broker_provider_path(@job.provider)
-      %br
-      = link_to @job.provider.place.custom_name, broker_provider_path(@job.provider)
+    - if @job.new_record?
+      = f.association :provider, collection: current_broker.providers
+    - else
+      %p
+        = link_to @job.provider.name, broker_provider_path(@job.provider)
+        %br
+        = link_to @job.provider.phone, broker_provider_path(@job.provider)
+        %br
+        = link_to @job.provider.street, broker_provider_path(@job.provider)
+        %br
+        = link_to @job.provider.place.custom_name, broker_provider_path(@job.provider)
 
   %fieldset
     %legend
