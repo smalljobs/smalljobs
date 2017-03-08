@@ -27,14 +27,14 @@
 
 - allocations = @job.allocations.active
 - if allocations.count > 0
-  %h4= "Bewerbungen abgelehnt"
+  %h4= "Aktive Anstellungen"
   - for allocation in allocations
     %p
       = link_to "#{allocation.seeker.name} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_seeker_path(allocation.seeker)
 
 - allocations = @job.allocations.finished
 - if allocations.count > 0
-  %h4= "Bewerbungen abgelehnt"
+  %h4= "Beendete Anstellungen"
   - for allocation in allocations
     %p
       = link_to "#{allocation.seeker.name} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_seeker_path(allocation.seeker)

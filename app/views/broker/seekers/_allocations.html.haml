@@ -1,0 +1,42 @@
+- allocations = @seeker.allocations.application_open
+- if allocations.count > 0
+  %h4= "Bewerbungen"
+  - for allocation in allocations
+    %p
+      = link_to "#{allocation.job.provider.name} #{allocation.job.title} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation)
+
+- allocations = @seeker.allocations.application_rejected
+- if allocations.count > 0
+  %h4= "Bewerbungen abgelehnt"
+  - for allocation in allocations
+    %p
+      = link_to "#{allocation.job.provider.name} #{allocation.job.title} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation)
+
+- allocations = @seeker.allocations.proposal
+- if allocations.count > 0
+  %h4= "Job Vorschläge"
+  - for allocation in allocations
+    %p
+      = link_to "#{allocation.job.provider.name} #{allocation.job.title} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation)
+
+- allocations = @seeker.allocations.active
+- if allocations.count > 0
+  %h4= "Aktive Anstellungen"
+  - for allocation in allocations
+    %p
+      = link_to "#{allocation.job.provider.name} #{allocation.job.title} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation)
+
+- allocations = @seeker.allocations.finished
+- if allocations.count > 0
+  %h4= "Beendete Anstellungen"
+  - for allocation in allocations
+    %p
+      = link_to "#{allocation.job.provider.name} #{allocation.job.title} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation)
+
+- allocations = @seeker.allocations.cancelled
+- if allocations.count > 0
+  %h4= "Abgebrochene Anstellungen"
+  - for allocation in allocations
+    %p
+      = link_to "#{allocation.job.provider.name} #{allocation.job.title} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation)
+
