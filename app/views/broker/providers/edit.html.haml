@@ -1,7 +1,23 @@
 = link_to '< ' + t('common.back'), broker_dashboard_path
-%h1= t('providers.edit.title') + ' ' + @provider.name
 
-= render 'form'
+%div.row
+  %div.col-md-8
+    = render 'form'
+  %div.col-md-4
+    %br
+    %br
+    %br
+    %br
+    %br
+    %br
+    %br
+    %br
+    %br
+    %br
+    %div.bg-info
+      %h3 TODO
+    %div.bg-info
+      = render 'allocations'
 
 %ul.nav.nav-pills
   %li= link_to t('common.show'), broker_provider_path(@provider)

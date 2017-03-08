@@ -1,0 +1,43 @@
+- jobs = @provider.jobs.where(state: 'running')
+- if jobs.count > 0
+  %h4= "Jobs: Prüfen"
+  - for job in jobs
+    = link_to "#{job.title} #{job.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_job_path(job)
+    - allocations = job.allocations
+    - for allocation in allocations
+      = link_to "#{allocation.state} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation)
+      %br
+    %br
+
+- jobs = @provider.jobs.where(state: 'public')
+- if jobs.count > 0
+  %h4= "Jobs: Veröffentlichen"
+  - for job in jobs
+    = link_to "#{job.title} #{job.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_job_path(job)
+    - allocations = job.allocations
+    - for allocation in allocations
+      = link_to "#{allocation.state} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation)
+      %br
+    %br
+
+- jobs = @provider.jobs.where(state: 'hidden')
+- if jobs.count > 0
+  %h4= "Jobs: Versteckt"
+  - for job in jobs
+    = link_to "#{job.title} #{job.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_job_path(job)
+    - allocations = job.allocations
+    - for allocation in allocations
+      = link_to "#{allocation.state} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation)
+      %br
+    %br
+
+- jobs = @provider.jobs.where(state: 'finished')
+- if jobs.count > 0
+  %h4= "Jobs: Beendet"
+  - for job in jobs
+    = link_to "#{job.title} #{job.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_job_path(job)
+    - allocations = job.allocations
+    - for allocation in allocations
+      = link_to "#{allocation.state} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation)
+      %br
+    %br
