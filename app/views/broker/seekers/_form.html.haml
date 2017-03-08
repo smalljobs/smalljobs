@@ -47,7 +47,7 @@
     %legend
       = "Zuständige Organisation"
     .form-inputs
-      = f.association :organization, required: true, include_blank: false, label: false
+      = f.association :organization, required: true, include_blank: false, label: false, collection: current_region.organizations.order(:name).distinct
 
   .form-actions
     - if @seeker.new_record?
