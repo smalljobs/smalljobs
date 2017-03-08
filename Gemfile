@@ -38,6 +38,8 @@ gem 'validate_url'
 gem 'email_validator'
 gem 'kaminari'
 gem 'rest-client'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 
 group :development, :test do
   gem 'better_errors'
