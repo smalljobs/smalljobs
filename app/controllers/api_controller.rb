@@ -421,6 +421,7 @@ class ApiController < ApplicationController
     show_provider = true?(params[:provider])
     show_organization = true?(params[:organization])
     show_seeker = true?(params[:user])
+    show_job = true?(params[:job])
     page = params[:page] == nil ? 1 : params[:page].to_i
     limit = params[:limit] == nil ? 10 : params[:limit].to_i
 
@@ -436,24 +437,24 @@ class ApiController < ApplicationController
       if state == nil
         found_assignments = Assignment.all.page(page).per(limit)
         for assignment in found_assignments do
-          assignments.append(ApiHelper::assignment_with_data_to_json(assignment, show_provider, show_organization, show_seeker))
+          assignments.append(ApiHelper::assignment_with_data_to_json(assignment, show_provider, show_organization, show_seeker, show_job))
         end
       else
         found_assignments = Assignment.where(status: state).page(page).per(limit)
         for assignment in found_assignments do
-          assignments.append(ApiHelper::assignment_with_data_to_json(assignment, show_provider, show_organization, show_seeker))
+          assignments.append(ApiHelper::assignment_with_data_to_json(assignment, show_provider, show_organization, show_seeker, show_job))
         end
       end
     else
       if state == nil
         found_assignments = Assignment.joins(:provider).where(providers: {organization_id: organization_id}).page(page).per(limit)
         for assignment in found_assignments do
-          assignments.append(ApiHelper::assignment_with_data_to_json(assignment, show_provider, show_organization, show_seeker))
+          assignments.append(ApiHelper::assignment_with_data_to_json(assignment, show_provider, show_organization, show_seeker, show_job))
         end
       else
         found_assignments = Assignment.joins(:provider).where(providers: {organization_id: organization_id}, status: state).page(page).per(limit)
         for assignment in found_assignments do
-          assignments.append(ApiHelper::assignment_with_data_to_json(assignment, show_provider, show_organization, show_seeker))
+          assignments.append(ApiHelper::assignment_with_data_to_json(assignment, show_provider, show_organization, show_seeker, show_job))
         end
       end
     end
@@ -466,13 +467,14 @@ class ApiController < ApplicationController
     show_provider = true?(params[:provider])
     show_organization = true?(params[:organization])
     show_seeker = true?(params[:user])
+    show_job = true?(params[:job])
     assignment = Assignment.find_by(id: id)
     if assignment == nil
       render json: {code: 'assignments/not_found', message: 'Assignment not found'}, status: 404
       return
     end
 
-    render json: ApiHelper::assignment_with_data_to_json(assignment, show_provider, show_organization, show_seeker)
+    render json: ApiHelper::assignment_with_data_to_json(assignment, show_provider, show_organization, show_seeker, show_job)
   end
 
   protected

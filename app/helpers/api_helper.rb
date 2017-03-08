@@ -58,8 +58,6 @@ module ApiHelper
     json[:id] = job.id
     json[:organization_id] = organization.id
 
-    json[:allocation_id] = allocation_id
-
     status = Job::state_to_integer(job.state)
 
     json[:status] = status
@@ -149,7 +147,7 @@ module ApiHelper
     return json
   end
 
-  def self.assignment_with_data_to_json(assignment, show_provider, show_organization, show_seeker)
+  def self.assignment_with_data_to_json(assignment, show_provider, show_organization, show_seeker, show_job)
     json = {}
     json[:id] = assignment.id
     if assignment.active?
@@ -177,6 +175,10 @@ module ApiHelper
 
     if show_seeker
       json[:user] =seeker_to_json(assignment.seeker)
+    end
+
+    if show_job
+      json[:job] = job_to_json(assignment.job, assignment.provider.organization, false, false, false, nil)
     end
 
     return json
