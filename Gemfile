@@ -37,6 +37,7 @@ gem 'unicorn'
 gem 'validate_url'
 gem 'email_validator'
 gem 'kaminari'
+gem 'rest-client'
 
 group :development, :test do
   gem 'better_errors'

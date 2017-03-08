@@ -41,6 +41,9 @@ class Seeker < ActiveRecord::Base
   phony_normalize :mobile, default_country_code: 'CH'
 
   validate :ensure_seeker_age
+
+  after_save :send_to_jugendinfo
+
   # validate :ensure_work_category
 
   # validates_acceptance_of :terms, allow_nil: false, on: :create
@@ -125,6 +128,14 @@ class Seeker < ActiveRecord::Base
   #
   def send_registration_email
     Notifier.new_seeker_signup_for_broker(self).deliver
+  end
+
+  # Make post request to jugendinfo API
+  def send_to_jugendinfo
+    require 'rest-client'
+    dev = "http://devadmin.jugendarbeit.digital/api/jugendinfo_user/update_data/"
+    live = "http://admin.juginfo.ch/api/jugendinfo_user/update_data/"
+    RestClient.post dev, {token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', id: 175, smalljobs_user_id: self.id, firstname: self.firstname, lastname: self.lastname, mobile: self.mobile, address: self.street, zip: self.place.zip, birthdate: self.date_of_birth.strftime('%s'), city: self.place.name}
   end
 
 end
