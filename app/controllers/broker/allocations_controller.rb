@@ -4,8 +4,8 @@ class Broker::AllocationsController < InheritedResources::Base
 
   belongs_to :job
 
-  load_and_authorize_resource :job
-  load_and_authorize_resource :allocation, through: :job
+  # load_and_authorize_resource :job
+  # load_and_authorize_resource :allocation, through: :job
 
   skip_authorize_resource :allocation, only: :new
 
@@ -13,7 +13,11 @@ class Broker::AllocationsController < InheritedResources::Base
 
   def show
     @job = Job.find_by(id: params[:job_id])
-    @allocation = Allocation.find_by(id: params[:id])
+    @allocation = Allocation.find_by(job_id: @job.id, seeker_id: params[:id])
+    if @allocation == nil
+      @allocation = Allocation.new(job_id: @job.id, seeker_id: params[:id], state: :application_open)
+      @allocation.save!
+    end
   end
 
   protected
