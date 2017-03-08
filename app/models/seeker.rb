@@ -28,7 +28,8 @@ class Seeker < ActiveRecord::Base
   validates :organization, presence: true
 
   # validates :email, email: true, allow_nil: true
-  validates :phone, :mobile, phony_plausible: true, presence: true
+  validates :mobile, phony_plausible: true, presence: true
+  # validates :phone, phony_plausible: true
 
   validates :date_of_birth, presence: true
   validates :sex, inclusion: { in: lambda { |m| m.sex_enum } }

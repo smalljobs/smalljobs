@@ -24,7 +24,7 @@
     %legend
       = "Anbieter"
     - if @job.new_record?
-      = f.association :provider, collection: current_broker.providers
+      = f.association :provider, collection: current_broker.providers, required: true, include_blank: false
     - else
       %p
         = link_to @job.provider.name, broker_provider_path(@job.provider)

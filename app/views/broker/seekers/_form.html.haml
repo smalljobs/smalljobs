@@ -43,6 +43,12 @@
     .form-inputs
       = f.association :work_categories, as: :check_boxes
 
+  %fieldset
+    %legend
+      = "Zuständige Organisation"
+    .form-inputs
+      = f.association :organization, required: true, include_blank: false, label: false
+
   .form-actions
     - if @seeker.new_record?
       = f.button :submit, t('common.create'), class: 'btn btn-primary btn-success'
