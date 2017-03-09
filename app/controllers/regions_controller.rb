@@ -10,6 +10,11 @@ class RegionsController < ApplicationController
       return
     end
 
+    if current_broker != nil
+      redirect_to broker_dashboard_path
+      return
+    end
+
     @organization = current_region.organizations.first
     @jobs = current_region.jobs.where(state: 'public')
     @region = current_region
