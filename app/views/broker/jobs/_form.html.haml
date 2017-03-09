@@ -9,6 +9,8 @@
       = f.input :state, as: :radio_buttons, collection: [{value: 'running', label: "Prüfen"}, {value: 'public', label: "Öffentlich"}, {value: 'hidden', label: "Versteckt"}, {value: 'feedback', label: "Abgeschlossen"}], label_method: ->(obj){obj[:label]}, value_method: ->(obj){obj[:value]}, label: false, inline_label: '', item_wrapper_class: 'radio-inline'
 
   %fieldset
+    %legend
+      = "Titel"
     .form-inputs
       = f.input :title, required: true, label: false
     %p= "Erstellt: #{@job.created_at.strftime("%d.%m.%Y")}"
@@ -27,25 +29,25 @@
       = f.association :provider, collection: current_broker.providers, required: true, include_blank: false
     - else
       %p
-        = link_to @job.provider.name, broker_provider_path(@job.provider)
+        = link_to @job.provider.name, edit_broker_provider_path(@job.provider)
         %br
-        = link_to @job.provider.phone, broker_provider_path(@job.provider)
+        = link_to @job.provider.phone, edit_broker_provider_path(@job.provider)
         %br
-        = link_to @job.provider.street, broker_provider_path(@job.provider)
+        = link_to @job.provider.street, edit_broker_provider_path(@job.provider)
         %br
-        = link_to @job.provider.place.custom_name, broker_provider_path(@job.provider)
+        = link_to @job.provider.place.custom_name, edit_broker_provider_path(@job.provider)
 
   %fieldset
     %legend
-      = "lange Beschreibung"
-    .form_inputs
-      = f.input :long_description, label: false
-
-  %fieldset
-    %legend
-      = "kurze Beschreibung"
+      = "Kurze Beschreibung"
     .form_inputs
       = f.input :short_description, label: false
+
+  %fieldset
+    %legend
+      = "Lange Beschreibung"
+    .form_inputs
+      = f.input :long_description, label: false
 
   %fieldset
     %legend
@@ -53,7 +55,7 @@
 
     .form-inputs
       -#= f.association :provider, required: true, autofocus: true, collection: current_region.providers, include_blank: false
-      = f.association :work_category, required: true, include_blank: false, label: false
+      = f.association :work_category, required: true, include_blank: false, label: false, collection: WorkCategory.all.order(:name)
 
   %fieldset
     %legend
