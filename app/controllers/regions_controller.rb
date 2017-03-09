@@ -5,13 +5,6 @@ class RegionsController < ApplicationController
   end
 
   def show
-    Job.all.find_each do |job|
-      if job.last_change_of_state == nil
-        job.last_change_of_state = DateTime.now()
-        job.save!
-      end
-    end
-
     if current_provider != nil
       redirect_to provider_dashboard_path
       return
