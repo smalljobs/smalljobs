@@ -9,7 +9,7 @@ class Broker::JobsController < InheritedResources::Base
   has_scope :without_applications, type: :boolean
 
   def show
-    redirect_to broker_dashboard_url
+    redirect_to request.referer
   end
 
   def new
