@@ -17,9 +17,10 @@
   %h4= "Job Vorschläge"
   = simple_form_for([:broker, @job], html: { novalidate: true }) do |f|
     - seekers_collection = []
-    - current_broker.seekers.order(:firstname, :lastname).find_each do |seeker|
+    - current_broker.seekers.find_each do |seeker|
       - if Allocation.find_by(seeker_id: seeker.id, job_id: @job.id) == nil
         - seekers_collection.append(seeker)
+    - seekers_collection.sort! { |a,b| a.name.downcase <=> b.name.downcase}
     = f.input :seekers, collection: seekers_collection
   - for allocation in allocations
     %p
