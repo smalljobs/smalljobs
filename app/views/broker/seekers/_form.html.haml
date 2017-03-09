@@ -22,6 +22,10 @@
 
   %fieldset
     .form-inputs
+      = f.input :notes, label: "Notizen (nur intern sichtbar)", as: :text
+
+  %fieldset
+    .form-inputs
       = f.input :email, required: true, autofocus: true
 
       - if @seeker.new_record?
