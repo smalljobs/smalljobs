@@ -53,7 +53,7 @@
             %td
               = link_to job.title, edit_broker_job_path(job)
             %td
-              = link_to job.provider.firstname, broker_provider_path(job.provider)
+              = link_to job.provider.name, broker_provider_path(job.provider)
             %td
               = render 'allocations'
   %div{id: 'providers', class: 'tab-pane fade in'}
