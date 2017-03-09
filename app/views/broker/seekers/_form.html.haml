@@ -11,9 +11,9 @@
   %fieldset
     %legend
       = "JugendlicheR"
-    .form-inputs.form-inline
-      = f.input :firstname, required: true, label: false
-      = f.input :lastname, required: true, label: false
+    .form-inputs
+      = f.input :firstname, required: true
+      = f.input :lastname, required: true
 
   %fieldset
     %a{href: '#'}
@@ -35,7 +35,7 @@
       -#  = f.input :password, required: false, autocomplete: 'off', hint: t('devise_views.leave_empty')
       -#  = f.input :password_confirmation, required: false
       = f.input :mobile, required: true
-      = f.input :date_of_birth, required: true, start_year: Date.today.year - 18, end_year: Date.today.year - 13, include_blank: true
+      = f.input :date_of_birth, required: true, start_year: Date.today.year - 25, end_year: Date.today.year - 13, include_blank: false, hint: 'Du solltest zwischen 13 und 25 Jahre alt sein.'
       = f.input :sex, collection: seeker_sex, include_blank: false
 
   %fieldset
