@@ -22,6 +22,15 @@ class Broker::ProvidersController < InheritedResources::Base
     create!
   end
 
+  def contract
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "contract", template: 'broker/providers/contract.html.erb'
+      end
+    end
+  end
+
   protected
 
   def current_user

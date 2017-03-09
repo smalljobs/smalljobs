@@ -18,6 +18,9 @@
   %fieldset
     .form-inputs
       = f.input :contract, required: true, label: false, inline_label: 'Verträge gesendet'
+      %p
+        %i.fa.fa-print
+        = link_to "Verträge drucken", "/broker/providers/#{@provider.id}/contract?format=pdf"
 
       - if @provider.new_record?
         = f.input :password, required: true, autocomplete: 'off'

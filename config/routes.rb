@@ -51,7 +51,11 @@ Smalljobs::Application.routes.draw do
       resource :dashboard, only: :show
       resource :organization, only: [:edit, :update]
 
-      resources :providers
+      resources :providers do
+        member do
+          get 'contract'
+        end
+      end
       resources :seekers
 
       resources :jobs do
