@@ -11,4 +11,8 @@ class Place < ActiveRecord::Base
   def custom_name
     return "#{zip} #{name}"
   end
+
+  def full_name
+    return "#{zip} #{name}"
+  end
 end

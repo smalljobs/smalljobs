@@ -37,7 +37,7 @@
   %fieldset
     .form-inputs
       = f.input :street, required: true
-      = f.association :place, required: true, collection: current_region.places.order(:name), include_blank: false, label_method: :custom_name
+      = f.association :place, required: true, collection: current_region.places.order(:full_name), include_blank: false, label_method: :full_name
 
   %fieldset
     .form-inputs
