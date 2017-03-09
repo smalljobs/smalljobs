@@ -34,11 +34,11 @@
     .table-responsive
       %table.table.table-striped.sortable
         %tr
-          %th.sortable= t('activerecord.attributes.job.status')
-          %th.sortable= t('activerecord.attributes.job.todo')
-          %th.sortable= t('activerecord.attributes.job.job')
-          %th.sortable= t('activerecord.attributes.job.provider')
-          %th
+          %th.sortable= t('broker_dashboard.jobs_table.date')
+          %th.sortable= t('broker_dashboard.jobs_table.todo')
+          %th.sortable= t('broker_dashboard.jobs_table.job')
+          %th.sortable= t('broker_dashboard.jobs_table.provider')
+          %th= t('broker_dashboard.jobs_table.allocations')
 
         - if @jobs.size == 0
           %tr
@@ -53,7 +53,7 @@
             %td
               = link_to job.title, edit_broker_job_path(job)
             %td
-              = link_to job.provider.name, broker_provider_path(job.provider)
+              = link_to job.provider.name, edit_broker_provider_path(job.provider)
             %td
               = render 'allocations'
   %div{id: 'providers', class: 'tab-pane fade in'}
