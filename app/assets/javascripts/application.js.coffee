@@ -41,5 +41,9 @@ ready = ->
       $('#provider_active_false').prop('checked', true)
   ).change();
 
+  $('.back_button').click(->
+    history.back();
+  );
+
 
 $(document).ready(ready);
