@@ -29,3 +29,95 @@ textarea.resize-vertical {
 .margin_top_120 {
   margin-top: 120px;
 }
+
+.control-group {
+  display: inline-block;
+}
+.control {
+  font-size: 18px;
+  position: relative;
+  color: #17c2a5;
+  font-weight: bold;
+  margin-bottom: 15px;
+  padding-left: 30px;
+  cursor: pointer;
+  display: inline;
+}
+
+.control input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+.control__indicator {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background: #ffffff;
+  border: 4px solid #5fc2a5;
+}
+
+.control--radio .control__indicator {
+  border-radius: 50%;
+}
+
+/* Checked state */
+.control input:checked ~ .control__indicator {
+  background: #ffffff;
+  border: 4px solid #5fc2a5;
+}
+
+/* Disabled state */
+.control input:disabled ~ .control__indicator {
+  pointer-events: none;
+  opacity: .6;
+  background: #e6e6e6;
+}
+
+/* Check mark */
+.control__indicator:after {
+  position: absolute;
+  display: none;
+  content: '';
+}
+
+/* Show check mark */
+.control input:checked ~ .control__indicator:after {
+  display: block;
+}
+
+/* Checkbox tick */
+.control--checkbox .control__indicator:after {
+  top: 4px;
+  left: 8px;
+  width: 3px;
+  height: 8px;
+  transform: rotate(45deg);
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+}
+
+/* Disabled tick colour */
+.control--checkbox input:disabled ~ .control__indicator:after {
+  border-color: #7b7b7b;
+}
+
+/* Radio button inner circle */
+.control--radio .control__indicator:after {
+  content: '\f00c';
+  font-family: FontAwesome;
+  color: #5fc2a5;
+  font-size: 14px;
+  top: -4px;
+  left: -1px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.control label{
+  padding-left: 0;
+  padding-right: 10px;
+}

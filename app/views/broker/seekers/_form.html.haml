@@ -6,7 +6,7 @@
 
   %fieldset
     .form-inputs
-      = f.input :status, as: :radio_buttons, collection: [{value: 'inactive', label: 'Inaktiv'}, {value: 'active', label: 'Aktiv'}, {value: 'completed', label: 'Beendet'}], label_method: ->(obj){obj[:label]}, value_method: ->(obj){obj[:value]}, label: false, inline_label: '', item_wrapper_class: 'radio-inline'
+      = f.input :status, as: :radio_buttons, collection: [{value: 'inactive', label: t('activerecord.attributes.seeker.state.inactive_html')}, {value: 'active', label: t('activerecord.attributes.seeker.state.active_html')}, {value: 'completed', label: t('activerecord.attributes.seeker.state.ended_html')}], label_method: ->(obj){obj[:label]}, value_method: ->(obj){obj[:value]}, label: false, inline_label: '', item_wrapper_class: 'control control--radio'
 
   %fieldset
     %legend
