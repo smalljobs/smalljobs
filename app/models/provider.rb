@@ -17,7 +17,8 @@ class Provider < ActiveRecord::Base
 
   validates :street, :place, presence: true
 
-  validates :email, email: true, allow_blank: false, allow_nil: false, uniqueness: true
+  validates :email, email: true, unless: "email.nil? || email.blank?"
+  validates :email, uniqueness: true, unless: "email.nil? || email.blank?"
   validates :phone,  phony_plausible: true
   validates :mobile, phony_plausible: true
 
