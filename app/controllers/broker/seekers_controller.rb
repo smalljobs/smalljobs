@@ -20,6 +20,15 @@ class Broker::SeekersController < InheritedResources::Base
     create!
   end
 
+  def agreement
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "Einverständnis", template: 'broker/seekers/agreement.html.erb'
+      end
+    end
+  end
+
   protected
 
   def current_user

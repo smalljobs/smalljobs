@@ -56,7 +56,12 @@ Smalljobs::Application.routes.draw do
           get 'contract'
         end
       end
-      resources :seekers
+
+      resources :seekers do
+        member do
+          get 'agreement'
+        end
+      end
 
       resources :jobs do
         member do

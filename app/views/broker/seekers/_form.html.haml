@@ -21,6 +21,11 @@
       = "Nachricht senden"
 
   %fieldset
+    %p
+      %i.fa.fa-print
+        = link_to "Einverständnis drucken", "/broker/seekers/#{@seeker.id}/agreement?format=pdf", target: '_blank'
+
+  %fieldset
     .form-inputs
       = f.input :notes, label: "Notizen (nur intern sichtbar)", as: :text
 
