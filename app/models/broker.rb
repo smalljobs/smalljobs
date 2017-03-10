@@ -1,6 +1,6 @@
 class Broker < ActiveRecord::Base
 
-  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :confirmable, :registerable, authentication_keys: [:login]
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :confirmable, :registerable, authentication_keys: [:email]
 
   include ConfirmToggle
 
@@ -13,7 +13,7 @@ class Broker < ActiveRecord::Base
   has_many :jobs, through: :providers
   has_many :assignments, through: :providers
 
-  validates :login, presence: true, uniqueness: true
+  validates :email, email: true, presence: true, uniqueness: true
   validates :firstname, :lastname, :phone, presence: true
   validates :phone, :mobile, phony_plausible: true
 
