@@ -40,6 +40,7 @@ gem 'kaminari'
 gem 'rest-client'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem 'rqrcode'
 
 group :development, :test do
   gem 'better_errors'

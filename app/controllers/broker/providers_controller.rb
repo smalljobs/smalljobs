@@ -27,6 +27,8 @@ class Broker::ProvidersController < InheritedResources::Base
   end
 
   def contract
+    require 'rqrcode'
+    @qrcode = RQRCode::QRCode.new("#{@provider.id}", mode: :number).as_png
     respond_to do |format|
       format.html
       format.pdf do
