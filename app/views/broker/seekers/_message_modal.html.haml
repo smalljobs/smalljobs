@@ -1,0 +1,17 @@
+%div.modal.fade{id: "message_modal"}
+  %div.modal-dialog
+    %div.modal-content
+      %div.modal-header
+        %button.close{"data-dismiss": "modal", type: "button"} &times;
+        %h2= "Title"
+      %div.modal-body
+        %input{type: "checkbox", checked: "true"}
+          = "Nachricht an "
+          = @seeker.name
+          = ":"
+        %textarea.form-control.resize-vertical
+          = "template"
+        %br
+        %button.btn.btn-success
+          = "Title"
+      %div.modal-footer

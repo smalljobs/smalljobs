@@ -26,7 +26,7 @@
       %p
         %i.fa.fa-print.margin_left_20.green
           = link_to "Drucken", "/broker/seekers/#{@seeker.id}/agreement?format=pdf", target: '_blank'
-        %a.margin_left_20{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+        %a.margin_left_20{href: "#", "data-toggle": "modal", "data-target": "#pdf_message_modal"}
           %i.fa.fa-envelope
             = "Elterneinverständnis als Pdf schicken"
       = f.input :discussion, label: false, inline_label: true
@@ -71,20 +71,6 @@
       = f.button :submit, t('common.edit'), class: 'btn btn-primary btn-success'
 
 
-%div.modal.fade{id: "message_modal"}
-  %div.modal-dialog
-    %div.modal-content
-      %div.modal-header
-        %button.close{"data-dismiss": "modal", type: "button"} &times;
-        %h2= "Title"
-      %div.modal-body
-        %input{type: "checkbox", checked: "true"}
-          = "Nachricht an "
-          = @seeker.name
-          = ":"
-        %textarea.form-control.resize-vertical
-          = "template"
-        %br
-        %button.btn.btn-success
-          = "Title"
-      %div.modal-footer
+= render 'pdf_message_modal'
+
+= render 'message_modal'

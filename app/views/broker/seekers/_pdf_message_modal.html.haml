@@ -1,0 +1,27 @@
+%div.modal.fade{id: "pdf_message_modal"}
+  %div.modal-dialog
+    %div.modal-content
+      %div.modal-header
+        %button.close{"data-dismiss": "modal", type: "button"} &times;
+        %h2= "Elterneinverständnis als Pdf schicken"
+      %div.modal-body
+        %input{type: "checkbox", checked: "true"}
+          = "Nachricht an "
+          = @seeker.name
+          = ":"
+        %textarea.form-control.resize-vertical{rows: "10"}
+          = "Hoi #{@seeker.firstname}"
+          = preserve '&#x000A;'
+          = "Willkommen bei Smalljobs!"
+          = preserve '&#x000A;'
+          = "Bitte #{url_for agreement_broker_seeker_url(@seeker)} runterladen uns bringen:"
+          = preserve '&#x000A;'
+          = "#{current_broker.email}"
+          = preserve '&#x000A;'
+          = "Merci,"
+          = preserve '&#x000A;'
+          = "#{current_broker.firstname}"
+        %br
+        %button.btn.btn-success
+          = "Elterneinverständnis als Pdf schicken"
+      %div.modal-footer
