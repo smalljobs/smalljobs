@@ -432,7 +432,7 @@
     JugendlicheR:
   </h1>
   <p class="page2-firstrow">
-    <%= @seeker.name %> <%= @seeker.date_of_birth.strftime('%d.%m.%Y') %>
+    <%= @seeker.name %>, <%= @seeker.date_of_birth.strftime('%d.%m.%Y') %>
   </p>
   <p class="page2-secondrow">
     <%= @seeker.street %>, <%= @seeker.place.full_name %>
@@ -489,7 +489,7 @@
     <div class="column">
       <div class="signature" style="margin-right: 26px;">
       </div>
-      <p class="sign-par" style="margin-left: 0px !important;">Unterschrift <%= @seeker.name %></p>
+      <p class="sign-par" style="margin-left: 0px !important;">Unterschrift Erziehungsberechtigete <%= @seeker.name %></p>
     </div>
   </div>
 </div>
