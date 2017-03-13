@@ -13,10 +13,11 @@ class Broker::AllocationsController < InheritedResources::Base
 
   def show
     @job = Job.find_by(id: params[:job_id])
-    @allocation = Allocation.find_by(job_id: @job.id, seeker_id: params[:id])
-    if @allocation == nil
-      @allocation = Allocation.new(job_id: @job.id, seeker_id: params[:id], state: :application_open)
+    if params[:seeker_id] != nil
+      @allocation = Allocation.new(job_id: @job.id, seeker_id: params[:seeker_id], state: :application_open)
       @allocation.save!
+    else
+      @allocation = Allocation.find_by(id: params[:id])
     end
   end
 
