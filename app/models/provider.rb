@@ -3,6 +3,7 @@ class Provider < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, authentication_keys: [:email]
 
   # include ConfirmToggle
+  enum state: {inactive: 1, active: 2, completed: 3}
 
   has_many :jobs
   has_many :assignments

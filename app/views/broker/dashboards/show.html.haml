@@ -138,6 +138,7 @@
   }
 
   $('.nav-pills a').on('shown.bs.tab', function (e) {
+    sessionStorage.setItem('previous', window.location.href);
     if(history.pushState) {
       history.pushState(null, null, e.target.hash);
     }

@@ -46,10 +46,10 @@ ready = ->
 
   $('#provider_contract').change(->
     if $(@)[0].checked
-      $('#provider_active_true').prop('disabled', false);
+      $('#provider_state_active').prop('disabled', false);
     else
-      $('#provider_active_true').prop('disabled', true);
-      $('#provider_active_false').prop('checked', true);
+      $('#provider_state_active').prop('disabled', true);
+      $('#provider_state_inactive').prop('checked', true);
   ).change();
 
   $('#seeker_parental').change(->
