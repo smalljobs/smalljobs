@@ -352,7 +352,7 @@
     <%= current_broker.email %>
   </p>
   <p class="letter-start">
-    Guten Tag <%= @provider.name %>, (<%= @provider.organization.name %>)
+    Guten Tag <%= @provider.name %>, (<%= @provider.company %>)
   </p>
   <p class="second-paragraph">
     Es freut uns sehr Sie bei der Jobbörse zu begrüssen! Sie leisten mit Ihrer Teilnahme einen wertvollen
@@ -370,7 +370,7 @@
     wir Ihnen jederzeit zur Verfügung: <%= @provider.organization.phone %>
   </p>
   <p class="letter-end">
-    Für Ihre Jobbörse [Name Organization]
+    Für Ihre Jobbörse <%= @provider.organization.name %>
   </p>
   <p class="sign-dots">.................................................</p>
   <p class="sign-data">
@@ -394,7 +394,7 @@
     ArbeitgeberIn:
   </h1>
   <p class="page2-firstrow">
-    <%= @provider.name %>, (<%= @provider.organization.name %>)
+    <%= @provider.name %>, (<%= @provider.company %>)
   </p>
   <p class="page2-secondrow">
     <%= @provider.street %>, <%= @provider.place.full_name %>
@@ -594,7 +594,9 @@
     </tbody>
   </table>
   <p class="bottom-txt">
-    Wenn das Formular voll ist, bitte senden an: <%= @provider.street %>
+    Wenn das Formular voll ist, bitte senden an:
+    <br/>
+    <%= @provider.organization.name %> <%= @provider.organization.street %>, <%= @provider.organization.place.full_name %>
   </p>
   <footer class="bottom right">
     Seite 2 von 2
