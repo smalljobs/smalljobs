@@ -16,14 +16,20 @@
       = f.input :lastname, required: true
 
   %fieldset
-    %a{href: '#'}
+    %a{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
       %i.fa.fa-envelope
       = "Nachricht senden"
 
   %fieldset
-    %p
-      %i.fa.fa-print
-        = link_to "Einverständnis drucken", "/broker/seekers/#{@seeker.id}/agreement?format=pdf", target: '_blank'
+    .form-inputs
+      = f.input :parental, label: false, inline_label: true
+      %p
+        %i.fa.fa-print.margin_left_20.green
+          = link_to "Drucken", "/broker/seekers/#{@seeker.id}/agreement?format=pdf", target: '_blank'
+        %a.margin_left_20{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+          %i.fa.fa-envelope
+            = "Elterneinverständnis als Pdf schicken"
+      = f.input :discussion, label: false, inline_label: true
 
   %fieldset
     .form-inputs
@@ -63,3 +69,22 @@
       = f.button :submit, t('common.create'), class: 'btn btn-primary btn-success'
     - else
       = f.button :submit, t('common.edit'), class: 'btn btn-primary btn-success'
+
+
+%div.modal.fade{id: "message_modal"}
+  %div.modal-dialog
+    %div.modal-content
+      %div.modal-header
+        %button.close{"data-dismiss": "modal", type: "button"} &times;
+        %h2= "Title"
+      %div.modal-body
+        %input{type: "checkbox", checked: "true"}
+          = "Nachricht an "
+          = @seeker.name
+          = ":"
+        %textarea.form-control.resize-vertical
+          = "template"
+        %br
+        %button.btn.btn-success
+          = "Title"
+      %div.modal-footer

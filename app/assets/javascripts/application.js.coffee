@@ -6,15 +6,15 @@
 #= require_tree .
 
 ready = ->
-  previousUrl = localStorage.getItem('previous') || '';
-  goBack = localStorage.getItem('goBack') || -1;
+  previousUrl = sessionStorage.getItem('previous') || '';
+  goBack = sessionStorage.getItem('goBack') || -1;
   if previousUrl == window.location.href
     goBack -= 1;
   else
     goBack = -1;
 
-  localStorage.setItem('previous', window.location.href);
-  localStorage.setItem('goBack', goBack);
+  sessionStorage.setItem('previous', window.location.href);
+  sessionStorage.setItem('goBack', goBack);
 
 
   $('#job_date_type').change(->
@@ -46,10 +46,26 @@ ready = ->
 
   $('#provider_contract').change(->
     if $(@)[0].checked
-      $('#provider_active_true').prop('disabled', false)
+      $('#provider_active_true').prop('disabled', false);
     else
-      $('#provider_active_true').prop('disabled', true)
-      $('#provider_active_false').prop('checked', true)
+      $('#provider_active_true').prop('disabled', true);
+      $('#provider_active_false').prop('checked', true);
+  ).change();
+
+  $('#seeker_parental').change(->
+    if $(@)[0].checked && $('#seeker_discussion')[0].checked
+      $('#seeker_status_active').prop('disabled', false);
+    else
+      $('#seeker_status_active').prop('disabled', true);
+      $('#seeker_status_inactive').prop('checked', true);
+  ).change();
+
+  $('#seeker_discussion').change(->
+    if $(@)[0].checked && $('#seeker_parental')[0].checked
+      $('#seeker_status_active').prop('disabled', false);
+    else
+      $('#seeker_status_active').prop('disabled', true);
+      $('#seeker_status_inactive').prop('checked', true);
   ).change();
 
   $('.back_button').click(->

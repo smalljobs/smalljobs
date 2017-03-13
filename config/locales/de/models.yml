@@ -131,6 +131,8 @@ de:
         sex: "Geschlecht"
       seeker:
         <<: *USER
+        parental: "Elterneinverständnis erhalten"
+        discussion: "Erstgespräch"
         state:
           inactive_html: <div class='control__indicator'></div>Inaktiv
           active_html: <div class='control__indicator'></div>Aktiv

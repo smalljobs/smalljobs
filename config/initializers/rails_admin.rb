@@ -301,6 +301,8 @@ RailsAdmin.config do |config|
       group :administration do
         label I18n.t('admin.groups.administration')
         field :status
+        field :parental
+        field :discussion
         # field :terms, :boolean
       end
     end
