@@ -241,6 +241,7 @@ RailsAdmin.config do |config|
       group :administration do
         label I18n.t('admin.groups.administration')
 
+        field :state
         field :active
         field :terms, :boolean
       end
