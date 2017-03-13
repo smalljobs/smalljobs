@@ -14,8 +14,6 @@ class Provider < ActiveRecord::Base
 
   validates :firstname, :lastname, presence: true
 
-  validates :company, presence: true
-
   validates :organization, presence: true
 
   validates :street, :place, presence: true
