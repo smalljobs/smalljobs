@@ -34,6 +34,7 @@
     .table-responsive
       %table.table.table-striped.sortable
         %tr
+          %th.sortable= t('broker_dashboard.jobs_table.status')
           %th.sortable= t('broker_dashboard.jobs_table.date')
           %th.sortable= t('broker_dashboard.jobs_table.todo')
           %th.sortable= t('broker_dashboard.jobs_table.job')
@@ -42,11 +43,13 @@
 
         - if @jobs.size == 0
           %tr
-            %td{ colspan: 5 }= t('broker.jobs.index.no_jobs')
+            %td{ colspan: 6 }= t('broker.jobs.index.no_jobs')
 
         - @jobs.each do |job|
           - @job = job
           %tr{ class: job_status_class(job) }
+            %td
+              = job_label(job)
             %td
               = job.last_change_of_state == nil ?  "": job.last_change_of_state.strftime("%d.%m.%Y")
             %td

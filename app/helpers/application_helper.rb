@@ -149,14 +149,13 @@ module ApplicationHelper
   # @return [Array<String>] the label type and text
   #
   def provider_label(provider)
-    bootstrap_label('success', I18n.t('common.active'))
-    # if !provider.confirmed?
-    #   bootstrap_label('warning', I18n.t('common.unconfirmed'))
-    # elsif !provider.active?
-    #   bootstrap_label('danger', I18n.t('common.inactive'))
-    # else
-    #   bootstrap_label('success', I18n.t('common.active'))
-    # end
+    if provider.inactive?
+      bootstrap_label('danger', I18n.t('common.inactive'))
+    elsif provider.completed?
+      bootstrap_label('warning', I18n.t('common.completed_st'))
+    elsif provider.active?
+      bootstrap_label('success', I18n.t('common.active'))
+    end
   end
 
   # Get the table label depending
@@ -166,14 +165,13 @@ module ApplicationHelper
   # @return [Array<String>] the label type and text
   #
   def seeker_label(seeker)
-    # if !seeker.confirmed?
-    #   bootstrap_label('warning', I18n.t('common.unconfirmed'))
-    # elsif !seeker.active?
-    #   bootstrap_label('danger', I18n.t('common.inactive'))
-    # else
-    #   bootstrap_label('success', I18n.t('common.active'))
-    # end
-    bootstrap_label('success', I18n.t('common.active'))
+    if seeker.inactive?
+      bootstrap_label('danger', I18n.t('common.inactive'))
+    elsif seeker.active?
+      bootstrap_label('success', I18n.t('common.active'))
+    elsif seeker.completed?
+      bootstrap_label('warning', I18n.t('common.completed_st'))
+    end
   end
 
   # Get the table label depending

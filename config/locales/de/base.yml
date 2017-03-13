@@ -287,6 +287,7 @@ de:
     unconfirmed: "Unbestätigt"
     active: "Aktiv"
     finished: "Abgeschlossen"
+    completed_st: "Beendet"
     inactive: "Inaktiv"
     created: "Erstellt"
     public: "Öffentlich"
@@ -496,6 +497,7 @@ de:
       todo: 'Todo'
       description: 'Beschreibung'
     jobs_table:
+      status: 'Status'
       date: 'Datum'
       todo: 'Todo'
       job: 'Job'
