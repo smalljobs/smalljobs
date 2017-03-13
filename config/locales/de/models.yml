@@ -142,6 +142,7 @@ de:
         employments: "Anstellungen"
       provider:
         <<: *USER
+        company: "Unternehmen"
         state:
           inactive_html: <div class='control__indicator'></div>Inaktiv
           active_html: <div class='control__indicator'></div>Aktiv

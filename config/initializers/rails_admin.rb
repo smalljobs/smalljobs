@@ -222,6 +222,7 @@ RailsAdmin.config do |config|
       group :address do
         label I18n.t('admin.groups.address')
 
+        field :company
         field :firstname
         field :lastname
         field :street

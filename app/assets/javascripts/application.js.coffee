@@ -6,6 +6,17 @@
 #= require_tree .
 
 ready = ->
+  previousUrl = localStorage.getItem('previous') || '';
+  goBack = localStorage.getItem('goBack') || -1;
+  if previousUrl == window.location.href
+    goBack -= 1;
+  else
+    goBack = -1;
+
+  localStorage.setItem('previous', window.location.href);
+  localStorage.setItem('goBack', goBack);
+
+
   $('#job_date_type').change(->
     switch $(@).val()
       when 'agreement', ''
@@ -42,7 +53,7 @@ ready = ->
   ).change();
 
   $('.back_button').click(->
-    history.back();
+    history.go(goBack);
   );
 
 

@@ -11,7 +11,8 @@
   %fieldset
     %legend
       = "Anbieterln"
-    .form-inputs.form-inline
+    .form-inputs
+      = f.input :company, required: true
       = f.input :firstname, required: true
       = f.input :lastname, required: true
 
