@@ -23,12 +23,14 @@
   %fieldset
     .form-inputs
       = f.input :parental, label: false, inline_label: true
-      %p
-        %i.fa.fa-print.margin_left_20.green
-          = link_to "Drucken", "/broker/seekers/#{@seeker.id}/agreement?format=pdf", target: '_blank'
-        %a.margin_left_20{href: "#", "data-toggle": "modal", "data-target": "#pdf_message_modal"}
-          %i.fa.fa-envelope
-            = "Elterneinverständnis als Pdf schicken"
+
+    %a{href: "/broker/seekers/#{@seeker.id}/agreement?format=pdf", target: '_blank'}
+      %i.fa.fa-print.margin_left_20.green
+      = "Drucken"
+    %a.margin_left_20{href: "#", "data-toggle": "modal", "data-target": "#pdf_message_modal"}
+      %i.fa.fa-envelope
+      = "Elterneinverständnis als Pdf schicken"
+    .form-inputs
       = f.input :discussion, label: false, inline_label: true
 
   %fieldset
