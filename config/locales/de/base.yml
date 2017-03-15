@@ -84,6 +84,7 @@ de:
     new_provider_signup_for_broker: "SmallJobs> Neuer Jobanbieter zur Freischaltung"
     provider_activated_for_provider: "SmallJobs> Ihr Profil wurde aktiviert"
     job_created_for_broker: "SmallJobs> Ein neuer Job zur Überprüfung wurde erstellt"
+    job_created_for_seekers: "SmallJobs> Ein neuer Job zur Überprüfung wurde erstellt"
     job_connected_for_provider: "SmallJobs> Ihr Job wurde zugewiesen"
     job_connected_for_seeker: "SmallJobs> Du hast einen neuen Job!"
     job_rating_reminder_for_provider: "SmallJobs> Bewerten Sie die Arbeiter ihres Jobs"
