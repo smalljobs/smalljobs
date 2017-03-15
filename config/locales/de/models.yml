@@ -133,10 +133,9 @@ de:
         <<: *USER
         parental: "Elterneinverständnis erhalten"
         discussion: "Erstgespräch"
-        state:
-          inactive_html: <div class='control__indicator'></div>Inaktiv
-          active_html: <div class='control__indicator'></div>Aktiv
-          ended_html:  <div class='control__indicator'></div>Beendet
+        inactive_html: <div class='control__indicator'></div>Inaktiv
+        active_html: <div class='control__indicator'></div>Aktiv
+        ended_html:  <div class='control__indicator'></div>Beendet
       broker:
         <<: *USER
         organizations: "Organisationen"
@@ -145,10 +144,9 @@ de:
       provider:
         <<: *USER
         company: "Unternehmen"
-        state:
-          inactive_html: <div class='control__indicator'></div>Inaktiv
-          active_html: <div class='control__indicator'></div>Aktiv
-          ended_html:  <div class='control__indicator'></div>Beendet
+        inactive_html: <div class='control__indicator'></div>Inaktiv
+        active_html: <div class='control__indicator'></div>Aktiv
+        ended_html:  <div class='control__indicator'></div>Beendet
       admin:
         <<: *USER
       job:
@@ -176,11 +174,10 @@ de:
         proposals: "Vorschläge"
         reviews: "Bewertungen"
         place: "Ort"
-        state:
-          running_html: <div class='control__indicator'></div>Prüfen
-          public_html: <div class='control__indicator'></div>Öffentlich
-          hidden_html: <div class='control__indicator'></div>Versteckt
-          feedback_html: <div class='control__indicator'></div>Abgeschlossen
+        running_html: <div class='control__indicator'></div>Prüfen
+        public_html: <div class='control__indicator'></div>Öffentlich
+        hidden_html: <div class='control__indicator'></div>Versteckt
+        feedback_html: <div class='control__indicator'></div>Abgeschlossen
       allocation:
         seeker: "Jugendlicher"
         message: "Nachricht"
