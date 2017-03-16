@@ -58,6 +58,6 @@
 
   .form-actions
     - if @provider.new_record?
-      = f.button :submit, t('common.create'), class: 'btn btn-primary'
+      = f.button :submit, "AnbieterIn erstellen", class: 'btn btn-primary'
     - else
       = f.button :submit, t('common.edit'), class: 'btn btn-primary'
