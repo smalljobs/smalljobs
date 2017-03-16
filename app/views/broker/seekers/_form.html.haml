@@ -15,23 +15,24 @@
       = f.input :firstname, required: true
       = f.input :lastname, required: true
 
-  %fieldset
-    %a{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
-      %i.fa.fa-envelope
-      = "Nachricht senden"
+  - if !@seeker.new_record?
+    %fieldset
+      %a{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+        %i.fa.fa-envelope
+        = "Nachricht senden"
 
-  %fieldset
-    .form-inputs
-      = f.input :parental, label: false, inline_label: true
+    %fieldset
+      .form-inputs
+        = f.input :parental, label: false, inline_label: true
 
-    %a{href: "/broker/seekers/#{@seeker.id}/agreement?format=pdf", target: '_blank'}
-      %i.fa.fa-print.margin_left_20.green
-      = "Drucken"
-    %a.margin_left_20{href: "#", "data-toggle": "modal", "data-target": "#pdf_message_modal"}
-      %i.fa.fa-envelope
-      = "Elterneinverständnis als Pdf schicken"
-    .form-inputs
-      = f.input :discussion, label: false, inline_label: true
+      %a{href: "/broker/seekers/#{@seeker.id}/agreement?format=pdf", target: '_blank'}
+        %i.fa.fa-print.margin_left_20.green
+        = "Drucken"
+      %a.margin_left_20{href: "#", "data-toggle": "modal", "data-target": "#pdf_message_modal"}
+        %i.fa.fa-envelope
+        = "Elterneinverständnis als Pdf schicken"
+      .form-inputs
+        = f.input :discussion, label: false, inline_label: true
 
   %fieldset
     .form-inputs
@@ -72,7 +73,6 @@
     - else
       = f.button :submit, t('common.edit'), class: 'btn btn-primary btn-success'
 
-
-= render 'pdf_message_modal'
-
-= render 'message_modal'
+- if !@seeker.new_record?
+  = render 'pdf_message_modal'
+  = render 'message_modal'
