@@ -6,7 +6,7 @@ class Broker::SeekersController < InheritedResources::Base
   load_and_authorize_resource :seeker, through: :current_region, except: :new
 
   def index
-    redirect_to broker_dashboard_url
+    redirect_to broker_dashboard_url + "#seekers"
   end
 
   def show
