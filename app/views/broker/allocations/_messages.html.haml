@@ -1,0 +1,6 @@
+- for message in @messages
+  %h5= DateTime.strptime(message['datetime'], '%s').strftime('%d.%m.%Y,%H:%M')
+  %h4= message['title']
+  %p
+    = message['message'].html_safe
+  %br

@@ -13,13 +13,13 @@
     = @allocation.last_change_of_state.strftime("%d.%m.%Y")
   %div.row
     %div.col-md-4
-      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#open_to_active_modal"}
         = "Anstellen"
     %div.col-md-4
-      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#open_to_rejected_modal"}
         = "Bewerbung ablehnen"
     %div.col-md-4
-      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#open_to_nothing_modal"}
         = "Nachricht senden"
 
 - if @allocation.application_rejected?
@@ -35,10 +35,10 @@
     = @allocation.last_change_of_state.strftime("%d.%m.%Y")
   %div.row
     %div.col-md-4
-      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#rejected_to_active_modal"}
         = "Anstellen"
     %div.col-md-4
-      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#rejected_to_nothing_modal"}
         = "Nachricht senden"
 
 - if @allocation.proposal?
@@ -54,13 +54,13 @@
     = @allocation.last_change_of_state.strftime("%d.%m.%Y")
   %div.row
     %div.col-md-4
-      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#proposal_to_active_modal"}
         = "Anstellen"
     %div.col-md-4
-      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#proposal_to_deleted_modal"}
         = "Vorschlag löschen"
     %div.col-md-4
-      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#proposal_to_nothing_modal"}
         = "Nachricht senden"
 
 - if @allocation.active?
@@ -76,13 +76,13 @@
     = @allocation.last_change_of_state.strftime("%d.%m.%Y")
   %div.row
     %div.col-md-4
-      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#active_to_finished_modal"}
         = "Anstellung beenden"
     %div.col-md-4
-      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#active_to_canceled_modal"}
         = "Anstellung abbrechen"
     %div.col-md-4
-      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#active_to_nothing_modal"}
         = "Nachricht senden"
 
 - if @allocation.finished?
@@ -98,10 +98,10 @@
     = @allocation.last_change_of_state.strftime("%d.%m.%Y")
   %div.row
     %div.col-md-4
-      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_active_modal"}
         = "Anstellung reaktivieren"
     %div.col-md-4
-      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_nothing_modal"}
         = "Nachricht senden"
 
 - if @allocation.cancelled?
@@ -117,26 +117,61 @@
     = @allocation.last_change_of_state.strftime("%d.%m.%Y")
   %div.row
     %div.col-md-4
-      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_active_modal"}
         = "Anstellung reaktivieren"
     %div.col-md-4
-      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_nothing_modal"}
         = "Nachricht senden"
 
-%div.modal.fade{id: "message_modal"}
-  %div.modal-dialog
-    %div.modal-content
-      %div.modal-header
-        %button.close{"data-dismiss": "modal", type: "button"} &times;
-        %h2= "Title"
-      %div.modal-body
-        %input{type: "checkbox", checked: "true"}
-          = "Nachricht an "
-          = @allocation.seeker.name
-          = ":"
-        %textarea.form-control.resize-vertical
-          = "template"
-        %br
-        %button.btn.btn-success
-          = "Title"
-      %div.modal-footer
+= render 'active_to_finished'
+= render 'finished_to_active'
+= render 'open_to_active'
+= render 'proposal_to_active'
+= render 'rejected_to_active'
+= render 'open_to_rejected'
+= render 'proposal_to_deleted'
+= render 'active_to_canceled'
+= render 'open_to_nothing'
+= render 'rejected_to_nothing'
+= render 'proposal_to_nothing'
+= render 'active_to_nothing'
+= render 'finished_to_nothing'
+
+:javascript
+  $(document).ready(function() {
+    var modalId;
+    $('.allocation_btn').click(function(){
+      modalId = $(this).attr('data-target');
+    });
+
+    $('.change_state').click(function(){
+      $.get("#{change_state_broker_job_allocation_path(@job, @allocation)}", function(response){
+        sendMessage(function(){
+          window.location.href = response['redirect_to'];
+        });
+      });
+    });
+
+    $('.cancel_state').click(function(){
+      $.get("#{cancel_state_broker_job_allocation_path(@job, @allocation)}", function(response){
+        sendMessage(function(){
+          window.location.href = response['redirect_to'];
+        });
+      });
+    });
+
+    $('.prevail_state').click(function(){
+      sendMessage(function(){
+        window.location.reload();
+      });
+    });
+
+    function sendMessage(func) {
+      var message = $(modalId + " textarea").val();
+      var title = $(modalId + " h2").text();
+      $.post("#{send_message_broker_job_allocation_path(@job, @allocation)}", {message: message, title: title}, function(response){
+        console.log(response);
+        func();
+      });
+    }
+  });

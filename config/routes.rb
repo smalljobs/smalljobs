@@ -68,7 +68,13 @@ Smalljobs::Application.routes.draw do
           post 'activate'
         end
 
-        resources :allocations
+        resources :allocations do
+          member do
+            get 'change_state'
+            get 'cancel_state'
+            post 'send_message'
+          end
+        end
       end
     end
 
