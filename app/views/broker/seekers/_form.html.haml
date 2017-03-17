@@ -40,7 +40,7 @@
 
   %fieldset
     .form-inputs
-      = f.input :email, required: true, autofocus: true
+      = f.input :email, required: true
 
       - if @seeker.new_record?
         = f.input :password, required: true, autocomplete: 'off'
