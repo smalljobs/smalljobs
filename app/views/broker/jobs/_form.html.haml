@@ -13,7 +13,8 @@
       = "Titel"
     .form-inputs
       = f.input :title, required: true, label: false
-    %p= "Erstellt: #{@job.created_at.strftime("%d.%m.%Y")}"
+    - if !@job.new_record?
+      %p= "Erstellt: #{@job.created_at.strftime("%d.%m.%Y")}"
 
   %fieldset
     %legend

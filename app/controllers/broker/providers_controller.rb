@@ -6,7 +6,7 @@ class Broker::ProvidersController < InheritedResources::Base
   load_and_authorize_resource :provider, through: :current_region, except: :new
 
   def index
-    redirect_to broker_dashboard_path
+    redirect_to broker_dashboard_path + "#providers"
   end
 
   def show

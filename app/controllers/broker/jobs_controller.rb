@@ -12,6 +12,10 @@ class Broker::JobsController < InheritedResources::Base
     redirect_to request.referer
   end
 
+  def index
+    redirect_to broker_dashboard_path + "#jobs"
+  end
+
   def new
     @job = Job.new()
     @job.created_at = DateTime.now()
