@@ -16,6 +16,11 @@ ready = ->
   sessionStorage.setItem('previous', window.location.href);
   sessionStorage.setItem('goBack', goBack);
 
+  shouldRefresh = sessionStorage.getItem('shouldRefresh');
+  if shouldRefresh == true
+    sessionStorage.setItem('shouldRefresh', false);
+    window.location.reload();
+
 
   $('#job_date_type').change(->
     switch $(@).val()
@@ -69,6 +74,7 @@ ready = ->
   ).change();
 
   $('.back_button').click(->
+    sessionStorage.setItem('shouldRefresh', true);
     history.go(goBack);
   );
 
