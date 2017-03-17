@@ -5,6 +5,20 @@ RailsAdmin.config do |config|
     redirect_to main_app.root_path unless current_admin != nil
   end
 
+  config.model AccessToken do
+    list do
+      field :access_token
+      field :seeker
+      field :expire_at
+    end
+
+    edit do
+      field :access_token
+      field :seeker
+      field :expire_at
+    end
+  end
+
   config.model Place do
     navigation_label I18n.t('admin.menu.geo')
 
