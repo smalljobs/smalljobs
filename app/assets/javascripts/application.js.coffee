@@ -17,7 +17,7 @@ ready = ->
   sessionStorage.setItem('goBack', goBack);
 
   shouldRefresh = sessionStorage.getItem('shouldRefresh');
-  if shouldRefresh == true
+  if shouldRefresh == true || shouldRefresh == 'true'
     sessionStorage.setItem('shouldRefresh', false);
     window.location.reload();
 
