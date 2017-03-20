@@ -64,6 +64,11 @@ class ApiController < ApplicationController
 
   def register
     user_params = register_params
+    if user_params[:birthdate] == nil
+      render json: {code: 'users/invalid', message: 'Birthdate not present'}, status: 422
+      return
+    end
+
     user_params[:date_of_birth] = DateTime.strptime(user_params[:birthdate], '%s')
     user_params.except!(:birthdate)
     user_params[:login] = user_params[:phone]
