@@ -45,10 +45,10 @@ class ApiController < ApplicationController
     token.expire_at = DateTime.now() + 30.days
     token.save!
 
-    expires_in = token.created_at + 30.days
-    expires_in -= token.created_at
+    # expires_in = token.created_at + 30.days
+    # expires_in -= token.created_at
 
-    render json: {access_token: token.access_token, token_type: token.token_type, expires_in: expires_in, created_at: token.created_at, refresh_token: token.refresh_token, user: ApiHelper::seeker_to_json(seeker)}, status: 200
+    render json: {access_token: token.access_token, token_type: token.token_type, expires_in: token.expire_at.strftime('%s'), created_at: token.created_at, refresh_token: token.refresh_token, user: ApiHelper::seeker_to_json(seeker)}, status: 200
   end
 
   def logout
