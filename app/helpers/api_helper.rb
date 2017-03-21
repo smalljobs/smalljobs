@@ -76,7 +76,7 @@ module ApiHelper
       json[:provider] = provider_to_json(job.provider)
     end
     if show_organization
-      json[:organization] = organization_to_json(organization, organization.regions.first.id)
+      json[:organization] = organization_to_json(organization, organization.regions.first == nil ? nil : organization.regions.first.id)
     end
     if show_assignments
       assignments = []
