@@ -13,6 +13,11 @@ class Broker::SeekersController < InheritedResources::Base
     redirect_to request.referer
   end
 
+  def new
+    @seeker = Seeker.new()
+    @seeker.place = current_region.places.order(:name, :zip).first
+  end
+
   def create
     @seeker = Seeker.new(permitted_params[:seeker])
     @seeker.login = @seeker.mobile

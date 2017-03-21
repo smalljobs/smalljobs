@@ -17,6 +17,7 @@ class Broker::ProvidersController < InheritedResources::Base
     @provider = Provider.new()
     @provider.active = false
     @provider.contract = false
+    @provider.place = current_region.places.order(:name, :zip).first
   end
 
   def create
