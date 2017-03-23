@@ -437,6 +437,8 @@ class ApiController < ApplicationController
     show_job = true?(params[:job])
     page = params[:page] == nil ? 1 : params[:page].to_i
     limit = params[:limit] == nil ? 10 : params[:limit].to_i
+    seeker_id = params[:user_id]
+    provider_id = params[:provider_id]
 
     state = nil
     if status == 0
@@ -446,30 +448,30 @@ class ApiController < ApplicationController
     end
 
     assignments = []
+    found_assignments = []
+
     if organization_id == nil
-      if state == nil
-        found_assignments = Assignment.all.page(page).per(limit)
-        for assignment in found_assignments do
-          assignments.append(ApiHelper::assignment_with_data_to_json(assignment, show_provider, show_organization, show_seeker, show_job))
-        end
-      else
-        found_assignments = Assignment.where(status: state).page(page).per(limit)
-        for assignment in found_assignments do
-          assignments.append(ApiHelper::assignment_with_data_to_json(assignment, show_provider, show_organization, show_seeker, show_job))
-        end
-      end
+      found_assignments = Assignment.all
     else
-      if state == nil
-        found_assignments = Assignment.joins(:provider).where(providers: {organization_id: organization_id}).page(page).per(limit)
-        for assignment in found_assignments do
-          assignments.append(ApiHelper::assignment_with_data_to_json(assignment, show_provider, show_organization, show_seeker, show_job))
-        end
-      else
-        found_assignments = Assignment.joins(:provider).where(providers: {organization_id: organization_id}, status: state).page(page).per(limit)
-        for assignment in found_assignments do
-          assignments.append(ApiHelper::assignment_with_data_to_json(assignment, show_provider, show_organization, show_seeker, show_job))
-        end
-      end
+      found_assignments = Assignment.joins(:provider).where(providers: {organization_id: organization_id})
+    end
+
+    if state != nil
+      found_assignments = found_assignments.where(status: state)
+    end
+
+    if seeker_id != nil
+      found_assignments = found_assignments.where(seeker_id: seeker_id)
+    end
+
+    if provider_id != nil
+      found_assignments = found_assignments.where(provider_id: provider_id)
+    end
+
+    found_assignments = found_assignments.page(page).per(limit)
+
+    for assignment in found_assignments do
+      assignments.append(ApiHelper::assignment_with_data_to_json(assignment, show_provider, show_organization, show_seeker, show_job))
     end
 
     render json: assignments, status: 200
