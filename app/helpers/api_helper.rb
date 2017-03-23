@@ -219,6 +219,21 @@ module ApiHelper
     return json
   end
 
+  def self.allocation_with_job_to_json(allocation, job, show_provider, show_organization, show_seeker, show_assignments)
+    json = {}
+    json[:id] = allocation.id
+    json[:job_id] = allocation.job_id
+    json[:user_id] = allocation.seeker_id
+
+    json[:job] = job_to_json(job, allocation.seeker.organization, show_provider, show_organization, show_assignments, allocation.id)
+
+    if show_seeker
+      json[:user] = seeker_to_json(allocation.seeker)
+    end
+
+    return json
+  end
+
   def self.seeker_to_json(seeker)
     json = {}
     json[:id] = seeker.id

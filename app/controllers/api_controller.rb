@@ -334,36 +334,23 @@ class ApiController < ApplicationController
     show_provider = true?(params[:provider])
     show_organization = true?(params[:organization])
     show_assignments = true?(params[:assignments])
+    show_seeker = true?(params[:user])
     page = params[:page] == nil ? 1 : params[:page].to_i
     limit = params[:limit] == nil ? 10 : params[:limit].to_i
 
-    state = nil
-    if status == 0
-      state = 'available'
-    elsif status == 1
-      state = 'connected'
-    elsif status == 2
-      state = 'rated'
-    end
-
-    jobs = []
-    if state == nil
-      found_jobs = Job.joins(:allocations).where(allocations: {seeker_id: id}).page(page).per(limit)
-      for job in found_jobs do
-        allocation = job.allocations.where(seeker_id: id).first
-        allocation_id = allocation != nil ? allocation.id : nil
-        jobs.append(ApiHelper::job_to_json(job, job.provider.organization, show_provider, show_organization, show_assignments, allocation_id))
-      end
+    allocations = []
+    found_allocations = []
+    if status == nil
+      found_allocations = Allocation.where(seeker_id: id).page(page).per(limit)
     else
-      found_jobs = Job.joins(:allocations).where(allocations: {seeker_id: id}, state: state).page(page).per(limit)
-      for job in found_jobs do
-        allocation = job.allocations.where(seeker_id: id).first
-        allocation_id = allocation != nil ? allocation.id : nil
-        jobs.append(ApiHelper::job_to_json(job, job.provider.organization, show_provider, show_organization, show_assignments, allocation_id))
-      end
+      found_allocations = Allocation.where(seeker_id: id, state: status).page(page).per(limit)
     end
 
-    render json: jobs, status: 200
+    for allocation in found_allocations
+      allocations.append(ApiHelper::allocation_with_job_to_json(allocation, allocation.job, show_provider, show_organization, show_seeker, show_assignments))
+    end
+
+    render json: allocations, status: 200
   end
 
   def create_assignment
