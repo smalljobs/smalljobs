@@ -329,7 +329,7 @@ class ApiController < ApplicationController
   end
 
   def list_my_jobs
-    id = params[:id]
+    id = params[:user_id]
     status = params[:status] == nil ? nil : params[:status].to_i
     show_provider = true?(params[:provider])
     show_organization = true?(params[:organization])
