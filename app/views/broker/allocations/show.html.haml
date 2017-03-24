@@ -4,10 +4,10 @@
   %h2= "Bewerbung"
   %p
     = "Job: "
-    = link_to @job.title, broker_job_path(@job)
+    = link_to @job.title, edit_broker_job_path(@job)
   %p
     = "JugendlicheR: "
-    = link_to @allocation.seeker.name, broker_seeker_path(@allocation.seeker)
+    = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
   %p
     = "Datum: "
     = @allocation.last_change_of_state.strftime("%d.%m.%Y")
@@ -26,10 +26,10 @@
   %h2= "Bewerbung abgelehnt"
   %p
     = "Job: "
-    = link_to @job.title, broker_job_path(@job)
+    = link_to @job.title, edit_broker_job_path(@job)
   %p
     = "JugendlicheR: "
-    = link_to @allocation.seeker.name, broker_seeker_path(@allocation.seeker)
+    = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
   %p
     = "Datum: "
     = @allocation.last_change_of_state.strftime("%d.%m.%Y")
@@ -45,10 +45,10 @@
   %h2= "Vorgeschlagen"
   %p
     = "Job: "
-    = link_to @job.title, broker_job_path(@job)
+    = link_to @job.title, edit_broker_job_path(@job)
   %p
     = "JugendlicheR: "
-    = link_to @allocation.seeker.name, broker_seeker_path(@allocation.seeker)
+    = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
   %p
     = "Datum: "
     = @allocation.last_change_of_state.strftime("%d.%m.%Y")
@@ -67,10 +67,10 @@
   %h2= "Anstellung"
   %p
     = "Job: "
-    = link_to @job.title, broker_job_path(@job)
+    = link_to @job.title, edit_broker_job_path(@job)
   %p
     = "JugendlicheR: "
-    = link_to @allocation.seeker.name, broker_seeker_path(@allocation.seeker)
+    = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
   %p
     = "Datum: "
     = @allocation.last_change_of_state.strftime("%d.%m.%Y")
@@ -89,10 +89,10 @@
   %h2= "Anstellung beendet"
   %p
     = "Job: "
-    = link_to @job.title, broker_job_path(@job)
+    = link_to @job.title, edit_broker_job_path(@job)
   %p
     = "JugendlicheR: "
-    = link_to @allocation.seeker.name, broker_seeker_path(@allocation.seeker)
+    = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
   %p
     = "Datum: "
     = @allocation.last_change_of_state.strftime("%d.%m.%Y")
@@ -108,10 +108,10 @@
   %h2= "Anstellung abgebrochen"
   %p
     = "Job: "
-    = link_to @job.title, broker_job_path(@job)
+    = link_to @job.title, edit_broker_job_path(@job)
   %p
     = "JugendlicheR: "
-    = link_to @allocation.seeker.name, broker_seeker_path(@allocation.seeker)
+    = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
   %p
     = "Datum: "
     = @allocation.last_change_of_state.strftime("%d.%m.%Y")
