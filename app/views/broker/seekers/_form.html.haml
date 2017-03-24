@@ -62,6 +62,10 @@
       = f.association :work_categories, as: :check_boxes
 
   %fieldset
+    .form-inputs
+      = f.association :certificates, as: :check_boxes
+
+  %fieldset
     %legend
       = "Zuständige Organisation"
     .form-inputs
