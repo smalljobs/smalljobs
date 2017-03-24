@@ -10,7 +10,9 @@
           = @allocation.seeker.name
           = ":"
         %textarea.form-control.resize-vertical
-          = "Active to canceled"
+          = "Hallo #{@allocation.seeker.name}"
+          = "Deine Anstellung bei #{@allocation.provider.name} wurde beende."
+          = "Für Fragen schreibe uns hier."          
         %br
         %button.btn.btn-success.cancel_state
           = "Anstellung abbrechen"
