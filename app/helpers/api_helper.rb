@@ -224,6 +224,7 @@ module ApiHelper
     json[:id] = allocation.id
     json[:job_id] = allocation.job_id
     json[:user_id] = allocation.seeker_id
+    json[:status] = Allocation.states[allocation.state]
 
     json[:job] = job_to_json(job, allocation.seeker.organization, show_provider, show_organization, show_assignments, allocation.id)
 
