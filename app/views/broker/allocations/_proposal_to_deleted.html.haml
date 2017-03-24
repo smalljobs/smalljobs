@@ -3,16 +3,19 @@
     %div.modal-content
       %div.modal-header
         %button.close{"data-dismiss": "modal", type: "button"} &times;
-        %h2= "Vorschlag lÃ¶schen"
+        %h2= "Vorschlag löschen"
       %div.modal-body
         %input{type: "checkbox", checked: "true"}
           = "Nachricht an "
           = @allocation.seeker.name
           = ":"
         %textarea.form-control.resize-vertical
-          = "Proposal to deleted"
+          = "Hallo #{@allocation.seeker.name}"
+          = "Wir haben den Job-Vorschlag gelöscht."
+          = "Wir freuen uns weiterhin auf deine Bewerbungen!"
+          = "Für Fragen schreibe uns hier"
         %br
         %button.btn.btn-success.cancel_state
-          = "Vorschlag lÃ¶schen"
+          = "Vorschlag löschen"
       %div.modal-footer
         = render 'messages'
