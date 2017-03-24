@@ -66,6 +66,7 @@
       %table.table.table-striped.sortable
         %tr
           %th.sortable= t('broker_dashboard.providers_table.status')
+          %th.sortable= t('broker_dashboard.jobs_table.date')
           %th.sortable= t('broker_dashboard.providers_table.name')
           %th.sortable= t('broker_dashboard.providers_table.address')
           %th.sortable= t('broker_dashboard.providers_table.plz')
@@ -79,6 +80,7 @@
           %tr{ class: provider_status_class(provider) }
             %td
               = provider_label(provider)
+            %td= provider.updated_at.strftime("%d.%m.%Y")
             %td= link_to provider.name, edit_broker_provider_path(provider)
             %td= provider.street
             %td= provider.place.zip + ' ' + provider.place.name
@@ -93,6 +95,7 @@
       %table.table.table-striped.sortable
         %tr
           %th.sortable= t('broker_dashboard.seekers_table.status')
+          %th.sortable= t('broker_dashboard.jobs_table.date')
           %th.sortable= t('broker_dashboard.seekers_table.name')
           %th.sortable= t('broker_dashboard.seekers_table.address')
           %th.sortable= t('broker_dashboard.seekers_table.plz')
@@ -105,6 +108,7 @@
           %tr{ class: seeker_status_class(seeker) }
             %td
               = seeker_label(seeker)
+            %td= seeker.updated_at.strftime("%d.%m.%Y")
             %td= link_to seeker.name, edit_broker_seeker_path(seeker)
             %td= seeker.street
             %td= seeker.place.zip + ' ' + seeker.place.name
