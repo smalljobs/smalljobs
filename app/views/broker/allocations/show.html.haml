@@ -19,7 +19,7 @@
       %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#open_to_rejected_modal"}
         = "Bewerbung ablehnen"
     %div.col-md-4
-      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#open_to_nothing_modal"}
+      %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#open_to_nothing_modal"}
         = "Nachricht senden"
 
 - if @allocation.application_rejected?
@@ -38,7 +38,7 @@
       %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#rejected_to_active_modal"}
         = "Anstellen"
     %div.col-md-4
-      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#rejected_to_nothing_modal"}
+      %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#rejected_to_nothing_modal"}
         = "Nachricht senden"
 
 - if @allocation.proposal?
@@ -60,7 +60,7 @@
       %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#proposal_to_deleted_modal"}
         = "Vorschlag löschen"
     %div.col-md-4
-      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#proposal_to_nothing_modal"}
+      %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#proposal_to_nothing_modal"}
         = "Nachricht senden"
 
 - if @allocation.active?
@@ -82,7 +82,7 @@
       %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#active_to_canceled_modal"}
         = "Anstellung abbrechen"
     %div.col-md-4
-      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#active_to_nothing_modal"}
+      %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#active_to_nothing_modal"}
         = "Nachricht senden"
 
 - if @allocation.finished?
@@ -101,7 +101,7 @@
       %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_active_modal"}
         = "Anstellung reaktivieren"
     %div.col-md-4
-      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_nothing_modal"}
+      %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_nothing_modal"}
         = "Nachricht senden"
 
 - if @allocation.cancelled?
@@ -120,7 +120,7 @@
       %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_active_modal"}
         = "Anstellung reaktivieren"
     %div.col-md-4
-      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_nothing_modal"}
+      %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_nothing_modal"}
         = "Nachricht senden"
 
 = render 'active_to_finished'
@@ -136,17 +136,32 @@
 = render 'proposal_to_nothing'
 = render 'active_to_nothing'
 = render 'finished_to_nothing'
+= render 'nothing'
 
 :javascript
   $(document).ready(function() {
     var modalId;
+
+    function checkForModal() {
+      var showModal = sessionStorage.getItem('showModal');
+      if(showModal == 'true') {
+        $('#nothing_modal .modal-header h2').text(sessionStorage.getItem('buttonText') + ': erfolgreich durchgeführt');
+        $('#nothing_modal').modal();
+        sessionStorage.setItem('showModal', false);
+      }
+    }
+
+    checkForModal();
+
     $('.allocation_btn').click(function(){
       modalId = $(this).attr('data-target');
+      sessionStorage.setItem('buttonText', $(modalId + ' .modal-body .btn').text());
     });
 
     $('.change_state').click(function(){
       $.get("#{change_state_broker_job_allocation_path(@job, @allocation)}", function(response){
         sendMessage(function(){
+        sessionStorage.setItem('showModal', true);
           window.location.href = response['redirect_to'];
         });
       });
@@ -155,6 +170,7 @@
     $('.cancel_state').click(function(){
       $.get("#{cancel_state_broker_job_allocation_path(@job, @allocation)}", function(response){
         sendMessage(function(){
+        sessionStorage.setItem('showModal', true);
           window.location.href = response['redirect_to'];
         });
       });
@@ -162,6 +178,7 @@
 
     $('.prevail_state').click(function(){
       sendMessage(function(){
+      sessionStorage.setItem('showModal', true);
         window.location.reload();
       });
     });
