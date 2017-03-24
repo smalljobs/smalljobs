@@ -10,7 +10,10 @@
           = @allocation.seeker.name
           = ":"
         %textarea.form-control.resize-vertical
-          = "Open to rejected"
+          = "Hallo #{@allocation.seeker.name}"
+          = "Leider konnte deine Bewerbung für \"#{@allocation.job.title}\" nicht berücksichtigt werden."
+          = "Vielleicht klappt es aber beim nächsten Mal! Wir freuen uns weiterhin auf deine Bewerbungen für Jobs."  
+          = "Hast du noch Fragen dazu? Schreib uns hier."  
         %br
         %button.btn.btn-success.cancel_state
           = "Bewerbung ablehnen"
