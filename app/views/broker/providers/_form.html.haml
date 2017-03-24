@@ -4,6 +4,12 @@
     .alert.alert-danger
       = notification
 
+  .form-actions
+    - if @provider.new_record?
+      = f.button :submit, "AnbieterIn erstellen", class: 'btn btn-primary btn-success'
+    - else
+      = f.button :submit, t('common.edit'), class: 'btn btn-primary btn-success'
+
   %fieldset
     .form-inputs
       = f.input :state, as: :radio_buttons, collection: [{value: :inactive, label: t('activerecord.attributes.provider.inactive_html')}, {value: :active, label: t('activerecord.attributes.provider.active_html')}, {value: :completed, label: t('activerecord.attributes.provider.ended_html')}], label_method: ->(obj){obj[:label]}, value_method: ->(obj){obj[:value]}, label: false, inline_label: '', item_wrapper_class: 'control control--radio'
@@ -58,6 +64,6 @@
 
   .form-actions
     - if @provider.new_record?
-      = f.button :submit, "AnbieterIn erstellen", class: 'btn btn-primary'
+      = f.button :submit, "AnbieterIn erstellen", class: 'btn btn-primary btn-success'
     - else
-      = f.button :submit, t('common.edit'), class: 'btn btn-primary'
+      = f.button :submit, t('common.edit'), class: 'btn btn-primary btn-success'

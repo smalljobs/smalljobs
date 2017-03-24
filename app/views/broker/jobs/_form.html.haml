@@ -4,6 +4,12 @@
     .alert.alert-danger
       = notification
 
+  .form-actions
+    - if @job.new_record?
+      = f.button :submit, t('common.create'), class: 'btn btn-primary btn-success'
+    - else
+      = f.button :submit, t('common.edit'), class: 'btn btn-primary btn-success'
+
   %fieldset
     .form-inputs
       = f.input :state, as: :radio_buttons, collection: [{value: 'running', label: t('activerecord.attributes.job.running_html')}, {value: 'public', label: t('activerecord.attributes.job.public_html')}, {value: 'hidden', label: t('activerecord.attributes.job.hidden_html')}, {value: 'feedback', label: t('activerecord.attributes.job.feedback_html')}], label_method: ->(obj){obj[:label]}, value_method: ->(obj){obj[:value]}, label: false, inline_label: '', item_wrapper_class: 'control control--radio'

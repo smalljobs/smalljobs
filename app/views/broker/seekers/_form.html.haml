@@ -4,6 +4,12 @@
     .alert.alert-danger
       = notification
 
+  .form-actions
+    - if @seeker.new_record?
+      = f.button :submit, t('common.create'), class: 'btn btn-primary btn-success'
+    - else
+      = f.button :submit, t('common.edit'), class: 'btn btn-primary btn-success'
+
   %fieldset
     .form-inputs
       = f.input :status, as: :radio_buttons, collection: [{value: 'inactive', label: t('activerecord.attributes.seeker.inactive_html')}, {value: 'active', label: t('activerecord.attributes.seeker.active_html')}, {value: 'completed', label: t('activerecord.attributes.seeker.ended_html')}], label_method: ->(obj){obj[:label]}, value_method: ->(obj){obj[:value]}, label: false, inline_label: '', item_wrapper_class: 'control control--radio'
