@@ -310,6 +310,7 @@ RailsAdmin.config do |config|
       group :work do
         label I18n.t('admin.groups.work')
         field :work_categories
+        field :certificates
         field :organization
       end
 
@@ -490,6 +491,18 @@ RailsAdmin.config do |config|
         field :state
         field :rating_reminder_sent
       end
+    end
+  end
+
+  config.model Certificate do
+    navigation_label 'Zertifikate'
+
+    list do
+      field :title
+    end
+
+    edit do
+      field :title
     end
   end
 end

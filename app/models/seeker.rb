@@ -7,6 +7,7 @@ class Seeker < ActiveRecord::Base
   enum status: {inactive: 1, active: 2, completed: 3}
 
   has_and_belongs_to_many :work_categories
+  has_and_belongs_to_many :certificates
 
   has_many :applications
   has_many :proposals
