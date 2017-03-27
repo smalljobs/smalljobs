@@ -185,6 +185,13 @@ de:
         seeker: "Jugendlicher"
         message: "Nachricht"
         created_at: "Erstellt"
+        state_label:
+          application_open: 'Bewerbung'
+          application_rejected: 'Bewerbung abgelehnt'
+          proposal: 'Vorgeschlagen'
+          active: 'Anstellung'
+          finished: 'Anstellung beendet'
+          cancelled: 'Anstellung abgebrochen'
       review:
         provider: "Anbieter"
         seeker: "Jugendlicher"

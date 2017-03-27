@@ -1,12 +1,13 @@
 - jobs = @provider.jobs.where(state: 'running')
 - if jobs.count > 0
   %h4= "Jobs: Prüfen"
+  = t('activerecord.attributes.allocation.state_label.')
   - for job in jobs
     = link_to "#{job.title} #{job.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_job_path(job), class: 'bold'
     %br
     - allocations = job.allocations
     - for allocation in allocations
-      = link_to "#{allocation.state} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation)
+      = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation)
       %br
     %br
 
@@ -18,7 +19,7 @@
     %br
     - allocations = job.allocations
     - for allocation in allocations
-      = link_to "#{allocation.state} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation)
+      = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation)
       %br
     %br
 
@@ -30,7 +31,7 @@
     %br
     - allocations = job.allocations
     - for allocation in allocations
-      = link_to "#{allocation.state} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation)
+      = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation)
       %br
     %br
 
@@ -42,7 +43,7 @@
     %br
     - allocations = job.allocations
     - for allocation in allocations
-      = link_to "#{allocation.state} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation)
+      = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation)
       %br
     %br
 
@@ -54,6 +55,6 @@
     %br
     - allocations = job.allocations
     - for allocation in allocations
-      = link_to "#{allocation.state} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation)
+      = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation)
       %br
     %br
