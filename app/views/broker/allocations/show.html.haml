@@ -160,6 +160,7 @@
     });
 
     $('.change_state').click(function(){
+      $('button').attr('disabled', 'disabled');
       $.get("#{change_state_broker_job_allocation_path(@job, @allocation)}", function(response){
         sendMessage(function(){
         sessionStorage.setItem('showModal', true);
@@ -169,6 +170,7 @@
     });
 
     $('.cancel_state').click(function(){
+    $('button').attr('disabled', 'disabled');
       $.get("#{cancel_state_broker_job_allocation_path(@job, @allocation)}", function(response){
         sendMessage(function(){
         sessionStorage.setItem('showModal', true);
@@ -178,6 +180,7 @@
     });
 
     $('.prevail_state').click(function(){
+      $('button').attr('disabled', 'disabled');
       sendMessage(function(){
       sessionStorage.setItem('showModal', true);
         window.location.reload();
@@ -188,7 +191,7 @@
       var message = $(modalId + " textarea").val();
       var title = $(modalId + " h2").text();
       $.post("#{send_message_broker_job_allocation_path(@job, @allocation)}", {message: message, title: title}, function(response){
-        console.log(response);
+        // console.log(response);
         func();
       });
     }
