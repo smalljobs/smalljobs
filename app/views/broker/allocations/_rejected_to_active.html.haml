@@ -11,6 +11,7 @@
           = ":"
         %textarea.form-control.resize-vertical
           = "Hallo #{@allocation.seeker.name}"
+          = preserve '&#x000A;'
           = "Du hast den Job #{@allocation.job.title} erhalten! Melde dich doch so schnell wie möglich unter #{@allocation.job.provider.phone} oder #{@allocation.job.provider.mobile}"
         %br
         %button.btn.btn-success.change_state

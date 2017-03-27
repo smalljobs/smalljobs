@@ -11,7 +11,9 @@
           = ":"
         %textarea.form-control.resize-vertical
           = "Hallo #{@allocation.seeker.name}"
+          = preserve '&#x000A;'
           = "Deine Anstellung bei #{@allocation.job.provider.name} ist abgeschlossen."
+          = preserve '&#x000A;'
           = "Danke für deine Arbeit!"   
         %br
         %button.btn.btn-success.change_state

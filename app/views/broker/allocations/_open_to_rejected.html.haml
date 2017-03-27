@@ -11,8 +11,11 @@
           = ":"
         %textarea.form-control.resize-vertical
           = "Hallo #{@allocation.seeker.name}"
+          = preserve '&#x000A;'
           = "Leider konnte deine Bewerbung für \"#{@allocation.job.title}\" nicht berücksichtigt werden."
-          = "Vielleicht klappt es aber beim nächsten Mal! Wir freuen uns weiterhin auf deine Bewerbungen für Jobs."  
+          = preserve '&#x000A;'
+          = "Vielleicht klappt es aber beim nächsten Mal! Wir freuen uns weiterhin auf deine Bewerbungen für Jobs."
+          = preserve '&#x000A;'
           = "Hast du noch Fragen dazu? Schreib uns hier."  
         %br
         %button.btn.btn-success.cancel_state

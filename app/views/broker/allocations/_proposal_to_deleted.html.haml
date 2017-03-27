@@ -11,8 +11,11 @@
           = ":"
         %textarea.form-control.resize-vertical
           = "Hallo #{@allocation.seeker.name}"
+          = preserve '&#x000A;'
           = "Wir haben den Job-Vorschlag gelöscht."
+          = preserve '&#x000A;'
           = "Wir freuen uns weiterhin auf deine Bewerbungen!"
+          = preserve '&#x000A;'
           = "Für Fragen schreibe uns hier"
         %br
         %button.btn.btn-success.cancel_state
