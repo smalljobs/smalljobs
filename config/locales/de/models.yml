@@ -43,6 +43,9 @@ de:
       application:
         one: "Bewerbung"
         other: "Bewerbungen"
+      certificate:
+        one: "Zertifikate"
+        other: "Zertifikate"
     attributes:
       work_category:
         name: "Name"
