@@ -9,7 +9,7 @@
           = "Nachricht an "
           = @allocation.seeker.name
           = ":"
-        %textarea.form-control.resize-vertical
+        %textarea.form-control.resize-vertical{rows: '5'}
           = "Hallo #{@allocation.seeker.name}"
         %br
         %button.btn.btn-success.prevail_state
