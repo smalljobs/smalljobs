@@ -1,4 +1,5 @@
-= link_to "<  zurück zu #{@job.title}", edit_broker_job_path(@job), class: 'back_button'
+%a.back_button{href: '#'}
+  = '< ' + t('common.back')
 
 - if @allocation.application_open?
   %h2= "Bewerbung"

@@ -1,4 +1,5 @@
-= link_to "< " + t('common.back'), broker_dashboard_path, class: 'back_button'
+%a.back_button{href: '#'}
+  = '< ' + t('common.back')
 
 = render 'form'
 

@@ -6,6 +6,18 @@
 #= require_tree .
 
 ready = ->
+  history_array = JSON.parse(sessionStorage.getItem('history') || null)
+  if history_array != null
+    if history_array.length > 0 && history_array[history_array.length-1] == window.location.href
+      k = 1
+    else
+      history_array.push(window.location.href)
+  else
+    history_array = []
+    history_array.push(window.location.href)
+
+  sessionStorage.setItem('history', JSON.stringify(history_array))
+
   previousUrl = sessionStorage.getItem('previous') || '';
   goBack = sessionStorage.getItem('goBack') || -1;
   if previousUrl == window.location.href
@@ -74,8 +86,13 @@ ready = ->
   ).change();
 
   $('.back_button').click(->
-    sessionStorage.setItem('shouldRefresh', true);
-    history.go(goBack);
+#    sessionStorage.setItem('shouldRefresh', true);
+#    history.go(goBack);
+    url = history_array.pop()
+    url = history_array.pop()
+    sessionStorage.setItem('history', JSON.stringify(history_array))
+    console.log(url)
+    window.location.href = url
   );
 
 
