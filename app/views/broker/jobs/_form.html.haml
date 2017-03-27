@@ -100,3 +100,10 @@
       = f.button :submit, t('common.create'), class: 'btn btn-primary btn-success'
     - else
       = f.button :submit, t('common.edit'), class: 'btn btn-primary btn-success'
+
+  - if !@job.new_record?
+    .form-actions
+      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#delete_job_modal"}
+        = "Löschen"
+
+= render 'delete_modal'

@@ -1,0 +1,27 @@
+%div.modal.fade{id: "delete_seeker_modal"}
+  %div.modal-dialog
+    %div.modal-content
+      %div.modal-header
+        -#%button.close{"data-dismiss": "modal", type: "button"} &times;
+        %h2= "Wirklich löschen?"
+      %div.modal-body
+        %div.row
+          %div.col-md-6
+            %button.btn.btn-success{id: 'delete'}
+              = "Ja"
+          %div.col-md-6
+            %button.btn.btn-success{"data-dismiss": "modal", type: "button"}
+              = "Nein"
+
+:javascript
+  $(document).ready(function() {
+      $("#delete").click(function(){
+        $.ajax({
+          url: "#{delete_broker_seeker_path(@seeker)}",
+          type: 'DELETE',
+          success: function(result) {
+             window.location.href = "#{broker_dashboard_path}#seekers"
+          }
+        });
+      });
+  });

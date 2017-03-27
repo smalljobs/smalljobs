@@ -34,6 +34,20 @@ class Broker::SeekersController < InheritedResources::Base
     end
   end
 
+  def delete
+    Allocation.where(seeker_id: @seeker.id).find_each do |allocation|
+      allocation.destroy!
+    end
+
+    Assignment.where(seeker_id: @seeker.id).find_each do |assignment|
+      assignment.destroy!
+    end
+
+    @seeker.destroy!
+
+    render json: {message: 'Seeker deleted'}, status: 200
+  end
+
   protected
 
   def current_user

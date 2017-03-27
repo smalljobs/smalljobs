@@ -54,18 +54,21 @@ Smalljobs::Application.routes.draw do
       resources :providers do
         member do
           get 'contract'
+          delete 'delete'
         end
       end
 
       resources :seekers do
         member do
           get 'agreement'
+          delete 'delete'
         end
       end
 
       resources :jobs do
         member do
           post 'activate'
+          delete 'delete'
         end
 
         resources :allocations do

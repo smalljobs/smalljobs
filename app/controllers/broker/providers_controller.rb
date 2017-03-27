@@ -38,6 +38,28 @@ class Broker::ProvidersController < InheritedResources::Base
     end
   end
 
+  def delete
+    Job.where(provider_id: @provider.id).find_each do |job|
+      Allocation.where(job_id: job.id).find_each do |allocation|
+        allocation.destroy!
+      end
+
+      Assignment.where(job_id: job.id).find_each do |assignment|
+        assignment.destroy!
+      end
+
+      job.destroy!
+    end
+
+    Assignment.where(provider_id: @provider.id).find_each do |assignment|
+      assignment.destroy!
+    end
+
+    @provider.destroy!
+
+    render json: {message: 'Provider deleted'}, status: 200
+  end
+
   protected
 
   def current_user

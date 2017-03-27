@@ -37,6 +37,20 @@ class Broker::JobsController < InheritedResources::Base
     end
   end
 
+  def delete
+    Allocation.where(job_id: @job.id).find_each do |allocation|
+      allocation.destroy!
+    end
+
+    Assignment.where(job_id: @job.id).find_each do |assignment|
+      assignment.destroy!
+    end
+
+    @job.destroy!
+
+    render json: {message: 'Job deleted'}, status: 200
+  end
+
   protected
 
   def current_user
