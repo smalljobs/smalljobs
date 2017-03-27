@@ -88,7 +88,7 @@
       %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#delete_seeker_modal"}
         = "Löschen"
 
-= render 'delete_modal'
+    = render 'delete_modal'
 
 - if !@seeker.new_record?
   = render 'pdf_message_modal'
