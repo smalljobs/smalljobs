@@ -11,8 +11,8 @@
           = ":"
         %textarea.form-control.resize-vertical
           = "Hallo #{@allocation.seeker.name}"
-          = "Deine Anstellung bei #{@allocation.provider.name} wurde beendet."
-          = "Für Fragen schreibe uns hier."          
+          = "Deine Anstellung bei #{@allocation.job.provider.name} wurde beendet."
+          = "FÃ¼r Fragen schreibe uns hier."
         %br
         %button.btn.btn-success.cancel_state
           = "Anstellung abbrechen"
