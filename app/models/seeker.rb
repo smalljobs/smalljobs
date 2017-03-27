@@ -9,11 +9,8 @@ class Seeker < ActiveRecord::Base
   has_and_belongs_to_many :work_categories
   has_and_belongs_to_many :certificates
 
-  has_many :applications
-  has_many :proposals
-  has_many :allocations
-  has_many :reviews
-  has_many :assignments
+  has_many :allocations, dependent: :destroy
+  has_many :assignments, dependent: :destroy
 
   has_many :jobs, through: :allocations
 
