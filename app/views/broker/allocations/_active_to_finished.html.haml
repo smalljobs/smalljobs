@@ -10,7 +10,9 @@
           = @allocation.seeker.name
           = ":"
         %textarea.form-control.resize-vertical
-          = "Active to Finished"
+          = "Hallo #{@allocation.seeker.name}"
+          = "Deine Anstellung bei #{@allocation.provider.name} ist abgeschlossen."
+          = "Danke für deine Arbeit!"   
         %br
         %button.btn.btn-success.change_state
           = "Anstellung beended"
