@@ -171,12 +171,12 @@
 
     $('.cancel_state').click(function(){
     $('button').attr('disabled', 'disabled');
-      $.get("#{cancel_state_broker_job_allocation_path(@job, @allocation)}", function(response){
-        sendMessage(function(){
-        sessionStorage.setItem('showModal', true);
-          window.location.href = response['redirect_to'];
+      sendMessage(function(){
+          $.get("#{cancel_state_broker_job_allocation_path(@job, @allocation)}", function(response){
+            sessionStorage.setItem('showModal', true);
+            window.location.href = response['redirect_to'];
+          });
         });
-      });
     });
 
     $('.prevail_state').click(function(){
