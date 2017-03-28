@@ -118,6 +118,7 @@ module ApiHelper
 
   def self.provider_to_json(provider)
     json = {}
+    json[:id] = provider.id
     json[:company] = provider.company
     json[:firstname] = provider.firstname
     json[:lastname] = provider.lastname
