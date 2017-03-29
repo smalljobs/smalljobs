@@ -35,62 +35,64 @@
 
 %br
 %br
-%h1{id: 'contact_header'}
-  = "Kontakt"
-%h2= t('regions.show.address')
-%address
-  = @organization.name
-  %br
-  = @organization.street
-  %br
 
-  = @organization.place.zip + ' ' + @organization.place.name
-  %br
-  %br
-
-  - if @organization.phone
-    %abbr{ title: t('activerecord.attributes.provider.phone') } T:
-    = @organization.phone.phony_formatted
+- for organization in @region.organizations
+  %h1.contact_header
+    = "Kontakt #{organization.name}"
+  %h2= t('regions.show.address')
+  %address
+    = organization.name
+    %br
+    = organization.street
     %br
 
-  - if @organization.email
-    %a{ href: 'mailto:#' }= @organization.email
+    = organization.place.zip + ' ' + organization.place.name
+    %br
     %br
 
-  - if @organization.website
-    = link_to @organization.website, @organization.website
-    %br
-
-%h2= "Orte"
-%p.places= @organization.places.pluck(:name).to_sentence
-
-%h2= t('regions.show.people')
-- @organization.brokers.order(:lastname, :firstname).each_with_index do |broker, index|
-  - if index > 0
-    %hr
-
-  %h4= broker.name
-
-  %p
-    - if broker.phone
+    - if organization.phone
       %abbr{ title: t('activerecord.attributes.provider.phone') } T:
-      = broker.phone.phony_formatted
+      = organization.phone.phony_formatted
       %br
 
-    - if broker.mobile
-      %abbr{ title: t('activerecord.attributes.provider.mobile') } M:
-      = broker.mobile.phony_formatted
+    - if organization.email
+      %a{ href: 'mailto:#' }= organization.email
+      %br
 
-  - if broker.contact_availability.present?
-    %p.available
+    - if organization.website
+      = link_to organization.website, organization.website
+      %br
+
+  %h2= "Orte"
+  %p.places= organization.places.pluck(:name).to_sentence
+
+  %h2= t('regions.show.people')
+  - organization.brokers.order(:lastname, :firstname).each_with_index do |broker, index|
+    - if index > 0
+      %hr
+
+    %h4= broker.name
+
+    %p
+      - if broker.phone
+        %abbr{ title: t('activerecord.attributes.provider.phone') } T:
+        = broker.phone.phony_formatted
+        %br
+
+      - if broker.mobile
+        %abbr{ title: t('activerecord.attributes.provider.mobile') } M:
+        = broker.mobile.phony_formatted
+
+    - if broker.contact_availability.present?
+      %p.available
+        = succeed ':' do
+          %strong= t('regions.show.available')
+
+        = broker.contact_availability
+
+    %p.regions
       = succeed ':' do
-        %strong= t('regions.show.available')
+        %strong= t('regions.show.responsible')
 
-      = broker.contact_availability
-
-  %p.regions
-    = succeed ':' do
-      %strong= t('regions.show.responsible')
-
-    = broker.places.pluck(:name).to_sentence
+      = broker.places.pluck(:name).to_sentence
 
