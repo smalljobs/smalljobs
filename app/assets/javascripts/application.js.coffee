@@ -8,13 +8,13 @@
 ready = ->
   history_array = JSON.parse(sessionStorage.getItem('history') || null)
   if history_array != null
-    if history_array.length > 0 && history_array[history_array.length-1] == window.location.href
+    if history_array.length > 0 && history_array[history_array.length-1] == window.location.href.split('?')[0]
       k = 1
     else
-      history_array.push(window.location.href)
+      history_array.push(window.location.href.split('?')[0])
   else
     history_array = []
-    history_array.push(window.location.href)
+    history_array.push(window.location.href.split('?')[0])
 
   sessionStorage.setItem('history', JSON.stringify(history_array))
 

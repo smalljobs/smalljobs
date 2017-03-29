@@ -1,198 +1,209 @@
 %a.back_button{href: '#'}
   = '< ' + t('common.back')
 
-- if @allocation.application_open?
-  %h2= "Bewerbung"
-  %p
-    = "Job: "
-    = link_to @job.title, edit_broker_job_path(@job)
-  %p
-    = "JugendlicheR: "
-    = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
-  %p
-    = "Datum: "
-    = @allocation.last_change_of_state.strftime("%d.%m.%Y")
-  %div.row
-    %div.col-md-4
-      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#open_to_active_modal"}
-        = "Anstellen"
-    %div.col-md-4
-      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#open_to_rejected_modal"}
-        = "Bewerbung ablehnen"
-    %div.col-md-4
-      %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#open_to_nothing_modal"}
-        = "Nachricht senden"
-
-- if @allocation.application_rejected?
-  %h2= "Bewerbung abgelehnt"
-  %p
-    = "Job: "
-    = link_to @job.title, edit_broker_job_path(@job)
-  %p
-    = "JugendlicheR: "
-    = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
-  %p
-    = "Datum: "
-    = @allocation.last_change_of_state.strftime("%d.%m.%Y")
-  %div.row
-    %div.col-md-4
-      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#rejected_to_active_modal"}
-        = "Anstellen"
-    %div.col-md-4
-      %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#rejected_to_nothing_modal"}
-        = "Nachricht senden"
-
-- if @allocation.proposal?
-  %h2= "Vorgeschlagen"
-  %p
-    = "Job: "
-    = link_to @job.title, edit_broker_job_path(@job)
-  %p
-    = "JugendlicheR: "
-    = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
-  %p
-    = "Datum: "
-    = @allocation.last_change_of_state.strftime("%d.%m.%Y")
-  %div.row
-    %div.col-md-4
-      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#proposal_to_active_modal"}
-        = "Anstellen"
-    %div.col-md-4
-      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#proposal_to_deleted_modal"}
-        = "Vorschlag löschen"
-    %div.col-md-4
-      %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#proposal_to_nothing_modal"}
-        = "Nachricht senden"
-
-- if @allocation.active?
-  %h2= "Anstellung"
-  %p
-    = "Job: "
-    = link_to @job.title, edit_broker_job_path(@job)
-  %p
-    = "JugendlicheR: "
-    = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
-  %p
-    = "Datum: "
-    = @allocation.last_change_of_state.strftime("%d.%m.%Y")
-  %div.row
-    %div.col-md-4
-      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#active_to_finished_modal"}
-        = "Anstellung beenden"
-    %div.col-md-4
-      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#active_to_canceled_modal"}
-        = "Anstellung abbrechen"
-    %div.col-md-4
-      %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#active_to_nothing_modal"}
-        = "Nachricht senden"
-
-- if @allocation.finished?
-  %h2= "Anstellung beendet"
-  %p
-    = "Job: "
-    = link_to @job.title, edit_broker_job_path(@job)
-  %p
-    = "JugendlicheR: "
-    = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
-  %p
-    = "Datum: "
-    = @allocation.last_change_of_state.strftime("%d.%m.%Y")
-  %div.row
-    %div.col-md-4
-      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_active_modal"}
-        = "Anstellung reaktivieren"
-    %div.col-md-4
-      %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_nothing_modal"}
-        = "Nachricht senden"
-
-- if @allocation.cancelled?
-  %h2= "Anstellung abgebrochen"
-  %p
-    = "Job: "
-    = link_to @job.title, edit_broker_job_path(@job)
-  %p
-    = "JugendlicheR: "
-    = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
-  %p
-    = "Datum: "
-    = @allocation.last_change_of_state.strftime("%d.%m.%Y")
-  %div.row
-    %div.col-md-4
-      %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_active_modal"}
-        = "Anstellung reaktivieren"
-    %div.col-md-4
-      %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_nothing_modal"}
-        = "Nachricht senden"
-
-= render 'active_to_finished'
-= render 'finished_to_active'
-= render 'open_to_active'
-= render 'proposal_to_active'
-= render 'rejected_to_active'
-= render 'open_to_rejected'
-= render 'proposal_to_deleted'
-= render 'active_to_canceled'
-= render 'open_to_nothing'
-= render 'rejected_to_nothing'
-= render 'proposal_to_nothing'
-= render 'active_to_nothing'
-= render 'finished_to_nothing'
-= render 'nothing'
-
-:javascript
-  $(document).ready(function() {
-    var modalId;
-
-    function checkForModal() {
+- if @allocation == nil
+  %h2= "Vorschlag wurde gelöscht."
+  :javascript
+    $(document).ready(function() {
       var showModal = sessionStorage.getItem('showModal');
       if(showModal == 'true') {
-        $('#nothing_modal .modal-header h2').text(sessionStorage.getItem('buttonText') + ': erfolgreich durchgeführt');
-        $('#nothing_modal').modal();
         sessionStorage.setItem('showModal', false);
       }
-    }
-
-    checkForModal();
-
-    $('.allocation_btn').click(function(){
-      modalId = $(this).attr('data-target');
-      sessionStorage.setItem('buttonText', $(modalId + ' .modal-body .btn').text());
     });
+- else
+  - if @allocation.application_open?
+    %h2= "Bewerbung"
+    %p
+      = "Job: "
+      = link_to @job.title, edit_broker_job_path(@job)
+    %p
+      = "JugendlicheR: "
+      = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
+    %p
+      = "Datum: "
+      = @allocation.last_change_of_state.strftime("%d.%m.%Y")
+    %div.row
+      %div.col-md-4
+        %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#open_to_active_modal"}
+          = "Anstellen"
+      %div.col-md-4
+        %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#open_to_rejected_modal"}
+          = "Bewerbung ablehnen"
+      %div.col-md-4
+        %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#open_to_nothing_modal"}
+          = "Nachricht senden"
 
-    $('.change_state').click(function(){
-      $('button').attr('disabled', 'disabled');
-      $.get("#{change_state_broker_job_allocation_path(@job, @allocation)}", function(response){
-        sendMessage(function(){
-        sessionStorage.setItem('showModal', true);
-          window.location.href = response['redirect_to'];
-        });
+  - if @allocation.application_rejected?
+    %h2= "Bewerbung abgelehnt"
+    %p
+      = "Job: "
+      = link_to @job.title, edit_broker_job_path(@job)
+    %p
+      = "JugendlicheR: "
+      = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
+    %p
+      = "Datum: "
+      = @allocation.last_change_of_state.strftime("%d.%m.%Y")
+    %div.row
+      %div.col-md-4
+        %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#rejected_to_active_modal"}
+          = "Anstellen"
+      %div.col-md-4
+        %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#rejected_to_nothing_modal"}
+          = "Nachricht senden"
+
+  - if @allocation.proposal?
+    %h2= "Vorgeschlagen"
+    %p
+      = "Job: "
+      = link_to @job.title, edit_broker_job_path(@job)
+    %p
+      = "JugendlicheR: "
+      = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
+    %p
+      = "Datum: "
+      = @allocation.last_change_of_state.strftime("%d.%m.%Y")
+    %div.row
+      %div.col-md-4
+        %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#proposal_to_active_modal"}
+          = "Anstellen"
+      %div.col-md-4
+        %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#proposal_to_deleted_modal"}
+          = "Vorschlag löschen"
+      %div.col-md-4
+        %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#proposal_to_nothing_modal"}
+          = "Nachricht senden"
+
+  - if @allocation.active?
+    %h2= "Anstellung"
+    %p
+      = "Job: "
+      = link_to @job.title, edit_broker_job_path(@job)
+    %p
+      = "JugendlicheR: "
+      = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
+    %p
+      = "Datum: "
+      = @allocation.last_change_of_state.strftime("%d.%m.%Y")
+    %div.row
+      %div.col-md-4
+        %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#active_to_finished_modal"}
+          = "Anstellung beenden"
+      %div.col-md-4
+        %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#active_to_canceled_modal"}
+          = "Anstellung abbrechen"
+      %div.col-md-4
+        %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#active_to_nothing_modal"}
+          = "Nachricht senden"
+
+  - if @allocation.finished?
+    %h2= "Anstellung beendet"
+    %p
+      = "Job: "
+      = link_to @job.title, edit_broker_job_path(@job)
+    %p
+      = "JugendlicheR: "
+      = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
+    %p
+      = "Datum: "
+      = @allocation.last_change_of_state.strftime("%d.%m.%Y")
+    %div.row
+      %div.col-md-4
+        %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_active_modal"}
+          = "Anstellung reaktivieren"
+      %div.col-md-4
+        %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_nothing_modal"}
+          = "Nachricht senden"
+
+  - if @allocation.cancelled?
+    %h2= "Anstellung abgebrochen"
+    %p
+      = "Job: "
+      = link_to @job.title, edit_broker_job_path(@job)
+    %p
+      = "JugendlicheR: "
+      = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
+    %p
+      = "Datum: "
+      = @allocation.last_change_of_state.strftime("%d.%m.%Y")
+    %div.row
+      %div.col-md-4
+        %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_active_modal"}
+          = "Anstellung reaktivieren"
+      %div.col-md-4
+        %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_nothing_modal"}
+          = "Nachricht senden"
+
+  = render 'active_to_finished'
+  = render 'finished_to_active'
+  = render 'open_to_active'
+  = render 'proposal_to_active'
+  = render 'rejected_to_active'
+  = render 'open_to_rejected'
+  = render 'proposal_to_deleted'
+  = render 'active_to_canceled'
+  = render 'open_to_nothing'
+  = render 'rejected_to_nothing'
+  = render 'proposal_to_nothing'
+  = render 'active_to_nothing'
+  = render 'finished_to_nothing'
+  = render 'nothing'
+
+  :javascript
+    $(document).ready(function() {
+      var modalId;
+
+      function checkForModal() {
+        var showModal = sessionStorage.getItem('showModal');
+        if(showModal == 'true') {
+          sessionStorage.setItem('showModal', false);
+          $('#nothing_modal .modal-header h2').text(sessionStorage.getItem('buttonText') + ': erfolgreich durchgeführt');
+          $('#nothing_modal').modal();
+        }
+      }
+
+      checkForModal();
+
+      $('.allocation_btn').click(function(){
+        modalId = $(this).attr('data-target');
+        sessionStorage.setItem('buttonText', $(modalId + ' .modal-body .btn').text());
       });
-    });
 
-    $('.cancel_state').click(function(){
-    $('button').attr('disabled', 'disabled');
-      sendMessage(function(){
-          $.get("#{cancel_state_broker_job_allocation_path(@job, @allocation)}", function(response){
-            sessionStorage.setItem('showModal', true);
+      $('.change_state').click(function(){
+        $('button').attr('disabled', 'disabled');
+        $.get("#{change_state_broker_job_allocation_path(@job, @allocation)}", function(response){
+          sendMessage(function(){
+          sessionStorage.setItem('showModal', true);
             window.location.href = response['redirect_to'];
           });
         });
-    });
+      });
 
-    $('.prevail_state').click(function(){
+      $('.cancel_state').click(function(){
       $('button').attr('disabled', 'disabled');
-      sendMessage(function(){
-      sessionStorage.setItem('showModal', true);
-        window.location.reload();
+        sendMessage(function(){
+            $.get("#{cancel_state_broker_job_allocation_path(@job, @allocation)}", function(response){
+              sessionStorage.setItem('showModal', true);
+              window.location.href = response['redirect_to'];
+            });
+          });
       });
+
+      $('.prevail_state').click(function(){
+        $('button').attr('disabled', 'disabled');
+        sendMessage(function(){
+        sessionStorage.setItem('showModal', true);
+          window.location.reload();
+        });
+      });
+
+      function sendMessage(func) {
+        var message = $(modalId + " textarea").val();
+        var title = $(modalId + " h2").text();
+        $.post("#{send_message_broker_job_allocation_path(@job, @allocation)}", {message: message, title: title}, function(response){
+          // console.log(response);
+          func();
+        });
+      }
     });
 
-    function sendMessage(func) {
-      var message = $(modalId + " textarea").val();
-      var title = $(modalId + " h2").text();
-      $.post("#{send_message_broker_job_allocation_path(@job, @allocation)}", {message: message, title: title}, function(response){
-        // console.log(response);
-        func();
-      });
-    }
-  });
