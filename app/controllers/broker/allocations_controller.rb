@@ -26,7 +26,7 @@ class Broker::AllocationsController < InheritedResources::Base
 
     require 'rest-client'
     if @allocation != nil && @allocation.conversation_id != nil
-      response = RestClient.get "https://devadmin.jugendarbeit.digital/api/jugendinfo_message/get_messages/?key=ULv8r9J7Hqc7n2B8qYmfQewzerhV9p&id=#{@allocation.conversation_id}"
+      response = RestClient.get "https://devadmin.jugendarbeit.digital/api/jugendinfo_message/get_messages/?key=ULv8r9J7Hqc7n2B8qYmfQewzerhV9p&id=#{@allocation.conversation_id}&limit=1000"
       json = JSON.parse(response.body)
       @messages = json['messages']
     else
@@ -91,13 +91,13 @@ class Broker::AllocationsController < InheritedResources::Base
     require 'rest-client'
     dev = "https://devadmin.jugendarbeit.digital/api/jugendinfo_push/send"
     live = "https://admin.jugendarbeit.digital/api/jugendinfo_push/send"
-    response = RestClient.post dev, {api: 'ULv8r9J7Hqc7n2B8qYmfQewzerhV9p', message_title: title, message: message, device_token: seeker.app_user_id, sendermail: current_broker.email}
+    response = RestClient.post dev, {api: 'ULv8r9J7Hqc7n2B8qYmfQewzerhV9p', message_title: title, message: message, device_token: @allocation.seeker.app_user_id, sendermail: current_broker.email}
     json = JSON.parse(response.body)
     conv_id = json['conversation_id']
     @allocation.conversation_id = conv_id
     @allocation.save!
 
-    render json: {state: 'ok'}
+    render json: {state: 'ok', response: response}
   end
 
   protected
