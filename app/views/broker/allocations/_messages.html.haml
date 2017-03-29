@@ -4,8 +4,6 @@
     %div.col-sm-6
       %h5= DateTime.strptime(message['datetime'], '%s').strftime('%d.%m.%Y,%H:%M')
       %h4= message['title']
-      %h5= message
-      %h5= current_broker.id
       %p
         = message['message'].html_safe
       %br
@@ -15,8 +13,6 @@
     %div.col-sm-6
       %h5= DateTime.strptime(message['datetime'], '%s').strftime('%d.%m.%Y,%H:%M')
       %h4= message['title']
-      %h5= message
-      %h5= current_broker.id
       %p
         = message['message'].html_safe
       %br
