@@ -133,6 +133,24 @@
       %div.col-md-4
         %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_nothing_modal"}
           = "Nachricht senden"
+  - if @allocation.application_retracted?
+    %h2 = "Bewerbung zurückgenommen"
+    %p
+      = "Job: "
+      = link_to @job.title, edit_broker_job_path(@job)
+    %p
+      = "JugendlicheR: "
+      = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
+    %p
+      = "Datum: "
+      = @allocation.last_change_of_state.strftime("%d.%m.%Y")
+    %div.row
+      %div.col-md-4
+        %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#retracted_to_active_modal"}
+          = "Anstellen"
+      %div.col-md-4
+        %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#retracted_to_nothing_modal"}
+          = "Nachricht senden"
 
   = render 'active_to_finished'
   = render 'finished_to_active'
@@ -148,6 +166,8 @@
   = render 'active_to_nothing'
   = render 'finished_to_nothing'
   = render 'nothing'
+  = render 'retracted_to_active'
+  = render 'retracted_to_nothing'
 
   :javascript
     $(document).ready(function() {

@@ -56,6 +56,9 @@ class Broker::AllocationsController < InheritedResources::Base
     elsif @allocation.cancelled?
       @allocation.state = :active
       @allocation.save!
+    elsif @allocation.application_retracted?
+      @allocation.state = :active
+      @allocation.save!
     end
 
     render json: {redirect_to: broker_job_allocation_url(@job, @allocation.seeker)}
