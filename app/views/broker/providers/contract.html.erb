@@ -394,7 +394,7 @@
     ArbeitgeberIn:
   </h1>
   <p class="page2-firstrow">
-    <%= @provider.name %>, (<%= @provider.company %>)
+    <%= @provider.name %><%= @provider.company != nil ? ", (#{@provider.company})":""  %>
   </p>
   <p class="page2-secondrow">
     <%= @provider.street %>, <%= @provider.place.full_name %>
