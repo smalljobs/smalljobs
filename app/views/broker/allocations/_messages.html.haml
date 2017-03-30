@@ -1,18 +1,18 @@
 - for message in @messages
   %div.row
   - if message['from_ji_user_id'] == "#{@allocation.seeker.app_user_id}"
-    %div.col-sm-6
-      %h5= DateTime.strptime(message['datetime'], '%s').strftime('%d.%m.%Y,%H:%M')
-      %h4= message['title']
+    %div.col-sm-8.align-left
+      %h5.grey= DateTime.strptime(message['datetime'], '%s').strftime('%d.%m.%Y,%H:%M')
+      %h4.bold= message['title']
       %p
         = message['message'].html_safe
       %br
-    %div.col-sm-6
+    %div.col-sm-4
   - else
-    %div.col-sm-6
-    %div.col-sm-6
-      %h5= DateTime.strptime(message['datetime'], '%s').strftime('%d.%m.%Y,%H:%M')
-      %h4= message['title']
+    %div.col-sm-4
+    %div.col-sm-8.align-left
+      %h5.grey= DateTime.strptime(message['datetime'], '%s').strftime('%d.%m.%Y,%H:%M')
+      %h4.bold= message['title']
       %p
         = message['message'].html_safe
       %br
