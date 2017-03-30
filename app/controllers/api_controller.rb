@@ -271,7 +271,14 @@ class ApiController < ApplicationController
 
     allocation = Allocation.find_by(job_id: id, seeker_id: @seeker.id)
     if allocation != nil
-      render json: {code: 'jobs/applied', message: 'Already applied for that job'}, status: 422
+      if allocation.application_retracted?
+        allocation.state = :application_open
+        allocation.save!
+        render json: {message: 'Success. Please wait for a message from broker.'}, status: 201
+      else
+        render json: {code: 'jobs/applied', message: 'Already applied for that job'}, status: 422
+      end
+
       return
     end
 
@@ -295,12 +302,12 @@ class ApiController < ApplicationController
       return
     end
 
-    if allocation.cancelled?
+    if allocation.application_retracted?
       render json: {code: 'jobs/cancelled', message: 'Application already cancelled'}, status: 422
       return
     end
 
-    allocation.state = :cancelled
+    allocation.state = :application_retracted
     allocation.save!
     render json: {message: 'Success.'}, status: 200
   end

@@ -3,7 +3,7 @@ class Allocation < ActiveRecord::Base
   belongs_to :seeker
   belongs_to :provider
 
-  enum state: {application_open: 0, application_rejected: 1, proposal: 2, active: 3, finished: 4, cancelled: 5}
+  enum state: {application_open: 0, application_rejected: 1, proposal: 2, active: 3, finished: 4, cancelled: 5, application_retracted: 6}
 
   validates :job, presence: true
   validates :seeker, presence: true
