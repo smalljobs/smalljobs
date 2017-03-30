@@ -245,7 +245,7 @@ module ApiHelper
     json[:updated_at] = seeker.updated_at.strftime('%s')
     json[:lastname] = seeker.lastname
     json[:firstname] = seeker.firstname
-    json[:birthdate] = seeker.date_of_birth.strftime('%Y-%m-%d')
+    json[:birthdate] = seeker.date_of_birth.strftime('%s')
     json[:phone] = seeker.phone
     json[:street] = seeker.street
     json[:status] = Seeker.statuses[seeker.status]
