@@ -3,198 +3,230 @@
   = current_broker.firstname
 %p.lead= t('broker_dashboard.lead')
 
-%div.row
-  %div.col-sm-1
-    %div.dropdown
-      %button.btn.btn-default.dropdown-toggle{type: 'dropdown', 'data-toggle': 'dropdown', id: 'dropdown-btn'}
-        = "Alle Organisationen"
-        %span.caret
-      %ul.dropdown-menu
-        %li
-          %a.organization-dropdown{href: '#', 'data-value': '0'}
-            = "Alle Organisationen"
-        - for organization in current_region.organizations.order(:name).distinct
+%div{id: 'dashboard'}
+
+  %div.row
+    %div.col-sm-3
+      %div.dropdown
+        %button.btn.btn-default.dropdown-toggle{type: 'dropdown', 'data-toggle': 'dropdown', id: 'dropdown-btn'}
+          = "Alle Organisationen"
+          %span.caret
+        %ul.dropdown-menu
           %li
-            %a.organization-dropdown{href: '#', 'data-value': "#{organization.id}"}
-              = organization.name
+            %a.organization-dropdown{href: '#', 'data-value': '0'}
+              = "Alle Organisationen"
+          - for organization in current_region.organizations.order(:name).distinct
+            %li
+              %a.organization-dropdown{href: '#', 'data-value': "#{organization.id}"}
+                = organization.name
+    %div.col-sm-2
+      %input.form-control.search{type: 'text', id: 'search-field'}
+    %div.col-sm-1
+      %a{href: '#', id: 'search-btn'}
+        %i.fa.fa-search.fa-3x
 
-%br
+  %br
 
-%ul.nav.nav-pills
-  %li.active
-    %a{'data-toggle': 'tab', href: '#todo'}
-      =t('broker_dashboard.todo')
-  %li
-    %a{'data-toggle': 'tab', href: '#jobs'}
-      =t('broker_dashboard.jobs')
-  %li
-    %a{'data-toggle': 'tab', href: '#providers'}
-      =t('broker_dashboard.providers')
-  %li
-    %a{'data-toggle': 'tab', href: '#seekers'}
-      =t('broker_dashboard.seekers')
-  %li
-    %a{'data-toggle': 'tab', href: '#assignments'}
-      =t('broker_dashboard.assignments')
+  %ul.nav.nav-pills
+    %li.active
+      %a{'data-toggle': 'tab', href: '#todo'}
+        =t('broker_dashboard.todo')
+    %li
+      %a{'data-toggle': 'tab', href: '#jobs'}
+        =t('broker_dashboard.jobs')
+    %li
+      %a{'data-toggle': 'tab', href: '#providers'}
+        =t('broker_dashboard.providers')
+    %li
+      %a{'data-toggle': 'tab', href: '#seekers'}
+        =t('broker_dashboard.seekers')
+    %li
+      %a{'data-toggle': 'tab', href: '#assignments'}
+        =t('broker_dashboard.assignments')
 
-%div.tab-content
-  %div{id: 'todo', class: 'tab-pane fade in active'}
-    .table-responsive
-      %table.table.table-striped.sortable
-        %tr
-          %th.sortable= t('broker_dashboard.todo_table.date')
-          %th.sortable= t('broker_dashboard.todo_table.todo')
-          %th= t('broker_dashboard.todo_table.description')
-  %div{id: 'jobs', class: 'tab-pane fade in'}
-    %br
-    = link_to t('broker.jobs.index.add_new'), new_broker_job_path, class: 'btn btn-success'
-    .table-responsive
-      %table.table.table-striped.sortable
-        %tr
-          %th.sortable= t('broker_dashboard.jobs_table.status')
-          %th.sortable= t('broker_dashboard.jobs_table.date')
-          %th.sortable= t('broker_dashboard.jobs_table.todo')
-          %th.sortable= t('broker_dashboard.jobs_table.job')
-          %th.sortable= t('broker_dashboard.jobs_table.provider')
-          %th= t('broker_dashboard.jobs_table.allocations')
-
-        - if @jobs.size == 0
+  %div.tab-content
+    %div{id: 'todo', class: 'tab-pane fade in active'}
+      .table-responsive
+        %table.table.table-striped.sortable
           %tr
-            %td{ colspan: 6 }= t('broker.jobs.index.no_jobs')
+            %th.sortable= t('broker_dashboard.todo_table.date')
+            %th.sortable= t('broker_dashboard.todo_table.todo')
+            %th= t('broker_dashboard.todo_table.description')
+    %div{id: 'jobs', class: 'tab-pane fade in'}
+      %br
+      = link_to t('broker.jobs.index.add_new'), new_broker_job_path, class: 'btn btn-success'
+      .table-responsive
+        %table.table.table-striped.sortable
+          %thead
+            %tr
+              %th.sortable= t('broker_dashboard.jobs_table.status')
+              %th.sortable= t('broker_dashboard.jobs_table.date')
+              %th.sortable= t('broker_dashboard.jobs_table.todo')
+              %th.sortable= t('broker_dashboard.jobs_table.job')
+              %th.sortable= t('broker_dashboard.jobs_table.provider')
+              %th= t('broker_dashboard.jobs_table.allocations')
+          %tbody.list
+            - if @jobs.size == 0
+              %tr
+                %td{ colspan: 6 }= t('broker.jobs.index.no_jobs')
 
-        - @jobs.each do |job|
-          - @job = job
-          %tr{ class: "#{job_status_class(job)} organization-#{job.try(:organization).try(:id)}" }
-            %td
-              = job_label(job)
-            %td
-              = job.last_change_of_state == nil ?  "": job.last_change_of_state.strftime("%d.%m.%Y")
-            %td
-            %td
-              = link_to job.title, edit_broker_job_path(job)
-            %td
-              = link_to job.provider.name, edit_broker_provider_path(job.provider)
-            %td
-              = render 'allocations'
-  %div{id: 'providers', class: 'tab-pane fade in'}
-    %br
-    = link_to t('providers.index.add_new'), new_broker_provider_path, class: 'btn btn-success'
-    .table-responsive
-      %table.table.table-striped.sortable
-        %tr
-          %th.sortable= t('broker_dashboard.providers_table.status')
-          %th.sortable= t('broker_dashboard.jobs_table.date')
-          %th.sortable= t('broker_dashboard.providers_table.name')
-          %th.sortable= t('broker_dashboard.providers_table.address')
-          %th.sortable= t('broker_dashboard.providers_table.plz')
-          %th.sortable= t('broker_dashboard.providers_table.jobs')
+            - @jobs.each do |job|
+              - @job = job
+              %tr{ class: "#{job_status_class(job)} organization-#{job.try(:organization).try(:id)}" }
+                %td.status
+                  = job_label(job)
+                %td
+                  = job.last_change_of_state == nil ?  "": job.last_change_of_state.strftime("%d.%m.%Y")
+                %td
+                %td.title
+                  = link_to job.title, edit_broker_job_path(job)
+                %td.name
+                  = link_to job.provider.name, edit_broker_provider_path(job.provider)
+                %td
+                  = render 'allocations'
+    %div{id: 'providers', class: 'tab-pane fade in'}
+      %br
+      = link_to t('providers.index.add_new'), new_broker_provider_path, class: 'btn btn-success'
+      .table-responsive
+        %table.table.table-striped.sortable
+          %thead
+            %tr
+              %th.sortable= t('broker_dashboard.providers_table.status')
+              %th.sortable= t('broker_dashboard.jobs_table.date')
+              %th.sortable= t('broker_dashboard.providers_table.name')
+              %th.sortable= t('broker_dashboard.providers_table.address')
+              %th.sortable= t('broker_dashboard.providers_table.plz')
+              %th.sortable= t('broker_dashboard.providers_table.jobs')
+          %tbody.list
+            - if @providers.size == 0
+              %tr
+                %td{ colspan: 5 }= t('providers.index.no_providers')
 
-        - if @providers.size == 0
-          %tr
-            %td{ colspan: 5 }= t('providers.index.no_providers')
+            - @providers.each do |provider|
+              %tr{ class: "#{provider_status_class(provider)} organization-#{provider.organization.id}" }
+                %td
+                  = provider_label(provider)
+                %td= provider.updated_at.strftime("%d.%m.%Y")
+                %td.name= link_to provider.name, edit_broker_provider_path(provider)
+                %td.street= provider.street
+                %td.place= provider.place.zip + ' ' + provider.place.name
+                %td
+                  -provider.jobs.each do |job|
+                    %ul.list-unstyled
+                      %li= link_to job.title, edit_broker_job_path(job)
+    %div{id: 'seekers', class: 'tab-pane fade in'}
+      %br
+      = link_to t('seekers.index.add_new'), new_broker_seeker_path, class: 'btn btn-success'
+      .table-responsive
+        %table.table.table-striped.sortable
+          %thead
+            %tr
+            %th.sortable= t('broker_dashboard.seekers_table.status')
+            %th.sortable= t('broker_dashboard.jobs_table.date')
+            %th.sortable= t('broker_dashboard.seekers_table.name')
+            %th.sortable= t('broker_dashboard.seekers_table.address')
+            %th.sortable= t('broker_dashboard.seekers_table.plz')
 
-        - @providers.each do |provider|
-          %tr{ class: "#{provider_status_class(provider)} organization-#{provider.organization.id}" }
-            %td
-              = provider_label(provider)
-            %td= provider.updated_at.strftime("%d.%m.%Y")
-            %td= link_to provider.name, edit_broker_provider_path(provider)
-            %td= provider.street
-            %td= provider.place.zip + ' ' + provider.place.name
-            %td
-              -provider.jobs.each do |job|
-                %ul.list-unstyled
-                  %li= link_to job.title, edit_broker_job_path(job)
-  %div{id: 'seekers', class: 'tab-pane fade in'}
-    %br
-    = link_to t('seekers.index.add_new'), new_broker_seeker_path, class: 'btn btn-success'
-    .table-responsive
-      %table.table.table-striped.sortable
-        %tr
-          %th.sortable= t('broker_dashboard.seekers_table.status')
-          %th.sortable= t('broker_dashboard.jobs_table.date')
-          %th.sortable= t('broker_dashboard.seekers_table.name')
-          %th.sortable= t('broker_dashboard.seekers_table.address')
-          %th.sortable= t('broker_dashboard.seekers_table.plz')
+          %tbody.list
+            - if @seekers.size == 0
+              %tr
+                %td{ colspan: 4 }= t('seekers.index.no_seekers')
 
-        - if @seekers.size == 0
-          %tr
-            %td{ colspan: 4 }= t('seekers.index.no_seekers')
+            - @seekers.each do |seeker|
+              %tr{ class: "#{seeker_status_class(seeker)} organization-#{seeker.try(:organization).try(:id)}" }
+                %td.status
+                  = seeker_label(seeker)
+                %td= seeker.updated_at.strftime("%d.%m.%Y")
+                %td.name= link_to seeker.name, edit_broker_seeker_path(seeker)
+                %td.street= seeker.street
+                %td.place= seeker.place.zip + ' ' + seeker.place.name
+    %div{id: 'assignments', class: 'tab-pane fade in'}
+      .table-responsive
+        %table.table.table-striped.sortable
+          %thead
+            %tr
+            %th.sortable= t('broker_dashboard.assignments_table.status')
+            %th.sortable= t('broker_dashboard.assignments_table.seeker')
+            %th.sortable= t('broker_dashboard.assignments_table.provider')
+            %th.sortable= t('broker_dashboard.assignments_table.duration_payment')
+            %th.sortable= t('broker_dashboard.assignments_table.feedback')
 
-        - @seekers.each do |seeker|
-          %tr{ class: "#{seeker_status_class(seeker)} organization-#{seeker.try(:organization).try(:id)}" }
-            %td
-              = seeker_label(seeker)
-            %td= seeker.updated_at.strftime("%d.%m.%Y")
-            %td= link_to seeker.name, edit_broker_seeker_path(seeker)
-            %td= seeker.street
-            %td= seeker.place.zip + ' ' + seeker.place.name
-  %div{id: 'assignments', class: 'tab-pane fade in'}
-    .table-responsive
-      %table.table.table-striped.sortable
-        %tr
-          %th.sortable= t('broker_dashboard.assignments_table.status')
-          %th.sortable= t('broker_dashboard.assignments_table.seeker')
-          %th.sortable= t('broker_dashboard.assignments_table.provider')
-          %th.sortable= t('broker_dashboard.assignments_table.duration_payment')
-          %th.sortable= t('broker_dashboard.assignments_table.feedback')
+          %tbody.list
+            - if @assignments.size == 0
+              %tr
+                %td{ colspan: 5 }= t('seekers.index.no_seekers')
 
-        - if @assignments.size == 0
-          %tr
-            %td{ colspan: 5 }= t('seekers.index.no_seekers')
-
-        - @assignments.each do |assignment|
-          %tr{ class: "#{assignment_status_class(assignment)} organization-#{assignment.try(:organization).try(:id)}" }
-            %td
-              = assignment_label(assignment)
-            %td
-              = link_to assignment.seeker.name, edit_broker_seeker_path(assignment.seeker)
-            %td
-              = link_to assignment.provider.name, edit_broker_provider_path(assignment.provider)
-            %td
-            %td
-              = assignment.feedback
+            - @assignments.each do |assignment|
+              %tr{ class: "#{assignment_status_class(assignment)} organization-#{assignment.try(:organization).try(:id)}" }
+                %td.status
+                  = assignment_label(assignment)
+                %td.name
+                  = link_to assignment.seeker.name, edit_broker_seeker_path(assignment.seeker)
+                %td.name
+                  = link_to assignment.provider.name, edit_broker_provider_path(assignment.provider)
+                %td
+                %td
+                  = assignment.feedback
 
 :javascript
-  var url = document.location.toString();
-  if (url.match('#')) {
-    $('.nav-pills a[href="#' + url.split('#')[1] + '"]').tab('show');
-  }
+  $(document).ready(function(){
+    var url = document.location.toString();
+    if (url.match('#')) {
+      $('.nav-pills a[href="#' + url.split('#')[1] + '"]').tab('show');
+    }
 
-  $('.nav-pills a').on('shown.bs.tab', function (e) {
-    var history_array = JSON.parse(sessionStorage.getItem('history') || null)
-    if(history_array != null) {
-      if (history_array.length > 0 && history_array[history_array.length-1] == (window.location.href + e.target.hash)) {
-        k = 1
+    $('.nav-pills a').on('shown.bs.tab', function (e) {
+      var history_array = JSON.parse(sessionStorage.getItem('history') || null)
+      if(history_array != null) {
+        if (history_array.length > 0 && history_array[history_array.length-1] == (window.location.href + e.target.hash)) {
+          k = 1
+        }
+        else {
+          history_array.push(window.location.href + e.target.hash)
+          }
       }
       else {
+        history_array = []
         history_array.push(window.location.href + e.target.hash)
-        }
-    }
-    else {
-      history_array = []
-      history_array.push(window.location.href + e.target.hash)
-    }
+      }
 
-    sessionStorage.setItem('history', JSON.stringify(history_array))
+      sessionStorage.setItem('history', JSON.stringify(history_array))
 
-    sessionStorage.setItem('previous', window.location.href);
-    if(history.pushState) {
-      history.pushState(null, null, e.target.hash);
-    }
-    else {
-      location.hash = e.target.hash;
-    }
-  });
+      sessionStorage.setItem('previous', window.location.href);
+      if(history.pushState) {
+        history.pushState(null, null, e.target.hash);
+      }
+      else {
+        location.hash = e.target.hash;
+      }
+    });
 
-  $('.organization-dropdown').click(function(){
-    var id = $(this).attr('data-value');
-    if(id == '0') {
-      $('.display-none').removeClass('display-none');
-    } else {
-      $('.display-none').removeClass('display-none');
-      $('.organization-' + id).addClass('display-none')
-    }
+    $('.organization-dropdown').click(function(){
+      var id = $(this).attr('data-value');
+      if(id == '0') {
+        $('.display-none').removeClass('display-none');
+      } else {
+        $('.display-none').removeClass('display-none');
+        $('.organization-' + id).addClass('display-none')
+      }
 
-    $('#dropdown-btn').text($(this).text());
+      $('#dropdown-btn').text($(this).text());
+    });
+
+    var options = {
+      valueNames: [ 'name', 'place', 'status', 'street', 'title' ]
+    };
+
+    var jobsList = new List('jobs', options);
+    var providersList = new List('providers', options);
+    var seekersList = new List('seekers', options);
+    var assignmentsList = new List('assignments', options);
+
+    $('#search-field').on('keyup', function() {
+      var searchString = $(this).val();
+      jobsList.search(searchString);
+      providersList.search(searchString);
+      seekersList.search(searchString);
+      assignmentsList.search(searchString);
+    });
   });

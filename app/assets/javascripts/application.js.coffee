@@ -3,6 +3,7 @@
 #= require bootstrap
 #= require social-share-button
 #= require sortable.js
+#= require list.min.js
 #= require_tree .
 
 ready = ->
