@@ -19,12 +19,18 @@ class Broker::AllocationsController < InheritedResources::Base
       @allocation = Allocation.new(job_id: @job.id, seeker_id: params[:id], state: :proposal)
       @allocation.save!
     end
-    # else
-    #   # @allocation = Allocation.find_by(id: params[:id])
-    #   @allocation = Allocation.find_by(job_id: @job.id, seeker_id: params[:id])
-    # end
 
     require 'rest-client'
+
+    if @allocation != nil && @allocation.conversation_id == nil
+      dev = "https://devadmin.jugendarbeit.digital/api/jugendinfo_message/get_conversation_id_by_j4temail/?member=#{@allocation.seeker.app_user_id}&j4t_email=#{current_broker.email}"
+      response = RestClient.get dev
+      json = JSON.parse(response)
+      @allocation.conversation_id = json['id']
+      @allocation.save!
+    end
+
+
     if @allocation != nil && @allocation.conversation_id != nil
       response = RestClient.get "https://devadmin.jugendarbeit.digital/api/jugendinfo_message/get_messages/?key=ULv8r9J7Hqc7n2B8qYmfQewzerhV9p&id=#{@allocation.conversation_id}&limit=1000"
       json = JSON.parse(response.body)
