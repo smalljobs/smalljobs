@@ -3,6 +3,23 @@
   = current_broker.firstname
 %p.lead= t('broker_dashboard.lead')
 
+%div.row
+  %div.col-sm-1
+    %div.dropdown
+      %button.btn.btn-default.dropdown-toggle{type: 'dropdown', 'data-toggle': 'dropdown', id: 'dropdown-btn'}
+        = "Alle Organisationen"
+        %span.caret
+      %ul.dropdown-menu
+        %li
+          %a.organization-dropdown{href: '#', 'data-value': '0'}
+            = "Alle Organisationen"
+        - for organization in current_region.organizations.order(:name).distinct
+          %li
+            %a.organization-dropdown{href: '#', 'data-value': "#{organization.id}"}
+              = organization.name
+
+%br
+
 %ul.nav.nav-pills
   %li.active
     %a{'data-toggle': 'tab', href: '#todo'}
@@ -47,7 +64,7 @@
 
         - @jobs.each do |job|
           - @job = job
-          %tr{ class: job_status_class(job) }
+          %tr{ class: "#{job_status_class(job)} organization-#{job.try(:organization).try(:id)}" }
             %td
               = job_label(job)
             %td
@@ -77,7 +94,7 @@
             %td{ colspan: 5 }= t('providers.index.no_providers')
 
         - @providers.each do |provider|
-          %tr{ class: provider_status_class(provider) }
+          %tr{ class: "#{provider_status_class(provider)} organization-#{provider.organization.id}" }
             %td
               = provider_label(provider)
             %td= provider.updated_at.strftime("%d.%m.%Y")
@@ -105,7 +122,7 @@
             %td{ colspan: 4 }= t('seekers.index.no_seekers')
 
         - @seekers.each do |seeker|
-          %tr{ class: seeker_status_class(seeker) }
+          %tr{ class: "#{seeker_status_class(seeker)} organization-#{seeker.try(:organization).try(:id)}" }
             %td
               = seeker_label(seeker)
             %td= seeker.updated_at.strftime("%d.%m.%Y")
@@ -127,7 +144,7 @@
             %td{ colspan: 5 }= t('seekers.index.no_seekers')
 
         - @assignments.each do |assignment|
-          %tr{ class: assignment_status_class(assignment) }
+          %tr{ class: "#{assignment_status_class(assignment)} organization-#{assignment.try(:organization).try(:id)}" }
             %td
               = assignment_label(assignment)
             %td
@@ -168,4 +185,16 @@
     else {
       location.hash = e.target.hash;
     }
+  });
+
+  $('.organization-dropdown').click(function(){
+    var id = $(this).attr('data-value');
+    if(id == '0') {
+      $('.display-none').removeClass('display-none');
+    } else {
+      $('.display-none').removeClass('display-none');
+      $('.organization-' + id).addClass('display-none')
+    }
+
+    $('#dropdown-btn').text($(this).text());
   });
