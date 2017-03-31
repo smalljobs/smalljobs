@@ -371,7 +371,27 @@ class ApiController < ApplicationController
       start_datetime = DateTime.strptime(start_datetime, '%s')
     end
 
-    assignment = Assignment.new(status: :active, job_id: params[:job_id], seeker_id: params[:user_id], provider_id: params[:provider_id], feedback: params[:message], start_time: start_datetime)
+    stop_datetime = params[:stop_timestamp]
+    if stop_datetime != nil
+      stop_datetime = DateTime.strptime(stop_datetime, '%s')
+    end
+
+    duration = params[:duration]
+    if duration != nil
+      duration = duration.to_i
+    end
+
+    status = :active
+    if params[:status] != nil
+      status = params[:status].to_i
+      if status == 0
+        status = :active
+      else
+        status = :finished
+      end
+    end
+
+    assignment = Assignment.new(status: status, job_id: params[:job_id], seeker_id: params[:user_id], provider_id: params[:provider_id], feedback: params[:message], payment: params[:payment], start_time: start_datetime, end_time: stop_datetime, duration: duration)
     if !assignment.save
       render json: {code: 'assignments/invalid', message: assignment.errors.first}, status: 422
       return
