@@ -1,9 +1,9 @@
 class Broker::SeekersController < InheritedResources::Base
 
-  before_filter :authenticate_broker!
+  before_filter :authenticate_broker!, except: [:agreement]
   before_filter :optional_password, only: [:update]
 
-  load_and_authorize_resource :seeker, through: :current_region, except: :new
+  load_and_authorize_resource :seeker, through: :current_region, except: [:new, :agreement]
 
   def index
     redirect_to broker_dashboard_url + "#seekers"
@@ -43,6 +43,7 @@ class Broker::SeekersController < InheritedResources::Base
   end
 
   def agreement
+    @seeker = Seeker.find_by(id: params[:id])
     respond_to do |format|
       format.html
       format.pdf do
