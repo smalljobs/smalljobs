@@ -21,7 +21,7 @@
     %div.col-sm-2
       %input.form-control.search{type: 'text', id: 'search-field', placeholder: 'Suche'}
     %div.col-sm-1
-      %a{href: '#', id: 'clear-btn'}
+      %a{href: '#', id: 'clear-btn', style: 'display: none'}
         %i.fa.fa-close.fa-3x
 
   %br
@@ -74,14 +74,14 @@
               %tr{ class: "#{job_status_class(job)} organization organization-#{job.try(:organization).try(:id)}" }
                 %td.status
                   = job_label(job)
-                %td
+                %td.date
                   = job.last_change_of_state == nil ?  "": job.last_change_of_state.strftime("%d.%m.%Y")
                 -#%td
                 %td.title
                   = link_to job.title, edit_broker_job_path(job)
                 %td.name
                   = link_to job.provider.name, edit_broker_provider_path(job.provider)
-                %td
+                %td.allocations
                   = render 'allocations'
     %div{id: 'providers', class: 'tab-pane fade in'}
       %br
@@ -103,13 +103,13 @@
 
             - @providers.each do |provider|
               %tr{ class: "#{provider_status_class(provider)} organization organization-#{provider.organization.id}" }
-                %td
+                %td.status
                   = provider_label(provider)
-                %td= provider.updated_at.strftime("%d.%m.%Y")
+                %td.date= provider.updated_at.strftime("%d.%m.%Y")
                 %td.name= link_to provider.name, edit_broker_provider_path(provider)
                 %td.street= provider.street
                 %td.place= provider.place.zip + ' ' + provider.place.name
-                %td
+                %td.jobs
                   -provider.jobs.each do |job|
                     %ul.list-unstyled
                       %li= link_to job.title, edit_broker_job_path(job)
@@ -145,6 +145,7 @@
           %thead
             %tr
             %th.sortable= t('broker_dashboard.assignments_table.status')
+            %th.sortable= t('broker_dashboard.jobs_table.date')
             %th.sortable= t('broker_dashboard.assignments_table.seeker')
             %th.sortable= t('broker_dashboard.assignments_table.provider')
             %th.sortable= t('broker_dashboard.assignments_table.duration_payment')
@@ -159,17 +160,19 @@
               %tr{ class: "#{assignment_status_class(assignment)} organization organization-#{assignment.try(:organization).try(:id)}" }
                 %td.status
                   = assignment_label(assignment)
+                %td.date
+                  = assignment.created_at.strftime("%d.%m.%Y")
                 %td.name
                   = link_to assignment.seeker.name, edit_broker_seeker_path(assignment.seeker)
                 %td.name
                   = link_to assignment.provider.name, edit_broker_provider_path(assignment.provider)
-                %td
+                %td.payment
                   - if assignment.start_time != nil
                     = assignment.start_time.strftime("%d-%m-%Y")
                     = " "
                   - if assignment.payment != nil
                     = assignment.payment
-                %td
+                %td.feedback
                   = assignment.feedback
 
 :javascript
@@ -219,7 +222,7 @@
     });
 
     var options = {
-      valueNames: [ 'name', 'place', 'status', 'street', 'title' ]
+      valueNames: [ 'name', 'place', 'status', 'street', 'title', 'date', 'allocations', 'jobs', 'status', 'payment', 'feedback' ]
     };
 
     var jobsList = new List('jobs', options);
@@ -229,6 +232,12 @@
 
     $('#search-field').on('keyup', function() {
       var searchString = $(this).val();
+      if(searchString != "") {
+        $('#clear-btn').css('display', 'initial');
+      } else {
+        $('#clear-btn').css('display', 'none');
+      }
+
       jobsList.search(searchString);
       providersList.search(searchString);
       seekersList.search(searchString);
@@ -237,6 +246,7 @@
 
     $('#clear-btn').click(function(){
       $('#search-field').val("");
+      $('#clear-btn').css('display', 'none');
       var searchString = "";
       jobsList.search(searchString);
       providersList.search(searchString);
