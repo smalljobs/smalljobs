@@ -3,15 +3,16 @@
     %div.modal-content
       %div.modal-header
         %button.close{"data-dismiss": "modal", type: "button"} &times;
-        %h2= "Title"
+        %h2= "Nachricht senden"
       %div.modal-body
         %input{type: "checkbox", checked: "true"}
           = "Nachricht an "
           = @seeker.name
           = ":"
         %textarea.form-control.resize-vertical
-          = "template"
+          = ""
         %br
-        %button.btn.btn-success
-          = "Title"
+        %button.btn.btn-success.btn-send
+          = "Nachricht senden"
       %div.modal-footer
+        = render 'messages'

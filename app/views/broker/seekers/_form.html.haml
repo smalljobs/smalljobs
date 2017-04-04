@@ -51,6 +51,9 @@
       - if @seeker.new_record?
         = f.input :password, required: true, autocomplete: 'off'
         = f.input :password_confirmation, required: true
+      - else
+        = f.input :password, required: false, autocomplete: 'off'
+        = f.input :password_confirmation, required: false
       -#- else
       -#  = f.input :password, required: false, autocomplete: 'off', hint: t('devise_views.leave_empty')
       -#  = f.input :password_confirmation, required: false
@@ -93,3 +96,45 @@
 - if !@seeker.new_record?
   = render 'pdf_message_modal'
   = render 'message_modal'
+
+  :javascript
+    $(document).ready(function() {
+      var modalId;
+
+      function checkForModal() {
+        var id = sessionStorage.getItem('showSeekerModal');
+        if(id != null && id != '') {
+          sessionStorage.setItem('showSeekerModal', '');
+          $(id).modal();
+        }
+      }
+
+      checkForModal();
+
+      $('#message_modal .btn-send').click(function(){
+        modalId = '#message_modal';
+        $('#message_modal button').attr('disabled', 'disabled');
+        sendMessage(function(){
+          sessionStorage.setItem('showSeekerModal', '#message_modal');
+          window.location.reload();
+        });
+      });
+
+      $('#pdf_message_modal .btn-send').click(function(){
+        modalId = '#pdf_message_modal';
+        $('#pdf_message_modal button').attr('disabled', 'disabled');
+        sendMessage(function(){
+          sessionStorage.setItem('showSeekerModal', '#pdf_message_modal');
+          window.location.reload();
+        });
+      });
+
+      function sendMessage(func) {
+        var message = $(modalId + " textarea").val();
+        var title = $(modalId + " h2").text();
+        $.post("#{send_message_broker_seeker_path(@seeker)}", {message: message, title: title}, function(response){
+          // console.log(response);
+          func();
+        });
+      }
+    });

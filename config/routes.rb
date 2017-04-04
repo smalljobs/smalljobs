@@ -62,6 +62,7 @@ Smalljobs::Application.routes.draw do
         member do
           get 'agreement'
           delete 'delete'
+          post 'send_message'
         end
       end
 

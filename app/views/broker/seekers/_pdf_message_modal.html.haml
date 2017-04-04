@@ -22,6 +22,7 @@
           = preserve '&#x000A;'
           = "#{current_broker.firstname}"
         %br
-        %button.btn.btn-success
+        %button.btn.btn-success.btn-send
           = "Elterneinverständnis als Pdf schicken"
       %div.modal-footer
+        = render 'messages'
