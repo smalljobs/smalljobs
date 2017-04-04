@@ -167,11 +167,11 @@
                 %td.name
                   = link_to assignment.provider.name, edit_broker_provider_path(assignment.provider)
                 %td.payment
-                  - if assignment.start_time != nil
-                    = assignment.start_time.strftime("%d-%m-%Y")
+                  - if assignment.duration != nil
+                    = assignment.duration
                     = " "
-                  - if assignment.payment != nil
-                    = assignment.payment
+                    - if assignment.payment != nil
+                      = ", CHF #{assignment.payment}"
                 %td.feedback
                   = assignment.feedback
 
