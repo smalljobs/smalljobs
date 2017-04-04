@@ -23,7 +23,7 @@ class Broker::AllocationsController < InheritedResources::Base
     require 'rest-client'
 
     if @allocation != nil && @allocation.conversation_id == nil
-      dev = "https://devadmin.jugendarbeit.digital/api/jugendinfo_message/get_conversation_id_by_j4temail/?member=#{@allocation.seeker.app_user_id}&j4t_email=#{current_broker.email}"
+      dev = "https://devadmin.jugendarbeit.digital/api/jugendinfo_message/get_conversation_id_by_user?user_id=#{@allocation.seeker.app_user_id}"
       response = RestClient.get dev
       json = JSON.parse(response)
       @allocation.conversation_id = json['id']
