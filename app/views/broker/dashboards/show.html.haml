@@ -19,10 +19,10 @@
               %a.organization-dropdown{href: '#', 'data-value': "#{organization.id}"}
                 = organization.name
     %div.col-sm-2
-      %input.form-control.search{type: 'text', id: 'search-field'}
+      %input.form-control.search{type: 'text', id: 'search-field', placeholder: 'Suche'}
     %div.col-sm-1
-      %a{href: '#', id: 'search-btn'}
-        %i.fa.fa-search.fa-3x
+      %a{href: '#', id: 'clear-btn'}
+        %i.fa.fa-close.fa-3x
 
   %br
 
@@ -71,7 +71,7 @@
 
             - @jobs.each do |job|
               - @job = job
-              %tr{ class: "#{job_status_class(job)} organization-#{job.try(:organization).try(:id)}" }
+              %tr{ class: "#{job_status_class(job)} organization organization-#{job.try(:organization).try(:id)}" }
                 %td.status
                   = job_label(job)
                 %td
@@ -102,7 +102,7 @@
                 %td{ colspan: 5 }= t('providers.index.no_providers')
 
             - @providers.each do |provider|
-              %tr{ class: "#{provider_status_class(provider)} organization-#{provider.organization.id}" }
+              %tr{ class: "#{provider_status_class(provider)} organization organization-#{provider.organization.id}" }
                 %td
                   = provider_label(provider)
                 %td= provider.updated_at.strftime("%d.%m.%Y")
@@ -132,7 +132,7 @@
                 %td{ colspan: 4 }= t('seekers.index.no_seekers')
 
             - @seekers.each do |seeker|
-              %tr{ class: "#{seeker_status_class(seeker)} organization-#{seeker.try(:organization).try(:id)}" }
+              %tr{ class: "#{seeker_status_class(seeker)} organization organization-#{seeker.try(:organization).try(:id)}" }
                 %td.status
                   = seeker_label(seeker)
                 %td= seeker.updated_at.strftime("%d.%m.%Y")
@@ -156,7 +156,7 @@
                 %td{ colspan: 5 }= t('seekers.index.no_seekers')
 
             - @assignments.each do |assignment|
-              %tr{ class: "#{assignment_status_class(assignment)} organization-#{assignment.try(:organization).try(:id)}" }
+              %tr{ class: "#{assignment_status_class(assignment)} organization organization-#{assignment.try(:organization).try(:id)}" }
                 %td.status
                   = assignment_label(assignment)
                 %td.name
@@ -206,7 +206,8 @@
         $('.display-none').removeClass('display-none');
       } else {
         $('.display-none').removeClass('display-none');
-        $('.organization-' + id).addClass('display-none')
+        $('.organization').addClass('display-none');
+        $('.organization-' + id).removeClass('display-none');
       }
 
       $('#dropdown-btn').text($(this).text());
@@ -223,6 +224,15 @@
 
     $('#search-field').on('keyup', function() {
       var searchString = $(this).val();
+      jobsList.search(searchString);
+      providersList.search(searchString);
+      seekersList.search(searchString);
+      assignmentsList.search(searchString);
+    });
+
+    $('#clear-btn').click(function(){
+      $('#search-field').val("");
+      var searchString = "";
       jobsList.search(searchString);
       providersList.search(searchString);
       seekersList.search(searchString);
