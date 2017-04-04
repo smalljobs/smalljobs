@@ -34,7 +34,7 @@ class Broker::AllocationsController < InheritedResources::Base
     if @allocation != nil && @allocation.conversation_id != nil
       response = RestClient.get "https://devadmin.jugendarbeit.digital/api/jugendinfo_message/get_messages/?key=ULv8r9J7Hqc7n2B8qYmfQewzerhV9p&id=#{@allocation.conversation_id}&limit=1000"
       json = JSON.parse(response.body)
-      @messages = json['messages']
+      @messages = json['messages'].sort_by {|val| DateTime.strptime(val['datetime'], '%s')}.reverse
     else
       @messages = []
     end
