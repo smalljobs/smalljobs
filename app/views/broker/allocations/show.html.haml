@@ -226,5 +226,16 @@
           func();
         });
       }
+
+      function disableMessaging() {
+        $('.modal-body input').removeAttr('checked');
+        $('.modal-body input').attr('disabled', 'true');
+        $('.modal-body textarea').attr('disabled', 'true');
+        // $('.modal-body button').attr('disabled', 'true');
+      }
+
+      if("#{@allocation.seeker.app_user_id == nil}" == "true") {
+        disableMessaging();
+      }
     });
 
