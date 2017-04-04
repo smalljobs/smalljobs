@@ -27,10 +27,10 @@
   %br
 
   %ul.nav.nav-pills
+    -#%li.active
+    -#  %a{'data-toggle': 'tab', href: '#todo'}
+    -#    =t('broker_dashboard.todo')
     %li.active
-      %a{'data-toggle': 'tab', href: '#todo'}
-        =t('broker_dashboard.todo')
-    %li
       %a{'data-toggle': 'tab', href: '#jobs'}
         =t('broker_dashboard.jobs')
     %li
@@ -44,14 +44,14 @@
         =t('broker_dashboard.assignments')
 
   %div.tab-content
-    %div{id: 'todo', class: 'tab-pane fade in active'}
-      .table-responsive
-        %table.table.table-striped.sortable
-          %tr
-            %th.sortable= t('broker_dashboard.todo_table.date')
-            %th.sortable= t('broker_dashboard.todo_table.todo')
-            %th= t('broker_dashboard.todo_table.description')
-    %div{id: 'jobs', class: 'tab-pane fade in'}
+    -#%div{id: 'todo', class: 'tab-pane fade in active'}
+    -#  .table-responsive
+    -#    %table.table.table-striped.sortable
+    -#      %tr
+    -#        %th.sortable= t('broker_dashboard.todo_table.date')
+    -#        %th.sortable= t('broker_dashboard.todo_table.todo')
+    -#        %th= t('broker_dashboard.todo_table.description')
+    %div{id: 'jobs', class: 'tab-pane fade in active'}
       %br
       = link_to t('broker.jobs.index.add_new'), new_broker_job_path, class: 'btn btn-success'
       .table-responsive
@@ -60,7 +60,7 @@
             %tr
               %th.sortable= t('broker_dashboard.jobs_table.status')
               %th.sortable= t('broker_dashboard.jobs_table.date')
-              %th.sortable= t('broker_dashboard.jobs_table.todo')
+              -#%th.sortable= t('broker_dashboard.jobs_table.todo')
               %th.sortable= t('broker_dashboard.jobs_table.job')
               %th.sortable= t('broker_dashboard.jobs_table.provider')
               %th= t('broker_dashboard.jobs_table.allocations')
@@ -76,7 +76,7 @@
                   = job_label(job)
                 %td
                   = job.last_change_of_state == nil ?  "": job.last_change_of_state.strftime("%d.%m.%Y")
-                %td
+                -#%td
                 %td.title
                   = link_to job.title, edit_broker_job_path(job)
                 %td.name
