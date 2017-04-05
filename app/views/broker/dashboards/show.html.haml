@@ -164,7 +164,7 @@
                   = assignment.created_at.strftime("%d.%m.%Y")
                 %td.name
                   = link_to assignment.seeker.name, edit_broker_seeker_path(assignment.seeker)
-                %td.name
+                %td.provider-name
                   = link_to assignment.provider.name, edit_broker_provider_path(assignment.provider)
                 %td.payment
                   - if assignment.duration != nil
@@ -222,7 +222,7 @@
     });
 
     var options = {
-      valueNames: [ 'name', 'place', 'status', 'street', 'title', 'date', 'allocations', 'jobs', 'status', 'payment', 'feedback' ]
+      valueNames: [ 'name', 'provider-name', 'place', 'status', 'street', 'title', 'date', 'allocations', 'jobs', 'status', 'payment', 'feedback' ]
     };
 
     var jobsList = new List('jobs', options);
