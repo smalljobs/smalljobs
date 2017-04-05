@@ -10,7 +10,13 @@
           = @allocation.seeker.name
           = ":"
         %textarea.form-control.resize-vertical{rows: '5'}
-          = "Finished/cancelled to active"
+          = "Hallo #{@allocation.seeker.name}"
+          = preserve '&#x000A;'
+          = "Wir haben dein Anstellung bei #{@allocation.job.provider.name} reaktiviert."
+          = preserve '&#x000A;'
+          = "Es freut uns, dass du wieder für #{@allocation.job.provider.name} arbeitest!"
+          = preserve '&#x000A;'
+          = "Für Fragen schreibe uns hier."
         %br
         %button.btn.btn-success.change_state
           = "Anstellung Reaktivieren"
