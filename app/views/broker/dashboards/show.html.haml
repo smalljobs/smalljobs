@@ -168,10 +168,15 @@
                   = link_to assignment.provider.name, edit_broker_provider_path(assignment.provider)
                 %td.payment
                   - if assignment.duration != nil
-                    = assignment.duration
+                    - minutes = assignment.duration/60000
+                    - minutes = minutes.floor
+                    - hours = minutes/60
+                    - hours = hours.floor
+                    - minutes = minutes % 60
+                    = "#{hours}:#{minutes}"
                     = " "
                     - if assignment.payment != nil
-                      = ", CHF #{assignment.payment}"
+                      = ", CHF #{assignment.payment}.-"
                 %td.feedback
                   = assignment.feedback
 
