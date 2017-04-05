@@ -176,7 +176,7 @@
                     = "#{hours}:#{minutes}"
                     = " "
                     - if assignment.payment != nil
-                      = ", CHF #{assignment.payment}.-"
+                      = ", CHF #{assignment.payment.floor}.-"
                 %td.feedback
                   = assignment.feedback
 
