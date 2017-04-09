@@ -12,7 +12,13 @@
         %textarea.form-control.resize-vertical{rows: '5'}
           = "Hallo #{@allocation.seeker.name}"
           = preserve '&#x000A;'
-          = "Du hast den Job #{@allocation.job.title} erhalten! Melde dich doch so schnell wie mÃ¶glich unter #{@allocation.job.provider.phone} oder #{@allocation.job.provider.mobile}"
+          = "Du hast den Job <b>«#{@allocation.job.title}»</b> erhalten! Melde dich doch so schnell wie möglich für den Job bei #{@allocation.job.provider.firstname} #{@allocation.job.provider.lastname}:"
+          = preserve '&#x000A;'
+          = "#{@allocation.job.provider.phone}"
+          = preserve '&#x000A;'
+          = "#{@allocation.job.provider.mobile}"
+          = preserve '&#x000A;'
+          = "Für Fragen schreibe uns hier."
         %br
         %button.btn.btn-success.change_state
           = "Anstellen"
