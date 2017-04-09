@@ -1,9 +1,9 @@
 RailsAdmin.config do |config|
   config.main_app_name = ['Small Jobs', 'Adminstration']
 
-  config.authorize_with do
-    redirect_to main_app.root_path unless current_admin != nil
-  end
+  # config.authorize_with do
+  #   redirect_to main_app.root_path unless current_admin != nil
+  # end
 
   config.model AccessToken do
     list do
