@@ -20,6 +20,9 @@
       = "JugendlicheR: "
       = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
     %p
+      = "ArbeitgebeR: "
+      = link_to @allocation.job.provider.name, edit_broker_provider_path(@allocation.job.provider)
+    %p
       = "Datum: "
       = @allocation.last_change_of_state.strftime("%d.%m.%Y")
     %div.row
@@ -42,6 +45,9 @@
       = "JugendlicheR: "
       = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
     %p
+      = "ArbeitgebeR: "
+      = link_to @allocation.job.provider.name, edit_broker_provider_path(@allocation.job.provider)
+    %p
       = "Datum: "
       = @allocation.last_change_of_state.strftime("%d.%m.%Y")
     %div.row
@@ -60,6 +66,9 @@
     %p
       = "JugendlicheR: "
       = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
+    %p
+      = "ArbeitgebeR: "
+      = link_to @allocation.job.provider.name, edit_broker_provider_path(@allocation.job.provider)
     %p
       = "Datum: "
       = @allocation.last_change_of_state.strftime("%d.%m.%Y")
@@ -83,6 +92,9 @@
       = "JugendlicheR: "
       = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
     %p
+      = "ArbeitgebeR: "
+      = link_to @allocation.job.provider.name, edit_broker_provider_path(@allocation.job.provider)
+    %p
       = "Datum: "
       = @allocation.last_change_of_state.strftime("%d.%m.%Y")
     %div.row
@@ -105,6 +117,9 @@
       = "JugendlicheR: "
       = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
     %p
+      = "ArbeitgebeR: "
+      = link_to @allocation.job.provider.name, edit_broker_provider_path(@allocation.job.provider)
+    %p
       = "Datum: "
       = @allocation.last_change_of_state.strftime("%d.%m.%Y")
     %div.row
@@ -124,6 +139,9 @@
       = "JugendlicheR: "
       = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
     %p
+      = "ArbeitgebeR: "
+      = link_to @allocation.job.provider.name, edit_broker_provider_path(@allocation.job.provider)
+    %p
       = "Datum: "
       = @allocation.last_change_of_state.strftime("%d.%m.%Y")
     %div.row
@@ -141,6 +159,9 @@
     %p
       = "JugendlicheR: "
       = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
+    %p
+      = "ArbeitgebeR: "
+      = link_to @allocation.job.provider.name, edit_broker_provider_path(@allocation.job.provider)
     %p
       = "Datum: "
       = @allocation.last_change_of_state.strftime("%d.%m.%Y")
