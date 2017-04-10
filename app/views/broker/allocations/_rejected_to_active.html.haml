@@ -12,7 +12,7 @@
         %textarea.form-control.resize-vertical{rows: '5'}
           = "Hallo #{@allocation.seeker.name}"
           = preserve '&#x000A;'
-          = "Du hast den Job <b>«#{@allocation.job.title}»</b> erhalten! Melde dich doch so schnell wie möglich bei #{@allocation.job.provider.firstname} #{@allocation.job.provider.lastname}:"
+          = "Du hast den Job «#{@allocation.job.title}» erhalten! Melde dich doch so schnell wie möglich bei #{@allocation.job.provider.firstname} #{@allocation.job.provider.lastname}:"
           = preserve '&#x000A;'
           = "#{@allocation.job.provider.phone}"
           = preserve '&#x000A;'
