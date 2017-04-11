@@ -120,12 +120,11 @@
         %table.table.table-striped.sortable
           %thead
             %tr
-            %th.sortable= t('broker_dashboard.seekers_table.status')
-            %th.sortable= t('broker_dashboard.jobs_table.date')
-            %th.sortable= t('broker_dashboard.seekers_table.name')
-            %th.sortable= t('broker_dashboard.seekers_table.address')
-            %th.sortable= t('broker_dashboard.seekers_table.plz')
-
+              %th.sortable= t('broker_dashboard.seekers_table.status')
+              %th.sortable= t('broker_dashboard.jobs_table.date')
+              %th.sortable= t('broker_dashboard.seekers_table.name')
+              %th.sortable= t('broker_dashboard.seekers_table.address')
+              %th.sortable= t('broker_dashboard.seekers_table.plz')
           %tbody.list
             - if @seekers.size == 0
               %tr
@@ -144,13 +143,12 @@
         %table.table.table-striped.sortable
           %thead
             %tr
-            %th.sortable= t('broker_dashboard.assignments_table.status')
-            %th.sortable= t('broker_dashboard.jobs_table.date')
-            %th.sortable= t('broker_dashboard.assignments_table.seeker')
-            %th.sortable= t('broker_dashboard.assignments_table.provider')
-            %th.sortable= t('broker_dashboard.assignments_table.duration_payment')
-            %th.sortable= t('broker_dashboard.assignments_table.feedback')
-
+              %th.sortable= t('broker_dashboard.assignments_table.status')
+              %th.sortable= t('broker_dashboard.jobs_table.date')
+              %th.sortable= t('broker_dashboard.assignments_table.seeker')
+              %th.sortable= t('broker_dashboard.assignments_table.provider')
+              %th.sortable= t('broker_dashboard.assignments_table.duration_payment')
+              %th.sortable= t('broker_dashboard.assignments_table.feedback')
           %tbody.list
             - if @assignments.size == 0
               %tr
