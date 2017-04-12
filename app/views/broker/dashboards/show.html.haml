@@ -14,7 +14,7 @@
           %li
             %a.organization-dropdown{href: '#', 'data-value': '0'}
               = "Alle Organisationen"
-          - for organization in current_broker.organizations.order(:name).distinct
+          - for organization in current_broker.all_organizations
             %li
               %a.organization-dropdown{href: '#', 'data-value': "#{organization.id}"}
                 = organization.name

@@ -20,6 +20,17 @@ class Broker < ActiveRecord::Base
   phony_normalize :phone,  default_country_code: 'CH'
   phony_normalize :mobile, default_country_code: 'CH'
 
+  def all_organizations
+    all_org = []
+    regions.each do |region|
+      region.organizations.each do |organization|
+        all_org.append(organization) if all_org.find_index(organization).nil?
+      end
+    end
+
+    all_org.sort_by &:name
+  end
+
   # Returns the display name
   #
   # @return [String] the name
