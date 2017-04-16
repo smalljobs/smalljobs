@@ -1,6 +1,7 @@
 require 'app_responder'
 
 class ApplicationController < ActionController::Base
+  before_filter :require_https
 
   self.responder = AppResponder
   respond_to :html, :json
@@ -32,8 +33,12 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def require_https
+    redirect_to protocol: 'https://' unless request.ssl? || request.local?
+  end
+
   def current_user
-    role = self.respond_to?(:resource_name) ? self.resource_name : nil
+    role = respond_to?(:resource_name) ? resource_name : nil
 
     case role
     when :broker
