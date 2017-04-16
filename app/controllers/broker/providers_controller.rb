@@ -30,12 +30,7 @@ class Broker::ProvidersController < InheritedResources::Base
   def contract
     require 'rqrcode'
     @qrcode = RQRCode::QRCode.new("#{@provider.id}", mode: :number).as_png
-    respond_to do |format|
-      format.html
-      format.pdf do
-        render pdf: "contract", template: 'broker/providers/contract.html.erb'
-      end
-    end
+    render pdf: "contract", template: 'broker/providers/contract.html.erb'
   end
 
   def delete

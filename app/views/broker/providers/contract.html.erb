@@ -354,7 +354,7 @@
     <%= current_broker.email %>
   </p>
   <p class="letter-start">
-    Guten Tag <%= @provider.name %><%= @provider.company != nil ? ", (#{@provider.company})":""  %>
+    Guten Tag <%= @provider.name %><%= @provider.company != nil && !@provider.company.empty? ? ", (#{@provider.company})":""  %>
   </p>
   <p class="second-paragraph">
     Es freut uns sehr Sie bei der Jobbörse zu begrüssen! Sie leisten mit Ihrer Teilnahme einen wertvollen
@@ -396,7 +396,7 @@
     ArbeitgeberIn:
   </h1>
   <p class="page2-firstrow">
-    <%= @provider.name %><%= @provider.company != nil ? ", (#{@provider.company})":""  %>
+    <%= @provider.name %><%= @provider.company != nil && !@provider.company.empty? ? ", (#{@provider.company})":""  %>
   </p>
   <p class="page2-secondrow">
     <%= @provider.street %>, <%= @provider.place.full_name %>
@@ -415,7 +415,7 @@
       Die vermittelnde Jobbörse kann unter keinen Umständen haftbar gemacht werden.
     </li>
     <li>
-      Der Stundenlohn entspricht dem Alter des Jugendlichen minus vier (z.B. 17 Jahre - 4 = 13 CHF).
+      Der Stundenlohn entspricht dem Alter des Jugendlichen minus vier (z.B. 17 Jahre - 4 = <%= @provider.organization.wage_factor %> CHF).
     </li>
     <li>
       Unfallversicherung: Familienversicherung des Jugendlichen (bis zu einem Jahreslohn von 750 CHF)
