@@ -5,7 +5,6 @@ class Broker::DashboardsController < ApplicationController
   load_and_authorize_resource :job, through: :current_region
   load_and_authorize_resource :provider, through: :current_region
   load_and_authorize_resource :seeker, through: :current_region
-  # load_and_authorize_resource :assignment, through: :current_region
 
   def show
     @jobs = current_broker.jobs
@@ -19,5 +18,4 @@ class Broker::DashboardsController < ApplicationController
   def current_user
     current_broker
   end
-
 end

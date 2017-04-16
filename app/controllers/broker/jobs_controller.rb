@@ -19,12 +19,11 @@ class Broker::JobsController < InheritedResources::Base
   def new
     @job = Job.new()
     @job.created_at = DateTime.now()
-    @job.state  = 'hidden'
+    @job.state = 'hidden'
   end
 
   def create
     @job = Job.new(permitted_params[:job])
-    # @job.state  = 'hidden'
 
     create!
   end
@@ -38,17 +37,13 @@ class Broker::JobsController < InheritedResources::Base
   end
 
   def delete
-    Allocation.where(job_id: @job.id).find_each do |allocation|
-      allocation.destroy!
-    end
+    Allocation.where(job_id: @job.id).find_each(&:destroy!)
 
-    Assignment.where(job_id: @job.id).find_each do |assignment|
-      assignment.destroy!
-    end
+    Assignment.where(job_id: @job.id).find_each(&:destroy!)
 
     @job.destroy!
 
-    render json: {message: 'Job deleted'}, status: 200
+    render json: { message: 'Job deleted' }, status: 200
   end
 
   protected

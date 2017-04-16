@@ -13,16 +13,15 @@ class Broker::AllocationsController < InheritedResources::Base
 
   def show
     @job = Job.find_by(id: params[:job_id])
-    # if params[:seeker_id] != nil
     @allocation = Allocation.find_by(job_id: @job.id, seeker_id: params[:id])
-    if @allocation == nil && params[:create] != nil
+    if @allocation.nil? && !params[:create].nil?
       @allocation = Allocation.new(job_id: @job.id, seeker_id: params[:id], state: :proposal)
       @allocation.save!
     end
 
     require 'rest-client'
 
-    if @allocation != nil && @allocation.conversation_id == nil
+    if !@allocation.nil? && @allocation.conversation_id.nil?
       dev = "https://devadmin.jugendarbeit.digital/api/jugendinfo_message/get_conversation_id_by_user?user_id=#{@allocation.seeker.app_user_id}"
       live = "https://admin.jugendarbeit.digital/api/jugendinfo_message/get_conversation_id_by_user?user_id=#{@allocation.seeker.app_user_id}"
       response = RestClient.get dev
@@ -32,7 +31,7 @@ class Broker::AllocationsController < InheritedResources::Base
     end
 
 
-    if @allocation != nil && @allocation.conversation_id != nil
+    if !@allocation.nil? && !@allocation.conversation_id.nil?
       dev = "https://devadmin.jugendarbeit.digital/api/jugendinfo_message/get_messages/?key=ULv8r9J7Hqc7n2B8qYmfQewzerhV9p&id=#{@allocation.conversation_id}&limit=1000"
       live = "https://admin.jugendarbeit.digital/api/jugendinfo_message/get_messages/?key=ULv8r9J7Hqc7n2B8qYmfQewzerhV9p&id=#{@allocation.conversation_id}&limit=1000"
       response = RestClient.get dev
@@ -70,7 +69,7 @@ class Broker::AllocationsController < InheritedResources::Base
       @allocation.save!
     end
 
-    render json: {redirect_to: broker_job_allocation_url(@job, @allocation.seeker)}
+    render json: { redirect_to: broker_job_allocation_url(@job, @allocation.seeker) }
 
   end
 
@@ -85,7 +84,6 @@ class Broker::AllocationsController < InheritedResources::Base
       @allocation.save!
     elsif @allocation.proposal?
       @allocation.destroy!
-      # redirect_to = broker_dashboard_path
     elsif @allocation.active?
       @allocation.state = :cancelled
       @allocation.save!
@@ -101,9 +99,9 @@ class Broker::AllocationsController < InheritedResources::Base
     title = params[:title]
     message = params[:message]
     require 'rest-client'
-    dev = "https://devadmin.jugendarbeit.digital/api/jugendinfo_push/send"
-    live = "https://admin.jugendarbeit.digital/api/jugendinfo_push/send"
-    response = RestClient.post dev, {api: 'ULv8r9J7Hqc7n2B8qYmfQewzerhV9p', message_title: title, message: message, device_token: @allocation.seeker.app_user_id, sendermail: current_broker.email}
+    dev = 'https://devadmin.jugendarbeit.digital/api/jugendinfo_push/send'
+    live = 'https://admin.jugendarbeit.digital/api/jugendinfo_push/send'
+    response = RestClient.post dev, api: 'ULv8r9J7Hqc7n2B8qYmfQewzerhV9p', message_title: title, message: message, device_token: @allocation.seeker.app_user_id, sendermail: current_broker.email
     json = JSON.parse(response.body)
     conv_id = json['conversation_id']
     @allocation.conversation_id = conv_id
