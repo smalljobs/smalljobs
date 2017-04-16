@@ -12,6 +12,11 @@
         %textarea.form-control.resize-vertical{rows: '5'}
           = "Hallo #{@allocation.seeker.name}"   
         %br
+        - if @allocation.seeker.app_user_id.nil?
+          %p
+            = "Keine App für Messaging installiert. Per Telefon Kontakt aufnehmen"
+            %a{href: "tel:#{@allocation.seeker.mobile}"}
+              = @allocation.seeker.mobile
         %button.btn.btn-success.prevail_state
           = "Nachricht senden"
       %div.modal-footer

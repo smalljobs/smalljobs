@@ -18,6 +18,11 @@
           = preserve '&#x000A;'
           = "Für Fragen schreibe uns hier."
         %br
+        - if @allocation.seeker.app_user_id.nil?
+          %p
+            = "Keine App für Messaging installiert. Per Telefon Kontakt aufnehmen"
+            %a{href: "tel:#{@allocation.seeker.mobile}"}
+              = @allocation.seeker.mobile
         %button.btn.btn-success.change_state
           = "Anstellung Reaktivieren"
       %div.modal-footer

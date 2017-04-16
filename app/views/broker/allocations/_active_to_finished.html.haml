@@ -16,6 +16,11 @@
           = preserve '&#x000A;'
           = "Danke für deine Arbeit!"   
         %br
+        - if @allocation.seeker.app_user_id.nil?
+          %p
+            = "Keine App für Messaging installiert. Per Telefon Kontakt aufnehmen"
+            %a{href: "tel:#{@allocation.seeker.mobile}"}
+              = @allocation.seeker.mobile
         %button.btn.btn-success.change_state
           = "Anstellung beended"
       %div.modal-footer
