@@ -242,10 +242,15 @@
       function sendMessage(func) {
         var message = $(modalId + " textarea").val();
         var title = $(modalId + " h2").text();
-        $.post("#{send_message_broker_job_allocation_path(@job, @allocation)}", {message: message, title: title}, function(response){
-          // console.log(response);
+        var $checkbox = $(modalId + " input[type='checkbox']");
+        if($checkbox.is(":checked")) {
+          $.post("#{send_message_broker_job_allocation_path(@job, @allocation)}", {message: message, title: title}, function(response){
+            // console.log(response);
+            func();
+          });
+        } else {
           func();
-        });
+        }
       }
 
       function disableMessaging() {
