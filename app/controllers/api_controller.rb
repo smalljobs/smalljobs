@@ -193,7 +193,7 @@ class ApiController < ApplicationController
 
     organizations = []
     if region != nil
-      for organization in region.organizations
+      for organization in region.organizations.distinct
         if organization.active == active
           organizations.append(ApiHelper::organization_to_json(organization, region.id))
         end
