@@ -200,7 +200,7 @@ class ApiController < ApplicationController
       end
     else
       Organization.where(active: active).find_each do |organization|
-        organizations.append(ApiHelper::organization_to_json(organization, organization.regions.first.id))
+        organizations.append(ApiHelper::organization_to_json(organization, organization.regions.first.try(:id)))
       end
     end
 
