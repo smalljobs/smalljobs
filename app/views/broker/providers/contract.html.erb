@@ -415,7 +415,7 @@
       Die vermittelnde Jobbörse kann unter keinen Umständen haftbar gemacht werden.
     </li>
     <li>
-      Der Stundenlohn entspricht dem Alter des Jugendlichen minus vier (z.B. 17 Jahre - 4 = <%= @provider.organization.wage_factor %> CHF).
+      Der Stundenlohn entspricht dem Alter des Jugendlichen mal <%= @provider.organization.wage_factor %> (z.B. 17 Jahre x <%= @provider.organization.wage_factor %> = <%= 17 * @provider.organization.wage_factor %> CHF).
     </li>
     <li>
       Unfallversicherung: Familienversicherung des Jugendlichen (bis zu einem Jahreslohn von 750 CHF)
