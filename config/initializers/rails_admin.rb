@@ -246,6 +246,7 @@ RailsAdmin.config do |config|
 
       group :contact do
         label I18n.t('admin.groups.contact')
+
         field :phone
         field :mobile
         field :contact_preference
@@ -255,6 +256,7 @@ RailsAdmin.config do |config|
       group :administration do
         label I18n.t('admin.groups.administration')
 
+        field :notes
         field :state
         field :active
         field :terms, :boolean
@@ -316,6 +318,7 @@ RailsAdmin.config do |config|
 
       group :administration do
         label I18n.t('admin.groups.administration')
+        field :notes
         field :status
         field :parental
         field :discussion
@@ -365,6 +368,7 @@ RailsAdmin.config do |config|
 
       group :administration do
         label I18n.t('admin.groups.administration')
+        field :notes
         field :status
         # field :terms, :boolean
       end
