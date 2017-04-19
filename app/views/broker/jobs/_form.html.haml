@@ -33,7 +33,7 @@
     %legend
       = "Anbieter"
     - if @job.new_record?
-      = f.association :provider, collection: current_broker.providers, required: true, include_blank: false
+      = f.association :provider, collection: current_broker.providers.order(:firstname, :lastname), required: true, include_blank: false
     - else
       %p
         = link_to @job.provider.name, edit_broker_provider_path(@job.provider)
@@ -61,7 +61,6 @@
       = "Arbeitsart"
 
     .form-inputs
-      -#= f.association :provider, required: true, autofocus: true, collection: current_region.providers, include_blank: false
       = f.association :work_category, required: true, include_blank: false, label: false, collection: WorkCategory.all.order(:name)
 
   %fieldset
