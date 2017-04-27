@@ -26,6 +26,11 @@
 - jobs = @provider.jobs.where(state: 'hidden')
 - if jobs.count > 0
   %h4= "Jobs: Versteckt"
+  %a{href: "#{url_for new_broker_job_url}?provider_id=#{@provider.id}"}
+    %button.btn-sm.btn-success.prevail_state
+      = "neuer job"
+  %br
+  %br
   - for job in jobs
     = link_to "#{job.title} #{job.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_job_path(job), class: 'bold'
     %br
