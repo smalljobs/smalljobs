@@ -11,28 +11,28 @@ class SessionsController < Devise::SessionsController
     login = params[:provider][:login]
     password = params[:provider][:password]
 
-    provider = Provider.where(["lower(email) = :email OR mobile = :mobile", {email: login.downcase, mobile: "+41#{login}"}]).first
-    broker = Broker.where(["lower(email) = :email OR mobile = :mobile", {email: login.downcase, mobile: "+41#{login}"}]).first
+    provider = Provider.where(['lower(email) = :email OR mobile = :mobile', {email: login.downcase, mobile: "+41#{login}"}]).first
+    broker = Broker.where(['lower(email) = :email OR mobile = :mobile', {email: login.downcase, mobile: "+41#{login}"}]).first
     # seeker = Seeker.where(["lower(login) = :value", { :value => login.downcase }]).first
     admin = Admin.where(email: login.downcase).first
 
     authenticated = false
 
-    if provider != nil
+    if !provider.nil?
       resource_name = :provider
       self.resource = provider
 
       if provider.valid_password?(password)
         authenticated = true
       end
-    elsif broker != nil
+    elsif !broker.nil?
       resource_name = :broker
       self.resource = broker
 
       if broker.valid_password?(password)
         authenticated = true
       end
-    elsif admin != nil
+    elsif !admin.nil?
       resource_name = :admin
       self.resource = admin
 
@@ -41,13 +41,14 @@ class SessionsController < Devise::SessionsController
       end
     end
 
-    if !authenticated
+    unless authenticated
       flash[:error_info] = I18n.t('common.invalid_username_or_password')
       return redirect_to global_sign_in_path
     end
 
-    sign_in(resource_name, self.resource)
-    respond_with self.resource, location: after_sign_in_path_for(self.resource)
+    sign_in(resource_name, resource)
+    flash[:notice] = nil
+    redirect_to after_sign_in_path_for(resource)
   end
 
   def destroy
