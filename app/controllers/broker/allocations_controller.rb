@@ -80,7 +80,7 @@ class Broker::AllocationsController < InheritedResources::Base
     redirect_to = broker_job_allocation_url(@job, @allocation.seeker)
 
     if @allocation.application_open?
-      @allocation.state = :rejected
+      @allocation.state = :application_rejected
       @allocation.save!
     elsif @allocation.proposal?
       @allocation.destroy!
