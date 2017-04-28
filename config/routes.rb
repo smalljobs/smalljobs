@@ -46,6 +46,7 @@ Smalljobs::Application.routes.draw do
     get 'sign_in', to: 'pages#sign_in'
     get 'sign_up', to: 'pages#sign_up'
     get 'global_sign_in', to: 'pages#sign_in'
+    post 'context_help', to: 'pages#context_help'
 
     namespace :broker do
       resource :dashboard, only: :show

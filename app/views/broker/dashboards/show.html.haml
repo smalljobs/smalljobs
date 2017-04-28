@@ -183,6 +183,9 @@
     var url = document.location.toString();
     if (url.match('#')) {
       $('.nav-pills a[href="#' + url.split('#')[1] + '"]').tab('show');
+    } else {
+      location.hash = 'jobs';
+      setHelp();
     }
 
     function checkSearchField() {
@@ -224,100 +227,8 @@
       else {
         location.hash = e.target.hash;
       }
-    });
 
-    $('.organization-dropdown').click(function(){
-      var id = $(this).attr('data-value');
-      if(id === '0') {
-        $('.display-none').removeClass('display-none');
-      } else {
-        $('.display-none').removeClass('display-none');
-        $('.organization').addClass('display-none');
-        $('.organization-' + id).removeClass('display-none');
-      }
-
-      $('#dropdown-btn').text($(this).text());
-    });
-
-    var options = {
-      valueNames: [ 'name', 'provider-name', 'place', 'status', 'street', 'title', 'date', 'allocations', 'jobs', 'status', 'payment', 'feedback' ]
-    };
-
-    var jobsList = new List('jobs', options);
-    var providersList = new List('providers', options);
-    var seekersList = new List('seekers', options);
-    var assignmentsList = new List('assignments', options);
-
-    $('#search-field').on('keyup', function() {
-      var searchString = $(this).val();
-      if(searchString !== "") {
-        $('#clear-btn').css('display', 'initial');
-      } else {
-        $('#clear-btn').css('display', 'none');
-      }
-
-      jobsList.search(searchString);
-      providersList.search(searchString);
-      seekersList.search(searchString);
-      assignmentsList.search(searchString);
-    });
-
-    $('#clear-btn').click(function(){
-      $('#search-field').val("");
-      $('#clear-btn').css('display', 'none');
-      var searchString = "";
-      jobsList.search(searchString);
-      providersList.search(searchString);
-      seekersList.search(searchString);
-      assignmentsList.search(searchString);
-    });
-  });
-
-  $(document).ready(function(){
-    var url = document.location.toString();
-    if (url.match('#')) {
-      $('.nav-pills a[href="#' + url.split('#')[1] + '"]').tab('show');
-    }
-
-    function checkSearchField() {
-      var searchString = $('#search-field').val();
-
-      if(searchString !== "") {
-        $('#clear-btn').css('display', 'initial');
-      } else {
-        $('#clear-btn').css('display', 'none');
-      }
-
-      jobsList.search(searchString);
-      providersList.search(searchString);
-      seekersList.search(searchString);
-      assignmentsList.search(searchString);
-    }
-
-    $('.nav-pills a').on('shown.bs.tab', function (e) {
-      var history_array = JSON.parse(sessionStorage.getItem('history') || null)
-      if(history_array !== null) {
-        if (history_array.length > 0 && history_array[history_array.length-1] === (window.location.href + e.target.hash)) {
-          k = 1
-        }
-        else {
-          history_array.push(window.location.href + e.target.hash)
-          }
-      }
-      else {
-        history_array = []
-        history_array.push(window.location.href + e.target.hash)
-      }
-
-      sessionStorage.setItem('history', JSON.stringify(history_array))
-
-      sessionStorage.setItem('previous', window.location.href);
-      if(history.pushState) {
-        history.pushState(null, null, e.target.hash);
-      }
-      else {
-        location.hash = e.target.hash;
-      }
+      setHelp();
     });
 
     $('.organization-dropdown').click(function(){

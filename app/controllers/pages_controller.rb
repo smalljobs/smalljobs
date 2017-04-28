@@ -28,4 +28,18 @@ class PagesController < ApplicationController
   def app_links
   end
 
+  def context_help
+    help_found = false
+    Help.all.find_each do |help|
+      url = help.url
+      url.gsub!('/id', '/[[:digit:]]*')
+      if /#{url}/ =~ params[:current_url]
+        render json: help
+        help_found = true
+        break
+      end
+    end
+
+    render json: {} unless help_found
+  end
 end

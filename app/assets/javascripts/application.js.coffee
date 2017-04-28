@@ -4,6 +4,7 @@
 #= require social-share-button
 #= require sortable.js
 #= require list.min.js
+#= require contextHelp.js
 #= require_tree .
 
 ready = ->

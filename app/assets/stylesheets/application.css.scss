@@ -150,3 +150,17 @@ textarea.resize-vertical {
 .display-none {
   display: none;
 }
+
+#helpButton i{
+  color: #5fc2a5;
+  position: relative;
+  float: right;
+  top: 150px;
+  font-size: 50px;
+}
+
+#helpButton {
+  position: relative;
+  float: right;
+  width: 0;
+}
