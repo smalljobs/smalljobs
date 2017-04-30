@@ -13,6 +13,13 @@ class Broker::DashboardsController < ApplicationController
     @assignments = current_broker.assignments
   end
 
+  def save_settings
+    current_broker.selected_organization_id = params[:selected_organization_id]
+    current_broker.filter = params[:filter]
+    current_broker.save!
+    render json: {message: 'ok', broker: current_broker.selected_organization_id}
+  end
+
   protected
 
   def current_user

@@ -58,13 +58,13 @@
       -#  = f.input :password, required: false, autocomplete: 'off', hint: t('devise_views.leave_empty')
       -#  = f.input :password_confirmation, required: false
       = f.input :mobile, required: true
-      = f.input :date_of_birth, required: true, start_year: Date.today.year - 25, end_year: Date.today.year - 13, include_blank: false, hint: 'Du solltest zwischen 13 und 25 Jahre alt sein.'
+      = f.input :date_of_birth, required: true, start_year: Date.today.year - 25, end_year: Date.today.year - 13, include_blank: true, hint: 'Du solltest zwischen 13 und 25 Jahre alt sein.'
       = f.input :sex, collection: seeker_sex, include_blank: false
 
   %fieldset
     .form-inputs
       = f.input :street, required: true
-      = f.association :place, required: true, collection: current_region.places.order(:name, :zip), include_blank: false, label_method: :full_name
+      = f.association :place, required: true, collection: current_region.places.order(:name, :zip), include_blank: true, label_method: :full_name
 
   %fieldset
     .form-inputs
@@ -78,7 +78,7 @@
     %legend
       = "Zuständige Organisation"
     .form-inputs
-      = f.association :organization, required: true, include_blank: false, label: false, collection: current_broker.all_organizations
+      = f.association :organization, required: true, include_blank: true, label: false, collection: current_broker.all_organizations
 
   .form-actions
     - if @seeker.new_record?

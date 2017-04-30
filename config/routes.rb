@@ -49,7 +49,12 @@ Smalljobs::Application.routes.draw do
     post 'context_help', to: 'pages#context_help'
 
     namespace :broker do
-      resource :dashboard, only: :show
+      resource :dashboard, only: :show do
+        member do
+          post 'save_settings'
+        end
+      end
+
       resource :organization, only: [:edit, :update]
 
       resources :providers do

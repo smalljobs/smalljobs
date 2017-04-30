@@ -40,7 +40,7 @@
     .form-inputs
       = f.input :notes, label: "Notizen (nur intern sichtbar)"
       = f.input :street, required: true
-      = f.association :place, required: true, collection: current_region.places.order(:name, :zip), label_method: :full_name, include_blank: false
+      = f.association :place, required: true, collection: current_region.places.order(:name, :zip), label_method: :full_name, include_blank: true
 
   %fieldset
     %legend
@@ -60,7 +60,7 @@
     %legend
       = "Zuständige Organisation"
     .form-inputs
-      = f.association :organization, required: true, include_blank: false, label: false, collection: current_broker.all_organizations
+      = f.association :organization, required: true, include_blank: true, label: false, collection: current_broker.all_organizations
 
   .form-actions
     - if @provider.new_record?

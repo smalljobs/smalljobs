@@ -58,7 +58,7 @@ class SessionsController < Devise::SessionsController
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_in) do |u|
+    devise_parameter_sanitizer.permit(:sign_in) do |u|
       u.permit(:phone, :email, :password, :password_confirmation, :remember_me)
     end
     # added_attrs = [:phone, :email, :password, :password_confirmation, :remember_me]

@@ -14,7 +14,7 @@
       %i.fa.fa-2x.fa-user.pull-right
 
     .form-inputs
-      = f.association :work_category, required: true, include_blank: false
+      = f.association :work_category, required: true, include_blank: true
       = f.input :title, required: true
       = f.input :long_description
       = f.input :short_description

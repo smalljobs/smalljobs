@@ -188,8 +188,13 @@
       setHelp();
     }
 
+    var selectedOrganizationId = 0;
+
     function checkSearchField() {
-      var searchString = $('#search-field').val();
+      var searchString = "#{current_broker.filter}";
+      $('#search-field').val(searchString);
+      console.log(searchString);
+      // var searchString = $('#search-field').val();
 
       if(searchString !== "") {
         $('#clear-btn').css('display', 'initial');
@@ -201,6 +206,22 @@
       providersList.search(searchString);
       seekersList.search(searchString);
       assignmentsList.search(searchString);
+    }
+
+    function loadOrganization() {
+      // var id = $(this).attr('data-value');
+      var id = "#{current_broker.selected_organization_id}";
+      selectedOrganizationId = id;
+      console.log(id);
+      if(id === '0') {
+        $('.display-none').removeClass('display-none');
+      } else {
+        $('.display-none').removeClass('display-none');
+        $('.organization').addClass('display-none');
+        $('.organization-' + id).removeClass('display-none');
+      }
+
+      $('#dropdown-btn').text($('.organization-dropdown').eq(parseInt(id)).text());
     }
 
     $('.nav-pills a').on('shown.bs.tab', function (e) {
@@ -233,6 +254,7 @@
 
     $('.organization-dropdown').click(function(){
       var id = $(this).attr('data-value');
+      selectedOrganizationId = id;
       if(id === '0') {
         $('.display-none').removeClass('display-none');
       } else {
@@ -278,4 +300,12 @@
     });
 
     checkSearchField();
+    loadOrganization();
+
+    window.addEventListener("beforeunload", function (event) {
+      $.post("#{save_settings_broker_dashboard_path}", {filter: $('#search-field').val(), selected_organization_id: parseInt(selectedOrganizationId)}, function(response) {
+        console.log(response);
+
+      });
+    });
   });

@@ -33,7 +33,7 @@
     %legend
       = "Anbieter"
     - if @job.new_record?
-      = f.association :provider, collection: current_broker.providers.order(:firstname, :lastname), required: true, include_blank: false, input_html: {'data-live-search':'true', class: 'selectpicker', 'data-none-selected-text': 'Nichts ausgewählt'}
+      = f.association :provider, collection: current_broker.providers.order(:firstname, :lastname), required: true, include_blank: true, input_html: {'data-live-search':'true', class: 'selectpicker', 'data-none-selected-text': 'Nichts ausgewählt'}
     - else
       %p
         = link_to @job.provider.name, edit_broker_provider_path(@job.provider)
@@ -61,7 +61,7 @@
       = "Arbeitsart"
 
     .form-inputs
-      = f.association :work_category, required: true, include_blank: false, label: false, collection: WorkCategory.all.order(:name)
+      = f.association :work_category, required: true, include_blank: true, label: false, collection: WorkCategory.all.order(:name)
 
   %fieldset
     %legend
@@ -85,14 +85,14 @@
       = "Jugendliche"
 
     .form-inputs
-      = f.input :manpower, require: true, label: "Benötigte Arbeitskräfte:"
-      = f.input :duration, require: true, label: "Ungefähre Dauer (Stunden):", hint: false
+      = f.input :manpower, required: true, label: "Benötigte Arbeitskräfte:"
+      = f.input :duration, required: true, label: "Ungefähre Dauer (Stunden):", hint: false
 
   %fieldset
     %legend
       = "Zuständige Organisation"
     .form-inputs
-      = f.association :organization, require: true, collection: current_broker.all_organizations, label: false, include_blank: false
+      = f.association :organization, required: true, collection: current_broker.all_organizations, label: false, include_blank: true
 
   .form-actions
     - if @job.new_record?

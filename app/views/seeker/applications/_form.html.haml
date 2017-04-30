@@ -11,7 +11,7 @@
       %i.fa.fa-2x.fa-envelope.pull-right
 
     .form-inputs
-      = f.association :job, required: true, collection: [@job], include_blank: false
+      = f.association :job, required: true, collection: [@job], include_blank: true
       = f.input :message
 
   .form-actions

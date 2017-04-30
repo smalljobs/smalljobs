@@ -3,6 +3,7 @@ class Broker < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :confirmable, :registerable, authentication_keys: [:email]
 
   include ConfirmToggle
+  include Storext.model
 
   has_many :employments, inverse_of: :broker
   has_many :organizations, through: :employments
@@ -19,6 +20,11 @@ class Broker < ActiveRecord::Base
 
   phony_normalize :phone,  default_country_code: 'CH'
   phony_normalize :mobile, default_country_code: 'CH'
+
+  store_attributes :settings do
+    selected_organization_id Integer, default: 0
+    filter String, default: ''
+  end
 
   def all_organizations
     all_org = []

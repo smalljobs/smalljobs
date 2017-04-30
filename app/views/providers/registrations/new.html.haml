@@ -31,8 +31,8 @@
       = f.input :firstname, required: true
       = f.input :lastname, required: true
       = f.input :street, required: true
-      = f.association :place, required: true, collection: current_region.places.order(:name, :zip), include_blank: false, label_method: :full_name
-      = f.association :organization, required: true, collection: current_region.organizations.order(:name).distinct, include_blank: false, label: t('providers.registrations.new.organization')
+      = f.association :place, required: true, collection: current_region.places.order(:name, :zip), include_blank: true, label_method: :full_name
+      = f.association :organization, required: true, collection: current_region.organizations.order(:name).distinct, include_blank: true, label: t('providers.registrations.new.organization')
 
   %fieldset
     %legend

@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
-ruby '2.2.5'
+ruby '2.3.1'
 
-gem 'rails', '~>4.1'
+gem 'rails', '~>5.0'
 
 gem 'activevalidators'
 gem 'bootstrap-sass'
@@ -41,6 +41,7 @@ gem 'rest-client'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'rqrcode'
+gem 'storext'
 
 group :development, :test do
   gem 'better_errors'
