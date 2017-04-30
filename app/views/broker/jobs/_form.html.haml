@@ -33,7 +33,7 @@
     %legend
       = "Anbieter"
     - if @job.new_record?
-      = f.association :provider, collection: current_broker.providers.order(:firstname, :lastname), required: true, include_blank: false
+      = f.association :provider, collection: current_broker.providers.order(:firstname, :lastname), required: true, include_blank: false, input_html: {'data-live-search':'true', class: 'selectpicker', 'data-none-selected-text': 'Nichts ausgewählt'}
     - else
       %p
         = link_to @job.provider.name, edit_broker_provider_path(@job.provider)

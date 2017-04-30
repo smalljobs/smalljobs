@@ -5,6 +5,7 @@
 #= require sortable.js
 #= require list.min.js
 #= require contextHelp.js
+#= require bootstrap-select.min.js
 #= require_tree .
 
 ready = ->

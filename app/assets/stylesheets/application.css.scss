@@ -10,6 +10,7 @@
 @import "partials/form";
 @import "partials/table";
 @import "partials/home";
+@import "bootstrap-select.min";
 
 table.sortable th.sortable:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after {
   content: " \25B4\25BE"
@@ -163,4 +164,9 @@ textarea.resize-vertical {
   position: relative;
   float: right;
   width: 0;
+}
+
+.bootstrap-select button, .bootstrap-select button:hover {
+  color: black !important;
+  background-color: white !important;
 }
