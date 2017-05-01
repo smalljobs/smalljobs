@@ -25,6 +25,9 @@ class Broker::ProvidersController < InheritedResources::Base
     @provider.terms = '1'
 
     create!
+    # create! do |success, failure|
+    #   failure.html (redirect_to :back)
+    # end
   end
 
   def contract
