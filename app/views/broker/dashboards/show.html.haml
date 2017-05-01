@@ -221,7 +221,7 @@
         $('.organization-' + id).removeClass('display-none');
       }
 
-      $('#dropdown-btn').text($('.organization-dropdown').eq(parseInt(id)).text());
+      $('#dropdown-btn').text($('.organization-dropdown[data-value="' + id + '"]').text());
     }
 
     $('.nav-pills a').on('shown.bs.tab', function (e) {
