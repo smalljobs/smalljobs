@@ -7,10 +7,10 @@ class Broker::DashboardsController < ApplicationController
   load_and_authorize_resource :seeker, through: :current_region
 
   def show
-    @jobs = current_broker.jobs
-    @providers = current_broker.providers
-    @seekers = current_broker.seekers
-    @assignments = current_broker.assignments
+    @jobs = current_broker.jobs.includes(:provider, :allocations)
+    @providers = current_broker.providers.includes(:place, :jobs, :organization)
+    @seekers = current_broker.seekers.includes(:place, :organization)
+    @assignments = current_broker.assignments.includes(:seeker, :provider)
   end
 
   def save_settings
