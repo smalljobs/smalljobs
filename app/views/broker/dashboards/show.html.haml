@@ -193,8 +193,6 @@
     function checkSearchField() {
       var searchString = "#{current_broker.filter}";
       $('#search-field').val(searchString);
-      console.log(searchString);
-      // var searchString = $('#search-field').val();
 
       if(searchString !== "") {
         $('#clear-btn').css('display', 'initial');
@@ -209,7 +207,6 @@
     }
 
     function loadOrganization() {
-      // var id = $(this).attr('data-value');
       var id = "#{current_broker.selected_organization_id}";
       selectedOrganizationId = id;
       console.log(id);
@@ -225,7 +222,7 @@
     }
 
     $('.nav-pills a').on('shown.bs.tab', function (e) {
-      var history_array = JSON.parse(sessionStorage.getItem('history') || [])
+      var history_array = JSON.parse(sessionStorage.getItem('history') || '[]')
       history_array.push(window.location.href.split('#')[0] + e.target.hash);
       sessionStorage.setItem('history', JSON.stringify(history_array))
 

@@ -9,7 +9,7 @@
 #= require_tree .
 
 ready = ->
-  history_array = JSON.parse(sessionStorage.getItem('history') || [])
+  history_array = JSON.parse(sessionStorage.getItem('history') || '[]')
 #  if history_array != null
 #    if history_array.length > 0 && history_array[history_array.length-1] == window.location.href.split('?')[0]
 #      k = 1
