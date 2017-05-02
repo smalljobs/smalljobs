@@ -67,6 +67,9 @@ GEM
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
     builder (3.2.3)
+    bullet (5.5.1)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.10.0)
     byebug (9.0.6)
     cancancan (1.16.0)
     capybara (2.13.0)
@@ -315,6 +318,8 @@ GEM
     has_scope (0.7.0)
       actionpack (>= 4.1, < 5.1)
       activesupport (>= 4.1, < 5.1)
+    heroku-deflater (0.6.3)
+      rack (>= 1.4.5)
     html2haml (2.1.0)
       erubis (~> 2.7.0)
       haml (~> 4.0)
@@ -405,6 +410,8 @@ GEM
     public_suffix (2.0.5)
     puma (3.8.2)
     rack (2.0.1)
+    rack-cache (1.7.0)
+      rack (>= 0.4)
     rack-pjax (1.0.0)
       nokogiri (~> 1.5)
       rack (>= 1.1)
@@ -562,6 +569,7 @@ GEM
     unicorn (5.3.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
+    uniform_notifier (1.10.0)
     validate_url (1.0.2)
       activemodel (>= 3.0.0)
       addressable
@@ -592,6 +600,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass
+  bullet
   cancancan
   capybara
   capybara-email
@@ -610,6 +619,7 @@ DEPENDENCIES
   guard-rspec
   haml-rails
   has_scope
+  heroku-deflater
   inherited_resources (>= 1.4.1)
   jbuilder
   jquery-rails
@@ -626,6 +636,7 @@ DEPENDENCIES
   pry-rails
   pry-stack_explorer
   puma
+  rack-cache
   rails (~> 5.0)
   rails-i18n
   rails_12factor
@@ -656,4 +667,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.14.5
+   1.14.6

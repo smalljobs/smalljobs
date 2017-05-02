@@ -66,6 +66,7 @@ group :development, :test do
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'puma'
+  gem 'bullet'
 end
 
 group :doc do
@@ -74,4 +75,6 @@ end
 
 group :production do
   gem 'rails_12factor'
+  gem 'heroku-deflater'
+  gem 'rack-cache'
 end
