@@ -3,7 +3,7 @@ function setHelp() {
         var $helpModalContent = $('#helpModalContent');
         var $helpModalTitle = $('#helpModalTitle');
         var $helpButton = $('#helpButton');
-        if(response['description'] !== null) {
+        if(response['description'] !== null && response['description'] !== undefined) {
             $helpModalContent.html(response['description']);
             $helpModalTitle.html(response['title']);
             $helpButton.removeClass('display-none');

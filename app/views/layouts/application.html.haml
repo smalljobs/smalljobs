@@ -22,7 +22,7 @@
   %body
     .container
       .header
-        %a{id: 'helpButton', href: "#", "data-toggle": "modal", "data-target": "#contextHelpModal"}
+        %a.display-none{id: 'helpButton', href: "#", "data-toggle": "modal", "data-target": "#contextHelpModal"}
           %i.fa.fa-question-circle
         - if request.subdomain == 'www'
           = render_navigation(context: :header_main, expand_all: true)
