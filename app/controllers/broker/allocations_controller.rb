@@ -103,9 +103,9 @@ class Broker::AllocationsController < InheritedResources::Base
     live = 'https://admin.jugendarbeit.digital/api/jugendinfo_push/send'
     response = RestClient.post dev, api: 'ULv8r9J7Hqc7n2B8qYmfQewzerhV9p', message_title: title, message: message, device_token: @allocation.seeker.app_user_id, sendermail: current_broker.email
     json = JSON.parse(response.body)
-    conv_id = json['conversation_id']
-    @allocation.conversation_id = conv_id
-    @allocation.save!
+    # conv_id = json['conversation_id']
+    # @allocation.conversation_id = conv_id
+    # @allocation.save!
 
     render json: {state: 'ok', response: response}
   end
