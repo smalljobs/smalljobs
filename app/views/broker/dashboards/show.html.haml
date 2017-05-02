@@ -210,9 +210,9 @@
       var id = "#{current_broker.selected_organization_id}";
       selectedOrganizationId = id;
       if(id === '0') {
-        $('.display-none').removeClass('display-none');
+        $('.display-none.organization').removeClass('display-none');
       } else {
-        $('.display-none').removeClass('display-none');
+        $('.display-none.organization').removeClass('display-none');
         $('.organization').addClass('display-none');
         $('.organization-' + id).removeClass('display-none');
       }
@@ -240,9 +240,9 @@
       var id = $(this).attr('data-value');
       selectedOrganizationId = id;
       if(id === '0') {
-        $('.display-none').removeClass('display-none');
+        $('.display-none.organization').removeClass('display-none');
       } else {
-        $('.display-none').removeClass('display-none');
+        $('.display-none.organization').removeClass('display-none');
         $('.organization').addClass('display-none');
         $('.organization-' + id).removeClass('display-none');
       }
