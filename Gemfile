@@ -77,4 +77,5 @@ group :production do
   gem 'rails_12factor'
   gem 'heroku-deflater'
   gem 'rack-cache'
+  gem 'dalli'
 end
