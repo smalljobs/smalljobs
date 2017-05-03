@@ -269,6 +269,7 @@ RailsAdmin.config do |config|
     weight 15
 
     list do
+      field :id
       field :firstname
       field :lastname
       field :phone
