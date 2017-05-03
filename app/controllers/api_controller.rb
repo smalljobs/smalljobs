@@ -220,6 +220,7 @@ class ApiController < ApplicationController
 
   def list_jobs
     organization_id = params[:organization_id]
+    region_id = params[:region_id]
     status = params[:status] == nil ? nil : params[:status].to_i
     show_provider = true?(params[:provider])
     show_organization = true?(params[:organization])
@@ -230,31 +231,35 @@ class ApiController < ApplicationController
     state = Job::state_from_integer(status)
 
     jobs = []
-    if organization_id == nil
-      if state == nil
-        found_jobs = Job.all.page(page).per(limit)
-        for job in found_jobs do
-          jobs.append(ApiHelper::job_to_json(job, job.provider.organization, show_provider, show_organization, show_assignments, nil))
-        end
-      else
-        found_jobs = Job.where(state: state).page(page).per(limit)
-        for job in found_jobs do
-          jobs.append(ApiHelper::job_to_json(job, job.provider.organization, show_provider, show_organization, show_assignments, nil))
-        end
+    found_jobs = []
+
+    if !region_id.nil?
+      region = Region.find_by(id: region_id)
+      if region.nil?
+        render json: {code: 'jobs/not_found', message: 'Region not found'}, status: 404
+        return
+      end
+
+      found_jobs = region.jobs
+      if !organization_id.nil?
+        found_jobs = found_jobs.where(organization_id: organization_id)
       end
     else
-      if state == nil
-        found_jobs = Job.joins(:provider).where(providers: {organization_id: organization_id}).page(page).per(limit)
-        for job in found_jobs do
-
-          jobs.append(ApiHelper::job_to_json(job, job.provider.organization, show_provider, show_organization, show_assignments, nil))
-        end
+      if !organization_id.nil?
+        found_jobs = Job.joins(:provider).where(providers: {organization_id: organization_id})
       else
-        found_jobs = Job.joins(:provider).where(state: state, providers: {organization_id: organization_id}).page(page).per(limit)
-        for job in found_jobs do
-          jobs.append(ApiHelper::job_to_json(job, job.provider.organization, show_provider, show_organization, show_assignments, nil))
-        end
+        found_jobs = Job.all
       end
+    end
+
+    if !state.nil?
+      found_jobs = found_jobs.where(state: state)
+    end
+
+    found_jobs = found_jobs.page(page).per(limit)
+
+    for job in found_jobs do
+      jobs.append(ApiHelper::job_to_json(job, job.provider.organization, show_provider, show_organization, show_assignments, nil))
     end
 
     render json: jobs, status: 200
