@@ -24,7 +24,7 @@ class Broker::AllocationsController < InheritedResources::Base
     if !@allocation.nil? && @allocation.conversation_id.nil?
       dev = "https://devadmin.jugendarbeit.digital/api/jugendinfo_message/get_conversation_id_by_user?user_id=#{@allocation.seeker.app_user_id}"
       live = "https://admin.jugendarbeit.digital/api/jugendinfo_message/get_conversation_id_by_user?user_id=#{@allocation.seeker.app_user_id}"
-      response = RestClient.get dev
+      response = RestClient.get live
       json = JSON.parse(response)
       @allocation.conversation_id = json['id']
       @allocation.save!
@@ -34,7 +34,7 @@ class Broker::AllocationsController < InheritedResources::Base
     if !@allocation.nil? && !@allocation.conversation_id.nil?
       dev = "https://devadmin.jugendarbeit.digital/api/jugendinfo_message/get_messages/?key=ULv8r9J7Hqc7n2B8qYmfQewzerhV9p&id=#{@allocation.conversation_id}&limit=1000"
       live = "https://admin.jugendarbeit.digital/api/jugendinfo_message/get_messages/?key=ULv8r9J7Hqc7n2B8qYmfQewzerhV9p&id=#{@allocation.conversation_id}&limit=1000"
-      response = RestClient.get dev
+      response = RestClient.get live
       json = JSON.parse(response.body)
       @messages = json['messages'].sort_by {|val| DateTime.strptime(val['datetime'], '%s')}.reverse
     else
@@ -101,7 +101,7 @@ class Broker::AllocationsController < InheritedResources::Base
     require 'rest-client'
     dev = 'https://devadmin.jugendarbeit.digital/api/jugendinfo_push/send'
     live = 'https://admin.jugendarbeit.digital/api/jugendinfo_push/send'
-    response = RestClient.post dev, api: 'ULv8r9J7Hqc7n2B8qYmfQewzerhV9p', message_title: title, message: message, device_token: @allocation.seeker.app_user_id, sendermail: current_broker.email
+    response = RestClient.post live, api: 'ULv8r9J7Hqc7n2B8qYmfQewzerhV9p', message_title: title, message: message, device_token: @allocation.seeker.app_user_id, sendermail: current_broker.email
     json = JSON.parse(response.body)
     # conv_id = json['conversation_id']
     # @allocation.conversation_id = conv_id
