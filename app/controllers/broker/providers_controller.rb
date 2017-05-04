@@ -24,10 +24,9 @@ class Broker::ProvidersController < InheritedResources::Base
     @provider = Provider.new(permitted_params[:provider])
     @provider.terms = '1'
 
-    create!
-    # create! do |success, failure|
-    #   failure.html (redirect_to :back)
-    # end
+    create! do |success, failure|
+      success.html {redirect_to edit_broker_provider_path(@provider), notice: "Anbieter erstellt"}
+    end
   end
 
   def contract
@@ -49,7 +48,7 @@ class Broker::ProvidersController < InheritedResources::Base
 
     @provider.destroy!
 
-    render json: { message: 'Provider deleted' }, status: 200
+    render json: {message: 'Provider deleted'}, status: 200
   end
 
   protected
