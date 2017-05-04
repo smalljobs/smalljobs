@@ -14,6 +14,8 @@ class Job < ActiveRecord::Base
   validates :provider, presence: true
   validates :work_category, presence: true
 
+  validates :organization, presence: true
+
   validates :state, presence: true, inclusion: { in: lambda { |m| m.state_enum }}
 
   validates :title, presence: true
