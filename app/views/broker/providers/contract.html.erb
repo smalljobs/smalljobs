@@ -357,19 +357,19 @@
     Guten Tag <%= @provider.name %><%= @provider.company != nil && !@provider.company.empty? ? ", (#{@provider.company})":""  %>
   </p>
   <p class="second-paragraph">
-    Es freut uns sehr Sie bei der Jobbörse zu begrüssen! Sie leisten mit Ihrer Teilnahme einen wertvollen
-    Beitrag für berufliche Integration und Generationendialog. Unsere Jugendlichen freuen sich
-    Sie kompetent, freundlich und persönlich unterstützten zu können.
+    Es freut uns sehr, Sie bei der Jobbörse begrüssen zu dürfen! Sie leisten mit Ihrer Teilnahme einen wertvollen
+    Beitrag für die berufliche Integration und den Generationendialog. Unsere Jugendlichen freuen sich,
+    Sie kompetent, freundlich und persönlich unterstützen zu können.
   </p>
   <p class="third-paragraph">
-    Beiliegend erhalten Sie eine Vorlage für einen Arbeitsvertrag. Wir bitten Sie diesen jeweils von
+    Beiliegend erhalten Sie eine Vorlage für einen Arbeitsvertrag. Wir bitten Sie, diesen jeweils von
     jedem Jugendlichen bei Arbeitsbeginn unterschreiben zu lassen. Die Jugendlichen lesen Ihre
     persönliche Identifikation bei Arbeitsbeginn ein. Das System berechnet den Lohn dann automatisch.
-    Nach Arbeitsende können Sie die Jugendlichen persönlich in bar bezahlen.
+    Nach Arbeitsende können Sie den Jugendlichen den Lohn bezahlen.
   </p>
   <p class="forth-paragraph">
     Viel Spass bei der Zusammenarbeit mit unseren Jugendlichen. Bei Fragen oder Problemen stehen
-    wir Ihnen jederzeit zur Verfügung: <%= @provider.organization.phone %>
+    wir Ihnen gerne zur Verfügung: <%= current_broker.mobile %>
   </p>
   <p class="letter-end">
     Für Ihre Jobbörse <%= @provider.organization.name %>
@@ -406,7 +406,7 @@
   </h1>
   <ol>
     <li>
-      Ich führe Jugendliche fachgerecht in sämtliche Arbeit an und beaufsichtige die Arbeit angemessen.
+      Ich leite Jugendliche fachgerecht in sämtliche Arbeit an und beaufsichtige die Arbeit angemessen.
     </li>
     <li>
       Das Anstellungsverhältnis besteht direkt zwischen mir und dem Jugendlichen.
@@ -418,17 +418,17 @@
       Der Stundenlohn entspricht dem Alter des Jugendlichen mal <%= @provider.organization.wage_factor %> (z.B. 17 Jahre x <%= @provider.organization.wage_factor %> = <%= 17 * @provider.organization.wage_factor %> CHF).
     </li>
     <li>
-      Unfallversicherung: Familienversicherung des Jugendlichen (bis zu einem Jahreslohn von 750 CHF)
+      Unfallversicherung: Familienversicherung des Jugendlichen (bis zu einem Jahreslohn von 750 CHF).
     </li>
     <li>
-      Haftpflichtversicherung : Familienversicherung oder Arbeitgeberversicherung
+      Haftpflichtversicherung : Familienversicherung oder Arbeitgeberversicherung.
     </li>
     <li>
-      Ausnahme für gewerbliche Arbeitgeber: Unfall-/Haftpflichtversicherung ist Sache des Arbeitgebers
+      Ausnahme für gewerbliche Arbeitgeber: Unfall-/Haftpflichtversicherung ist Sache des Arbeitgebers.
     </li>
     <li>
-      Gemäss Jugendarbeitschutz sind für Jugendliche ab 13 in der Schweiz leichte Arbeiten
-      im folgenden Rahmen erlaubt*:
+      Gemäss Jugendarbeitschutz sind für Jugendliche ab 13 Jahren in der Schweiz leichte 
+      Arbeiten im folgenden Rahmen erlaubt*:
     </li>
   </ol>
   <table border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse;" bordercolor="#cbe7d5">
