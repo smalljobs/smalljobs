@@ -77,7 +77,7 @@ module ApplicationHelper
       when :notice then
         'alert-info'
       when :error then
-        'alert-error'
+        'alert-danger'
       when :alert then
         'alert-warning'
     end

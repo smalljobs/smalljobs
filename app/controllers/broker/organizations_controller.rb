@@ -8,7 +8,11 @@ class Broker::OrganizationsController < InheritedResources::Base
   actions :edit, :update
 
   def update
-    update! { broker_dashboard_url }
+    if !@organization.update(permitted_params[:organization])
+      redirect_to edit_broker_organization_path, flash: {error: @organization.errors.full_messages[0]}
+    else
+      redirect_to edit_broker_organization_path, notice: "Organisation gespeichert"
+    end
   end
 
   protected
