@@ -1,39 +1,40 @@
-- allocations = @job.allocations.includes(:seeker).application_open
+- all_allocations = @job.allocations.includes(:seeker)
+- allocations = all_allocations.application_open
 - if allocations.count > 0
   %h5= "Bewerbungen"
   - for allocation in allocations
     %p
       = link_to "#{allocation.seeker.name}", broker_job_allocation_path(@job, allocation.seeker)
 
-- allocations = @job.allocations.includes(:seeker).application_rejected
+- allocations = all_allocations.application_rejected
 - if allocations.count > 0
   %h5= "Bewerbungen abgelehnt"
   - for allocation in allocations
     %p
       = link_to "#{allocation.seeker.name}", broker_job_allocation_path(@job, allocation.seeker)
 
-- allocations = @job.allocations.includes(:seeker).proposal
+- allocations = all_allocations.proposal
 - if allocations.count > 0
   %h5= "Job Vorschläge"
   - for allocation in allocations
     %p
       = link_to "#{allocation.seeker.name}", broker_job_allocation_path(@job, allocation.seeker)
 
-- allocations = @job.allocations.includes(:seeker).active
+- allocations = all_allocations.active
 - if allocations.count > 0
   %h5= "Aktive Anstellungen"
   - for allocation in allocations
     %p
       = link_to "#{allocation.seeker.name}", broker_job_allocation_path(@job, allocation.seeker)
 
-- allocations = @job.allocations.includes(:seeker).finished
+- allocations = all_allocations.finished
 - if allocations.count > 0
   %h5= "Beendete Anstellungen"
   - for allocation in allocations
     %p
       = link_to "#{allocation.seeker.name}", broker_job_allocation_path(@job, allocation.seeker)
 
-- allocations = @job.allocations.includes(:seeker).cancelled
+- allocations = all_allocations.cancelled
 - if allocations.count > 0
   %h5= "Abgebrochene Anstellungen"
   - for allocation in allocations
