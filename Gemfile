@@ -42,6 +42,7 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'rqrcode'
 gem 'storext'
+gem 'scout_apm'
 
 group :development, :test do
   gem 'better_errors'
