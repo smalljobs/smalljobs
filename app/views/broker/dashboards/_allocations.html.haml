@@ -1,56 +1,36 @@
-- all_allocations = @allocations.where(job: @job)
+- if !@allocations[@job.id].nil? && !@allocations[@job.id][Allocation.states[:application_open]].nil?
+  %h5= "Bewerbungen"
+  - for allocation in @allocations[@job.id][Allocation.states[:application_open]]
+    %p
+      = link_to "#{allocation.seeker.name}", broker_job_allocation_path(@job, allocation.seeker)
 
-- allocations = all_allocations.application_open
-- first = true
-- for allocation in allocations
-  - if first
-    %h5= "Bewerbungen"
-    - first = false
-  %p
-    = link_to "#{allocation.seeker.name}", broker_job_allocation_path(@job, allocation.seeker)
+- if !@allocations[@job.id].nil? && !@allocations[@job.id][Allocation.states[:application_rejected]].nil?
+  %h5= "Bewerbungen abgelehnt"
+  - for allocation in @allocations[@job.id][Allocation.states[:application_rejected]]
+    %p
+      = link_to "#{allocation.seeker.name}", broker_job_allocation_path(@job, allocation.seeker)
 
-- allocations = all_allocations.application_rejected
-- first = true
-- for allocation in allocations
-  - if first
-    %h5= "Bewerbungen abgelehnt"
-    - first = false
-  %p
-    = link_to "#{allocation.seeker.name}", broker_job_allocation_path(@job, allocation.seeker)
+- if !@allocations[@job.id].nil? && !@allocations[@job.id][Allocation.states[:proposal]].nil?
+  %h5= "Job Vorschläge"
+  - for allocation in @allocations[@job.id][Allocation.states[:proposal]]
+    %p
+      = link_to "#{allocation.seeker.name}", broker_job_allocation_path(@job, allocation.seeker)
 
-- allocations = all_allocations.proposal
-- first = true
-- for allocation in allocations
-  - if first
-    %h5= "Job Vorschläge"
-    - first = false
-  %p
-    = link_to "#{allocation.seeker.name}", broker_job_allocation_path(@job, allocation.seeker)
+- if !@allocations[@job.id].nil? && !@allocations[@job.id][Allocation.states[:active]].nil?
+  %h5= "Aktive Anstellungen"
+  - for allocation in @allocations[@job.id][Allocation.states[:active]]
+    %p
+      = link_to "#{allocation.seeker.name}", broker_job_allocation_path(@job, allocation.seeker)
 
-- allocations = all_allocations.active
-- first = true
-- for allocation in allocations
-  - if first
-    %h5= "Aktive Anstellungen"
-    - first = false
-  %p
-    = link_to "#{allocation.seeker.name}", broker_job_allocation_path(@job, allocation.seeker)
+- if !@allocations[@job.id].nil? && !@allocations[@job.id][Allocation.states[:finished]].nil?
+  %h5= "Beendete Anstellungen"
+  - for allocation in @allocations[@job.id][Allocation.states[:finished]]
+    %p
+      = link_to "#{allocation.seeker.name}", broker_job_allocation_path(@job, allocation.seeker)
 
-- allocations = all_allocations.finished
-- first = true
-- for allocation in allocations
-  - if first
-    %h5= "Beendete Anstellungen"
-    - first = false
-  %p
-    = link_to "#{allocation.seeker.name}", broker_job_allocation_path(@job, allocation.seeker)
-
-- allocations = all_allocations.cancelled
-- first = true
-- for allocation in allocations
-  - if first
-    %h5= "Abgebrochene Anstellungen"
-    - first = false
-  %p
-    = link_to "#{allocation.seeker.name}", broker_job_allocation_path(@job, allocation.seeker)
+- if !@allocations[@job.id].nil? && !@allocations[@job.id][Allocation.states[:cancelled]].nil?
+  %h5= "Abgebrochene Anstellungen"
+  - for allocation in @allocations[@job.id][Allocation.states[:cancelled]]
+    %p
+      = link_to "#{allocation.seeker.name}", broker_job_allocation_path(@job, allocation.seeker)
 

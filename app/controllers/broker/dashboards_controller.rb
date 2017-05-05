@@ -8,7 +8,14 @@ class Broker::DashboardsController < ApplicationController
 
   def show
     @jobs = current_broker.jobs.includes(:provider, :organization)
-    @allocations = Allocation.where(job: @jobs).includes(:seeker)
+    allocations = Allocation.where(job: @jobs).includes(:seeker)
+    @allocations = []
+    allocations.each do |allocation|
+      @allocations[allocation.job_id] = [] if @allocations[allocation.job_id].nil?
+      @allocations[allocation.job_id][Allocation.states[allocation.state]] = [] if @allocations[allocation.job_id][Allocation.states[allocation.state]].nil?
+      @allocations[allocation.job_id][Allocation.states[allocation.state]].push(allocation)
+    end
+
     @providers = current_broker.providers.includes(:place, :jobs, :organization)
     @seekers = current_broker.seekers.includes(:place, :organization)
     @assignments = current_broker.assignments.includes(:seeker, :provider)
