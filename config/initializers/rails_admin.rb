@@ -5,6 +5,23 @@ RailsAdmin.config do |config|
     redirect_to main_app.root_path unless current_admin != nil
   end
 
+  config.model Help do
+    list do
+      field :title
+      field :url
+    end
+
+    edit do
+      field :title
+      field :description, :rich_editor do
+        config({
+                   :insert_many => true
+               })
+      end
+      field :url
+    end
+  end
+
   config.model AccessToken do
     list do
       field :access_token

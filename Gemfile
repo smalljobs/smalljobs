@@ -43,6 +43,8 @@ gem 'wkhtmltopdf-binary'
 gem 'rqrcode'
 gem 'storext'
 gem 'scout_apm'
+gem 'rich', github: 'bastiaanterhorst/rich'
+gem 'paperclip'
 
 group :development, :test do
   gem 'better_errors'

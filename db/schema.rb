@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170430203413) do
+ActiveRecord::Schema.define(version: 20170518175305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -245,6 +245,19 @@ ActiveRecord::Schema.define(version: 20170430203413) do
     t.string   "subdomain",  limit: 255, null: false
     t.index ["name"], name: "index_regions_on_name", unique: true, using: :btree
     t.index ["subdomain"], name: "index_regions_on_subdomain", using: :btree
+  end
+
+  create_table "rich_rich_files", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "rich_file_file_name"
+    t.string   "rich_file_content_type"
+    t.integer  "rich_file_file_size"
+    t.datetime "rich_file_updated_at"
+    t.string   "owner_type"
+    t.integer  "owner_id"
+    t.text     "uri_cache"
+    t.string   "simplified_type",        default: "file"
   end
 
   create_table "seekers", force: :cascade do |t|

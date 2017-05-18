@@ -4,6 +4,7 @@ require 'api_subdomain'
 
 Smalljobs::Application.routes.draw do
 
+  mount Rich::Engine => '/rich', :as => 'rich'
   devise_for :admins
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
