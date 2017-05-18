@@ -9,7 +9,7 @@
           = "Nachricht an "
           = @allocation.seeker.name
           = ":"
-        %textarea.form-control.resize-vertical{rows: '5'}
+        %textarea.form-control.resize-vertical.textarea{rows: '5'}
           = "Hallo #{@allocation.seeker.name}"   
         %br
         - if @allocation.seeker.app_user_id.nil?

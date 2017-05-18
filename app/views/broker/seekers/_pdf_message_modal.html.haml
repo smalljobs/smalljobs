@@ -9,17 +9,19 @@
           = "Nachricht an "
           = @seeker.name
           = ":"
-        %textarea.form-control.resize-vertical{rows: "10"}
+        %div.form-control.resize-vertical.textarea{contenteditable: true}
           = "Hoi #{@seeker.firstname}"
-          = preserve '&#x000A;'
+          %br
           = "Willkommen bei Smalljobs!"
-          = preserve '&#x000A;'
-          = "Bitte #{url_for agreement_broker_seeker_url(@seeker)}?format=pdf runterladen uns bringen:"
-          = preserve '&#x000A;'
-          = "#{current_broker.email}"
-          = preserve '&#x000A;'
+          %br
+          = "Bitte "
+          %a{href: "#{url_for agreement_broker_seeker_url(@seeker)}?format=pdf"}= "#{url_for agreement_broker_seeker_url(@seeker)}?format=pdf"
+          = " runterladen uns bringen:"
+          %br
+          %a{href: "mailto:#{current_broker.email}"}= "#{current_broker.email}"
+          %br
           = "Merci,"
-          = preserve '&#x000A;'
+          %br
           = "#{current_broker.firstname}"
         %br
         - if @seeker.app_user_id.nil?

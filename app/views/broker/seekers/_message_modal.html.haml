@@ -9,7 +9,7 @@
           = "Nachricht an "
           = @seeker.name
           = ":"
-        %textarea.form-control.resize-vertical
+        %div.textarea.form-control.resize-vertical{contenteditable: true}
           = ""
         %br
         - if @seeker.app_user_id.nil?

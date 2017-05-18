@@ -9,7 +9,7 @@
           = "Nachricht an "
           = @allocation.seeker.name
           = ":"
-        %textarea.form-control.resize-vertical{rows: '5'}
+        %textarea.form-control.resize-vertical.textarea{rows: '5'}
           = "Hallo #{@allocation.seeker.name}"
           = preserve '&#x000A;'
           = "Deine Anstellung bei #{@allocation.job.provider.name} wurde beendet."

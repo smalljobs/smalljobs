@@ -130,7 +130,8 @@
       });
 
       function sendMessage(func) {
-        var message = $(modalId + " textarea").val();
+        var message = $(modalId + " .textarea").html();
+        message = message.replace(/<br>/g, '');
         var title = $(modalId + " h2").text();
         var $checkbox = $(modalId + " input[type='checkbox']");
         if($checkbox.is(":checked")) {

@@ -170,3 +170,12 @@ textarea.resize-vertical {
   color: black !important;
   background-color: white !important;
 }
+
+div.textarea {
+  height: 100%;
+  min-height: 200px;
+}
+
+.message p {
+  margin: 0;
+}
