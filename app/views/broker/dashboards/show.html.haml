@@ -74,7 +74,8 @@
               %tr{ class: "organization organization-#{job.try(:organization).try(:id)}" }
                 %td.status
                   = job_label(job)
-                %td.date
+                - sortable_date = job.last_change_of_state == nil ?  "": job.last_change_of_state.strftime("%Y%m%d%H%M%S")
+                %td.date{sorttable_customkey: sortable_date}
                   = job.last_change_of_state == nil ?  "": job.last_change_of_state.strftime("%d.%m.%Y")
                 -#%td
                 %td.title
@@ -105,7 +106,8 @@
               %tr{ class: "organization organization-#{provider.organization.id}" }
                 %td.status
                   = provider_label(provider)
-                %td.date= provider.updated_at.strftime("%d.%m.%Y")
+                %td.date{sorttable_customkey: provider.updated_at.strftime("%Y%m%d%H%M%S")}
+                  = provider.updated_at.strftime("%d.%m.%Y")
                 %td.name= link_to provider.name, edit_broker_provider_path(provider)
                 %td.street= provider.street
                 %td.place= provider.place.zip + ' ' + provider.place.name
@@ -134,7 +136,8 @@
               %tr{ class: "organization organization-#{seeker.try(:organization).try(:id)}" }
                 %td.status
                   = seeker_label(seeker)
-                %td= seeker.updated_at.strftime("%d.%m.%Y")
+                %td{sorttable_customkey: seeker.updated_at.strftime("%Y%m%d%H%M%S")}
+                  = seeker.updated_at.strftime("%d.%m.%Y")
                 %td.name= link_to seeker.name, edit_broker_seeker_path(seeker)
                 %td.street= seeker.street
                 %td.place= seeker.place.zip + ' ' + seeker.place.name
@@ -158,7 +161,7 @@
               %tr{ class: "organization organization-#{assignment.provider.try(:organization).try(:id)}" }
                 %td.status
                   = assignment_label(assignment)
-                %td.date
+                %td.date{sorttable_customkey: assignment.created_at.strftime("%Y%m%d%H%M%S")}
                   = assignment.created_at.strftime("%d.%m.%Y")
                 %td.name
                   = link_to assignment.seeker.name, edit_broker_seeker_path(assignment.seeker)
