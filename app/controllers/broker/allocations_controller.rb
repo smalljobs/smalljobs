@@ -50,24 +50,15 @@ class Broker::AllocationsController < InheritedResources::Base
     if @allocation.application_open?
       @allocation.state = :active
       @allocation.save!
-      if reject_other
-        @job.allocations.application_open.find_each do |allocation|
-          allocation.state = :application_rejected
-          allocation.save!
-        end
-      end
+      reject_other_allocations(@job) if reject_other
     elsif @allocation.application_rejected?
       @allocation.state = :active
       @allocation.save!
-      if reject_other
-        @job.allocations.application_open.find_each do |allocation|
-          allocation.state = :application_rejected
-          allocation.save!
-        end
-      end
+      reject_other_allocations(@job) if reject_other
     elsif @allocation.proposal?
       @allocation.state = :active
       @allocation.save!
+      reject_other_allocations(@job) if reject_other
     elsif @allocation.active?
       @allocation.state = :finished
       @allocation.save!
@@ -124,6 +115,13 @@ class Broker::AllocationsController < InheritedResources::Base
   end
 
   protected
+
+  def reject_other_allocations(job)
+    job.allocations.application_open.find_each do |allocation|
+      allocation.state = :application_rejected
+      allocation.save!
+    end
+  end
 
   def current_user
     current_broker

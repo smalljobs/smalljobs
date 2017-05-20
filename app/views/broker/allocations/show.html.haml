@@ -88,6 +88,8 @@
           %div.col-md-4
             %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#proposal_to_nothing_modal"}
               = "Nachricht senden"
+        %input{type: "checkbox", checked: "true", id: "reject_checkbox"}
+          = "Andere offene Bewerbungen ablehnen"
 
       - if @allocation.active?
         %h2= "Anstellung"
