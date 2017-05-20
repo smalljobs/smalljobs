@@ -41,6 +41,22 @@ class Job < ActiveRecord::Base
   after_save   :send_job_connected, if: proc { |s| s.state_changed? && s.state_was == 'available' && s.state == 'connected' }
   before_save :set_state_last_change,   if: proc { |s| s.state_changed?}
 
+  after_save :adjust_todo
+
+  def adjust_todo
+    Todo.where(record_type: :job, record_id: id).find_each &:destroy!
+    Todotype.job.find_each do |todotype|
+      begin
+        result = Job.find_by(todotype.where + " AND id = #{id}")
+        unless result.nil?
+          Todo.create(record_id: id, record_type: :job, todotype: todotype, job_id: id)
+        end
+      rescue
+        nil
+      end
+    end
+  end
+
   # scope :without_applications, -> { includes(:applications).where('applications.id IS NULL') }
 
   # Available date types

@@ -214,6 +214,10 @@ de:
         cannot_have_seeker_and_provider: "kann nicht gleichzeitig ein Jugendlicher und einen Anbieter bewerten"
         must_have_seeker_or_provider: "muss entweder einen Jugendlichen oder einen Anbieter bewerten"
       models:
+        todotype:
+          attributes:
+            where:
+              invalid_where: "Ungültige sql"
         seeker:
           attributes:
             mobile:

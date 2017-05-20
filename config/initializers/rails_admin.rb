@@ -5,6 +5,44 @@ RailsAdmin.config do |config|
     redirect_to main_app.root_path unless current_admin != nil
   end
 
+  config.model Todo do
+    list do
+      field :record_id
+      field :record_type
+    end
+
+    edit do
+      field :record_id do
+        read_only true
+      end
+      field :record_type do
+        read_only true
+      end
+      field :created_at do
+        read_only true
+      end
+      field :todotype do
+        read_only true
+      end
+    end
+  end
+
+  config.model Todotype do
+    list do
+      field :title
+      field :table
+    end
+
+    edit do
+      field :title
+      field :description, :rich_editor do
+        config(insert_many: true)
+      end
+      field :table
+      field :where
+    end
+  end
+
   config.model Help do
     list do
       field :title

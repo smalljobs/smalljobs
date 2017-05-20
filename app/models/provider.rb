@@ -33,6 +33,22 @@ class Provider < ActiveRecord::Base
   after_save :send_registration_email, if: proc { |s| s.confirmed_at_changed? && s.confirmed_at_was.nil? }
   after_save :send_activation_email,   if: proc { |s| s.active_changed? && s.active_was == false }
 
+  after_save :adjust_todo
+
+  def adjust_todo
+    Todo.where(record_type: :provider, record_id: id).find_each &:destroy!
+    Todotype.provider.find_each do |todotype|
+      begin
+        result = Provider.find_by(todotype.where + " AND id = #{id}")
+        unless result.nil?
+          Todo.create(record_id: id, record_type: :provider, todotype: todotype, provider_id: id)
+        end
+      rescue
+        nil
+      end
+    end
+  end
+
   # Returns the display name
   #
   # @return [String] the name

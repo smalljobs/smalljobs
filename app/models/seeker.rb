@@ -31,17 +31,33 @@ class Seeker < ActiveRecord::Base
   # validates :phone, phony_plausible: true
 
   validates :date_of_birth, presence: true
-  validates :sex, inclusion: { in: lambda { |m| m.sex_enum } }
+  validates :sex, inclusion: {in: lambda {|m| m.sex_enum}}
 
-  validates :contact_preference, inclusion: { in: lambda { |m| m.contact_preference_enum } }
-  validates :contact_availability, presence: true, if: lambda { %w(phone mobile).include?(self.contact_preference) }
+  validates :contact_preference, inclusion: {in: lambda {|m| m.contact_preference_enum}}
+  validates :contact_availability, presence: true, if: lambda {%w(phone mobile).include?(self.contact_preference)}
 
-  phony_normalize :phone,  default_country_code: 'CH'
+  phony_normalize :phone, default_country_code: 'CH'
   phony_normalize :mobile, default_country_code: 'CH'
 
   validate :ensure_seeker_age
 
   after_save :send_to_jugendinfo
+
+  after_save :adjust_todo
+
+  def adjust_todo
+    Todo.where(record_type: :seeker, record_id: id).find_each &:destroy!
+    Todotype.seeker.find_each do |todotype|
+      begin
+        result = Seeker.find_by(todotype.where + " AND id = #{id}")
+        unless result.nil?
+          Todo.create(record_id: id, record_type: :seeker, todotype: todotype, seeker_id: id)
+        end
+      rescue
+        nil
+      end
+    end
+  end
 
   # validate :ensure_work_category
 

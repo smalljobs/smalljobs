@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170518175305) do
+ActiveRecord::Schema.define(version: 20170519222955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -309,6 +309,32 @@ ActiveRecord::Schema.define(version: 20170518175305) do
     t.integer "work_category_id"
   end
 
+  create_table "todos", force: :cascade do |t|
+    t.integer  "record_id"
+    t.integer  "record_type"
+    t.integer  "todotype_id"
+    t.integer  "seeker_id"
+    t.integer  "job_id"
+    t.integer  "provider_id"
+    t.integer  "allocation_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["allocation_id"], name: "index_todos_on_allocation_id", using: :btree
+    t.index ["job_id"], name: "index_todos_on_job_id", using: :btree
+    t.index ["provider_id"], name: "index_todos_on_provider_id", using: :btree
+    t.index ["seeker_id"], name: "index_todos_on_seeker_id", using: :btree
+    t.index ["todotype_id"], name: "index_todos_on_todotype_id", using: :btree
+  end
+
+  create_table "todotypes", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "table"
+    t.string   "where"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "work_categories", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
     t.datetime "created_at"
@@ -316,4 +342,9 @@ ActiveRecord::Schema.define(version: 20170518175305) do
     t.index ["name"], name: "index_work_categories_on_name", using: :btree
   end
 
+  add_foreign_key "todos", "allocations"
+  add_foreign_key "todos", "jobs"
+  add_foreign_key "todos", "providers"
+  add_foreign_key "todos", "seekers"
+  add_foreign_key "todos", "todotypes"
 end

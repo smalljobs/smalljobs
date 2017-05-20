@@ -19,6 +19,7 @@ class Broker::DashboardsController < ApplicationController
     @providers = current_broker.providers.includes(:place, :jobs, :organization)
     @seekers = current_broker.seekers.includes(:place, :organization)
     @assignments = current_broker.assignments.includes(:seeker, :provider)
+    @todos = Todo.where(seeker: @seekers).or(Todo.where(provider: @providers)).or(Todo.where(job: @jobs)).or(Todo.where(allocation: allocations))
   end
 
   def save_settings
