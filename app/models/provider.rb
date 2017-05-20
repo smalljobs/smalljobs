@@ -10,6 +10,8 @@ class Provider < ActiveRecord::Base
   belongs_to :place, inverse_of: :providers
   belongs_to :organization
 
+  has_many :todos
+
   before_save :nullify_blank_email
 
   validates :firstname, :lastname, presence: true

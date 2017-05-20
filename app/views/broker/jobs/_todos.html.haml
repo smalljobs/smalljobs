@@ -1,0 +1,3 @@
+- for todo in @job.todos
+  %h4= 'TODO: ' + todo.todotype.title
+  %p= todo.todotype.description.html_safe

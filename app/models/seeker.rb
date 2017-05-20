@@ -15,6 +15,8 @@ class Seeker < ActiveRecord::Base
 
   has_many :jobs, through: :allocations
 
+  has_many :todos
+
   belongs_to :place, inverse_of: :seekers
   belongs_to :organization
 
