@@ -45,13 +45,26 @@ class Broker::AllocationsController < InheritedResources::Base
   def change_state
     @job = Job.find_by(id: params[:job_id])
     @allocation = Allocation.find_by(id: params[:id])
+    reject_other = params[:reject_other].to_s == 'true'
 
     if @allocation.application_open?
       @allocation.state = :active
       @allocation.save!
+      if reject_other
+        @job.allocations.application_open.find_each do |allocation|
+          allocation.state = :application_rejected
+          allocation.save!
+        end
+      end
     elsif @allocation.application_rejected?
       @allocation.state = :active
       @allocation.save!
+      if reject_other
+        @job.allocations.application_open.find_each do |allocation|
+          allocation.state = :application_rejected
+          allocation.save!
+        end
+      end
     elsif @allocation.proposal?
       @allocation.state = :active
       @allocation.save!

@@ -37,6 +37,8 @@
           %div.col-md-4
             %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#open_to_nothing_modal"}
               = "Nachricht senden"
+        %input{type: "checkbox", checked: "true", id: "reject_checkbox"}
+          = "Andere offene Bewerbungen ablehnen"
 
       - if @allocation.application_rejected?
         %h2= "Bewerbung abgelehnt"
@@ -59,6 +61,8 @@
           %div.col-md-4
             %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#rejected_to_nothing_modal"}
               = "Nachricht senden"
+        %input{type: "checkbox", checked: "true", id: "reject_checkbox"}
+          = "Andere offene Bewerbungen ablehnen"
 
       - if @allocation.proposal?
         %h2= "Vorgeschlagen"
@@ -218,7 +222,13 @@
 
       $('.change_state').click(function(){
         $('button').attr('disabled', 'disabled');
-        $.get("#{change_state_broker_job_allocation_path(@job, @allocation)}", function(response){
+        var $checkbox = $('#reject_checkbox');
+        var reject_other = false;
+        if($checkbox.is(":checked")) {
+          reject_other = true;
+        }
+
+        $.get("#{change_state_broker_job_allocation_path(@job, @allocation)}?reject_other=" + reject_other, function(response){
           sendMessage(function(){
           sessionStorage.setItem('showModal', true);
             window.location.href = response['redirect_to'];
