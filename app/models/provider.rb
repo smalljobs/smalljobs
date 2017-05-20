@@ -82,7 +82,8 @@ class Provider < ActiveRecord::Base
   # @return [Boolean] the status
   #
   def active_for_authentication?
-    super && active?
+    # super && active?
+    super
   end
 
   # Return the I18n message key when authentication fails
@@ -98,11 +99,12 @@ class Provider < ActiveRecord::Base
   # @return [Symbol] the i18n key
   #
   def inactive_message
-    if !confirmed?
-      self.email.blank? ? :unconfirmed_manual : :unconfirmed
-    else
-      super
-    end
+    super
+    # if !confirmed_at?
+    #   self.email.blank? ? :unconfirmed_manual : :unconfirmed
+    # else
+    #   super
+    # end
   end
 
   # @!endgroup

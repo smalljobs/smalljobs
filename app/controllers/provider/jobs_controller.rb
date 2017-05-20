@@ -17,6 +17,7 @@ class Provider::JobsController < InheritedResources::Base
     @job = Job.new(permitted_params[:job])
     @job.provider = current_provider
     @job.state = 'hidden'
+    @job.organization = current_provider.organization
 
     authorize!(:create, @job)
     create!
