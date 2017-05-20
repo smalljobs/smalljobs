@@ -16,6 +16,7 @@ if Object.const_defined?("Rich")
     # you are editing. To disable this:
     #   config.editor[:startupOutlineBlocks] = false
 
+    config.editor[:format_tags] = "h4;h3;p;pre"
     
     # == Image styles
     # 
