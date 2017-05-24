@@ -1,4 +1,4 @@
-= simple_form_for([:broker, @seeker], html: { novalidate: true }) do |f|
+= simple_form_for([:broker, @seeker], html: { novalidate: false }) do |f|
 
   - if notification = f.error_notification
     .alert.alert-danger
