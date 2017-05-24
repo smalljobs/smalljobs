@@ -55,6 +55,8 @@ class Broker::SeekersController < InheritedResources::Base
   end
 
   def delete
+    Todo.where(seeker_id: @seeker.id).find_each(&:destroy!)
+
     Allocation.where(seeker_id: @seeker.id).find_each(&:destroy!)
 
     Assignment.where(seeker_id: @seeker.id).find_each(&:destroy!)

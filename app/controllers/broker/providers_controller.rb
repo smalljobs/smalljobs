@@ -36,6 +36,8 @@ class Broker::ProvidersController < InheritedResources::Base
   end
 
   def delete
+    Todo.where(provider_id: @provider.id).find_each(&:destroy!)
+
     Job.where(provider_id: @provider.id).find_each do |job|
       Allocation.where(job_id: job.id).find_each(&:destroy!)
 
@@ -45,6 +47,7 @@ class Broker::ProvidersController < InheritedResources::Base
     end
 
     Assignment.where(provider_id: @provider.id).find_each(&:destroy!)
+
 
     @provider.destroy!
 

@@ -38,9 +38,12 @@ class Broker::JobsController < InheritedResources::Base
   end
 
   def delete
+    Todo.where(job_id: @job.id).find_each(&:destroy!)
+
     Allocation.where(job_id: @job.id).find_each(&:destroy!)
 
     Assignment.where(job_id: @job.id).find_each(&:destroy!)
+
 
     @job.destroy!
 
