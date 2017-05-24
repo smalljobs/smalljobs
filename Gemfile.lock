@@ -1,15 +1,3 @@
-GIT
-  remote: git://github.com/bastiaanterhorst/rich.git
-  revision: 2c8f85438e7391f9a11d4972272723bbe85844cd
-  specs:
-    rich (1.4.8)
-      jquery-rails
-      kaminari
-      mime-types
-      rack-raw-upload
-      rails (>= 3.2.0)
-      sass-rails
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -507,6 +495,14 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    rich (1.4.6)
+      jquery-rails
+      kaminari
+      mime-types
+      paperclip
+      rack-raw-upload
+      rails (>= 3.2.0)
+      sass-rails
     rollbar (2.14.1)
       multi_json
     rqrcode (0.10.1)
@@ -671,7 +667,7 @@ DEPENDENCIES
   rails_admin
   redcarpet
   rest-client
-  rich!
+  rich
   rollbar
   rqrcode
   rspec-rails
