@@ -105,7 +105,7 @@ if Object.const_defined?("Rich")
     # Default (NOT recommended in production environments): 
     # config.authentication_method = :none
 
-    config.authentication_method = :authenticate_admin!
+    config.authentication_method = :none
 
   end
   
