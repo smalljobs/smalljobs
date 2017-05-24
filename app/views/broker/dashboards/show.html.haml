@@ -232,6 +232,7 @@
       providersList.search(searchString);
       seekersList.search(searchString);
       assignmentsList.search(searchString);
+      todosList.search(searchString);
     }
 
     function loadOrganization() {
@@ -286,6 +287,7 @@
     var providersList = new List('providers', options);
     var seekersList = new List('seekers', options);
     var assignmentsList = new List('assignments', options);
+    var todosList = new List('todo', options);
 
     $('#search-field').on('keyup', function() {
       var searchString = $(this).val();
@@ -299,6 +301,7 @@
       providersList.search(searchString);
       seekersList.search(searchString);
       assignmentsList.search(searchString);
+      todosList.search(searchString);
     });
 
     $('#clear-btn').click(function(){
@@ -309,6 +312,7 @@
       providersList.search(searchString);
       seekersList.search(searchString);
       assignmentsList.search(searchString);
+      todosList.search(searchString);
     });
 
     checkSearchField();
