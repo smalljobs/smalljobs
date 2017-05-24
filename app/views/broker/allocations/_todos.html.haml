@@ -1,3 +1,5 @@
+- if @allocation.todos.exists?
+  %h3= 'TODO'
 - for todo in @allocation.todos
-  %h4= 'TODO: ' + todo.todotype.title
+  %h4= todo.todotype.title
   %p= todo.todotype.description.html_safe
