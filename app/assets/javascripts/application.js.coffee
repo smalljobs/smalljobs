@@ -103,6 +103,9 @@ ready = ->
     window.location.href = new_url
   );
 
+  $('.notifications a.close').click(->
+    $('div.notifications').addClass('display-none');
+  );
 #  console.log(history_array)
 
 #  bajb_backdetect.OnBack = ->
