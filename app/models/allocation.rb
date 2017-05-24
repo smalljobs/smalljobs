@@ -21,7 +21,7 @@ class Allocation < ActiveRecord::Base
       begin
         result = Allocation.find_by(todotype.where + " AND id = #{id}")
         unless result.nil?
-          Todo.create(record_id: id, record_type: :allocation, todotype: todotype, allocation_id: id, seeker_id: seeker_id, job_id: job_id, provider_id: provider_id)
+          Todo.create(record_id: id, record_type: :allocation, todotype: todotype, allocation_id: id, seeker_id: seeker_id, job_id: job_id, provider_id: job.provider_id)
         end
       rescue
         nil
