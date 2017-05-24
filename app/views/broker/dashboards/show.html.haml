@@ -63,8 +63,18 @@
                   = todo.created_at.strftime("%d.%m.%Y")
                 %td.title
                   = todo.todotype.title
-                %td.description
                   = todo.todotype.description.html_safe
+                %td.description
+                  - if todo.record_type == 'job'
+                    = link_to 'Job: ' + todo.job.title, edit_broker_job_path(todo.job)
+                  - elsif todo.record_type == 'provider'
+                    = link_to 'Anbieterln: ' + todo.provider.name, edit_broker_provider_path(todo.provider)
+                  - elsif todo.record_type == 'seeker'
+                    = link_to 'JugendlicheR: ' + todo.seeker.name, edit_broker_seeker_path(todo.seeker)
+                  - elsif todo.record_type == 'allocation'
+                    = link_to 'JugendlicheR: ' + todo.seeker.name, edit_broker_seeker_path(todo.seeker)
+                    = link_to 'Anbieterln: ' + todo.provider.name, edit_broker_provider_path(todo.provider)
+                    = link_to 'Job: ' + todo.job.title, edit_broker_job_path(todo.job)
 
     %div{id: 'jobs', class: 'tab-pane fade in'}
       %br

@@ -6,4 +6,28 @@ class Todo < ApplicationRecord
   belongs_to :provider
   belongs_to :job
   belongs_to :allocation
+
+  def link_to_context
+    if record_type == 'job'
+      url_for edit_broker_job_path(job_id)
+    elsif record_type == 'provider'
+      url_for edit_broker_provider_path(provider_id)
+    elsif record_type == 'allocation'
+      url_for broker_job_allocation_path(job_id, seeker_id)
+    elsif record_type == 'seeker'
+      url_for edit_broker_seeker_path(seeker_id)
+    end
+  end
+
+  def text_for_type
+    if record_type == 'job'
+      'Job'
+    elsif record_type == 'provider'
+      'Anbieterln'
+    elsif record_type == 'allocation'
+      ''
+    elsif record_type == 'seeker'
+      'Jugendlicher'
+    end
+  end
 end
