@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/bastiaanterhorst/rich.git
+  remote: git://github.com/kreativgebiet/rich.git
   revision: 2c8f85438e7391f9a11d4972272723bbe85844cd
   specs:
     rich (1.4.8)

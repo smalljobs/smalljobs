@@ -1,7 +1,7 @@
 class Todotype < ApplicationRecord
   enum table: { job: 1, provider: 2, allocation: 3, seeker: 4 }
 
-  has_many :todos
+  has_many :todos, dependent: :destroy
 
   validates :table, presence: true
   validates :title, presence: true
