@@ -64,6 +64,14 @@ GEM
     arel (7.1.4)
     autoprefixer-rails (6.7.7.2)
       execjs
+    aws-sdk (2.9.25)
+      aws-sdk-resources (= 2.9.25)
+    aws-sdk-core (2.9.25)
+      aws-sigv4 (~> 1.0)
+      jmespath (~> 1.0)
+    aws-sdk-resources (2.9.25)
+      aws-sdk-core (= 2.9.25)
+    aws-sigv4 (1.0.0)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
@@ -358,6 +366,7 @@ GEM
     jbuilder (2.6.3)
       activesupport (>= 3.0.0, < 5.2)
       multi_json (~> 1.2)
+    jmespath (1.3.1)
     jquery-rails (4.3.1)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -623,6 +632,7 @@ PLATFORMS
 
 DEPENDENCIES
   activevalidators
+  aws-sdk
   better_errors
   binding_of_caller
   bootstrap-sass

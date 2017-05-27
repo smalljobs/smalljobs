@@ -45,6 +45,7 @@ gem 'storext'
 gem 'scout_apm'
 gem 'rich', github: 'kreativgebiet/rich'
 gem 'paperclip'
+gem 'aws-sdk'
 
 group :development, :test do
   gem 'better_errors'
