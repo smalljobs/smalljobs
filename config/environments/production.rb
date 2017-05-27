@@ -11,7 +11,7 @@ Smalljobs::Application.configure do
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
 
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
@@ -82,26 +82,25 @@ Smalljobs::Application.configure do
 
   # Sendgrid Config
   ActionMailer::Base.smtp_settings = {
-    address:              'smtp.sendgrid.net',
-    port:                 '587',
-    authentication:       :plain,
-    user_name:            ENV['SENDGRID_USERNAME'],
-    password:             ENV['SENDGRID_PASSWORD'],
-    domain:               'heroku.com',
-    enable_starttls_auto: true
+      address: 'smtp.sendgrid.net',
+      port: '587',
+      authentication: :plain,
+      user_name: ENV['SENDGRID_USERNAME'],
+      password: ENV['SENDGRID_PASSWORD'],
+      domain: 'heroku.com',
+      enable_starttls_auto: true
   }
 
-  Paperclip::Attachment.default_options.merge!(
-      storage: :s3,
-      region: ENV['AWS_REGION'],
-      bucket: ENV['S3_BUCKET_NAME'],
-      url: "/system/:class/:attachment/:id/:style/:filename",
-      s3_credentials: {
-          access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-          secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
+  config.paperclip_defaults = {
+      :storage => :s3,
+      :s3_region => ENV['AWS_REGION'],
+      :s3_credentials => {
+          :bucket => ENV['S3_BUCKET_NAME'],
+          :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+          :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
       }
-  )
+  }
 
   # Mailer default link host
-  config.action_mailer.default_url_options = { host: 'winterthur.smalljobs.ch' }
+  config.action_mailer.default_url_options = {host: 'winterthur.smalljobs.ch'}
 end
