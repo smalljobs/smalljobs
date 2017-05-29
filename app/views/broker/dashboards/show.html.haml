@@ -71,11 +71,11 @@
                   - elsif todo.record_type == 'seeker'
                     = link_to 'JugendlicheR: ' + todo.seeker.name, edit_broker_seeker_path(todo.seeker)
                   - elsif todo.record_type == 'allocation'
-                    = link_to 'JugendlicheR: ' + todo.seeker.name, edit_broker_seeker_path(todo.seeker)
+                    = link_to 'JugendlicheR: ' + todo.seeker.name, broker_job_allocation_path(todo.job, todo.seeker)
                     %br
-                    = link_to 'Anbieterln: ' + todo.provider.name, edit_broker_provider_path(todo.provider)
+                    = link_to 'Anbieterln: ' + todo.provider.name, broker_job_allocation_path(todo.job, todo.seeker)
                     %br
-                    = link_to 'Job: ' + todo.job.title, edit_broker_job_path(todo.job)
+                    = link_to 'Job: ' + todo.job.title, broker_job_allocation_path(todo.job, todo.seeker)
 
     %div{id: 'jobs', class: 'tab-pane fade in'}
       %br
