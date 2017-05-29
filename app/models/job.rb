@@ -75,7 +75,7 @@ class Job < ActiveRecord::Base
   #
   def state_enum
     # %w(created available connected rated)
-    %w(hidden public running feedback finished)
+    %w(hidden public check feedback finished)
   end
 
   # Available salary types
@@ -145,7 +145,7 @@ class Job < ActiveRecord::Base
     elsif state_int == 1
       return 'public'
     elsif state_int == 2
-      return 'running'
+      return 'check'
     elsif state_int == 3
       return 'feedback'
     elsif state_int == 4
@@ -160,7 +160,7 @@ class Job < ActiveRecord::Base
       return 0
     elsif state == 'public'
       return 1
-    elsif state == 'running'
+    elsif state == 'check'
       return 2
     elsif state == 'feedback'
       return 3

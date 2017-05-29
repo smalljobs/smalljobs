@@ -221,7 +221,7 @@ module ApplicationHelper
         bootstrap_label('warning', I18n.t('common.hidden'))
       when 'public'
         bootstrap_label('info', I18n.t('common.public'))
-      when 'running'
+      when 'check'
         bootstrap_label('info', I18n.t('common.running'))
       when 'feedback'
         bootstrap_label('success', I18n.t('common.finished'))
