@@ -20,7 +20,7 @@ class Todotype < ApplicationRecord
         elsif table == 'provider'
           Provider.find_by(where)
         elsif table == 'allocation'
-          Allocation.find_by(where)
+          Allocation.find_by(Allocation.replace_state_with_number(where))
         elsif table == 'seeker'
           Seeker.find_by(where)
         end
