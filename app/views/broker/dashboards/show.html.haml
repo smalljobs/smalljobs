@@ -63,7 +63,6 @@
                   = todo.created_at.strftime("%d.%m.%Y")
                 %td.title
                   = todo.todotype.title
-                  = todo.todotype.description.html_safe
                 %td.description
                   - if todo.record_type == 'job'
                     = link_to 'Job: ' + todo.job.title, edit_broker_job_path(todo.job)
