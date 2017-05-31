@@ -16,11 +16,11 @@ class Todotype < ApplicationRecord
     else
       begin
         if table == 'job'
-          Job.find_by(where)
+          Job.joins(:allocations).find_by(where)
         elsif table == 'provider'
           Provider.find_by(where)
         elsif table == 'allocation'
-          Allocation.find_by(Allocation.replace_state_with_number(where))
+          Allocation.joins(:seeker, job: :provider).find_by(Allocation.replace_state_with_number(where))
         elsif table == 'seeker'
           Seeker.find_by(where)
         end

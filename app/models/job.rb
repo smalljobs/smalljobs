@@ -49,7 +49,7 @@ class Job < ActiveRecord::Base
     Todo.where(record_type: :job, record_id: id).find_each &:destroy!
     Todotype.job.find_each do |todotype|
       begin
-        result = Job.find_by(todotype.where + " AND id = #{id}")
+        result = Job.joins(:allocations).find_by(todotype.where + " AND jobs.id = #{id}")
         unless result.nil?
           Todo.create(record_id: id, record_type: :job, todotype: todotype, job_id: id)
         end

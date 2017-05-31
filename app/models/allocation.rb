@@ -19,7 +19,7 @@ class Allocation < ActiveRecord::Base
     Todo.where(record_type: :allocation, record_id: id).find_each &:destroy!
     Todotype.allocation.find_each do |todotype|
       begin
-        result = Allocation.find_by(Allocation.replace_state_with_number(todotype.where) + " AND id = #{id}")
+        result = Allocation.joins(:seeker, job: :provider).find_by(Allocation.replace_state_with_number(todotype.where) + " AND allocations.id = #{id}")
         unless result.nil?
           Todo.create(record_id: id, record_type: :allocation, todotype: todotype, allocation_id: id, seeker_id: seeker_id, job_id: job_id, provider_id: job.provider_id)
         end
