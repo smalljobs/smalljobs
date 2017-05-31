@@ -7,6 +7,18 @@ class Todo < ApplicationRecord
   belongs_to :job
   belongs_to :allocation
 
+  def organization_id
+    if record_type == 'job'
+      job.try(:organization).try(:id)
+    elsif record_type == 'provider'
+      provider.try(:organization).try(:id)
+    elsif record_type == 'allocation'
+      allocation.job.try(:organization).try(:id)
+    elsif record_type == 'seeker'
+      seeker.try(:organization).try(:id)
+    end
+  end
+
   def link_to_context
     if record_type == 'job'
       url_for edit_broker_job_path(job_id)

@@ -57,7 +57,7 @@
               %tr
                 %td{colspan: 3}= "Es sind noch keine Todo in deiner Region erfasst"
             - @todos.each do |todo|
-              %tr
+              %tr{ class: "organization organization-#{todo.organization_id}" }
                 - sortable_date = todo.created_at.strftime("%Y%m%d%H%M%S")
                 %td.date{sorttable_customkey: sortable_date}
                   = todo.created_at.strftime("%d.%m.%Y")
