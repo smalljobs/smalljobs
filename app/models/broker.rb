@@ -18,7 +18,7 @@ class Broker < ActiveRecord::Base
   validates :firstname, :lastname, :phone, presence: true
   validates :phone, :mobile, phony_plausible: true
 
-  phony_normalize :phone,  default_country_code: 'CH'
+  phony_normalize :phone, default_country_code: 'CH'
   phony_normalize :mobile, default_country_code: 'CH'
 
   store_attributes :settings do
@@ -42,7 +42,7 @@ class Broker < ActiveRecord::Base
   # @return [String] the name
   #
   def name
-    "#{ firstname } #{ lastname }"
+    "#{firstname} #{lastname}"
   end
 
   # @!group Devise

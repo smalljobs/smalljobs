@@ -9,10 +9,10 @@ class Place < ActiveRecord::Base
   validates :zip, :name, :longitude, :latitude, presence: true
 
   def custom_name
-    return "#{zip} #{name}"
+    "#{zip} #{name}"
   end
 
   def full_name
-    return "#{zip} #{name}"
+    "#{zip} #{name}"
   end
 end

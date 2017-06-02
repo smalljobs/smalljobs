@@ -2,7 +2,6 @@ class Provider < ActiveRecord::Base
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, authentication_keys: [:email]
 
-  # include ConfirmToggle
   enum state: {inactive: 1, active: 2, completed: 3}
 
   has_many :jobs
@@ -20,20 +19,20 @@ class Provider < ActiveRecord::Base
 
   validates :street, :place, presence: true
 
-  validates :email, email: true, unless: "email.nil? || email.blank?"
-  validates :email, uniqueness: true, unless: "email.nil? || email.blank?"
-  validates :phone,  phony_plausible: true
+  validates :email, email: true, unless: 'email.nil? || email.blank?'
+  validates :email, uniqueness: true, unless: 'email.nil? || email.blank?'
+  validates :phone, phony_plausible: true
   validates :mobile, phony_plausible: true
 
-  validates :contact_preference, inclusion: { in: lambda { |m| m.contact_preference_enum } }
+  validates :contact_preference, inclusion: {in: lambda {|m| m.contact_preference_enum}}
 
   validates_acceptance_of :terms, allow_nil: false, on: :create
 
-  phony_normalize :phone,  default_country_code: 'CH'
+  phony_normalize :phone, default_country_code: 'CH'
   phony_normalize :mobile, default_country_code: 'CH'
 
-  after_save :send_registration_email, if: proc { |s| s.confirmed_at_changed? && s.confirmed_at_was.nil? }
-  after_save :send_activation_email,   if: proc { |s| s.active_changed? && s.active_was == false }
+  after_save :send_registration_email, if: proc {|s| s.confirmed_at_changed? && s.confirmed_at_was.nil?}
+  after_save :send_activation_email, if: proc {|s| s.active_changed? && s.active_was == false}
 
   after_save :adjust_todo
 
@@ -56,7 +55,7 @@ class Provider < ActiveRecord::Base
   # @return [String] the name
   #
   def name
-    "#{ firstname } #{ lastname }"
+    "#{firstname} #{lastname}"
   end
 
   # Available options for the contact preference
@@ -109,7 +108,7 @@ class Provider < ActiveRecord::Base
   # do not trigger the unique constraint
   #
   def nullify_blank_email
-    self.email = nil if self.email.blank?
+    email = nil if email.blank?
   end
 
   # Send the broker an email about the new seeker.

@@ -12,8 +12,6 @@ class Assignment < ActiveRecord::Base
 
   # Sets start time if not provided
   def set_start
-    if self.start_time == nil
-      self.start_time = DateTime.now()
-    end
+    self.start_time = DateTime.now if start_time.nil?
   end
 end

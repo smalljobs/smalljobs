@@ -127,7 +127,7 @@ class Seeker < ActiveRecord::Base
   # @return [Boolean] validation status
   #
   def ensure_work_category
-    if work_categories.size == 0
+    if work_categories.empty?
       errors.add(:work_categories, :invalid_work_category)
     end
   end
@@ -148,9 +148,9 @@ class Seeker < ActiveRecord::Base
   # Make post request to jugendinfo API
   def send_to_jugendinfo
     require 'rest-client'
-    dev = "http://devadmin.jugendarbeit.digital/api/jugendinfo_user/update_data/"
-    live = "http://admin.jugendarbeit.digital/api/jugendinfo_user/update_data/"
-    RestClient.post dev, {token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', id: self.app_user_id, smalljobs_user_id: self.id, firstname: self.firstname, lastname: self.lastname, mobile: self.mobile, address: self.street, zip: self.place.zip, birthdate: self.date_of_birth.strftime('%Y-%m-%d'), city: self.place.name, smalljobs_status: Seeker.statuses[self.status]}
+    dev = 'http://devadmin.jugendarbeit.digital/api/jugendinfo_user/update_data/'
+    live = 'http://admin.jugendarbeit.digital/api/jugendinfo_user/update_data/'
+    RestClient.post dev, {token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', id: app_user_id, smalljobs_user_id: id, firstname: firstname, lastname: lastname, mobile: mobile, address: street, zip: place.zip, birthdate: date_of_birth.strftime('%Y-%m-%d'), city: place.name, smalljobs_status: Seeker.statuses[status]}
   end
 
 end
