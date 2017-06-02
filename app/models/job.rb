@@ -59,8 +59,6 @@ class Job < ActiveRecord::Base
     end
   end
 
-  # scope :without_applications, -> { includes(:applications).where('applications.id IS NULL') }
-
   # Available date types
   #
   # @return [Array<String>] list of possible dates types
@@ -74,7 +72,6 @@ class Job < ActiveRecord::Base
   # @return [Array<String>] list of possible job states
   #
   def state_enum
-    # %w(created available connected rated)
     %w(hidden public check feedback finished)
   end
 
@@ -90,15 +87,6 @@ class Job < ActiveRecord::Base
   # and reviews arrives
   #
   def evaluate_state(assoc)
-    # if self.reviews.count >= self.manpower + 1
-    #   self.update_attribute(:state, 'rated')
-    #
-    # elsif self.allocations.count >= self.manpower
-    #   self.update_attribute(:state, 'connected')
-    #
-    # else
-    #   self.update_attribute(:state, 'available')
-    # end
   end
 
   # Sends a notification when a job in the

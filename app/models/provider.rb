@@ -82,7 +82,6 @@ class Provider < ActiveRecord::Base
   # @return [Boolean] the status
   #
   def active_for_authentication?
-    # super && active?
     super
   end
 
@@ -100,11 +99,6 @@ class Provider < ActiveRecord::Base
   #
   def inactive_message
     super
-    # if !confirmed_at?
-    #   self.email.blank? ? :unconfirmed_manual : :unconfirmed
-    # else
-    #   super
-    # end
   end
 
   # @!endgroup
