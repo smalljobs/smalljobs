@@ -39,9 +39,7 @@ class Job < ActiveRecord::Base
     greater_than_or_equal_to: 1
   }
 
-  after_create :send_job_created,   if: proc { |s| s.state == 'created' }
-  after_save   :send_job_connected, if: proc { |s| s.state_changed? && s.state_was == 'available' && s.state == 'connected' }
-  before_save :set_state_last_change,   if: proc { |s| s.state_changed?}
+  before_save :set_state_last_change, if: proc { |s| s.state_changed?}
 
   after_save :adjust_todo
 
