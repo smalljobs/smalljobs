@@ -21,6 +21,6 @@ class AccessToken < ActiveRecord::Base
   end
 
   def generate_auth_token
-    SecureRandom.uuid.delete(/-/)
+    SecureRandom.uuid.delete('-')
   end
 end
