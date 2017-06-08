@@ -69,7 +69,7 @@ class ApiController < ApplicationController
       return
     end
 
-    user_params[:date_of_birth] = DateTime.strptime(user_params[:birthdate], '%s')
+    user_params[:date_of_birth] = DateTime.strptime(user_params[:birthdate], '%s').in_time_zone('Warsaw')
     user_params.except!(:birthdate)
     user_params[:login] = user_params[:phone]
     user_params[:mobile] = user_params[:phone]
