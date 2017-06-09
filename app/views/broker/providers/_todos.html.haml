@@ -1,6 +1,6 @@
 - if @provider.todos.exists?
   %div.bg-info.provider_allocations
     %h3= 'TODO'
-    - for todo in @provider.todos
+    - for todo in @provider.todos.provider
       %h4= todo.todotype.title
       %p= todo.todotype.description.html_safe
