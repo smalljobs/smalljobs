@@ -6,7 +6,7 @@
 
   .form-actions
     - if @seeker.new_record?
-      = f.button :submit, t('common.create'), class: 'btn btn-primary btn-success'
+      = f.button :submit, "Jugendlichen erstellen", class: 'btn btn-primary btn-success'
     - else
       = f.button :submit, t('common.edit'), class: 'btn btn-primary btn-success'
 

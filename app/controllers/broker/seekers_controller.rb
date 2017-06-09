@@ -10,7 +10,7 @@ class Broker::SeekersController < InheritedResources::Base
   end
 
   def show
-    redirect_to request.referer
+    redirect_to edit_broker_seeker_path(@seeker)
   end
 
   def new

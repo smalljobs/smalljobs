@@ -10,7 +10,7 @@ class Broker::ProvidersController < InheritedResources::Base
   end
 
   def show
-    redirect_to request.referer
+    redirect_to edit_broker_provider_path(@provider)
   end
 
   def new
