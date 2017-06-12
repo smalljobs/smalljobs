@@ -135,6 +135,9 @@ Smalljobs::Application.routes.draw do
     delete '/assignments/:id' => 'api#delete_assignment'
     get '/assignments' => 'api#list_assignments'
     get '/assignments/:id' => 'api#show_assignment'
+    post '/users/password/remind' => 'api#password_remind'
+    post '/users/password/validate' => 'api#password_validate'
+    post '/users/password/change' => 'api#password_change'
   end
 
   #API
@@ -159,7 +162,9 @@ Smalljobs::Application.routes.draw do
   delete '/api/assignments/:id' => 'api#delete_assignment'
   get '/api/assignments' => 'api#list_assignments'
   get '/api/assignments/:id' => 'api#show_assignment'
-
+  post '/api/users/password/remind' => 'api#password_remind'
+  post '/api/users/password/validate' => 'api#password_validate'
+  post '/api/users/password/change' => 'api#password_change'
 
   root 'regions#index'
 end

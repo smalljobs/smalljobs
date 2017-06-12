@@ -149,7 +149,7 @@ class ApiController < ApplicationController
     end
 
     if seeker.update(user_params)
-      render json: {'message': 'User updated successfully'}, status: 200
+      render json: {message: 'User updated successfully'}, status: 200
     else
       render json: {code: 'users/invalid', message: seeker.errors.first}, status: 422
     end
@@ -529,7 +529,79 @@ class ApiController < ApplicationController
     render json: ApiHelper::assignment_with_data_to_json(assignment, show_provider, show_organization, show_seeker, show_job)
   end
 
+  def password_remind
+    phone = params[:phone]
+
+    seeker = Seeker.find_by(phone: phone)
+    if seeker.nil?
+      render json: {code: 'users/not_found', message: 'User not found'}, status: 404
+      return
+    end
+
+    code = ApiHelper::generate_code
+
+    client = Nexmo::Client.new(key: ENV['NEXMO_API_KEY'], secret: ENV['NEXMO_API_SECRET'])
+
+    response = client.send_message(from: 'smalljobs', to: phone, text: code)
+
+    if response['messages'][0]['status'] == '0'
+      seeker.recovery_code = code
+      seeker.save!
+      render json: {message: 'Success. SMS sent to user'}, status: 200
+    else
+      render json: {code: 'users/error', message: 'Error sending message'}, status: 500
+    end
+  end
+
+  def password_validate
+    phone = params[:phone]
+    code = params[:code]
+
+    seeker = Seeker.find_by(phone: phone)
+    if seeker.nil?
+      render json: {code: 'users/not_found', message: 'User not found'}, status: 404
+      return
+    end
+
+    if seeker.recovery_code != code
+      render json: {code: 'users/invalid', message: 'Invalid code'}, status: 401
+      return
+    end
+
+    seeker.recovery_code = nil
+    seeker.save!
+
+    render json: {message: 'Success. Security code is valid.'}, status: 200
+  end
+
+  def password_change
+    phone = params[:phone]
+    code = params[:code]
+    password = params[:password]
+
+    seeker = Seeker.find_by(phone: phone)
+    if seeker.nil?
+      render json: {code: 'users/not_found', message: 'User not found'}, status: 404
+      return
+    end
+
+    if seeker.recovery_code != code
+      render json: {code: 'users/invalid', message: 'Invalid code'}, status: 401
+      return
+    end
+
+    seeker.recovery_code = nil
+    seeker.password = password
+
+    if seeker.save
+      render json: {message: 'Success. Password changed successfully.'}, status: 200
+    else
+      render json: {code: 'users/error', message: seeker.errors.first}, status: 422
+    end
+  end
+
   protected
+
   def true?(obj)
     obj.to_s == 'true'
   end

@@ -265,4 +265,8 @@ module ApiHelper
     json[:name] = category.name
     return json
   end
+
+  def self.generate_code
+    (0...6).map { SecureRandom.random_number(10) }.join
+  end
 end

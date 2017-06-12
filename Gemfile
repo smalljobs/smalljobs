@@ -44,6 +44,7 @@ gem 'scout_apm'
 gem 'rich', github: 'kreativgebiet/rich'
 gem 'paperclip'
 gem 'aws-sdk'
+gem 'nexmo'
 
 group :development, :test do
   gem 'better_errors'
