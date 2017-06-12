@@ -534,7 +534,7 @@ class ApiController < ApplicationController
   end
 
   def password_validate
-    phone = params[:phone]
+    phone = PhonyRails.normalize_number(params[:phone], default_country_code: 'CH')
     code = params[:code]
 
     seeker = Seeker.find_by(mobile: phone)
@@ -555,7 +555,7 @@ class ApiController < ApplicationController
   end
 
   def password_change
-    phone = params[:phone]
+    phone = PhonyRails.normalize_number(params[:phone], default_country_code: 'CH')
     code = params[:code]
     password = params[:password]
 
