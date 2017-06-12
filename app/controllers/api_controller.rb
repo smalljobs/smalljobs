@@ -548,9 +548,6 @@ class ApiController < ApplicationController
       return
     end
 
-    seeker.recovery_code = nil
-    seeker.save!
-
     render json: {message: 'Success. Security code is valid.'}, status: 200
   end
 
