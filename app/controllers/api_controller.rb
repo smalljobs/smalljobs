@@ -510,7 +510,7 @@ class ApiController < ApplicationController
   end
 
   def password_remind
-    phone = params[:phone]
+    phone = PhonyRails.normalize_number(params[:phone], default_country_code: 'CH')
 
     seeker = Seeker.find_by(mobile: phone)
     if seeker.nil?
