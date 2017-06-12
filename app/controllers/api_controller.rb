@@ -512,7 +512,7 @@ class ApiController < ApplicationController
   def password_remind
     phone = params[:phone]
 
-    seeker = Seeker.find_by(phone: phone)
+    seeker = Seeker.find_by(mobile: phone)
     if seeker.nil?
       render json: {code: 'users/not_found', message: 'User not found'}, status: 404
       return
@@ -537,7 +537,7 @@ class ApiController < ApplicationController
     phone = params[:phone]
     code = params[:code]
 
-    seeker = Seeker.find_by(phone: phone)
+    seeker = Seeker.find_by(mobile: phone)
     if seeker.nil?
       render json: {code: 'users/not_found', message: 'User not found'}, status: 404
       return
@@ -559,7 +559,7 @@ class ApiController < ApplicationController
     code = params[:code]
     password = params[:password]
 
-    seeker = Seeker.find_by(phone: phone)
+    seeker = Seeker.find_by(mobile: phone)
     if seeker.nil?
       render json: {code: 'users/not_found', message: 'User not found'}, status: 404
       return
