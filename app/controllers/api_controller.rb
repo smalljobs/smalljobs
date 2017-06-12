@@ -1,5 +1,5 @@
 class ApiController < ApplicationController
-  before_action :authenticate, except: [:login, :register]
+  before_action :authenticate, except: [:login, :register, :password_remind, :password_validate, :password_change]
   before_action :check_status, only: [:create_assignment, :update_assignment, :apply]
   skip_before_filter :verify_authenticity_token
   before_filter :cors_preflight_check
