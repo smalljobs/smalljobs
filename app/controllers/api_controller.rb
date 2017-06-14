@@ -518,6 +518,18 @@ class ApiController < ApplicationController
       return
     end
 
+    if seeker.last_recovery == Date.now && seeker.recovery_times >= 3
+      render json: {code: 'users/limit_exceeded', message: 'Exceeded daily recovery limit'}
+      return
+    end
+
+    if seeker.last_recovery == Date.now
+      seeker.recovery_times += 1
+    else
+      seeker.last_recovery = Date.now
+      seeker.recovery_times = 1
+    end
+
     code = ApiHelper::generate_code
 
     client = Nexmo::Client.new(key: ENV['NEXMO_API_KEY'], secret: ENV['NEXMO_API_SECRET'])
