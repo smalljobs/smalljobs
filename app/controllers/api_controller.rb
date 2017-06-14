@@ -522,7 +522,7 @@ class ApiController < ApplicationController
 
     client = Nexmo::Client.new(key: ENV['NEXMO_API_KEY'], secret: ENV['NEXMO_API_SECRET'])
 
-    response = client.send_message(from: 'smalljobs', to: phone, text: code)
+    response = client.send_message(from: 'Jugendapp', to: phone, text: "#{code} ist dein Code. Bitte in der App eingeben.")
 
     if response['messages'][0]['status'] == '0'
       seeker.recovery_code = code
