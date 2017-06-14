@@ -518,15 +518,15 @@ class ApiController < ApplicationController
       return
     end
 
-    if seeker.last_recovery == Date.now && seeker.recovery_times >= 3
+    if seeker.last_recovery == DateTime.now.to_date && seeker.recovery_times >= 3
       render json: {code: 'users/limit_exceeded', message: 'Exceeded daily recovery limit'}
       return
     end
 
-    if seeker.last_recovery == Date.now
+    if seeker.last_recovery == DateTime.now.to_date
       seeker.recovery_times += 1
     else
-      seeker.last_recovery = Date.now
+      seeker.last_recovery =DateTime.now.to_date
       seeker.recovery_times = 1
     end
 
