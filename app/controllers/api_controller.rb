@@ -267,7 +267,7 @@ class ApiController < ApplicationController
       return
     end
 
-    allocation = Allocation.new(job_id: id, seeker_id: @seeker.id, state: :application_open, feedback_seeker: message)
+    allocation = Allocation.new(provider_id: job.provider_id, job_id: id, seeker_id: @seeker.id, state: :application_open, feedback_seeker: message)
     allocation.save!
 
     render json: {message: 'Success. Please wait for a message from broker.'}, status: 201
