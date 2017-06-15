@@ -615,4 +615,4 @@ copy of the Program in return for a fee.
 
 END OF TERMS AND CONDITIONS
 
-Contact: mich.wyser@socialbox.ch / Mich Wyser | Verein SocialBox | Auweg 6 | CH-5102 Rupperswil
+Contact: mich.wyser@smalljobs.ch / Mich Wyser | Verein Small.Jobs | Wartstrasse 5 | 8400 Winterthur
