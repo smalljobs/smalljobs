@@ -10,28 +10,10 @@
 
 ready = ->
   history_array = JSON.parse(sessionStorage.getItem('history') || '[]')
-#  if history_array != null
-#    if history_array.length > 0 && history_array[history_array.length-1] == window.location.href.split('?')[0]
-#      k = 1
-#    else
-#      history_array.push(window.location.href.split('?')[0])
-#  else
-#    history_array = []
-#    history_array.push(window.location.href.split('?')[0])
 
   history_array.push(window.location.href)
 
   sessionStorage.setItem('history', JSON.stringify(history_array))
-
-#  previousUrl = sessionStorage.getItem('previous') || '';
-#  goBack = sessionStorage.getItem('goBack') || -1;
-#  if previousUrl == window.location.href
-#    goBack -= 1;
-#  else
-#    goBack = -1;
-#
-#  sessionStorage.setItem('previous', window.location.href);
-#  sessionStorage.setItem('goBack', goBack);
 
   shouldRefresh = sessionStorage.getItem('shouldRefresh');
   if shouldRefresh == true || shouldRefresh == 'true'
@@ -79,7 +61,8 @@ ready = ->
       $('#seeker_status_active').prop('disabled', false);
     else
       $('#seeker_status_active').prop('disabled', true);
-      $('#seeker_status_inactive').prop('checked', true);
+      if $('#seeker_status_active')[0].checked
+        $('#seeker_status_inactive').prop('checked', true);
   ).change();
 
   $('#seeker_discussion').change(->
@@ -87,47 +70,23 @@ ready = ->
       $('#seeker_status_active').prop('disabled', false);
     else
       $('#seeker_status_active').prop('disabled', true);
-      $('#seeker_status_inactive').prop('checked', true);
+      if $('#seeker_status_active')[0].checked
+        $('#seeker_status_inactive').prop('checked', true);
   ).change();
 
   $('.back_button').click(->
-#    sessionStorage.setItem('shouldRefresh', true);
-#    history.go(goBack);
     url = history_array.pop()
     new_url = history_array.pop()
     while(new_url == url)
       new_url = history_array.pop()
 
     sessionStorage.setItem('history', JSON.stringify(history_array))
-#    console.log(url)
     window.location.href = new_url
   );
 
   $('.notifications a.close').click(->
     $('div.notifications').addClass('display-none');
   );
-#  console.log(history_array)
-
-#  bajb_backdetect.OnBack = ->
-#    history_array.pop()
-#    history_array.pop()
-#    sessionStorage.setItem('history', JSON.stringify(history_array))
-#    alert('hello')
-
-#  window.onpopstate = (event) ->
-##    alert('hello')
-#    history_array.pop()
-#    new_url = history_array.pop()
-#    sessionStorage.setItem('history', JSON.stringify(history_array))
-#    console.log(history_array)
-#    history.go(-2)
-#    window.location.href = new_url
-
-#  $(window).on('popstate', ->
-#    history_array.pop()
-#    history_array.pop()
-#    sessionStorage.setItem('history', JSON.stringify(history_array))
-#  )
 
 
 $(document).ready(ready);
