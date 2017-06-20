@@ -150,7 +150,7 @@ class Seeker < ActiveRecord::Base
     require 'rest-client'
     dev = 'http://devadmin.jugendarbeit.digital/api/jugendinfo_user/update_data/'
     live = 'http://admin.jugendarbeit.digital/api/jugendinfo_user/update_data/'
-    RestClient.post dev, {token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', id: app_user_id, smalljobs_user_id: id, firstname: firstname, lastname: lastname, mobile: mobile, address: street, zip: place.zip, birthdate: date_of_birth.strftime('%Y-%m-%d'), city: place.name, smalljobs_status: Seeker.statuses[status]}
+    RestClient.post live, {token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', id: app_user_id, smalljobs_user_id: id, firstname: firstname, lastname: lastname, mobile: mobile, address: street, zip: place.zip, birthdate: date_of_birth.strftime('%Y-%m-%d'), city: place.name, smalljobs_status: Seeker.statuses[status]}
   end
 
 end
