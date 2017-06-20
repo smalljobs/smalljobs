@@ -51,8 +51,7 @@ class Job < ActiveRecord::Base
         unless result.nil?
           Todo.create(record_id: id, record_type: :job, todotype: todotype, job_id: id)
         end
-      rescue
-        nil
+
       end
     end
   end
