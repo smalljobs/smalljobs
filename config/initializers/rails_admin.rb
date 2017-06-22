@@ -39,7 +39,7 @@ RailsAdmin.config do |config|
         config(insert_many: true)
       end
       field :table
-      field :where
+      field :where, :text
     end
   end
 
