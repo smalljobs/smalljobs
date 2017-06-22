@@ -10,6 +10,8 @@ class Todotype < ApplicationRecord
 
   validate :check_where
 
+  after_save :create_todos_for_allocations
+
   def check_where
     if !where.nil? && where.include?(';')
       errors.add(:where, :invalid_where)
@@ -28,6 +30,11 @@ class Todotype < ApplicationRecord
         errors.add(:where, ex.to_s)
       end
     end
+  end
 
+  def create_todos_for_allocations
+    Allocation.joins(:seeker, job: :provider).where(Allocation.replace_state_with_number(where)).find_each do |allocation|
+      Todo.create(record_id: allocation.id, record_type: :allocation, todotype_id: id, allocation_id: allocation.id, seeker_id: allocation.seeker_id, job_id: allocation.job_id, provider_id: allocation.provider_id)
+    end
   end
 end
