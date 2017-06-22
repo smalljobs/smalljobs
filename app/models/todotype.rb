@@ -33,6 +33,7 @@ class Todotype < ApplicationRecord
   end
 
   def create_todos_for_allocations
+    Todo.where(todotype_id: id).find_each &:destroy!
     Allocation.joins(:seeker, job: :provider).where(Allocation.replace_state_with_number(where)).find_each do |allocation|
       Todo.create(record_id: allocation.id, record_type: :allocation, todotype_id: id, allocation_id: allocation.id, seeker_id: allocation.seeker_id, job_id: allocation.job_id, provider_id: allocation.provider_id)
     end
