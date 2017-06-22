@@ -10,7 +10,7 @@ class Todotype < ApplicationRecord
 
   validate :check_where
 
-  after_save :create_todos_for_allocations
+  # after_save :create_todos_for_allocations
 
   def check_where
     if !where.nil? && where.include?(';')
