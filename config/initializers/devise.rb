@@ -4,7 +4,7 @@ Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
-  config.secret_key = 'f5724052cda5b35a89ce4d7e28b2ce4c3ab4fcda88e05d5530b0ca598a394347d986c737bbe87be073901f722a6c25072009a5b108d87ab341768ad42b3c0a80'
+  config.secret_key = ENV['DEVISE_SECRET']
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -95,7 +95,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  config.pepper = '93991e82cc6e9bd5c95eba8d0af8f1f6c707651092d9f9ce229d9812495517272cf75ee22ad4ceccb007dedb5df92da43aa2eb5f5ba6b8fb470abad73210ef81'
+  config.pepper = ENV['DEVISE_PEPPER']
 
   # ==> Configuration for :invitable
   # The period the generated invitation token is valid, after

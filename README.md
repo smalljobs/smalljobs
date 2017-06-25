@@ -98,3 +98,12 @@ You may want to enable continous testing by running Guard:
 ```bash
 $ bundle exec guard
 ```
+
+## Configuration
+
+This application uses several third-party services. All access keys and passwords are stored as a environmental variables.
+These services are:
+* S3 storage on Amazon AWS - used to store some images by Rich and Carrierwave gems. You can read about configuring it here: https://github.com/kreativgebiet/rich#uploading-to-s3 and here: https://github.com/carrierwaveuploader/carrierwave#using-amazon-s3
+* Sendgrid - as smtp server. You should provide SENDGRID_USERNAME and SENDGRID_PASSWORD.
+* Devise - used for authentication. Secret key and pepper are stored as DEVISE_SECRET and DEVISE_PEPPER
+* Scout - for monitoring. Scout APM key is stored as SCOUT_KEY.
