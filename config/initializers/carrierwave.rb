@@ -16,7 +16,7 @@ else
       path_style:             true
     }
 
-    config.fog_directory  = "#{ Rails.env }.smalljobs.ch"
+    config.fog_directory  = ENV['S3_BUCKET_NAME']
     config.fog_public     = false
   end
 end
