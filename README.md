@@ -7,7 +7,7 @@ SmallJobs is a project to increase intergenerational Contacts with exchanging "S
 ## Development
 
 * [Pivotal Tracker](https://www.pivotaltracker.com/s/projects/789611) for managing requirements and bug tracking.
-* [GitHub](https://github.com/ratte/smalljobs) for source code management.
+*  [BitBucket](https://bitbucket.org/tatentraeger/smalljobs) for source code management.
 * [Heroku](https://dashboard.heroku.com/apps/smalljobs/resources) for production hosting.
 
 ### Running locally
@@ -21,7 +21,7 @@ should be accessible with the user `smalljobs` without password.
 Get the source by cloning the repo:
 
 ```bash
-$ git clone git@github.com:ratte/smalljobs.git
+$ git clone git clone git@bitbucket.org:tatentraeger/smalljobs.git
 $ cd smalljobs
 ```
 
