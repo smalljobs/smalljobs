@@ -126,5 +126,5 @@ This project is licensed under the GNU Affero General Public License 3 ([GNU AGP
 
 * R.I.P Michael Kessler (2015), a wonderful Character and amazing monster of a programmer who did the imlemented the Prototype in an amazing Quality.
 * [Verein SocialBox](http://socialbox.ch) (Mich Wyser) - for starting the project as an Open-Source Alternative
-* Prix GÃ©nÃ©ration / AXA Winterthur for financing the Startup of SmallJobs
-* tatentraeger.ch - for finishing the developing and integration it into the JugendInfo-App and sending it into reality
+* Prix Génération / AXA Winterthur for financing the Startup of SmallJobs
+* [tatentraeger.ch](http://tatentraeger.ch/) - for finishing the developing and integration it into the JugendInfo-App and sending it into reality
