@@ -1,0 +1,540 @@
+de:
+  admin:
+    menu:
+      user: "Benutzer"
+      job: "Jobs"
+      geo: "Orte"
+      org: "Jugendarbeit"
+      application: "Bewerbungsprozess"
+      assignment: "Einsatz"
+    groups:
+      place: "Ortschaft"
+      political: "Politisch"
+      position: "Geo-Position"
+      design: "Design"
+      organization: "Jugenarbeit"
+      address: "Adresse"
+      contact: "Kontakt"
+      brokers: "Vermittler"
+      administration: "Admin"
+      authenticatable: "Authentifizierung"
+      employment: "Anstellungen"
+      work: "Arbeiten"
+      date: "Ausführungsdatum"
+      seekers: "Jugendliche"
+      job: "Job"
+      salary: "Lohn"
+      wage_factor: "Lohn = Alter * Lohnfaktor * Arbeitsdauer"
+    format:
+      logo: "Format 400x220"
+      background: "Format 700x400"
+  filters:
+    all: "Alle"
+    without_applications: "Ohne Bewerbungen"
+  navigation:
+    home: ""
+    sign_up: "Registrieren"
+    sign_in: "Anmelden"
+    about_us: "Über uns"
+    about_smalljobs: "Über SmallJobs"
+    join_us: "Mitmachen"
+    rules_of_action: "Richtlinien"
+    privacy_policy: "Datenschutzrichtlinien"
+    terms_of_service: "Geschäftsbedingungen"
+    dashboard: 'Übersicht'
+    sign_out: 'Abmelden'
+    profile: 'Profil'
+    organization: 'Organisation'
+    providers: "Anbieter"
+    features: "Funktionen"
+    provide_job: "Job erfassen"
+  legends:
+    login: "Anmeldedaten"
+    address: "Adresse"
+    contact: "Kontakt"
+    work: "Arbeit"
+    admin: "Administration"
+    date: "Zeitraum"
+    salary: "Bezahlung"
+    workers: "Arbeit"
+    provider: "Anbieter"
+    seekers: "Jugendliche"
+    assignments: "Zuweisungen"
+    organization: "Organisation"
+    branding: "Branding"
+    terms: "Bedingungen"
+    message: "Nachricht"
+    review: "Bewertung"
+    allocation: "Zuweisung"
+    application: "Bewerben"
+    proposal: "Vorschlag"
+    seeker_salary: "Lohnvorschlag"
+  contacts:
+    postal: "Per Post"
+    email: "Email"
+    phone: "Telefon"
+    mobile: "Mobiltelefon"
+    whatsapp: "WhatsApp"
+  sex:
+    male: "Männlich"
+    female: "Weiblich"
+    other: "Anderes"
+  mail:
+    send_agreement_for_seeker: "SmallJobs> Elterliche Vereinbarung mit SmallJobs"
+    new_seeker_signup_for_broker: "SmallJobs> Neuer Jugendlicher zur Freischaltung"
+    new_provider_signup_for_broker: "SmallJobs> Neuer Jobanbieter zur Freischaltung"
+    provider_activated_for_provider: "SmallJobs> Ihr Profil wurde aktiviert"
+    job_created_for_broker: "SmallJobs> Ein neuer Job zur Überprüfung wurde erstellt"
+    job_created_for_seekers: "SmallJobs> Ein neuer Job zur Überprüfung wurde erstellt"
+    job_connected_for_provider: "SmallJobs> Ihr Job wurde zugewiesen"
+    job_connected_for_seeker: "SmallJobs> Du hast einen neuen Job!"
+    job_rating_reminder_for_provider: "SmallJobs> Bewerten Sie die Arbeiter ihres Jobs"
+    job_rating_reminder_for_seeker: "SmallJobs> Bewerte deinen durchgeführten Job"
+  jobs:
+    at: "Am %{at}"
+    between: "Zwischen dem %{from} und dem %{to}"
+    manpower: "Benötigte Arbeitskräfte: %{manpower}"
+    duration: "Ungefähre Dauer: %{duration} Stunden"
+    no_seekers_assigned: "Noch keine Jugendlichen zugewiesen!"
+    seekers_assigned: "Zugewiesene Jugendliche"
+    show_job: "Job anzeigen"
+    show_job_title: "Job %{title} anzeigen"
+    activate: "Freischalten"
+    salary_types:
+      hourly: "Stundenlohn"
+      fixed: "Fixer Preis"
+      hourly_per_age: "Stundenlohn pro Altersjahr"
+    date_types:
+      agreement: "Nach Absprache"
+      date: "An einem bestimmten Tag"
+      date_range: "In einem bestimmten Zeitraum"
+    fixed_price: "Fixpreis: %{salary}"
+    hourly_rate: "%{salary} pro Stunde"
+    proposals: "Vorschläge"
+    applications: "Bewerbungen"
+    allocations: "Zuweisungen"
+    reviews: "Bewertungen"
+  broker:
+    jobs:
+      new:
+        title: "Job erfassen"
+        lead: "Hier kannst du neue Jobs für einen Anbieter manuell erfassen."
+      edit:
+        title: "Job bearbeiten"
+        lead: "Hier kanst du einen Job bearbeiten."
+      show:
+        title: "Job Details"
+        lead: "Hier findest du die Details des Jobs."
+      index:
+        title: "Alle Jobs"
+        lead: "Hier siehst du eine Übersicht aller vorhandender Jobs."
+        add_new: "Neuen Job"
+        no_jobs: "Es sind noch keine Jobs in deiner Region erfasst"
+      proposals:
+        new:
+          title: "Vorschlag erfassen"
+          lead: "Hier kannst du einen Jugendlichen für einen Job vorschlagen. Der Jugendliche kriegt danach eine Mitteilung, sich auf den Job zu bewerben."
+        edit:
+          title: "Vorschlag bearbeiten"
+          lead: "Hier kannst du einen Job-Vorschlag ändern."
+        index:
+          title: "Vorschläge für %{title}"
+          lead: "Hier werden die vorgeschlagenen Jugendlichen für einen Job angezeigt."
+          add_new: "Neuen Vorschlag hinzufügen"
+          no_proposals: "Es sind noch keine Vorschläge für diesen Job erfasst"
+      applications:
+        edit:
+          title: "Bewerbung bearbeiten"
+          lead: "Hier kannst du eine Bewerbung auf einen Job bearbeiten."
+        index:
+          title: "Bewerbung für %{title}"
+          lead: "Hier findest du Die Bewerbung(en) für den Job."
+          no_applications: "Es sind noch keine Bewerbungen für diesen Job eingegangen."
+      allocations:
+        new:
+          title: "Zuweisung erfassen"
+          lead: "Hier kann ein Job an Jugendliche zugewiesen werden."
+        edit:
+          title: "Zuweisung bearbeiten"
+          lead: "Hier kannst du eine Job-Zuweisung bearbeiten."
+        index:
+          title: "Zuweisungen für %{title}"
+          lead: "Hier siehst du die Zuweisungen für den gewählten Job."
+          add_new: "Neue Zuweisung hinzufügen"
+          no_allocations: "Es sind noch keine Zuweisungen für diesen Job erfasst"
+      reviews:
+        new:
+          title: "Bewertung erfassen"
+          lead: "Hier kannst du eine Bewertung für den Job erfassen."
+        edit:
+          title: "Bewertung bearbeiten"
+          lead: "Hier kannst du die Job-Bewertung bearbeiten."
+        index:
+          title: "Bewertungen für %{title}"
+          lead: "Hier können Sie alle Bewertungen für einen Job betrachten."
+          add_new: "Neue Bewertung hinzufügen"
+          no_reviews: "Es sind noch keine Bewertungen für diesen Job erfasst"
+  provider:
+    jobs:
+      new:
+        title: "Job erfassen"
+        lead: "Erfassen Sie bitte hier einen neuen Job, den Sie an Jugendliche weitergeben wollen."
+        seeker: "Jugendliche"
+        seeker_end: "Ehemalige Jugendliche"
+        allocations:
+          no_active: "Aktuell (noch) keine Jugendliche zugewiesen."
+          no_finished: "Ehemalige Jugendliche"
+      edit:
+        title: "Job editieren"
+        lead: "Bearbeiten Sie hier den aufgegebenen Job."
+      show:
+        title: "Job Details"
+        lead: "Hier finden sie Details zu diesem Jobs."
+      index:
+        title: "Alle ihre Jobs"
+        lead: "Hier finden sie alle von ihnen erfassten Jobs."
+        add_new: "Neuen Job hinzufügen"
+        no_jobs: "Sie haben noch keine Jobs erfasst. Erfassen Sie einen neuen mit 'Neuen Job erfassen'"
+      allocations:
+        index:
+          title: "Zuweisungen für %{title}"
+          lead: "Avocado plantain aubergine nori bamboo shoot water spinach beetroot."
+          add_new: "Neue Zuweisung hinzufügen"
+          no_allocations: "Es sind noch keine Zuweisungen für diesen Job erfasst"
+      reviews:
+        new:
+          title: "Bewertung erfassen"
+          lead: "Hier können Sie eine Bewertung für einen Job erfassen."
+        edit:
+          title: "Bewertung bearbeiten"
+          lead: "Hier können Sie eine Job-Bewertung bearbeiten."
+        index:
+          title: "Bewertungen für %{title}"
+          lead: "Hier können Sie die Bewertung(en) für den Job anschauen."
+          add_new: "Neue Bewertung hinzufügen"
+          no_reviews: "Es sind noch keine Bewertungen für diesen Job erfasst"
+  seeker:
+    jobs:
+      show:
+        title: "Job Details"
+        lead: "Hier findest du die Details des Jobs."
+        reject_action: 'Bewerbung löschen'
+        reject_title: 'Bewerbung läuft'
+        reject_lead: 'Deine Bewerbung wird geprüft, du wirst so bald wie möglich informiert.'
+        get_job: 'Job erhalten!'
+        procedure: 'Vorgehen:'
+        contact_supplier: '1. Anbieterln kontaktieren'
+        appointment: 'Termin vereinbaren'
+        job: '2. Arbeit'
+        job_a: 'a) Vor Arbeitsbeginn mit Anbieterln Vertrag im Doppel unterzeichnen'
+        job_b: 'b) Arbeiten'
+        job_c: 'c) Lohn in Bar erhalten'
+        contract: '3. Vertrag bringen an:'
+      index:
+        title: "Alle Jobs"
+        lead: "Hier siehst du eine Übersicht aller vorhandender Jobs."
+        no_jobs: "Es sind noch keine Jobs in deiner Region erfasst"
+      proposals:
+        index:
+          title: "Vorschläge für %{title}"
+          lead: "Hier siehst Du die vorgeschlagenen Jugendlichen für diesen Job."
+          add_new: "Neuen Vorschlag hinzufügen"
+          no_proposals: "Es sind noch keine Vorschläge für diesen Job eingegangen"
+      applications:
+        new:
+          title: "bewerben"
+          lead: "Hier kannst du dich für diesen Job bewerben."
+        edit:
+          title: "Bewerbung bearbeiten"
+          lead: "Hier kannst du deine Bewerbung bearbeiten."
+        index:
+          title: "Bewerbung für %{title}"
+          lead: "Hier siehst du deine Bewerbung für doesen Job."
+          no_applications: "Du hast dich für diesen Job noch nicht beworben."
+          add_new: "Bewerbung erfassen"
+      allocations:
+        index:
+          title: "Zuweisungen für %{title}"
+          lead: "Hier siehst du alle Zuweisungen für diesen Jobs."
+          add_new: "Neue Zuweisung hinzufügen"
+          no_allocations: "Es sind noch keine Zuweisungen für diesen Job erfasst"
+      reviews:
+        new:
+          title: "Bewertung erfassen"
+          lead: "Hier kannst du eine neue Bewertung erfassen."
+        edit:
+          title: "Bewertung bearbeiten"
+          lead: "Hier kannst du die Bewertung bearbeiten."
+        index:
+          title: "Bewertungen für %{title}"
+          lead: "Hier findsst du die Bewertungen zum gewählten Job."
+          add_new: "Neue Bewertung hinzufügen"
+          no_reviews: "Es sind noch keine Bewertungen für diesen Job erfasst"
+  validators:
+    subdomain:
+      reserved: "darf nicht ein reservierter Name sein"
+      length: "muss zwischen 3 und 63 Zeichen haben"
+      hyphen: "kann nicht mit einen Bindestrich beginnen oder enden"
+      chars: "muss alphanumerisch sein; A-Z, 0-9 oder Bindestrich"
+  common:
+    sure: "Sind Sie sicher?"
+    show: "Anzeigen"
+    show_title: "%{who} anzeigen"
+    edit: "Speichern"
+    edit_title: "%{who} bearbeiten"
+    create: "Job erstellen"
+    destroy: "Löschen"
+    destroy_title: "%{who} löschen"
+    back: "zurück"
+    unconfirmed: "Unbestätigt"
+    active: "Aktiv"
+    finished: "Abgeschlossen"
+    completed_st: "Beendet"
+    inactive: "Inaktiv"
+    created: "Erstellt"
+    public: "Öffentlich"
+    hidden: "Versteckt"
+    available: "Verfügbar"
+    running: "Prüfen"
+    connected: "Vermittelt"
+    feedback: "Feedback"
+    rated: "Bewerted"
+    completed: "Abgeschlossen"
+    back_to_region: "Zurück zur Region %{name}"
+    terms: "Ich akzeptiere die %{rules_of_action}, die %{terms_of_service} und die %{privacy_policy}"
+    rating: "%{rating} Punkte"
+    invalid_username_or_password: "Falscher Benutzername oder Passwort."
+  devise_views:
+    no_broker_registration: "Sie können sich nicht selber als Anbieter registrieren. Bitte kontaktieren Sie uns unter hello@smalljobs.ch"
+    wait_confirmation: "Warte auf die Bestätigung von: %{email}"
+    leave_empty: "Lassen Sie das Passwort leer, wenn Sie es nicht ändern wollen."
+    need_password: "Wir benötigen ihr aktuelles Passwort um die Änderung zu Bestätigen."
+    sign_in: "Anmelden"
+    sign_in_with: "Mit %{provider} anmelden"
+    sign_up: "Registrieren"
+    forgot_password?: "Passwort vergessen?"
+    no_confirmation: "Keine Email zur Bestätigung erhalten?"
+    no_confirmation_sms: "Keine Email oder SMS zur Bestätigung erhalten?"
+    no_unlock: "Keine Email zum Entsperren erhalten?"
+    confirmations:
+      title: "Bestätigung erneut senden"
+      lead: "Sie haben kein Email zur Bestätigung ihres Benutzerkontos erhalten? Haben Sie schon im Spam-Ordner nachgeschaut? Falls das Bestätigsmail da nicht vorhanden ist, können Sie es hier nochmals anfordern."
+      action: "Bestätigung senden"
+    passwords:
+      new:
+        title: "Passwort vergessen?"
+        lead: "Sie haben ihr Passwort vergessen? Kein Problem. Hier können Sie ihr Passwort zurücksetzen. Sie erhalten danach von uns nochmals ein Email mit einem Link und können danach das Passwort ändern."
+        action: "Passwort zurücksetzen"
+      edit:
+        title: "Passwort ändern"
+        lead: "Hier können Sie ihr Passwort ändern."
+        new_password: "Neues Passwort"
+        confirmation: "Passwort wiederholen"
+        action: "Passwort ändern"
+  providers:
+    index:
+      title: "Anbieter in deiner Region"
+      lead: "Folgende Anbieter bieten in deiner Region Jobs an."
+      add_new: "Neuen Anbieter"
+      no_providers: "Es sind noch keine Anbieter in deiner Region erfasst."
+    show:
+      title: "Anbieter %{name}"
+      lead: "Hier findest du mehr Details des Job-Anbieters."
+    new:
+      title: "Neuen Anbieter erstellen"
+      lead: "Erstelle hier einen neuen Anbieter, der sich per Telefon registriert oder keinen Zugriff auf das Internet hat. (du kriegst als Stellvereter sämtliche Kommunikation von ihm und kannst diese Infos dann per Post/Telefon weiterleiten)"
+    edit:
+      title: "Anbieter"
+      lead: "Hier kannst du einen Anbieter bearbeiten."
+    registrations:
+      new:
+        title: "Job anbieten"
+        register: "Registrieren und Job erfassen"
+        lead: "Sie möchten Jobs für Jugendliche anbieten? Dann registrieren Sie sich bitte hier neu als Anbieter."
+        have_account: "Bereits registriert?"
+        organization: "Wählen Sie Ihre gewünschte Jobbörse"
+      edit:
+        title: "Ihre Daten ändern"
+        lead: "Hier können sie ihre Daten ändern. Bitte bestätigen Sie die Eingaben mittels 'Ändern' am Ende der Seite."
+        action: "Ändern"
+        organization: "Wählen Sie Ihre gewünschte Jobbörse"
+        cancel:
+          title: "Ihr Benutzerkonto deaktivieren"
+          lead: "Sie möchten SmallJobs nicht mehr benützen? Schade. **Vorsicht!** Diese Aktion kann nicht mehr rückgängig gemacht werden!"
+          action: "Deaktivieren"
+    sessions:
+      title: "Als Anbieter anmelden"
+      lead: "Geben Sie hier bitte Ihre Zugangsdaten ein, um sich als Anbieter anzumelden:"
+      action: "Als Anbieter anmelden"
+      remember_me: "Angemeldet bleiben"
+  seekers:
+    index:
+      title: "Jugendlich in deiner Region"
+      lead: "Hier findest du die registrierten Jugendlichen in deiner Region."
+      add_new: "Neuen Jugendlichen"
+      no_seekers: "Es sind noch keine Jugendlichen in deiner Region erfasst."
+    show:
+      title: "Jugenlicher %{name}"
+      lead: "Hier findest du die Details zum Jugenlichen Job-Sucher."
+    new:
+      title: "Neuen Jugendlichen erfassen"
+      lead: "Hier kannst du einen neuen Jugendlichen Jobsucher erfassen."
+    edit:
+      title: "Jugendlichen %{name} bearbeiten"
+      lead: "Bearbeite hier die Daten eines Jugendlichen."
+    registrations:
+      new:
+        title: "Als Jugendlicher registrieren"
+        register: "Als Jugendlicher registrieren"
+        lead: "Registriere dich hier als Jugendlicher, wenn du zwischen 13 und 17 Jahren alt bist und einen Job suchst. Bitte gib die Daten genau ein, damit wir für dich den besten Job finden können. Nach der Registrierung erhältst du ein Bestätigungsmail mit einem Aktivierungslink zum Bestätigen deiner Email-Adresse."
+      edit:
+        title: "Ihre Daten ändern"
+        lead: "Hier können Sie ihre Benutzerangaben aktualisieren."
+        action: "Ändern"
+        cancel:
+          title: "Dein Benutzerkonto deaktivieren"
+          lead: "Du möchtest nicht mehr bei SmallJobs mitmachen? Schade! **Vorsicht!** Diese Aktion kann nicht mehr rückgängig gemacht werden!"
+          action: "Deaktivieren"
+    sessions:
+      title: "Als Jugendlicher anmelden"
+      lead: "Hier kannst du dich als Jugendlicher mit deinen Benutzerdaten anmelden."
+      action: "Als Jugendlicher anmelden"
+  brokers:
+    not_responsible: "Sie können keinen Provider ausserhalb ihrer Region definieren."
+    registrations:
+      edit:
+        title: "Deine Daten ändern"
+        lead: "Hier kannst du deine Benutzerdaten ändern."
+        action: "Ändern"
+        cancel:
+          title: "Dein Benutzerkonto deaktivieren"
+          lead: "Du möchtest nicht mehr bei smalljobs mitmachen? Schade! **Vorsicht!** Dies Aktion kann nicht mehr rückgängig gemacht werden!"
+          action: "Deaktivieren"
+    sessions:
+      title: "Als Vermittler anmelden"
+      lead: "Hier können sie sich als neuer Vermittler mit ihren Benutzerangaben für die gewählte Region anmelden."
+      action: "Als Vermittler anmelden"
+  regions:
+    index:
+      teaser: "Willkommen bei SmallJobs"
+      lead: "SmallJobs fördert nachhaltig den Generationendialog mit der Vermittlung von Sackgeld-Jobs in ihrer Region."
+      organizations: "Unsere Organisationen"
+      region: "Region %{name}"
+      visit: "Besuche %{name}"
+    show:
+      signup_provider: "Als Anbieter registrieren"
+      signup_seeker: "Als Jugendlicher registrieren"
+      places: "Unsere Orte: %{places}"
+      people: "Mitarbeitende"
+      address: "Adresse"
+      responsible: "Zuständig für"
+      available: "Am Besten zu erreichen"
+  pages:
+    layout:
+      title: "SmallJobs"
+    features:
+      teaser: "Willkommen bei SmallJobs"
+      lead: "Die Sackgeld-Job Börse für Jugendliche zwischen 13-17 Jahren."
+      signup_provider: "Als Anbieter registrieren"
+      signup_seeker: "Als Jugendlicher registrieren"
+      marketing:
+        feature_title_1: "SmallJobs vermittelt zwischen den Generationen"
+        feature_text_1: "SmallJobs fördert nachhaltig den Generationendialog mit der Vermittlung von Sackgeld-Jobs in ihrer Region. Machen sie mit?"
+        feature_title_2: "Dulse horseradish lentil"
+        feature_text_2: "Veggies sunt bona vobis, proinde vos postulo esse magis dandelion ricebean courgette pumpkin tomatillo sea lettuce epazote gumbo summer purslane kakadu plum."
+        feature_title_3: "Dulse horseradish lentil"
+        feature_text_3: "Veggies sunt bona vobis, proinde vos postulo esse magis dandelion ricebean courgette pumpkin tomatillo sea lettuce epazote gumbo summer purslane kakadu plum."
+        feature_title_4: "Dulse horseradish lentil"
+        feature_text_4: "Veggies sunt bona vobis, proinde vos postulo esse magis dandelion ricebean courgette pumpkin tomatillo sea lettuce epazote gumbo summer purslane kakadu plum."
+        feature_title_5: "Dulse horseradish lentil"
+        feature_text_5: "Veggies sunt bona vobis, proinde vos postulo esse magis dandelion ricebean courgette pumpkin tomatillo sea lettuce epazote gumbo summer purslane kakadu plum."
+        feature_title_6: "Dulse horseradish lentil"
+        feature_text_6: "Veggies sunt bona vobis, proinde vos postulo esse magis dandelion ricebean courgette pumpkin tomatillo sea lettuce epazote gumbo summer purslane kakadu plum."
+    sign_in:
+      title: "Login"
+      lead: "Hier können sie sich mit ihren Benutzerangaben anmelden. Falls sie noch keine haben, registrieren Sie sich bitte zuerst."
+      provider: "Anbieter"
+      seeker: "Jugendlicher"
+      broker: "Vermittler"
+      login: "E-Mail"
+      password: "Passwort"
+      action: "Login"
+      register: "Registrieren"
+      recover_password: "Passwort vergessen?"
+      resent_confirmation: "Keine Email oder SMS zur Bestätigung erhalten?"
+    sign_up:
+      title: "Registrieren"
+      job_offer_title: "Job anbieten"
+      job_offer_text: "Sie haben einen Job zu vergeben?"
+      job_offer_button: "Job ausschreiben"
+      job_find_title: "Job finden"
+      job_find_text: "Du möchtest dein Sackgeld aufbessern? Um dich auf Jobs bewerben zu können die Jugendapp auf deinem Smartphone installieren:"
+      job_find_button: "Job finden"
+    confirm:
+      title: "Vielen Dank für Ihre Registration"
+      lead: "Vielen Dank für ihre Registration. Wir werden Sie in Kürze persönlich kontaktieren und ihr Benutzerkonto anschliessend aktivieren."
+    activate:
+      title: "Aktivierung ausstehend"
+      lead: "Vielen Dank für ihre Anmeldung. Ihr Benutzerkonto wurde erfolgreich bestätigt und wir werden Sie so bald wie möglich persönlich kontaktieren und ihre Benutzerkonto anschliessend aktivieren."
+  provider_dashboard:
+    title: 'Willkommen'
+    lead: "Herzlich willkomen und danke, dass Sie bei SmallJobs mitmachen und sich bereit erklären, Jobs an Jugendliche abzugeben. Bitte lesen Sie unbedingt die Richtlinien zur Vermittlung Jobs."
+    job_list: 'Alle ihre Jobs anzeigen'
+    new_job: "Neuen Job erfassen"
+    table: "Ihre Jobs:"
+  broker_dashboard:
+    title: 'Willkommen'
+    lead: "Hallo Job-Vermittler. Hier findest du eine Übersicht über all deine möglichen Aktivitäten."
+    edit_organization: 'Organisation bearbeiten'
+    provider_list: 'Alle Anbieter anzeigen'
+    seeker_list: 'Alle Jugendlichen anzeigen'
+    job_list: 'Alle Jobs anzeigen'
+    todo: 'To do'
+    jobs: 'Jobs'
+    providers: 'Anbieter'
+    seekers: 'Jugendliche'
+    assignments: 'Einsätze'
+    todo_table:
+      date: 'Datum'
+      todo: 'Todo'
+      description: 'Beschreibung'
+    jobs_table:
+      status: 'Status'
+      date: 'Datum'
+      todo: 'Todo'
+      job: 'Job'
+      provider: 'Anbieter'
+      allocations: 'Anstellungen'
+    providers_table:
+      status: 'Status'
+      name: 'Anbieter'
+      address: 'Adresse'
+      plz: 'PLZ Ort'
+      jobs: 'Jobs'
+    seekers_table:
+      status: 'Status'
+      name: 'Jugendlicher'
+      address: 'Adresse'
+      plz: 'PLZ Ort'
+    assignments_table:
+      no_assignments: 'Es sind noch keine Einsatz in deiner Region erfasst.'
+      status: 'Status'
+      seeker: 'Jugendlicher'
+      provider: 'Anbieter'
+      duration_payment: 'Dauer, Lohn'
+      feedback: 'Feedback'
+  seeker_dashboard:
+    title: 'Willkommen'
+    lead: "Hier findest du alle verfügbaren Aktionen."
+    job_list: 'Alle Jobs in der Region anzeigen'
+    my_jobs: 'Deine Jobs'
+    all_jobs: 'Offene Jobs'
+  social_share_button:
+    share_to: 'Job teilen'
+  errors:
+    messages:
+      carrierwave_processing_error: "Kann das Bild leider nicht bearbeiten."
+      carrierwave_integrity_error: "Dies ist kein von uns verwertbares Bild.."
+      carrierwave_download_error: "Das Bild kann leider nicht heruntergeladen werden."
+      extension_white_list_error: "Es ist nicht erlaubt %{extension} Dateien hochzuladen, nur %{allowed_types} sind erlaubt."
+      extension_black_list_error: "Es ist nicht erlaubt %{extension} Dateien hochzuladen, %{prohibited_types} sind nicht erlaubt."

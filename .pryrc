@@ -1,0 +1,5 @@
+require 'pry-coolline'
+require 'pry-rails'
+require 'pry-doc'
+require 'pry-byebug'
+require 'pry-stack_explorer'

@@ -1,0 +1,8 @@
+%h3= organization.name
+%dl
+  - for region in organization.regions
+    %dt= t('regions.index.region', name: region.name)
+    %dd
+      = region.places.pluck(:name).to_sentence
+      %br
+      = link_to(t('regions.index.visit', name: region.name), root_url(subdomain: region.subdomain))

@@ -1,0 +1,39 @@
+%h2
+  = t('seeker_dashboard.title')
+  = current_seeker.firstname
+
+%h3= t('seeker_dashboard.my_jobs')
+.table-responsive
+  %table.table.table-striped
+    %tr
+      %th= t('activerecord.attributes.job.title')
+      %th= t('activerecord.attributes.job.place')
+      %th= t('activerecord.attributes.job.status')
+
+    - if @my_jobs.size == 0
+      %tr
+        %td{ colspan: 3 }= t('seeker.jobs.index.no_jobs')
+
+    - @my_jobs.each do |job|
+      %tr
+        %td= link_to job.title, seeker_job_path(job)
+        %td= job.place.zip + ' ' + job.place.name
+        %td= allocation_status(allocation_for_seeker_job(job, current_seeker))
+
+%h3= t('seeker_dashboard.all_jobs')
+.table-responsive
+  %table.table.table-striped
+    %tr
+      %th= t('activerecord.attributes.job.title')
+      %th= t('activerecord.attributes.job.place')
+      %th= t('activerecord.attributes.job.job_status')
+
+    - if @jobs.size == 0
+      %tr
+        %td{ colspan: 3 }= t('seeker.jobs.index.no_jobs')
+
+    - @jobs.each do |job|
+      %tr
+        %td= link_to job.title, seeker_job_path(job)
+        %td= job.place.zip + ' ' + job.place.name
+        %td= allocation_status(allocation_for_seeker_job(job, current_seeker))

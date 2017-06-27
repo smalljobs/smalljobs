@@ -1,0 +1,26 @@
+=link_to '< ' + t('common.back'), provider_dashboard_url
+%h1= t('provider.jobs.edit.title')
+%p.lead= t('provider.jobs.edit.lead')
+
+%div.row
+  %div.col-md-8
+    = render 'form'
+  %div.col-md-4.bg-info
+    %h4= t('provider.jobs.new.seeker')
+    - if @job.allocations.active.count > 0
+      - for assignment in @job.allocations.active
+        %p
+          = "#{assignment.seeker.firstname} #{assignment.seeker.lastname} #{assignment.last_change_of_state == nil ?  "": assignment.last_change_of_state.strftime("%d.%m.%Y")}"
+          %br
+          = "#{assignment.seeker.street} #{assignment.seeker.phone} #{assignment.seeker.mobile}"
+    - else
+      %p= t('provider.jobs.new.allocations.no_active')
+    - if @job.allocations.finished.count > 0
+      %h4= t('provider.jobs.new.seeker_end')
+      - for assignment in @job.allocations.finished
+        %p
+          = "#{assignment.seeker.firstname} #{assignment.seeker.lastname} #{assignment.last_change_of_state == nil ?  "": assignment.last_change_of_state.strftime("%d.%m.%Y")}"
+          %br
+          = "#{assignment.seeker.street} #{assignment.seeker.phone} #{assignment.seeker.mobile}"
+    - else
+      %p= t('provider.jobs.new.allocations.no_finished')

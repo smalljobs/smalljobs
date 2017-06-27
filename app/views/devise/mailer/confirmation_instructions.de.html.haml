@@ -1,0 +1,5 @@
+%p Willkommen #{ @resource.firstname } #{ @resource.lastname }!
+%p
+%p Herzlichen Dank für ihre Anmeldung.
+%p Sie können Ihr Benutzerkonto nun mit dem folgenden Link bestätigen:
+%p= link_to 'Email bestätigen', confirmation_url(@resource, confirmation_token: @token)

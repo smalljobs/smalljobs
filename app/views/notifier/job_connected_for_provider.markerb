@@ -1,0 +1,28 @@
+# Hallo <%= @provider.name %>
+
+<% if @on_behalf_of %>
+** Der Job-Anbieter hat keine Email-Adresse, daher muss diese Information von dir direkt an ihn weitergeleitet werden! (z.B per Post / Telefon)**
+[Zum Anbieter](<%= broker_provider_url(@provider, subdomain: subdomain_for(@provider)) %>)
+
+<% end %>
+
+
+## Job
+
+**<%= @job.title %>**  
+<%= @job.short_description %>
+
+## Jugendliche(r)
+
+<% @seekers.each do |seeker| %>
+  **<%= seeker.name %>**  
+  <%= seeker.street %>  
+  <%= seeker.place.zip %> <%= seeker.place.name %>
+
+  <%= seeker.email %>  
+  <%= seeker.phone.try(:phony_formatted) %>  
+  <%= seeker.mobile.try(:phony_formatted) %>
+
+<% end %>
+
+[Zum Job](<%= provider_job_url(@job, subdomain: subdomain_for(@job.provider)) %>)

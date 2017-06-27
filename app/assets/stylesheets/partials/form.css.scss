@@ -1,0 +1,57 @@
+form {
+  margin-bottom: 30px;
+
+  label {
+    margin-top: 10px;
+  }
+}
+
+.help-inline {
+  color: #e74c3c;
+}
+
+.alert {
+  .help-inline {
+    color: #fff;
+  }
+}
+
+fieldset {
+  margin-top: 50px;
+  overflow: visible;
+
+  legend {
+    font-size: 2em;
+    overflow: visible;
+
+    i {
+      margin-top: -20px;
+      overflow: visible;
+    }
+  }
+
+  .error .form-control {
+    border-color: #e74c3c;
+  }
+}
+
+.form-actions {
+  margin-top: 30px;
+}
+
+#seeker_date_of_birth_3i, #job_start_date_3i, #job_end_date_3i {
+  float: left;
+  width: 20%;
+  margin-right: 5%;
+}
+
+#seeker_date_of_birth_2i, #job_start_date_2i, #job_end_date_2i {
+  float: left;
+  width: 50%;
+  margin-right: 5%;
+}
+
+#seeker_date_of_birth_1i, #job_start_date_1i, #job_end_date_1i {
+  float: left;
+  width: 20%;
+}

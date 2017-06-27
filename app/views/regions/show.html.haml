@@ -1,0 +1,110 @@
+.jumbotron.organization{ style: @organization.background.present? ? "background-image: url(#{ @organization.background.url(:web) })" : ''}
+  - if @organization.logo.present?
+    = image_tag(@organization.logo.url(:web, :normal), alt: @organization.name)
+  - else
+    %h1= @region.name
+  %p.lead
+    = "Sackgeldjobs für Jugendliche bei Familien, SeniorInnen, anderen Erwachsenen und Firmen für Generationendialog, berufliche Integration und sozialen Zusammenhalt."
+    = link_to "Mehr über uns", about_us_path
+
+
+%h1= "Job anbieten"
+%p.lead
+  = "Sie haben einen Job für Jugendliche? Gartenarbeit, IT-Support, Haushalt, Botengänge oder andere kleinere Arbeiten? Melden sie sich hier online an oder "
+  %a{ href: '#contact_header'}
+    = "rufen sie uns an."
+= link_to "Job ausschreiben", new_provider_registration_path, class: 'btn btn-success'
+
+%br
+%br
+%br
+%h1= "Auf Job bewerben"
+%p.lead= "Offene Jobs"
+.table-responsive
+  %table.table.table-striped
+    - if @jobs.size == 0
+      %tr
+        %td{ colspan: 2 }= t('provider.jobs.index.no_jobs')
+
+    - @jobs.each do |job|
+      %tr
+        %td
+          = link_to job.title, app_links_path
+        %td
+          = job.place.name
+
+%br
+%br
+
+- for organization in @region.organizations.order(:name).distinct
+  %h1.contact_header
+    = "Kontakt #{organization.name}"
+  %h2= t('regions.show.address')
+  %address
+    = organization.name
+    %br
+    = organization.street
+    %br
+
+    = organization.place.zip + ' ' + organization.place.name
+    %br
+    %br
+
+    - if organization.phone
+      %abbr{ title: t('activerecord.attributes.provider.phone') } T:
+      = organization.phone.phony_formatted
+      %br
+
+    - if organization.email
+      %a{ href: 'mailto:#' }= organization.email
+      %br
+
+    - if organization.website
+      = link_to organization.website, organization.website
+      %br
+
+  %h2= "Orte"
+  %p.places
+    - is_first = true
+    - for place in organization.places.order(:name).distinct
+      - if !is_first
+        = ", "
+      - is_first = false
+      = place.full_name
+
+
+  %h2= t('regions.show.people')
+  - organization.brokers.order(:lastname, :firstname).each_with_index do |broker, index|
+    - if index > 0
+      %hr
+
+    %h4= broker.name
+
+    %p
+      - if broker.phone
+        %abbr{ title: t('activerecord.attributes.provider.phone') } T:
+        = broker.phone.phony_formatted
+        %br
+
+      - if broker.mobile
+        %abbr{ title: t('activerecord.attributes.provider.mobile') } M:
+        = broker.mobile.phony_formatted
+
+    - if broker.contact_availability.present?
+      %p.available
+        = succeed ':' do
+          %strong= t('regions.show.available')
+
+        = broker.contact_availability
+
+    %p.regions
+      = succeed ':' do
+        %strong= t('regions.show.responsible')
+
+      - is_first = true
+      - for place in broker.places.order(:name).distinct
+        - if !is_first
+          = ", "
+        - is_first = false
+        = place.full_name
+

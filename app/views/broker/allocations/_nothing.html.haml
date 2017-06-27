@@ -1,0 +1,26 @@
+%div.modal.fade{id: "nothing_modal"}
+  %div.modal-dialog
+    %div.modal-content
+      %div.modal-header
+        %button.close{"data-dismiss": "modal", type: "button"} &times;
+        %h2= ""
+        %p.green= "Erfolgreich durchgeführt"
+      %div.modal-body
+        %input{type: "checkbox", checked: "true"}
+          = "Nachricht an "
+          = @allocation.seeker.name
+          = ":"
+        %textarea.form-control.resize-vertical.textarea{rows: '5'}
+          = "Hallo #{@allocation.seeker.name}"
+          = preserve '&#x000A;'
+          = "Für Fragen schreibe uns hier."
+        %br
+        - if @allocation.seeker.app_user_id.nil?
+          %p
+            = "Keine App für Messaging installiert. Per Telefon Kontakt aufnehmen"
+            %a{href: "tel:#{@allocation.seeker.mobile}"}
+              = @allocation.seeker.mobile
+        %button.btn.btn-success.prevail_state
+          = "Nachricht senden"
+      %div.modal-footer
+        = render 'messages'

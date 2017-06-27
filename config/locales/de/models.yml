@@ -1,0 +1,250 @@
+de:
+  activerecord:
+    models:
+      admin:
+        one: "Administrator"
+        other: "Administratoren"
+      broker:
+        one: "Vermittler"
+        other: "Vermittler"
+      seeker:
+        one: "Jugendlicher"
+        other: "Jugendlicher"
+      provider:
+        one: "Anbieter"
+        other: "Anbieter"
+      work_category:
+        one: "Kategorie"
+        other: "Kategorien"
+      region:
+        one: "Region"
+        other: "Regionen"
+      place:
+        one: "Ort"
+        other: "Orte"
+      organization:
+        one: "Organisation"
+        other: "Organisationen"
+      employment:
+        one: "Anstellung"
+        other: "Anstellungen"
+      job:
+        one: "Job"
+        other: "Jobs"
+      allocation:
+        one: "Zuweisung"
+        other: "Zuweisungen"
+      proposal:
+        one: "Vorschlag"
+        other: "Vorschläge"
+      review:
+        one: "Bewertung"
+        other: "Bewertungen"
+      application:
+        one: "Bewerbung"
+        other: "Bewerbungen"
+      certificate:
+        one: "Zertifikate"
+        other: "Zertifikate"
+    attributes:
+      work_category:
+        name: "Name"
+        created_at: "Erstellt"
+        updated_at: "Bearbeitet"
+      region:
+        name: "Name"
+        subdomain: "Subdomäne"
+        places: "Orte"
+        created_at: "Erstellt"
+        updated_at: "Bearbeitet"
+        employments: "Anstellungen"
+        brokers: "Vermittler"
+        organizations: "Organization"
+      place:
+        name: "Name"
+        state: "Kanton"
+        province: "Bezirk"
+        longitude: "Longitude"
+        latitude: "Latitude"
+        created_at: "Erstellt"
+        updated_at: "Bearbeitet"
+      organization:
+        logo: "Logo"
+        background: "Hintergrund"
+        website: "Webseite"
+        description: "Beschreibung"
+        street: "Strasse"
+        place: "Ort"
+        email: "Email"
+        phone: "Telefon"
+        default_hourly_per_age: "Empfehlung Stundenlohn pro Altersjahr"
+        mobile: "Mobile"
+        active: "Aktiv"
+        employments: "Vermittler"
+        created_at: "Erstellt"
+        updated_at: "Bearbeitet"
+        wage_factor: "Lohnfaktor"
+      employment:
+        organization: "Organisation"
+        broker: "Vermittler"
+        region: "Region"
+        created_at: "Erstellt"
+        updated_at: "Bearbeitet"
+      user: &USER
+        remember_me: "Angemeldet bleiben"
+        firstname: "Vorname"
+        lastname: "Nachname"
+        street: "Strasse"
+        place: "Ort"
+        email: "Email"
+        phone: "Telefon"
+        mobile: "Mobile"
+        active: "Aktiv"
+        date_of_birth: "Geburtsdatum"
+        created_at: "Erstellt"
+        updated_at: "Bearbeitet"
+        contact_preference: "Bevorzuge Kontaktart"
+        contact_availability: "Am Besten zu Erreichen"
+        work_categories: "Bevorzugte Arbeiten"
+        provider: "Anbieter"
+        uid: "UID"
+        name: "Name"
+        username: "Benutzername"
+        password: "Passwort"
+        current_passwort: "Aktuelles Passwort"
+        password_confirmation: "Passwortbestätigung"
+        current_password: "Aktuelles Passwort"
+        encrypted_password: "Verschlüsseltes Passwort"
+        reset_password_token: "Schlüssel zur Passwortrücksetzung"
+        reset_password_sent_at: "Passwordrücksetzung gesendet am"
+        remember_created_at: "Erinnerung seit"
+        sign_in_count: "Anmeldungen"
+        current_sign_in_at: "Angemeldet seit"
+        last_sign_in_at: "Zuletzt angemeldet seit"
+        current_sign_in_ip: "Aktuelle IP"
+        last_sign_in_ip: "Letzte IP"
+        confirmation_token: "Schlüssel zur Bestätigung"
+        confirmed_at: "Bestätigt am"
+        confirmation_sent_at: "Bestätigungsmail gesendet am"
+        unconfirmed_email: "Unbestätigte Email"
+        confirmed?: "Bestätigt"
+        confirmed: "Bestätigt"
+        active: "Aktiviert"
+        terms: "Bedingungen"
+        sex: "Geschlecht"
+      seeker:
+        <<: *USER
+        parental: "Elterneinverständnis erhalten"
+        discussion: "Erstgespräch"
+        inactive_html: <div class='control__indicator'></div>Inaktiv
+        active_html: <div class='control__indicator'></div>Aktiv
+        ended_html:  <div class='control__indicator'></div>Beendet
+      broker:
+        <<: *USER
+        organizations: "Organisationen"
+        regions: "Regionen"
+        employments: "Anstellungen"
+      provider:
+        <<: *USER
+        company: "Unternehmen"
+        inactive_html: <div class='control__indicator'></div>Inaktiv
+        active_html: <div class='control__indicator'></div>Aktiv
+        ended_html:  <div class='control__indicator'></div>Beendet
+      admin:
+        <<: *USER
+      job:
+        job: 'Job'
+        todo: 'Todo'
+        provider: "Anbieter"
+        seekers: "Jugendliche"
+        work_category: "Arbeitskategorie"
+        title: "Titel"
+        status: "Status"
+        job_status: 'Deine Bewerbung'
+        description: "Beschreibung"
+        long_description: "lange Beschreibung"
+        short_description: "kurze Beschreibung"
+        date_type: "Zeitraum"
+        start_date: "Startdatum"
+        end_date: "Enddatum"
+        salary: "Lohn"
+        salary_type: "Art des Lohnes"
+        manpower: "Arbeitskräfte"
+        duration: "Dauer (ungefähre Dauer in Stunden)"
+        created_at: "Erstellt"
+        allocations: "Zuweisungen"
+        applications: "Bewerbungen"
+        proposals: "Vorschläge"
+        reviews: "Bewertungen"
+        place: "Ort"
+        running_html: <div class='control__indicator'></div>Prüfen
+        public_html: <div class='control__indicator'></div>Öffentlich
+        hidden_html: <div class='control__indicator'></div>Versteckt
+        feedback_html: <div class='control__indicator'></div>Abgeschlossen
+      allocation:
+        seeker: "Jugendlicher"
+        message: "Nachricht"
+        created_at: "Erstellt"
+        state_label:
+          application_open: 'Bewerbung'
+          application_rejected: 'Bewerbung abgelehnt'
+          proposal: 'Vorgeschlagen'
+          active: 'Anstellung'
+          finished: 'Anstellung beendet'
+          cancelled: 'Anstellung abgebrochen'
+          application_retracted: "Abgebrochene Bewerbungen"
+      review:
+        provider: "Anbieter"
+        seeker: "Jugendlicher"
+        message: "Nachricht"
+        rating: "Bewertung"
+        created_at: "Erstellt"
+      proposal:
+        seeker: "Jugendlicher"
+        message: "Nachricht"
+        created_at: "Erstellt"
+      application:
+        seeker: "Jugendlicher"
+        message: "Nachricht"
+        created_at: "Erstellt"
+    errors:
+      messages:
+        invalid_seeker_age: "muss zwischen 13 und 18 Jahre alt sein"
+        invalid_work_category: "muss mindestens eine Kategorie beinhalten"
+        cannot_have_seeker_and_provider: "kann nicht gleichzeitig ein Jugendlicher und einen Anbieter bewerten"
+        must_have_seeker_or_provider: "muss entweder einen Jugendlichen oder einen Anbieter bewerten"
+      models:
+        todotype:
+          attributes:
+            where:
+              invalid_where: "Ungültige sql"
+        seeker:
+          attributes:
+            mobile:
+              improbable_phone: "ist keine gültige Telefonnummer"
+            phone:
+              improbable_phone: "ist keine gültige Telefonnummer"
+            terms:
+              accepted: "Die Bedingungen müssen akzeptiert werden."
+        provider:
+          attributes:
+            mobile:
+              improbable_phone: "ist keine gültige Telefonnummer"
+            phone:
+              improbable_phone: "ist keine gültige Telefonnummer"
+            terms:
+              accepted: "Die Bedingungen müssen akzeptiert werden."
+        broker:
+          attributes:
+            mobile:
+              improbable_phone: "ist keine gültige Telefonnummer"
+            phone:
+              improbable_phone: "ist keine gültige Telefonnummer"
+        organization:
+          attributes:
+            phone:
+              improbable_phone: "ist keine gültige Telefonnummer"
+        region:
+          attributes:
+            places:
+              blank: "muss mindestens einen Ort beinhalten"

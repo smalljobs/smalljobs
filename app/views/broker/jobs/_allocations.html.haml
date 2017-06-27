@@ -1,0 +1,57 @@
+- allocations = @job.allocations.application_open
+- if allocations.count > 0
+  %h4= "Bewerbungen"
+  - for allocation in allocations
+    %p
+      = link_to "#{allocation.seeker.name} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(@job, allocation.seeker)
+
+- allocations = @job.allocations.application_rejected
+- if allocations.count > 0
+  %h4= "Bewerbungen abgelehnt"
+  - for allocation in allocations
+    %p
+      = link_to "#{allocation.seeker.name} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(@job, allocation.seeker)
+
+- allocations = @job.allocations.proposal
+- if allocations.count >= 0
+  %h4= "Job Vorschläge"
+  = simple_form_for([:broker, @job], html: { novalidate: true }) do |f|
+    - seekers_collection = []
+    - current_broker.seekers.find_each do |seeker|
+      - if Allocation.find_by(seeker_id: seeker.id, job_id: @job.id) == nil
+        - seekers_collection.append(seeker)
+    - seekers_collection.sort! { |a,b| a.name.downcase <=> b.name.downcase}
+    = f.input :seekers, collection: seekers_collection
+  - for allocation in allocations
+    %p
+      = link_to "#{allocation.seeker.name} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(@job, allocation.seeker)
+
+- allocations = @job.allocations.active
+- if allocations.count > 0
+  %h4= "Aktive Anstellungen"
+  - for allocation in allocations
+    %p
+      = link_to "#{allocation.seeker.name} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(@job, allocation.seeker)
+
+- allocations = @job.allocations.finished
+- if allocations.count > 0
+  %h4= "Beendete Anstellungen"
+  - for allocation in allocations
+    %p
+      = link_to "#{allocation.seeker.name} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(@job, allocation.seeker)
+
+- allocations = @job.allocations.cancelled
+- if allocations.count > 0
+  %h4= "Abgebrochene Anstellungen"
+  - for allocation in allocations
+    %p
+      = link_to "#{allocation.seeker.name} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(@job, allocation.seeker)
+
+:javascript
+  $(document).ready(function() {
+    $("#job_seekers").on('change', function() {
+      if($("#job_seekers").val() != null) {
+        window.location.href = "/broker/jobs/" + "#{@job.id}" + "/allocations/" + $("#job_seekers").val() + "?create=1";
+      }
+    });
+  });

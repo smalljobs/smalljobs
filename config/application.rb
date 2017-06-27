@@ -1,0 +1,44 @@
+require File.expand_path('../boot', __FILE__)
+
+# Pick the frameworks you want:
+require "active_record/railtie"
+require "action_controller/railtie"
+require "action_mailer/railtie"
+require "sprockets/railtie"
+# require "rails/test_unit/railtie"
+
+# Require the gems listed in Gemfile, including any gems
+# you've limited to :test, :development, or :production.
+Bundler.require(:default, Rails.env)
+
+module Smalljobs
+  class Application < Rails::Application
+    # Settings in config/environments/* take precedence over those specified here.
+    # Application configuration should go into files in config/initializers
+    # -- all .rb files in that directory are automatically loaded.
+
+    # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
+    # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
+    config.time_zone = 'Bern'
+
+    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', 'de', '*.{rb,yml}').to_s]
+    config.i18n.default_locale = :de
+
+    config.encoding = 'utf-8'
+
+    config.generators do |g|
+      g.helper              false
+      g.helper_specs        false
+      g.stylesheets         false
+      g.javascripts         false
+      g.integration_tool    :rspec
+      g.test_framework      :rspec, fixture: true
+      g.fixture_replacement :fabrication, dir: 'spec/fabricators'
+    end
+
+    # Asset pipeline
+    config.assets.precompile += %w(rails_admin/rails_admin.css rails_admin/rails_admin.js)
+    config.serve_static_assets = true
+  end
+end

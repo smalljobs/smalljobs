@@ -1,0 +1,15 @@
+%h1= t('pages.sign_up.title')
+
+%h2= t('pages.sign_up.job_offer_title')
+%p= t('pages.sign_up.job_offer_text')
+= link_to t('pages.sign_up.job_offer_button'), new_provider_registration_path, class: 'btn btn-success'
+
+%h2= t('pages.sign_up.job_find_title')
+%p= t('pages.sign_up.job_find_text')
+
+= link_to image_tag('logo_play.png', width: 150), 'https://play.google.com/store/apps/details?id=com.tatentraeger.jugendinfo', target: '_blank'
+= link_to image_tag('logo_appstore.png', width: 150), 'https://itunes.com/apps/jugendinfo', target: '_blank'
+
+%p= "Falls du kein Smartphone hast, melde dich bei deiner Jugendarbeitsstelle. Dort können Sie dir helfen, damit du auch ohne Smartphone zu einem Job kommen kannst."
+
+

@@ -1,0 +1,9 @@
+%a.back_button{href: '#'}
+  = '< ' + t('common.back')
+%h1= t('broker.jobs.new.title')
+%p.lead= t('broker.jobs.new.lead')
+
+= render 'form'
+
+%ul.nav.nav-pills
+  %li= link_to "< " + t('common.back'), broker_jobs_path, class: 'back_button'

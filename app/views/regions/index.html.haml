@@ -1,0 +1,13 @@
+.jumbotron
+  %h1= t('regions.index.teaser')
+  %p.lead= t('regions.index.lead')
+
+%h2= t('regions.index.organizations')
+
+- @organizations.each_slice(2) do |left, right|
+  .row
+    .col-lg-6
+      = render('shared/organization', organization: left)
+    - if right.present?
+      .col-lg-6
+        = render('shared/organization', organization: right)

@@ -1,0 +1,76 @@
+= simple_form_for([:broker, @provider], html: { novalidate: true }) do |f|
+
+  - if notification = f.error_notification
+    .alert.alert-danger
+      = notification
+
+  .form-actions
+    - if @provider.new_record?
+      = f.button :submit, "AnbieterIn erstellen", class: 'btn btn-primary btn-success'
+    - else
+      = f.button :submit, t('common.edit'), class: 'btn btn-primary btn-success'
+
+  %fieldset
+    .form-inputs
+      = f.input :state, as: :radio_buttons, collection: [{value: :inactive, label: t('activerecord.attributes.provider.inactive_html')}, {value: :active, label: t('activerecord.attributes.provider.active_html')}, {value: :completed, label: t('activerecord.attributes.provider.ended_html')}], label_method: ->(obj){obj[:label]}, value_method: ->(obj){obj[:value]}, label: false, inline_label: '', item_wrapper_class: 'control control--radio'
+
+  %fieldset
+    %legend
+      = "Anbieterln"
+    .form-inputs
+      = f.input :company
+      = f.input :firstname, required: true
+      = f.input :lastname, required: true
+
+  %fieldset
+    .form-inputs
+      = f.input :contract, required: true, label: false, inline_label: 'Verträge gesendet'
+      %p
+        %i.fa.fa-print
+        = link_to "Verträge drucken", "/broker/providers/#{@provider.id}/contract?format=pdf", target: '_blank'
+
+      - if @provider.new_record?
+        = f.input :password, required: true, autocomplete: 'off'
+        = f.input :password_confirmation, required: true
+      -#- else
+      -#  = f.input :password, required: false, autocomplete: 'off', hint: t('devise_views.leave_empty')
+      -#  = f.input :password_confirmation, required: false
+
+  %fieldset
+    .form-inputs
+      = f.input :notes, label: "Notizen (nur intern sichtbar)"
+      = f.input :street, required: true
+      = f.association :place, required: true, collection: current_broker.places.order(:name, :zip), label_method: :full_name, include_blank: true
+
+  %fieldset
+    %legend
+      = t('legends.contact')
+      %i.fa.fa-2x.fa-phone.pull-right
+
+    .form-inputs
+      = f.input :email
+      = f.input :phone
+
+
+      = f.input :mobile
+      = f.input :contact_preference, collection: provider_contact_preferences, include_blank: false
+      = f.input :contact_availability, hint: ''
+
+  %fieldset
+    %legend
+      = "Zuständige Organisation"
+    .form-inputs
+      = f.association :organization, required: true, include_blank: true, label: false, collection: current_broker.all_organizations
+
+  .form-actions
+    - if @provider.new_record?
+      = f.button :submit, "AnbieterIn erstellen", class: 'btn btn-primary btn-success'
+    - else
+      = f.button :submit, t('common.edit'), class: 'btn btn-primary btn-success'
+
+  - if !@provider.new_record?
+    .form-actions
+      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#delete_provider_modal"}
+        = "Löschen"
+
+    = render 'delete_modal'

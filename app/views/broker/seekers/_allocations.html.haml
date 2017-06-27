@@ -1,0 +1,47 @@
+- allocations = @seeker.allocations.application_open.where.not(job: nil)
+- if allocations.count > 0
+  %h4= "Bewerbungen"
+  - for allocation in allocations
+    - if allocation.job != nil
+      %p
+        = link_to "#{allocation.job.provider.name} #{allocation.job.title} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation.seeker)
+
+- allocations = @seeker.allocations.application_rejected.where.not(job: nil)
+- if allocations.count > 0
+  %h4= "Bewerbungen abgelehnt"
+  - for allocation in allocations
+    - if allocation.job != nil
+      %p
+        = link_to "#{allocation.job.provider.name} #{allocation.job.title} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation.seeker)
+
+- allocations = @seeker.allocations.proposal.where.not(job: nil)
+- if allocations.count > 0
+  %h4= "Job Vorschläge"
+  - for allocation in allocations
+    - if allocation.job != nil
+      %p
+        = link_to "#{allocation.job.provider.name} #{allocation.job.title} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation.seeker)
+
+- allocations = @seeker.allocations.active.where.not(job: nil)
+- if allocations.count > 0
+  %h4= "Aktive Anstellungen"
+  - for allocation in allocations
+    - if allocation.job != nil
+      %p
+        = link_to "#{allocation.job.provider.name} #{allocation.job.title} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation.seeker)
+
+- allocations = @seeker.allocations.finished.where.not(job: nil)
+- if allocations.count > 0
+  %h4= "Beendete Anstellungen"
+  - for allocation in allocations
+    - if allocation.job != nil
+      %p
+        = link_to "#{allocation.job.provider.name} #{allocation.job.title} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation.seeker)
+
+- allocations = @seeker.allocations.cancelled.where.not(job: nil)
+- if allocations.count > 0
+  %h4= "Abgebrochene Anstellungen"
+  - for allocation in allocations
+    - if allocation.job != nil
+      %p
+        = link_to "#{allocation.job.provider.name} #{allocation.job.title} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation.seeker)

@@ -1,0 +1,20 @@
+%h1= t('pages.sign_in.title')
+
+= simple_form_for(:provider, url: new_session_path("provider"), html: { novalidate: true }) do |f|
+
+  - if flash[:error_info] != nil
+    .alert.alert-danger
+      = flash[:error_info]
+
+  .form-inputs
+    = f.input :login, required: true, autofocus: true, label: t('pages.sign_in.login')
+    = f.input :password, required: true, label: t('pages.sign_in.password')
+
+  .form-actions
+    = f.button :submit, t('pages.sign_in.action'), class: 'btn btn-primary'
+
+= link_to t('devise_views.sign_up'), sign_up_path
+%br
+= link_to t('devise_views.forgot_password?'), new_password_path(:provider)
+%br
+-#= link_to t('devise_views.no_confirmation_sms'), new_confirmation_path(:seeker)

@@ -1,0 +1,22 @@
+.table-responsive {
+  margin-top: 25px;
+
+  .table tbody tr.warning td {
+    background-color: #fcf8e3;
+    color: #333;
+  }
+
+  .table tbody tr.danger td {
+    background-color: #f2dede;
+    color: #333;
+  }
+
+  .table tbody a.fa {
+    color: #333;
+    text-decoration: none;
+
+    &:hover {
+      color: #18bc9c;
+    }
+  }
+}

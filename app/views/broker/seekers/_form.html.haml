@@ -1,0 +1,158 @@
+= simple_form_for([:broker, @seeker], html: { novalidate: false }) do |f|
+
+  - if notification = f.error_notification
+    .alert.alert-danger
+      = notification
+
+  .form-actions
+    - if @seeker.new_record?
+      = f.button :submit, "Jugendlichen erstellen", class: 'btn btn-primary btn-success'
+    - else
+      = f.button :submit, t('common.edit'), class: 'btn btn-primary btn-success'
+
+  %fieldset
+    .form-inputs
+      = f.input :status, as: :radio_buttons, collection: [{value: 'inactive', label: t('activerecord.attributes.seeker.inactive_html')}, {value: 'active', label: t('activerecord.attributes.seeker.active_html')}, {value: 'completed', label: t('activerecord.attributes.seeker.ended_html')}], label_method: ->(obj){obj[:label]}, value_method: ->(obj){obj[:value]}, label: false, inline_label: '', item_wrapper_class: 'control control--radio'
+
+  %fieldset
+    %legend
+      = "JugendlicheR"
+    .form-inputs
+      = f.input :firstname, required: true
+      = f.input :lastname, required: true
+
+  - if !@seeker.new_record?
+    %fieldset
+      %a{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+        %i.fa.fa-envelope
+        = "Nachricht senden"
+
+    %fieldset
+      .form-inputs
+        = f.input :parental, label: false, inline_label: true
+
+      %a{href: "/broker/seekers/#{@seeker.id}/agreement?format=pdf", target: '_blank'}
+        %i.fa.fa-print.margin_left_20.green
+        = "Drucken"
+      %a.margin_left_20{href: "#", "data-toggle": "modal", "data-target": "#pdf_message_modal"}
+        %i.fa.fa-envelope
+        = "Elterneinverständnis als Pdf schicken"
+      .form-inputs
+        = f.input :discussion, label: false, inline_label: true
+
+  %fieldset
+    .form-inputs
+      = f.input :notes, label: "Notizen (nur intern sichtbar)", as: :text
+
+  %fieldset
+    .form-inputs
+      = f.input :email
+
+      - if @seeker.new_record?
+        = f.input :password, required: true, autocomplete: 'off'
+        = f.input :password_confirmation, required: true
+      - else
+        = f.input :password, required: false, autocomplete: 'off'
+        = f.input :password_confirmation, required: false
+      -#- else
+      -#  = f.input :password, required: false, autocomplete: 'off', hint: t('devise_views.leave_empty')
+      -#  = f.input :password_confirmation, required: false
+      = f.input :mobile, required: true
+      = f.input :date_of_birth, required: true, start_year: Date.today.year - 25, end_year: Date.today.year - 13, include_blank: true, hint: 'Du solltest zwischen 13 und 25 Jahre alt sein.'
+      = f.input :sex, collection: seeker_sex, include_blank: false
+
+  %fieldset
+    .form-inputs
+      = f.input :street, required: true
+      = f.association :place, required: true, collection: current_broker.places.order(:name, :zip), include_blank: true, label_method: :full_name
+
+  %fieldset
+    .form-inputs
+      = f.association :work_categories, as: :check_boxes
+
+  %fieldset
+    .form-inputs
+      = f.association :certificates, as: :check_boxes, label: 'Zertifikate'
+
+  %fieldset
+    %legend
+      = "Zuständige Organisation"
+    .form-inputs
+      = f.association :organization, required: true, include_blank: true, label: false, collection: current_broker.all_organizations
+
+  .form-actions
+    - if @seeker.new_record?
+      = f.button :submit, "Jugendlichen erstellen", class: 'btn btn-primary btn-success'
+    - else
+      = f.button :submit, t('common.edit'), class: 'btn btn-primary btn-success'
+
+  - if !@seeker.new_record?
+    .form-actions
+      %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#delete_seeker_modal"}
+        = "Löschen"
+
+    = render 'delete_modal'
+
+- if !@seeker.new_record?
+  = render 'pdf_message_modal'
+  = render 'message_modal'
+
+  :javascript
+    $(document).ready(function() {
+      var modalId;
+
+      function checkForModal() {
+        var id = sessionStorage.getItem('showSeekerModal');
+        if(id != null && id != '') {
+          sessionStorage.setItem('showSeekerModal', '');
+          $(id).modal();
+        }
+      }
+
+      checkForModal();
+
+      $('#message_modal .btn-send').click(function(){
+        modalId = '#message_modal';
+        $('#message_modal button').attr('disabled', 'disabled');
+        sendMessage(function(){
+          sessionStorage.setItem('showSeekerModal', '#message_modal');
+          window.location.reload();
+        });
+      });
+
+      $('#pdf_message_modal .btn-send').click(function(){
+        modalId = '#pdf_message_modal';
+        $('#pdf_message_modal button').attr('disabled', 'disabled');
+        sendMessage(function(){
+          sessionStorage.setItem('showSeekerModal', '#pdf_message_modal');
+          window.location.reload();
+        });
+      });
+
+      function sendMessage(func) {
+        var message = $(modalId + " .textarea").html();
+        message = message.replace(/<br>/g, '');
+        var title = $(modalId + " h2").text();
+        var $checkbox = $(modalId + " input[type='checkbox']");
+        if($checkbox.is(":checked")) {
+        $.post("#{send_message_broker_seeker_path(@seeker)}", {message: message, title: title}, function(response){
+          // console.log(response);
+          func();
+        });
+        } else {
+          func();
+        }
+      }
+
+      function disableMessaging() {
+        $('.modal-body input').removeAttr('checked');
+        $('.modal-body input').attr('disabled', 'true');
+        $('.modal-body textarea').attr('disabled', 'true');
+        $('.modal-body .btn-send').attr('disabled', 'true');
+        // $('.modal-body button').attr('disabled', 'true');
+      }
+
+      if("#{@seeker.app_user_id == nil}" == "true") {
+        disableMessaging();
+      }
+    });

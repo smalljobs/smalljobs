@@ -1,0 +1,64 @@
+%a{href: "#{url_for new_broker_job_url}?provider_id=#{@provider.id}"}
+  %button.btn.btn-success.prevail_state
+    = "neuer job"
+
+- jobs = @provider.jobs.where(state: 'running')
+- if jobs.count > 0
+  %h4= "Jobs: Prüfen"
+  = t('activerecord.attributes.allocation.state_label.')
+  - for job in jobs
+    = link_to "#{job.title} #{job.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_job_path(job), class: 'bold'
+    %br
+    - allocations = job.allocations.includes(:seeker)
+    - for allocation in allocations
+      = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
+      %br
+    %br
+
+- jobs = @provider.jobs.where(state: 'public')
+- if jobs.count > 0
+  %h4= "Jobs: Veröffentlichen"
+  - for job in jobs
+    = link_to "#{job.title} #{job.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_job_path(job), class: 'bold'
+    %br
+    - allocations = job.allocations.includes(:seeker)
+    - for allocation in allocations
+      = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
+      %br
+    %br
+
+- jobs = @provider.jobs.where(state: 'hidden')
+- if jobs.count > 0
+  %h4= "Jobs: Versteckt"
+  - for job in jobs
+    = link_to "#{job.title} #{job.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_job_path(job), class: 'bold'
+    %br
+    - allocations = job.allocations.includes(:seeker)
+    - for allocation in allocations
+      = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
+      %br
+    %br
+
+- jobs = @provider.jobs.where(state: 'feedback')
+- if jobs.count > 0
+  %h4= "Jobs: Feedback"
+  - for job in jobs
+    = link_to "#{job.title} #{job.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_job_path(job), class: 'bold'
+    %br
+    - allocations = job.allocations.includes(:seeker)
+    - for allocation in allocations
+      = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
+      %br
+    %br
+
+- jobs = @provider.jobs.where(state: 'finished')
+- if jobs.count > 0
+  %h4= "Jobs: Beendet"
+  - for job in jobs
+    = link_to "#{job.title} #{job.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_job_path(job), class: 'bold'
+    %br
+    - allocations = job.allocations.includes(:seeker)
+    - for allocation in allocations
+      = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
+      %br
+    %br

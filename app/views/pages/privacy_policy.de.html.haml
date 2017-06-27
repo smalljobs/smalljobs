@@ -1,0 +1,47 @@
+- content_for(:privacy_policy) do
+  %p.lead
+    Ihre Daten werden von SmallJobs nicht gesammelt, weiterverwendet oder in irgendeiner anderen als in dieser Richtlinie beschriebenen Art und Weise benutzt.
+
+  %p
+    Ihre Daten werden so sicher wie uns möglich aufbewahrt. Wir verkaufen sie nicht und geben sie nicht aktiv an Drittpersonen weiter. Einzig und allein die Vermittler ihrer Region haben Zugfriff auf ihre Daten bei SmallJobs.
+    Bei einer aktiven Jobvermittlung werden ihre Kontaktdaten (Adresse und Erreichbarkeit) an die beteiligten Personen übermittelt.
+
+  %p
+    SmallJobs erlaubt sich, ihnen automatisch Mails über den Zustand der Vermittlung zuzustellen.
+
+  %p
+    Wir behalten uns das Recht vor, diese Datenschutzerklärung jederzeit zu aktualisieren. Wir werden Sie über wesentliche Änderungen durch die Veröffentlichung der neuen Datenschutzerklärung auf der Website informieren. Ihre fortgesetzte Nutzung der Website und / oder Leistungen unterliegen der jeweils aktuellen Datenschutzrichtlinien.
+
+  %h2
+    Protokolldaten
+
+  %p
+    Beim Benutzen dieser Seite, zeichnet der Server automatisch auf, welche Ihr Browser an den Server übermittelt (Log-Dateien). Diese Protokolldaten enthalten Informationen darüber, welche Webseiten sie auf SmallJobs besucht haben, wieviel Zeit sie auf diesen Seiten verbracht haben, Zugriffszeiten usw. Diese Daten werden von uns anonymisiert zur Optimierung der Plattform benützt.
+
+
+  %h2 Cookies
+
+  %p
+    SmallJobs benützt "Cookies" und “Beacons” um bestimmte Informationen zu sammeln.
+  %p
+    Cookies sind Dateien, die von einem Webserver an Ihren Browser gesendet und auf der Festplatte Ihres Computers gespeichert werden. SmallJob verwendet ein Session-ID-Cookie, um Besucher zu identifizieren und eine personalisierte Benutzererfahrung zu bieten.
+
+  %p
+    Anders als dauerhafte Cookies, werden  Session-ID-Cookies von Ihrem Computer gelöscht, wenn Sie die Webseite verlassen und dann den Browser schließen. Sie können Ihren Browser anweisen, die Annahme von Cookies zu stoppen, oder ihn so einrichten, dass sie jeweils um das Bestätigen einer Cookie-Annahme gebeten werden.Wenn Sie keine Cookies akzeptieren, können Sie möglicherweise nicht alle Teile der Plattform oder alle Funktionen des Dienstes richtig nutzen.
+
+  %p
+    Beacons sind Teile des Codes, die ähnlich wie Cookies funktionieren. SmallJobs-Beacons werden in ausgehenden E-Mails eingebettet und erzeugen einen Anruf zurück zum SmallJobs Server, wenn solche E-Mails geöffnet werden. SmallJobs benutzt Beacons, um den Status der gesendeten E-Mails zu verfolgen.
+
+- if request.xhr?
+  .modal-header
+    %button{ type: 'button', class: 'close', data: { dismiss: 'modal' }, aria: { hidden: 'true' }} &times;
+    %h1 Datenschutzrichtlinien
+  .modal-body
+    = yield(:privacy_policy)
+  .modal-footer
+    %button{ type: 'button', class: 'btn btn-default', data: { dismiss: 'modal' }}= t('common.ok')
+
+- else
+  %h1 Datenschutzrichtlinien
+
+  = yield(:privacy_policy)

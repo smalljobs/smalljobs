@@ -1,0 +1,40 @@
+# Guten Tag <%= @provider.name %>
+
+<% if @on_behalf_of %>
+** Der Anbieter hat keine Email-Adresse, daher muss diese Information von Dir (per Post/Telefon) weitergeleitet werden.**
+
+[Zum Anbieter](<%= broker_provider_url(@provider, subdomain: subdomain_for(@provider)) %>)
+
+<% end %>
+
+Ihre Adresse wurde überprüft und Sie sind nun erfolgreich aufgeschaltet und können nun Jobs auf smalljobs.ch erfassen.
+
+
+Bei Problemen melden Sie sich bitte direkt bei:
+
+
+## Ansprechsperson(en):
+
+<% @brokers.each do |broker| %>
+  **<%= broker.name %>**  
+  <%= broker.email %>  
+  <%= broker.phone.try(:phony_formatted) %>  
+  <%= broker.mobile.try(:phony_formatted) %>
+
+<% end %>
+
+
+## Organisation
+
+**<%= @organization.name %>**  
+<%= @organization.street %>  
+<%= @organization.place.zip %> <%= @organization.place.name %>
+
+<%= @organization.phone %>  
+<%= @organization.email %>  
+<%= @organization.website %>
+
+
+viel Erfolg
+
+smalljobs.ch

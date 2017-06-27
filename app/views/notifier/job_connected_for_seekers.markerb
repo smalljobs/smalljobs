@@ -1,0 +1,48 @@
+# Hallo <%= @seekers.pluck(:firstname).to_sentence %>
+
+Jippie!
+
+Du hast einen neuen Job von smalljobs.ch
+
+Bitte nimm sobald wie möglich Kontakt mit dem Job-Anbieter auf und mache ab, wann du bei ihm den Job ausüben kannst.
+
+ein paar Tips für die Kontaktaufnahme:
+
+* sprich langsam und deutlich (gleichzeitiges Essen & Kauen von Kaugummis eher nicht)
+* versuche am Telefon nett und freundlich zu bleiben.
+* rufe von einem ruhigen Ort an, so dass dich der Anbieter gut hören kann.
+* rufe nicht nach 20:00 Uhr an.
+
+
+Wenn du den Termin abgemacht hast:
+
+* schreib ihn dir sofort in deine Agenda (oder deinen Smartphone Kalender). Am besten setzt du auch grad einen Alarm 30 min. vorher, damit du ihn sicher nicht vergisst)
+* Schau dass du pünktlich da bist (lieber 5 min früher, falls dir noch was dazwischen kommen würde...)
+* Falls du den Termin nicht wahrnehmen kannst: **melde dich ab (so früh du kannst) und wenn möglich per Telefon
+* Wenn du freundlich und verständnisvoll bist, wird vielleicht mehr als nur dieser Job daraus und der Anbieter stellt dich vielleicht wieder an.
+
+
+Falls etwas nicht klappt, Probleme auftauchen oder du über mehrere Tage niemand erreichen kannst:
+ ** melde uns dies bitte umgehend!**
+
+
+## Job
+
+**<%= @job.title %>**  
+<%= @job.short_description %>
+
+
+## Anbieter
+
+**<%= @provider.name %>**  
+<%= @provider.street %>  
+<%= @provider.place.zip %> <%= @provider.place.name %>
+
+<%= @provider.email %>  
+<%= @provider.phone.try(:phony_formatted) %>  
+<%= @provider.mobile.try(:phony_formatted) %>
+
+[Zum Job](<%= job_url(@job, subdomain: subdomain_for(@job.provider)) %>)
+
+
+Wir wünschen dir viel Spass bei deinem Jöbli!

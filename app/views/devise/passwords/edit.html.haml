@@ -1,0 +1,20 @@
+%h2= t('devise_views.passwords.edit.title')
+%p.lead= t('devise_views.passwords.edit.lead')
+
+= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, novalidate: true }) do |f|
+
+  = f.input :reset_password_token, as: :hidden
+
+  - if notification = f.error_notification
+    .alert.alert-danger
+      = notification
+      = f.full_error :reset_password_token
+
+  .form-inputs
+    = f.input :password, label: t('devise_views.passwords.edit.new_password'), required: true, autofocus: true
+    = f.input :password_confirmation, label: t('devise_views.passwords.edit.confirmation'), required: true
+
+  .form-actions
+    = f.button :submit, t('devise_views.passwords.edit.action'), class: 'btn btn-primary'
+
+= render 'devise/shared/links'

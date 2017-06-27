@@ -1,0 +1,6 @@
+- if @job.todos.job.exists?
+  %div.bg-info.provider_allocations
+    %h3= 'TODO'
+    - for todo in @job.todos.job
+      %h4= todo.todotype.title
+      %p= todo.todotype.description.html_safe

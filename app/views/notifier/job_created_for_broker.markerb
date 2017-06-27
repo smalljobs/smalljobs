@@ -1,0 +1,9 @@
+# Hallo <%= @brokers.pluck(:firstname).to_sentence %>
+
+Es gibt einen neuen Job in deiner Region:
+
+**<%= @job.title %>**  
+<%= @job.short_description %>
+
+[Schalte den Job frei](<%= broker_job_url(@job, subdomain: subdomain_for(@job.provider)) %>)
+
