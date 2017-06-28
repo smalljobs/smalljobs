@@ -34,7 +34,7 @@ class Broker::ProvidersController < InheritedResources::Base
     @qrcode = RQRCode::QRCode.new(@provider.id.to_s, mode: :number).as_png
 
     if request.subdomain == 'winterthur' || params['domain'] == 'winterthur'
-      render pdf: 'contract', template: 'broker/providers/contract_winterthur.html.erb'
+      render pdf: 'contract', template: 'broker/providers/contract_winterthur.html.erb', dpi: '96'
     else
       render pdf: 'contract', template: 'broker/providers/contract.html.erb'
     end
