@@ -90,7 +90,7 @@
       max-width: 95px;
     }
     p.org-name{
-      margin-top: 175px;
+      margin-top: 102px;
       font-size: 15px;
       font-weight: 400;
       margin-left: 93px;
@@ -195,7 +195,7 @@
     h1.provider-name{
       margin-left: 93px;
       font-size: 15px;
-      margin-top: 20px;
+      margin-top: 80px;
       font-weight: 400;
       line-height: 1.4;
     }
@@ -357,19 +357,21 @@
     Guten Tag <%= @provider.name %><%= @provider.company != nil && !@provider.company.empty? ? ", (#{@provider.company})":""  %>
   </p>
   <p class="second-paragraph">
-    Es freut uns sehr, Sie bei der Jobbörse begrüssen zu dürfen! Sie leisten mit Ihrer Teilnahme einen wertvollen
-    Beitrag für die berufliche Integration und den Generationendialog. Unsere Jugendlichen freuen sich,
-    Sie kompetent, freundlich und persönlich unterstützen zu können.
+    Es freut uns sehr, Sie in der Sackgeld-Jobbörse für den Generationendialog dabei zu haben!
+    Sie leisten mit Ihrer Teilnahme einen wertvollen und nachhaltigen Beitrag für die beru4iche
+    Integration <span style="letter-spacing: 3px">junger Menschen</span> und den Generationendialog. Unsere Jugendlichen
+    freuen sich, Sie kompetent, freundlich und persönlich unterstützen zu können.
   </p>
   <p class="third-paragraph">
-    Beiliegend erhalten Sie eine Vorlage für einen Arbeitsvertrag. Wir bitten Sie, diesen jeweils von
-    jedem Jugendlichen bei Arbeitsbeginn unterschreiben zu lassen. Die Jugendlichen lesen Ihre
-    persönliche Identifikation bei Arbeitsbeginn ein. Das System berechnet den Lohn dann automatisch.
-    Nach Arbeitsende können Sie den Jugendlichen den Lohn bezahlen.
+    Basierend auf den bisherigen Erfahrungen haben wir unsere Vermittlungs-Lösung optimiert.
+    Beiliegend erhalten Sie eine Vorlage für einen Arbeitsvertrag. Wir bitten Sie, diesen jeweils
+    von jedem Jugendlichen bei Arbeitsbeginn unterschreiben zu lassen. Die Jugendlichen lesen
+    Ihre persönliche Identi:kation bei Arbeitsbeginn ein. Das System berechnet den Lohn dann
+    automatisch. Nach Arbeitsende können Sie den Jugendlichen den Lohn bezahlen.
   </p>
   <p class="forth-paragraph">
-    Viel Spass bei der Zusammenarbeit mit unseren Jugendlichen. Bei Fragen oder Problemen stehen
-    wir Ihnen gerne zur Verfügung: <%= current_broker.mobile %>
+    Viel Spass bei der weiteren Zusammenarbeit mit unseren Jugendlichen. Bei Fragen oder
+    Problemen und für neue Jobs stehen wir Ihnen gerne zur Verfügung: <%= current_broker.mobile %>
   </p>
   <p class="letter-end">
     Für Ihre Jobbörse <%= @provider.organization.name %>
