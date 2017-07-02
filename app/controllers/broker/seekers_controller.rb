@@ -26,20 +26,7 @@ class Broker::SeekersController < InheritedResources::Base
   end
 
   def edit
-    dev = "https://devadmin.jugendarbeit.digital/api/jugendinfo_message/get_conversation_id_by_user?user_id=#{@seeker.app_user_id}"
-    live = "https://admin.jugendarbeit.digital/api/jugendinfo_message/get_conversation_id_by_user?user_id=#{@seeker.app_user_id}"
-    response = RestClient.get dev
-    json = JSON.parse(response)
-    conversation_id = json['id']
-    if !conversation_id.nil?
-      dev = "https://devadmin.jugendarbeit.digital/api/jugendinfo_message/get_messages/?key=ULv8r9J7Hqc7n2B8qYmfQewzerhV9p&id=#{conversation_id}&limit=1000"
-      live = "https://admin.jugendarbeit.digital/api/jugendinfo_message/get_messages/?key=ULv8r9J7Hqc7n2B8qYmfQewzerhV9p&id=#{conversation_id}&limit=1000"
-      response = RestClient.get dev
-      json = JSON.parse(response.body)
-      @messages = json['messages'].sort_by { |val| DateTime.strptime(val['datetime'], '%s') }.reverse
-    else
-      @messages = []
-    end
+    @messages = MessagingHelper::get_messages(@seeker.app_user_id)
 
     edit!
   end
@@ -67,16 +54,9 @@ class Broker::SeekersController < InheritedResources::Base
   end
 
   def send_message
-    seeker = Seeker.find_by(id: params[:id])
     title = params[:title]
     message = params[:message]
-    require 'rest-client'
-    dev = 'https://devadmin.jugendarbeit.digital/api/jugendinfo_push/send'
-    live = 'https://admin.jugendarbeit.digital/api/jugendinfo_push/send'
-    response = RestClient.post dev, api: 'ULv8r9J7Hqc7n2B8qYmfQewzerhV9p', message_title: title, message: message, device_token: @seeker.app_user_id, sendermail: current_broker.email
-    json = JSON.parse(response.body)
-    conv_id = json['conversation_id']
-
+    response = MessagingHelper::send_message(title, message, @seeker.app_user_id, current_broker.email)
     render json: { state: 'ok', response: response }
   end
 
