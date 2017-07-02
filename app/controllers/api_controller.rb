@@ -6,34 +6,29 @@ class ApiController < ApplicationController
   def login
     seeker = Seeker.find_by(login: login_params[:phone]) || Seeker.find_by(phone: login_params[:phone])
 
-    if seeker == nil
+    if seeker.nil?
       render json: {code: 'users/not_found', message: 'User not found'}, status: 404
       return
     end
 
-    if !seeker.valid_password?(login_params[:password])
+    unless seeker.valid_password?(login_params[:password])
       render json: {code: 'users/invalid', message: 'Invalid phone or password'}, status: 422
       return
     end
 
     token = AccessToken.find_by(seeker_id: seeker.id)
-    if token != nil
-      token.destroy!
-    end
+    token.destroy! unless token.nil?
 
     token = AccessToken.new(seeker_id: seeker.id, token_type: 'bearer')
     token.expire_at = DateTime.now() + 30.days
     token.save!
-
-    # expires_in = token.created_at + 30.days
-    # expires_in -= token.created_at
 
     render json: {access_token: token.access_token, token_type: token.token_type, expires_in: token.expire_at.strftime('%s'), created_at: token.created_at, refresh_token: token.refresh_token, user: ApiHelper::seeker_to_json(seeker)}, status: 200
   end
 
   def logout
     authorization_header = request.authorization()
-    if authorization_header != nil
+    unless authorization_header.nil?
       token = authorization_header.split(" ")[1]
       token = AccessToken.find_by(access_token: token)
       token.destroy!
@@ -44,7 +39,7 @@ class ApiController < ApplicationController
 
   def register
     user_params = register_params
-    if user_params[:birthdate] == nil
+    if user_params[:birthdate].nil?
       render json: {code: 'users/invalid', message: 'Birthdate not present'}, status: 422
       return
     end
@@ -53,7 +48,7 @@ class ApiController < ApplicationController
     user_params.except!(:birthdate)
     user_params[:login] = user_params[:phone]
     user_params[:mobile] = user_params[:phone]
-    if user_params[:categories] != nil
+    unless user_params[:categories].nil?
       user_params[:work_category_ids] = JSON.parse user_params[:categories]
       user_params.except!(:categories)
     end
@@ -61,7 +56,7 @@ class ApiController < ApplicationController
     user_params[:password_confirmation] = user_params[:password]
     seeker = Seeker.new(user_params)
     seeker.status = 1
-    if !seeker.save
+    unless seeker.save
       render json: {code: 'users/invalid', message: seeker.errors.first}, status: 422
       return
     end
@@ -72,20 +67,19 @@ class ApiController < ApplicationController
   def list_users
     users = []
     organization_id = params[:organization_id]
-    page = params[:page] == nil ? 1 : params[:page].to_i
-    limit = params[:limit] == nil ? 10 : params[:limit].to_i
-    status = params[:status] == nil ? 1 : params[:status].to_i
+    page = params[:page].nil? ? 1 : params[:page].to_i
+    limit = params[:limit].nil? ? 10 : params[:limit].to_i
+    status = params[:status].nil? ? 1 : params[:status].to_i
+    seekers = []
 
-    if organization_id == nil
+    if organization_id.nil?
       seekers = Seeker.where(status: status).page(page).per(limit)
-      for user in seekers do
-        users.append(ApiHelper::seeker_to_json(user))
-      end
     else
       seekers = Seeker.where(status: status, organization_id: organization_id).page(page).per(limit)
-      for user in seekers do
-        users.append(ApiHelper::seeker_to_json(user))
-      end
+    end
+
+    for user in seekers do
+      users.append(ApiHelper::seeker_to_json(user))
     end
 
     render json: users, status: 200
@@ -93,7 +87,7 @@ class ApiController < ApplicationController
 
   def show_user
     user = Seeker.find_by(id: params[:id])
-    if user == nil
+    if user.nil?
       render json: {code: 'users/not_found', message: 'User not found'}, status: 404
       return
     end
@@ -103,7 +97,7 @@ class ApiController < ApplicationController
 
   def update_user
     seeker = Seeker.find_by(id: params[:id])
-    if seeker == nil
+    if seeker.nil?
       render json: {code: 'users/not_found', message: 'User not found'}, status: 404
       return
     end
@@ -114,17 +108,17 @@ class ApiController < ApplicationController
     end
 
     user_params = update_params
-    if user_params[:birthdate] != nil
+    unless user_params[:birthdate].nil?
       user_params[:date_of_birth] = DateTime.strptime(user_params[:birthdate], '%s')
       user_params.except!(:birthdate)
     end
 
-    if user_params[:categories] != nil
+    unless user_params[:categories].nil?
       user_params[:work_category_ids] = JSON.parse user_params[:categories]
       user_params.except!(:categories)
     end
 
-    if user_params[:password] != nil
+    unless user_params[:password].nil?
       user_params[:password_confirmation] = user_params[:password]
     end
 
@@ -146,7 +140,7 @@ class ApiController < ApplicationController
 
   def show_region
     region = Region.find_by(id: params[:id])
-    if region == nil
+    if region.nil?
       render json: {code: 'market/not_found', message: 'Region not found'}, status: 404
       return
     end
@@ -156,20 +150,16 @@ class ApiController < ApplicationController
 
   def list_organizations
     region = nil
-    if params[:region] != nil
+    unless params[:region].nil?
       region = Region.find_by(id: params[:region])
-      if region == nil
+      if region.nil?
         render json: {code: 'market/not_found', message: 'Region not found'}, status: 404
         return
       end
     end
 
     active = params[:active]
-    if active == nil || active == 'true' || active == true
-      active = true
-    else
-      active = false
-    end
+    active = (active.nil? || active == 'true' || active == true)
 
     organizations = []
     if region != nil
@@ -201,12 +191,12 @@ class ApiController < ApplicationController
   def list_jobs
     organization_id = params[:organization_id]
     region_id = params[:region_id]
-    status = params[:status] == nil ? nil : params[:status].to_i
+    status = params[:status].nil? ? nil : params[:status].to_i
     show_provider = true?(params[:provider])
     show_organization = true?(params[:organization])
     show_assignments = true?(params[:assignments])
-    page = params[:page] == nil ? 1 : params[:page].to_i
-    limit = params[:limit] == nil ? 10 : params[:limit].to_i
+    page = params[:page].nil? ? 1 : params[:page].to_i
+    limit = params[:limit].nil? ? 10 : params[:limit].to_i
 
     state = Job::state_from_integer(status)
 
@@ -221,7 +211,7 @@ class ApiController < ApplicationController
       end
 
       found_jobs = region.jobs
-      if !organization_id.nil?
+      unless organization_id.nil?
         found_jobs = found_jobs.where(organization_id: organization_id)
       end
     else
@@ -232,7 +222,7 @@ class ApiController < ApplicationController
       end
     end
 
-    if !state.nil?
+    unless state.nil?
       found_jobs = found_jobs.where(state: state)
     end
 
@@ -249,13 +239,13 @@ class ApiController < ApplicationController
     id = params[:id]
     message = params[:message]
     job = Job.find_by(id: id)
-    if job == nil
+    if job.nil?
       render json: {code: 'jobs/not_found', message: 'Job not found'}, status: 404
       return
     end
 
     allocation = Allocation.find_by(job_id: id, seeker_id: @seeker.id)
-    if allocation != nil
+    unless allocation.nil?
       if allocation.application_retracted?
         allocation.state = :application_open
         allocation.save!
@@ -276,13 +266,13 @@ class ApiController < ApplicationController
   def revoke
     id = params[:id]
     job = Job.find_by(id: id)
-    if job == nil
+    if job.nil?
       render json: {code: 'jobs/not_found', message: 'Job not found'}, status: 404
       return
     end
 
     allocation = Allocation.find_by(job_id: id, seeker_id: @seeker.id)
-    if allocation == nil
+    if allocation.nil?
       render json: {code: 'jobs/not_found', message: 'Application not found'}, status: 404
       return
     end
@@ -303,18 +293,9 @@ class ApiController < ApplicationController
     show_organization = true?(params[:organization])
     show_assignments = true?(params[:assignments])
     job = Job.find_by(id: id)
-    if job == nil
+    if job.nil?
       render json: {code: 'jobs/not_found', message: 'Job not found'}, status: 404
       return
-    end
-
-    status = 0
-    if job.state == 'available'
-      status = 0
-    elsif job.state == 'connected'
-      status = 1
-    elsif job.state == 'rated'
-      status = 2
     end
 
     render json: ApiHelper::job_to_json(job, job.provider.organization, show_provider, show_organization, show_assignments, nil), status: 200
@@ -328,16 +309,16 @@ class ApiController < ApplicationController
     show_organization = true?(params[:organization])
     show_assignments = true?(params[:assignments])
     show_seeker = true?(params[:user])
-    page = params[:page] == nil ? 1 : params[:page].to_i
-    limit = params[:limit] == nil ? 10 : params[:limit].to_i
+    page = params[:page].nil? ? 1 : params[:page].to_i
+    limit = params[:limit].nil? ? 10 : params[:limit].to_i
 
     allocations = []
     found_allocations = Allocation.where(seeker_id: id).all
-    if status != nil
+    unless status.nil?
       found_allocations = found_allocations.where(state: status)
     end
 
-    if job_id != nil
+    unless job_id.nil?
       found_allocations = found_allocations.where(job_id: job_id)
     end
 
@@ -352,24 +333,24 @@ class ApiController < ApplicationController
 
   def create_assignment
     start_datetime = params[:start_timestamp]
-    if start_datetime != nil
+    unless start_datetime.nil?
       start_datetime = DateTime.strptime(start_datetime, '%s')
     end
 
     stop_datetime = params[:stop_timestamp]
-    if stop_datetime != nil
+    unless stop_datetime.nil?
       stop_datetime = DateTime.strptime(stop_datetime, '%s')
     end
 
     duration = params[:duration]
-    if duration != nil
+    unless duration.nil?
       duration = duration.to_i
     end
 
     status = :active
-    if params[:status] != nil
+    unless params[:status].nil?
       status = params[:status].to_i
-      if status == 0
+      if status.zero?
         status = :active
       else
         status = :finished
@@ -377,7 +358,7 @@ class ApiController < ApplicationController
     end
 
     assignment = Assignment.new(status: status, job_id: params[:job_id], seeker_id: params[:user_id], provider_id: params[:provider_id], feedback: params[:message], payment: params[:payment], start_time: start_datetime, end_time: stop_datetime, duration: duration)
-    if !assignment.save
+    unless assignment.save
       render json: {code: 'assignments/invalid', message: assignment.errors.first}, status: 422
       return
     end
@@ -387,13 +368,13 @@ class ApiController < ApplicationController
 
   def update_assignment
     assignment = Assignment.find_by(id: params[:id])
-    if assignment == nil
+    if assignment.nil?
       render json: {code: 'assignments/not_found', message: 'Assignment not found'}, status: 404
       return
     end
 
     data = {}
-    if params[:status] != nil
+    unless params[:status].nil?
       data[:status] = params[:status].to_i
       if data[:status] == 0
         data[:status] = :active
@@ -402,23 +383,23 @@ class ApiController < ApplicationController
       end
     end
 
-    if params[:message] != nil
+    unless params[:message].nil?
       data[:feedback] = params[:message]
     end
 
-    if params[:start_timestamp] != nil
+    unless params[:start_timestamp].nil?
       data[:start_time] = DateTime.strptime(params[:start_timestamp], '%s')
     end
 
-    if params[:stop_timestamp] != nil
+    unless params[:stop_timestamp].nil?
       data[:end_time] = DateTime.strptime(params[:stop_timestamp], '%s')
     end
 
-    if params[:duration] != nil
+    unless params[:duration].nil?
       data[:duration] = params[:duration].to_i
     end
 
-    if params[:payment] != nil
+    unless params[:payment].nil?
       data[:payment] = params[:payment].to_f
     end
 
@@ -431,7 +412,7 @@ class ApiController < ApplicationController
 
   def delete_assignment
     assignment = Assignment.find_by(id: params[:id])
-    if assignment == nil
+    if assignment.nil?
       render json: {code: 'assignments/not_found', message: 'Assignment not found'}, status: 404
       return
     end
@@ -447,18 +428,18 @@ class ApiController < ApplicationController
 
   def list_assignments
     organization_id = params[:organization_id]
-    status = params[:status] == nil ? nil : params[:status].to_i
+    status = params[:status].nil? ? nil : params[:status].to_i
     show_provider = true?(params[:provider])
     show_organization = true?(params[:organization])
     show_seeker = true?(params[:user])
     show_job = true?(params[:job])
-    page = params[:page] == nil ? 1 : params[:page].to_i
-    limit = params[:limit] == nil ? 10 : params[:limit].to_i
+    page = params[:page].nil? ? 1 : params[:page].to_i
+    limit = params[:limit].nil? ? 10 : params[:limit].to_i
     seeker_id = params[:user_id]
     provider_id = params[:provider_id]
 
     state = nil
-    if status == 0
+    if status.zero?
       state = 0
     elsif status == 1
       state = 1
@@ -467,21 +448,21 @@ class ApiController < ApplicationController
     assignments = []
     found_assignments = []
 
-    if organization_id == nil
+    if organization_id.nil?
       found_assignments = Assignment.all
     else
       found_assignments = Assignment.joins(:provider).where(providers: {organization_id: organization_id})
     end
 
-    if state != nil
+    unless state.nil?
       found_assignments = found_assignments.where(status: state)
     end
 
-    if seeker_id != nil
+    unless seeker_id.nil?
       found_assignments = found_assignments.where(seeker_id: seeker_id)
     end
 
-    if provider_id != nil
+    unless provider_id.nil?
       found_assignments = found_assignments.where(provider_id: provider_id)
     end
 
@@ -501,7 +482,7 @@ class ApiController < ApplicationController
     show_seeker = true?(params[:user])
     show_job = true?(params[:job])
     assignment = Assignment.find_by(id: id)
-    if assignment == nil
+    if assignment.nil?
       render json: {code: 'assignments/not_found', message: 'Assignment not found'}, status: 404
       return
     end
@@ -526,7 +507,7 @@ class ApiController < ApplicationController
     if seeker.last_recovery == DateTime.now.to_date
       seeker.recovery_times += 1
     else
-      seeker.last_recovery =DateTime.now.to_date
+      seeker.last_recovery = DateTime.now.to_date
       seeker.recovery_times = 1
     end
 
@@ -606,22 +587,19 @@ class ApiController < ApplicationController
   def authenticate_token
     token = nil
     authorization_header = request.authorization()
-    if authorization_header != nil
+    unless authorization_header.nil?
       token = authorization_header.split(" ")[1]
       token = AccessToken.find_by(access_token: token)
     end
 
-    if token == nil
-      return false
-    end
+    return false if token.nil?
 
     expiration_date = token.expire_at || (token.created_at + 30.days)
-    if expiration_date < DateTime.now
-      return false
-    end
+
+    return false if expiration_date < DateTime.now
 
     @seeker = Seeker.find_by(id: token.seeker_id)
-    return true
+    true
   end
 
   def render_unauthorized
