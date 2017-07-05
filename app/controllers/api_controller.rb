@@ -4,7 +4,8 @@ class ApiController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   def login
-    seeker = Seeker.find_by(login: login_params[:phone]) || Seeker.find_by(phone: login_params[:phone])
+    phone = PhonyRails.normalize_number(params[:phone], default_country_code: 'CH')
+    seeker = Seeker.find_by(login: login_params[:phone]) || Seeker.find_by(phone: phone) || Seeker.find_by(mobile: phone)
 
     if seeker.nil?
       render json: {code: 'users/not_found', message: 'User not found'}, status: 404
