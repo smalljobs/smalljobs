@@ -52,7 +52,7 @@ class Broker < ActiveRecord::Base
   # @return [Boolean] the status
   #
   def active_for_authentication?
-    super && active?
+    active?
   end
 
   # Return the I18n message key when authentication fails
