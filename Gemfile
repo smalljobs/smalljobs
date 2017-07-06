@@ -45,6 +45,7 @@ gem 'rich', github: 'kreativgebiet/rich'
 gem 'paperclip'
 gem 'aws-sdk'
 gem 'nexmo'
+gem 'puma'
 
 group :development, :test do
   gem 'better_errors'
@@ -68,7 +69,6 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'spring'
   gem 'spring-commands-rspec'
-  gem 'puma'
   gem 'bullet'
 end
 
