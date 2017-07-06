@@ -75,7 +75,8 @@ class ApplicationController < ActionController::Base
 
   def ensure_subdomain_for(resource)
     case resource
-    when Broker
+      when Broker
+        return request.subdomain
       subdomains = resource.regions.pluck(:subdomain)
       subdomains.include?(request.subdomain) ? request.subdomain : subdomains.first
     when Provider, Seeker
