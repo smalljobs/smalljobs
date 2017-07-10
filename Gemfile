@@ -45,6 +45,7 @@ gem 'paperclip'
 gem 'aws-sdk'
 gem 'nexmo'
 gem 'puma'
+gem 'puma_worker_killer'
 
 group :development, :test do
   gem 'better_errors'
