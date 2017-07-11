@@ -14,4 +14,8 @@ class PasswordsController < Devise::PasswordsController
       respond_with(resource)
     end
   end
+
+  def after_sending_reset_password_instructions_path_for(resource_name)
+    join_us_path
+  end
 end
