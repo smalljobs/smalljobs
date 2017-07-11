@@ -31,12 +31,14 @@ Smalljobs::Application.routes.draw do
   constraints(RegionSubdomain) do
     devise_for :brokers, except: :confirmation, controllers: {
       registrations: 'registrations',
-      sessions: 'sessions'
+      sessions: 'sessions',
+      passwords: 'passwords'
     }
 
     devise_for :providers, except: :confirmation, controllers: {
       registrations: 'registrations',
-      sessions: 'sessions'
+      sessions: 'sessions',
+      passwords: 'passwords'
     }
 
     devise_for :seekers, except: :confirmation, controllers: {
