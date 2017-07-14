@@ -1,4 +1,8 @@
 class PasswordsController < Devise::PasswordsController
+  def new
+    super
+  end
+
   def create
     if !Broker.find_by(email: resource_params[:email]).nil?
       self.resource = Broker.send_reset_password_instructions(resource_params)
@@ -13,6 +17,14 @@ class PasswordsController < Devise::PasswordsController
     else
       respond_with(resource)
     end
+  end
+
+  def edit
+    super
+  end
+
+  def update
+    super
   end
 
   def after_sending_reset_password_instructions_path_for(resource_name)
