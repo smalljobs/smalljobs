@@ -12,10 +12,14 @@ module MessagingHelper
 
   def self.get_conversation_id(device_token)
     url = "#{@@current_url}/jugendinfo_message/get_conversation_id_by_user?user_id=#{device_token}"
-    response = RestClient.get url
-    json = JSON.parse(response)
-    conversation_id = json['id']
-    conversation_id
+    begin
+      response = RestClient.get url
+      json = JSON.parse(response)
+      conversation_id = json['id']
+      conversation_id
+    rescue
+      nil
+    end
   end
 
   def self.get_messages(device_token)
