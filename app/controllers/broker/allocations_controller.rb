@@ -19,27 +19,7 @@ class Broker::AllocationsController < InheritedResources::Base
       @allocation.save!
     end
 
-    require 'rest-client'
-
-    if !@allocation.nil? && @allocation.conversation_id.nil?
-      dev = "https://devadmin.jugendarbeit.digital/api/jugendinfo_message/get_conversation_id_by_user?user_id=#{@allocation.seeker.app_user_id}"
-      live = "https://admin.jugendarbeit.digital/api/jugendinfo_message/get_conversation_id_by_user?user_id=#{@allocation.seeker.app_user_id}"
-      response = RestClient.get dev
-      json = JSON.parse(response)
-      @allocation.conversation_id = json['id']
-      @allocation.save!
-    end
-
-
-    if !@allocation.nil? && !@allocation.conversation_id.nil?
-      dev = "https://devadmin.jugendarbeit.digital/api/jugendinfo_message/get_messages/?key=ULv8r9J7Hqc7n2B8qYmfQewzerhV9p&id=#{@allocation.conversation_id}&limit=1000"
-      live = "https://admin.jugendarbeit.digital/api/jugendinfo_message/get_messages/?key=ULv8r9J7Hqc7n2B8qYmfQewzerhV9p&id=#{@allocation.conversation_id}&limit=1000"
-      response = RestClient.get dev
-      json = JSON.parse(response.body)
-      @messages = json['messages'].sort_by {|val| DateTime.strptime(val['datetime'], '%s')}.reverse
-    else
-      @messages = []
-    end
+    @messages = MessagingHelper::get_messages(@allocation.seeker.app_user_id)
   end
 
   def change_state
