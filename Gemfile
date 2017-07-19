@@ -43,6 +43,7 @@ gem 'paperclip'
 gem 'aws-sdk'
 gem 'nexmo'
 gem 'puma'
+gem 'puma_worker_killer'
 
 group :development, :test do
   gem 'better_errors'
@@ -78,7 +79,6 @@ group :production do
   gem 'heroku-deflater'
   gem 'rack-cache'
   gem 'dalli'
-  gem 'puma_worker_killer'
   gem 'tunemygc'
   gem 'newrelic_rpm'
 end
