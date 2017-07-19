@@ -2,9 +2,7 @@ class SessionsController < Devise::SessionsController
   before_filter :configure_permitted_parameters
 
   def new
-    # p = params
-    # r = resource_name
-    super
+    redirect_to sign_in_path
   end
 
   def create
