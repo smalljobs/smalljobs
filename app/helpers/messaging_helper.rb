@@ -2,7 +2,7 @@ module MessagingHelper
   require 'rest-client'
   @@dev = 'https://devadmin.jugendarbeit.digital/api'
   @@live = 'https://admin.jugendarbeit.digital/api'
-  @@current_url = @@dev
+  @@current_url = @@live
 
   def self.send_message(title, message, device_token, sendermail)
     url = "#{@@current_url}/jugendinfo_push/send"
