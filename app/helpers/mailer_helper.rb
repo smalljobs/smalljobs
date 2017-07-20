@@ -5,7 +5,7 @@ module MailerHelper
     when Broker
       resource.regions.first.subdomain
     when Provider, Seeker
-      resource.place.region.subdomain
+      resource.organization.region.subdomain
     end
   end
 
