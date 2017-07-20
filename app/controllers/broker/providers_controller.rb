@@ -23,6 +23,7 @@ class Broker::ProvidersController < InheritedResources::Base
   def create
     @provider = Provider.new(permitted_params[:provider])
     @provider.terms = '1'
+    @provider.contract = false
 
     create! do |success, failure|
       success.html {redirect_to edit_broker_provider_path(@provider), notice: "Anbieter erstellt"}
