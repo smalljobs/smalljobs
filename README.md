@@ -1,11 +1,13 @@
 # Small Jobs
 
-This is the repo for smalljobs.ch.
+This is the repo for the development of the SmallJobs exchange smalljobs.ch.
+SmallJobs is a project to increase intergenerational Contacts with exchanging "Small Jobs" from Adults to kids.
+
 
 ## Development
 
 * [Pivotal Tracker](https://www.pivotaltracker.com/s/projects/789611) for managing requirements and bug tracking.
-* [GitHub](https://github.com/ratte/smalljobs) for source code management.
+*  [BitBucket](https://bitbucket.org/tatentraeger/smalljobs) for source code management.
 * [Heroku](https://dashboard.heroku.com/apps/smalljobs/resources) for production hosting.
 
 ### Running locally
@@ -19,7 +21,7 @@ should be accessible with the user `smalljobs` without password.
 Get the source by cloning the repo:
 
 ```bash
-$ git clone git@github.com:ratte/smalljobs.git
+$ git clone git clone git@bitbucket.org:tatentraeger/smalljobs.git
 $ cd smalljobs
 ```
 
@@ -87,7 +89,7 @@ Now you can browser the sent email by opening [http://localhost:1080](http://loc
 
 #### Testing
 
-SmallJobs is testes extensively, so make sure you do not break the specs before pushing to master.
+SmallJobs is tested extensively, so make sure you do not break the specs before pushing to master.
 
 ```bash
 $ rake spec
@@ -107,3 +109,22 @@ These services are:
 * Sendgrid - as smtp server. You should provide SENDGRID_USERNAME and SENDGRID_PASSWORD.
 * Devise - used for authentication. Secret key and pepper are stored as DEVISE_SECRET and DEVISE_PEPPER
 * Scout - for monitoring. Scout APM key is stored as SCOUT_KEY.
+
+## Authors
+
+* **Michael Kessler** - *Initial Prototype* (R.I.P)
+* **Verein SmallJobs** - Final development of smalljobs
+
+## Version
+* Version 0.X - Live since Autumn 2017
+
+## License
+
+This project is licensed under the GNU Affero General Public License 3 ([GNU AGPL 3](https://www.gnu.org/licenses/agpl-3.0.html)) - see the [LICENSE.md](LICENSE.md) file for details.
+
+## Acknowledgments
+
+* R.I.P Michael Kessler (2015), a wonderful Character and amazing monster of a programmer who implemented the Prototype in an amazing Quality.
+* [Verein SocialBox](http://socialbox.ch) (Mich Wyser) - for starting the project as an Open-Source Alternative
+* Prix Génération / AXA Winterthur for financing the Startup of SmallJobs
+* [tatentraeger.ch](http://tatentraeger.ch/) - for finishing the developing and integration it into the JugendInfo-App and sending it into reality
