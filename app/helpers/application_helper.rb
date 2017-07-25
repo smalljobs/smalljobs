@@ -224,9 +224,9 @@ module ApplicationHelper
       when 'check'
         bootstrap_label('info', I18n.t('common.running'))
       when 'feedback'
-        bootstrap_label('success', I18n.t('common.finished'))
+        bootstrap_label('success', I18n.t('common.job_finished'))
       when 'finished'
-        bootstrap_label('success', I18n.t('common.finished'))
+        bootstrap_label('success', I18n.t('common.job_finished'))
     end
   end
 

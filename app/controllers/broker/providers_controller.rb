@@ -21,7 +21,15 @@ class Broker::ProvidersController < InheritedResources::Base
   end
 
   def create
-    @provider = Provider.new(permitted_params[:provider])
+    provider_params = permitted_params[:provider]
+    if provider_params[:password] == '' && provider_params[:password_confirmation] == ''
+      require 'securerandom'
+      password = SecureRandom.hex
+      provider_params[:password] = password
+      provider_params[:password_confirmation] = password
+    end
+
+    @provider = Provider.new(provider_params)
     @provider.terms = '1'
     @provider.contract = false
 

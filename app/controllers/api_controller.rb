@@ -61,7 +61,7 @@ class ApiController < ApplicationController
 
     user_params[:password_confirmation] = user_params[:password]
     seeker = Seeker.new(user_params)
-    seeker.status = 1
+    seeker.status = 'active'
     if !seeker.save
       render json: {code: 'users/invalid', message: seeker.errors.first}, status: 422
       return
@@ -601,7 +601,7 @@ class ApiController < ApplicationController
   end
 
   def check_status
-    @seeker.active? || render_unauthorized_status
+    @seeker.status == 'active' || render_unauthorized_status
   end
 
   def authenticate

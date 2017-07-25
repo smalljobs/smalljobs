@@ -180,7 +180,7 @@ de:
         running_html: <div class='control__indicator'></div>Prüfen
         public_html: <div class='control__indicator'></div>Öffentlich
         hidden_html: <div class='control__indicator'></div>Versteckt
-        feedback_html: <div class='control__indicator'></div>Abgeschlossen
+        feedback_html: <div class='control__indicator'></div>Beendet
       allocation:
         seeker: "Jugendlicher"
         message: "Nachricht"
