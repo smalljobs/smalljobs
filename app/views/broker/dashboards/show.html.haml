@@ -49,8 +49,8 @@
         %table.table.table-striped.sortable
           %thead
             %tr
-              %th.sortable= t('broker_dashboard.todo_table.date')
-              %th.sortable= t('broker_dashboard.todo_table.todo')
+              %th.sortable{id: 'todo_date'}= t('broker_dashboard.todo_table.date')
+              %th.sortable{id: 'todo_todo'}= t('broker_dashboard.todo_table.todo')
               %th= t('broker_dashboard.todo_table.description')
           %tbody.list
             - if @todos.size == 0
@@ -85,11 +85,11 @@
         %table.table.table-striped.sortable
           %thead
             %tr
-              %th.sortable= t('broker_dashboard.jobs_table.status')
-              %th.sortable= t('broker_dashboard.jobs_table.date')
+              %th.sortable{id: 'job_status'}= t('broker_dashboard.jobs_table.status')
+              %th.sortable{id: 'job_date'}= t('broker_dashboard.jobs_table.date')
               -#%th.sortable= t('broker_dashboard.jobs_table.todo')
-              %th.sortable= t('broker_dashboard.jobs_table.job')
-              %th.sortable= t('broker_dashboard.jobs_table.provider')
+              %th.sortable{id: 'job_job'}= t('broker_dashboard.jobs_table.job')
+              %th.sortable{id: 'job_provider'}= t('broker_dashboard.jobs_table.provider')
               %th= t('broker_dashboard.jobs_table.allocations')
           %tbody.list
             - if @jobs.size == 0
@@ -118,12 +118,12 @@
         %table.table.table-striped.sortable
           %thead
             %tr
-              %th.sortable= t('broker_dashboard.providers_table.status')
-              %th.sortable= t('broker_dashboard.jobs_table.date')
-              %th.sortable= t('broker_dashboard.providers_table.name')
-              %th.sortable= t('broker_dashboard.providers_table.address')
-              %th.sortable= t('broker_dashboard.providers_table.plz')
-              %th.sortable= t('broker_dashboard.providers_table.jobs')
+              %th.sortable{id: 'provider_status'}= t('broker_dashboard.providers_table.status')
+              %th.sortable{id: 'provider_date'}= t('broker_dashboard.jobs_table.date')
+              %th.sortable{id: 'provider_provider'}= t('broker_dashboard.providers_table.name')
+              %th.sortable{id: 'provider_address'}= t('broker_dashboard.providers_table.address')
+              %th.sortable{id: 'provider_plz'}= t('broker_dashboard.providers_table.plz')
+              %th.sortable{id: 'provider_jobs'}= t('broker_dashboard.providers_table.jobs')
           %tbody.list
             - if @providers.size == 0
               %tr
@@ -149,11 +149,11 @@
         %table.table.table-striped.sortable
           %thead
             %tr
-              %th.sortable= t('broker_dashboard.seekers_table.status')
-              %th.sortable= t('broker_dashboard.jobs_table.date')
-              %th.sortable= t('broker_dashboard.seekers_table.name')
-              %th.sortable= t('broker_dashboard.seekers_table.address')
-              %th.sortable= t('broker_dashboard.seekers_table.plz')
+              %th.sortable{id: 'seeker_status'}= t('broker_dashboard.seekers_table.status')
+              %th.sortable{id: 'seeker_date'}= t('broker_dashboard.jobs_table.date')
+              %th.sortable{id: 'seeker_seeker'}= t('broker_dashboard.seekers_table.name')
+              %th.sortable{id: 'seeker_address'}= t('broker_dashboard.seekers_table.address')
+              %th.sortable{id: 'seeker_plz'}= t('broker_dashboard.seekers_table.plz')
           %tbody.list
             - if @seekers.size == 0
               %tr
@@ -173,12 +173,12 @@
         %table.table.table-striped.sortable
           %thead
             %tr
-              %th.sortable= t('broker_dashboard.assignments_table.status')
-              %th.sortable= t('broker_dashboard.jobs_table.date')
-              %th.sortable= t('broker_dashboard.assignments_table.seeker')
-              %th.sortable= t('broker_dashboard.assignments_table.provider')
-              %th.sortable= t('broker_dashboard.assignments_table.duration_payment')
-              %th.sortable= t('broker_dashboard.assignments_table.feedback')
+              %th.sortable{id: 'assignment_status'}= t('broker_dashboard.assignments_table.status')
+              %th.sortable{id: 'assignment_date'}= t('broker_dashboard.jobs_table.date')
+              %th.sortable{id: 'assignment_seeker'}= t('broker_dashboard.assignments_table.seeker')
+              %th.sortable{id: 'assignment_provider'}= t('broker_dashboard.assignments_table.provider')
+              %th.sortable{id: 'assignment_payment'}= t('broker_dashboard.assignments_table.duration_payment')
+              %th.sortable{id: 'assignment_feedback'}= t('broker_dashboard.assignments_table.feedback')
           %tbody.list
             - if @assignments.size == 0
               %tr
@@ -219,6 +219,18 @@
     }
 
     var selectedOrganizationId = 0;
+
+    function loadSortedColumn() {
+      var sortedColumnId = sessionStorage.getItem('sortedColumn');
+      if(sortedColumnId != undefined) {
+        sorttable.init();
+        sorttable.innerSortFunction.apply(document.getElementById(sortedColumnId), []);
+      }
+    }
+
+    $('th.sortable').click(function() {
+      sessionStorage.setItem('sortedColumn', $(this).attr('id'));
+    });
 
     function checkSearchField() {
       var searchString = "#{current_broker.filter}";
@@ -319,6 +331,7 @@
 
     checkSearchField();
     loadOrganization();
+    loadSortedColumn();
 
     window.addEventListener("beforeunload", function (event) {
       $.post("#{save_settings_broker_dashboard_path}", {filter: $('#search-field').val(), selected_organization_id: parseInt(selectedOrganizationId)}, function(response) {
