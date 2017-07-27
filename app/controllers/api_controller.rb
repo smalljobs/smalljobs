@@ -67,9 +67,9 @@ class ApiController < ApplicationController
       return
     end
 
-    message = "\nHoi #{seeker.firstname}\n\nWillkommen bei Smalljobs!\n\nBitte\n<a href=\"https://winterthur.smalljobs.ch/broker/seekers/#{seeker.id}/agreement?format=pdf\">https://winterthur.smalljobs.ch/broker/seekers/#{seeker.id}/agreement?format=pdf</a>\nrunterladen uns bringen:\n\n<a href=\"mailto:#{seeker.organization.brokers.first.email}\">#{seeker.organization.brokers.first.email}</a>\n\nMerci,\n\n#{seeker.organization.brokers.first.firstname}\n"
+    message = "\nHoi #{seeker.firstname}\n\nWillkommen bei Smalljobs!\n\nBitte\n<a href=\"https://winterthur.smalljobs.ch/broker/seekers/#{seeker.id}/agreement?format=pdf\">https://winterthur.smalljobs.ch/broker/seekers/#{seeker.id}/agreement?format=pdf</a>\nrunterladen uns bringen:\n\n<a href=\"mailto:#{seeker.organization.email}\">#{seeker.organization.email}</a>\n\nMerci,\n\n#{seeker.organization.name}\n"
     title = 'Elterneinverständnis als Pdf schicken'
-    MessagingHelper::send_message(title, message, seeker.app_user_id, seeker.organization.brokers.first.email)
+    MessagingHelper::send_message(title, message, seeker.app_user_id, seeker.organization.email)
 
     render json: {message: 'User created successfully', user: ApiHelper::seeker_to_json(seeker), organization: ApiHelper::organization_to_json(seeker.organization, seeker.organization.regions.first.id)}
   end
