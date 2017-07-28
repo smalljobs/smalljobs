@@ -10,9 +10,9 @@
           = "Nachricht an "
           = @allocation.seeker.name
           = ":"
-        %textarea.form-control.resize-vertical.textarea{rows: '5'}
+        %div.form-control.resize-vertical.textarea{contenteditable: true}
           = "Hallo #{@allocation.seeker.name}"
-          = preserve '&#x000A;'
+          %br
           = "Für Fragen schreibe uns hier."
         %br
         - if @allocation.seeker.app_user_id.nil?
