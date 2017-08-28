@@ -25,6 +25,10 @@ class Provider::JobsController < InheritedResources::Base
 
   protected
 
+  # Returns currently signed in provider
+  #
+  # @return [Provider] currently signed in provider
+  #
   def current_user
     current_provider
   end

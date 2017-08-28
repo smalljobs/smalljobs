@@ -6,6 +6,8 @@ class AccessToken < ActiveRecord::Base
 
   private
 
+  # Sets new access token
+  #
   def set_access_token
     return if access_token.present?
     token = generate_auth_token
@@ -13,6 +15,8 @@ class AccessToken < ActiveRecord::Base
     self.access_token = token
   end
 
+  # Sets new refresh token
+  #
   def set_refresh_token
     return if refresh_token.present?
     token = generate_auth_token
@@ -20,6 +24,10 @@ class AccessToken < ActiveRecord::Base
     self.refresh_token = token
   end
 
+  # Generates random authorization token containing only numbers and letters
+  #
+  # @return [String] authorization token
+  #
   def generate_auth_token
     SecureRandom.uuid.delete('-')
   end

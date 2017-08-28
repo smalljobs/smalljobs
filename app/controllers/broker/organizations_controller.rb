@@ -17,6 +17,10 @@ class Broker::OrganizationsController < InheritedResources::Base
 
   protected
 
+  # Returns currently signed in broker
+  #
+  # @return [Broker] currently signed in broker
+  #
   def current_user
     current_broker
   end

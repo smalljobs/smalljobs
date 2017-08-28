@@ -22,6 +22,8 @@ class Broker::DashboardsController < ApplicationController
     @todos = Todo.where(seeker: @seekers).or(Todo.where(provider: @providers)).or(Todo.where(job: @jobs)).or(Todo.where(allocation: allocations)).group('todos.id').order(:created_at).reverse_order()
   end
 
+  # Save broker settings from dashboard (current filter and selected organization)
+  #
   def save_settings
     current_broker.selected_organization_id = params[:selected_organization_id]
     current_broker.filter = params[:filter]
@@ -31,6 +33,10 @@ class Broker::DashboardsController < ApplicationController
 
   protected
 
+  # Returns currently signed in broker
+  #
+  # @return [Broker] currently signed in broker
+  #
   def current_user
     current_broker
   end

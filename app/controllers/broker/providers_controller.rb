@@ -38,6 +38,8 @@ class Broker::ProvidersController < InheritedResources::Base
     end
   end
 
+  # Render provider contract as pdf file
+  #
   def contract
     require 'rqrcode'
     @qrcode = RQRCode::QRCode.new(@provider.id.to_s, mode: :number).as_png
@@ -70,6 +72,10 @@ class Broker::ProvidersController < InheritedResources::Base
 
   protected
 
+  # Returns currently signed in broker
+  #
+  # @return [Broker] currently signed in broker
+  #
   def current_user
     current_broker
   end
