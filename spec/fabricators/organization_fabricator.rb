@@ -5,6 +5,7 @@ Fabricator(:organization) do
   place
   email  { Forgery(:internet).email_address }
   phone  { '044 444 44 44' }
+  default_hourly_per_age { 5 }
 end
 
 Fabricator(:org_bremgarten, from: :organization) do
@@ -24,6 +25,7 @@ Fabricator(:org_lenzburg, from: :organization) do
   phone '062 508 13 14'
   website 'http://www.jugendarbeit-lotten.ch'
   street 'c/o JA Lenzburg, Soziale Dienste'
+  default_hourly_per_age { 5 }
 
   after_build do |o|
     region = Fabricate(:region_lenzburg)

@@ -1,6 +1,6 @@
 # coding: UTF-8
 
-require 'spec_helper'
+require_relative '../../../spec_helper'
 
 feature 'Password reset' do
   context 'with an unconfirmed user' do
@@ -17,7 +17,6 @@ feature 'Password reset' do
       visit_on broker, '/'
 
       click_on 'Anmelden'
-      click_on 'Vermittler'
       click_on 'Passwort vergessen?'
 
       fill_in 'Email', with: 'rolf@example.com'
@@ -57,7 +56,6 @@ feature 'Password reset' do
       visit_on broker, '/'
 
       click_on 'Anmelden'
-      click_on 'Vermittler'
       click_on 'Passwort vergessen?'
 
       fill_in 'Email', with: 'rolf@example.com'
@@ -97,7 +95,6 @@ feature 'Password reset' do
       visit_on broker, '/'
 
       click_on 'Anmelden'
-      click_on 'Vermittler'
       click_on 'Passwort vergessen?'
 
       fill_in 'Email', with: 'inexistent@example.com'
@@ -111,7 +108,6 @@ feature 'Password reset' do
       visit_on broker, '/'
 
       click_on 'Anmelden'
-      click_on 'Vermittler'
       click_on 'Passwort vergessen?'
 
       fill_in 'Email', with: 'rolf@example.com'

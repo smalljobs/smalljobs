@@ -1,8 +1,8 @@
-require 'spec_helper'
+require_relative '../../spec_helper'
 
 describe Broker::AllocationsController do
 
-  it_behaves_like 'a protected controller', :broker, :allocation, [:index, :edit, :update, :destroy] do
+  it_behaves_like 'a protected controller', :broker, :allocation, [:edit, :update, :destroy] do
     let(:broker)            { Fabricate(:broker_with_regions) }
     let(:job)               { Fabricate(:job, provider: Fabricate(:provider, place: broker.places.first)) }
     let(:allocation)        { Fabricate(:allocation, job: job) }

@@ -7,14 +7,14 @@ Fabricator(:broker) do
   email     { Forgery(:internet).email_address }
   password  { Forgery(:basic).password.rjust(10, 'a') }
 
-  phone     { "0041 044 444 44 4#{ rand(9) }" }
-  mobile    { "0041 079 444 44 4#{ rand(9) }" }
+  phone     { "+41 044 444 44 4#{ rand(9) }" }
+  mobile    { "+41 079 444 44 4#{ rand(9) }" }
 
   active    { true }
 
-  after_create do |user, transients|
-    user.confirm! if transients[:confirmed]
-  end
+  # after_create do |user, transients|
+  #   user.confirm! if transients[:confirmed]
+  # end
 end
 
 Fabricator(:broker_with_regions, from: :broker) do

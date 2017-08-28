@@ -68,6 +68,7 @@ group :development, :test do
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'bullet'
+  gem 'rails-controller-testing'
 end
 
 group :doc do

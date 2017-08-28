@@ -1,7 +1,6 @@
-require 'spec_helper'
+require_relative '../../spec_helper'
 
 describe Broker::DashboardsController do
-
   describe '#show' do
     context 'access control' do
       it 'is not accessible by an anonymous user' do
@@ -25,8 +24,7 @@ describe Broker::DashboardsController do
         authenticate(:broker, Fabricate(:broker))
         xhr :get, :show
         expect(response.status).to eql(200)
-       end
+      end
     end
   end
-
 end

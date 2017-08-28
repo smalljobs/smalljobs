@@ -1,6 +1,6 @@
 # coding: UTF-8
 
-require 'spec_helper'
+require_relative '../../spec_helper'
 
 feature 'Organization subdomain' do
 
@@ -11,7 +11,6 @@ feature 'Organization subdomain' do
     visit_on region, '/'
 
     expect(page).to have_content('Jugendarbeit Lenzburg')
-    expect(page).to have_content('regionale Jugendarbeit Lotten')
 
     expect(page).to have_content('c/o JA Lenzburg, Soziale Dienste')
     expect(page).to have_content('5702 Niederlenz')
