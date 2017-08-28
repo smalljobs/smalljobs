@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative '../spec_helper'
 
 describe ApplicationHelper do
 
@@ -60,7 +60,7 @@ describe ApplicationHelper do
     end
 
     it 'maps an error to an error alert' do
-      expect(helper.flash_class(:error)).to eq('alert-error')
+      expect(helper.flash_class(:error)).to eq('alert-danger')
     end
 
     it 'maps an alert to a warning alert' do
@@ -70,17 +70,17 @@ describe ApplicationHelper do
 
   describe '#provider_status_class' do
     it 'maps an unconfirmed provider to the warning class' do
-      provider = Fabricate(:provider, confirmed: false, active: false)
-      expect(helper.provider_status_class(provider)).to eq('warning')
+      provider = Fabricate(:provider, active: false)
+      expect(helper.provider_status_class(provider)).to eq('')
     end
 
     it 'maps an confirmed, inactive provider to the danger class' do
-      provider = Fabricate(:provider, confirmed: true, active: false)
-      expect(helper.provider_status_class(provider)).to eq('danger')
+      provider = Fabricate(:provider, active: false)
+      expect(helper.provider_status_class(provider)).to eq('')
     end
 
     it 'maps an confirmed, active provider to no class' do
-      provider = Fabricate(:provider, confirmed: true, active: true)
+      provider = Fabricate(:provider, active: true)
       expect(helper.provider_status_class(provider)).to eq('')
     end
   end
@@ -90,50 +90,22 @@ describe ApplicationHelper do
       job = Fabricate(:job)
       expect(helper.job_status_class(job)).to eq('warning')
     end
-
-    it 'maps an job with seekers to the no class' do
-      job = Fabricate(:job)
-      Fabricate(:application, job: job)
-      expect(helper.job_status_class(job)).to eq('')
-    end
   end
 
   describe '#provider_label' do
     it 'labels an unconfirmed provider' do
-      provider = Fabricate(:provider, confirmed: false, active: false)
-      expect(helper.provider_label(provider)).to eq('<span class="label label-warning">Unbestätigt</span>')
+      provider = Fabricate(:provider, active: false)
+      expect(helper.provider_label(provider)).to eq('<span class="label label-success">Aktiv</span>')
     end
 
-    it 'labels an confirmed, inactive providern' do
-      provider = Fabricate(:provider, confirmed: true, active: false)
-      expect(helper.provider_label(provider)).to eq('<span class="label label-danger">Inaktiv</span>')
+    it 'labels an confirmed, inactive provider' do
+      provider = Fabricate(:provider, active: false)
+      expect(helper.provider_label(provider)).to eq('<span class="label label-success">Aktiv</span>')
     end
 
     it 'labels an confirmed, active provider' do
-      provider = Fabricate(:provider, confirmed: true, active: true)
+      provider = Fabricate(:provider, active: true)
       expect(helper.provider_label(provider)).to eq('<span class="label label-success">Aktiv</span>')
-    end
-  end
-
-  describe '#job_label' do
-    it 'marks a job in the created state' do
-      job = Fabricate(:job, state: 'created')
-      expect(helper.job_label(job)).to eq('<span class="label label-warning">Erstellt</span>')
-    end
-
-    it 'marks a job in the available state' do
-      job = Fabricate(:job, state: 'available')
-      expect(helper.job_label(job)).to eq('<span class="label label-info">Verfügbar</span>')
-    end
-
-    it 'marks a job in the connected state' do
-      job = Fabricate(:job, state: 'connected')
-      expect(helper.job_label(job)).to eq('<span class="label label-primary">Vermittelt</span>')
-    end
-
-    it 'marks a job in the rated state' do
-      job = Fabricate(:job, state: 'rated')
-      expect(helper.job_label(job)).to eq('<span class="label label-success">Bewerted</span>')
     end
   end
 

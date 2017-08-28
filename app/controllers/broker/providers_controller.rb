@@ -21,18 +21,34 @@ class Broker::ProvidersController < InheritedResources::Base
   end
 
   def create
-    @provider = Provider.new(permitted_params[:provider])
+    provider_params = permitted_params[:provider]
+    if provider_params[:password] == '' && provider_params[:password_confirmation] == ''
+      require 'securerandom'
+      password = SecureRandom.hex
+      provider_params[:password] = password
+      provider_params[:password_confirmation] = password
+    end
+
+    @provider = Provider.new(provider_params)
     @provider.terms = '1'
+    @provider.contract = false
 
     create! do |success, failure|
       success.html {redirect_to edit_broker_provider_path(@provider), notice: "Anbieter erstellt"}
     end
   end
 
+  # Render provider contract as pdf file
+  #
   def contract
     require 'rqrcode'
     @qrcode = RQRCode::QRCode.new(@provider.id.to_s, mode: :number).as_png
-    render pdf: 'contract', template: 'broker/providers/contract.html.erb'
+
+    if request.subdomain == 'winterthur' || params['domain'] == 'winterthur'
+      render pdf: 'contract', template: 'broker/providers/contract_winterthur.html.erb', dpi: '96'
+    else
+      render pdf: 'contract', template: 'broker/providers/contract.html.erb'
+    end
   end
 
   def delete
@@ -56,6 +72,10 @@ class Broker::ProvidersController < InheritedResources::Base
 
   protected
 
+  # Returns currently signed in broker
+  #
+  # @return [Broker] currently signed in broker
+  #
   def current_user
     current_broker
   end

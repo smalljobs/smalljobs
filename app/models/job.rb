@@ -126,7 +126,7 @@ class Job < ActiveRecord::Base
   end
 
   def self.state_from_integer(state_int)
-    if state_int.zero?
+    if state_int == 0
       return 'hidden'
     elsif state_int == 1
       return 'public'

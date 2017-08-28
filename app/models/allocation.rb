@@ -16,6 +16,7 @@ class Allocation < ActiveRecord::Base
   after_save :adjust_todo
 
   def adjust_todo
+    job.adjust_todo unless job.nil?
     Todo.where(record_type: :allocation, record_id: id).find_each &:destroy!
     Todotype.allocation.find_each do |todotype|
       begin

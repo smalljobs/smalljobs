@@ -4,9 +4,6 @@ class Broker::AllocationsController < InheritedResources::Base
 
   belongs_to :job
 
-  # load_and_authorize_resource :job
-  # load_and_authorize_resource :allocation, through: :job
-
   skip_authorize_resource :allocation, only: :new
 
   actions :all
@@ -19,29 +16,11 @@ class Broker::AllocationsController < InheritedResources::Base
       @allocation.save!
     end
 
-    require 'rest-client'
-
-    if !@allocation.nil? && @allocation.conversation_id.nil?
-      dev = "https://devadmin.jugendarbeit.digital/api/jugendinfo_message/get_conversation_id_by_user?user_id=#{@allocation.seeker.app_user_id}"
-      live = "https://admin.jugendarbeit.digital/api/jugendinfo_message/get_conversation_id_by_user?user_id=#{@allocation.seeker.app_user_id}"
-      response = RestClient.get dev
-      json = JSON.parse(response)
-      @allocation.conversation_id = json['id']
-      @allocation.save!
-    end
-
-
-    if !@allocation.nil? && !@allocation.conversation_id.nil?
-      dev = "https://devadmin.jugendarbeit.digital/api/jugendinfo_message/get_messages/?key=ULv8r9J7Hqc7n2B8qYmfQewzerhV9p&id=#{@allocation.conversation_id}&limit=1000"
-      live = "https://admin.jugendarbeit.digital/api/jugendinfo_message/get_messages/?key=ULv8r9J7Hqc7n2B8qYmfQewzerhV9p&id=#{@allocation.conversation_id}&limit=1000"
-      response = RestClient.get dev
-      json = JSON.parse(response.body)
-      @messages = json['messages'].sort_by {|val| DateTime.strptime(val['datetime'], '%s')}.reverse
-    else
-      @messages = []
-    end
+    @messages = MessagingHelper::get_messages(@allocation.seeker.app_user_id)
   end
 
+  # Changes state of allocation to the next one
+  #
   def change_state
     @job = Job.find_by(id: params[:job_id])
     @allocation = Allocation.find_by(id: params[:id])
@@ -77,6 +56,8 @@ class Broker::AllocationsController < InheritedResources::Base
 
   end
 
+  # Changes allocation accordingly to user cancelling allocation action
+  #
   def cancel_state
     @job = Job.find_by(id: params[:job_id])
     @allocation = Allocation.find_by(id: params[:id])
@@ -96,26 +77,26 @@ class Broker::AllocationsController < InheritedResources::Base
     render json: {redirect_to: redirect_to}
   end
 
+  # Sends given message to the seeker (via mobile application)
+  #
   def send_message
     @job = Job.find_by(id: params[:job_id])
     @allocation = Allocation.find_by(id: params[:id])
     seeker = @allocation.seeker
     title = params[:title]
     message = params[:message]
-    require 'rest-client'
-    dev = 'https://devadmin.jugendarbeit.digital/api/jugendinfo_push/send'
-    live = 'https://admin.jugendarbeit.digital/api/jugendinfo_push/send'
-    response = RestClient.post dev, api: 'ULv8r9J7Hqc7n2B8qYmfQewzerhV9p', message_title: title, message: message, device_token: @allocation.seeker.app_user_id, sendermail: current_broker.email
-    json = JSON.parse(response.body)
-    # conv_id = json['conversation_id']
-    # @allocation.conversation_id = conv_id
-    # @allocation.save!
+
+    response = MessagingHelper::send_message(title, message, seeker.app_user_id, current_broker.email)
 
     render json: {state: 'ok', response: response}
   end
 
   protected
 
+  # Changes states of all open allocations for given job to application_rejected
+  #
+  # @param job [Job]
+  #
   def reject_other_allocations(job)
     job.allocations.application_open.find_each do |allocation|
       allocation.state = :application_rejected
@@ -123,6 +104,10 @@ class Broker::AllocationsController < InheritedResources::Base
     end
   end
 
+  # Returns currently signed in broker
+  #
+  # @return [Broker] currently signed in broker
+  #
   def current_user
     current_broker
   end

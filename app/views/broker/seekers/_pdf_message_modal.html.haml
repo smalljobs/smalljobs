@@ -10,19 +10,28 @@
           = @seeker.name
           = ":"
         %div.form-control.resize-vertical.textarea{contenteditable: true}
-          = "Hoi #{@seeker.firstname}"
+          = "Hallo #{@seeker.firstname}"
           %br
-          = "Willkommen bei Smalljobs!"
+          = "Willkommen bei Small.Jobs!"
           %br
-          = "Bitte "
+          = "Damit du dich auf Jobs bewerben kannst, brauchen wir das Einverständnis deiner Eltern. Dieses Einverständnis bitte hier herunterladen: "
           %a{href: "#{url_for agreement_broker_seeker_url(@seeker)}?format=pdf"}= "#{url_for agreement_broker_seeker_url(@seeker)}?format=pdf"
-          = " runterladen uns bringen:"
           %br
-          %a{href: "mailto:#{current_broker.email}"}= "#{current_broker.email}"
+          = "Dann ausdrucken und uns vorbeibringen:"
           %br
-          = "Merci,"
+          = @seeker.organization.name
           %br
-          = "#{current_broker.firstname}"
+          = @seeker.organization.street
+          %br
+          = @seeker.organization.place.custom_name
+          %br
+          = "Für einen Termin schreibe uns hier oder ruf an "
+          %a{href: "tel:#{@seeker.organization.phone}"}= @seeker.organization.phone
+          %br
+          %br
+          = "Danke,"
+          %br
+          = @seeker.organization.name
         %br
         - if @seeker.app_user_id.nil?
           %p

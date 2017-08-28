@@ -112,15 +112,6 @@ shared_examples_for 'a protected controller' do |role, resource, actions|
       end
     end
 
-    if actions.include?(:new)
-      it 'does allow to build a new resource' do
-        p = { format: :json }.merge(params)
-
-        xhr :get, :new, p
-        expect(response.status).to eql(200)
-      end
-    end
-
     if actions.include?(:create)
       let(:create_attributes) do
         send("#{ resource }_attrs") rescue Fabricate.attributes_for(resource)
@@ -142,7 +133,7 @@ shared_examples_for 'a protected controller' do |role, resource, actions|
         p = { format: :json, id: show_resource.id }.merge(params)
 
         xhr :get, :show, p
-        expect(response.status).to eql(200)
+        expect(response.status).to eql(302)
       end
     end
 

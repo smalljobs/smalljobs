@@ -24,14 +24,15 @@
 
   %fieldset
     .form-inputs
-      = f.input :contract, required: true, label: false, inline_label: 'Verträge gesendet'
-      %p
-        %i.fa.fa-print
-        = link_to "Verträge drucken", "/broker/providers/#{@provider.id}/contract?format=pdf", target: '_blank'
+      - if !@provider.new_record?
+        = f.input :contract, required: true, label: false, inline_label: 'Verträge gesendet'
+        %p
+          %i.fa.fa-print
+          = link_to "Verträge drucken", "/broker/providers/#{@provider.id}/contract?format=pdf", target: '_blank'
 
       - if @provider.new_record?
-        = f.input :password, required: true, autocomplete: 'off'
-        = f.input :password_confirmation, required: true
+        = f.input :password, required: false, autocomplete: 'off'
+        = f.input :password_confirmation, required: false
       -#- else
       -#  = f.input :password, required: false, autocomplete: 'off', hint: t('devise_views.leave_empty')
       -#  = f.input :password_confirmation, required: false

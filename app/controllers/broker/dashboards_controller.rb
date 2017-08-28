@@ -7,7 +7,7 @@ class Broker::DashboardsController < ApplicationController
   load_and_authorize_resource :seeker, through: :current_region
 
   def show
-    @jobs = current_broker.jobs.includes(:provider, :organization).order(:last_change_of_state).reverse_order()
+    @jobs = current_broker.jobs.includes(:provider, :organization).group('jobs.id').order(:last_change_of_state).reverse_order()
     allocations = Allocation.where(job: @jobs).includes(:seeker)
     @allocations = []
     allocations.each do |allocation|
@@ -16,12 +16,14 @@ class Broker::DashboardsController < ApplicationController
       @allocations[allocation.job_id][Allocation.states[allocation.state]].push(allocation)
     end
 
-    @providers = current_broker.providers.includes(:place, :jobs, :organization).order(:updated_at).reverse_order()
-    @seekers = current_broker.seekers.includes(:place, :organization).order(:updated_at).reverse_order()
-    @assignments = current_broker.assignments.includes(:seeker, :provider).order(:created_at).reverse_order()
-    @todos = Todo.where(seeker: @seekers).or(Todo.where(provider: @providers)).or(Todo.where(job: @jobs)).or(Todo.where(allocation: allocations)).order(:created_at).reverse_order()
+    @providers = current_broker.providers.includes(:place, :jobs, :organization).group('providers.id').order(:updated_at).reverse_order()
+    @seekers = current_broker.seekers.includes(:place, :organization).group('seekers.id').order(:updated_at).reverse_order()
+    @assignments = current_broker.assignments.includes(:seeker, :provider).group('assignments.id').order(:created_at).reverse_order()
+    @todos = Todo.where(seeker: @seekers).or(Todo.where(provider: @providers)).or(Todo.where(job: @jobs)).or(Todo.where(allocation: allocations)).group('todos.id').order(:created_at).reverse_order()
   end
 
+  # Save broker settings from dashboard (current filter and selected organization)
+  #
   def save_settings
     current_broker.selected_organization_id = params[:selected_organization_id]
     current_broker.filter = params[:filter]
@@ -31,6 +33,10 @@ class Broker::DashboardsController < ApplicationController
 
   protected
 
+  # Returns currently signed in broker
+  #
+  # @return [Broker] currently signed in broker
+  #
   def current_user
     current_broker
   end

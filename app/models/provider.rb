@@ -89,7 +89,8 @@ class Provider < ActiveRecord::Base
   # @return [Symbol] the i18n key
   #
   def unauthenticated_message
-    confirmed? ? :inactive : :unconfirmed
+    # confirmed? ? :inactive : :unconfirmed
+    :inactive
   end
 
   # Return the I18n message key when account is inactive

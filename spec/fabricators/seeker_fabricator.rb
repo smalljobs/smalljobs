@@ -1,5 +1,5 @@
 Fabricator(:seeker) do
-  transient confirmed: true, broker: true
+  transient broker: true
 
   firstname { Forgery(:name).first_name }
   lastname  { Forgery(:name).last_name }
@@ -12,13 +12,9 @@ Fabricator(:seeker) do
 
   password { Forgery(:basic).password.rjust(10, 'a') }
   email    { sequence(:email)  { |i| "seeker#{ i }@example.com" }}
-  phone    { sequence(:phone)  { |i| "0041 056 111 22 3#{ rand(9) }" }}
-  mobile   { sequence(:mobile) { |i| "0041 079 111 22 3#{ rand(9) }" }}
-
-  contact_preference  { 'mobile' }
-  contact_availability { 'all day' }
-
-  active { true }
+  phone    { sequence(:phone)  { |i| "+41 056 111 22 3#{ rand(9) }" }}
+  mobile   { sequence(:mobile) { |i| "+41 079 111 22 3#{ rand(9) }" }}
+  login    { sequence(:login)  { |i| "+41 079 111 22 3#{ rand(9) }" }}
 
   contact_preference  { 'mobile' }
   contact_availability { 'all day' }
@@ -26,7 +22,8 @@ Fabricator(:seeker) do
   work_categories(count: 1)
 
   active { true }
-  terms { '1' }
+
+  organization
 
   after_build do |user, transients|
     if transients[:broker]
@@ -34,7 +31,7 @@ Fabricator(:seeker) do
     end
   end
 
-  after_create do |user, transients|
-    user.confirm! if transients[:confirmed]
-  end
+  # after_create do |user, transients|
+  #   user.confirm! if transients[:confirmed]
+  # end
 end

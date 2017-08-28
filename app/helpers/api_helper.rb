@@ -1,4 +1,10 @@
 module ApiHelper
+  # Converts given region to json format
+  #
+  # @param region [Region] region to convert
+  #
+  # @return [Json] region in json format
+  #
   def self.region_to_json(region)
     json = {}
     json[:id] = region.id
@@ -12,6 +18,12 @@ module ApiHelper
     return json
   end
 
+  # Converts given place to json format
+  #
+  # @param place [Place] place to convert
+  #
+  # @return [Json] place in json format
+  #
   def self.place_to_json(place)
     json = {}
     json[:id] = place.id
@@ -24,6 +36,13 @@ module ApiHelper
     return json
   end
 
+  # Converts given organization to json format
+  #
+  # @param organization [Organization] organization to convert
+  # @param ragion_id [Integer] id of a region that organization belongs to
+  #
+  # @return [Json] organization in json format
+  #
   def self.organization_to_json(organization, region_id)
     json = {}
     json[:id] = organization.id
@@ -44,6 +63,12 @@ module ApiHelper
     return json
   end
 
+  # Converts given broker to json format
+  #
+  # @param broker [Broker] broker to convert
+  #
+  # @return [Json] broker in json format
+  #
   def self.broker_to_json(broker)
     json = {}
     json[:id] = broker.id
@@ -53,6 +78,17 @@ module ApiHelper
     return json
   end
 
+  # Converts given job to json format
+  #
+  # @param job [Job] job to convert
+  # @param organization [Organization]
+  # @param show_provider [Bool]
+  # @param show_organization [Bool]
+  # @param show_assignments [Bool]
+  # @param allocation_id [Integer]
+  #
+  # @return [Json] job in json format
+  #
   def self.job_to_json(job, organization, show_provider, show_organization, show_assignments, allocation_id)
     json = {}
     json[:id] = job.id
@@ -90,6 +126,12 @@ module ApiHelper
     return json
   end
 
+  # Converts given assignment to json format
+  #
+  # @param assignment [Assignment] assignment to convert
+  #
+  # @return [Json] assignment in json format
+  #
   def self.assignment_to_json(assignment)
     json = {}
     json[:id] = assignment.id
@@ -109,6 +151,12 @@ module ApiHelper
     return json
   end
 
+  # Converts given work category to json format
+  #
+  # @param category [WorkCategory] work category to convert
+  #
+  # @return [Json] work category in json format
+  #
   def self.category_to_json(category)
     json = {}
     json[:id] = category.id
@@ -116,6 +164,12 @@ module ApiHelper
     return json
   end
 
+  # Converts given provider to json format
+  #
+  # @param provider [Provider] provider to convert
+  #
+  # @return [Json] provider in json format
+  #
   def self.provider_to_json(provider)
     json = {}
     json[:id] = provider.id
@@ -128,6 +182,12 @@ module ApiHelper
     return json
   end
 
+  # Converts given allocation to json format
+  #
+  # @param allocation [Allocation] allocation to convert
+  #
+  # @return [Json] allocation in json format
+  #
   def self.allocation_to_json(allocation)
     json = {}
     json[:id] = allocation.id
@@ -149,6 +209,16 @@ module ApiHelper
     return json
   end
 
+  # Converts given assignment with additional data to json format
+  #
+  # @param assignment [Assignment] assignment to convert
+  # @param show_provider [Bool]
+  # @param show_organization [Bool]
+  # @param show_seeker [Bool]
+  # @param show_job [Bool]
+  #
+  # @return [Json] assignment in json format
+  #
   def self.assignment_with_data_to_json(assignment, show_provider, show_organization, show_seeker, show_job)
     json = {}
     json[:id] = assignment.id
@@ -186,6 +256,15 @@ module ApiHelper
     return json
   end
 
+  # Converts given allocation with additional data to json format
+  #
+  # @param allocation [Allocation] allocation to convert
+  # @param show_provider [Bool]
+  # @param show_organization [Bool]
+  # @param show_seeker [Bool]
+  #
+  # @return [Json] allocation in json format
+  #
   def self.allocation_with_data_to_json(allocation, show_provider, show_organization, show_seeker)
     json = {}
     json[:id] = allocation.id
@@ -220,6 +299,17 @@ module ApiHelper
     return json
   end
 
+  # Converts given allocation with job data to json format
+  #
+  # @param allocation [Allocation] allocation to convert
+  # @param job [Job]
+  # @param show_provider [Bool]
+  # @param show_organization [Bool]
+  # @param show_seeker [Bool]
+  # @param show_assignments [Bool]
+  #
+  # @return [Json] allocation in json format
+  #
   def self.allocation_with_job_to_json(allocation, job, show_provider, show_organization, show_seeker, show_assignments)
     json = {}
     json[:id] = allocation.id
@@ -236,6 +326,12 @@ module ApiHelper
     return json
   end
 
+  # Converts given seeker to json format
+  #
+  # @param seeker [Seeker] seeker to convert
+  #
+  # @return [Json] seeker in json format
+  #
   def self.seeker_to_json(seeker)
     json = {}
     json[:id] = seeker.id
@@ -259,13 +355,10 @@ module ApiHelper
     return json
   end
 
-  def self.category_to_json(category)
-    json = {}
-    json[:id] = category.id
-    json[:name] = category.name
-    return json
-  end
-
+  # Generate random, six digits long, confirmation code
+  #
+  # @return [String] generated code
+  #
   def self.generate_code
     (0...6).map { SecureRandom.random_number(10) }.join
   end

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative '../spec_helper'
 
 describe MailerHelper do
 
@@ -18,7 +18,7 @@ describe MailerHelper do
       let(:provider) { Fabricate(:provider, place: region.places.first) }
 
       it 'returns the provider region subdomain' do
-        expect(helper.subdomain_for(provider)).to eql('bremgarten')
+        expect(helper.subdomain_for(provider)).to eql('winterthur')
       end
     end
 
@@ -26,7 +26,7 @@ describe MailerHelper do
       let(:seeker) { Fabricate(:seeker, place: region.places.last) }
 
       it 'returns the seeker region subdomain' do
-        expect(helper.subdomain_for(seeker)).to eql('bremgarten')
+        expect(helper.subdomain_for(seeker)).to eql('winterthur')
       end
     end
   end

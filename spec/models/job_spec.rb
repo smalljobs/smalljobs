@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative '../spec_helper'
 
 describe Job do
   context 'fabricators' do
@@ -21,12 +21,13 @@ describe Job do
     end
 
     describe '#state' do
-      it 'must be one of created, available, connected or rated' do
+      it 'must be one of hidden, public, check, feedback or finished' do
         expect(Fabricate.build(:job, state: 'abc123')).not_to be_valid
-        expect(Fabricate.build(:job, state: 'created')).to be_valid
-        expect(Fabricate.build(:job, state: 'available')).to be_valid
-        expect(Fabricate.build(:job, state: 'connected')).to be_valid
-        expect(Fabricate.build(:job, state: 'rated')).to be_valid
+        expect(Fabricate.build(:job, state: 'hidden')).to be_valid
+        expect(Fabricate.build(:job, state: 'public')).to be_valid
+        expect(Fabricate.build(:job, state: 'check')).to be_valid
+        expect(Fabricate.build(:job, state: 'feedback')).to be_valid
+        expect(Fabricate.build(:job, state: 'finished')).to be_valid
       end
     end
 
@@ -109,165 +110,4 @@ describe Job do
       end
     end
   end
-
-  describe '#update_status' do
-    let(:provider) { Fabricate(:provider) }
-    let(:job) { Fabricate.build(:job, manpower: 2, state: 'created', provider: provider) }
-
-    context 'when the job is rated by all participants' do
-      it 'sets the state to rated' do
-        Fabricate(:allocation, job: job)
-        Fabricate(:allocation, job: job)
-
-        Fabricate(:review, job: job, provider: job.provider)
-        Fabricate(:review, job: job, seeker: job.seekers.first)
-        Fabricate(:review, job: job, seeker: job.seekers.last)
-
-        job.reload.send(:evaluate_state, nil)
-        expect(job.reload.state).to eql('rated')
-      end
-    end
-
-    context 'when the job has the manpower needed assigned' do
-      it 'sets the state to connected' do
-        Fabricate(:allocation, job: job)
-        Fabricate(:allocation, job: job)
-
-        job.reload.send(:evaluate_state, nil)
-        expect(job.reload.state).to eql('connected')
-      end
-    end
-
-    context 'when the job has not enough manpower' do
-      it 'sets the state to available' do
-        job.send(:evaluate_state, nil)
-        expect(job.reload.state).to eql('available')
-      end
-    end
-  end
-
-  describe '#send_job_created' do
-    let(:provider) { Fabricate(:provider) }
-    let(:job) { Fabricate.build(:job, state: 'created', provider: provider) }
-    let(:mailer) { double('mailer') }
-
-    it 'sends an email to the broker when a job is created' do
-      expect(Notifier).to receive(:job_created_for_broker).with(job).and_return(mailer)
-      expect(mailer).to receive(:deliver)
-      job.save
-    end
-  end
-
-  describe '#send_job_connected' do
-    let(:seeker) { Fabricate(:seeker) }
-    let(:job) { Fabricate(:job, state: 'available', place: seeker.place, allocations: [seeker]) }
-    let(:mailer) { double('mailer') }
-
-    it 'sends an email to the seeker when a job is connected' do
-      expect(Notifier).to receive(:job_connected_for_seekers).with(job).and_return(mailer)
-      expect(mailer).to receive(:deliver)
-      job.update_attributes(state: 'connected')
-    end
-
-    it 'sends an email to the provider when a job is connected' do
-      expect(Notifier).to receive(:job_connected_for_provider).with(job).and_return(mailer)
-      expect(mailer).to receive(:deliver)
-      job.update_attributes(state: 'connected')
-    end
-  end
-
-  describe '.send_rating_reminders' do
-    let(:seeker) { Fabricate(:seeker) }
-    let(:mailer) { double('mailer') }
-
-    context 'with a job on a specific date' do
-      let!(:job) { Fabricate(:job, state: 'connected', place: seeker.place, allocations: [seeker], date_type: 'date', start_date: 2.week.ago) }
-
-      before do
-        # Jobs that should not appear
-        Fabricate(:job)
-        Fabricate(:job, state: 'connected', place: seeker.place, allocations: [seeker], date_type: 'date', start_date: 1.week.ago)
-        Fabricate(:job, state: 'connected', place: seeker.place, allocations: [seeker], date_type: 'date', start_date: 2.week.ago, rating_reminder_sent: true)
-      end
-
-      it 'sends a reminder to the provider' do
-        expect(Notifier).to receive(:job_rating_reminder_for_provider).with(job).and_return(mailer)
-        expect(mailer).to receive(:deliver)
-        Job.send_rating_reminders
-      end
-
-      it 'sends a reminder to the seeker' do
-        expect(Notifier).to receive(:job_rating_reminder_for_seekers).with(job).and_return(mailer)
-        expect(mailer).to receive(:deliver)
-        Job.send_rating_reminders
-      end
-
-      it 'remembers that the reminder has been sent' do
-        Job.send_rating_reminders
-        expect(job.reload.rating_reminder_sent).to be_true
-      end
-    end
-
-    context 'with a job in a date range' do
-      let!(:job) { Fabricate(:job, state: 'connected', place: seeker.place, allocations: [seeker], date_type: 'date_range', start_date: 1.week.ago, end_date: 2.weeks.ago) }
-
-      before do
-        # Jobs that should not appear
-        Fabricate(:job)
-        Fabricate(:job, state: 'connected', place: seeker.place, allocations: [seeker], date_type: 'date_range', start_date: 1.week.ago, end_date: 8.days.ago)
-        Fabricate(:job, state: 'connected', place: seeker.place, allocations: [seeker], date_type: 'date_range', start_date: 1.week.ago, end_date: 2.days.ago, rating_reminder_sent: true)
-      end
-
-      it 'sends a reminder to the provider' do
-        expect(Notifier).to receive(:job_rating_reminder_for_provider).with(job).and_return(mailer)
-        expect(mailer).to receive(:deliver)
-        Job.send_rating_reminders
-      end
-
-      it 'sends a reminder to the seeker' do
-        expect(Notifier).to receive(:job_rating_reminder_for_seekers).with(job).and_return(mailer)
-        expect(mailer).to receive(:deliver)
-        Job.send_rating_reminders
-      end
-
-      it 'remembers that the reminder has been sent' do
-        Job.send_rating_reminders
-        expect(job.reload.rating_reminder_sent).to be_true
-      end
-    end
-
-    context 'with a job on agreement' do
-      let!(:job) { Fabricate(:job, state: 'connected', place: seeker.place, allocations: [seeker], date_type: 'agreement') }
-
-      before do
-        job.update_attribute(:updated_at, 2.week.ago)
-
-        # Jobs that should not appear
-        Fabricate(:job)
-        job_1 = Fabricate(:job, state: 'connected', place: seeker.place, allocations: [seeker], date_type: 'agreement')
-        job_1.update_attribute(:updated_at, 1.week.ago)
-
-        job_2 = Fabricate(:job, state: 'connected', place: seeker.place, allocations: [seeker], date_type: 'agreement', rating_reminder_sent: true)
-        job_2.update_attribute(:updated_at, 2.week.ago)
-      end
-
-      it 'sends a reminder to the provider' do
-        expect(Notifier).to receive(:job_rating_reminder_for_provider).with(job).and_return(mailer)
-        expect(mailer).to receive(:deliver)
-        Job.send_rating_reminders
-      end
-
-      it 'sends a reminder to the seeker' do
-        expect(Notifier).to receive(:job_rating_reminder_for_seekers).with(job).and_return(mailer)
-        expect(mailer).to receive(:deliver)
-        Job.send_rating_reminders
-      end
-
-      it 'remembers that the reminder has been sent' do
-        Job.send_rating_reminders
-        expect(job.reload.rating_reminder_sent).to be_true
-      end
-    end
-  end
-
 end

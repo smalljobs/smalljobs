@@ -3,8 +3,15 @@ class ApiController < ApplicationController
   before_action :check_status, only: [:create_assignment, :update_assignment, :apply]
   skip_before_filter :verify_authenticity_token
 
+  # POST /api/users/login
+  # Performs the login.
+  # Returns a access_token which is passed along as a header with all future requests to authenticate the user.
+  # You must provide the Authorization: Bearer {access_token} header in all other requests.
+  # Access tokens are tied to the user who logs in. Tokens are only valid for 30 days.
+  #
   def login
-    seeker = Seeker.find_by(login: login_params[:phone]) || Seeker.find_by(phone: login_params[:phone])
+    phone = PhonyRails.normalize_number(login_params[:phone], default_country_code: 'CH')
+    seeker = Seeker.find_by(mobile: phone) || Seeker.find_by(login: login_params[:phone]) || Seeker.find_by(phone: phone)
 
     if seeker == nil
       render json: {code: 'users/not_found', message: 'User not found'}, status: 404
@@ -31,6 +38,9 @@ class ApiController < ApplicationController
     render json: {access_token: token.access_token, token_type: token.token_type, expires_in: token.expire_at.strftime('%s'), created_at: token.created_at, refresh_token: token.refresh_token, user: ApiHelper::seeker_to_json(seeker)}, status: 200
   end
 
+  # GET /api/users/logout
+  # Invalidates access_token
+  #
   def logout
     authorization_header = request.authorization()
     if authorization_header != nil
@@ -42,6 +52,10 @@ class ApiController < ApplicationController
     render json: {message: 'Success. Access token is no longer active.'}, status: 200
   end
 
+  # POST /api/users/register
+  # Register new user.
+  # By default, new users have status: status = 1.
+  #
   def register
     user_params = register_params
     if user_params[:birthdate] == nil
@@ -60,15 +74,23 @@ class ApiController < ApplicationController
 
     user_params[:password_confirmation] = user_params[:password]
     seeker = Seeker.new(user_params)
-    seeker.status = 1
+    seeker.status = 'inactive'
     if !seeker.save
       render json: {code: 'users/invalid', message: seeker.errors.first}, status: 422
       return
     end
 
+    message = "\nHallo #{seeker.firstname}\n\nWillkommen bei Small.Jobs!\nDamit du dich auf Jobs bewerben kannst, brauchen wir das Einverständnis deiner Eltern. Dieses Einverständnis bitte hier herunterladen: <a href=\"http://dev.smalljobs.ch/broker/seekers/#{seeker.id}/agreement?format=pdf\">http://dev.smalljobs.ch/broker/seekers/#{seeker.id}/agreement?format=pdf</a>\nDann ausdrucken und uns vorbeibringen:\n#{seeker.organization.name}\n#{seeker.organization.street}\n#{seeker.organization.place.custom_name}\nFür einen Termin schreibe uns hier oder ruf an <a href='tel:#{seeker.organization.phone}'>#{seeker.organization.phone}</a>\n\nDanke,\n\n#{seeker.organization.name}\n"
+    title = 'Elterneinverständnis als Pdf schicken'
+    MessagingHelper::send_message(title, message, seeker.app_user_id, seeker.organization.email)
+
     render json: {message: 'User created successfully', user: ApiHelper::seeker_to_json(seeker), organization: ApiHelper::organization_to_json(seeker.organization, seeker.organization.regions.first.id)}
   end
 
+  # GET /api/users
+  # Returns list of users.
+  # Optionally you can retrieve list of users from defined organization.
+  #
   def list_users
     users = []
     organization_id = params[:organization_id]
@@ -91,6 +113,9 @@ class ApiController < ApplicationController
     render json: users, status: 200
   end
 
+  # GET /api/users/[id]
+  # Displays profile of user.
+  #
   def show_user
     user = Seeker.find_by(id: params[:id])
     if user == nil
@@ -101,6 +126,9 @@ class ApiController < ApplicationController
     render json: ApiHelper::seeker_to_json(user), status: 200
   end
 
+  # PATCH /api/users/[id]
+  # Updates user data
+  #
   def update_user
     seeker = Seeker.find_by(id: params[:id])
     if seeker == nil
@@ -135,6 +163,9 @@ class ApiController < ApplicationController
     end
   end
 
+  # GET /api/market/regions
+  # Returns all available regions
+  #
   def list_regions
     regions = []
     Region.all.find_each do |region|
@@ -144,6 +175,9 @@ class ApiController < ApplicationController
     render json: regions, status: 200
   end
 
+  # GET /api/market/regions/[region]
+  # Returns single region
+  #
   def show_region
     region = Region.find_by(id: params[:id])
     if region == nil
@@ -154,6 +188,10 @@ class ApiController < ApplicationController
     render json: ApiHelper::region_to_json(region), status: 200
   end
 
+  # GET /api/market/organizations?region=1&active=true
+  # Returns all available organizations
+  # Optionally display organizations from specific region
+  #
   def list_organizations
     region = nil
     if params[:region] != nil
@@ -188,6 +226,9 @@ class ApiController < ApplicationController
     render json: organizations, status: 200
   end
 
+  # GET /api/market/organizations/[id]
+  # Returns organization details
+  #
   def show_organization
     organization = Organization.find_by(id: params[:id])
     if organization == nil
@@ -198,6 +239,10 @@ class ApiController < ApplicationController
     render json: ApiHelper::organization_to_json(organization, organization.regions.first.id), status: 200
   end
 
+  # Get /api/jobs?organization_id=1&region_id=1&status=1&provider=true&organization=true&assignments=true&page=1&limit=10
+  # Returns list of available jobs
+  # Optionally you can retrieve list of jobs from defined organization
+  #
   def list_jobs
     organization_id = params[:organization_id]
     region_id = params[:region_id]
@@ -245,6 +290,9 @@ class ApiController < ApplicationController
     render json: jobs, status: 200
   end
 
+  # POST /api/jobs/apply
+  # Applies for a job
+  #
   def apply
     id = params[:id]
     message = params[:message]
@@ -273,6 +321,9 @@ class ApiController < ApplicationController
     render json: {message: 'Success. Please wait for a message from broker.'}, status: 201
   end
 
+  # POST /api/jobs/revoke
+  # Cancels previous user submission
+  #
   def revoke
     id = params[:id]
     job = Job.find_by(id: id)
@@ -297,6 +348,10 @@ class ApiController < ApplicationController
     render json: {message: 'Success.'}, status: 200
   end
 
+  # GET /api/jobs/[id]?provider=true&organization=true&assignments=true
+  # Display job details
+  # Optionally show/hide provider or organization info
+  #
   def show_job
     id = params[:id]
     show_provider = true?(params[:provider])
@@ -320,6 +375,10 @@ class ApiController < ApplicationController
     render json: ApiHelper::job_to_json(job, job.provider.organization, show_provider, show_organization, show_assignments, nil), status: 200
   end
 
+  # GET /api/allocations?user_id=1&job_id=1&user=true&provider=true&organization=true&assignments=true&status=0&page=1&limit=10
+  # Display allocations list
+  # Optionally show/hide provider or organization info
+  #
   def list_my_jobs
     id = params[:user_id]
     status = params[:status] == nil ? nil : JSON.parse(params[:status])
@@ -350,6 +409,9 @@ class ApiController < ApplicationController
     render json: allocations, status: 200
   end
 
+  # POST /api/assignments
+  # Create new assignment
+  #
   def create_assignment
     start_datetime = params[:start_timestamp]
     if start_datetime != nil
@@ -385,6 +447,9 @@ class ApiController < ApplicationController
     render json: ApiHelper::assignment_to_json(assignment), status: 201
   end
 
+  # PATCH /api/assignments/[id]
+  # Update assignment data
+  #
   def update_assignment
     assignment = Assignment.find_by(id: params[:id])
     if assignment == nil
@@ -429,6 +494,10 @@ class ApiController < ApplicationController
     end
   end
 
+  # DELETE /api/assignments/[id]
+  # Delete assignment
+  # User can destroy only own assignments
+  #
   def delete_assignment
     assignment = Assignment.find_by(id: params[:id])
     if assignment == nil
@@ -445,6 +514,10 @@ class ApiController < ApplicationController
     render json: {message: 'Assignment deleted.', id: params[:id]}
   end
 
+  # GET /api/assignments?organization_id=1&user_id=1&provider_id=1&status=1&user=true&provider=true&organization=true&job=true&page=1&limit=10
+  # Returns list of assignments
+  # Optionally you can retrieve list of assignments from defined organization
+  #
   def list_assignments
     organization_id = params[:organization_id]
     status = params[:status] == nil ? nil : params[:status].to_i
@@ -494,6 +567,10 @@ class ApiController < ApplicationController
     render json: assignments, status: 200
   end
 
+  # GET /api/assignments/[id]?user=true&provider=true&organization=true&job=true
+  # Display assignment details
+  # Optionally show/hide user, emploter or organization info
+  #
   def show_assignment
     id = params[:id]
     show_provider = true?(params[:provider])
@@ -509,6 +586,10 @@ class ApiController < ApplicationController
     render json: ApiHelper::assignment_with_data_to_json(assignment, show_provider, show_organization, show_seeker, show_job)
   end
 
+  # POST /api/users/password/remind
+  # Check if user with passed phone number exists in database
+  # If user exists then send 6 digit code via SMS
+  #
   def password_remind
     phone = PhonyRails.normalize_number(params[:phone], default_country_code: 'CH')
 
@@ -545,6 +626,9 @@ class ApiController < ApplicationController
     end
   end
 
+  # POST /api/users/password/validate
+  # Check if passed security code is valid
+  #
   def password_validate
     phone = PhonyRails.normalize_number(params[:phone], default_country_code: 'CH')
     code = params[:code]
@@ -563,6 +647,10 @@ class ApiController < ApplicationController
     render json: {message: 'Success. Security code is valid.'}, status: 200
   end
 
+  # POST /api/users/password/change
+  # Change user password
+  # Cancel action when phone number or security code are invalid
+  #
   def password_change
     phone = PhonyRails.normalize_number(params[:phone], default_country_code: 'CH')
     code = params[:code]
@@ -591,18 +679,30 @@ class ApiController < ApplicationController
 
   protected
 
+  # Check if the value is true
+  #
+  # @param obj [Object] value to check
+  #
+  # @return [Bool] true if object is true, false otherwise
+  #
   def true?(obj)
     obj.to_s == 'true'
   end
 
+  # Check if seeker is active
+  #
   def check_status
-    @seeker.active? || render_unauthorized_status
+    @seeker.status == 'active' || render_unauthorized_status
   end
 
+  # Check if authentication token is valid
+  #
   def authenticate
     authenticate_token || render_unauthorized
   end
 
+  # Check if authentication token is valid
+  #
   def authenticate_token
     token = nil
     authorization_header = request.authorization()
@@ -624,10 +724,14 @@ class ApiController < ApplicationController
     return true
   end
 
+  # Return information about invalid access token
+  #
   def render_unauthorized
     render json: {code: 'users/invalid', message: 'Invalid access token'}, status: 422
   end
 
+  # Return information about invalid user status
+  #
   def render_unauthorized_status
     render json: {code: 'users/status', message: 'Invalid user status'}, status: 422
   end

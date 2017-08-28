@@ -188,11 +188,24 @@ module ApplicationHelper
     end
   end
 
+  # Get the allocation for given seeker and job
+  #
+  # @param job [Job] the job
+  # @param seeker [Seeker] the seeker
+  #
+  # @return [Allocation] allocation belonging to given seeker and job
+  #
   def allocation_for_seeker_job(job, seeker)
     allocation = Allocation.where(seeker_id: seeker.id, job_id: job.id).first
-    return allocation
+    allocation
   end
 
+  # Get the allocation status name
+  #
+  # @param allocation [Allocation] the allocation
+  #
+  # @return [String] status name of given allocation
+  #
   def allocation_status(allocation)
     if allocation == nil
       return 'Keine'
@@ -224,9 +237,9 @@ module ApplicationHelper
       when 'check'
         bootstrap_label('info', I18n.t('common.running'))
       when 'feedback'
-        bootstrap_label('success', I18n.t('common.finished'))
+        bootstrap_label('success', I18n.t('common.job_finished'))
       when 'finished'
-        bootstrap_label('success', I18n.t('common.finished'))
+        bootstrap_label('success', I18n.t('common.job_finished'))
     end
   end
 
