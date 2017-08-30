@@ -1,3 +1,5 @@
+- if @messages == nil
+  - @messages = []
 - for message in @messages
   %div.row
   - if message['from_ji_user_id'] == "#{@seeker.app_user_id}"
