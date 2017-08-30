@@ -391,6 +391,7 @@
     – <%= @provider.organization.place.full_name %>
   </p>
   <h1 class="provider-name">
+    <%= @provider.company != nil && !@provider.company.empty? ? "#{@provider.company}<br/>".html_safe : "" %>
     <%= @provider.name %><br/>
     <%= @provider.street %><br/>
     <%= @provider.place.full_name %>
