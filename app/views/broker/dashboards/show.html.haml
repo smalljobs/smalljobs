@@ -225,11 +225,19 @@
       if(sortedColumnId != undefined) {
         sorttable.init();
         sorttable.innerSortFunction.apply(document.getElementById(sortedColumnId), []);
+        if(sessionStorage.getItem('sortedReverse') === 'true') {
+          sorttable.innerSortFunction.apply(document.getElementById(sortedColumnId), []);
+        }
       }
     }
 
     $('th.sortable').click(function() {
       sessionStorage.setItem('sortedColumn', $(this).attr('id'));
+      if($(this).hasClass('sorttable_sorted')) {
+        sessionStorage.setItem('sortedReverse', 'true');
+      } else {
+        sessionStorage.setItem('sortedReverse', 'false');
+      }
     });
 
     function checkSearchField() {
