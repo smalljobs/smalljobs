@@ -1,6 +1,6 @@
 require_relative '../spec_helper'
 
-describe RegistrationsController do
+describe RegistrationsController, type: :controller do
   describe '#new' do
     context 'for a job broker' do
       before do

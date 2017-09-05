@@ -1,8 +1,8 @@
 require_relative '../../spec_helper'
 
-describe Broker::OrganizationsController do
+describe Broker::OrganizationsController, type: :controller do
 
-  it_behaves_like 'a protected controller', :broker, :organization, [:edit, :update] do
+  it_behaves_like 'a protected controller', :broker, :organization, [:edit] do
     let(:place)        { Fabricate(:place) }
     let(:broker)       { Fabricate(:broker_with_regions, place: place) }
     let(:organization) { broker.organizations.first }

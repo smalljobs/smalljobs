@@ -1,6 +1,6 @@
 require_relative '../../spec_helper'
 
-describe Broker::DashboardsController do
+describe Broker::DashboardsController, type: :controller do
   describe '#show' do
     context 'access control' do
       it 'is not accessible by an anonymous user' do

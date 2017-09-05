@@ -1,6 +1,6 @@
 require_relative '../../spec_helper'
 
-describe Broker::JobsController do
+describe Broker::JobsController, type: :controller do
 
   it_behaves_like 'a protected controller', :broker, :job, :all do
     let(:broker)    { Fabricate(:broker_with_regions) }

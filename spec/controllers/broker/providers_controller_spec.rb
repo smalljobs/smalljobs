@@ -1,6 +1,6 @@
 require_relative '../../spec_helper'
 
-describe Broker::ProvidersController do
+describe Broker::ProvidersController, type: :controller do
 
   it_behaves_like 'a protected controller', :broker, :provider, :all do
     let(:broker)         { Fabricate(:broker_with_regions) }

@@ -1,6 +1,6 @@
 require_relative '../spec_helper'
 
-describe ConfirmationsController do
+describe ConfirmationsController, type: :controller do
   describe '#after_resending_confirmation_instructions_path_for' do
     it 'returns the root path' do
       expect(controller.send(:after_resending_confirmation_instructions_path_for, :provider)).to eql('/')

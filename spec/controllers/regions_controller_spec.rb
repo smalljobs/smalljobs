@@ -1,6 +1,6 @@
 require_relative '../spec_helper'
 
-describe RegionsController do
+describe RegionsController, type: :controller do
 
   describe '#index' do
     before do

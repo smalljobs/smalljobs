@@ -1,6 +1,6 @@
 require_relative '../../spec_helper'
 
-describe Broker::AllocationsController do
+describe Broker::AllocationsController, type: :controller do
 
   it_behaves_like 'a protected controller', :broker, :allocation, [:edit, :update, :destroy] do
     let(:broker)            { Fabricate(:broker_with_regions) }
