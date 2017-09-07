@@ -4,6 +4,7 @@ rvm:
 
 addons:
   firefox: "38.0.5"
+  postgresql: "9.4"
 
 services:
   - postgresql
