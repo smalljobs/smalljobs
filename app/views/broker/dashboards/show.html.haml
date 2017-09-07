@@ -342,7 +342,7 @@
 
     checkSearchField();
     loadOrganization();
-    loadSortedColumn();
+    // loadSortedColumn();
 
     window.addEventListener("beforeunload", function (event) {
       $.post("#{save_settings_broker_dashboard_path}", {filter: $('#search-field').val(), selected_organization_id: parseInt(selectedOrganizationId)}, function(response) {
