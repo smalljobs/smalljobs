@@ -221,22 +221,24 @@
     var selectedOrganizationId = 0;
 
     function loadSortedColumn() {
-      var sortedColumnId = sessionStorage.getItem('sortedColumn');
+      var hash = location.hash;
+      var sortedColumnId = sessionStorage.getItem('sortedColumn' + hash);
       if(sortedColumnId != undefined) {
         sorttable.init();
         sorttable.innerSortFunction.apply(document.getElementById(sortedColumnId), []);
-        if(sessionStorage.getItem('sortedReverse') === 'true') {
+        if(sessionStorage.getItem('sortedReverse' + hash) === 'true') {
           sorttable.innerSortFunction.apply(document.getElementById(sortedColumnId), []);
         }
       }
     }
 
     $('th.sortable').click(function() {
-      sessionStorage.setItem('sortedColumn', $(this).attr('id'));
+      var hash = location.hash;
+      sessionStorage.setItem('sortedColumn' + hash, $(this).attr('id'));
       if($(this).hasClass('sorttable_sorted')) {
-        sessionStorage.setItem('sortedReverse', 'true');
+        sessionStorage.setItem('sortedReverse' + hash, 'true');
       } else {
-        sessionStorage.setItem('sortedReverse', 'false');
+        sessionStorage.setItem('sortedReverse' + hash, 'false');
       }
     });
 
@@ -284,6 +286,7 @@
         location.hash = e.target.hash;
       }
 
+      loadSortedColumn();
       setHelp();
     });
 
