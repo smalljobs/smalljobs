@@ -12,19 +12,4 @@ describe Broker::SeekersController, type: :controller do
       attrs
     end
   end
-
-  describe '#index' do
-    auth_broker(:broker) { Fabricate(:broker_with_regions) }
-
-    before do
-      Fabricate(:seeker, place: broker.places.first)
-      Fabricate(:seeker, place: broker.places.last)
-      Fabricate(:seeker, place: Fabricate(:place, zip: '9999'))
-    end
-
-    it 'shows only seekers in the broker regions' do
-      get :index
-      expect(assigns(:seekers).count).to eql(2)
-    end
-  end
 end
