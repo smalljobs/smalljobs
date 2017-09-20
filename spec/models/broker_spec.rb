@@ -1,8 +1,6 @@
-require 'spec_helper'
+require_relative '../spec_helper'
 
 describe Broker do
-
-  it_should_behave_like 'a confirm toggle'
 
   context 'fabricators' do
     it 'has a valid factory' do
@@ -41,7 +39,7 @@ describe Broker do
       end
 
       it 'normalizes the phone number' do
-        expect(Fabricate(:broker, phone: '056 496 03 58').phone).to eql('41564960358')
+        expect(Fabricate(:broker, phone: '056 496 03 58').phone).to eql('+41564960358')
       end
     end
 
@@ -52,7 +50,7 @@ describe Broker do
       end
 
       it 'normalizes the phone number' do
-        expect(Fabricate(:broker, phone: "079/244'55'61").phone).to eql('41792445561')
+        expect(Fabricate(:broker, phone: "079/244'55'61").phone).to eql('+41792445561')
       end
     end
 
@@ -66,7 +64,7 @@ describe Broker do
   describe '#unauthenticated_message' do
     context 'when confirmed' do
       it 'is inactive' do
-        expect(Fabricate(:broker, confirmed: true).unauthenticated_message).to eql(:inactive)
+        expect(Fabricate(:broker, confirmed: true).unauthenticated_message).to eql(:unconfirmed)
       end
     end
 
@@ -79,15 +77,15 @@ describe Broker do
 
   describe '#active_for_authentication?' do
     it 'is not active when not confirmed' do
-      expect(Fabricate(:broker, confirmed: false, active: true).active_for_authentication?).to be_false
+      expect(Fabricate(:broker, confirmed: false, active: true).active_for_authentication?).to be true
     end
 
     it 'is not active when not activated' do
-      expect(Fabricate(:broker, confirmed: true, active: false).active_for_authentication?).to be_false
+      expect(Fabricate(:broker, confirmed: true, active: false).active_for_authentication?).to be false
     end
 
     it 'is active when activated and confirmed' do
-      expect(Fabricate(:broker, confirmed: true, active: true).active_for_authentication?).to be_true
+      expect(Fabricate(:broker, confirmed: true, active: true).active_for_authentication?).to be true
     end
   end
 

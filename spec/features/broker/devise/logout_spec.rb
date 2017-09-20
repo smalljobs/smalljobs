@@ -1,6 +1,6 @@
 # coding: UTF-8
 
-require 'spec_helper'
+require_relative '../../../spec_helper'
 
 feature 'Logout' do
   let(:broker) do

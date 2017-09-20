@@ -1,6 +1,6 @@
 # coding: UTF-8
 
-require 'spec_helper'
+require_relative '../../../spec_helper'
 
 feature 'Login' do
   context 'with an unconfirmed user' do
@@ -17,12 +17,11 @@ feature 'Login' do
       visit_on broker, '/'
 
       click_on 'Anmelden'
-      click_on 'Vermittler'
 
-      fill_in 'Email',    with: 'rolf@example.com'
+      fill_in 'E-Mail',    with: 'rolf@example.com'
       fill_in 'Passwort', with: 'tester1234'
 
-      click_on 'Als Vermittler anmelden'
+      click_on 'Login'
 
       within_notifications do
         expect(page).to have_content('Sie müssen Ihre Email bestätigen, bevor Sie fortfahren können.')
@@ -44,15 +43,14 @@ feature 'Login' do
       visit_on broker, '/'
 
       click_on 'Anmelden'
-      click_on 'Vermittler'
 
-      fill_in 'Email',    with: 'rolf@example.com'
+      fill_in 'E-Mail',    with: 'rolf@example.com'
       fill_in 'Passwort', with: 'tester1234'
 
-      click_on 'Als Vermittler anmelden'
+      click_on 'Login'
 
       within_notifications do
-        expect(page).to have_content('Ihr Konto ist nicht aktiv')
+        expect(page).to have_content('Sie müssen Ihre Email bestätigen, bevor Sie fortfahren können.')
       end
     end
   end
@@ -71,32 +69,24 @@ feature 'Login' do
       visit_on broker, '/'
 
       click_on 'Anmelden'
-      click_on 'Vermittler'
 
-      fill_in 'Email',    with: 'dani@example.com'
+      fill_in 'E-Mail',    with: 'dani@example.com'
       fill_in 'Passwort', with: 'tester'
 
-      click_on 'Als Vermittler anmelden'
+      click_on 'Login'
 
-      within_notifications do
-        expect(page).to have_content('Ungültige Anmeldedaten')
-      end
+      expect(current_path).to eql('/global_sign_in')
     end
 
     scenario 'using valid credentials' do
       visit_on broker, '/'
 
       click_on 'Anmelden'
-      click_on 'Vermittler'
 
-      fill_in 'Email',    with: 'rolf@example.com'
+      fill_in 'E-Mail',    with: 'rolf@example.com'
       fill_in 'Passwort', with: 'tester1234'
 
-      click_on 'Als Vermittler anmelden'
-
-      within_notifications do
-        expect(page).to have_content('Erfolgreich angemeldet')
-      end
+      click_on 'Login'
 
       expect(current_path).to eql('/broker/dashboard')
     end

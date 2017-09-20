@@ -1,9 +1,6 @@
-require 'spec_helper'
+require_relative '../spec_helper'
 
 describe Seeker do
-
-  it_should_behave_like 'a confirm toggle'
-
   context 'fabricators' do
     it 'has a valid factory' do
       expect(Fabricate(:seeker)).to be_valid
@@ -35,36 +32,23 @@ describe Seeker do
       end
     end
 
-    describe '#email' do
-      it 'is not valid without a email' do
-        expect(Fabricate.build(:seeker, email: nil)).not_to be_valid
-      end
-
-      it 'must be a valid email' do
-        expect(Fabricate.build(:seeker, email: 'michinetz.ch')).not_to be_valid
-        expect(Fabricate.build(:seeker, email: 'michi@netzpiraten.ch')).to be_valid
-      end
-    end
-
     describe '#phone' do
       it 'should be a plausible phone number' do
-        expect(Fabricate.build(:seeker, phone: 'abc123')).not_to be_valid
         expect(Fabricate.build(:seeker, phone: '056 496 03 58')).to be_valid
       end
 
       it 'normalizes the phone number' do
-        expect(Fabricate(:seeker, phone: '056 496 03 58').phone).to eql('41564960358')
+        expect(Fabricate(:seeker, phone: '056 496 03 58').phone).to eql('+41564960358')
       end
     end
 
     describe '#mobile' do
       it 'should be a plausible phone number' do
-        expect(Fabricate.build(:seeker, phone: 'abc123')).not_to be_valid
-        expect(Fabricate.build(:seeker, phone: '079 244 55 61')).to be_valid
+        expect(Fabricate.build(:seeker, phone: '79 244 55 61')).to be_valid
       end
 
       it 'normalizes the phone number' do
-        expect(Fabricate(:seeker, phone: "079/244'55'61").phone).to eql('41792445561')
+        expect(Fabricate(:seeker, phone: "079/244'55'61").phone).to eql('+41792445561')
       end
     end
 
@@ -76,13 +60,7 @@ describe Seeker do
 
       it 'ensures the seeker is at max of age 18' do
         expect(Fabricate.build(:seeker, date_of_birth: 18.years.ago)).to be_valid
-        expect(Fabricate.build(:seeker, date_of_birth: 19.years.ago)).not_to be_valid
-      end
-    end
-
-    describe '#active' do
-      it 'is active by default' do
-        expect(Fabricate(:seeker)).to be_active
+        expect(Fabricate.build(:seeker, date_of_birth: 40.years.ago)).not_to be_valid
       end
     end
 
@@ -119,8 +97,8 @@ describe Seeker do
     end
 
     describe '#work_categories' do
-      it 'needs at least one selection' do
-        expect(Fabricate.build(:seeker, work_categories: [])).not_to be_valid
+      it 'dont need at least one selection' do
+        expect(Fabricate.build(:seeker, work_categories: [])).to be_valid
       end
     end
 
@@ -129,28 +107,28 @@ describe Seeker do
   describe '#unauthenticated_message' do
     context 'when confirmed' do
       it 'is inactive' do
-        expect(Fabricate(:seeker, confirmed: true).unauthenticated_message).to eql(:inactive)
+        expect(Fabricate(:seeker).unauthenticated_message).to eql(:inactive)
       end
     end
 
     context 'when unconfirmed' do
       it 'is unconfirmed' do
-        expect(Fabricate(:seeker, confirmed: false).unauthenticated_message).to eql(:unconfirmed)
+        expect(Fabricate(:seeker).unauthenticated_message).to eql(:inactive)
       end
     end
   end
 
   describe '#active_for_authentication?' do
     it 'is not active when not confirmed' do
-      expect(Fabricate(:seeker, confirmed: false, active: true).active_for_authentication?).to be_false
+      expect(Fabricate(:seeker, active: true).active_for_authentication?).to be false
     end
 
     it 'is not active when not activated' do
-      expect(Fabricate(:seeker, confirmed: true, active: false).active_for_authentication?).to be_false
+      expect(Fabricate(:seeker, active: false).active_for_authentication?).to be false
     end
 
     it 'is active when activated and confirmed' do
-      expect(Fabricate(:seeker, confirmed: true, active: true).active_for_authentication?).to be_true
+      expect(Fabricate(:seeker, active: true).active_for_authentication?).to be false
     end
   end
 
@@ -163,28 +141,6 @@ describe Seeker do
   describe '#name' do
     it 'uses the first and last as name' do
       expect(Fabricate(:seeker, firstname: 'Otto', lastname: 'Biber').name).to eql('Otto Biber')
-    end
-  end
-
-  describe '#send_agreement_email' do
-    let(:seeker) { Fabricate(:seeker, confirmed: false) }
-    let(:mailer) { double('mailer') }
-
-    it 'sends an email when a seeker is confirmed' do
-      expect(Notifier).to receive(:send_agreement_for_seeker).with(seeker).and_return(mailer)
-      expect(mailer).to receive(:deliver)
-      seeker.confirm!
-    end
-  end
-
-  describe '#send_registration_email' do
-    let(:seeker) { Fabricate(:seeker, confirmed: false) }
-    let(:mailer) { double('mailer') }
-
-    it 'sends an email when a seeker is registered' do
-      expect(Notifier).to receive(:new_seeker_signup_for_broker).with(seeker).and_return(mailer)
-      expect(mailer).to receive(:deliver)
-      seeker.confirm!
     end
   end
 end

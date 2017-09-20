@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def require_https
-    redirect_to protocol: 'https://' unless request.ssl? || request.local? || request.subdomain == 'dev'
+    redirect_to protocol: 'https://' unless request.ssl? || request.local? || request.subdomain == 'dev' || Rails.env.test?
   end
 
   def current_user

@@ -105,7 +105,8 @@ class Seeker < ActiveRecord::Base
   # @return [Symbol] the i18n key
   #
   def unauthenticated_message
-    confirmed? ? :inactive : :unconfirmed
+    # confirmed? ? :inactive : :unconfirmed
+    :inactive
   end
 
   # @!endgroup

@@ -20,7 +20,7 @@ module Support
           @request.host = "#{ user.regions.first.subdomain }.test.host"
         end
 
-        user.confirm! if user.respond_to?(:confirm!)
+        # user.confirm! if user.respond_to?(:confirm!)
         sign_in mapping, user
 
         user

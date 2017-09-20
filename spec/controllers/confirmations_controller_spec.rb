@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative '../spec_helper'
 
 describe ConfirmationsController do
   describe '#after_resending_confirmation_instructions_path_for' do

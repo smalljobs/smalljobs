@@ -31,6 +31,8 @@ class Broker::SeekersController < InheritedResources::Base
     edit!
   end
 
+  # Renders seeker agreement as pdf file
+  #
   def agreement
     @seeker = Seeker.find_by(id: params[:id])
     respond_to do |format|
@@ -53,6 +55,8 @@ class Broker::SeekersController < InheritedResources::Base
     render json: {message: 'Seeker deleted'}, status: 200
   end
 
+  # Sends message to seeker (via mobile application)
+  #
   def send_message
     title = params[:title]
     message = params[:message]
@@ -62,6 +66,10 @@ class Broker::SeekersController < InheritedResources::Base
 
   protected
 
+  # Returns currently signed in broker
+  #
+  # @return [Broker] currently signed in broker
+  #
   def current_user
     current_broker
   end

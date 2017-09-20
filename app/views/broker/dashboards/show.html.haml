@@ -214,22 +214,32 @@
     if (url.match('#')) {
       $('.nav-pills a[href="#' + url.split('#')[1] + '"]').tab('show');
     } else {
-      location.hash = 'jobs';
+      location.hash = 'todo';
       setHelp();
     }
 
     var selectedOrganizationId = 0;
 
     function loadSortedColumn() {
-      var sortedColumnId = sessionStorage.getItem('sortedColumn');
+      var hash = location.hash;
+      var sortedColumnId = sessionStorage.getItem('sortedColumn' + hash);
       if(sortedColumnId != undefined) {
         sorttable.init();
         sorttable.innerSortFunction.apply(document.getElementById(sortedColumnId), []);
+        if(sessionStorage.getItem('sortedReverse' + hash) === 'true') {
+          sorttable.innerSortFunction.apply(document.getElementById(sortedColumnId), []);
+        }
       }
     }
 
     $('th.sortable').click(function() {
-      sessionStorage.setItem('sortedColumn', $(this).attr('id'));
+      var hash = location.hash;
+      sessionStorage.setItem('sortedColumn' + hash, $(this).attr('id'));
+      if($(this).hasClass('sorttable_sorted')) {
+        sessionStorage.setItem('sortedReverse' + hash, 'true');
+      } else {
+        sessionStorage.setItem('sortedReverse' + hash, 'false');
+      }
     });
 
     function checkSearchField() {
@@ -276,6 +286,7 @@
         location.hash = e.target.hash;
       }
 
+      loadSortedColumn();
       setHelp();
     });
 
@@ -331,7 +342,7 @@
 
     checkSearchField();
     loadOrganization();
-    loadSortedColumn();
+    // loadSortedColumn();
 
     window.addEventListener("beforeunload", function (event) {
       $.post("#{save_settings_broker_dashboard_path}", {filter: $('#search-field').val(), selected_organization_id: parseInt(selectedOrganizationId)}, function(response) {

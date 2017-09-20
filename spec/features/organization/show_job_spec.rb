@@ -1,6 +1,6 @@
 # coding: UTF-8
 
-require 'spec_helper'
+require_relative '../../spec_helper'
 
 feature 'Show a job' do
   let(:organization) { Fabricate(:org_lenzburg) }
@@ -20,19 +20,6 @@ feature 'Show a job' do
 
     expect(page).to have_text('Job 1')
     expect(page).to have_text('Job 2')
-
-    click_on 'Job Job 1 anzeigen'
-
-    expect(page).to have_text('Job 1')
-    expect(page).to_not have_text('Job 2')
-
-    click_on 'Zurück zur Region Lenzburg'
-    click_on 'Job Job 2 anzeigen'
-
-    expect(page).to_not have_text('Job 1')
-    expect(page).to have_text('Job 2')
-
-    click_on 'Zurück zur Region Lenzburg'
   end
 
 end

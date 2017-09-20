@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative '../spec_helper'
 
 describe Organization do
   context 'fabricators' do
@@ -55,7 +55,7 @@ describe Organization do
     end
 
     it 'normalizes the phone number' do
-      expect(Fabricate(:organization, phone: '056 496 03 58').phone).to eql('41564960358')
+      expect(Fabricate(:organization, phone: '056 496 03 58').phone).to eql('+41564960358')
     end
   end
 

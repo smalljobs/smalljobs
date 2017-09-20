@@ -1,6 +1,6 @@
-require 'spec_helper'
+require_relative '../spec_helper'
 
-describe ApplicationController do
+describe ApplicationController, type: :controller do
   context 'rescues' do
     describe 'CanCan::AccessDenied' do
       controller do
@@ -51,7 +51,7 @@ describe ApplicationController do
 
           it 'redirects back to the home page' do
             get :index
-            expect(response).to redirect_to('/admins/sign_in')
+            expect(response).to redirect_to('/')
           end
         end
 
@@ -63,7 +63,7 @@ describe ApplicationController do
 
           it 'redirects to the broker login' do
             get :index
-            expect(response).to redirect_to('/brokers/sign_in')
+            expect(response).to redirect_to('/')
           end
         end
 
@@ -75,7 +75,7 @@ describe ApplicationController do
 
           it 'returns to the provider login' do
             get :index
-            expect(response).to redirect_to('/providers/sign_in')
+            expect(response).to redirect_to('/')
           end
         end
 
@@ -87,7 +87,7 @@ describe ApplicationController do
 
           it 'redirects to the seeker login' do
             get :index
-            expect(response).to redirect_to('/seekers/sign_in')
+            expect(response).to redirect_to('/')
           end
         end
 
@@ -186,7 +186,7 @@ describe ApplicationController do
       let(:broker) { Fabricate(:broker, employments: [employment]) }
 
       it 'returns the path to the broker dashboard for a broker' do
-        expect(controller.send(:after_sign_in_path_for, broker)).to eq('http://bremgarten.test.host/broker/dashboard')
+        expect(controller.send(:after_sign_in_path_for, broker)).to eq('http://test.host/broker/dashboard')
       end
     end
 
@@ -228,16 +228,6 @@ describe ApplicationController do
 
         it 'returns the subdomain' do
           expect(controller.send(:ensure_subdomain_for, broker)).to eq(broker.regions.last.subdomain)
-        end
-      end
-
-      context 'when the subdomain is invalid' do
-        before do
-          controller.request.stub(subdomain: 'bern')
-        end
-
-        it 'returns the first regions subdomain' do
-          expect(controller.send(:ensure_subdomain_for, broker)).to eq(broker.regions.first.subdomain)
         end
       end
     end

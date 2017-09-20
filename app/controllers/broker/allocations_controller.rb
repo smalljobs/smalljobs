@@ -4,9 +4,6 @@ class Broker::AllocationsController < InheritedResources::Base
 
   belongs_to :job
 
-  # load_and_authorize_resource :job
-  # load_and_authorize_resource :allocation, through: :job
-
   skip_authorize_resource :allocation, only: :new
 
   actions :all
@@ -22,6 +19,8 @@ class Broker::AllocationsController < InheritedResources::Base
     @messages = MessagingHelper::get_messages(@allocation.seeker.app_user_id)
   end
 
+  # Changes state of allocation to the next one
+  #
   def change_state
     @job = Job.find_by(id: params[:job_id])
     @allocation = Allocation.find_by(id: params[:id])
@@ -57,6 +56,8 @@ class Broker::AllocationsController < InheritedResources::Base
 
   end
 
+  # Changes allocation accordingly to user cancelling allocation action
+  #
   def cancel_state
     @job = Job.find_by(id: params[:job_id])
     @allocation = Allocation.find_by(id: params[:id])
@@ -76,6 +77,8 @@ class Broker::AllocationsController < InheritedResources::Base
     render json: {redirect_to: redirect_to}
   end
 
+  # Sends given message to the seeker (via mobile application)
+  #
   def send_message
     @job = Job.find_by(id: params[:job_id])
     @allocation = Allocation.find_by(id: params[:id])
@@ -90,6 +93,10 @@ class Broker::AllocationsController < InheritedResources::Base
 
   protected
 
+  # Changes states of all open allocations for given job to application_rejected
+  #
+  # @param job [Job]
+  #
   def reject_other_allocations(job)
     job.allocations.application_open.find_each do |allocation|
       allocation.state = :application_rejected
@@ -97,6 +104,10 @@ class Broker::AllocationsController < InheritedResources::Base
     end
   end
 
+  # Returns currently signed in broker
+  #
+  # @return [Broker] currently signed in broker
+  #
   def current_user
     current_broker
   end

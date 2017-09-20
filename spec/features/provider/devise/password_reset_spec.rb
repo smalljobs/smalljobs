@@ -1,6 +1,6 @@
 # coding: UTF-8
 
-require 'spec_helper'
+require_relative '../../../spec_helper'
 
 feature 'Password reset' do
 
@@ -11,11 +11,9 @@ feature 'Password reset' do
     background do
       Fabricate(:provider,
                 email: 'rolf@example.com',
-                username: 'rolf',
                 password: 'tester1234',
                 password_confirmation: 'tester1234',
                 place: region.places.first,
-                confirmed: false,
                 active: false)
     end
 
@@ -23,7 +21,6 @@ feature 'Password reset' do
       visit_on region, '/'
 
       click_on 'Anmelden'
-      click_on 'Anbieter'
       click_on 'Passwort vergessen?'
 
       fill_in 'Email', with: 'rolf@example.com'
@@ -53,11 +50,9 @@ feature 'Password reset' do
     background do
       Fabricate(:provider,
                 email: 'rolf@example.com',
-                username: 'rolf',
                 password: 'tester1234',
                 password_confirmation: 'tester1234',
                 place: region.places.first,
-                confirmed: true,
                 active: false)
     end
 
@@ -65,7 +60,6 @@ feature 'Password reset' do
       visit_on region, '/'
 
       click_on 'Anmelden'
-      click_on 'Anbieter'
       click_on 'Passwort vergessen?'
 
       fill_in 'Email', with: 'rolf@example.com'
@@ -95,11 +89,9 @@ feature 'Password reset' do
     background do
       Fabricate(:provider,
                 email: 'rolf@example.com',
-                username: 'rolf',
                 password: 'tester1234',
                 password_confirmation: 'tester1234',
                 place: region.places.first,
-                confirmed: true,
                 active: true)
     end
 
@@ -107,7 +99,6 @@ feature 'Password reset' do
       visit_on region, '/'
 
       click_on 'Anmelden'
-      click_on 'Anbieter'
       click_on 'Passwort vergessen?'
 
       fill_in 'Email', with: 'inexistent@example.com'
@@ -121,7 +112,6 @@ feature 'Password reset' do
       visit_on region, '/'
 
       click_on 'Anmelden'
-      click_on 'Anbieter'
       click_on 'Passwort vergessen?'
 
       fill_in 'Email', with: 'rolf@example.com'

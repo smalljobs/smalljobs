@@ -16,9 +16,9 @@ ActiveRecord::Schema.define(version: 20170614083159) do
   enable_extension "plpgsql"
 
   create_table "access_tokens", force: :cascade do |t|
-    t.string   "access_token",  limit: 255
-    t.string   "token_type",    limit: 255
-    t.string   "refresh_token", limit: 255
+    t.string   "access_token"
+    t.string   "token_type"
+    t.string   "refresh_token"
     t.integer  "seeker_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -104,7 +104,7 @@ ActiveRecord::Schema.define(version: 20170614083159) do
   end
 
   create_table "certificates", force: :cascade do |t|
-    t.string   "title",      limit: 255
+    t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["title"], name: "index_certificates_on_title", using: :btree
@@ -124,9 +124,9 @@ ActiveRecord::Schema.define(version: 20170614083159) do
   end
 
   create_table "helps", force: :cascade do |t|
-    t.string   "title",       limit: 255
+    t.string   "title"
     t.text     "description"
-    t.string   "url",         limit: 255
+    t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -144,8 +144,8 @@ ActiveRecord::Schema.define(version: 20170614083159) do
     t.integer  "duration",                                                 default: 1,                null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "state",                limit: 255,                         default: "created"
     t.boolean  "rating_reminder_sent",                                     default: false
-    t.string   "state",                limit: 255
     t.text     "long_description"
     t.text     "short_description"
     t.datetime "last_change_of_state"
@@ -183,7 +183,7 @@ ActiveRecord::Schema.define(version: 20170614083159) do
     t.decimal  "latitude",               precision: 9, scale: 6, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "full_name",  limit: 255
+    t.string   "full_name"
     t.index ["name"], name: "index_places_on_name", using: :btree
     t.index ["zip"], name: "index_places_on_zip", using: :btree
   end
@@ -220,7 +220,7 @@ ActiveRecord::Schema.define(version: 20170614083159) do
     t.integer  "organization_id"
     t.boolean  "contract",                           default: true
     t.text     "notes"
-    t.string   "company",                limit: 255
+    t.string   "company"
     t.integer  "state",                              default: 2
     t.index ["confirmation_token"], name: "index_providers_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_providers_on_email", using: :btree
@@ -295,7 +295,7 @@ ActiveRecord::Schema.define(version: 20170614083159) do
     t.string   "sex",                    limit: 255
     t.integer  "ji_user_id"
     t.integer  "organization_id"
-    t.string   "login",                  limit: 255, default: "",         null: false
+    t.string   "login",                              default: "",         null: false
     t.integer  "status",                             default: 1
     t.integer  "app_user_id"
     t.text     "notes"

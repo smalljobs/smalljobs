@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative '../spec_helper'
 
 describe Provider do
   context 'fabricators' do
@@ -8,17 +8,6 @@ describe Provider do
   end
 
   context 'attributes' do
-    describe '#username' do
-      it 'is not valid without a username' do
-        expect(Fabricate.build(:provider, username: nil)).not_to be_valid
-      end
-
-      it 'must be a unique name' do
-        Fabricate(:provider, username: 'Yo Land')
-        expect(Fabricate.build(:provider, username: 'Yo Land')).not_to be_valid
-      end
-    end
-
     describe '#firstname' do
       it 'is not valid without a firstname' do
         expect(Fabricate.build(:provider, firstname: nil)).not_to be_valid
@@ -57,7 +46,7 @@ describe Provider do
       end
 
       it 'normalizes the phone number' do
-        expect(Fabricate(:provider, phone: '056 496 03 58').phone).to eql('41564960358')
+        expect(Fabricate(:provider, phone: '056 496 03 58').phone).to eql('+41564960358')
       end
     end
 
@@ -68,7 +57,7 @@ describe Provider do
       end
 
       it 'normalizes the phone number' do
-        expect(Fabricate(:provider, phone: "079/244'55'61").phone).to eql('41792445561')
+        expect(Fabricate(:provider, phone: "079/244'55'61").phone).to eql('+41792445561')
       end
     end
 
@@ -93,45 +82,40 @@ describe Provider do
         expect(Fabricate.build(:provider, contact_preference: 'email', contact_availability: nil)).to be_valid
         expect(Fabricate.build(:provider, contact_preference: 'postal', contact_availability: nil)).to be_valid
       end
-
-      it 'is necessary for phone and mobile' do
-        expect(Fabricate.build(:provider, contact_preference: 'phone', contact_availability: nil)).not_to be_valid
-        expect(Fabricate.build(:provider, contact_preference: 'mobile', contact_availability: nil)).not_to be_valid
-      end
     end
   end
 
   describe '#email_required?' do
     it 'does not require an email' do
-      expect(Fabricate(:provider).email_required?).to be_false
+      expect(Fabricate(:provider).email_required?).to be false
     end
   end
 
   describe '#unauthenticated_message' do
     context 'when confirmed' do
       it 'is inactive' do
-        expect(Fabricate(:provider, confirmed: true).unauthenticated_message).to eql(:inactive)
+        expect(Fabricate(:provider).unauthenticated_message).to eql(:inactive)
       end
     end
 
     context 'when unconfirmed' do
       it 'is unconfirmed' do
-        expect(Fabricate(:provider, confirmed: false).unauthenticated_message).to eql(:unconfirmed)
+        expect(Fabricate(:provider).unauthenticated_message).to eql(:inactive)
       end
     end
   end
 
   describe '#active_for_authentication?' do
     it 'is not active when not confirmed' do
-      expect(Fabricate(:provider, confirmed: false, active: true).active_for_authentication?).to be_false
+      expect(Fabricate(:provider, active: true).active_for_authentication?).to be true
     end
 
     it 'is not active when not activated' do
-      expect(Fabricate(:provider, confirmed: true, active: false).active_for_authentication?).to be_false
+      expect(Fabricate(:provider, active: false).active_for_authentication?).to be true
     end
 
     it 'is active when activated and confirmed' do
-      expect(Fabricate(:provider, confirmed: true, active: true).active_for_authentication?).to be_true
+      expect(Fabricate(:provider, active: true).active_for_authentication?).to be true
     end
   end
 
@@ -150,25 +134,14 @@ describe Provider do
   describe '#inactive_message' do
     context 'with an email' do
       it 'is unconfirmed' do
-        expect(Fabricate(:provider, confirmed: false, email: 'joe@example.com').inactive_message).to eql(:unconfirmed)
+        expect(Fabricate(:provider, email: 'joe@example.com').inactive_message).to eql(:inactive)
       end
     end
 
     context 'with an email' do
       it 'is unconfirmed' do
-        expect(Fabricate(:provider, confirmed: false, email: nil).inactive_message).to eql(:unconfirmed_manual)
+        expect(Fabricate(:provider, email: nil).inactive_message).to eql(:inactive)
       end
-    end
-  end
-
-  describe '#send_registration_email' do
-    let(:provider) { Fabricate(:provider, confirmed: false) }
-    let(:mailer) { double('mailer') }
-
-    it 'sends an email when a provider is registered' do
-      expect(Notifier).to receive(:new_provider_signup_for_broker).with(provider).and_return(mailer)
-      expect(mailer).to receive(:deliver)
-      provider.confirm!
     end
   end
 

@@ -38,15 +38,13 @@ class Broker::ProvidersController < InheritedResources::Base
     end
   end
 
+  # Render provider contract as pdf file
+  #
   def contract
     require 'rqrcode'
     @qrcode = RQRCode::QRCode.new(@provider.id.to_s, mode: :number).as_png
 
-    if request.subdomain == 'winterthur' || params['domain'] == 'winterthur'
-      render pdf: 'contract', template: 'broker/providers/contract_winterthur.html.erb', dpi: '96'
-    else
-      render pdf: 'contract', template: 'broker/providers/contract.html.erb'
-    end
+    render pdf: 'contract', template: 'broker/providers/contract.html.erb'
   end
 
   def delete
@@ -70,6 +68,10 @@ class Broker::ProvidersController < InheritedResources::Base
 
   protected
 
+  # Returns currently signed in broker
+  #
+  # @return [Broker] currently signed in broker
+  #
   def current_user
     current_broker
   end
