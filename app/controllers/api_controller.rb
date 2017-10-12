@@ -595,7 +595,7 @@ class ApiController < ApplicationController
 
     seeker = Seeker.find_by(mobile: phone)
     if seeker.nil?
-      render json: {code: 'users/not_found', message: 'User not found'}, status: 404
+      render json: {code: 'users/not_found', message: 'Benutzer nicht gefunden'}, status: 404
       return
     end
 
@@ -635,7 +635,7 @@ class ApiController < ApplicationController
 
     seeker = Seeker.find_by(mobile: phone)
     if seeker.nil?
-      render json: {code: 'users/not_found', message: 'User not found'}, status: 404
+      render json: {code: 'users/not_found', message: 'Benutzer nicht gefunden'}, status: 404
       return
     end
 
@@ -658,7 +658,7 @@ class ApiController < ApplicationController
 
     seeker = Seeker.find_by(mobile: phone)
     if seeker.nil?
-      render json: {code: 'users/not_found', message: 'User not found'}, status: 404
+      render json: {code: 'users/not_found', message: 'Benutzer nicht gefunden'}, status: 404
       return
     end
 
