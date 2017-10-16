@@ -152,8 +152,11 @@ class Seeker < ActiveRecord::Base
     dev = 'https://devadmin.jugendarbeit.digital/api/jugendinfo_user/update_data/'
     live = 'https://admin.jugendarbeit.digital/api/jugendinfo_user/update_data/'
     begin
-      RestClient.post dev, {token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', id: app_user_id, smalljobs_user_id: id, firstname: firstname, lastname: lastname, mobile: mobile, address: street, zip: place.zip, birthdate: date_of_birth.strftime('%Y-%m-%d'), city: place.name, smalljobs_status: Seeker.statuses[status]}
+      logger.info "Sending changes to jugendinfo"
+      response = RestClient.post dev, {token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', id: app_user_id, smalljobs_user_id: id, firstname: firstname, lastname: lastname, mobile: mobile, address: street, zip: place.zip, birthdate: date_of_birth.strftime('%Y-%m-%d'), city: place.name, smalljobs_status: Seeker.statuses[status]}
+      logger.info "Response from jugendinfo: #{response}"
     rescue
+      logger.info "Failed sending changes to jugendinfo"
       nil
     end
   end
