@@ -154,7 +154,7 @@ class Seeker < ActiveRecord::Base
     begin
       logger.info "Sending changes to jugendinfo"
       logger.info "Sending: #{{token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', id: app_user_id, smalljobs_user_id: id, firstname: firstname, lastname: lastname, mobile: mobile, address: street, zip: place.zip, birthdate: date_of_birth.strftime('%Y-%m-%d'), city: place.name, smalljobs_status: Seeker.statuses[status]}}"
-      response = RestClient.post dev, {token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', id: app_user_id, smalljobs_user_id: id, firstname: firstname, lastname: lastname, mobile: mobile, address: street, zip: place.zip, birthdate: date_of_birth.strftime('%Y-%m-%d'), city: place.name, smalljobs_status: Seeker.statuses[status]}
+      response = RestClient.post live, {token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', id: app_user_id, smalljobs_user_id: id, firstname: firstname, lastname: lastname, mobile: mobile, address: street, zip: place.zip, birthdate: date_of_birth.strftime('%Y-%m-%d'), city: place.name, smalljobs_status: Seeker.statuses[status]}
       logger.info "Response from jugendinfo: #{response}"
     rescue
       logger.info "Failed sending changes to jugendinfo"
