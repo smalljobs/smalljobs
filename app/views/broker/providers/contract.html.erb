@@ -439,14 +439,14 @@
 </div>
 <div id="page2" class="alwaysbreak page">
   <% if @provider.organization.background.present? %>
-      <img id="baner" src="<%= @organization.background.url(:web, :normal) %>" width="100%" height="300mm">
+      <img id="baner" src="<%= @provider.organization.background.url(:web, :normal) %>" width="100%" height="300mm">
   <% else %>
       <img id="baner" src="<%= wicked_pdf_asset_base64 'header-pic.jpg' %>" width="100%" height="300mm">
   <% end %>
   <h2>Sackgeldjobs<br/>
     <span>Arbeitsvertrag</span></h2>
   <% if @provider.organization.logo.present? %>
-      <img id="logo-white" src="<%= @organization.logo.url(:web, :normal) %>">
+      <img id="logo-white" src="<%= @provider.organization.logo.url(:web, :normal) %>">
   <% else %>
       <img id="logo-white" src="<%= wicked_pdf_asset_base64 'sj-logo-white.png' %>">
   <% end %>
