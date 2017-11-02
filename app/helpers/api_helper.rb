@@ -172,6 +172,7 @@ module ApiHelper
   #
   def self.provider_to_json(provider)
     json = {}
+    return if provider.nil?
     json[:id] = provider.id
     json[:company] = provider.company
     json[:firstname] = provider.firstname

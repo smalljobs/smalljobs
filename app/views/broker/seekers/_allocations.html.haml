@@ -4,7 +4,7 @@
   - for allocation in allocations
     - if allocation.job != nil
       %p
-        = link_to "#{allocation.job.provider.name} #{allocation.job.title} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation.seeker)
+        = link_to "#{allocation.job.try(:provider).try(:name)} #{allocation.job.title} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation.seeker)
 
 - allocations = @seeker.allocations.application_rejected.where.not(job: nil)
 - if allocations.count > 0
@@ -12,7 +12,7 @@
   - for allocation in allocations
     - if allocation.job != nil
       %p
-        = link_to "#{allocation.job.provider.name} #{allocation.job.title} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation.seeker)
+        = link_to "#{allocation.job.try(:provider).try(:name)} #{allocation.job.title} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation.seeker)
 
 - allocations = @seeker.allocations.proposal.where.not(job: nil)
 - if allocations.count > 0
@@ -20,7 +20,7 @@
   - for allocation in allocations
     - if allocation.job != nil
       %p
-        = link_to "#{allocation.job.provider.name} #{allocation.job.title} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation.seeker)
+        = link_to "#{allocation.job.try(:provider).try(:name)} #{allocation.job.title} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation.seeker)
 
 - allocations = @seeker.allocations.active.where.not(job: nil)
 - if allocations.count > 0
@@ -28,7 +28,7 @@
   - for allocation in allocations
     - if allocation.job != nil
       %p
-        = link_to "#{allocation.job.provider.name} #{allocation.job.title} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation.seeker)
+        = link_to "#{allocation.job.try(:provider).try(:name)} #{allocation.job.title} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation.seeker)
 
 - allocations = @seeker.allocations.finished.where.not(job: nil)
 - if allocations.count > 0
@@ -36,7 +36,7 @@
   - for allocation in allocations
     - if allocation.job != nil
       %p
-        = link_to "#{allocation.job.provider.name} #{allocation.job.title} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation.seeker)
+        = link_to "#{allocation.job.try(:provider).try(:name)} #{allocation.job.title} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation.seeker)
 
 - allocations = @seeker.allocations.cancelled.where.not(job: nil)
 - if allocations.count > 0
@@ -44,4 +44,4 @@
   - for allocation in allocations
     - if allocation.job != nil
       %p
-        = link_to "#{allocation.job.provider.name} #{allocation.job.title} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation.seeker)
+        = link_to "#{allocation.job.try(:provider).try(:name)} #{allocation.job.title} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation.seeker)
