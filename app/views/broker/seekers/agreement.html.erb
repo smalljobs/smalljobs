@@ -421,13 +421,21 @@
 </head>
 <body>
 <div id="page4" class="alwaysbreak page">
-  <img id="baner" src="<%= wicked_pdf_asset_base64 'header-pic.jpg' %>" width="100%" height="300mm">
+  <% if @seeker.organization.background.present? %>
+      <img id="baner" src="<%= @seeker.organization.background.url(:web) %>" width="100%" height="300mm">
+  <% else %>
+      <img id="baner" src="<%= wicked_pdf_asset_base64 'header-pic.jpg' %>" width="100%" height="300mm">
+  <% end %>
   <h2>
     Sackgeldjob-Börse<br/>
     <%= @seeker.organization.name %><br/>
     <span>Einverständnis zur Teilnahme</span>
   </h2>
-  <img id="logo-white" src="<%= wicked_pdf_asset_base64 'sj-logo-white.png' %>">
+  <% if @seeker.organization.logo.present? %>
+      <img id="logo-white" src="<%= @seeker.organization.logo.url(:web, :normal) %>">
+  <% else %>
+      <img id="logo-white" src="<%= wicked_pdf_asset_base64 'sj-logo-white.png' %>">
+  <% end %>
   <h1 class="arbei">
     JugendlicheR:
   </h1>
@@ -492,7 +500,8 @@
     <div class="column">
       <div class="signature" style="margin-right: 26px;">
       </div>
-      <p class="sign-par" style="margin-left: 0px !important;">Unterschrift Erziehungsberechtigte <%= @seeker.name %></p>
+      <p class="sign-par" style="margin-left: 0px !important;">Unterschrift
+        Erziehungsberechtigte <%= @seeker.name %></p>
     </div>
   </div>
 </div>
