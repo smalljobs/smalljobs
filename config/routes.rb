@@ -1,6 +1,7 @@
 require 'main_subdomain'
 require 'region_subdomain'
 require 'api_subdomain'
+require 'smalljobs_subdomain'
 
 Smalljobs::Application.routes.draw do
 
