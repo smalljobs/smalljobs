@@ -9,6 +9,8 @@
       = f.button :submit, "Jugendlichen erstellen", class: 'btn btn-primary btn-success'
     - else
       = f.button :submit, t('common.edit'), class: 'btn btn-primary btn-success'
+      %a{href: "#{url_for agreement_broker_seeker_url(@seeker, subdomain: 'winterthur')}"}
+        = "Test"
 
   %fieldset
     .form-inputs

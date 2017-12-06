@@ -81,7 +81,7 @@ class ApiController < ApplicationController
     end
 
 
-    message = "\nHallo #{seeker.firstname}\n\nWillkommen bei Small.Jobs!\nDamit du dich auf Jobs bewerben kannst, brauchen wir das Einverständnis deiner Eltern. Dieses Einverständnis bitte hier herunterladen: <a file type='application/pdf' title='Elterneinverständnis herunterladen' href=\"#{url_for agreement_broker_seeker_url(seeker)}?format=pdf\">#{url_for agreement_broker_seeker_url(seeker)}?format=pdf</a>\nDann ausdrucken und uns vorbeibringen:\n#{seeker.organization.name}\n#{seeker.organization.street}\n#{seeker.organization.place.custom_name}\nFür einen Termin schreibe uns hier oder ruf an <a href='tel:#{seeker.organization.phone}'>#{seeker.organization.phone}</a>\n\nDanke,\n\n#{seeker.organization.name}\n"
+    message = "\nHallo #{seeker.firstname}\n\nWillkommen bei Small.Jobs!\nDamit du dich auf Jobs bewerben kannst, brauchen wir das Einverständnis deiner Eltern. Dieses Einverständnis bitte hier herunterladen: <a file type='application/pdf' title='Elterneinverständnis herunterladen' href=\"#{url_for agreement_broker_seeker_url(seeker, subdomain: 'winterthur')}?format=pdf\">#{url_for agreement_broker_seeker_url(seeker, subdomain: 'winterthur')}?format=pdf</a>\nDann ausdrucken und uns vorbeibringen:\n#{seeker.organization.name}\n#{seeker.organization.street}\n#{seeker.organization.place.custom_name}\nFür einen Termin schreibe uns hier oder ruf an <a href='tel:#{seeker.organization.phone}'>#{seeker.organization.phone}</a>\n\nDanke,\n\n#{seeker.organization.name}\n"
     title = 'Elterneinverständnis als Pdf schicken'
     MessagingHelper::send_message(title, message, seeker.app_user_id, seeker.organization.email)
 
