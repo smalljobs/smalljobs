@@ -39,8 +39,8 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_smalljobs
-    if request.host == 'smalljobs.herokuapp.com'
-      redirect_to "#{request.protocol}winterthur.smalljobs.ch#{request.fullpath}", :status => :moved_permanently
+    if request.host == 'herokuapp.com'
+      redirect_to "https://winterthur.smalljobs.ch#{request.fullpath}", :status => :moved_permanently
     end
   end
 
