@@ -2,7 +2,6 @@ require 'app_responder'
 
 class ApplicationController < ActionController::Base
   before_filter :require_https
-  before_action :redirect_smalljobs
 
   self.responder = AppResponder
   respond_to :html, :json
