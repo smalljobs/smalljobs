@@ -2,6 +2,7 @@ class Broker::SeekersController < InheritedResources::Base
 
   before_filter :authenticate_broker!, except: [:agreement]
   before_filter :optional_password, only: [:update]
+  before_filter :redirect_smalljobs, only: [:agreement]
 
   load_and_authorize_resource :seeker, through: :current_region, except: [:new, :agreement]
 
@@ -82,6 +83,12 @@ class Broker::SeekersController < InheritedResources::Base
 
   def permitted_params
     params.permit(seeker: [:id, :password, :password_confirmation, :firstname, :lastname, :street, :place_id, :sex, :email, :phone, :mobile, :date_of_birth, :contact_preference, :contact_availability, :active, :confirmed, :terms, :status, :organization_id, :notes, :discussion, :parental, work_category_ids: [], certificate_ids: []])
+  end
+
+  def redirect_smalljobs
+    if request.subdomain == 'smalljobs'
+      redirect_to "https://winterthur.smalljobs.ch#{request.fullpath}", :status => :moved_permanently
+    end
   end
 
 end
