@@ -298,7 +298,7 @@ class ApiController < ApplicationController
     found_jobs = found_jobs.page(page).per(limit)
 
     for job in found_jobs do
-      jobs.append(ApiHelper::job_to_json(job, job.provider.organization, show_provider, show_organization, show_assignments, nil))
+      jobs.append(ApiHelper::job_to_json(job, job.organization, show_provider, show_organization, show_assignments, nil))
     end
 
     render json: jobs, status: 200
@@ -386,7 +386,7 @@ class ApiController < ApplicationController
       status = 2
     end
 
-    render json: ApiHelper::job_to_json(job, job.provider.organization, show_provider, show_organization, show_assignments, nil), status: 200
+    render json: ApiHelper::job_to_json(job, job.organization, show_provider, show_organization, show_assignments, nil), status: 200
   end
 
   # GET /api/allocations?user_id=1&job_id=1&user=true&provider=true&organization=true&assignments=true&status=0&page=1&limit=10
