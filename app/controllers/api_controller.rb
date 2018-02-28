@@ -73,6 +73,19 @@ class ApiController < ApplicationController
     end
 
     user_params[:password_confirmation] = user_params[:password]
+    
+    unless user_params[:zip].nil?
+      place_id = ApiHelper.zip_to_place_id(user_params[:zip])
+      if place_id.nil?
+        render json: {code: 'users/invalid', message: 'Ungültige Postleitzahl'}, status: 422
+        return
+      end
+
+      user_params[:place_id] = place_id
+      user_params.except!(:zip)
+    end
+    
+    
     seeker = Seeker.new(user_params)
     seeker.status = 'inactive'
     if !seeker.save
@@ -742,7 +755,7 @@ class ApiController < ApplicationController
   end
 
   def register_params
-    params.permit(:phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id, :street, :sex, :categories)
+    params.permit(:zip, :phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id, :street, :sex, :categories)
   end
 
   def update_params

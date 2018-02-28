@@ -363,4 +363,18 @@ module ApiHelper
   def self.generate_code
     (0...6).map { SecureRandom.random_number(10) }.join
   end
+
+  # Return place id for given zip code
+  #
+  # @param zip [String] zip code
+  #
+  # @return [Int] id of a place with given zip code, or nil if no such place exists in database
+  def self.zip_to_place_id(zip)
+    place = Place.find_by(zip: zip)
+    if place.nil?
+      return nil
+    else
+      return place.id
+    end
+  end
 end
