@@ -77,7 +77,7 @@ class ApiController < ApplicationController
     unless user_params[:zip].nil?
       place_id = ApiHelper.zip_to_place_id(user_params[:zip])
       if place_id.nil?
-        render json: {code: 'users/invalid', message: 'Invalid zip code'}, status: 422
+        render json: {code: 'users/invalid', message: 'Ungültige Postleitzahl'}, status: 422
         return
       end
 
