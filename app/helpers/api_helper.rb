@@ -317,7 +317,7 @@ module ApiHelper
     json[:user_id] = allocation.seeker_id
     json[:status] = Allocation.states[allocation.state]
 
-    json[:job] = job_to_json(job, allocation.seeker.organization, show_provider, show_organization, show_assignments, allocation.id)
+    json[:job] = job_to_json(job, job.organization, show_provider, show_organization, show_assignments, allocation.id)
 
     if show_seeker
       json[:user] = seeker_to_json(allocation.seeker)
