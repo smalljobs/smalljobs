@@ -298,7 +298,11 @@ class ApiController < ApplicationController
     found_jobs = found_jobs.page(page).per(limit)
 
     for job in found_jobs do
-      jobs.append(ApiHelper::job_to_json(job, job.organization, show_provider, show_organization, show_assignments, nil))
+      organization = job.organization
+      if organization.nil?
+        organization = job.provider.organization
+      end
+      jobs.append(ApiHelper::job_to_json(job, organization, show_provider, show_organization, show_assignments, nil))
     end
 
     render json: jobs, status: 200
