@@ -42,6 +42,8 @@ class Job < ActiveRecord::Base
   before_save :set_state_last_change, if: proc { |s| s.state_changed?}
 
   after_save :adjust_todo
+  after_save :cancel_applications_if_finished
+
 
   def adjust_todo
     Todo.where(record_type: :job, record_id: id).find_each &:destroy!
@@ -54,6 +56,18 @@ class Job < ActiveRecord::Base
       rescue
         nil
       end
+    end
+  end
+
+
+  # If job is in finished state all open applications should be cancelled
+  #
+  def cancel_applications_if_finished
+    return unless state == 'finished'
+
+    self.allocations.where(state: :application_open).find_each do |allocation|
+      allocation.state = :cancelled
+      allocation.save
     end
   end
 
