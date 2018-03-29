@@ -39,6 +39,7 @@ de:
     about_smalljobs: "Über SmallJobs"
     join_us: "Mitmachen"
     rules_of_action: "Richtlinien"
+    rules: "Richlinien"
     privacy_policy: "Datenschutzrichtlinien"
     terms_of_service: "Geschäftsbedingungen"
     dashboard: 'Übersicht'
@@ -303,6 +304,7 @@ de:
     completed: "Abgeschlossen"
     back_to_region: "Zurück zur Region %{name}"
     terms: "Ich akzeptiere die %{rules_of_action}, die %{terms_of_service} und die %{privacy_policy}"
+    provider_terms: "Ich akzeptiere die %{rules} des Vereins Smalljobs."
     rating: "%{rating} Punkte"
     invalid_username_or_password: "Falscher Benutzername oder Passwort."
   devise_views:
