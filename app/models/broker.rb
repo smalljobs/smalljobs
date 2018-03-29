@@ -18,6 +18,8 @@ class Broker < ActiveRecord::Base
   validates :firstname, :lastname, :phone, presence: true
   validates :phone, :mobile, phony_plausible: true
 
+  validate :unique_email
+
   phony_normalize :phone, default_country_code: 'CH'
   phony_normalize :mobile, default_country_code: 'CH'
 
@@ -35,6 +37,16 @@ class Broker < ActiveRecord::Base
     end
 
     all_org.sort_by &:name
+  end
+
+  # Check if there is no seeker or provider with the same email
+  #
+  def unique_email
+    seeker = Seeker.where(email: email)
+    provider = Provider.where(email: email)
+    if !seeker.nil? || !provider.nil?
+      errors.add(:email, :email_not_unique)
+    end
   end
 
   # Returns the display name

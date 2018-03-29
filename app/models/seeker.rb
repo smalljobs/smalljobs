@@ -41,6 +41,8 @@ class Seeker < ActiveRecord::Base
 
   validate :ensure_seeker_age
 
+  validate :unique_email
+
   after_save :send_to_jugendinfo
 
   after_save :adjust_todo
@@ -56,6 +58,19 @@ class Seeker < ActiveRecord::Base
       rescue
         nil
       end
+    end
+  end
+
+
+  # Check if there is no provider or broker with the same email
+  #
+  def unique_email
+    return if email.blank? || email.nil?
+
+    provider = Provider.where(email: email)
+    broker = Broker.where(email: email)
+    if !provider.nil? || !broker.nil?
+      errors.add(:email, :email_not_unique)
     end
   end
 

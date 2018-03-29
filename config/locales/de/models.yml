@@ -213,6 +213,7 @@ de:
         invalid_work_category: "muss mindestens eine Kategorie beinhalten"
         cannot_have_seeker_and_provider: "kann nicht gleichzeitig ein Jugendlicher und einen Anbieter bewerten"
         must_have_seeker_or_provider: "muss entweder einen Jugendlichen oder einen Anbieter bewerten"
+        email_not_unique: "Die E-Mailadresse ist bereits in Verwendung. Bitte damit einloggen oder für Unterstützung deine Jobbörse kontaktieren"
       models:
         todotype:
           attributes:

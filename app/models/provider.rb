@@ -36,6 +36,8 @@ class Provider < ActiveRecord::Base
 
   after_save :adjust_todo
 
+  validate :unique_email
+
   def adjust_todo
     Todo.where(record_type: :provider, record_id: id).find_each &:destroy!
     Todotype.provider.find_each do |todotype|
@@ -47,6 +49,18 @@ class Provider < ActiveRecord::Base
       rescue
         nil
       end
+    end
+  end
+
+  # Check if there is no seeker or broker with the same email
+  #
+  def unique_email
+    return if email.blank? || email.nil?
+
+    seeker = Seeker.where(email: email)
+    broker = Broker.where(email: email)
+    if !seeker.nil? || !broker.nil?
+      errors.add(:email, :email_not_unique)
     end
   end
 
