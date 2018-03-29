@@ -19,7 +19,7 @@ class Broker::JobsController < InheritedResources::Base
   def new
     @job = Job.new()
     @job.created_at = DateTime.now()
-    @job.state = 'hidden'
+    @job.state = 'check'
     @job.provider_id = params[:provider_id] unless params[:provider_id].nil?
   end
 
