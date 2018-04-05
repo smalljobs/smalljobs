@@ -2,6 +2,7 @@ require 'app_responder'
 
 class ApplicationController < ActionController::Base
   before_filter :require_https
+  before_filter :redirect_www
 
   self.responder = AppResponder
   respond_to :html, :json
@@ -35,6 +36,12 @@ class ApplicationController < ActionController::Base
 
   def require_https
     redirect_to protocol: 'https://' unless request.ssl? || request.local? || request.subdomain == 'dev' || Rails.env.test?
+  end
+
+  def redirect_www
+    if request.subdomains[0] == 'www'
+      redirect_to url: request.url.sub('//www.', '//')
+    end
   end
 
   def redirect_smalljobs
