@@ -57,8 +57,8 @@ class Provider < ActiveRecord::Base
   def unique_email
     return if email.blank? || email.nil?
 
-    seeker = Seeker.where(email: email)
-    broker = Broker.where(email: email)
+    seeker = Seeker.find_by(email: email)
+    broker = Broker.find_by(email: email)
     if !seeker.nil? || !broker.nil?
       errors.add(:email, :email_not_unique)
     end

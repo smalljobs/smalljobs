@@ -42,17 +42,11 @@ class Broker < ActiveRecord::Base
   # Check if there is no seeker or provider with the same email
   #
   def unique_email
-    seeker = Seeker.where(email: email)
-    provider = Provider.where(email: email)
+    seeker = Seeker.find_by(email: email)
+    provider = Provider.find_by(email: email)
     if !seeker.nil? || !provider.nil?
-      logger.info seeker.email if !seeker.nil?
-      logger.info provider.email if !provider.nil?
-      logger.info email
       errors.add(:email, :email_not_unique)
-      return false
     end
-
-    true
   end
 
   # Returns the display name
