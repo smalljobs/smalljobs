@@ -1,7 +1,9 @@
 class RegionSubdomain
   def self.matches?(request)
     subdomain = request.subdomain
-    subdomain.sub! 'www.', ''
+    if subdomain.starts_with? 'www.'
+      subdomain.sub! 'www.', ''
+    end
     Region.exists?(subdomain: subdomain)
   end
 end
