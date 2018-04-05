@@ -70,6 +70,12 @@ de:
     application: "Bewerben"
     proposal: "Vorschlag"
     seeker_salary: "Lohnvorschlag"
+    seeker_salary_hint_wage_factor: >
+      <ul>
+      <li><b>Stundenlohn pro Altersjahr:</b> Der Jugendliche erhält den angegebenen Lohn * sein Alter * %{wage_factor}.</li>
+      <li><b>Stundenlohn:</b> Altersunabhängiger Stundenlohn.</li>
+      <li><b>Fixer Preis:</b> Der Lohn ist unabhängig von der Dauer der Arbeit und Alter des Jugendlichen.</li>
+      </ul>
   contacts:
     postal: "Per Post"
     email: "Email"
@@ -105,6 +111,7 @@ de:
       hourly: "Stundenlohn"
       fixed: "Fixer Preis"
       hourly_per_age: "Stundenlohn pro Altersjahr"
+      hourly_per_age_with_factor: "Stundenlohn pro Altersjahr * %{wage_factor}"
     date_types:
       agreement: "Nach Absprache"
       date: "An einem bestimmten Tag"
