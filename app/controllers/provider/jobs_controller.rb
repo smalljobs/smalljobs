@@ -10,7 +10,7 @@ class Provider::JobsController < InheritedResources::Base
   end
 
   def new
-    @job = Job.new(state: 'hidden')
+    @job = Job.new(state: 'check')
   end
 
   def create
