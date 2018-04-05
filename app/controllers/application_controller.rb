@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
 
   def redirect_www
     if request.subdomains[0] == 'www'
-      redirect_to url: request.url.sub('//www.', '//')
+      redirect_to request.url.sub('//www.', '//')
     end
   end
 
