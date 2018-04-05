@@ -45,8 +45,14 @@ class Broker < ActiveRecord::Base
     seeker = Seeker.where(email: email)
     provider = Provider.where(email: email)
     if !seeker.nil? || !provider.nil?
+      logger.info seeker.email
+      logger.info provider.email
+      logger.info email
       errors.add(:email, :email_not_unique)
+      return false
     end
+
+    true
   end
 
   # Returns the display name
