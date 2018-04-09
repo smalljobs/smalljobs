@@ -294,6 +294,9 @@
         location.hash = e.target.hash;
       }
 
+
+      target = window.location.hash;
+      target = target.replace('#', '');
       loadSortedColumn();
       setHelp();
     });
