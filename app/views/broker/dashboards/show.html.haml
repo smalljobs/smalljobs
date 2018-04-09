@@ -353,7 +353,7 @@
 
     checkSearchField();
     loadOrganization();
-    // loadSortedColumn();
+    loadSortedColumn();
 
     window.addEventListener("beforeunload", function (event) {
       window.localStorage.setItem("search_filter", $('#search-field').val());
