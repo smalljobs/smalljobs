@@ -209,26 +209,21 @@
                   = assignment.feedback
 
 :javascript
+  var target = window.location.hash;
+  target = target.replace('#', '');
+  if(target === '') {
+    target = 'todo';
+  }
+  window.location.hash = "";
+
   $(document).ready(function(){
-    var url = document.location.toString();
-    if (url.match('#')) {
-      $('.nav-pills a[href="#' + url.split('#')[1] + '"]').tab('show');
-    } else {
-      location.hash = 'todo';
-      setHelp();
-    }
-
-    if (location.hash) {
-      setTimeout(function() {
-
-        window.scrollTo(0, 0);
-      }, 1);
-    }
+    $('.nav-pills a[href="#' + target + '"]').tab('show');
+    setHelp();
 
     var selectedOrganizationId = 0;
 
     function loadSortedColumn() {
-      var hash = location.hash;
+      var hash = target;
       var sortedColumnId = sessionStorage.getItem('sortedColumn' + hash);
       if(sortedColumnId != undefined) {
         sorttable.init();
@@ -240,7 +235,7 @@
     }
 
     $('th.sortable').click(function() {
-      var hash = location.hash;
+      var hash = target;
       sessionStorage.setItem('sortedColumn' + hash, $(this).attr('id'));
       if($(this).hasClass('sorttable_sorted')) {
         sessionStorage.setItem('sortedReverse' + hash, 'true');
