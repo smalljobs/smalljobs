@@ -249,6 +249,8 @@
         searchString = "#{current_broker.filter}";
       }
 
+      window.localStorage.setItem("search_filter", nil);
+
       $('#search-field').val(searchString);
 
       if(searchString !== "") {
