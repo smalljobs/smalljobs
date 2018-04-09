@@ -209,15 +209,6 @@
                   = assignment.feedback
 
 :javascript
-  $(document).load(function(){
-    if (location.hash) {
-      setTimeout(function() {
-
-        window.scrollTo(0, 0);
-      }, 1);
-    }
-  });
-
   $(document).ready(function(){
     var url = document.location.toString();
     if (url.match('#')) {
@@ -225,6 +216,13 @@
     } else {
       location.hash = 'todo';
       setHelp();
+    }
+
+    if (location.hash) {
+      setTimeout(function() {
+
+        window.scrollTo(0, 0);
+      }, 1);
     }
 
     var selectedOrganizationId = 0;
