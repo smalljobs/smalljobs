@@ -244,7 +244,11 @@
     });
 
     function checkSearchField() {
-      var searchString = "#{current_broker.filter}";
+      var searchString = window.localStorage.getItem("search_filter");
+      if(searchString === nil) {
+        searchString = "#{current_broker.filter}";
+      }
+
       $('#search-field').val(searchString);
 
       if(searchString !== "") {
@@ -346,6 +350,7 @@
     // loadSortedColumn();
 
     window.addEventListener("beforeunload", function (event) {
+      window.localStorage.setItem("search_filter", $('#search-field').val());
       $.post("#{save_settings_broker_dashboard_path}", {filter: $('#search-field').val(), selected_organization_id: parseInt(selectedOrganizationId)}, function(response) {
       });
     });
