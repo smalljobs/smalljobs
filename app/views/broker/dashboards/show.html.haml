@@ -209,6 +209,10 @@
                   = assignment.feedback
 
 :javascript
+  $(document).load(function(){
+    $(this).scrollTop(0);
+  });
+
   $(document).ready(function(){
     var url = document.location.toString();
     if (url.match('#')) {
@@ -218,7 +222,6 @@
       setHelp();
     }
 
-    $(this).scrollTop(0);
     var selectedOrganizationId = 0;
 
     function loadSortedColumn() {
@@ -245,11 +248,11 @@
 
     function checkSearchField() {
       var searchString = window.localStorage.getItem("search_filter");
-      if(searchString === nil) {
+      if(searchString === null) {
         searchString = "#{current_broker.filter}";
       }
 
-      window.localStorage.setItem("search_filter", nil);
+      window.localStorage.setItem("search_filter", null);
 
       $('#search-field').val(searchString);
 
