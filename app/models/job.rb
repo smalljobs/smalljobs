@@ -65,7 +65,7 @@ class Job < ActiveRecord::Base
   def cancel_applications_if_finished
     return unless state == 'finished'
 
-    self.allocations.where(state: :application_open).find_each do |allocation|
+    self.allocations.where(state: :application_open).or(self.allocations.where(state: :active)).find_each do |allocation|
       allocation.state = :cancelled
       allocation.save
     end
