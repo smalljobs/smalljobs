@@ -23,4 +23,33 @@ class Organization < ActiveRecord::Base
 
   mount_uploader :logo, LogoUploader
   mount_uploader :background, BackgroundUploader
+
+  before_save :destroy_logo?
+  before_save :destroy_background?
+
+  def logo_delete
+    @logo_delete ||= "0"
+  end
+
+  def logo_delete=(value)
+    @logo_delete = value
+  end
+
+  def background_delete
+    @background_delete ||= "0"
+  end
+
+  def background_delete=(value)
+    @background_delete = value
+  end
+
+  private
+
+  def destroy_logo?
+    self.logo.clear if @logo_delete == "1"
+  end
+
+  def destroy_background?
+    self.background.clear if @background_delete == "1"
+  end
 end
