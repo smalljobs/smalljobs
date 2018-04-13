@@ -71,8 +71,8 @@ de:
       organization:
         logo: "Logo"
         background: "Hintergrund"
-        logo_delete: "Delete logo"
-        background_delete: "Delete background"
+        logo_delete: "Lösche das Logo"
+        background_delete: "Lösche das Hintergrund"
         website: "Webseite"
         description: "Beschreibung"
         street: "Strasse"
@@ -86,6 +86,7 @@ de:
         created_at: "Erstellt"
         updated_at: "Bearbeitet"
         wage_factor: "Lohnfaktor"
+        opening_hours: "Öffnungszeiten"
       employment:
         organization: "Organisation"
         broker: "Vermittler"
