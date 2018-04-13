@@ -21,6 +21,6 @@ class Assignment < ActiveRecord::Base
       stat = "beendet"
     end
 
-    return stat + ", " + start_time + ", CHF " + payment
+    return stat + ", " + start_time.strftime("%d.%m.%Y") + ", CHF " + payment.to_s
   end
 end
