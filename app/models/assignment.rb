@@ -17,7 +17,7 @@ class Assignment < ActiveRecord::Base
 
   def description
     stat = "Aktiv"
-    if status == :finished
+    if self.finished?
       stat = "Beendet"
     end
 
