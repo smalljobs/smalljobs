@@ -16,11 +16,11 @@ class Assignment < ActiveRecord::Base
   end
 
   def description
-    stat = "aktiv"
+    stat = "Aktiv"
     if status == :finished
-      stat = "beendet"
+      stat = "Beendet"
     end
 
-    return stat + ", " + start_time.strftime("%d.%m.%Y") + ", CHF " + payment.to_s
+    return stat + ", " + start_time.strftime("%d.%m.%Y") + ", " + duration.to_s + "h, CHF " + payment.to_s
   end
 end
