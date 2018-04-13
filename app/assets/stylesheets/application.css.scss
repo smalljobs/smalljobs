@@ -196,11 +196,13 @@ div.textarea {
 .allocations-list li:before {
   content: '\2014';
   position: absolute;
-  margin-left: -20px;
+  margin-left: -12px;
+  color: #18bc9c;
 }
 
 .allocations-list-item {
   margin-top: 20px;
+  margin-left: 12px;
 }
 
 .allocations-header {
