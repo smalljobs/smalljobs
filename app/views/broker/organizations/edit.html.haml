@@ -33,10 +33,10 @@
     .form-inputs
       = f.input :logo, as: :image_preview, input_html: { preview_version: :web }
       - if !@organization.logo.nil?
-        = f.check_box :remove_logo, inline_label: "Delete logo"
+        = f.check_box :logo_delete, inline_label: "Delete logo"
       = f.input :background, as: :image_preview, input_html: { preview_version: :web }
       - if !@organization.background.nil?
-        = f.check_box :remove_background, inline_label: "Delete Background"
+        = f.check_box :background_delete, inline_label: "Delete Background"
 
   %fieldset
     %legend
