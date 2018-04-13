@@ -1,0 +1,8 @@
+- if @provider.assignments.count > 0
+  %div.bg-info.provider_allocations
+    %h3= 'Einsätze'
+    - for assignment in @provider.assignments
+      %h4
+        = link_to assignment.provider.name, edit_broker_seeker_path(assignment.seeker)
+      %p
+        = link_to assignment.description, edit_broker_seeker_path(assignment.seeker)
