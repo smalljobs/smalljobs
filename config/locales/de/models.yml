@@ -134,6 +134,10 @@ de:
         active: "Aktiviert"
         terms: "Bedingungen"
         sex: "Geschlecht"
+        occupation: "Aktuelle Ausbildung"
+        occupation_end_date: "Ausbildungsende"
+        languages: "Sprachen (Kommaliste)"
+        additional_contacts: "Weitere Kontaktmöglichkeiten"
       seeker:
         <<: *USER
         parental: "Elterneinverständnis erhalten"
