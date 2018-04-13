@@ -71,6 +71,8 @@ de:
       organization:
         logo: "Logo"
         background: "Hintergrund"
+        logo_delete: "Delete logo"
+        background_delete: "Delete background"
         website: "Webseite"
         description: "Beschreibung"
         street: "Strasse"

@@ -46,10 +46,10 @@ class Organization < ActiveRecord::Base
   private
 
   def destroy_logo?
-    self.logo.clear if @logo_delete == "1"
+    self.logo = nil if @logo_delete == "1"
   end
 
   def destroy_background?
-    self.background.clear if @background_delete == "1"
+    self.background = nil if @background_delete == "1"
   end
 end
