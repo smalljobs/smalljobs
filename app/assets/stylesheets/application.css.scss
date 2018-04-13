@@ -190,17 +190,19 @@ div.textarea {
 
 .allocations-list {
   list-style-type: none;
+  padding-left: 0;
 }
 
-.allocations-list > li {
-  text-indent: -5px;
-}
-
-.allocations-list > li:before {
-  content: "-";
-  text-indent: -5px;
+.allocations-list li:before {
+  content: '\2014';
+  position: absolute;
+  margin-left: -20px;
 }
 
 .allocations-list-item {
+  margin-top: 20px;
+}
 
+.allocations-header {
+  margin-top: 20px;
 }
