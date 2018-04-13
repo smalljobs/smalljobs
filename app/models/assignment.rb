@@ -14,4 +14,13 @@ class Assignment < ActiveRecord::Base
   def set_start
     self.start_time = DateTime.now if start_time.nil?
   end
+
+  def description
+    stat = "aktiv"
+    if status == :finished
+      stat = "beendet"
+    end
+
+    return stat + ", " + start_time + ", CHF " + payment
+  end
 end

@@ -1,0 +1,6 @@
+- if @seeker.assignments.count > 0
+  %div.bg-info.provider_allocations
+    %h3= 'Einsätze'
+    - for assignment in @seeker.assignments
+      %h4= assignment.provider.name
+      %p= assignment.description

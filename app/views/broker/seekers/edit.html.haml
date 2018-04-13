@@ -6,6 +6,7 @@
     = render 'form'
   %div.col-sm-4.margin_top_120
     = render 'todos'
+    = render 'assignments'
     - if @seeker.allocations.where.not(job: nil).exists?
       %div.bg-info.provider_allocations
         = render 'allocations'
