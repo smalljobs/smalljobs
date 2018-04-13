@@ -9,9 +9,9 @@
   - for job in jobs
     = link_to "#{job.title} #{job.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_job_path(job), class: 'bold'
     %ul.allocations-list
-      %li.allocations-list-item
-        - allocations = job.allocations.includes(:seeker)
-        - for allocation in allocations
+      - allocations = job.allocations.includes(:seeker)
+      - for allocation in allocations
+        %li.allocations-list-item
           = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
     %br
 
@@ -21,9 +21,9 @@
   - for job in jobs
     = link_to "#{job.title} #{job.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_job_path(job), class: 'bold'
     %ul.allocations-list
-      %li.allocations-list-item
-        - allocations = job.allocations.includes(:seeker)
-        - for allocation in allocations
+      - allocations = job.allocations.includes(:seeker)
+      - for allocation in allocations
+        %li.allocations-list-item
           = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
 
     %br
@@ -34,9 +34,9 @@
   - for job in jobs
     = link_to "#{job.title} #{job.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_job_path(job), class: 'bold'
     %ul.allocations-list
-      %li.allocations-list-item
-        - allocations = job.allocations.includes(:seeker)
-        - for allocation in allocations
+      - allocations = job.allocations.includes(:seeker)
+      - for allocation in allocations
+        %li.allocations-list-item
           = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
     %br
 
@@ -46,9 +46,9 @@
   - for job in jobs
     = link_to "#{job.title} #{job.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_job_path(job), class: 'bold'
     %ul.allocations-list
-      %li.allocations-list-item
-        - allocations = job.allocations.includes(:seeker)
-        - for allocation in allocations
+      - allocations = job.allocations.includes(:seeker)
+      - for allocation in allocations
+        %li.allocations-list-item
           = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
     %br
 
@@ -58,8 +58,8 @@
   - for job in jobs
     = link_to "#{job.title} #{job.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_job_path(job), class: 'bold'
     %ul.allocations-list
-      %li.allocations-list-item
-        - allocations = job.allocations.includes(:seeker)
-        - for allocation in allocations
+      - allocations = job.allocations.includes(:seeker)
+      - for allocation in allocations
+        %li.allocations-list-item
           = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")} #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
     %br
