@@ -150,6 +150,7 @@ RailsAdmin.config do |config|
         label I18n.t('admin.groups.messages')
 
         field :welcome_letter_employers_msg
+        field :welcome_app_register_msg
       end
 
       group :brokers do

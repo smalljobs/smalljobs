@@ -66,9 +66,18 @@
         {{broker_first_name}}: Vorname des Vermittler
       %li
         {{broker_last_name}}: Nachname des Vermittler
+      %li
+        {{organization_name}}:
+      %li
+        {{organization_zip}}:
+      %li
+        {{organization_street}}:
+      %li
+        {{organization_place}}:
 
     .form-inputs
       = f.input :welcome_letter_employers_msg
+      = f.input :welcome_app_register_msg
 
   .form-actions
     = f.button :submit, t('common.edit'), class: 'btn btn-primary'
