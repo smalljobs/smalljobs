@@ -186,7 +186,8 @@ class Seeker < ActiveRecord::Base
   #
   def send_welcome_message
     title = 'Willkommen'
-    message = Mustache.render(self.organization.welcome_chat_register_msg, organization_name: self.organization.name, organization_street: self.organization.street, organization_zip: self.organization.places.first.zip, organization_place: self.organization.places.first.name, seeker_first_name: self.firstname, seeker_last_name: self.lastname, broker_first_name: self.organization.brokers.first.firstname, broker_last_name: self.organization.brokers.first.lastname, seeker_link_to_agreement: (Rails.application.routes.url_helpers.agreement_broker_seeker_url(self, subdomain: 'winterthur')))
+    host = "#{self.organization.regions.first.subdomain}.smalljobs.ch"
+    message = Mustache.render(self.organization.welcome_chat_register_msg, organization_name: self.organization.name, organization_street: self.organization.street, organization_zip: self.organization.places.first.zip, organization_place: self.organization.places.first.name, seeker_first_name: self.firstname, seeker_last_name: self.lastname, broker_first_name: self.organization.brokers.first.firstname, broker_last_name: self.organization.brokers.first.lastname, seeker_link_to_agreement: (Rails.application.routes.url_helpers.agreement_broker_seeker_url(self, subdomain: 'winterthur', host: host)))
 
     MessagingHelper::send_message(title, message, self.app_user_id, self.organization.email)
   end
@@ -195,7 +196,8 @@ class Seeker < ActiveRecord::Base
   #
   def send_activation_message
     title = 'Willkommen'
-    message = Mustache.render(self.organization.activation_msg, organization_name: self.organization.name, organization_street: self.organization.street, organization_zip: self.organization.places.first.zip, organization_place: self.organization.places.first.name, seeker_first_name: self.firstname, seeker_last_name: self.lastname, broker_first_name: self.organization.brokers.first.firstname, broker_last_name: self.organization.brokers.first.lastname, seeker_link_to_agreement: (Rails.application.routes.url_helpers.agreement_broker_seeker_url(self, subdomain: 'winterthur')), link_to_jobboard_list: (Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain)))
+    host = "#{self.organization.regions.first.subdomain}.smalljobs.ch"
+    message = Mustache.render(self.organization.activation_msg, organization_name: self.organization.name, organization_street: self.organization.street, organization_zip: self.organization.places.first.zip, organization_place: self.organization.places.first.name, seeker_first_name: self.firstname, seeker_last_name: self.lastname, broker_first_name: self.organization.brokers.first.firstname, broker_last_name: self.organization.brokers.first.lastname, seeker_link_to_agreement: (Rails.application.routes.url_helpers.agreement_broker_seeker_url(self, subdomain: 'winterthur', host: host)), link_to_jobboard_list: (Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host)))
 
     MessagingHelper::send_message(title, message, self.app_user_id, self.organization.email)
   end
