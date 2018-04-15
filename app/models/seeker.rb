@@ -47,6 +47,10 @@ class Seeker < ActiveRecord::Base
 
   after_save :adjust_todo
 
+  after_create :send_welcome_message
+
+  before_save :send_activation_message, if: proc { |s| s.status_changed? && s.active?}
+
   def adjust_todo
     Todo.where(record_type: :seeker, record_id: id).find_each &:destroy!
     Todotype.seeker.find_each do |todotype|
@@ -162,6 +166,7 @@ class Seeker < ActiveRecord::Base
   end
 
   # Make post request to jugendinfo API
+  #
   def send_to_jugendinfo
     require 'rest-client'
     dev = 'https://devadmin.jugendarbeit.digital/api/jugendinfo_user/update_data/'
@@ -177,4 +182,21 @@ class Seeker < ActiveRecord::Base
     end
   end
 
+  # Sends welcome message through chat to new seeker
+  #
+  def send_welcome_message
+    title = 'Willkommen'
+    message = Mustache.render(self.organization.welcome_chat_register_msg, organization_name: self.organization.name, organization_street: self.organization.street, organization_zip: self.organization.places.first.zip, organization_place: self.organization.places.first.name, seeker_first_name: self.firstname, seeker_last_name: self.lastname, broker_first_name: self.organization.brokers.first.firstname, broker_last_name: self.organization.brokers.first.lastname, seeker_link_to_agreement: (url_for agreement_broker_seeker_url(self, subdomain: 'winterthur')))
+
+    MessagingHelper::send_message(title, message, self.app_user_id, self.organization.email)
+  end
+
+  # Sends activation message through chat after seeker is activated
+  #
+  def send_activation_message
+    title = 'Willkommen'
+    message = Mustache.render(self.organization.activation_msg, organization_name: self.organization.name, organization_street: self.organization.street, organization_zip: self.organization.places.first.zip, organization_place: self.organization.places.first.name, seeker_first_name: self.firstname, seeker_last_name: self.lastname, broker_first_name: self.organization.brokers.first.firstname, broker_last_name: self.organization.brokers.first.lastname, seeker_link_to_agreement: (url_for agreement_broker_seeker_url(self, subdomain: 'winterthur')), link_to_jobboard_list: (url_for root_url(subdomain: self.organization.regions.first.subdomain)))
+
+    MessagingHelper::send_message(title, message, self.app_user_id, self.organization.email)
+  end
 end
