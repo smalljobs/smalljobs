@@ -91,6 +91,7 @@ de:
         welcome_app_register_msg: "Willkommenstext in der App nach der Registrierung"
         welcome_chat_register_msg: "Willkommensnachricht per Chat nach der Registrierung"
         not_receive_job_msg: "Job nicht erhalten"
+        get_job_msg: "Job erhalten"
       employment:
         organization: "Organisation"
         broker: "Vermittler"

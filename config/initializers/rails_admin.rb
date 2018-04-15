@@ -153,6 +153,7 @@ RailsAdmin.config do |config|
         field :welcome_app_register_msg
         field :welcome_chat_register_msg
         field :not_receive_job_msg
+        field :get_job_msg
       end
 
       group :brokers do
