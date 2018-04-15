@@ -76,6 +76,8 @@
         {{organization_street}}:
       %li
         {{organization_place}}:
+      %li
+        {{link_to_jobboard_list}}:
 
     .form-inputs
       = f.input :welcome_letter_employers_msg
@@ -83,6 +85,7 @@
       = f.input :welcome_chat_register_msg
       = f.input :not_receive_job_msg
       = f.input :get_job_msg
+      = f.input :activation_msg
 
   .form-actions
     = f.button :submit, t('common.edit'), class: 'btn btn-primary'

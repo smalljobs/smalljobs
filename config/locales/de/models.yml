@@ -92,6 +92,7 @@ de:
         welcome_chat_register_msg: "Willkommensnachricht per Chat nach der Registrierung"
         not_receive_job_msg: "Job nicht erhalten"
         get_job_msg: "Job erhalten"
+        activation_msg: "Aktivierungsnachricht"
       employment:
         organization: "Organisation"
         broker: "Vermittler"
