@@ -15,6 +15,7 @@ de:
       organization: "Jugenarbeit"
       address: "Adresse"
       contact: "Kontakt"
+      messages: "Vorlagen"
       brokers: "Vermittler"
       administration: "Admin"
       authenticatable: "Authentifizierung"

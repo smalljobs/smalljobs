@@ -125,6 +125,7 @@ RailsAdmin.config do |config|
 
         field :name
         field :description
+        field :opening_hours
         field :website
         field :wage_factor do
           help I18n.t('admin.groups.wage_factor')
@@ -143,6 +144,12 @@ RailsAdmin.config do |config|
 
         field :phone
         field :email
+      end
+
+      group :messages do
+        label I18n.t('admin.groups.messages')
+
+        field :welcome_letter_employers_msg
       end
 
       group :brokers do
