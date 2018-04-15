@@ -151,6 +151,7 @@ RailsAdmin.config do |config|
 
         field :welcome_letter_employers_msg
         field :welcome_app_register_msg
+        field :welcome_chat_register_msg
       end
 
       group :brokers do

@@ -59,6 +59,8 @@
       %li
         {{seeker_last_name}}: Nachname des Jugendlichen
       %li
+        {{seeker_link_to_agreement}}:
+      %li
         {{provider_first_name}}: Vorname des Anbieter
       %li
         {{provider_last_name}}: Nachname des Anbieter
@@ -78,6 +80,7 @@
     .form-inputs
       = f.input :welcome_letter_employers_msg
       = f.input :welcome_app_register_msg
+      = f.input :welcome_chat_register_msg
 
   .form-actions
     = f.button :submit, t('common.edit'), class: 'btn btn-primary'

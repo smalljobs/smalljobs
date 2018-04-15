@@ -87,8 +87,9 @@ de:
         updated_at: "Bearbeitet"
         wage_factor: "Lohnfaktor"
         opening_hours: "Öffnungszeiten"
-        welcome_letter_employers_msg: "Willkommenbrief für Arbeitgebende"
+        welcome_letter_employers_msg: "Willkommensbrief für Arbeitgebende"
         welcome_app_register_msg: "Willkommenstext in der App nach der Registrierung"
+        welcome_chat_register_msg: "Willkommensnachricht per Chat nach der Registrierung"
       employment:
         organization: "Organisation"
         broker: "Vermittler"
