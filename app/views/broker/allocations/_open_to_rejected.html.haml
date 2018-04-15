@@ -10,13 +10,7 @@
           = @allocation.seeker.name
           = ":"
         %div.form-control.resize-vertical.textarea{contenteditable: true}
-          = "Hallo #{@allocation.seeker.name}"
-          %br
-          = "Leider konnte deine Bewerbung für \"#{@allocation.job.title}\" nicht berücksichtigt werden."
-          %br
-          = "Vielleicht klappt es aber beim nächsten Mal! Wir freuen uns weiterhin auf deine Bewerbungen für Jobs."
-          %br
-          = "Hast du noch Fragen dazu? Schreib uns hier."  
+          = @not_receive_job_msg.html_safe
         %br
         - if @allocation.seeker.app_user_id.nil?
           %p
