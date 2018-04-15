@@ -404,6 +404,9 @@
     <%= current_broker.email %>
   </p>
   <p class="letter-start">
+    <%= @letter_msg %>
+  </p>
+  <p class="letter-start">
     Guten
     Tag <%= @provider.name %><%= @provider.company != nil && !@provider.company.empty? ? ", (#{@provider.company})" : "" %>
   </p>
