@@ -18,7 +18,7 @@ class Broker::AllocationsController < InheritedResources::Base
 
     @messages = MessagingHelper::get_messages(@allocation.seeker.app_user_id)
 
-    job_provider_phone = @job.provider.mobile.nil? ? @job.provider.phone : @job.provider.mobile
+    job_provider_phone = @job.provider.mobile.empty? ? @job.provider.phone : @job.provider.mobile
     @get_job_msg = Mustache.render(@job.provider.organization.get_job_msg, seeker_first_name: @allocation.seeker.firstname, seeker_last_name: @allocation.seeker.lastname, job_provider_first_name: @job.provider.firstname, job_provider_last_name: @job.provider.lastname, job_provider_phone: job_provider_phone, broker_first_name: current_broker.firstname, organization_name: @job.provider.organization.name)
     @get_job_msg.gsub! "\n", "<br>"
   end
