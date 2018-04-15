@@ -30,7 +30,7 @@ class Broker::OrganizationsController < InheritedResources::Base
   end
 
   def permitted_params
-    params.permit(organization: [:opening_hours, :id, :logo, :logo_delete, :background, :background_delete, :name, :description, :website, :street, :email, :phone, :default_hourly_per_age, :place])
+    params.permit(organization: [:welcome_letter_employers_msg, :opening_hours, :id, :logo, :logo_delete, :background, :background_delete, :name, :description, :website, :street, :email, :phone, :default_hourly_per_age, :place])
   end
 
 end

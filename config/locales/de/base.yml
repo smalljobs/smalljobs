@@ -71,6 +71,8 @@ de:
     application: "Bewerben"
     proposal: "Vorschlag"
     seeker_salary: "Lohnvorschlag"
+    messages_templates: "Vorlagen"
+    available_placeholders: "Verfügbare Platzhalter:"
     seeker_salary_hint_wage_factor: >
       <ul>
       <li><b>Stundenlohn pro Altersjahr:</b> Der Jugendliche erhält den angegebenen Lohn * sein Alter * %{wage_factor}.</li>

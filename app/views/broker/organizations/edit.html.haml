@@ -47,6 +47,29 @@
     .form-inputs
       = f.input :default_hourly_per_age
 
+  %fieldset
+    %legend
+      = t('legends.messages_templates')
+
+    %p
+      = t('legends.available_placeholders')
+    %ul
+      %li
+        {{seeker_first_name}}: Vorname des Jugendlichen
+      %li
+        {{seeker_last_name}}: Nachname des Jugendlichen
+      %li
+        {{provider_first_name}}: Vorname des Anbieter
+      %li
+        {{provider_last_name}}: Nachname des Anbieter
+      %li
+        {{broker_first_name}}: Vorname des Vermittler
+      %li
+        {{broker_last_name}}: Nachname des Vermittler
+
+    .form-inputs
+      = f.input :welcome_letter_employers_msg
+
   .form-actions
     = f.button :submit, t('common.edit'), class: 'btn btn-primary'
 
