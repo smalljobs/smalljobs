@@ -320,8 +320,17 @@ class ApiController < ApplicationController
     end
 
     allocation = Allocation.find_by(job_id: id, seeker_id: @seeker.id)
+    status_ok = true
+    if job.state != 'public' && job.state != 'check'
+      status_ok = false
+    end
+
     if allocation != nil
       if allocation.application_retracted?
+        if !status_ok
+          render json: {code: 'jobs/incorrect_status', message: 'Job is not accepting applications'}, status: 406
+          return
+        end
         allocation.state = :application_open
         allocation.save!
         render json: {message: 'Success. Please wait for a message from broker.'}, status: 201
@@ -329,6 +338,11 @@ class ApiController < ApplicationController
         render json: {code: 'jobs/applied', message: 'Already applied for that job'}, status: 422
       end
 
+      return
+    end
+
+    if !status_ok
+      render json: {code: 'jobs/incorrect_status', message: 'Job is not accepting applications'}, status: 406
       return
     end
 
