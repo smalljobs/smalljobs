@@ -373,6 +373,7 @@ RailsAdmin.config do |config|
         field :email
         field :phone
         field :mobile
+        field :additional_contacts
         field :contact_preference
         field :contact_availability
       end
@@ -382,7 +383,11 @@ RailsAdmin.config do |config|
         field :work_categories
         field :certificates
         field :organization
+        field :languages
+        field :occupation
+        field :occupation_end_date
       end
+
 
       group :administration do
         label I18n.t('admin.groups.administration')
