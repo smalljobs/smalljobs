@@ -1,4 +1,4 @@
-# Hallo <%= @broker.first_name %>
+# Hallo <%= @broker.firstname %>
 
 Folgendes gibt es bei deiner Jobbörse zu tun:
 
