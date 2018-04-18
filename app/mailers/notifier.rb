@@ -17,6 +17,7 @@ class Notifier < ActionMailer::Base
     unless broker.organizations.first.nil?
       organization_name = broker.organizations.first.name
     end
+    Markerb.processing_options = {tables: true}
     mail(to: broker.email, subject: "Smalljobs Todo für #{organization_name}") do |format|
       format.text
       format.html
