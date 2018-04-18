@@ -1,5 +1,5 @@
 class CreateBrokersUpdatePrefs < ActiveRecord::Migration[5.0]
-  class BrokerUpdatePrefs < ActiveRecord::Base
+  class BrokersUpdatePrefs < ActiveRecord::Base
   end
 
   class UpdatePrefs < ActiveRecord::Base
@@ -16,7 +16,7 @@ class CreateBrokersUpdatePrefs < ActiveRecord::Migration[5.0]
 
     wednesday = UpdatePref.find_by(day_of_week: 3)
     Broker.all.each do |broker|
-      BrokerUpdatePrefs.create!(broker_id: broker.id, update_pref_id: wednesday)
+      BrokersUpdatePrefs.create!(broker_id: broker.id, update_pref_id: wednesday)
     end
   end
 end
