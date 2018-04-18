@@ -42,4 +42,16 @@ class Todo < ApplicationRecord
       'Jugendlicher'
     end
   end
+
+  def show_name
+    if todo.record_type == 'job'
+      return 'Job: ' + todo.job.title
+    elsif todo.record_type == 'provider'
+      return 'Anbieterln: ' + todo.provider.name
+    elsif todo.record_type == 'seeker'
+      return 'JugendlicheR: ' + todo.seeker.name
+    elsif todo.record_type == 'allocation'
+      return 'JugendlicheR: ' + todo.seeker.name + ', ' + 'Anbieterln: ' + todo.provider.name + ', ' + 'Job: ' + todo.job.title
+    end
+  end
 end

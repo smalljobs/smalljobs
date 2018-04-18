@@ -5,7 +5,7 @@ Folgendes gibt es bei deiner Jobbörse zu tun:
 Datum | Todo | Beschreibung
 --- | --- | ---
 <% @todos.each do |todo| %>
-    <%= todo.created_at.strftime("%d.%m.%Y") %> | <%= todo.todotype.title %> | abc
+    <%= todo.created_at.strftime("%d.%m.%Y") %> | <%= todo.todotype.title %> | <%= todo.show_name %>
 <% end %>
 
 Gutes Jobbörsen-arbeiten!
