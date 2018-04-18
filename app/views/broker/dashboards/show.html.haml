@@ -198,6 +198,12 @@
                   = seeker.email
                 %td.sex.display-none
                   = seeker.sex
+                %td.occupation.display-none
+                  = seeker.occupation
+                %td.additional_contacts.display-none
+                  = seeker.additional_contacts
+                %td.languages.display-none
+                  = seeker.languages
     %div{id: 'assignments', class: 'tab-pane fade in'}
       .table-responsive
         %table.table.table-striped.sortable
@@ -351,7 +357,7 @@
       'feedback', 'description', 'salary', 'manpower', 'duration',
       'long_description', 'short_description', 'phone',
       'mobile', 'contact_preference', 'contact_availability', 'company',
-      'email', 'sex' ]
+      'email', 'sex', 'additional_contacts', 'occupation', 'languages' ]
     };
 
     var jobsList = new List('jobs', options);
