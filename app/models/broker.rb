@@ -5,6 +5,7 @@ class Broker < ActiveRecord::Base
   include ConfirmToggle
   include Storext.model
 
+  has_and_belongs_to_many :update_prefs
   has_many :employments, inverse_of: :broker
   has_many :organizations, through: :employments
   has_many :regions, through: :employments
