@@ -22,11 +22,11 @@
     - if !@job.new_record?
       %p= "Erstellt: #{@job.created_at.strftime("%d.%m.%Y")}"
 
-  %fieldset
-    %legend
-      = "Notizen (nur intern sichtbar)"
-    .form-inputs
-      = f.input :notes, label: false
+  -#%fieldset
+  -#  %legend
+  -#    = "Notizen (nur intern sichtbar)"
+  -#  .form-inputs
+  -#    = f.input :notes, label: false
 
 
   %fieldset
