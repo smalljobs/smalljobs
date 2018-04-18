@@ -150,6 +150,16 @@
                   -provider.jobs.each do |job|
                     %ul.list-unstyled
                       %li= link_to job.title, edit_broker_job_path(job)
+                %td.phone.display-none
+                  = provider.phone
+                %td.mobile.display-none
+                  = provider.mobile
+                %td.contact_preference.display-none
+                  = provider.contact_preference
+                %td.contact_availability.display-none
+                  = provider.contact_availability
+                %td.company.display-none
+                  = provider.company
     %div{id: 'seekers', class: 'tab-pane fade in'}
       %br
       = link_to t('seekers.index.add_new'), new_broker_seeker_path, class: 'btn btn-success'
@@ -176,6 +186,18 @@
                 %td.name= link_to seeker.name, edit_broker_seeker_path(seeker)
                 %td.street= seeker.street
                 %td.place= seeker.place.zip + ' ' + seeker.place.name
+                %td.phone.display-none
+                  = seeker.phone
+                %td.mobile.display-none
+                  = seeker.mobile
+                %td.contact_preference.display-none
+                  = seeker.contact_preference
+                %td.contact_availability.display-none
+                  = seeker.contact_availability
+                %td.email.display-none
+                  = seeker.email
+                %td.sex.display-none
+                  = seeker.sex
     %div{id: 'assignments', class: 'tab-pane fade in'}
       .table-responsive
         %table.table.table-striped.sortable
@@ -327,7 +349,9 @@
       valueNames: [ 'name', 'provider-name', 'place', 'status',
       'street', 'title', 'date', 'allocations', 'jobs', 'status', 'payment',
       'feedback', 'description', 'salary', 'manpower', 'duration',
-      'long_description', 'short_description' ]
+      'long_description', 'short_description', 'phone',
+      'mobile', 'contact_preference', 'contact_availability', 'company',
+      'email', 'sex' ]
     };
 
     var jobsList = new List('jobs', options);
