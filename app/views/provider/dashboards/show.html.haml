@@ -1,9 +1,9 @@
-%h2
-  = t('provider_dashboard.title')
-  = "#{current_provider.firstname} #{current_provider.lastname}"
+%div.row
+  %div.col-md-6
+    = link_to t('provider_dashboard.new_job'), new_provider_job_path, class: 'btn btn-success'
+  %div.col-md-6
+    = link_to "Vertrag download", "/broker/providers/#{current_provider.id}/contract?format=pdf", target: '_blank'
 
-%ul.list-group
-  = link_to t('provider_dashboard.new_job'), new_provider_job_path, class: 'btn btn-success'
 
 %h3= t('provider_dashboard.table')
 .table-responsive
