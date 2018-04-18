@@ -2,6 +2,6 @@
   %div.provider_allocations
     %h4= 'Einsätze'
     %ul.allocations-list
-    - for assignment in @provider.assignments
-      %li.allocations-list-item
-        = link_to "#{assignment.provider.name}, #{assignment.description}", edit_broker_seeker_path(assignment.seeker)
+      - for assignment in @provider.assignments
+        %li.allocations-list-item
+          = link_to "#{assignment.provider.name}, #{assignment.description}", edit_broker_seeker_path(assignment.seeker)
