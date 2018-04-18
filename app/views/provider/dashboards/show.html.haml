@@ -1,8 +1,8 @@
 %div.row
   %div.col-md-6
     = link_to t('provider_dashboard.new_job'), new_provider_job_path, class: 'btn btn-success'
-  %div.col-md-6
-    = link_to "Vertrag download", "/broker/providers/#{current_provider.id}/contract?format=pdf", target: '_blank'
+  %div.col-md-6.align-right
+    = link_to "Vertrag download", "/broker/providers/#{current_provider.id}/contract?format=pdf", target: '_blank', class: 'btn contract-btn'
 
 
 %h3= t('provider_dashboard.table')
