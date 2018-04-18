@@ -87,7 +87,6 @@
             %tr
               %th.sortable{id: 'job_status'}= t('broker_dashboard.jobs_table.status')
               %th.sortable{id: 'job_date'}= t('broker_dashboard.jobs_table.date')
-              -#%th.sortable= t('broker_dashboard.jobs_table.todo')
               %th.sortable{id: 'job_job'}= t('broker_dashboard.jobs_table.job')
               %th.sortable{id: 'job_provider'}= t('broker_dashboard.jobs_table.provider')
               %th= t('broker_dashboard.jobs_table.allocations')
@@ -104,13 +103,22 @@
                 - sortable_date = job.last_change_of_state == nil ?  "": job.last_change_of_state.strftime("%Y%m%d%H%M%S")
                 %td.date{sorttable_customkey: sortable_date}
                   = job.last_change_of_state == nil ?  "": job.last_change_of_state.strftime("%d.%m.%Y")
-                -#%td
                 %td.title
                   = link_to job.title, edit_broker_job_path(job)
                 %td.name
                   = link_to job.provider.name, edit_broker_provider_path(job.provider)
                 %td.allocations
                   = render 'allocations'
+                %td.salary.display-none
+                  = job.salary
+                %td.manpower.display-none
+                  = job.manpower
+                %td.duration.display-none
+                  = job.duration
+                %td.long_description.display-none
+                  = job.long_description
+                %td.short_description.display-none
+                  = job.short_description
     %div{id: 'providers', class: 'tab-pane fade in'}
       %br
       = link_to t('providers.index.add_new'), new_broker_provider_path, class: 'btn btn-success'
@@ -316,7 +324,10 @@
     });
 
     var options = {
-      valueNames: [ 'name', 'provider-name', 'place', 'status', 'street', 'title', 'date', 'allocations', 'jobs', 'status', 'payment', 'feedback', 'description' ]
+      valueNames: [ 'name', 'provider-name', 'place', 'status',
+      'street', 'title', 'date', 'allocations', 'jobs', 'status', 'payment',
+      'feedback', 'description', 'salary', 'manpower', 'duration',
+      'long_description', 'short_description' ]
     };
 
     var jobsList = new List('jobs', options);
