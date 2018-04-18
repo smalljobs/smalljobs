@@ -94,7 +94,7 @@
     }
 
     p.org-name {
-      margin-top: 102px;
+      margin-top: 162px;
       font-size: 15px;
       font-weight: 400;
       margin-left: 93px;
@@ -237,39 +237,39 @@
       margin-top: 35px;
     }
 
-    #page2 ol {
+    #page3 ol {
       margin-top: 15px;
     }
 
-    #page2 ol li {
+    #page3 ol li {
       margin-left: 13px;
       margin-bottom: 3px;
       padding-left: 7px !important;
       line-height: 1.2;
     }
 
-    #page2 table {
+    #page3 table {
       margin-left: 37px;
       margin-right: 37px;
       width: 719px;
     }
 
-    #page2 table tbody {
+    #page3 table tbody {
       background: #fff;
     }
 
-    #page2 table thead {
+    #page3 table thead {
       background: #ecf6ee;
     }
 
-    #page2 table thead tr th {
+    #page3 table thead tr th {
       font-size: 13px;
       font-weight: 700;
       border: 0px !important;
       padding-top: 4px;
     }
 
-    #page2 table tr td {
+    #page3 table tr td {
       border: 1px solid #cbe7d5;
       padding: 3px;
       padding: 10px 3px;
@@ -337,10 +337,11 @@
       width: 300px;
     }
 
-    #page2 .second-row-table {
+    #page3 .second-row-table {
       font-style: italic;
       font-weight: 400;
       font-size: 13px;
+      height: 20px;
     }
 
     #baner {
@@ -433,20 +434,51 @@
   <% end %>
 
   <h1 class="arbei">
-    ArbeitgeberIn:
+    Arbeitgeber_in:
   </h1>
   <p class="page2-firstrow">
-    <%= @provider.name %><%= @provider.company != nil && !@provider.company.empty? ? ", (#{@provider.company})" : "" %>
+    <%= @provider.company != nil && !@provider.company.empty? ? ", (#{@provider.company})" : "" %><%= @provider.name %>
   </p>
   <p class="page2-secondrow">
     <%= @provider.street %>, <%= @provider.place.full_name %>
   </p>
+
+  <p><b>1.</b></p>
+  <h1 class="first-header">
+    <b>Jugendliche_r:</b> > Diesen Code bei Arbeitsbeginn mit dem Scanner der Jugendapp<sup>*</sup>
+    einlesen und Anweisungen in der App befolgen.
+  </h1>
+  <p class="small-star">
+    Falls die Jugendapp nicht vor Ort ist, Zeit und Lohn unten von Hand vermerken.<br/>
+  </p>
+  <div>
+    <div class="center qr">
+      <img id="qr" src="<%= @qrcode.to_data_url %>">
+    </div>
+  </div>
+
+  <p><b>2.</b></p>
+  <p><b>Jugendliche_r:</b> > Arbeiten unter Anleitung des Arbeitgebenden.</p>
+
+  <p><b>3.</b></p>
+  <p><b>Jugendliche_r:</b> > Arbeit beenden
+    <br>
+    > Zeitzähler in der App stoppen
+    > Lohn in der App ablesen
+  </p>
+  <p><b>Arbeitgeber_in:</b> > Lohn auszahlen</p>
+
+  <footer class="bottom right">
+    <sup>*</sup> www.jugend.app     Seite 1 von 2
+  </footer>
+</div>
+<div id="page3" class="page alwaysbreak">
   <h1 class="page2-secondheader">
-    Ich stimme folgenden Bestimmungen zu:
+    Als Arbeitgeber stimme ich folgenden Bestimmungen zu:
   </h1>
   <ol>
     <li>
-      Ich leite Jugendliche fachgerecht in sämtliche Arbeit an und beaufsichtige die Arbeit angemessen.
+      Ich führe Jugendliche fachgerecht in sämtliche Arbeit an und beaufsichtige die Arbeit angemessen.
     </li>
     <li>
       Das Anstellungsverhältnis besteht direkt zwischen mir und dem Jugendlichen.
@@ -561,119 +593,6 @@
     <sup>*</sup> Detailbestimmungen: www.smalljobs.ch/jugendschutz
     <br/>
     <sup>**</sup> Maximal die halben Ferien lang
-  </p>
-  <div class="row">
-    <div class="column">
-      <div class="signature" style="margin-left: 27px;">
-      </div>
-      <p class="sign-par" style="    margin-left: 26px !important;">Ort, Datum</p>
-    </div>
-    <div class="column">
-      <div class="signature" style="margin-right: 26px;">
-      </div>
-      <p class="sign-par" style="margin-left: 0px !important;">Unterschrift <%= @provider.name %></p>
-    </div>
-  </div>
-  <footer class="bottom right">
-    Seite 1 von 2 / Bitte wenden ->
-  </footer>
-</div>
-<div id="page3" class="page alwaysbreak">
-  <h1 class="first-header">
-    <b>Jugendliche/r:</b> Diesen Code bei Arbeitsbeginn mit dem Scanner der Jugendapp<sup>*</sup>
-    einlesen und Anweisungen in der App befolgen.
-  </h1>
-  <p class="small-star">
-    Falls die Jugendapp nicht vor Ort ist, Zeit und Lohn unten von Hand vermerken.<br/>
-    <sup>*</sup>www.jugendinfo.win/app
-  </p>
-  <div>
-    <div class="center qr">
-      <img id="qr" src="<%= @qrcode.to_data_url %>">
-    </div>
-  </div>
-  <h1 class="second-header">
-    Arbeitseinsätze
-  </h1>
-  <table border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse;" bordercolor="#cbe7d5">
-    <thead>
-    <tr>
-      <th>
-        Vorname, Name Jugendliche/r
-      </th>
-      <th>
-        Unterschrift Jugendliche/r
-      </th>
-      <th>
-        Datum
-      </th>
-      <th>
-        Dauer (h)
-      </th>
-      <th>
-        CHF
-      </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    </tbody>
-  </table>
-  <p class="bottom-txt">
-    Wenn das Formular voll ist, bitte senden an:
-    <br/>
-    <%= @provider.organization.name %> <%= @provider.organization.street %>
-    , <%= @provider.organization.place.full_name %>
   </p>
   <footer class="bottom right">
     Seite 2 von 2
