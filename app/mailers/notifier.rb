@@ -13,7 +13,11 @@ class Notifier < ActionMailer::Base
     @seekers = @broker.seekers.includes(:place, :organization).group('seekers.id').order(:updated_at).reverse_order()
     @assignments = @broker.assignments.includes(:seeker, :provider).group('assignments.id').order(:created_at).reverse_order()
     @todos = Todo.where(seeker: @seekers).or(Todo.where(provider: @providers)).or(Todo.where(job: @jobs)).or(Todo.where(allocation: allocations)).group('todos.id').order(:created_at).reverse_order()
-    mail(to: broker.email, subject: "Smalljobs Todo für #{broker.organizations.first.name}") do |format|
+    organization_name = ""
+    unless broker.organizations.first.nil?
+      organization_name = broker.organizations.first.name
+    end
+    mail(to: broker.email, subject: "Smalljobs Todo für #{organization_name}") do |format|
       format.text
       format.html
     end
