@@ -1,6 +1,7 @@
 - if @provider.todos.provider.exists?
   %div.provider_allocations
-    %h3= 'TODO'
+    %h4= 'TODO'
     - for todo in @provider.todos.provider
-      %h4= todo.todotype.title
-      %p= todo.todotype.description.html_safe
+      %p.todo-title= todo.todotype.title
+      %ul.allocations-list
+        %li.allocations-list-item=todo.todotype.description.html_safe

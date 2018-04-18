@@ -1,8 +1,7 @@
 - if @job.assignments.count > 0
   %div.bg-info.provider_allocations
-    %h3= 'Einsätze'
+    %h4= 'Einsätze'
+    %ul.allocations-list
     - for assignment in @job.assignments
-      %h4
-        = link_to assignment.provider.name, edit_broker_seeker_path(assignment.seeker)
-      %p
-        = link_to assignment.description, edit_broker_seeker_path(assignment.seeker)
+      %li.allocations-list-item
+        = link_to "#{assignment.provider.name}, #{assignment.description}", edit_broker_seeker_path(assignment.seeker)
