@@ -261,7 +261,7 @@ RailsAdmin.config do |config|
         field :mobile
 
         field :contact_availability
-        field :update_pref
+        # field :update_pref
       end
 
       group :employment do

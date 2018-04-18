@@ -5,8 +5,6 @@ class Broker < ActiveRecord::Base
   include ConfirmToggle
   include Storext.model
 
-  enum update_pref: {monday: 1, tuesday: 2, wednesday: 3, thursday: 4, friday: 5, saturday: 6, sunday: 7}
-
   has_many :employments, inverse_of: :broker
   has_many :organizations, through: :employments
   has_many :regions, through: :employments
