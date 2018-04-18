@@ -92,7 +92,11 @@ Smalljobs::Application.routes.draw do
     end
 
     namespace :provider do
-      resource :dashboard, only: :show
+      resource :dashboard, only: :show do
+        member do
+          get 'contract'
+        end
+      end
 
       resources :jobs do
         resources :allocations, only: [:index, :show]
