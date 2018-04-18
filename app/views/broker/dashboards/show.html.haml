@@ -79,7 +79,7 @@
                       = 'Job: ' + todo.job.title
 
     %div{id: 'jobs', class: 'tab-pane fade in'}
-      %div.row
+      %div.row.margin-top-25
         %div.col-md-6
           = link_to t('broker.jobs.index.add_new'), new_broker_job_path, class: 'btn btn-success'
         %div.col-md-2
@@ -105,7 +105,7 @@
 
             - @jobs.each do |job|
               - @job = job
-              %tr{ class: "organization organization-#{job.try(:organization).try(:id)}" }
+              %tr{ class: "organization organization-#{job.try(:organization).try(:id)} status-#{job.status_name}" }
                 %td.status
                   = job_label(job)
                 - sortable_date = job.last_change_of_state == nil ?  "": job.last_change_of_state.strftime("%Y%m%d%H%M%S")
@@ -128,7 +128,7 @@
                 %td.short_description.display-none
                   = job.short_description
     %div{id: 'providers', class: 'tab-pane fade in'}
-      %div.row
+      %div.row.margin-top-25
         %div.col-md-6
           = link_to t('providers.index.add_new'), new_broker_provider_path, class: 'btn btn-success'
         %div.col-md-2
@@ -152,7 +152,7 @@
                 %td{ colspan: 5 }= t('providers.index.no_providers')
 
             - @providers.each do |provider|
-              %tr{ class: "organization organization-#{provider.organization.id}" }
+              %tr{ class: "organization organization-#{provider.organization.id} status-#{provider.status_name}" }
                 %td.status
                   = provider_label(provider)
                 %td.date{sorttable_customkey: provider.updated_at.strftime("%Y%m%d%H%M%S")}
@@ -175,7 +175,7 @@
                 %td.company.display-none
                   = provider.company
     %div{id: 'seekers', class: 'tab-pane fade in'}
-      %div.row
+      %div.row.margin-top-25
         %div.col-md-6
           = link_to t('seekers.index.add_new'), new_broker_seeker_path, class: 'btn btn-success'
         %div.col-md-2
@@ -198,7 +198,7 @@
                 %td{ colspan: 4 }= t('seekers.index.no_seekers')
 
             - @seekers.each do |seeker|
-              %tr{ class: "organization organization-#{seeker.try(:organization).try(:id)}" }
+              %tr{ class: "organization organization-#{seeker.try(:organization).try(:id)} status-#{seeker.status_name}" }
                 %td.status
                   = seeker_label(seeker)
                 %td{sorttable_customkey: seeker.updated_at.strftime("%Y%m%d%H%M%S")}
@@ -277,6 +277,27 @@
     setHelp();
 
     var selectedOrganizationId = 0;
+    var finishedVisible = false;
+    hideFinished();
+
+    function hideFinished() {
+      $('.status-finished').addClass('display-none-st');
+      $('.status-active').removeClass('display-none-st');
+    }
+
+    function hideActive() {
+      $('.status-finished').removeClass('display-none-st');
+      $('.status-active').addClass('display-none-st');
+    }
+
+    $('.archive-btn').click(function(){
+      finishedVisible = !finishedVisible;
+      if(finishedVisible) {
+        hideActive();
+      } else {
+        hideFinished();
+      }
+    });
 
     function loadSortedColumn() {
       var hash = target;

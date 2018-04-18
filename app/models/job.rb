@@ -169,4 +169,11 @@ class Job < ActiveRecord::Base
     end
   end
 
+  def status_name
+    if state == "finished"
+      return "finished"
+    end
+
+    return "active"
+  end
 end

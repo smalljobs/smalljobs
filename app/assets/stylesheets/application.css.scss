@@ -148,7 +148,7 @@ textarea.resize-vertical {
   text-align: left;
 }
 
-.display-none {
+.display-none, .display-none-st {
   display: none;
 }
 
@@ -220,4 +220,8 @@ div.textarea {
 
 .contract-btn:visited {
   color: #18bc9c;
+}
+
+.margin-top-25 {
+  margin-top: 25px;
 }

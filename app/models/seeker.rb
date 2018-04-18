@@ -201,4 +201,12 @@ class Seeker < ActiveRecord::Base
 
     MessagingHelper::send_message(title, message, self.app_user_id, self.organization.email)
   end
+
+  def status_name
+    if status == 3
+      return "finished"
+    end
+
+    return "active"
+  end
 end
