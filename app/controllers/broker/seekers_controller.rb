@@ -38,7 +38,7 @@ class Broker::SeekersController < InheritedResources::Base
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: 'Einverständnis', template: 'broker/seekers/agreement.html.erb', margin: {top: 2, left: 2, right: 2, bottom: 2}
+        render pdf: 'Einverständnis', template: 'broker/seekers/agreement.html.erb', margin: {top: 3, left: 3, right: 3, bottom: 3}
       end
     end
   end
