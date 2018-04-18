@@ -39,7 +39,14 @@
 
   %fieldset
     .form-inputs
-      = f.input :notes, label: "Notizen (nur intern sichtbar)"
+      %div.control-group.text.optional
+        %label.text.optional{for: "notes-textarea"}
+        %p
+          = "Hier Thread mit vergangenen Benachrichtigungen:"
+        %div.controls
+          %textarea.text.optional.form-control{id: "notes-textarea"}
+          %a.btn.btn-success
+      -#= f.input :notes, label: "Notizen (nur intern sichtbar)"
       = f.input :street, required: true
       = f.association :place, required: true, collection: current_broker.places.order(:name, :zip), label_method: :full_name, include_blank: true
 
