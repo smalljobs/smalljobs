@@ -79,8 +79,16 @@
                       = 'Job: ' + todo.job.title
 
     %div{id: 'jobs', class: 'tab-pane fade in'}
-      %br
-      = link_to t('broker.jobs.index.add_new'), new_broker_job_path, class: 'btn btn-success'
+      %div.row
+        %div.col-md-6
+          = link_to t('broker.jobs.index.add_new'), new_broker_job_path, class: 'btn btn-success'
+        %div.col-md-2
+          %a.btn.contract-btn
+            = "Job Formular"
+        %div.col-md-2
+          %a.btn.contract-btn.archive-btn
+            = "Archiv"
+        %div.col-md-2
       .table-responsive
         %table.table.table-striped.sortable
           %thead
@@ -120,8 +128,14 @@
                 %td.short_description.display-none
                   = job.short_description
     %div{id: 'providers', class: 'tab-pane fade in'}
-      %br
-      = link_to t('providers.index.add_new'), new_broker_provider_path, class: 'btn btn-success'
+      %div.row
+        %div.col-md-6
+          = link_to t('providers.index.add_new'), new_broker_provider_path, class: 'btn btn-success'
+        %div.col-md-2
+        %div.col-md-2
+          %a.btn.contract-btn.archive-btn
+            = "Archiv"
+        %div.col-md-2
       .table-responsive
         %table.table.table-striped.sortable
           %thead
@@ -161,8 +175,14 @@
                 %td.company.display-none
                   = provider.company
     %div{id: 'seekers', class: 'tab-pane fade in'}
-      %br
-      = link_to t('seekers.index.add_new'), new_broker_seeker_path, class: 'btn btn-success'
+      %div.row
+        %div.col-md-6
+          = link_to t('seekers.index.add_new'), new_broker_seeker_path, class: 'btn btn-success'
+        %div.col-md-2
+        %div.col-md-2
+          %a.btn.contract-btn.archive-btn
+            = "Archiv"
+        %div.col-md-2
       .table-responsive
         %table.table.table-striped.sortable
           %thead
