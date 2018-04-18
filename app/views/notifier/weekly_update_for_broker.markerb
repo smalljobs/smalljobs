@@ -9,5 +9,11 @@ Datum | Todo | Beschreibung
 <% end %>
 
 Gutes Jobbörsen-arbeiten!
+
 Liebe Grüsse,
+
 Dein Smalljobs-Roboter
+
+Falls du diese E-Mails nicht mehr erhalten möchtest, kannst du diese automatischen E-Mails in deinem Profil bearbeiten:
+
+[https://<%= subdomain_for@broker %>.smalljobs.ch/brokers/edit](<%= edit_broker_registration_url(@broker, subdomain: subdomain_for(@broker)) %>)
