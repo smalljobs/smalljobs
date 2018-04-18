@@ -105,7 +105,7 @@
 
             - @jobs.each do |job|
               - @job = job
-              %tr{ class: "organization organization-#{job.try(:organization).try(:id)} status-#{job.status_name}" }
+              %tr{ class: "organization organization-#{job.try(:organization).try(:id)} status-#{job.stat_name}" }
                 %td.status
                   = job_label(job)
                 - sortable_date = job.last_change_of_state == nil ?  "": job.last_change_of_state.strftime("%Y%m%d%H%M%S")
@@ -152,7 +152,7 @@
                 %td{ colspan: 5 }= t('providers.index.no_providers')
 
             - @providers.each do |provider|
-              %tr{ class: "organization organization-#{provider.organization.id} status-#{provider.status_name}" }
+              %tr{ class: "organization organization-#{provider.organization.id} status-#{provider.stat_name}" }
                 %td.status
                   = provider_label(provider)
                 %td.date{sorttable_customkey: provider.updated_at.strftime("%Y%m%d%H%M%S")}
@@ -198,7 +198,7 @@
                 %td{ colspan: 4 }= t('seekers.index.no_seekers')
 
             - @seekers.each do |seeker|
-              %tr{ class: "organization organization-#{seeker.try(:organization).try(:id)} status-#{seeker.status_name}" }
+              %tr{ class: "organization organization-#{seeker.try(:organization).try(:id)} status-#{seeker.stat_name}" }
                 %td.status
                   = seeker_label(seeker)
                 %td{sorttable_customkey: seeker.updated_at.strftime("%Y%m%d%H%M%S")}
