@@ -14,6 +14,7 @@ class Broker < ActiveRecord::Base
   has_many :seekers, through: :places
   has_many :jobs, through: :providers
   has_many :assignments, through: :providers
+  has_many :notes
 
   validates :email, email: true, presence: true, uniqueness: true
   validates :firstname, :lastname, :phone, presence: true

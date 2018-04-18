@@ -11,6 +11,8 @@ class Job < ActiveRecord::Base
 
   has_many :assignments
 
+  has_many :notes
+
   has_many :todos
 
   validates :provider, presence: true

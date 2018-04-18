@@ -8,6 +8,7 @@ class Provider < ActiveRecord::Base
   has_many :assignments
   belongs_to :place, inverse_of: :providers
   belongs_to :organization
+  has_many :notes
 
   has_many :todos
 
