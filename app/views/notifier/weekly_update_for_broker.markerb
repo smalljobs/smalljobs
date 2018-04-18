@@ -1,0 +1,13 @@
+# Hallo <%= @broker.first_name %>
+
+Folgendes gibt es bei deiner Jobbörse zu tun:
+
+Datum | Todo | Beschreibung
+--- | --- | ---
+<% @todos.each do |todo| %>
+    <%= todo.created_at.strftime("%d.%m.%Y") %> | <%= todo.todotype.title %> | abc
+<% end %>
+
+Gutes Jobbörsen-arbeiten!
+Liebe Grüsse,
+Dein Smalljobs-Roboter

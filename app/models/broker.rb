@@ -76,5 +76,15 @@ class Broker < ActiveRecord::Base
     confirmed? ? :inactive : :unconfirmed
   end
 
+  def self.send_weekly_update
+    today = Date.today()
+    day_of_week = today.wday
+    update_pref = UpdatePref.find_by(day_of_week: day_of_week)
+    BrokerUpdatePref.where(update_pref_id: update_pref.id).find_each do |broker_update_pref|
+      broker = broker_update_pref.broker
+      Notifier.weekly_update_for_broker(broker).deliver
+    end
+  end
+
   # @!endgroup
 end
