@@ -205,7 +205,7 @@ class Seeker < ActiveRecord::Base
   public
 
   def stat_name
-    if status == 3
+    if completed?
       return "finished"
     end
 

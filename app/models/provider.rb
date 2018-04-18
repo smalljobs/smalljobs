@@ -141,7 +141,7 @@ class Provider < ActiveRecord::Base
   public
 
   def stat_name
-    if state == 3
+    if completed?
       return "finished"
     end
 
