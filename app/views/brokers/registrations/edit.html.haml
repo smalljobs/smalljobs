@@ -39,6 +39,12 @@
       = f.input :phone, required: true
       = f.input :mobile
       = f.input :contact_availability
+  %fieldset
+    %legend
+      = "Einstellungen"
+
+    .form-inputs
+      = f.input :update_pref
 
   .form-actions
     = f.input :current_password, required: true, hint: t('devise_views.need_password')
