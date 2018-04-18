@@ -399,18 +399,18 @@
   <p class="contact-info">
     Ihre Kontaktdaten:
     <br/>
-    <%= current_broker.mobile %>
+    <%= @broker.mobile %>
     <br/>
-    <%= current_broker.email %>
+    <%= @broker.email %>
   </p>
   <p class="letter-start">
     <%= @letter_msg.html_safe %>
   </p>
   <p class="sign-dots">.................................................</p>
   <p class="sign-data">
-    <%= current_broker.name %><br/>
-    <%= current_broker.mobile %><br/>
-    <%= current_broker.email %>
+    <%= @broker.name %><br/>
+    <%= @broker.mobile %><br/>
+    <%= @broker.email %>
   </p>
   <footer>
     <p><%= @provider.organization.name %><br/>
