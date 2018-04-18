@@ -138,6 +138,8 @@ class Provider < ActiveRecord::Base
     Notifier.provider_activated_for_provider(self).deliver
   end
 
+  public
+
   def stat_name
     if state == 3
       return "finished"

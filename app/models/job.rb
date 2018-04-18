@@ -169,6 +169,8 @@ class Job < ActiveRecord::Base
     end
   end
 
+  public
+
   def stat_name
     if state == "finished"
       return "finished"
