@@ -220,13 +220,13 @@
       left: 0;
       right: 0;
       bottom: 0;
-      width: 90px;
+      width: 100px;
     }
 
     h1.provider-name {
       margin-left: 93px;
       font-size: 15px;
-      margin-top: 80px;
+      margin-top: 20px;
       font-weight: 400;
       line-height: 1.4;
     }
@@ -444,13 +444,6 @@
     <%= @provider.street %><br/>
     <%= @provider.place.full_name %>
   </h1>
-  <p class="contact-info">
-    Ihre Kontaktdaten:
-    <br/>
-    <%= @broker.mobile %>
-    <br/>
-    <%= @broker.email %>
-  </p>
   <p class="letter-start">
     <%= @letter_msg.html_safe %>
   </p>
