@@ -382,6 +382,24 @@
     #page2 h2 span {
       font-weight: 400;
     }
+
+    .row-w {
+      width: 100%;
+    }
+
+    .col1 {
+      width: 19%;
+      float: left;
+    }
+
+    .col2 {
+      width: 80%;
+      float: left;
+    }
+
+    .clear-both {
+      clear: both;
+    }
   </style>
 </head>
 <body>
@@ -444,29 +462,53 @@
   </p>
 
   <p><b>1.</b></p>
-  <h1 class="first-header">
-    <b>Jugendliche_r:</b> > Diesen Code bei Arbeitsbeginn mit dem Scanner der Jugendapp<sup>*</sup>
-    einlesen und Anweisungen in der App befolgen.
-  </h1>
-  <p class="small-star">
-    Falls die Jugendapp nicht vor Ort ist, Zeit und Lohn unten von Hand vermerken.<br/>
-  </p>
-  <div>
-    <div class="center qr">
+  <div class="row-w">
+    <div class="col1">Jugendliche_r:</div>
+    <div class="col2">> Diesen Code bei Arbeitsbeginn mit dem Scanner der Jugendapp<sup>*</sup>
+      einlesen und Anweisungen in der App befolgen.</div>
+    <div class="clear-both"></div>
+  </div>
+
+  <div class="row-w">
+    <div class="col1">
+      Mit Arbeitsbeginn sind Jugendliche und
+      Arbeitgebende mit den smallJobs Richtlinien
+      einverstanden (siehe Seite 2)
+      <br><br>
+      <b>Keine App vorhanden?</b>
+      <br>
+      Bitte Arbeitsstunden von Hand
+      aufschreiben
+    </div>
+    <div class="col2">
       <img id="qr" src="<%= @qrcode.to_data_url %>">
     </div>
   </div>
 
   <p><b>2.</b></p>
-  <p><b>Jugendliche_r:</b> > Arbeiten unter Anleitung des Arbeitgebenden.</p>
+  <div class="row-w">
+    <div class="col1">Jugendliche_r:</div>
+    <div class="col2">> Arbeiten unter Anleitung des Arbeitgebenden.</div>
+    <div class="clear-both"></div>
+  </div>
 
-  <p><b>3.</b></p>
-  <p><b>Jugendliche_r:</b> > Arbeit beenden
-    <br>
-    > Zeitzähler in der App stoppen
-    > Lohn in der App ablesen
-  </p>
-  <p><b>Arbeitgeber_in:</b> > Lohn auszahlen</p>
+  <p><b>2.</b></p>
+  <div class="row-w">
+    <div class="col1">Jugendliche_r:</div>
+    <div class="col2">
+      > Arbeit beenden
+      <br>
+      > Zeitzähler in der App stoppen
+      <br>
+      > Lohn in der App ablesen
+    </div>
+    <div class="clear-both"></div>
+    <div class="col1">Arbeitgeber_in:</div>
+    <div class="col2">
+      > Lohn auszahlen
+    </div>
+    <div class="clear-both"></div>
+  </div>
 
   <footer class="bottom right">
     <sup>*</sup> www.jugend.app     Seite 1 von 2
