@@ -78,10 +78,10 @@
     .bottom.right {
       position: absolute;
       display: inline-block;
-      bottom: 25px;
-      right: 37px;
-      font-size: 14px;
-      font-weight: 700;
+      bottom: 0px;
+      right: 0px;
+      font-size: 12px;
+      font-weight: normal;
       width: 100%;
       text-align: right;
     }
@@ -212,7 +212,7 @@
       border: 5px solid #07b571;
     }
 
-    .center-qr img {
+    .border-qr img {
       left: 50%;
       top: 50%;
       position: absolute;
@@ -360,7 +360,7 @@
       width: 100% !important;
       height: auto;
       display: block;
-      max-width: 760px;
+      max-width: 860px;
     }
 
     #page3 h1.first-header {
@@ -398,29 +398,33 @@
     .col1 {
       width: 19%;
       float: left;
-      font-size: large;
+      font-size: xx-large;
       font-weight: bold;
     }
 
     .col2 {
       width: 80%;
       float: left;
-      font-size: large;
+      font-size: xx-large;
     }
 
     .col1-qr {
-      width: 39%;
+      width: 29%;
       float: left;
       font-size: small;
     }
 
     .col2-qr {
-      width: 60%;
+      width: 70%;
       float: left;
     }
 
     .clear-both {
       clear: both;
+    }
+
+    .large {
+      font-size: xx-large;
     }
   </style>
 </head>
@@ -483,13 +487,16 @@
     <%= @provider.street %>, <%= @provider.place.full_name %>
   </p>
 
-  <p><b>1.</b></p>
+  <p class="large"><b>1.</b></p>
   <div class="row-w">
     <div class="col1">Jugendliche_r:</div>
     <div class="col2">> Diesen Code bei Arbeitsbeginn mit dem Scanner der Jugendapp<sup>*</sup>
       einlesen und Anweisungen in der App befolgen.</div>
     <div class="clear-both"></div>
   </div>
+
+  <br>
+  <br>
 
   <div class="row-w">
     <div class="col1-qr">
@@ -504,20 +511,20 @@
     </div>
     <div class="col2-qr">
       <div class="border-qr">
-      <img id="qr" src="<%= @qrcode.to_data_url %>">
+        <img id="qr" src="<%= @qrcode.to_data_url %>">
       </div>
     </div>
     <div class="clear-both"></div>
   </div>
 
-  <p><b>2.</b></p>
+  <p class="large"><b>2.</b></p>
   <div class="row-w">
     <div class="col1">Jugendliche_r:</div>
     <div class="col2">> Arbeiten unter Anleitung des Arbeitgebenden.</div>
     <div class="clear-both"></div>
   </div>
 
-  <p><b>3.</b></p>
+  <p class="large"><b>3.</b></p>
   <div class="row-w">
     <div class="col1">Jugendliche_r:</div>
     <div class="col2">
