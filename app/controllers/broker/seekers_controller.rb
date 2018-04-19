@@ -27,7 +27,7 @@ class Broker::SeekersController < InheritedResources::Base
 
   def edit
     @messages = MessagingHelper::get_messages(@seeker.app_user_id)
-
+    @seeker.current_broker = current_broker
     edit!
   end
 

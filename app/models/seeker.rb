@@ -22,6 +22,7 @@ class Seeker < ActiveRecord::Base
   belongs_to :organization
 
   attr_accessor :new_note
+  attr_accessor :current_broker
 
   validates :login, presence: true, uniqueness: true
 
