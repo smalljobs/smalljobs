@@ -27,7 +27,7 @@ class Broker::SeekersController < InheritedResources::Base
 
   def edit
     @messages = MessagingHelper::get_messages(@seeker.app_user_id)
-    @seeker.current_broker = current_broker
+    # @seeker.current_broker_id = current_broker.id
     edit!
   end
 
@@ -81,7 +81,7 @@ class Broker::SeekersController < InheritedResources::Base
   end
 
   def permitted_params
-    params.permit(seeker: [:new_note, :occupation, :occupation_end_date, :additional_contacts, :languages, :id, :password, :password_confirmation, :firstname, :lastname, :street, :place_id, :sex, :email, :phone, :mobile, :date_of_birth, :contact_preference, :contact_availability, :active, :confirmed, :terms, :status, :organization_id, :notes, :discussion, :parental, work_category_ids: [], certificate_ids: []])
+    params.permit(seeker: [:current_broker_id, :new_note, :occupation, :occupation_end_date, :additional_contacts, :languages, :id, :password, :password_confirmation, :firstname, :lastname, :street, :place_id, :sex, :email, :phone, :mobile, :date_of_birth, :contact_preference, :contact_availability, :active, :confirmed, :terms, :status, :organization_id, :notes, :discussion, :parental, work_category_ids: [], certificate_ids: []])
   end
 
 end

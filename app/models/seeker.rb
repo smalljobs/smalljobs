@@ -22,7 +22,7 @@ class Seeker < ActiveRecord::Base
   belongs_to :organization
 
   attr_accessor :new_note
-  attr_accessor :current_broker
+  attr_accessor :current_broker_id
 
   validates :login, presence: true, uniqueness: true
 
@@ -60,7 +60,7 @@ class Seeker < ActiveRecord::Base
   def add_new_note
     return unless new_note.present?
 
-    Note.create!(seeker_id: id, broker_id: current_broker.id, message: new_note)
+    Note.create!(seeker_id: id, broker_id: current_broker_id, message: new_note)
   end
 
   def adjust_todo

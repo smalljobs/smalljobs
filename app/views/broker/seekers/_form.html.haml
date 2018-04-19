@@ -54,6 +54,7 @@
             %br
             = note.message
       = f.input :new_note, label: false, as: :text
+      = f.input :current_broker_id, label: false, input_html: {value: "#{current_broker.id}", class: 'display-none'}
 
   %fieldset
     .form-inputs
