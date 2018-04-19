@@ -12,6 +12,9 @@ class Provider < ActiveRecord::Base
 
   has_many :todos
 
+  attr_accessor :new_note
+  attr_accessor :current_broker_id
+
   before_save :nullify_blank_email
 
   validates :firstname, :lastname, presence: true
@@ -38,6 +41,14 @@ class Provider < ActiveRecord::Base
   after_save :adjust_todo
 
   validate :unique_email
+
+  after_save :add_new_note
+
+  def add_new_note
+    return unless new_note.present?
+
+    Note.create!(provider_id: id, broker_id: current_broker_id, message: new_note)
+  end
 
   def adjust_todo
     Todo.where(record_type: :provider, record_id: id).find_each &:destroy!

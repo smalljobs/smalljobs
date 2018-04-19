@@ -85,7 +85,7 @@ class Broker::ProvidersController < InheritedResources::Base
   end
 
   def permitted_params
-    params.permit(provider: %i[id username password password_confirmation firstname lastname street place_id email phone mobile contact_preference contact_availability active confirmed organization_id notes company state contract])
+    params.permit(provider: %i[new_note current_broker_id id username password password_confirmation firstname lastname street place_id email phone mobile contact_preference contact_availability active confirmed organization_id notes company state contract])
   end
 
 end

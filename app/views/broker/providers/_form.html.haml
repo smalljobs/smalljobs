@@ -39,16 +39,26 @@
 
   %fieldset
     .form-inputs
-      %div.control-group.text.optional
-        %label.text.optional{for: "notes-textarea"}
-        %p
-          = "Hier Thread mit vergangenen Benachrichtigungen:"
-        %div.controls
-          %textarea.text.optional.form-control{id: "notes-textarea"}
-          -#%a.btn.btn-success
+      %p.bold
+        = "Notizen (nur intern sichtbar)"
+      %p
+        = "Hier Thread mit vergangenen Benachrichtigungen:"
+      - unless @provider.new_record?
+        - Note.where(seeker_id: @provider.id).find_each do |note|
+          %p
+            = note.created_at.strftime("%Y-%m-%d %H:%M")
+            = note.broker.name
+            %br
+            = note.message
+      = f.input :new_note, label: false, as: :text
+      = f.input :current_broker_id, label: false, input_html: {value: "#{current_broker.id}", class: 'display-none'}
+
+  %fieldset
+    .form-inputs
       -#= f.input :notes, label: "Notizen (nur intern sichtbar)"
       = f.input :street, required: true
       = f.association :place, required: true, collection: current_broker.places.order(:name, :zip), label_method: :full_name, include_blank: true
+
 
   %fieldset
     %legend
