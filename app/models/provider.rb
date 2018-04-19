@@ -42,7 +42,7 @@ class Provider < ActiveRecord::Base
 
   validate :unique_email
 
-  after_save :add_new_note
+  # after_save :add_new_note
 
   def add_new_note
     return unless new_note.present?
