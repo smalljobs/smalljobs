@@ -177,6 +177,7 @@ module ApiHelper
     json[:firstname] = provider.firstname
     json[:lastname] = provider.lastname
     json[:phone] = provider.phone
+    json[:mobile] = provider.mobile
     json[:street] = provider.street
     json[:place] = place_to_json(provider.place)
     return json
