@@ -24,7 +24,7 @@
         - seekers_collection.append(seeker)
     - seekers_collection.sort! { |a,b| a.name.downcase <=> b.name.downcase}
     - seekers_collection.unshift(Seeker.new(firstname: "Jugendliche"))
-    = f.input :seekers, collection: seekers_collection, include_blank: false
+    = f.input :seekers, collection: seekers_collection, include_blank: false, label: false
   %ul.allocations-list
     - for allocation in allocations
       %li.allocations-list-item
