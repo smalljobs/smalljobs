@@ -8,9 +8,9 @@
           - for organization in current_broker.all_organizations
             %option{value: "#{organization.id}"}
               = organization.name
-    %div.col-sm-2
+    %div.col-sm-2.float-left
       %input.form-control.search{type: 'text', id: 'search-field', placeholder: 'Suche'}
-    %div.col-sm-1
+    %div.col-sm-1.float-left
       %a{href: '#', id: 'clear-btn', style: 'display: none'}
         %i.fa.fa-close.fa-3x
 
