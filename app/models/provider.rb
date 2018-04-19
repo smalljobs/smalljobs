@@ -46,6 +46,8 @@ class Provider < ActiveRecord::Base
 
   def add_new_note
     return unless new_note.present?
+    return unless current_broker_id.present?
+    return if current_broker_id.empty?
 
     Note.create!(provider_id: id, broker_id: current_broker_id, message: new_note)
   end
