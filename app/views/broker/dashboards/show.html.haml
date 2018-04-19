@@ -84,15 +84,15 @@
 
     %div{id: 'jobs', class: 'tab-pane fade in'}
       %div.row.margin-top-25
-        %div.col-md-6
+        %div.col-sm-2.float-left
           = link_to t('broker.jobs.index.add_new'), new_broker_job_path, class: 'btn btn-success'
-        %div.col-md-2
-          %a.btn.contract-btn{href: "#", "data-toggle": "modal", "data-target": "#jobFormModal"}
-            = "Job Formular"
-        %div.col-md-2
+        %div.col-md-2.float-right
+        %div.col-sm-2.float-right
           %a.btn.archive-btn
-            = "Archiv"
-        %div.col-md-2
+          = "Archiv"
+        %div.col-sm-2.float-right
+          %a.btn.contract-btn{href: "#", "data-toggle": "modal", "data-target": "#jobFormModal"}
+          = "Job Formular"
       .table-responsive
         %table.table.table-striped.sortable
           %thead
@@ -133,13 +133,13 @@
                   = job.short_description
     %div{id: 'providers', class: 'tab-pane fade in'}
       %div.row.margin-top-25
-        %div.col-md-6
+        %div.col-sm-2.float-left
           = link_to t('providers.index.add_new'), new_broker_provider_path, class: 'btn btn-success'
-        %div.col-md-2
-        %div.col-md-2
+        %div.col-sm-2.float-right
+        %div.col-sm-2.float-right
           %a.btn.archive-btn
-            = "Archiv"
-        %div.col-md-2
+          = "Archiv"
+        %div.col-sm-2.float-right
       .table-responsive
         %table.table.table-striped.sortable
           %thead
@@ -180,13 +180,13 @@
                   = provider.company
     %div{id: 'seekers', class: 'tab-pane fade in'}
       %div.row.margin-top-25
-        %div.col-md-6
+        %div.col-sm-2.float-left
           = link_to t('seekers.index.add_new'), new_broker_seeker_path, class: 'btn btn-success'
-        %div.col-md-2
-        %div.col-md-2
+        %div.col-sm-2.float-right
+        %div.col-sm-2.float-right
           %a.btn.archive-btn
-            = "Archiv"
-        %div.col-md-2
+          = "Archiv"
+        %div.col-sm-2.float-right
       .table-responsive
         %table.table.table-striped.sortable
           %thead
