@@ -12,7 +12,8 @@
       - allocations = job.allocations.includes(:seeker)
       - for allocation in allocations
         %li.allocations-list-item
-          = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
+          %p
+            = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
     %br
 
 - jobs = @provider.jobs.where(state: 'public')
@@ -24,7 +25,8 @@
       - allocations = job.allocations.includes(:seeker)
       - for allocation in allocations
         %li.allocations-list-item
-          = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
+          %p
+            = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
 
     %br
 
@@ -37,7 +39,8 @@
       - allocations = job.allocations.includes(:seeker)
       - for allocation in allocations
         %li.allocations-list-item
-          = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
+          %p
+            = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
     %br
 
 - jobs = @provider.jobs.where(state: 'feedback')
@@ -49,7 +52,8 @@
       - allocations = job.allocations.includes(:seeker)
       - for allocation in allocations
         %li.allocations-list-item
-          = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
+          %p
+            = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
     %br
 
 - jobs = @provider.jobs.where(state: 'finished')
@@ -61,5 +65,6 @@
       - allocations = job.allocations.includes(:seeker)
       - for allocation in allocations
         %li.allocations-list-item
-          = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
+          %p
+            = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
     %br
