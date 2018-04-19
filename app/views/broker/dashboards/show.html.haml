@@ -1,9 +1,4 @@
-%h2
-  = t('broker_dashboard.title')
-  = current_broker.firstname
-
 %div{id: 'dashboard'}
-
   %div.row
     %div.col-sm-3
       %div.dropdown
@@ -13,17 +8,6 @@
           - for organization in current_broker.all_organizations
             %option{value: "#{organization.id}"}
               = organization.name
-        -#%button.btn.btn-default.dropdown-toggle{type: 'dropdown', 'data-toggle': 'dropdown', id: 'dropdown-btn'}
-        -#  = "Alle Organisationen"
-        -#  %span.caret
-        -#%ul.dropdown-menu
-        -#  %li
-        -#    %a.organization-dropdown{href: '#', 'data-value': '0'}
-        -#      = "Alle Organisationen"
-        -#  - for organization in current_broker.all_organizations
-        -#    %li
-        -#      %a.organization-dropdown{href: '#', 'data-value': "#{organization.id}"}
-        -#        = organization.name
     %div.col-sm-2
       %input.form-control.search{type: 'text', id: 'search-field', placeholder: 'Suche'}
     %div.col-sm-1
