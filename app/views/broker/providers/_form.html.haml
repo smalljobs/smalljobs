@@ -44,7 +44,7 @@
       %p
         = "Hier Thread mit vergangenen Benachrichtigungen:"
       - unless @provider.new_record?
-        - Note.where(seeker_id: @provider.id).find_each do |note|
+        - Note.where(provider_id: @provider.id).find_each do |note|
           %p
             = note.created_at.strftime("%Y-%m-%d %H:%M")
             = note.broker.name
