@@ -164,6 +164,7 @@
       font-size: 12px;
       font-weight: 700;
       margin-top: 7px;
+      margin-left: 37px;
     }
 
     p.page2-secondrow {
@@ -211,7 +212,7 @@
       border: 5px solid #07b571;
     }
 
-    .center.qr img {
+    .center-qr img {
       left: 50%;
       top: 50%;
       position: absolute;
@@ -397,10 +398,24 @@
     .col1 {
       width: 19%;
       float: left;
+      font-size: large;
+      font-weight: bold;
     }
 
     .col2 {
       width: 80%;
+      float: left;
+      font-size: large;
+    }
+
+    .col1-qr {
+      width: 39%;
+      float: left;
+      font-size: small;
+    }
+
+    .col2-qr {
+      width: 60%;
       float: left;
     }
 
@@ -477,7 +492,7 @@
   </div>
 
   <div class="row-w">
-    <div class="col1">
+    <div class="col1-qr">
       Mit Arbeitsbeginn sind Jugendliche und
       Arbeitgebende mit den smallJobs Richtlinien
       einverstanden (siehe Seite 2)
@@ -487,11 +502,12 @@
       Bitte Arbeitsstunden von Hand
       aufschreiben
     </div>
-    <div class="col2">
+    <div class="col2-qr">
       <div class="border-qr">
       <img id="qr" src="<%= @qrcode.to_data_url %>">
       </div>
     </div>
+    <div class="clear-both"></div>
   </div>
 
   <p><b>2.</b></p>
@@ -501,7 +517,7 @@
     <div class="clear-both"></div>
   </div>
 
-  <p><b>2.</b></p>
+  <p><b>3.</b></p>
   <div class="row-w">
     <div class="col1">Jugendliche_r:</div>
     <div class="col2">
