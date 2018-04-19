@@ -84,13 +84,13 @@
 
     %div{id: 'jobs', class: 'tab-pane fade in'}
       %div.row.margin-top-25
-        %div.col-sm-2.float-left
+        %div.col-sm-2
           = link_to t('broker.jobs.index.add_new'), new_broker_job_path, class: 'btn btn-success'
-        %div.col-md-2.float-right
-        %div.col-sm-2.float-right
+        %div.col-sm-2
+        %div.col-sm-2
           %a.btn.archive-btn
           = "Archiv"
-        %div.col-sm-2.float-right
+        %div.col-sm-2
           %a.btn.contract-btn{href: "#", "data-toggle": "modal", "data-target": "#jobFormModal"}
           = "Job Formular"
       .table-responsive
