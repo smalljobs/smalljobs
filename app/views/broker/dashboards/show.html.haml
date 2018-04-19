@@ -84,15 +84,15 @@
 
     %div{id: 'jobs', class: 'tab-pane fade in'}
       %div.row.margin-top-25
-        %div.col-sm-2
+        %div.col-sm-2.float-left
           = link_to t('broker.jobs.index.add_new'), new_broker_job_path, class: 'btn btn-success'
-        %div.col-sm-2
-        %div.col-sm-2
+        %div.col-sm-2.float-right
+        %div.col-sm-2.float-right
           %a.btn.archive-btn
-          = "Archiv"
-        %div.col-sm-2
+            = "Archiv"
+        %div.col-sm-2.float-right
           %a.btn.contract-btn{href: "#", "data-toggle": "modal", "data-target": "#jobFormModal"}
-          = "Job Formular"
+            = "Job Formular"
       .table-responsive
         %table.table.table-striped.sortable
           %thead
@@ -138,7 +138,7 @@
         %div.col-sm-2.float-right
         %div.col-sm-2.float-right
           %a.btn.archive-btn
-          = "Archiv"
+            = "Archiv"
         %div.col-sm-2.float-right
       .table-responsive
         %table.table.table-striped.sortable
@@ -185,7 +185,7 @@
         %div.col-sm-2.float-right
         %div.col-sm-2.float-right
           %a.btn.archive-btn
-          = "Archiv"
+            = "Archiv"
         %div.col-sm-2.float-right
       .table-responsive
         %table.table.table-striped.sortable
