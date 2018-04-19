@@ -375,7 +375,8 @@
         $('.organization-' + id).removeClass('display-none');
       }
 
-      $('#dropdown-btn').text($('.organization-dropdown[data-value="' + id + '"]').text());
+      $('#dropdown-btn').val(id);
+      // $('#dropdown-btn').text($('.organization-dropdown[data-value="' + id + '"]').text());
     }
 
     $('.nav-pills a').on('shown.bs.tab', function (e) {
@@ -398,8 +399,8 @@
       setHelp();
     });
 
-    $('.organization-dropdown').click(function(){
-      var id = $(this).attr('data-value');
+    $('#dropdown-btn').on('change', function(){
+      var id = this.value;
       selectedOrganizationId = id;
       if(id === '0') {
         $('.display-none.organization').removeClass('display-none');
@@ -408,8 +409,6 @@
         $('.organization').addClass('display-none');
         $('.organization-' + id).removeClass('display-none');
       }
-
-      $('#dropdown-btn').text($(this).text());
     });
 
     var options = {
