@@ -90,7 +90,7 @@
           %a.btn.contract-btn{href: "#", "data-toggle": "modal", "data-target": "#jobFormModal"}
             = "Job Formular"
         %div.col-md-2
-          %a.btn.contract-btn.archive-btn
+          %a.btn.archive-btn
             = "Archiv"
         %div.col-md-2
       .table-responsive
@@ -137,7 +137,7 @@
           = link_to t('providers.index.add_new'), new_broker_provider_path, class: 'btn btn-success'
         %div.col-md-2
         %div.col-md-2
-          %a.btn.contract-btn.archive-btn
+          %a.btn.archive-btn
             = "Archiv"
         %div.col-md-2
       .table-responsive
@@ -184,7 +184,7 @@
           = link_to t('seekers.index.add_new'), new_broker_seeker_path, class: 'btn btn-success'
         %div.col-md-2
         %div.col-md-2
-          %a.btn.contract-btn.archive-btn
+          %a.btn.archive-btn
             = "Archiv"
         %div.col-md-2
       .table-responsive
@@ -298,8 +298,10 @@
       finishedVisible = !finishedVisible;
       if(finishedVisible) {
         hideActive();
+        $('.archive-btn').addClass('.archive-btn-selected');
       } else {
         hideFinished();
+        $('.archive-btn').removeClass('.archive-btn-selected');
       }
     });
 
