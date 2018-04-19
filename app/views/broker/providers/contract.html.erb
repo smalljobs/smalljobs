@@ -205,6 +205,12 @@
       top: 150px;
     }
 
+    .border-qr {
+      width: 174px;
+      height: 174px;
+      border: 5px solid #07b571;
+    }
+
     .center.qr img {
       left: 50%;
       top: 50%;
@@ -385,6 +391,7 @@
 
     .row-w {
       width: 100%;
+      margin-left: 37px;
     }
 
     .col1 {
@@ -481,7 +488,9 @@
       aufschreiben
     </div>
     <div class="col2">
+      <div class="border-qr">
       <img id="qr" src="<%= @qrcode.to_data_url %>">
+      </div>
     </div>
   </div>
 
