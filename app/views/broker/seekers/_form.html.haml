@@ -42,8 +42,17 @@
 
   %fieldset
     .form-inputs
-      %legend
+      %p
         = "Notizen (nur intern sichtbar)"
+      %p
+        = "Hier Thread mit vergangenen Benachrichtigungen:"
+      - unless @seeker.new_record?
+        - Note.where(seeker_id: @seeker.id).find_each do |note|
+          %p
+            = note.created_at
+            = note.broker.name
+            %br
+            = note.message
       = f.input :new_note, label: false, as: :text
 
   %fieldset

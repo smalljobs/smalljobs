@@ -54,6 +54,14 @@ class Seeker < ActiveRecord::Base
 
   before_save :send_activation_message, if: proc { |s| s.status_changed? && s.active?}
 
+  after_save :add_new_note
+
+  def add_new_note
+    return unless new_note.present?
+
+    Note.create!(seeker_id: id, broker_id: current_broker.id, message: new_note)
+  end
+
   def adjust_todo
     Todo.where(record_type: :seeker, record_id: id).find_each &:destroy!
     Todotype.seeker.find_each do |todotype|
