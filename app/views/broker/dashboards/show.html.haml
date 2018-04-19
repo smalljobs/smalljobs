@@ -443,8 +443,12 @@
     loadSortedColumn();
 
     window.addEventListener("beforeunload", function (event) {
+      var searchFieldVal = $('#search-field').val();
+      if(searchFieldVal === null) {
+        searchFieldVal = '';
+      }
       window.localStorage.setItem("search_filter", $('#search-field').val());
-      $.post("#{save_settings_broker_dashboard_path}", {filter: $('#search-field').val(), selected_organization_id: parseInt(selectedOrganizationId)}, function(response) {
+      $.post("#{save_settings_broker_dashboard_path}", {filter: searchFieldVal, selected_organization_id: parseInt(selectedOrganizationId)}, function(response) {
       });
     });
   });
