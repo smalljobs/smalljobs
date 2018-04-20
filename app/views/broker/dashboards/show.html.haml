@@ -8,9 +8,9 @@
           - for organization in current_broker.all_organizations
             %option{value: "#{organization.id}"}
               = organization.name
-    %div.col-sm-2.float-left
+    %div.col-sm-2.float-left.display-none
       %input.form-control.search{type: 'text', id: 'search-field', placeholder: 'Suche'}
-    %div.col-sm-1.float-left
+    %div.col-sm-1.float-left.display-none
       %a.pointer{id: 'clear-btn', style: 'display: none'}
         %i.fa.fa-close.fa-3x
 
@@ -87,6 +87,7 @@
         %div.col-sm-2.float-left
           = link_to t('broker.jobs.index.add_new'), new_broker_job_path, class: 'btn btn-success'
         %div.col-sm-2.float-right
+          %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
         %div.col-sm-2.float-right
           %a.btn.archive-btn.btn-success
             = "Archiv"
@@ -136,6 +137,7 @@
         %div.col-sm-2.float-left
           = link_to t('providers.index.add_new'), new_broker_provider_path, class: 'btn btn-success'
         %div.col-sm-2.float-right
+          %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
         %div.col-sm-2.float-right
           %a.btn.archive-btn.btn-success
             = "Archiv"
@@ -183,6 +185,7 @@
         %div.col-sm-2.float-left
           = link_to t('seekers.index.add_new'), new_broker_seeker_path, class: 'btn btn-success'
         %div.col-sm-2.float-right
+          %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
         %div.col-sm-2.float-right
           %a.btn.archive-btn.btn-success
             = "Archiv"
@@ -412,7 +415,7 @@
     var assignmentsList = new List('assignments', options);
     var todosList = new List('todo', options);
 
-    $('#search-field').on('keyup', function() {
+    $('.search-field').on('keyup', function() {
       var searchString = $(this).val();
       if(searchString !== "") {
         $('#clear-btn').css('display', 'initial');
