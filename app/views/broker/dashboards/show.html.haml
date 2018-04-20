@@ -49,6 +49,9 @@
 
   %div.tab-content
     %div{id: 'todo', class: 'tab-pane fade in active'}
+      %div.row.margin-top-25
+        %div.col-sm-3.float-right
+          %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
       .table-responsive
         %table.table.table-striped.sortable
           %thead
@@ -86,9 +89,9 @@
       %div.row.margin-top-25
         %div.col-sm-2.float-left
           = link_to t('broker.jobs.index.add_new'), new_broker_job_path, class: 'btn btn-success'
-        %div.col-sm-2.float-right
+        %div.col-sm-3.float-right
           %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
-        %div.col-sm-2.float-right
+        %div.col-sm-1.float-right
           %a.btn.archive-btn.btn-success
             = "Archiv"
         %div.col-sm-2.float-right
@@ -136,9 +139,9 @@
       %div.row.margin-top-25
         %div.col-sm-2.float-left
           = link_to t('providers.index.add_new'), new_broker_provider_path, class: 'btn btn-success'
-        %div.col-sm-2.float-right
+        %div.col-sm-3.float-right
           %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
-        %div.col-sm-2.float-right
+        %div.col-sm-1.float-right
           %a.btn.archive-btn.btn-success
             = "Archiv"
         %div.col-sm-2.float-right
@@ -184,9 +187,9 @@
       %div.row.margin-top-25
         %div.col-sm-2.float-left
           = link_to t('seekers.index.add_new'), new_broker_seeker_path, class: 'btn btn-success'
-        %div.col-sm-2.float-right
+        %div.col-sm-3.float-right
           %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
-        %div.col-sm-2.float-right
+        %div.col-sm-1.float-right
           %a.btn.archive-btn.btn-success
             = "Archiv"
         %div.col-sm-2.float-right
@@ -232,6 +235,9 @@
                 %td.languages.display-none
                   = seeker.languages
     %div{id: 'assignments', class: 'tab-pane fade in'}
+      %div.row.margin-top-25
+        %div.col-sm-3.float-right
+          %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
       .table-responsive
         %table.table.table-striped.sortable
           %thead
@@ -417,11 +423,12 @@
 
     $('.search-field').on('keyup', function() {
       var searchString = $(this).val();
-      if(searchString !== "") {
-        $('#clear-btn').css('display', 'initial');
-      } else {
-        $('#clear-btn').css('display', 'none');
-      }
+      // if(searchString !== "") {
+      //   $('#clear-btn').css('display', 'initial');
+      // } else {
+      //   $('#clear-btn').css('display', 'none');
+      // }
+      $('.search-field').val(searchString);
 
       jobsList.search(searchString);
       providersList.search(searchString);
@@ -446,11 +453,11 @@
     loadSortedColumn();
 
     window.addEventListener("beforeunload", function (event) {
-      var searchFieldVal = $('#search-field').val();
+      var searchFieldVal = $('.search-field').val();
       if(searchFieldVal === null) {
         searchFieldVal = '';
       }
-      window.localStorage.setItem("search_filter", $('#search-field').val());
+      window.localStorage.setItem("search_filter", $('.search-field').val());
       $.post("#{save_settings_broker_dashboard_path}", {filter: searchFieldVal, selected_organization_id: parseInt(selectedOrganizationId)}, function(response) {
       });
     });
