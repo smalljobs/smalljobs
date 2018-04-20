@@ -78,7 +78,8 @@
     .bottom.right {
       position: absolute;
       display: inline-block;
-      bottom: 0px;
+      bottom: 26px;
+      padding-right: 37px;
       right: 0px;
       font-size: 12px;
       font-weight: normal;
@@ -94,7 +95,7 @@
     }
 
     p.org-name {
-      margin-top: 172px;
+      margin-top: 176px;
       font-size: 15px;
       font-weight: 400;
       margin-left: 93px;
@@ -111,8 +112,12 @@
 
     p.letter-start {
       margin-left: 93px;
-      margin-top: 56px;
+      margin-top: 140px;
       font-size: 15px;
+      position: absolute;
+      line-height: 1.44;
+      top: 307px;
+      left: 0;
     }
 
     p.second-paragraph {
@@ -143,14 +148,20 @@
     }
 
     p.sign-dots {
-      margin-top: 0px;
+      margin-top: 65px;
       font-size: 15px;
+      position: absolute;
+      top: 760px;
+      left: 0;
     }
 
     p.sign-data {
       margin-top: -5px;
       font-size: 15px;
+      position: absolute;
       line-height: 1.4;
+      top: 859px;
+      left: 0;
     }
 
     p.page2-firstrow {
@@ -172,6 +183,7 @@
       margin-top: -6px;
       font-size: 14px;
       font-weight: 700;
+      margin-bottom: 36px;
     }
 
     p.sign-par {
@@ -235,7 +247,7 @@
       margin-left: 37px;
       font-size: 21px;
       font-weight: 700;
-      margin-top: 368px;
+      margin-top: 388px;
       margin-bottom: 5px;
     }
 
@@ -243,7 +255,7 @@
       margin-left: 37px;
       font-size: 21px;
       font-weight: 700;
-      margin-top: 35px;
+      margin-top: 45px;
     }
 
     #page3 ol {
@@ -313,8 +325,7 @@
 
     #page3 table tr td {
       border: 1px solid #cbe7d5;
-      padding: 3px;
-      padding: 15px 3px;
+      padding: 12px 3px;
       font-size: 13px;
       border-left: 0px !important;
       border-right: 0px !important;
@@ -323,6 +334,10 @@
     #page2 p {
       margin-right: 37px;
       margin-left: 37px;
+    }
+
+    #page2 p.large {
+      margin-bottom: 10px;
     }
 
     #page1 p {
@@ -362,7 +377,7 @@
       width: 100% !important;
       height: auto;
       display: block;
-      max-width: 860px;
+      max-width: 760px;
     }
 
     #page3 h1.first-header {
@@ -382,6 +397,7 @@
 
     #page2 h2 {
       position: absolute;
+      line-height: 1;
       z-index: 1;
       color: #fff;
       font-size: 40px;
@@ -398,7 +414,7 @@
     }
 
     .col1 {
-      width: 19%;
+      width: 18%;
       float: left;
       font-size: 20px;
       font-weight: bold;
@@ -419,7 +435,7 @@
     .col2-qr {
       width: 60%;
       float: left;
-      padding-left: 20px;
+      padding-left: 26px;
     }
 
     .clear-both {
@@ -463,7 +479,7 @@
   <% if @provider.organization.background.present? %>
       <img id="baner" src="<%= @provider.organization.background.url(:web) %>" width="100%" height="300mm">
   <% else %>
-      <img id="baner" src="<%= wicked_pdf_asset_base64 'header-pic.jpg' %>" width="100%" height="300mm">
+      <img id="baner" src="<%= wicked_pdf_asset_base64 'ParentalAgreement.jpg' %>" width="100%" height="300mm">
   <% end %>
   <h2>Sackgeldjobs<br/>
     <span>Arbeitsvertrag</span></h2>
