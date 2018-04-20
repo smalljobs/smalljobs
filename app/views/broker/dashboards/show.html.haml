@@ -344,13 +344,13 @@
 
       window.localStorage.setItem("search_filter", null);
 
-      $('#search-field').val(searchString);
+      $('.search-field').val(searchString);
 
-      if(searchString !== "") {
-        $('#clear-btn').css('display', 'initial');
-      } else {
-        $('#clear-btn').css('display', 'none');
-      }
+      // if(searchString !== "") {
+      //   $('#clear-btn').css('display', 'initial');
+      // } else {
+      //   $('#clear-btn').css('display', 'none');
+      // }
 
       jobsList.search(searchString);
       providersList.search(searchString);
