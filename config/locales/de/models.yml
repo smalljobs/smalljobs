@@ -157,6 +157,7 @@ de:
         organizations: "Organisationen"
         regions: "Regionen"
         employments: "Anstellungen"
+        update_prefs: "Benachrichtigung für Todos"
       provider:
         <<: *USER
         company: "Unternehmen"
