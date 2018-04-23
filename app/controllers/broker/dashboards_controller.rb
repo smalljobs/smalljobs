@@ -10,6 +10,7 @@ class Broker::DashboardsController < ApplicationController
     @hello = params[:archive]
     @hello2 = params['archive']
     @hello3 = params
+    @hello4 = permitted_params
     if params[:archive] == true || params[:archive] == 'true'
       @jobs = current_broker.jobs.where(state: 'finished').includes(:provider, :organization).group('jobs.id').order(:last_change_of_state).reverse_order()
       allocations = Allocation.where(job: @jobs).includes(:seeker)
