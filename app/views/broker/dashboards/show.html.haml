@@ -6,10 +6,6 @@
   - @hello3.each do |a, b|
     = a
     = b
-%p
-  - @hello4.each do |a, b|
-    = a
-    = b
 
 %div{id: 'dashboard'}
   %div.row
@@ -292,16 +288,18 @@
 
 :javascript
   var target = window.location.hash;
-  var params = window.location.hash.split('?')[1];
-  if(params === undefined) {
+  var params = window.location.search.substr(1);
+  if(params === undefined || params === null) {
     params = '';
+  } else {
+    params = '?' + params;
   }
 
-  target = target.split('?')[0].replace('#', '');
+  target = target.replace('#', '');
   if(target === '') {
     target = 'todo';
   }
-  // window.location.hash = "?" + params;
+  window.location.hash = '';
 
   $(document).ready(function(){
     $('.nav-pills a[href="#' + target + '"]').tab('show');
@@ -394,19 +392,19 @@
 
     $('.nav-pills a').on('shown.bs.tab', function (e) {
       var history_array = JSON.parse(sessionStorage.getItem('history') || '[]')
-      history_array.push(window.location.href.split('#')[0] + e.target.hash + '?' + params);
+      history_array.push(window.location.href.split('#')[0] + params + e.target.hash );
       sessionStorage.setItem('history', JSON.stringify(history_array))
 
       sessionStorage.setItem('previous', window.location.href);
       if(history.pushState) {
-        history.pushState(null, null, e.target.hash + '?' + params);
+        history.pushState(null, null, params + e.target.hash);
       }
       else {
-        location.hash = e.target.hash + '?' + params;
+        location.hash = e.target.hash;
       }
 
 
-      target = target.split('?')[0].replace('#', '');
+      target = e.target.hash.replace('#', '');
       loadSortedColumn();
       setHelp();
     });
