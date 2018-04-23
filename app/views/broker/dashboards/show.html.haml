@@ -279,7 +279,12 @@
 
 :javascript
   var target = window.location.hash;
-  target = target.replace('#', '');
+  var params = window.location.hash.split('?')[1];
+  if(params === nil) {
+    params = '';
+  }
+
+  target = target.split('?')[0].replace('#', '');
   if(target === '') {
     target = 'todo';
   }
@@ -388,8 +393,7 @@
       }
 
 
-      target = window.location.hash;
-      target = target.replace('#', '');
+      target = target.split('?')[0].replace('#', '');
       loadSortedColumn();
       setHelp();
     });
