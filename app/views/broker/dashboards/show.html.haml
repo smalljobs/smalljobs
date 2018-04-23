@@ -280,7 +280,7 @@
 :javascript
   var target = window.location.hash;
   var params = window.location.search.substr(1);
-  if(params === undefined || params === null) {
+  if(params === undefined || params === null || params === '') {
     params = '';
   } else {
     params = '?' + params;
@@ -298,17 +298,6 @@
 
     var selectedOrganizationId = 0;
     var finishedVisible = false;
-    hideFinished();
-
-    function hideFinished() {
-      $('.status-finished').addClass('display-none-st');
-      $('.status-active').removeClass('display-none-st');
-    }
-
-    function hideActive() {
-      $('.status-finished').removeClass('display-none-st');
-      $('.status-active').addClass('display-none-st');
-    }
 
     if(params.includes('archive=true')) {
       $('.archive-btn').addClass('archive-btn-selected');
