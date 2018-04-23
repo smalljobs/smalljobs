@@ -305,11 +305,11 @@
 
     $('.archive-btn').click(function(){
       if(params.includes('archive=true')) {
-        var newLocation = window.location.href.split('#')[0].replace('archive=true', '') + '#' + target;
+        var newLocation = window.location.href.split('#')[0].replace('?archive=true', '') + '#' + target;
         window.location.href = newLocation;
       } else {
         if(window.location.href.includes('?')) {
-          var newLocation = window.location.href.split('#')[0] + '&archive=true' + '#' + target;
+          var newLocation = window.location.href.split('#')[0] + 'archive=true' + '#' + target;
         } else {
           var newLocation = window.location.href.split('#')[0] + '?archive=true' + '#' + target;
         }
