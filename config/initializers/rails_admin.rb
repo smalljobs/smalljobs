@@ -197,6 +197,14 @@ RailsAdmin.config do |config|
       field :name
       field :subdomain
       field :places
+
+      group :design do
+        label I18n.t('admin.groups.design')
+
+        field :logo do
+          help I18n.t('admin.format.logo')
+        end
+      end
     end
   end
 
