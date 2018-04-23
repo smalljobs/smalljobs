@@ -280,7 +280,7 @@
 :javascript
   var target = window.location.hash;
   var params = window.location.hash.split('?')[1];
-  if(params === nil) {
+  if(params === null) {
     params = '';
   }
 
@@ -381,15 +381,15 @@
 
     $('.nav-pills a').on('shown.bs.tab', function (e) {
       var history_array = JSON.parse(sessionStorage.getItem('history') || '[]')
-      history_array.push(window.location.href.split('#')[0] + e.target.hash);
+      history_array.push(window.location.href.split('#')[0] + e.target.hash + params);
       sessionStorage.setItem('history', JSON.stringify(history_array))
 
       sessionStorage.setItem('previous', window.location.href);
       if(history.pushState) {
-        history.pushState(null, null, e.target.hash);
+        history.pushState(null, null, e.target.hash + params);
       }
       else {
-        location.hash = e.target.hash;
+        location.hash = e.target.hash + params;
       }
 
 
