@@ -1,12 +1,3 @@
-%p
-  = @hello
-%p
-  = @hello2
-%p
-  - @hello3.each do |a, b|
-    = a
-    = b
-
 %div{id: 'dashboard'}
   %div.row
     %div.col-sm-3
@@ -319,14 +310,22 @@
       $('.status-active').addClass('display-none-st');
     }
 
+    if(params.includes('archive=true')) {
+      $('.archive-btn').addClass('archive-btn-selected');
+    }
+
     $('.archive-btn').click(function(){
-      finishedVisible = !finishedVisible;
-      if(finishedVisible) {
-        hideActive();
-        $('.archive-btn').addClass('archive-btn-selected');
+      if(params.includes('archive=true')) {
+        var newLocation = window.location.href.replace('archive=true', '') + '#' + target;
+        window.location.href = newLocation;
       } else {
-        hideFinished();
-        $('.archive-btn').removeClass('archive-btn-selected');
+        if(window.location.href.includes('?')) {
+          var newLocation = window.location.href + '&archive=true' + '#' + target;
+        } else {
+          var newLocation = window.location.href + '?archive=true' + '#' + target;
+        }
+
+        window.location.href = newLocation;
       }
     });
 
@@ -392,7 +391,7 @@
 
     $('.nav-pills a').on('shown.bs.tab', function (e) {
       var history_array = JSON.parse(sessionStorage.getItem('history') || '[]')
-      history_array.push(window.location.href.split('#')[0] + params + e.target.hash );
+      history_array.push(window.location.href.split('#')[0] + e.target.hash );
       sessionStorage.setItem('history', JSON.stringify(history_array))
 
       sessionStorage.setItem('previous', window.location.href);
