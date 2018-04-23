@@ -297,7 +297,7 @@
   if(target === '') {
     target = 'todo';
   }
-  window.location.hash = "";
+  window.location.hash = "?" + params;
 
   $(document).ready(function(){
     $('.nav-pills a[href="#' + target + '"]').tab('show');
