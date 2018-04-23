@@ -280,7 +280,7 @@
 :javascript
   var target = window.location.hash;
   var params = window.location.hash.split('?')[1];
-  if(params === null) {
+  if(params === undefined) {
     params = '';
   }
 
