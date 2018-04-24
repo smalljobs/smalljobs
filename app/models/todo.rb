@@ -57,13 +57,13 @@ class Todo < ApplicationRecord
 
   def link(subdomain)
     if record_type == 'job'
-      url_for edit_broker_job_url(job, subdomain: subdomain)
+      Rails.application.routes.url_helpers.edit_broker_job_url(job, subdomain: subdomain)
     elsif record_type == 'provider'
-      url_for edit_broker_provider_url(provider, subdomain: subdomain)
+      Rails.application.routes.url_helpers.edit_broker_provider_url(provider, subdomain: subdomain)
     elsif record_type == 'seeker'
-      url_for edit_broker_seeker_url(seeker, subdomain: subdomain)
+      Rails.application.routes.url_helpers.edit_broker_seeker_url(seeker, subdomain: subdomain)
     elsif record_type == 'allocation'
-      url_for broker_job_allocation_url(job, seeker, subdomain: subdomain)
+      Rails.application.routes.url_helpers.broker_job_allocation_url(job, seeker, subdomain: subdomain)
     end
   end
 end
