@@ -34,10 +34,12 @@
     .form-inputs
       = f.input :logo, as: :image_preview, input_html: { preview_version: :web }
       -#- if @organization.logo.web.normal.file.exists?
-      = f.input :logo_delete, as: :boolean, inline_label: true, label: false
+      %i.fa.fa-2x.fa-trash-alt.delete-logo-icon
+      = f.input :logo_delete, as: :boolean, inline_label: true, label: false, input_html: {class: 'display-none'}
       = f.input :background, as: :image_preview, input_html: { preview_version: :web }
       -#- if @organization.background.file.exists?
-      = f.input :background_delete, as: :boolean, inline_label: true, label: false
+      %i.fa.fa-2x.fa-trash-alt.delete-bg-icon
+      = f.input :background_delete, as: :boolean, inline_label: true, label: false, input_html: {class: 'display-none'}
 
   %fieldset
     %legend

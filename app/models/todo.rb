@@ -57,13 +57,13 @@ class Todo < ApplicationRecord
 
   def link(subdomain)
     if record_type == 'job'
-      return edit_broker_job_url(job, subdomain: subdomain)
+      url_for edit_broker_job_url(job, subdomain: subdomain)
     elsif record_type == 'provider'
-      return edit_broker_provider_url(provider, subdomain: subdomain)
+      url_for edit_broker_provider_url(provider, subdomain: subdomain)
     elsif record_type == 'seeker'
-      return edit_broker_seeker_url(seeker, subdomain: subdomain)
+      url_for edit_broker_seeker_url(seeker, subdomain: subdomain)
     elsif record_type == 'allocation'
-      return broker_job_allocation_url(job, seeker, subdomain: subdomain)
+      url_for broker_job_allocation_url(job, seeker, subdomain: subdomain)
     end
   end
 end
