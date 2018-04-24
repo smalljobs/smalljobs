@@ -136,9 +136,10 @@
       position: absolute;
       z-index: 1;
       color: #000;
-      font-size: 42px;
+      font-size: 43px;
       left: 40px;
-      top: 20px;
+      top: 0;
+      font-weight: 600;
     }
 
     #page4 h2 span {
@@ -152,19 +153,30 @@
         top: 40px;
       }
 
-      #org-logo {
+      #org-logo-div {
         position: absolute;
         left: 20px;
-        top: 100px;
-        max-width: 50px;
+        top: 250px;
+        width: 50px;
+        height: 50px;
+        background-color: white;
       }
 
-      #region-logo {
+      #region-logo-div {
         position: absolute;
         left: 70px;
-        top: 100px;
+        top: 250px;
+        width: 50px;
         height: 50px;
+        background-color: white;
       }
+
+      #org-logo, #region-logo {
+        width: 100%;
+        height: auto;
+      }
+
+
   </style>
 </head>
 <body>
@@ -176,10 +188,14 @@
   <% end %>
   <img id="smalljobs-logo" src="<%= wicked_pdf_asset_base64 'sj-logo-white.png' %>">
   <% if @seeker.organization.logo.present? %>
-    <img id="org-logo" src="<%= @seeker.organization.logo.url(:web, :normal) %>">
+    <div id="org-logo-div">
+      <img id="org-logo" src="<%= @seeker.organization.logo.url(:web, :normal) %>">
+    </div>
   <% end %>
   <% if @seeker.organization.regions.first.logo.present? %>
-    <img id="region-logo" src="<%= @seeker.organization.regions.first.logo.url(:web, :normal) %>">
+    <div id="region-logo-div">
+      <img id="region-logo" src="<%= @seeker.organization.regions.first.logo.url(:web, :normal) %>">
+    </div>
   <% end %>
   <h2>
     Sackgeldjob-Börse<br/>
