@@ -347,7 +347,7 @@
 
     function checkSearchField() {
       var searchString = window.localStorage.getItem("search_filter");
-      if(searchString === null) {
+      if(searchString === null || searchString === 'null') {
         searchString = "#{current_broker.filter.nil? ? '' : current_broker.filter}";
       }
 
