@@ -272,3 +272,11 @@ div.textarea {
 .delete-icon:hover {
   cursor: pointer;
 }
+
+.logo-wrapper, .logo-wrapper img, .bg-wrapper, .bg-wrapper img {
+  position: relative;
+}
+
+.delete-bg-icon, .delete-logo-icon {
+  position: absolute;
+}

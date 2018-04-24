@@ -98,6 +98,10 @@
 
 :javascript
   $(document).ready(function(){
+    $('.organization_logo .controls').after('<div class="logo-wrapper"></div>');
+    $('.organization_logo .controls img').prependTo('.logo-wrapper');
     $('.organization_logo .controls img').after('<i class="fa fa-trash fa-2x delete-logo-icon"/>');
-    $('.organization_background .controls img').after('<i class="fa fa-trash fa-2x delete-logo-icon"/>');
+    $('.organization_background .controls').after('<div class="bg-wrapper"></div>');
+    $('.organization_background .controls img').prependTo('.bg-wrapper');
+    $('.organization_background .controls img').after('<i class="fa fa-trash fa-2x delete-bg-icon"/>');
   });
