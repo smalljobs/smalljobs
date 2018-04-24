@@ -81,7 +81,7 @@ ready = ->
       new_url = history_array.pop()
 
     sessionStorage.setItem('history', JSON.stringify(history_array))
-    if new_url == undefined
+    if new_url == undefined || new_url == 'undefined'
       window.location.href = new_url
     else
       window.location.href = '/broker/dashboard'
