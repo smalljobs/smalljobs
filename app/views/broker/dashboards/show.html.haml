@@ -52,6 +52,7 @@
       %div.row.margin-top-25
         %div.col-sm-3.float-right
           %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
+          %i.fas.fa-times-circle.delete-icon.display-none
       .table-responsive
         %table.table.table-striped.sortable
           %thead
@@ -350,11 +351,9 @@
 
       $('.search-field').val(searchString);
 
-      // if(searchString !== "") {
-      //   $('#clear-btn').css('display', 'initial');
-      // } else {
-      //   $('#clear-btn').css('display', 'none');
-      // }
+      if(searchString !== "") {
+        $('.delete-icon').removeClass('display-none');
+      }
 
       jobsList.search(searchString);
       providersList.search(searchString);
@@ -426,11 +425,11 @@
 
     $('.search-field').on('keyup', function() {
       var searchString = $(this).val();
-      // if(searchString !== "") {
-      //   $('#clear-btn').css('display', 'initial');
-      // } else {
-      //   $('#clear-btn').css('display', 'none');
-      // }
+      if(searchString !== "") {
+        $('.delete-icon').removeClass('display-none');
+      } else {
+        $('.delete-icon').addClass('display-none');
+      }
       $('.search-field').val(searchString);
 
       jobsList.search(searchString);
@@ -440,9 +439,9 @@
       todosList.search(searchString);
     });
 
-    $('#clear-btn').click(function(){
-      $('#search-field').val("");
-      $('#clear-btn').css('display', 'none');
+    $('.delete-icon').click(function(){
+      $('.search-field').val("");
+      $('.delete-icon').addClass('display-none');
       var searchString = "";
       jobsList.search(searchString);
       providersList.search(searchString);
