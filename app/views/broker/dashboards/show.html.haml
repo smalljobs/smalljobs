@@ -463,7 +463,7 @@
       if(searchFieldVal === null) {
         searchFieldVal = '';
       }
-      window.localStorage.setItem("search_filter", $('.search-field').val());
+      window.localStorage.setItem("search_filter", searchFieldVal);
       $.post("#{save_settings_broker_dashboard_path}", {filter: searchFieldVal, selected_organization_id: parseInt(selectedOrganizationId)}, function(response) {
       });
     });
