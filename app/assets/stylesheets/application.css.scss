@@ -262,3 +262,13 @@ div.textarea {
 .pointer:hover {
   cursor: pointer;
 }
+
+.delete-icon {
+  position: absolute;
+  top: 6px;
+  right: 20px;
+}
+
+.delete-icon:hover {
+  cursor: pointer;
+}
