@@ -85,7 +85,11 @@ class ApiController < ApplicationController
       user_params.except!(:zip)
     end
     
-    
+
+    parents_email = user_params[:parents_email]
+    # TODO
+    user.params.except!(parents_email)
+
     seeker = Seeker.new(user_params)
     seeker.status = 'inactive'
     if !seeker.save
@@ -772,7 +776,7 @@ class ApiController < ApplicationController
   end
 
   def register_params
-    params.permit(:zip, :phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id, :street, :sex, :categories)
+    params.permit(:parents_email, :zip, :phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id, :street, :sex, :categories)
   end
 
   def update_params
