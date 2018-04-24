@@ -54,4 +54,16 @@ class Todo < ApplicationRecord
       return 'JugendlicheR: ' + seeker.name + ', ' + 'Anbieterln: ' + provider.name + ', ' + 'Job: ' + job.title
     end
   end
+
+  def link(subdomain)
+    if record_type == 'job'
+      return edit_broker_job_url(job, subdomain: subdomain)
+    elsif record_type == 'provider'
+      return edit_broker_provider_url(provider, subdomain: subdomain)
+    elsif record_type == 'seeker'
+      return edit_broker_seeker_url(seeker, subdomain: subdomain)
+    elsif record_type == 'allocation'
+      return broker_job_allocation_path(job, seeker, subdomain: subdomain)
+    end
+  end
 end
