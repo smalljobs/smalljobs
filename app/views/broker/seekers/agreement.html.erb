@@ -138,7 +138,7 @@
       color: #000;
       font-size: 43px;
       left: 40px;
-      top: 0;
+      top: -20px;
       font-weight: 600;
     }
 
@@ -146,36 +146,49 @@
       font-weight: 400;
     }
 
-      #smalljobs-logo {
-        position: absolute;
-        right: 40px;
-        max-width: 50px;
-        top: 40px;
-      }
+    #smalljobs-logo {
+      position: absolute;
+      right: 40px;
+      width: 80px;
+      top: 200px;
+    }
 
-      #org-logo-div {
-        position: absolute;
-        left: 20px;
-        top: 250px;
-        width: 50px;
-        height: 50px;
-        background-color: white;
-      }
+    #org-logo-div {
+      position: absolute;
+      left: 20px;
+      top: 300px;
+      width: 50px;
+      height: 50px;
+      background-color: white;
+    }
 
-      #region-logo-div {
-        position: absolute;
-        left: 70px;
-        top: 250px;
-        width: 50px;
-        height: 50px;
-        background-color: white;
-      }
+    #region-logo-div {
+      position: absolute;
+      left: 70px;
+      top: 300px;
+      width: 50px;
+      height: 50px;
+      background-color: white;
+    }
 
-      #org-logo, #region-logo {
-        width: 100%;
-        height: auto;
-      }
+    #org-logo {
+      height: 100%;
+      width: auto;
+    }
 
+    #region-logo {
+      width: 100%;
+      height: auto;
+    }
+
+    #bank {
+      width: 300px;
+      height: 100px;
+      position: absolute;
+      top: 250px;
+      background-color: white;
+      right: 0;
+    }
 
   </style>
 </head>
@@ -202,6 +215,9 @@
     <%= @seeker.organization.name %><br/>
     <span>Einverständnis zur Teilnahme</span>
   </h2>
+  <div id="bank">
+
+  </div>
   <h1 class="arbei">
     JugendlicheR:
   </h1>
