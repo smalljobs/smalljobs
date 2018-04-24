@@ -143,25 +143,45 @@
     #page4 h2 span {
       font-weight: 400;
     }
+
+      #smalljobs-logo {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+      }
+
+      #org-logo {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+      }
+
+      #region-logo {
+        position: absolute;
+        left: 50px;
+        bottom: 0;
+      }
   </style>
 </head>
 <body>
 <div id="page4" class="alwaysbreak page">
   <% if @seeker.organization.background.present? %>
-      <img id="baner" src="<%= @seeker.organization.background.url(:web) %>" width="100%" height="300mm">
+    <img id="baner" src="<%= @seeker.organization.background.url(:web) %>" width="100%" height="300mm">
   <% else %>
-      <img id="baner" src="<%= wicked_pdf_asset_base64 'ParentalAgreement.jpg' %>" width="100%" height="300mm">
+    <img id="baner" src="<%= wicked_pdf_asset_base64 'ParentalAgreement.jpg' %>" width="100%" height="300mm">
+  <% end %>
+  <img id="smalljobs-logo" src="<%= wicked_pdf_asset_base64 'sj-logo-white.png' %>">
+  <% if @seeker.organization.logo.present? %>
+    <img id="org-logo" src="<%= @seeker.organization.logo.url(:web, :normal) %>">
+  <% end %>
+  <% if @seeker.organization.regions.first.logo.present? %>
+    <img id="region-logo" src="<%= @seeker.organization.regions.first.logo.url(:web, :normal) %>">
   <% end %>
   <h2>
     Sackgeldjob-Börse<br/>
     <%= @seeker.organization.name %><br/>
     <span>Einverständnis zur Teilnahme</span>
   </h2>
-  <% if @seeker.organization.logo.present? %>
-      <img id="logo-white" src="<%= @seeker.organization.logo.url(:web, :normal) %>">
-  <% else %>
-      <img id="logo-white" src="<%= wicked_pdf_asset_base64 'sj-logo-white.png' %>">
-  <% end %>
   <h1 class="arbei">
     JugendlicheR:
   </h1>
