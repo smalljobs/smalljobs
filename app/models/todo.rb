@@ -63,7 +63,7 @@ class Todo < ApplicationRecord
     elsif record_type == 'seeker'
       return edit_broker_seeker_url(seeker, subdomain: subdomain)
     elsif record_type == 'allocation'
-      return broker_job_allocation_path(job, seeker, subdomain: subdomain)
+      return broker_job_allocation_url(job, seeker, subdomain: subdomain)
     end
   end
 end
