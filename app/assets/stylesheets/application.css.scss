@@ -279,4 +279,10 @@ div.textarea {
 
 .delete-bg-icon, .delete-logo-icon {
   position: absolute;
+  bottom: 0;
+  color: #18bc9c;
+}
+
+.delete-bg-icon:hover, .delete-logo-icon:hover {
+  cursor: pointer;
 }

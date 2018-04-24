@@ -104,4 +104,14 @@
     $('.organization_background .controls').prepend('<div class="bg-wrapper"></div>');
     $('.organization_background .controls img').prependTo('.bg-wrapper');
     $('.organization_background .controls img').after('<i class="fa fa-trash fa-2x delete-bg-icon"/>');
+
+    $('.delete-logo-icon').click(function(){
+      $('#organization_logo_delete')[0].checked = true;
+      $('.logo-wrapper img').remove();
+    });
+
+    $('.delete-bg-icon').click(function(){
+      $('#organization_background_delete')[0].checked = true;
+      $('.bg-wrapper img').remove();
+    });
   });
