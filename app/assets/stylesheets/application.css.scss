@@ -297,3 +297,7 @@ div.textarea {
 .margin-right-10 {
   margin-right: 10px;
 }
+
+table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after {
+  content: " \25B2\25BC"
+}
