@@ -12,10 +12,6 @@
 @import "partials/home";
 @import "bootstrap-select.min";
 
-table.sortable th.sortable:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after {
-  content: " \25B4\25BE"
-}
-
 table.sortable thead {
   background-color:#eee;
   color:#666666;
@@ -314,26 +310,26 @@ th.sortable span {
   display: none;
 }
 
-#provider-status {
+#provider_status {
   min-width: 92px;
 }
 
-#provider-date {
+#provider_date {
   min-width: 95px;
 }
 
-#job-status {
+#job_status {
   min-width: 92px;
 }
 
-#job-date {
+#job_date {
   min-width: 95px;
 }
 
-#seeker-status {
+#seeker_status {
   min-width: 92px;
 }
 
-#seeker-date {
+#seeker_date {
   min-width: 95px;
 }
