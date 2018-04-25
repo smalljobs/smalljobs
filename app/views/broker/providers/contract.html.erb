@@ -559,12 +559,12 @@
   <h2>Sackgeldjobs<br/>
     <span>Arbeitsvertrag</span></h2>
   <img id="smalljobs-logo" src="<%= wicked_pdf_asset_base64 'sj-logo-white.png' %>">
-  <% if @seeker.organization.logo.present? %>
+  <% if @provider.organization.logo.present? %>
     <div id="org-logo-div">
       <img id="org-logo" src="<%= @provider.organization.logo.url(:web, :normal) %>">
     </div>
   <% end %>
-  <% if @seeker.organization.regions.first.logo.present? %>
+  <% if @provider.organization.regions.first.logo.present? %>
     <div id="region-logo-div">
       <img id="region-logo" src="<%= @provider.organization.regions.first.logo.url(:web, :normal) %>">
     </div>
