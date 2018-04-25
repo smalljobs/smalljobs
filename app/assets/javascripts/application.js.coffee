@@ -80,11 +80,12 @@ ready = ->
     while(new_url == url)
       new_url = history_array.pop()
 
+    console.log(new_url)
     sessionStorage.setItem('history', JSON.stringify(history_array))
-    if new_url == undefined || new_url == 'undefined'
-      window.location.href = new_url
-    else
-      window.location.href = '/broker/dashboard'
+#    if new_url == undefined || new_url == 'undefined'
+#      window.location.href = new_url
+#    else
+#      window.location.href = '/broker/dashboard'
   );
 
   $('.notifications a.close').click(->
