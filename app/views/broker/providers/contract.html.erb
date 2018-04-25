@@ -452,6 +452,19 @@
       font-size: 20px;
     }
 
+    .col1-j {
+      width: 25%;
+      float: left;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .col2-j {
+      width: 72%;
+      float: left;
+      font-size: 20px;
+    }
+
     .col1-qr {
       width: 29%;
       float: left;
@@ -520,6 +533,10 @@
       right: 0;
       bottom: 0;
     }
+
+      #bg-text {
+        color: black;
+      }
   </style>
 </head>
 <body>
@@ -556,7 +573,7 @@
   <% else %>
       <img id="baner" src="<%= wicked_pdf_asset_base64 'ParentalAgreement.jpg' %>" width="100%" height="300mm">
   <% end %>
-  <h2>Sackgeldjobs<br/>
+  <h2 id="bg-text">Sackgeldjobs<br/>
     <span>Arbeitsvertrag</span></h2>
   <img id="smalljobs-logo" src="<%= wicked_pdf_asset_base64 'sj-logo-white.png' %>">
   <% if @provider.organization.logo.present? %>
@@ -588,8 +605,8 @@
 
   <p class="large"><b>1.</b></p>
   <div class="row-w">
-    <div class="col1">Jugendliche_r: ></div>
-    <div class="col2"><span>Diesen Code bei Arbeitsbeginn mit dem Scanner der Jugendapp<sup>*</sup>
+    <div class="col1-j">Jugendliche_r: ></div>
+    <div class="col2-j"><span>Diesen Code bei Arbeitsbeginn mit dem Scanner der Jugendapp<sup>*</sup>
       einlesen und Anweisungen in der App befolgen.</span></div>
     <div class="clear-both"></div>
   </div>
