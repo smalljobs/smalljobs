@@ -49,11 +49,12 @@
         - Note.where(seeker_id: @seeker.id).find_each do |note|
           %hr
           %p
-            %span.bold
+            %span.bold.margin-right-10
               = note.broker.name
             = note.created_at.strftime("%d.%m.%Y, %H:%M")
             %br
-            = note.message
+            %span.margin-top-25
+              = note.message
 
   %fieldset
     .form-inputs
