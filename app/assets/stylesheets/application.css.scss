@@ -238,14 +238,6 @@ div.textarea {
   height: 42px;
 }
 
-//.archive-btn:hover {
-//  background-color: #c0c0c0 !important;
-//}
-//
-//.archive-btn:visited {
-//  color: #18bc9c;
-//}
-
 .archive-btn-selected {
   background-color: #2c3e50 !important;
   color: #ffffff !important;
@@ -253,6 +245,7 @@ div.textarea {
 
 .archive-btn:hover {
   background-color: #EBF0F1;
+  color: #18bc9c;
 }
 
 .float-right {
