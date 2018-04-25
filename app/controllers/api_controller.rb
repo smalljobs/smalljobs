@@ -332,7 +332,7 @@ class ApiController < ApplicationController
     if allocation != nil
       if allocation.application_retracted?
         if !status_ok
-          render json: {code: 'jobs/incorrect_status', message: 'Job is not accepting applications'}, status: 406
+          render json: {code: 'jobs/incorrect_status', message: 'Der Job wurde leider in der Zwischenzeit deaktiviert oder vergeben.'}, status: 406
           return
         end
         allocation.state = :application_open
@@ -346,7 +346,7 @@ class ApiController < ApplicationController
     end
 
     if !status_ok
-      render json: {code: 'jobs/incorrect_status', message: 'Job is not accepting applications'}, status: 406
+      render json: {code: 'jobs/incorrect_status', message: 'Der Job wurde leider in der Zwischenzeit deaktiviert oder vergeben.'}, status: 406
       return
     end
 
