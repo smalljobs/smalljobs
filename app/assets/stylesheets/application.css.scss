@@ -298,6 +298,14 @@ div.textarea {
   margin-right: 10px;
 }
 
-table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after {
+table.sortable th.sortable:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after {
   content: " \25B2\25BC"
+}
+
+th.sorttable_sorted {
+  content: " \25BC"
+}
+
+th.sorttable_sorted_reverse {
+  content: " \25B2"
 }
