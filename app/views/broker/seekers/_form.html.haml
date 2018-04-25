@@ -40,21 +40,20 @@
       .form-inputs
         = f.input :discussion, label: false, inline_label: true
 
-  %fieldset
-    .form-inputs
-      %p.bold
-        = "Notizen (nur intern sichtbar)"
-      %p
-        = "Hier Thread mit vergangenen Benachrichtigungen:"
-      - unless @seeker.new_record?
-        - Note.where(seeker_id: @seeker.id).find_each do |note|
-          %p
-            = note.created_at.strftime("%Y-%m-%d %H:%M")
-            = note.broker.name
-            %br
-            = note.message
-      = f.input :new_note, label: false, as: :text
-      = f.input :current_broker_id, label: false, input_html: {value: "#{current_broker.id}", class: 'display-none'}
+  - unless @seeker.new_record?
+    %fieldset
+      .form-inputs
+        = f.input :new_note, label: false, as: :text
+        = f.input :current_broker_id, label: false, input_html: {value: "#{current_broker.id}", class: 'display-none'}
+        %button.btn.btn-success
+          = "Kommentieren"
+          - Note.where(seeker_id: @seeker.id).find_each do |note|
+            %hr
+            %p
+              = note.broker.name
+              = note.created_at.strftime("%Y-%m-%d %H:%M")
+              %br
+              = note.message
 
   %fieldset
     .form-inputs
