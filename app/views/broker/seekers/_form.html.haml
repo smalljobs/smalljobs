@@ -165,12 +165,14 @@
       $('#comment-btn').click(function(){
         var comment = $('#seeker_new_note').html();
         if(comment === '') {
-          return;
+          return false;
         }
 
         $.post("#{add_comment_broker_seeker_path(@seeker)}", {comment: comment}, function(response) {
           window.location.reload();
         });
+
+        return false;
       });
 
       function disableMessaging() {
