@@ -447,7 +447,7 @@
     }
 
     .col2 {
-      width: 80%;
+      width: 79%;
       float: left;
       font-size: 20px;
     }
@@ -520,6 +520,10 @@
       right: 0;
       bottom: 0;
     }
+
+      .col2 span {
+        padding-left: 10px;
+      }
   </style>
 </head>
 <body>
@@ -580,7 +584,7 @@
     Arbeitgeber_in:
   </h1>
   <p class="page2-firstrow">
-    <%= @provider.company != nil && !@provider.company.empty? ? ", (#{@provider.company})" : "" %><%= @provider.name %>
+    <%= @provider.company != nil && !@provider.company.empty? ? "#{@provider.company}, " : "" %><%= @provider.name %>
   </p>
   <p class="page2-secondrow">
     <%= @provider.street %>, <%= @provider.place.full_name %>
@@ -589,8 +593,8 @@
   <p class="large"><b>1.</b></p>
   <div class="row-w">
     <div class="col1">Jugendliche_r:</div>
-    <div class="col2">> Diesen Code bei Arbeitsbeginn mit dem Scanner der Jugendapp<sup>*</sup>
-      einlesen und Anweisungen in der App befolgen.</div>
+    <div class="col2">> <span>Diesen Code bei Arbeitsbeginn mit dem Scanner der Jugendapp<sup>*</sup>
+      einlesen und Anweisungen in der App befolgen.</span></div>
     <div class="clear-both"></div>
   </div>
 
@@ -636,6 +640,7 @@
       > Lohn in der App ablesen
     </div>
     <div class="clear-both"></div>
+    <br/>
     <div class="col1">Arbeitgeber_in:</div>
     <div class="col2">
       > Lohn auszahlen
