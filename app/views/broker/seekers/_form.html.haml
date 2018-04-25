@@ -41,12 +41,12 @@
         = f.input :discussion, label: false, inline_label: true
 
   - unless @seeker.new_record?
-    %fieldset
-      .form-inputs
-        = f.input :new_note, label: false, as: :text
-        = f.input :current_broker_id, label: false, input_html: {value: "#{current_broker.id}", class: 'display-none'}
-        %button.btn.btn-success
-          = "Kommentieren"
+    = simple_form_for([:broker, @seeker], html: { novalidate: false }) do |f2|
+      %fieldset
+        .form-inputs
+          = f2.input :new_note, label: false, as: :text
+          = f2.input :current_broker_id, label: false, input_html: {value: "#{current_broker.id}", class: 'display-none'}
+          = f2.button :submit, "Kommentieren", class: 'btn btn-success', id: 'comment-btn'
           - Note.where(seeker_id: @seeker.id).find_each do |note|
             %hr
             %p
