@@ -194,7 +194,7 @@ div.textarea {
 }
 
 .allocations-list li:before {
-  content: '\2014';
+  content: '\2212';
   position: absolute;
   margin-left: -12px;
   color: #18bc9c;
@@ -206,7 +206,7 @@ div.textarea {
 }
 
 .allocations-list-item p{
-  margin-left: 5px;
+  margin-left: 0;
 }
 
 .allocations-header {
