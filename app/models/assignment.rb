@@ -21,6 +21,8 @@ class Assignment < ActiveRecord::Base
       stat = "Beendet"
     end
 
-    return stat + ", " + start_time.strftime("%d.%m.%Y") + ", " + duration.to_s + "h, CHF " + payment.to_s
+    date = start_time.present? ? start_time.strftime("%d.%m.%Y") : ''
+
+    return stat + ", " + date + ", " + duration.to_s + "h, CHF " + payment.to_s
   end
 end
