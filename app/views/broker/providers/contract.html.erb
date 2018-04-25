@@ -417,6 +417,23 @@
       font-weight: 400;
     }
 
+    #bank {
+      width: 380px;
+      height: 66px;
+      position: absolute;
+      top: 280px;
+      background-color: white;
+      right: -25px;
+      font-size: 13px;
+      text-align: right;
+      padding-top: 10px;
+      padding-right: 10px;
+    }
+
+    #bank span {
+      color: #18bc9c;
+    }
+
     .row-w {
       width: 100%;
       margin-left: 37px;
@@ -497,6 +514,12 @@
   <% else %>
       <img id="logo-white" src="<%= wicked_pdf_asset_base64 'sj-logo-white.png' %>">
   <% end %>
+
+  <div id="bank">
+    Die Sackgeldjob-Börse ist ein kostenloses Angebot von smallJobs<br/>
+    <span>Möchten sie uns unterstützen?</span><br/>
+    <span>Unser Spedenkonto lautet: CH81 0900 0000 8558 01170</span>
+  </div>
 
   <h1 class="arbei">
     Arbeitgeber_in:
