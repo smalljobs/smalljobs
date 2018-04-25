@@ -302,10 +302,10 @@ table.sortable th.sortable:not(.sorttable_sorted):not(.sorttable_sorted_reverse)
   content: " \25B2\25BC"
 }
 
-th.sorttable_sorted {
+th.sorttable_sorted::after {
   content: " \25BC"
 }
 
-th.sorttable_sorted_reverse {
+th.sorttable_sorted_reverse::after {
   content: " \25B2"
 }
