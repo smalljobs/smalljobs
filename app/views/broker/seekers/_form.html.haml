@@ -52,9 +52,8 @@
             %span.bold.margin-right-10
               = note.broker.name
             = note.created_at.strftime("%d.%m.%Y, %H:%M")
-            %br
-            %span.margin-top-25
-              = note.message
+          %p
+            = note.message
 
   %fieldset
     .form-inputs
