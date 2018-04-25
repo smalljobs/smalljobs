@@ -313,3 +313,27 @@ th.sorttable_sorted_reverse::after {
 th.sortable span {
   display: none;
 }
+
+#provider-status {
+  min-width: 92px;
+}
+
+#provider-date {
+  min-width: 95px;
+}
+
+#job-status {
+  min-width: 92px;
+}
+
+#job-date {
+  min-width: 95px;
+}
+
+#seeker-status {
+  min-width: 92px;
+}
+
+#seeker-date {
+  min-width: 95px;
+}
