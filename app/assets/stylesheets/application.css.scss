@@ -309,3 +309,7 @@ th.sorttable_sorted::after {
 th.sorttable_sorted_reverse::after {
   content: " \25B2"
 }
+
+th.sortable span {
+  display: none;
+}
