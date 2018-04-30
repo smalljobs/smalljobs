@@ -75,9 +75,6 @@ class Broker::SeekersController < InheritedResources::Base
   #
   def remove_comment
     id = params[:note_id]
-
-    logger.info "Note id: #{id}"
-
     note = Note.find_by(id: id)
     if note.nil? || note.broker.id != current_broker.id || note.seeker.id != @seeker.id
       return
