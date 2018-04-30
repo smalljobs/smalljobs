@@ -73,7 +73,7 @@ class Broker::SeekersController < InheritedResources::Base
   # Remove broker comment from seeker
   def remove_comment
     id = params[:id]
-    note = Notes.find_by(id: id)
+    note = Note.find_by(id: id)
     if note.broker.id != current_broker.id || note.seeker.id != @seeker.id
       return
     end
