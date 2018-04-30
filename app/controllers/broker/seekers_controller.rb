@@ -74,7 +74,7 @@ class Broker::SeekersController < InheritedResources::Base
   # Remove broker comment from seeker
   #
   def remove_comment
-    id = params[:id]
+    id = params[:note_id]
 
     logger.info "Note id: #{id}"
 
