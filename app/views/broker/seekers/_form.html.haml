@@ -48,10 +48,16 @@
           = "Kommentieren"
         - Note.where(seeker_id: @seeker.id).order(:created_at).reverse_order.each do |note|
           %hr
-          %p
-            %span.bold.margin-right-10
-              = note.broker.name
-            = note.created_at.strftime("%d.%m.%Y, %H:%M")
+          %div.row
+            %div.col-md-8
+              %p
+                %span.bold.margin-right-10
+                  = note.broker.name
+                = note.created_at.strftime("%d.%m.%Y, %H:%M")
+            %div.col-md-4
+              - if note.broker.id == current_broker.id
+                %p
+                  = "Löschen"
           %p
             = note.message
 
