@@ -54,9 +54,9 @@
                 %span.bold.margin-right-10
                   = note.broker.name
                 = note.created_at.strftime("%d.%m.%Y, %H:%M")
-            %div.col-md-4
+            %div.col-md-4.text-right
               - if note.broker.id == current_broker.id
-                %p
+                %p.remove-btn{'data-note-id': "#{note.id}"}
                   = "Löschen"
           %p
             = note.message
@@ -71,9 +71,6 @@
       - else
         = f.input :password, required: false, autocomplete: 'off'
         = f.input :password_confirmation, required: false
-      -#- else
-      -#  = f.input :password, required: false, autocomplete: 'off', hint: t('devise_views.leave_empty')
-      -#  = f.input :password_confirmation, required: false
       = f.input :mobile, required: true
       = f.input :additional_contacts, required: false
       = f.input :date_of_birth, required: true, start_year: Date.today.year - 25, end_year: Date.today.year - 13, include_blank: true, hint: 'Du solltest zwischen 13 und 25 Jahre alt sein.'
@@ -181,12 +178,19 @@
         return false;
       });
 
+      $('.remove-btn').click(function(){
+        var noteId = $(this).attr('data-note-id');
+
+        $post("#{remove_comment_broker_seeker_path(@seeker)}", {id: noteId}, function(response) {
+          window.location.reload();
+        })
+      });
+
       function disableMessaging() {
         $('.modal-body input').removeAttr('checked');
         $('.modal-body input').attr('disabled', 'true');
         $('.modal-body textarea').attr('disabled', 'true');
         $('.modal-body .btn-send').attr('disabled', 'true');
-        // $('.modal-body button').attr('disabled', 'true');
       }
 
       if("#{@seeker.app_user_id == nil}" == "true") {

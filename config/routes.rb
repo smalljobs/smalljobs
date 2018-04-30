@@ -73,6 +73,7 @@ Smalljobs::Application.routes.draw do
           delete 'delete'
           post 'send_message'
           post 'add_comment'
+          post 'remove_comment'
         end
       end
 
