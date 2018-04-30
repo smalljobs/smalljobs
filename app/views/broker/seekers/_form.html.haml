@@ -181,7 +181,7 @@
       $('.remove-btn').click(function(){
         var noteId = $(this).attr('data-note-id');
 
-        $post("#{remove_comment_broker_seeker_path(@seeker)}", {id: noteId}, function(response) {
+        $.post("#{remove_comment_broker_seeker_path(@seeker)}", {id: noteId}, function(response) {
           window.location.reload();
         })
       });
