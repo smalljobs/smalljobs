@@ -65,16 +65,21 @@ class Broker::SeekersController < InheritedResources::Base
   end
 
   # Adds new comment for seeker
+  #
   def add_comment
     comment = params[:comment]
     Note.create!(seeker_id: @seeker.id, broker_id: current_broker.id, message: comment)
   end
 
   # Remove broker comment from seeker
+  #
   def remove_comment
     id = params[:id]
+
+    logger.info "Note id: #{id}"
+
     note = Note.find_by(id: id)
-    if note.broker.id != current_broker.id || note.seeker.id != @seeker.id
+    if note.nil? || note.broker.id != current_broker.id || note.seeker.id != @seeker.id
       return
     end
 

@@ -180,6 +180,7 @@
 
       $('.remove-btn').click(function(){
         var noteId = $(this).attr('data-note-id');
+        console.log(noteId);
 
         $.post("#{remove_comment_broker_seeker_path(@seeker)}", {id: noteId}, function(response) {
           window.location.reload();
