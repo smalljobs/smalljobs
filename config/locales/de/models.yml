@@ -93,6 +93,7 @@ de:
         not_receive_job_msg: "Job nicht erhalten"
         get_job_msg: "Job erhalten"
         activation_msg: "Aktivierungsnachricht"
+        welcome_email_for_parents_msg: "Willkommensmail für Eltern"
       employment:
         organization: "Organisation"
         broker: "Vermittler"

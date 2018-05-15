@@ -155,6 +155,7 @@ RailsAdmin.config do |config|
         field :not_receive_job_msg
         field :get_job_msg
         field :activation_msg
+        field :welcome_email_for_parents_msg
       end
 
       group :brokers do
