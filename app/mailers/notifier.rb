@@ -24,6 +24,18 @@ class Notifier < ActionMailer::Base
     end
   end
 
+
+  # Send a welcome message to seeker parents after his registration
+  #
+  def send_welcome_message_for_parents(message, email)
+    @message = message
+
+    mail(to: email, subject: 'Willkommen') do |format|
+      format.text
+      format.html
+    end
+  end
+
   # Send a PDF agreement to a job seeker,
   # so he can sign and return the document,
   # so we can activate the seeker.

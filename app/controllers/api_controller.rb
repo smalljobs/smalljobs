@@ -73,7 +73,7 @@ class ApiController < ApplicationController
     end
 
     user_params[:password_confirmation] = user_params[:password]
-    
+
     unless user_params[:zip].nil?
       place_id = ApiHelper.zip_to_place_id(user_params[:zip])
       if place_id.nil?
@@ -84,7 +84,7 @@ class ApiController < ApplicationController
       user_params[:place_id] = place_id
       user_params.except!(:zip)
     end
-    
+
 
     parents_email = user_params[:parents_email]
     # TODO
@@ -104,6 +104,11 @@ class ApiController < ApplicationController
     message = Mustache.render(seeker.organization.welcome_app_register_msg, seeker_first_name: seeker.firstname, seeker_last_name: seeker.lastname, seeker_link_to_agreement: url_for(agreement_broker_seeker_url(seeker, subdomain: 'winterthur')), broker_first_name: seeker.organization.brokers.first.firstname, broker_last_name: seeker.organization.brokers.first.lastname, organization_name: seeker.organization.name, organization_street: seeker.organization.street, organization_zip: seeker.organization.places.first.zip, organization_place: seeker.organization.places.first.name, organization_phone: seeker.organization.phone, organization_email: seeker.organization.email, link_to_jobboard_list: url_for(root_url(subdomain: 'winterthur')))
 
     MessagingHelper::send_message(title, message, seeker.app_user_id, seeker.organization.email)
+
+    unless parents_email.nil?
+      parent_message = Mustache.render(seeker.organization.welcome_email_for_parents_msg, seeker_first_name: seeker.firstname, seeker_last_name: seeker.lastname, seeker_link_to_agreement: url_for(agreement_broker_seeker_url(seeker, subdomain: 'winterthur')), broker_first_name: seeker.organization.brokers.first.firstname, broker_last_name: seeker.organization.brokers.first.lastname, organization_name: seeker.organization.name, organization_street: seeker.organization.street, organization_zip: seeker.organization.places.first.zip, organization_place: seeker.organization.places.first.name, organization_phone: seeker.organization.phone, organization_email: seeker.organization.email, link_to_jobboard_list: url_for(root_url(subdomain: 'winterthur')))
+      Notifier.send_agreement_for_seeker(parent_message, parents_email).deliver
+    end
 
     render json: {message: 'User created successfully', user: ApiHelper::seeker_to_json(seeker), organization: ApiHelper::organization_to_json(seeker.organization, seeker.organization.regions.first.id)}
   end
@@ -642,7 +647,7 @@ class ApiController < ApplicationController
     if seeker.last_recovery == DateTime.now.to_date
       seeker.recovery_times += 1
     else
-      seeker.last_recovery =DateTime.now.to_date
+      seeker.last_recovery = DateTime.now.to_date
       seeker.recovery_times = 1
     end
 
