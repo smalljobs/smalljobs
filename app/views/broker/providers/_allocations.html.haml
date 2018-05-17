@@ -1,5 +1,5 @@
 %a{href: "#{url_for new_broker_job_url}?provider_id=#{@provider.id}"}
-  %button.btn.btn-success.prevail_state.width-100
+  %button.btn.btn-success.prevail_state.width-100.new-job-btn
     = "Neuen Job erfassen"
 
 - jobs = @provider.jobs.where(state: 'running')
@@ -14,7 +14,6 @@
         %li.allocations-list-item
           %p
             = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
-    %br
 
 - jobs = @provider.jobs.where(state: 'public')
 - if jobs.count > 0
@@ -28,8 +27,6 @@
           %p
             = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
 
-    %br
-
 - jobs = @provider.jobs.where(state: 'hidden')
 - if jobs.count > 0
   %h4.allocations-header= "Jobs: Versteckt"
@@ -41,7 +38,6 @@
         %li.allocations-list-item
           %p
             = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
-    %br
 
 - jobs = @provider.jobs.where(state: 'feedback')
 - if jobs.count > 0
@@ -54,7 +50,6 @@
         %li.allocations-list-item
           %p
             = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
-    %br
 
 - jobs = @provider.jobs.where(state: 'finished')
 - if jobs.count > 0
@@ -67,4 +62,3 @@
         %li.allocations-list-item
           %p
             = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
-    %br
