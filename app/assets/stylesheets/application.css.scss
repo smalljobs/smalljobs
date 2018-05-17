@@ -130,7 +130,11 @@ textarea.resize-vertical {
 
 .provider_allocations {
   padding: 20px;
-  padding-top: 0;
+  padding-top: 5px;
+}
+
+.provider_allocations form {
+  margin-bottom: 27px !important;
 }
 
 .bold {
@@ -188,6 +192,11 @@ div.textarea {
 .allocations-list {
   list-style-type: none;
   padding-left: 0;
+  margin-bottom: 20px;
+}
+
+.allocations-list li:first-of-type {
+  margin-top: 17px !important;
 }
 
 .allocations-list li:before {
@@ -198,7 +207,7 @@ div.textarea {
 }
 
 .allocations-list-item {
-  margin-top: 20px;
+  margin-top: 15px;
   margin-left: 12px;
 }
 
@@ -338,3 +347,4 @@ th.sortable span {
   color: #95a5a6;
   cursor: pointer;
 }
+
