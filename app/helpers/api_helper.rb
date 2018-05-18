@@ -55,6 +55,7 @@ module ApiHelper
     json[:active] = organization.active
     json[:wage_factor] = organization.wage_factor
     json[:place] = place_to_json(organization.place)
+    json[:opening_hours] = organization.opening_hours
     brokers = []
     for broker in organization.brokers
       brokers.append(broker_to_json(broker))
