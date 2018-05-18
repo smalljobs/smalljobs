@@ -50,6 +50,7 @@ class Job < ActiveRecord::Base
   after_save :cancel_applications_if_finished
 
   after_save :add_new_note
+  after_save :send_request_refresh
 
   def add_new_note
     return unless new_note.present?
@@ -178,6 +179,25 @@ class Job < ActiveRecord::Base
       return 3
     elsif state == 'finished'
       return 4
+    end
+  end
+
+  # Make post to jugendarbeit requesting user in app to refresh job list
+  #
+  def send_request_refresh
+    require 'rest-client'
+    dev = 'https://devadmin.jugendarbeit.digital/api/jugendinfo_smalljobs/refresh/'
+    live = 'https://admin.jugendarbeit.digital/api/jugendinfo_smalljobs/refresh/'
+    begin
+      logger.info "Sending changes to jugendinfo"
+      self.organization.regions.each do |region|
+        logger.info "Sending: #{{api: 'aXcvb#1qaSf5yJ', region_id: region.id}}"
+        response = RestClient.post dev, {api: 'aXcvb#1qaSf5yJ', region_id: region.id}
+        logger.info "Response from jugendinfo: #{response}"
+      end
+    rescue
+      logger.info "Failed sending changes to jugendinfo"
+      nil
     end
   end
 
