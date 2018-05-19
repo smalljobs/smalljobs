@@ -162,6 +162,7 @@ module ApiHelper
     json = {}
     json[:id] = category.id
     json[:name] = category.name
+    json[:icon_name] = category.icon_name
     return json
   end
 
