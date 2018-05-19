@@ -3,5 +3,5 @@
     %h4.todo-title= 'Todo'
     - for todo in @seeker.todos.seeker
       %p.todo-title= todo.todotype.title
-      %ul.allocations-list
+      %ul.allocations-list.todo-allocations-list
         %li.allocations-list-item= todo.todotype.description.html_safe

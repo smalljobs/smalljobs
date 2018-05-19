@@ -131,7 +131,7 @@ textarea.resize-vertical {
 .provider_allocations {
   padding: 20px;
   padding-top: 5px;
-  padding_bottom: 0;
+  padding-bottom: 0;
 }
 
 .provider_allocations form {
@@ -359,4 +359,8 @@ th.sortable span {
   font-size: 18px;
   margin-top: 14px;
   margin-bottom: -2px;
+}
+
+.todo-allocations-list {
+  margin-bottom: 0;
 }
