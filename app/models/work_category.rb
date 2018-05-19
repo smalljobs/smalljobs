@@ -5,6 +5,6 @@ class WorkCategory < ActiveRecord::Base
   validates :name, presence: true
 
   def label
-    "<i class='fa fa-#{icon_name}'></i>#{name}".html_safe
+    "<i class='fa fa-#{icon_name} work-category-icon'></i>#{name}".html_safe
   end
 end
