@@ -3,7 +3,7 @@
   %h4= "Bewerbungen"
   %ul.allocations-list
     - for allocation in allocations
-      - if allocation.job != nil
+      - if !allocation.job.nil? && !allocation.job.provider.nil?
         %li.allocations-list-item
           %p
             = link_to "#{allocation.job.provider.name}, #{allocation.job.title}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation.seeker)
@@ -13,7 +13,7 @@
   %h4= "Bewerbungen abgelehnt"
   %ul.allocations-list
     - for allocation in allocations
-      - if allocation.job != nil
+      - if !allocation.job.nil? && !allocation.job.provider.nil?
         %li.allocations-list-item
           %p
             = link_to "#{allocation.job.provider.name}, #{allocation.job.title}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation.seeker)
@@ -23,7 +23,7 @@
   %h4= "Job Vorschläge"
   %ul.allocations-list
     - for allocation in allocations
-      - if allocation.job != nil
+      - if !allocation.job.nil? && !allocation.job.provider.nil?
         %li.allocations-list-item
           %p
             = link_to "#{allocation.job.provider.name}, #{allocation.job.title}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation.seeker)
@@ -33,7 +33,7 @@
   %h4= "Aktive Anstellungen"
   %ul.allocations-list
     - for allocation in allocations
-      - if allocation.job != nil
+      - if !allocation.job.nil? && !allocation.job.provider.nil?
         %li.allocations-list-item
           %p
             = link_to "#{allocation.job.provider.name}, #{allocation.job.title}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation.seeker)
@@ -43,7 +43,7 @@
   %h4= "Beendete Anstellungen"
   %ul.allocations-list
     - for allocation in allocations
-      - if allocation.job != nil
+      - if !allocation.job.nil? && !allocation.job.provider.nil?
         %li.allocations-list-item
           %p
             = link_to "#{allocation.job.provider.name}, #{allocation.job.title}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation.seeker)
@@ -53,7 +53,7 @@
   %h4= "Abgebrochene Anstellungen"
   %ul.allocations-list
     - for allocation in allocations
-      - if allocation.job != nil
+      - if !allocation.job.nil? && !allocation.job.provider.nil?
         %li.allocations-list-item
           %p
             = link_to "#{allocation.job.provider.name}, #{allocation.job.title}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation.seeker)
