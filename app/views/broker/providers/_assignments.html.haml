@@ -1,6 +1,6 @@
 - if @provider.assignments.count > 0
   %div.provider_allocations
-    %h4= 'Einsätze'
+    %h4.assignments-header= 'Einsätze'
     %ul.allocations-list
       - for assignment in @provider.assignments
         %li.allocations-list-item
