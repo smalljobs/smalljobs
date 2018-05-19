@@ -71,7 +71,7 @@
       = "Arbeitsart"
 
     .form-inputs
-      = f.association :work_category, required: true, include_blank: true, label: false, collection: WorkCategory.all.order(:name)
+      = f.association :work_category, required: true, include_blank: true, label: false, collection: WorkCategory.all.order(:name), label_method: :label
 
   %fieldset
     %legend

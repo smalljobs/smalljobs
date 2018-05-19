@@ -3,4 +3,8 @@ class WorkCategory < ActiveRecord::Base
   has_many :jobs
 
   validates :name, presence: true
+
+  def label
+    "<i class='fa fa-#{icon_name}'></i>#{name}"
+  end
 end
