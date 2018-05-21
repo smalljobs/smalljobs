@@ -101,7 +101,7 @@
     #logo {
       position: absolute;
       top: 37px;
-      right: -2px;
+      right: -11px;
       width: 100px;
     }
 
@@ -162,7 +162,7 @@
       margin-top: 65px;
       font-size: 15px;
       position: absolute;
-      top: 760px;
+      top: 799px;
       left: 0;
     }
 
@@ -171,7 +171,7 @@
       font-size: 15px;
       position: absolute;
       line-height: 1.4;
-      top: 859px;
+      top: 864px;
       left: 0;
     }
 
@@ -323,7 +323,7 @@
 
     #page1 p {
       margin-left: 96px;
-      margin-right: 68px;
+      /*margin-right: 68px;*/
       text-align: justify;
     }
 
@@ -529,7 +529,7 @@
     – <%= @provider.organization.place.full_name %>
   </p>
   <h1 class="provider-name">
-    <%= @provider.company != nil && !@provider.company.empty? ? "#{@provider.company}<br/>".html_safe : "" %>
+    <%= @provider.company != nil && !@provider.company.empty? ? "#{@provider.company}<br/>".html_safe : "<br/>".html_safe %>
     <%= @provider.name %><br/>
     <%= @provider.street %><br/>
     <%= @provider.place.full_name %>
