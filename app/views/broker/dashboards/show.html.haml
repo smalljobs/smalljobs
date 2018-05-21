@@ -323,6 +323,8 @@
       }
     });
 
+    var tableSorted = [false, false, false, false, false];
+
     function loadSortedColumn() {
       var hash = target;
       var sortedColumnId = sessionStorage.getItem('sortedColumn' + hash);
@@ -334,19 +336,24 @@
         }
       } else {
         sorttable.init();
-        if(hash === "todo") {
+        if(hash === "todo" && !tableSorted[0]) {
+          tableSorted[0] = true;
           sorttable.innerSortFunction.apply(document.getElementById('todo_date'), []);
         }
-        if(hash === "jobs") {
+        if(hash === "jobs" && !tableSorted[1]) {
+          tableSorted[1] = true;
           sorttable.innerSortFunction.apply(document.getElementById('job_date'), []);
         }
-        if(hash === "providers") {
+        if(hash === "providers" && !tableSorted[2]) {
+          tableSorted[2] = true;
           sorttable.innerSortFunction.apply(document.getElementById('provider_date'), []);
         }
-        if(hash === "seekers") {
+        if(hash === "seekers" && !tableSorted[3]) {
+          tableSorted[3] = true;
           sorttable.innerSortFunction.apply(document.getElementById('seeker_date'), []);
         }
-        if(hash === "assignments") {
+        if(hash === "assignments" && !tableSorted[4]) {
+          tableSorted[4] = true;
           sorttable.innerSortFunction.apply(document.getElementById('assignment_date'), []);
         }
       }
