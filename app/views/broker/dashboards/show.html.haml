@@ -332,6 +332,23 @@
         if(sessionStorage.getItem('sortedReverse' + hash) === 'true') {
           sorttable.innerSortFunction.apply(document.getElementById(sortedColumnId), []);
         }
+      } else {
+        sorttable.init();
+        if(hash === "todo") {
+          sorttable.innerSortFunction.apply(document.getElementById('todo_date'), []);
+        }
+        if(hash === "jobs") {
+          sorttable.innerSortFunction.apply(document.getElementById('job_date'), []);
+        }
+        if(hash === "providers") {
+          sorttable.innerSortFunction.apply(document.getElementById('provider_date'), []);
+        }
+        if(hash === "seekers") {
+          sorttable.innerSortFunction.apply(document.getElementById('seeker_date'), []);
+        }
+        if(hash === "assignments") {
+          sorttable.innerSortFunction.apply(document.getElementById('assignment_date'), []);
+        }
       }
     }
 
