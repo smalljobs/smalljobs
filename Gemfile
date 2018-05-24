@@ -45,6 +45,7 @@ gem 'nexmo'
 gem 'puma'
 gem 'puma_worker_killer'
 gem 'mustache'
+gem 'RedCloth'
 
 group :development, :test do
   gem 'better_errors'
