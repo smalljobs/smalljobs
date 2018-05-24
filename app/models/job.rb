@@ -191,8 +191,8 @@ class Job < ActiveRecord::Base
     begin
       logger.info "Sending changes to jugendinfo"
       self.organization.regions.each do |region|
-        logger.info "Sending: #{{api: 'aXcvb#1qaSf5yJ', region_id: region.id}}"
-        response = RestClient.post dev, {api: 'aXcvb#1qaSf5yJ', region_id: region.id}
+        logger.info "Sending: #{{token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', region_id: region.id}}"
+        response = RestClient.post dev, {token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', region_id: region.id}
         logger.info "Response from jugendinfo: #{response}"
       end
     rescue
