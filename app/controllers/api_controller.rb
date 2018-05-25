@@ -107,7 +107,7 @@ class ApiController < ApplicationController
 
     unless parents_email.nil?
       parent_message = Mustache.render(seeker.organization.welcome_email_for_parents_msg, seeker_first_name: seeker.firstname, seeker_last_name: seeker.lastname, seeker_link_to_agreement: url_for(agreement_broker_seeker_url(seeker, subdomain: 'winterthur')), broker_first_name: seeker.organization.brokers.first.firstname, broker_last_name: seeker.organization.brokers.first.lastname, organization_name: seeker.organization.name, organization_street: seeker.organization.street, organization_zip: seeker.organization.places.first.zip, organization_place: seeker.organization.places.first.name, organization_phone: seeker.organization.phone, organization_email: seeker.organization.email, link_to_jobboard_list: url_for(root_url(subdomain: 'winterthur')))
-      Notifier.send_agreement_for_seeker(parent_message, parents_email).deliver
+      Notifier.send_welcome_message_for_parents(parent_message, parents_email).deliver
     end
 
     render json: {message: 'User created successfully', user: ApiHelper::seeker_to_json(seeker), organization: ApiHelper::organization_to_json(seeker.organization, seeker.organization.regions.first.id)}
