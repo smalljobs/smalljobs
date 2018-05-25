@@ -88,7 +88,7 @@ class ApiController < ApplicationController
 
     parents_email = user_params[:parents_email]
     # TODO
-    user_params.except!(parents_email)
+    user_params.except!(:parents_email)
 
     seeker = Seeker.new(user_params)
     seeker.status = 'inactive'
