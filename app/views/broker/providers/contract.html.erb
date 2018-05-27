@@ -542,7 +542,7 @@
   <p class="sign-dots">.................................................</p>
   <p class="sign-data">
     <%= @broker.name %><br/>
-    <%= @broker.mobile %><br/>
+    <%= @broker.mobile || @broker.phone %><br/>
     <%= @broker.email %>
   </p>
   <footer>
