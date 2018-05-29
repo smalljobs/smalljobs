@@ -4,6 +4,9 @@ namespace :smalljobs do
   task delete_unused_orte: :environment do
     Provider.all.each do |provider|
       if provider.organization.nil?
+        provider.todos.each do |todo|
+          todo.destroy
+        end
         provider.destroy
       end
     end
