@@ -26,8 +26,7 @@
         %div.modal-body
           %p
             = "Dieses Job Formular soll ausschliesslich da zur anwendung kommen, wo nicht mit der digitalen Version gearbeitet werden kann. Das Formular kann ausgedruckt und in den jeweiligen Institutionen aufgelegt werden. Hier geht's zum dowmload:"
-          %a.btn.btn-success
-            = "Job Formular"
+          = link_to "Job Formular", asset_path("Job_Formular.pdf"), class: 'btn btn-success'
         %div.modal-footer
 
   %ul.nav.nav-pills
