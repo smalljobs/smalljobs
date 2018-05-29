@@ -5,4 +5,4 @@
       - for assignment in @provider.assignments
         %li.allocations-list-item
           %p
-            = link_to "#{assignment.provider.name}, #{assignment.description}", edit_broker_seeker_path(assignment.seeker)
+            = link_to "#{assignment.seeker.name}, #{assignment.description}", edit_broker_seeker_path(assignment.seeker)
