@@ -49,11 +49,11 @@ class Seeker < ActiveRecord::Base
 
   after_save :send_to_jugendinfo
 
-  # after_save :adjust_todo
+  after_save :adjust_todo
 
   after_create :send_welcome_message
 
-  # before_save :send_activation_message, if: proc { |s| s.status_changed? && s.active?}
+  before_save :send_activation_message, if: proc { |s| s.status_changed? && s.active?}
 
   after_save :add_new_note
 
@@ -79,7 +79,7 @@ class Seeker < ActiveRecord::Base
           Todo.create(record_id: id, record_type: :seeker, todotype: todotype, seeker_id: id)
         end
       rescue
-        nil
+        logger.info "Error creating todo: #{$!}"
       end
     end
   end
