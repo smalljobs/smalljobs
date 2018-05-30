@@ -71,6 +71,7 @@ class Seeker < ActiveRecord::Base
   # Creates new todos based on todotypes after saving seeker
   #
   def adjust_todo
+    logger.info "Removing existing todos"
     Todo.where(record_type: :seeker, record_id: id).find_each &:destroy!
     logger.info "Creating new todos"
     Todotype.seeker.find_each do |todotype|
