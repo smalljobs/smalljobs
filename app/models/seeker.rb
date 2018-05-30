@@ -57,7 +57,7 @@ class Seeker < ActiveRecord::Base
 
   after_save :add_new_note
 
-  # before_save :update_last_message
+  before_save :update_last_message
 
 
   # Adds new note to the database if it's present
@@ -98,7 +98,7 @@ class Seeker < ActiveRecord::Base
     logger.info "Last message is #{message}"
     return if message.nil?
 
-    self.last_message_date = DateTime.strptime(message['datetime'], '%s').in_time_zone('Warsaw')
+    self.last_message_date = DateTime.strptime(message['datetime'].to_i, '%s').in_time_zone('Warsaw')
 
     self.last_message_sent_from_seeker = message['from_ji_user_id'] == self.app_user_id.to_s
     self.last_message_seen = message['seen'] == '1'
