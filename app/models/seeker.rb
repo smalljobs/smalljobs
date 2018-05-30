@@ -53,7 +53,7 @@ class Seeker < ActiveRecord::Base
 
   after_create :send_welcome_message
 
-  before_save :send_activation_message, if: proc { |s| s.status_changed? && s.active?}
+  # before_save :send_activation_message, if: proc { |s| s.status_changed? && s.active?}
 
   after_save :add_new_note
 
