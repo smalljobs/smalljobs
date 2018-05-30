@@ -57,7 +57,7 @@ class Seeker < ActiveRecord::Base
 
   after_save :add_new_note
 
-  before_save :update_last_message
+  # before_save :update_last_message
 
 
   # Adds new note to the database if it's present
