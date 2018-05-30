@@ -98,10 +98,13 @@ class Seeker < ActiveRecord::Base
     logger.info "Last message is #{message}"
     return if message.nil?
 
-    self.last_message_date = DateTime.strptime(message['datetime'].to_i, '%s').in_time_zone('Warsaw')
+    self.last_message_date = DateTime.strptime(message['datetime'], '%s').in_time_zone('Warsaw')
+    logger.info "last_message_date is #{self.last_message_date}"
 
     self.last_message_sent_from_seeker = message['from_ji_user_id'] == self.app_user_id.to_s
+    logger.info "last_message_sent_from_seeker is #{self.last_message_sent_from_seeker}"
     self.last_message_seen = message['seen'] == '1'
+    logger.info "last_message_seen is #{self.last_message_seen}"
   end
 
   # Check if there is no provider or broker with the same email
