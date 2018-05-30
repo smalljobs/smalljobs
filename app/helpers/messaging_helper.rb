@@ -67,7 +67,7 @@ module MessagingHelper
       response = RestClient.get url
       json = JSON.parse(response.body)
       messages = json['messages']
-      message = messages[0] if messages.count > 0
+      message = messages[messages.count-1] if messages.count > 0
     end
 
     message
