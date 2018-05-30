@@ -72,11 +72,14 @@ class Seeker < ActiveRecord::Base
   #
   def adjust_todo
     Todo.where(record_type: :seeker, record_id: id).find_each &:destroy!
+    logger.info "Creating new todos"
     Todotype.seeker.find_each do |todotype|
       begin
         result = Seeker.find_by(todotype.where + " AND id = #{id}")
+        logger.info "Result: #{result}"
         unless result.nil?
-          Todo.create(record_id: id, record_type: :seeker, todotype: todotype, seeker_id: id)
+          todo = Todo.create(record_id: id, record_type: :seeker, todotype: todotype, seeker_id: id)
+          logger.info "Todo: #{todo}"
         end
       rescue
         logger.info "Error creating todo: #{$!}"
