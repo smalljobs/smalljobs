@@ -47,9 +47,28 @@ module MessagingHelper
       url = "#{@@current_url}/jugendinfo_message/get_messages/?key=ULv8r9J7Hqc7n2B8qYmfQewzerhV9p&id=#{conversation_id}&limit=1000"
       response = RestClient.get url
       json = JSON.parse(response.body)
-      messages = json['messages'].sort_by { |val| DateTime.strptime(val['datetime'], '%s') }.reverse
+      messages = json['messages'].sort_by {|val| DateTime.strptime(val['datetime'], '%s')}.reverse
     end
 
     messages
+  end
+
+  # Get last message corresponding to given user from jugendinfo api
+  #
+  # @param device_token [Integer] user id on jugendinfo server
+  #
+  # @return [<Json>] last message retrieved from jugendinfo server
+  def self.get_last_message(device_token)
+    conversation_id = get_conversation_id(device_token)
+    message = nil
+    unless conversation_id.nil?
+      url = "#{@@current_url}/jugendinfo_message/get_messages/?key=ULv8r9J7Hqc7n2B8qYmfQewzerhV9p&id=#{conversation_id}&last=1"
+      response = RestClient.get url
+      json = JSON.parse(response.body)
+      messages = json['messages']
+      message = messages[0] if messages.count > 0
+    end
+
+    message
   end
 end

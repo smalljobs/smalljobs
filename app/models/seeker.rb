@@ -57,12 +57,19 @@ class Seeker < ActiveRecord::Base
 
   after_save :add_new_note
 
+  before_save :update_last_message
+
+
+  # Adds new note to the database if it's present
+  #
   def add_new_note
     return unless new_note.present?
 
     Note.create!(seeker_id: id, broker_id: current_broker_id, message: new_note)
   end
 
+  # Creates new todos based on todotypes after saving seeker
+  #
   def adjust_todo
     Todo.where(record_type: :seeker, record_id: id).find_each &:destroy!
     Todotype.seeker.find_each do |todotype|
@@ -77,6 +84,19 @@ class Seeker < ActiveRecord::Base
     end
   end
 
+  # Updates last message for seeker
+  #
+  def update_last_message
+    return if self.app_user_id.nil?
+
+    message = MessagingHelper.get_last_message(self.app_user_id)
+    return if message.nil?
+
+    self.last_message_date = DateTime.strptime(message['datetime'], '%s').in_time_zone('Warsaw')
+
+    self.last_message_sent_from_seeker = message['from_ji_user_id'] == self.app_user_id.to_s
+    self.last_message_seen = message['seen'] == '1'
+  end
 
   # Check if there is no provider or broker with the same email
   #
