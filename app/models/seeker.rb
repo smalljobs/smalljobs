@@ -49,7 +49,7 @@ class Seeker < ActiveRecord::Base
 
   after_save :send_to_jugendinfo
 
-  after_save :adjust_todo
+  # after_save :adjust_todo
 
   after_create :send_welcome_message
 
