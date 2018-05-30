@@ -87,9 +87,11 @@ class Seeker < ActiveRecord::Base
   # Updates last message for seeker
   #
   def update_last_message
+    logger.info "App user id is #{self.app_user_id}"
     return if self.app_user_id.nil?
 
     message = MessagingHelper.get_last_message(self.app_user_id)
+    logger.info "Last message is #{message}"
     return if message.nil?
 
     self.last_message_date = DateTime.strptime(message['datetime'], '%s').in_time_zone('Warsaw')
