@@ -294,7 +294,7 @@
   if(target === '') {
     target = 'todo';
   }
-  window.location.hash = '';
+  // window.location.hash = '';
 
   $(document).ready(function(){
 
@@ -488,13 +488,13 @@
     loadSortedColumn();
 
     window.addEventListener("beforeunload", function (event) {
-      $(window).scrollTop(0);
+      // $(window).scrollTop(0);
       var searchFieldVal = $('.search-field').val();
       if(searchFieldVal === null) {
         searchFieldVal = '';
       }
       window.localStorage.setItem("search_filter", searchFieldVal);
-      $.post("#{save_settings_broker_dashboard_path}", {filter: searchFieldVal, selected_organization_id: parseInt(selectedOrganizationId)}, function(response) {
+        $.post("#{save_settings_broker_dashboard_path}", {filter: searchFieldVal, selected_organization_id: parseInt(selectedOrganizationId)}, function(response) {
       });
     });
   });
