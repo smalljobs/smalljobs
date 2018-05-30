@@ -297,9 +297,6 @@
   window.location.hash = '';
 
   $(document).ready(function(){
-    $(window).on('beforeunload', function() {
-      $(window).scrollTop(0);
-    });
 
     $('.nav-pills a[href="#' + target + '"]').tab('show');
     setHelp();
@@ -491,6 +488,7 @@
     loadSortedColumn();
 
     window.addEventListener("beforeunload", function (event) {
+      $(window).scrollTop(0);
       var searchFieldVal = $('.search-field').val();
       if(searchFieldVal === null) {
         searchFieldVal = '';
