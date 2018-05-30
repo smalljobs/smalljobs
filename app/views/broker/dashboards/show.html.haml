@@ -297,6 +297,10 @@
   window.location.hash = '';
 
   $(document).ready(function(){
+    $(window).on('beforeunload', function() {
+      $(window).scrollTop(0);
+    });
+
     $('.nav-pills a[href="#' + target + '"]').tab('show');
     setHelp();
 
