@@ -376,3 +376,10 @@ th.sortable span {
 #todo_date {
   min-width: 100px;
 }
+
+.safari-fix {
+  overflow: hidden;
+  clear: both;
+  display: block;
+  position: relative;
+}

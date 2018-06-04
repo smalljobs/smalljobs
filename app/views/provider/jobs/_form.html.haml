@@ -11,7 +11,7 @@
   %fieldset
     %legend
       = t('legends.job')
-      %i.fa.fa-2x.fa-user.pull-right
+      %i.fa.fa-2x.fa-user.pull-right.safari-fix
 
     .form-inputs
       = f.association :work_category, required: true, include_blank: true
@@ -22,7 +22,7 @@
   %fieldset
     %legend
       = t('legends.date')
-      %i.fa.fa-2x.fa-calendar.pull-right
+      %i.fa.fa-2x.fa-calendar.pull-right.safari-fix
 
     .form-inputs
       = f.input :date_type, collection: job_date_types, include_blank: false
@@ -32,7 +32,7 @@
   %fieldset
     %legend
       = t('legends.salary')
-      %i.fa.fa-2x.fa-money.pull-right
+      %i.fa.fa-2x.fa-money.pull-right.safari-fix
 
     .form-inputs
       -if current_provider.organization.wage_factor != nil && current_provider.organization.wage_factor != 1
@@ -44,7 +44,7 @@
   %fieldset
     %legend
       = t('legends.workers')
-      %i.fa.fa-2x.fa-clock-o.pull-right
+      %i.fa.fa-2x.fa-clock-o.pull-right.safari-fix
 
     .form-inputs
       = f.input :manpower, require: true
