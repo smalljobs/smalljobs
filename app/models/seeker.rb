@@ -53,7 +53,7 @@ class Seeker < ActiveRecord::Base
 
   after_create :send_welcome_message
 
-  before_save :send_activation_message, if: proc { |s| s.status_changed? && s.active?}
+  before_save :send_activation_message, if: proc {|s| s.status_changed? && s.active?}
 
   after_save :add_new_note
 
@@ -228,7 +228,8 @@ class Seeker < ActiveRecord::Base
   def send_welcome_message
     title = 'Willkommen'
     host = "#{self.organization.regions.first.subdomain}.smalljobs.ch"
-    message = Mustache.render(self.organization.welcome_chat_register_msg || '', organization_name: self.organization.name, organization_street: self.organization.street, organization_zip: self.organization.places.first.zip, organization_place: self.organization.places.first.name, organization_phone: self.organization.phone, organization_email: self.organization.email, seeker_first_name: self.firstname, seeker_last_name: self.lastname, broker_first_name: self.organization.brokers.first.firstname, broker_last_name: self.organization.brokers.first.lastname, seeker_link_to_agreement: "#{(Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host))}/broker/seekers/#{self.id}/agreement", link_to_jobboard_list: (Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host)))
+    seeker_agreement_link = "#{(Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host))}/broker/seekers/#{self.id}/agreement"
+    message = Mustache.render(self.organization.welcome_chat_register_msg || '', organization_name: self.organization.name, organization_street: self.organization.street, organization_zip: self.organization.places.first.zip, organization_place: self.organization.places.first.name, organization_phone: self.organization.phone, organization_email: self.organization.email, seeker_first_name: self.firstname, seeker_last_name: self.lastname, broker_first_name: self.organization.brokers.first.firstname, broker_last_name: self.organization.brokers.first.lastname, seeker_link_to_agreement: "<a file type='application/pdf' title='Elterneinverständnis herunterladen' href='#{seeker_agreement_link}'>#{seeker_agreement_link}</a>", link_to_jobboard_list: (Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host)))
 
     MessagingHelper::send_message(title, message, self.app_user_id, self.organization.email)
   end
@@ -239,9 +240,8 @@ class Seeker < ActiveRecord::Base
     title = 'Willkommen'
     host = "#{self.organization.regions.first.subdomain}.smalljobs.ch"
 
-    logger.info "Act MSG #{{activation_msg: self.organization.activation_msg, organization_name: self.organization.name, organization_street: self.organization.street, organization_zip: self.organization.places.first.zip, organization_place: self.organization.places.first.name, organization_phone: self.organization.phone, organization_email: self.organization.email, seeker_first_name: self.firstname, seeker_last_name: self.lastname, broker_first_name: self.organization.brokers.first.firstname, broker_last_name: self.organization.brokers.first.lastname, subdomain: self.organization.regions.first.subdomain, host: host, seeker_link_to_agreement: (Rails.application.routes.url_helpers.agreement_broker_seeker_url(self, subdomain: self.organization.regions.first.subdomain, host: host)), link_to_jobboard_list: (Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host))}}"
-
-    message = Mustache.render(self.organization.activation_msg || '', organization_name: self.organization.name, organization_street: self.organization.street, organization_zip: self.organization.places.first.zip, organization_place: self.organization.places.first.name, organization_phone: self.organization.phone, organization_email: self.organization.email, seeker_first_name: self.firstname, seeker_last_name: self.lastname, broker_first_name: self.organization.brokers.first.firstname, broker_last_name: self.organization.brokers.first.lastname, seeker_link_to_agreement: (Rails.application.routes.url_helpers.agreement_broker_seeker_url(self, subdomain: self.organization.regions.first.subdomain, host: host)), link_to_jobboard_list: (Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host)))
+    seeker_agreement_link = "#{(Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host))}/broker/seekers/#{self.id}/agreement"
+    message = Mustache.render(self.organization.activation_msg || '', organization_name: self.organization.name, organization_street: self.organization.street, organization_zip: self.organization.places.first.zip, organization_place: self.organization.places.first.name, organization_phone: self.organization.phone, organization_email: self.organization.email, seeker_first_name: self.firstname, seeker_last_name: self.lastname, broker_first_name: self.organization.brokers.first.firstname, broker_last_name: self.organization.brokers.first.lastname, seeker_link_to_agreement: "<a file type='application/pdf' title='Elterneinverständnis herunterladen' href='#{seeker_agreement_link}'>#{seeker_agreement_link}</a>", link_to_jobboard_list: (Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host)))
 
     MessagingHelper::send_message(title, message, self.app_user_id, self.organization.email)
   end
