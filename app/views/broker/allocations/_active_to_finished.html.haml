@@ -3,7 +3,7 @@
     %div.modal-content
       %div.modal-header
         %button.close{"data-dismiss": "modal", type: "button"} &times;
-        %h2= "Anstellung beended"
+        %h2= "Anstellung beenden"
       %div.modal-body
         %input{type: "checkbox", checked: "true"}
           = "Nachricht an "
@@ -22,6 +22,6 @@
             %a{href: "tel:#{@allocation.seeker.mobile}"}
               = @allocation.seeker.mobile
         %button.btn.btn-success.change_state
-          = "Anstellung beended"
+          = "Anstellung beenden"
       %div.modal-footer
         = render 'messages'
