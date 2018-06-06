@@ -47,7 +47,7 @@ class Job < ActiveRecord::Base
   before_save :set_state_last_change, if: proc { |s| s.state_changed?}
 
   after_save :adjust_todo
-  after_save :cancel_applications_if_finished
+  after_save :finish_allocations, if: proc { |s| s.state_changed? && s.state == 'finished'}
 
   after_save :add_new_note
   after_save :send_request_refresh
@@ -80,6 +80,15 @@ class Job < ActiveRecord::Base
 
     self.allocations.where(state: :application_open).or(self.allocations.where(state: :active)).find_each do |allocation|
       allocation.state = :cancelled
+      allocation.save
+    end
+  end
+
+  # Finish all related allocations
+  #
+  def finish_allocations
+    self.allocations.find_each do |allocation|
+      allocation.state = :finished
       allocation.save
     end
   end
