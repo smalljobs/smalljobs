@@ -1,5 +1,5 @@
 class ApiController < ApplicationController
-  before_action :authenticate, except: [:login, :register, :password_remind, :password_validate, :password_change]
+  before_action :authenticate, except: [:login, :register, :password_remind, :password_validate, :password_change, :update_messages]
   before_action :check_status, only: [:create_assignment, :update_assignment, :apply]
   skip_before_filter :verify_authenticity_token
 
@@ -721,6 +721,28 @@ class ApiController < ApplicationController
     else
       render json: {code: 'users/error', message: seeker.errors.first}, status: 422
     end
+  end
+
+  # PUT /api/messages/update
+  # Called when new message was sent by seeker
+  #
+  def update_messages
+    api_key = params[:api_key]
+    seeker_id = params[:user_id]
+
+    if api_key != 'eizSpz2JIsKE30Wn8qvd9Bl19LWhPxZM'
+      render json: {code: 'messages/error', message: 'Invalid API key'}, status: 401
+      return
+    end
+
+    seeker = Seeker.find_by(id: seeker_id)
+    if seeker.nil?
+      render json: {code: 'messages/error', message: 'Seeker not found'}, status: 404
+      return
+    end
+
+    seeker.save
+    render json: {message: 'Success'}, status: 200
   end
 
   protected

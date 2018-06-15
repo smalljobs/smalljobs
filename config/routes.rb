@@ -143,6 +143,7 @@ Smalljobs::Application.routes.draw do
     post '/users/password/remind' => 'api#password_remind'
     post '/users/password/validate' => 'api#password_validate'
     post '/users/password/change' => 'api#password_change'
+    put '/messages/update' => 'api#update_messages'
   end
 
   #API
@@ -170,6 +171,7 @@ Smalljobs::Application.routes.draw do
   post '/api/users/password/remind' => 'api#password_remind'
   post '/api/users/password/validate' => 'api#password_validate'
   post '/api/users/password/change' => 'api#password_change'
+  put '/api/messages/update' => 'api#update_messages'
 
   root 'regions#index'
 end
