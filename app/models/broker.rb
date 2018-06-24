@@ -84,7 +84,8 @@ class Broker < ActiveRecord::Base
     BrokersUpdatePref.where(update_pref_id: update_pref.id).find_each do |broker_update_pref|
       broker = broker_update_pref.broker
       next unless broker.active?
-      Notifier.weekly_update_for_broker(broker).deliver
+      mail = Notifier.weekly_update_for_broker(broker)
+      mail.deliver unless mail.nil?
     end
   end
 
