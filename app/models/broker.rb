@@ -83,6 +83,7 @@ class Broker < ActiveRecord::Base
     update_pref = UpdatePref.find_by(day_of_week: day_of_week)
     BrokersUpdatePref.where(update_pref_id: update_pref.id).find_each do |broker_update_pref|
       broker = broker_update_pref.broker
+      next unless broker.active?
       Notifier.weekly_update_for_broker(broker).deliver
     end
   end
