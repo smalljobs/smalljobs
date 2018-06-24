@@ -35,7 +35,7 @@ class Broker::DashboardsController < ApplicationController
 
     @providers = current_broker.providers.where.not(state: 3).includes(:place, :jobs, :organization).group('providers.id').order(:updated_at).reverse_order()
     @seekers = current_broker.seekers.where.not(status: 3).includes(:place, :organization).group('seekers.id').order(:updated_at).reverse_order()
-    @assignments = current_broker.assignments.where.(job: @jobs).includes(:seeker, :provider).group('assignments.id').order(:created_at).reverse_order()
+    @assignments = current_broker.assignments.where(job: @jobs).includes(:seeker, :provider).group('assignments.id').order(:created_at).reverse_order()
     @todos = Todo.where(seeker: @seekers).or(Todo.where(provider: @providers)).or(Todo.where(job: @jobs)).or(Todo.where(allocation: allocations)).group('todos.id').order(:created_at).reverse_order()
   end
 
