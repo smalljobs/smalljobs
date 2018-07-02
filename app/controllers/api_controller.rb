@@ -663,6 +663,8 @@ class ApiController < ApplicationController
 
     response = client.send_message(from: 'Jugendapp', to: phone, text: "#{code} ist dein Code. Bitte in der App eingeben.")
 
+    logger.info "Response from nexmo: #{response}"
+
     if response['messages'][0]['status'] == '0'
       seeker.recovery_code = code
       seeker.save!
