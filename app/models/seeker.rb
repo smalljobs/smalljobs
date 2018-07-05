@@ -16,7 +16,7 @@ class Seeker < ActiveRecord::Base
 
   has_many :jobs, through: :allocations
 
-  has_many :todos
+  has_many :todos, dependent: :destroy
 
   belongs_to :place, inverse_of: :seekers
   belongs_to :organization
