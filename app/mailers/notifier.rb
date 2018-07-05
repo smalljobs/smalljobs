@@ -13,7 +13,7 @@ class Notifier < ActionMailer::Base
     @seekers = @broker.seekers.includes(:place, :organization).group('seekers.id').order(:updated_at).reverse_order()
     @assignments = @broker.assignments.includes(:seeker, :provider).group('assignments.id').order(:created_at).reverse_order()
     @todos = Todo.where(seeker: @seekers).or(Todo.where(provider: @providers)).or(Todo.where(job: @jobs)).or(Todo.where(allocation: allocations)).group('todos.id').order(:created_at).reverse_order()
-    return nil if @todos.count == 0
+    return nil if @todos.blank?
     organization_name = ""
     unless broker.organizations.first.nil?
       organization_name = broker.organizations.first.name
