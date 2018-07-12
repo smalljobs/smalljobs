@@ -28,7 +28,7 @@
         = f.input :new_note, label: false, as: :text
         %button.btn.btn-success{id: 'comment-btn'}
           = "Kommentieren"
-        - Note.where(provider_id: @job.id).order(:created_at).reverse_order.each do |note|
+        - Note.where(job_id: @job.id).order(:created_at).reverse_order.each do |note|
           %hr
           %div.row
             %div.col-md-8
