@@ -22,7 +22,17 @@ class Assignment < ActiveRecord::Base
     end
 
     date = start_time.present? ? start_time.strftime("%d.%m.%Y") : ''
+    dur = ''
 
-    return stat + ", " + date + ", " + duration.to_s + "h, CHF " + payment.to_s
+    unless duration.nil?
+      minutes = duration/60000
+      minutes = minutes.floor
+      hours = minutes/60
+      hours = hours.floor
+      minutes = minutes % 60
+      dur = "#{hours}:#{minutes}"
+    end
+
+    return "#{stat}, #{date}, #{dur}, CHF #{payment}"
   end
 end
