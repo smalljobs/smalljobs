@@ -62,7 +62,7 @@ class Broker::JobsController < InheritedResources::Base
   def remove_comment
     id = params[:note_id]
     note = Note.find_by(id: id)
-    if note.nil? || note.broker.id != current_broker.id || note.provider.id != @job.id
+    if note.nil? || note.broker.id != current_broker.id || note.job.id != @job.id
       return
     end
 
