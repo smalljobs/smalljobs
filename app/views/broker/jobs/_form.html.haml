@@ -22,22 +22,26 @@
     - if !@job.new_record?
       %p= "Erstellt: #{@job.created_at.strftime("%d.%m.%Y")}"
 
-  %fieldset
-    .form-inputs
-      %p.bold
-        = "Notizen (nur intern sichtbar)"
-      %p
-        = "Hier Thread mit vergangenen Benachrichtigungen:"
-      - unless @job.new_record?
-        - Note.where(job_id: @job.id).find_each do |note|
+  - unless @job.new_record?
+    %fieldset
+      .form-inputs
+        = f.input :new_note, label: false, as: :text
+        %button.btn.btn-success{id: 'comment-btn'}
+          = "Kommentieren"
+        - Note.where(provider_id: @job.id).order(:created_at).reverse_order.each do |note|
+          %hr
+          %div.row
+            %div.col-md-8
+              %p
+                %span.bold.margin-right-10
+                  = note.broker.name
+                = note.created_at.strftime("%d.%m.%Y, %H:%M")
+            %div.col-md-4.text-right
+              - if note.broker.id == current_broker.id
+                %p.remove-btn{'data-note-id': "#{note.id}"}
+                  = "Löschen"
           %p
-            = note.created_at.strftime("%Y-%m-%d %H:%M")
-            = note.broker.name
-            %br
             = note.message
-      = f.input :new_note, label: false, as: :text
-      = f.input :current_broker_id, label: false, input_html: {value: "#{current_broker.id}", class: 'display-none'}
-
 
   %fieldset
     %legend
@@ -123,3 +127,28 @@
         = "Löschen"
 
     = render 'delete_modal'
+
+- if !@job.new_record?
+  :javascript
+    $(document).ready(function() {
+      $('#comment-btn').click(function(){
+        var comment = $('#job_new_note').val();
+        if(comment === '') {
+          return false;
+        }
+
+        $.post("#{add_comment_broker_job_path(@job)}", {comment: comment}, function(response) {
+          window.location.reload();
+        });
+
+        return false;
+      });
+
+      $('.remove-btn').click(function(){
+        var noteId = $(this).attr('data-note-id');
+
+        $.post("#{remove_comment_broker_job_path(@job)}", {note_id: noteId}, function(response) {
+          window.location.reload();
+        })
+      });
+    });

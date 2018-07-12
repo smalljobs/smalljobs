@@ -69,6 +69,25 @@ class Broker::ProvidersController < InheritedResources::Base
     render json: {message: 'Provider deleted'}, status: 200
   end
 
+  # Adds new comment for seeker
+  #
+  def add_comment
+    comment = params[:comment]
+    Note.create!(provider_id: @provider.id, broker_id: current_broker.id, message: comment)
+  end
+
+  # Remove broker comment from seeker
+  #
+  def remove_comment
+    id = params[:note_id]
+    note = Note.find_by(id: id)
+    if note.nil? || note.broker.id != current_broker.id || note.provider.id != @provider.id
+      return
+    end
+
+    note.destroy!
+  end
+
   protected
 
   # Returns currently signed in broker
@@ -86,7 +105,7 @@ class Broker::ProvidersController < InheritedResources::Base
   end
 
   def permitted_params
-    params.permit(provider: %i[new_note current_broker_id id username password password_confirmation firstname lastname street place_id email phone mobile contact_preference contact_availability active confirmed organization_id notes company state contract])
+    params.permit(provider: %i[current_broker_id id username password password_confirmation firstname lastname street place_id email phone mobile contact_preference contact_availability active confirmed organization_id notes company state contract])
   end
 
 end

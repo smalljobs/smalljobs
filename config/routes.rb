@@ -64,6 +64,8 @@ Smalljobs::Application.routes.draw do
         member do
           get 'contract'
           delete 'delete'
+          post 'add_comment'
+          post 'remove_comment'
         end
       end
 
@@ -81,6 +83,8 @@ Smalljobs::Application.routes.draw do
         member do
           post 'activate'
           delete 'delete'
+          post 'add_comment'
+          post 'remove_comment'
         end
 
         resources :allocations do
