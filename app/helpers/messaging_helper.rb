@@ -76,7 +76,7 @@ module MessagingHelper
     conversation_id = get_conversation_id(device_token)
     messages_count = 0
     unless conversation_id.nil?
-      url = "#{@@current_url}jugendinfo_message/get_messages_count_from_conversation/?conversation_id=#{conversation_id}"
+      url = "#{@@current_url}/jugendinfo_message/get_messages_count_from_conversation/?conversation_id=#{conversation_id}"
       response = RestClient.get url
       json = JSON.parse(response.body)
       messages_count = json['count']
