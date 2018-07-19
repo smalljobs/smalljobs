@@ -60,7 +60,6 @@ module MessagingHelper
   # @return [<Json>] last message retrieved from jugendinfo server
   def self.get_last_message(device_token)
     conversation_id = get_conversation_id(device_token)
-    # logger.info "Conversation id is #{conversation_id}"
     message = nil
     unless conversation_id.nil?
       url = "#{@@current_url}/jugendinfo_message/get_messages/?key=ULv8r9J7Hqc7n2B8qYmfQewzerhV9p&id=#{conversation_id}&last=1"
@@ -71,5 +70,18 @@ module MessagingHelper
     end
 
     message
+  end
+
+  def self.get_messages_count(device_token)
+    conversation_id = get_conversation_id(device_token)
+    messages_count = 0
+    unless conversation_id.nil?
+      url = "#{@@current_url}jugendinfo_message/get_messages_count_from_conversation/?conversation_id=#{conversation_id}"
+      response = RestClient.get url
+      json = JSON.parse(response.body)
+      messages_count = json['count']
+    end
+
+    messages_count
   end
 end

@@ -59,6 +59,8 @@ class Seeker < ActiveRecord::Base
 
   before_save :update_last_message
 
+  before_save :update_messages_count
+
 
   # Adds new note to the database if it's present
   #
@@ -105,6 +107,13 @@ class Seeker < ActiveRecord::Base
     logger.info "last_message_sent_from_seeker is #{self.last_message_sent_from_seeker}"
     self.last_message_seen = message['seen'] == '1'
     logger.info "last_message_seen is #{self.last_message_seen}"
+  end
+
+  # Updates count of the messages
+  #
+  def update_messages_count
+    return if self.app_user_id.nil?
+    self.messages_count = MessagingHelper.get_messages_count(self.app_user_id)
   end
 
   # Check if there is no provider or broker with the same email
