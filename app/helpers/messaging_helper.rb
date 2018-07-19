@@ -66,7 +66,7 @@ module MessagingHelper
       response = RestClient.get url
       json = JSON.parse(response.body)
       messages = json['messages']
-      message = messages[messages.count-1] if messages.count > 0
+      message = messages[messages.count - 1] if messages.count > 0
     end
 
     message
@@ -78,8 +78,12 @@ module MessagingHelper
     unless conversation_id.nil?
       url = "#{@@current_url}/jugendinfo_message/get_messages_count_from_conversation/?conversation_id=#{conversation_id}"
       response = RestClient.get url
-      json = JSON.parse(response.body)
-      messages_count = json['count']
+      begin
+        json = JSON.parse(response.body)
+        messages_count = json['count']
+      rescue
+        nil
+      end
     end
 
     messages_count
