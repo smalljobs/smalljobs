@@ -12,6 +12,7 @@ class Allocation < ActiveRecord::Base
   validates :seeker, uniqueness: { scope: :job_id }, if: proc { |p| p.job && p.seeker }
 
   before_save :set_state_last_change, if: proc { |s| s.state_changed?}
+  before_save :send_request_refresh, if: proc { |s| s.state_changed?}
 
   after_save :adjust_todo
 
@@ -47,5 +48,25 @@ class Allocation < ActiveRecord::Base
   # Sets date of last change of state
   def set_state_last_change
     self.last_change_of_state = DateTime.now()
+  end
+
+  # Make post to jugendarbeit requesting user in app to refresh job list
+  #
+  def send_request_refresh
+    return if job.nil?
+    require 'rest-client'
+    dev = 'https://devadmin.jugendarbeit.digital/api/jugendinfo_smalljobs/refresh/'
+    live = 'https://admin.jugendarbeit.digital/api/jugendinfo_smalljobs/refresh/'
+    begin
+      logger.info "Sending changes to jugendinfo"
+      self.organization.regions.each do |region|
+        logger.info "Sending: #{{token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', region_id: job.region.id}}"
+        response = RestClient.post dev, {token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', region_id: job.region.id}
+        logger.info "Response from jugendinfo: #{response}"
+      end
+    rescue
+      logger.info "Failed sending changes to jugendinfo"
+      nil
+    end
   end
 end
