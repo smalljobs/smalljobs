@@ -40,5 +40,12 @@ module Smalljobs
     # Asset pipeline
     config.assets.precompile += %w(rails_admin/rails_admin.css rails_admin/rails_admin.js)
     config.serve_static_assets = true
+
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', headers: :any, methods: [:get, :post, :put, :options]
+      end
+    end
   end
 end
