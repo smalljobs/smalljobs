@@ -59,9 +59,9 @@ class Allocation < ActiveRecord::Base
     live = 'https://admin.jugendarbeit.digital/api/jugendinfo_smalljobs/refresh/'
     begin
       logger.info "Sending changes to jugendinfo"
-      self.organization.regions.each do |region|
-        logger.info "Sending: #{{token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', region_id: job.region.id}}"
-        response = RestClient.post dev, {token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', region_id: job.region.id}
+      self.job.organization.regions.each do |region|
+        logger.info "Sending: #{{token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', region_id: region.id}}"
+        response = RestClient.post dev, {token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', region_id: region.id}
         logger.info "Response from jugendinfo: #{response}"
       end
     rescue
