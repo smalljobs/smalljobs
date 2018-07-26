@@ -5,6 +5,17 @@ RailsAdmin.config do |config|
     redirect_to main_app.root_path unless current_admin != nil
   end
 
+  config.model DefaultTemplate do
+    list do
+      field :template_name
+    end
+
+    edit do
+      field :template_name
+      field :template
+    end
+  end
+
   config.model Todo do
     list do
       field :record_id
