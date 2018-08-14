@@ -732,18 +732,23 @@ class ApiController < ApplicationController
     api_key = params[:api_key]
     seeker_id = params[:user_id]
 
+    logger.info "Called update message. Send #{params}, #{params[:api_key]}, #{params[:user_id]}"
+
     if api_key != 'eizSpz2JIsKE30Wn8qvd9Bl19LWhPxZM'
       render json: {code: 'messages/error', message: 'Invalid API key'}, status: 401
+      logger.info "Invalid api key"
       return
     end
 
     seeker = Seeker.find_by(id: seeker_id)
     if seeker.nil?
       render json: {code: 'messages/error', message: 'Seeker not found'}, status: 404
+      logger.info "Invalid seeker"
       return
     end
 
     seeker.save
+    logger.info "Success"
     render json: {message: 'Success'}, status: 200
   end
 
