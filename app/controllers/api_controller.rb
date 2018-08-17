@@ -738,7 +738,7 @@ class ApiController < ApplicationController
       return
     end
 
-    seeker = Seeker.find_by(id: seeker_id)
+    seeker = Seeker.find_by(ji_user_id: seeker_id)
     if seeker.nil?
       render json: {code: 'messages/error', message: 'Seeker not found'}, status: 404
       logger.info "Invalid seeker"
