@@ -35,7 +35,7 @@ class Organization < ActiveRecord::Base
     for template_name in template_names
       default_template = DefaultTemplate.find_by(template_name: template_name)
       next if default_template.nil?
-      self[template_name] = default_template.template if self[template_name].empty?
+      self[template_name] = default_template.template if self[template_name].blank?
     end
   end
 
