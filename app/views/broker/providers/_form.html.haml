@@ -37,6 +37,11 @@
       -#  = f.input :password, required: false, autocomplete: 'off', hint: t('devise_views.leave_empty')
       -#  = f.input :password_confirmation, required: false
 
+  - unless @provider.notes.blank?
+    %fieldset
+      .form-inputs
+        = f.input :notes, as: :text
+
   - unless @provider.new_record?
     %fieldset
       .form-inputs
