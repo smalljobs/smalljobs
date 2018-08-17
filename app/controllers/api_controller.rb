@@ -727,10 +727,10 @@ class ApiController < ApplicationController
   # Called when new message was sent by seeker
   #
   def update_messages
-    api_key = params[:api_key]
+    api_key = params[:token]
     seeker_id = params[:user_id]
 
-    logger.info "Called update message. Send #{params}, #{params[:api_key]}, #{params[:user_id]}"
+    logger.info "Called update message. Send #{params}, #{params[:token]}, #{params[:user_id]}"
 
     if api_key != 'eizSpz2JIsKE30Wn8qvd9Bl19LWhPxZM'
       render json: {code: 'messages/error', message: 'Invalid API key'}, status: 401
