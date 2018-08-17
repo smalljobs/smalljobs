@@ -3,6 +3,7 @@ require 'region_subdomain'
 require 'api_subdomain'
 
 Smalljobs::Application.routes.draw do
+  default_url_options protocol: :https
 
   mount Rich::Engine => '/rich', :as => 'rich'
   devise_for :admins
