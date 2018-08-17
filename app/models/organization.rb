@@ -27,7 +27,7 @@ class Organization < ActiveRecord::Base
   before_save :destroy_logo?
   before_save :destroy_background?
 
-  after_initialize :copy_default_templates
+  # after_initialize :copy_default_templates
 
   def copy_default_templates
     template_names = ['welcome_letter_employers_msg', 'welcome_app_register_msg', 'welcome_chat_register_msg',
