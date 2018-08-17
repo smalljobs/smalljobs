@@ -104,4 +104,6 @@ Smalljobs::Application.configure do
 
   # Mailer default link host
   config.action_mailer.default_url_options = {host: 'winterthur.smalljobs.ch'}
+
+  config.action_controller.default_url_options[:protocol] = 'https'
 end
