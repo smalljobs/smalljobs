@@ -102,13 +102,11 @@ class ApiController < ApplicationController
       seeker.save
     end
 
-    # message = "\nHallo #{seeker.firstname}\n\nWillkommen bei Small.Jobs!\nDamit du dich auf Jobs bewerben kannst, brauchen wir das Einverständnis deiner Eltern. Dieses Einverständnis bitte hier herunterladen: <a file type='application/pdf' title='Elterneinverständnis herunterladen' href=\"#{url_for agreement_broker_seeker_url(seeker, subdomain: 'winterthur')}?format=pdf\">#{url_for agreement_broker_seeker_url(seeker, subdomain: 'winterthur')}?format=pdf</a>\nDann ausdrucken und uns vorbeibringen:\n#{seeker.organization.name}\n#{seeker.organization.street}\n#{seeker.organization.place.custom_name}\nFür einen Termin schreibe uns hier oder ruf an <a href='tel:#{seeker.organization.phone}'>#{seeker.organization.phone}</a>\n\nDanke,\n\n#{seeker.organization.name}\n"
-    # title = 'Elterneinverständnis als Pdf schicken'
     title = 'Willkommen'
     seeker_agreement_link = url_for(agreement_broker_seeker_url(seeker, subdomain: seeker.organization.regions.first.subdomain))
     message = Mustache.render(seeker.organization.welcome_app_register_msg || '', seeker_first_name: seeker.firstname, seeker_last_name: seeker.lastname, seeker_link_to_agreement: "<a file type='application/pdf' title='Elterneinverständnis herunterladen' href='#{seeker_agreement_link}'>#{seeker_agreement_link}</a>", broker_first_name: seeker.organization.brokers.first.firstname, broker_last_name: seeker.organization.brokers.first.lastname, organization_name: seeker.organization.name, organization_street: seeker.organization.street, organization_zip: seeker.place.zip, organization_place: seeker.place.name, organization_phone: seeker.organization.phone, organization_email: seeker.organization.email, link_to_jobboard_list: url_for(root_url(subdomain: seeker.organization.regions.first.subdomain)))
 
-    MessagingHelper::send_message(title, message, seeker.app_user_id, seeker.organization.email)
+    # MessagingHelper::send_message(title, message, seeker.app_user_id, seeker.organization.email)
 
     unless parents_email.nil?
       parent_message = Mustache.render(seeker.organization.welcome_email_for_parents_msg || '', seeker_first_name: seeker.firstname, seeker_last_name: seeker.lastname, seeker_link_to_agreement: url_for(agreement_broker_seeker_url(seeker, subdomain: seeker.organization.regions.first.subdomain)), broker_first_name: seeker.organization.brokers.first.firstname, broker_last_name: seeker.organization.brokers.first.lastname, organization_name: seeker.organization.name, organization_street: seeker.organization.street, organization_zip: seeker.place.zip, organization_place: seeker.place.name, organization_phone: seeker.organization.phone, organization_email: seeker.organization.email, link_to_jobboard_list: url_for(root_url(subdomain: seeker.organization.regions.first.subdomain)))
