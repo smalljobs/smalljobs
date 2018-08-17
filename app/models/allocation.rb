@@ -61,7 +61,7 @@ class Allocation < ActiveRecord::Base
       logger.info "Sending changes to jugendinfo"
       self.job.organization.regions.each do |region|
         logger.info "Sending: #{{token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', region_id: region.id}}"
-        response = RestClient.post dev, {token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', region_id: region.id}
+        response = RestClient.post live, {token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', region_id: region.id}
         logger.info "Response from jugendinfo: #{response}"
       end
     rescue
