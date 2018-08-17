@@ -43,7 +43,7 @@ module ApiHelper
   #
   # @return [Json] organization in json format
   #
-  def self.organization_to_json(organization, region_id)
+  def self.organization_to_json(organization, region_id, message=nil)
     require 'redcloth'
     json = {}
     json[:id] = organization.id
@@ -57,6 +57,7 @@ module ApiHelper
     json[:wage_factor] = organization.wage_factor
     json[:place] = place_to_json(organization.place)
     json[:opening_hours] = RedCloth.new(organization.opening_hours || "").to_html
+    json[:registration_welcome_message] = message unless message.nil?
     brokers = []
     for broker in organization.brokers
       brokers.append(broker_to_json(broker))
