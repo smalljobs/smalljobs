@@ -49,7 +49,7 @@ class RegistrationsController < Devise::RegistrationsController
     end
 
     devise_parameter_sanitizer.permit(:account_update) do |u|
-      u.permit(:login, :password, :password_confirmation, :current_password, :firstname, :lastname, :street, :place_id, :date_of_birth, :sex, :email, :phone, :mobile, :contact_preference, :contact_availability, :terms, :organization_id, work_category_ids: [])
+      u.permit(:login, :password, :password_confirmation, :current_password, :firstname, :lastname, :street, :place_id, :date_of_birth, :sex, :email, :phone, :mobile, :contact_preference, :contact_availability, :terms, :organization_id, work_category_ids: [], update_pref_ids: [])
     end
   end
 

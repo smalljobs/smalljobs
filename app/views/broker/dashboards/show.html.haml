@@ -1,30 +1,33 @@
-%h2
-  = t('broker_dashboard.title')
-  = current_broker.firstname
-
 %div{id: 'dashboard'}
-
   %div.row
     %div.col-sm-3
       %div.dropdown
-        %button.btn.btn-default.dropdown-toggle{type: 'dropdown', 'data-toggle': 'dropdown', id: 'dropdown-btn'}
-          = "Alle Organisationen"
-          %span.caret
-        %ul.dropdown-menu
-          %li
-            %a.organization-dropdown{href: '#', 'data-value': '0'}
-              = "Alle Organisationen"
+        %select{id: 'dropdown-btn'}
+          %option{value: "0"}
+            = "Alle Organisationen"
           - for organization in current_broker.all_organizations
-            %li
-              %a.organization-dropdown{href: '#', 'data-value': "#{organization.id}"}
-                = organization.name
-    %div.col-sm-2
+            %option{value: "#{organization.id}"}
+              = organization.name
+    %div.col-sm-2.float-left.display-none
       %input.form-control.search{type: 'text', id: 'search-field', placeholder: 'Suche'}
-    %div.col-sm-1
-      %a{href: '#', id: 'clear-btn', style: 'display: none'}
+    %div.col-sm-1.float-left.display-none
+      %a.pointer{id: 'clear-btn', style: 'display: none'}
         %i.fa.fa-close.fa-3x
 
   %br
+
+  %div.modal.fade{id: "jobFormModal"}
+    %div.modal-dialog
+      %div.modal-content
+        %div.modal-header
+          %button.close{"data-dismiss": "modal", type: "button"} &times;
+          %h2
+            = "Job Formular"
+        %div.modal-body
+          %p
+            = "Dieses Job Formular soll ausschliesslich da zur Anwendung kommen, wo nicht mit der digitalen Version gearbeitet werden kann. Das Formular kann ausgedruckt und in den jeweiligen Institutionen aufgelegt werden. Hier geht's zum Download:"
+          = link_to "Job Formular", asset_path("Job_Formular.pdf"), class: 'btn btn-success'
+        %div.modal-footer
 
   %ul.nav.nav-pills
     %li.active
@@ -45,6 +48,10 @@
 
   %div.tab-content
     %div{id: 'todo', class: 'tab-pane fade in active'}
+      %div.row.margin-top-25
+        %div.col-sm-3.float-right
+          %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
+          %i.fa.fa-2x.fa-times-circle.delete-icon.display-none
       .table-responsive
         %table.table.table-striped.sortable
           %thead
@@ -79,15 +86,24 @@
                       = 'Job: ' + todo.job.title
 
     %div{id: 'jobs', class: 'tab-pane fade in'}
-      %br
-      = link_to t('broker.jobs.index.add_new'), new_broker_job_path, class: 'btn btn-success'
+      %div.row.margin-top-25
+        %div.col-sm-2.float-left
+          = link_to t('broker.jobs.index.add_new'), new_broker_job_path, class: 'btn btn-success'
+        %div.col-sm-3.float-right
+          %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
+          %i.fa.fa-2x.fa-times-circle.delete-icon.display-none
+        %div.col-sm-1.float-right
+          %a.btn.archive-btn
+            = "Archiv"
+        %div.col-sm-2.float-right
+          %a.btn.contract-btn{href: "#", "data-toggle": "modal", "data-target": "#jobFormModal"}
+            = "Job Formular"
       .table-responsive
         %table.table.table-striped.sortable
           %thead
             %tr
               %th.sortable{id: 'job_status'}= t('broker_dashboard.jobs_table.status')
               %th.sortable{id: 'job_date'}= t('broker_dashboard.jobs_table.date')
-              -#%th.sortable= t('broker_dashboard.jobs_table.todo')
               %th.sortable{id: 'job_job'}= t('broker_dashboard.jobs_table.job')
               %th.sortable{id: 'job_provider'}= t('broker_dashboard.jobs_table.provider')
               %th= t('broker_dashboard.jobs_table.allocations')
@@ -98,22 +114,39 @@
 
             - @jobs.each do |job|
               - @job = job
-              %tr{ class: "organization organization-#{job.try(:organization).try(:id)}" }
+              %tr{ class: "organization organization-#{job.try(:organization).try(:id)} status-#{job.stat_name}" }
                 %td.status
                   = job_label(job)
                 - sortable_date = job.last_change_of_state == nil ?  "": job.last_change_of_state.strftime("%Y%m%d%H%M%S")
                 %td.date{sorttable_customkey: sortable_date}
                   = job.last_change_of_state == nil ?  "": job.last_change_of_state.strftime("%d.%m.%Y")
-                -#%td
                 %td.title
                   = link_to job.title, edit_broker_job_path(job)
                 %td.name
                   = link_to job.provider.name, edit_broker_provider_path(job.provider)
                 %td.allocations
                   = render 'allocations'
+                %td.salary.display-none
+                  = job.salary
+                %td.manpower.display-none
+                  = job.manpower
+                %td.duration.display-none
+                  = job.duration
+                %td.long_description.display-none
+                  = job.long_description
+                %td.short_description.display-none
+                  = job.short_description
     %div{id: 'providers', class: 'tab-pane fade in'}
-      %br
-      = link_to t('providers.index.add_new'), new_broker_provider_path, class: 'btn btn-success'
+      %div.row.margin-top-25
+        %div.col-sm-2.float-left
+          = link_to t('providers.index.add_new'), new_broker_provider_path, class: 'btn btn-success'
+        %div.col-sm-3.float-right
+          %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
+          %i.fa.fa-2x.fa-times-circle.delete-icon.display-none
+        %div.col-sm-1.float-right
+          %a.btn.archive-btn
+            = "Archiv"
+        %div.col-sm-2.float-right
       .table-responsive
         %table.table.table-striped.sortable
           %thead
@@ -130,7 +163,7 @@
                 %td{ colspan: 5 }= t('providers.index.no_providers')
 
             - @providers.each do |provider|
-              %tr{ class: "organization organization-#{provider.organization.id}" }
+              %tr{ class: "organization organization-#{provider.organization.id} status-#{provider.stat_name}" }
                 %td.status
                   = provider_label(provider)
                 %td.date{sorttable_customkey: provider.updated_at.strftime("%Y%m%d%H%M%S")}
@@ -142,9 +175,27 @@
                   -provider.jobs.each do |job|
                     %ul.list-unstyled
                       %li= link_to job.title, edit_broker_job_path(job)
+                %td.phone.display-none
+                  = provider.phone
+                %td.mobile.display-none
+                  = provider.mobile
+                %td.contact_preference.display-none
+                  = provider.contact_preference
+                %td.contact_availability.display-none
+                  = provider.contact_availability
+                %td.company.display-none
+                  = provider.company
     %div{id: 'seekers', class: 'tab-pane fade in'}
-      %br
-      = link_to t('seekers.index.add_new'), new_broker_seeker_path, class: 'btn btn-success'
+      %div.row.margin-top-25
+        %div.col-sm-2.float-left
+          = link_to t('seekers.index.add_new'), new_broker_seeker_path, class: 'btn btn-success'
+        %div.col-sm-3.float-right
+          %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
+          %i.fa.fa-2x.fa-times-circle.delete-icon.display-none
+        %div.col-sm-1.float-right
+          %a.btn.archive-btn
+            = "Archiv"
+        %div.col-sm-2.float-right
       .table-responsive
         %table.table.table-striped.sortable
           %thead
@@ -160,7 +211,7 @@
                 %td{ colspan: 4 }= t('seekers.index.no_seekers')
 
             - @seekers.each do |seeker|
-              %tr{ class: "organization organization-#{seeker.try(:organization).try(:id)}" }
+              %tr{ class: "organization organization-#{seeker.try(:organization).try(:id)} status-#{seeker.stat_name}" }
                 %td.status
                   = seeker_label(seeker)
                 %td{sorttable_customkey: seeker.updated_at.strftime("%Y%m%d%H%M%S")}
@@ -168,7 +219,32 @@
                 %td.name= link_to seeker.name, edit_broker_seeker_path(seeker)
                 %td.street= seeker.street
                 %td.place= seeker.place.zip + ' ' + seeker.place.name
+                %td.phone.display-none
+                  = seeker.phone
+                %td.mobile.display-none
+                  = seeker.mobile
+                %td.contact_preference.display-none
+                  = seeker.contact_preference
+                %td.contact_availability.display-none
+                  = seeker.contact_availability
+                %td.email.display-none
+                  = seeker.email
+                %td.sex.display-none
+                  = seeker.sex
+                %td.occupation.display-none
+                  = seeker.occupation
+                %td.additional_contacts.display-none
+                  = seeker.additional_contacts
+                %td.languages.display-none
+                  = seeker.languages
     %div{id: 'assignments', class: 'tab-pane fade in'}
+      %div.row.margin-top-25
+        %div.col-sm-3.float-right
+          %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
+          %i.fa.fa-2x.fa-times-circle.delete-icon.display-none
+        %div.col-sm-1.float-right
+          %a.btn.archive-btn
+            = "Archiv"
       .table-responsive
         %table.table.table-striped.sortable
           %thead
@@ -209,19 +285,51 @@
                   = assignment.feedback
 
 :javascript
+  var target = window.location.hash;
+  var params = window.location.search.substr(1);
+  if(params === undefined || params === null || params === '') {
+    params = '';
+  } else {
+    params = '?' + params;
+  }
+
+  target = target.replace('#', '');
+  if(target === '') {
+    target = 'todo';
+  }
+  // window.location.hash = '';
+
   $(document).ready(function(){
-    var url = document.location.toString();
-    if (url.match('#')) {
-      $('.nav-pills a[href="#' + url.split('#')[1] + '"]').tab('show');
-    } else {
-      location.hash = 'todo';
-      setHelp();
-    }
+
+    $('.nav-pills a[href="#' + target + '"]').tab('show');
+    setHelp();
 
     var selectedOrganizationId = 0;
+    var finishedVisible = false;
+
+    if(params.includes('archive=true')) {
+      $('.archive-btn').addClass('archive-btn-selected');
+    }
+
+    $('.archive-btn').click(function(){
+      if(params.includes('archive=true')) {
+        var newLocation = window.location.href.split('#')[0].replace('?archive=true', '') + '#' + target;
+        window.location.href = newLocation;
+      } else {
+        if(window.location.href.includes('?')) {
+          var newLocation = window.location.href.split('#')[0] + 'archive=true' + '#' + target;
+        } else {
+          var newLocation = window.location.href.split('#')[0] + '?archive=true' + '#' + target;
+        }
+
+        window.location.href = newLocation;
+      }
+    });
+
+    var tableSorted = [false, false, false, false, false];
 
     function loadSortedColumn() {
-      var hash = location.hash;
+      var hash = target;
       var sortedColumnId = sessionStorage.getItem('sortedColumn' + hash);
       if(sortedColumnId != undefined) {
         sorttable.init();
@@ -229,11 +337,38 @@
         if(sessionStorage.getItem('sortedReverse' + hash) === 'true') {
           sorttable.innerSortFunction.apply(document.getElementById(sortedColumnId), []);
         }
+      } else {
+        sorttable.init();
+        if(hash === "todo" && !tableSorted[0]) {
+          tableSorted[0] = true;
+          sorttable.innerSortFunction.apply(document.getElementById('todo_date'), []);
+          sorttable.innerSortFunction.apply(document.getElementById('todo_date'), []);
+        }
+        if(hash === "jobs" && !tableSorted[1]) {
+          tableSorted[1] = true;
+          sorttable.innerSortFunction.apply(document.getElementById('job_date'), []);
+          sorttable.innerSortFunction.apply(document.getElementById('job_date'), []);
+        }
+        if(hash === "providers" && !tableSorted[2]) {
+          tableSorted[2] = true;
+          sorttable.innerSortFunction.apply(document.getElementById('provider_date'), []);
+          sorttable.innerSortFunction.apply(document.getElementById('provider_date'), []);
+        }
+        if(hash === "seekers" && !tableSorted[3]) {
+          tableSorted[3] = true;
+          sorttable.innerSortFunction.apply(document.getElementById('seeker_date'), []);
+          sorttable.innerSortFunction.apply(document.getElementById('seeker_date'), []);
+        }
+        if(hash === "assignments" && !tableSorted[4]) {
+          tableSorted[4] = true;
+          sorttable.innerSortFunction.apply(document.getElementById('assignment_date'), []);
+          sorttable.innerSortFunction.apply(document.getElementById('assignment_date'), []);
+        }
       }
     }
 
     $('th.sortable').click(function() {
-      var hash = location.hash;
+      var hash = target;
       sessionStorage.setItem('sortedColumn' + hash, $(this).attr('id'));
       if($(this).hasClass('sorttable_sorted')) {
         sessionStorage.setItem('sortedReverse' + hash, 'true');
@@ -243,13 +378,17 @@
     });
 
     function checkSearchField() {
-      var searchString = "#{current_broker.filter}";
-      $('#search-field').val(searchString);
+      var searchString = window.localStorage.getItem("search_filter");
+      if(searchString === null || searchString === 'null') {
+        searchString = "#{current_broker.filter.nil? ? '' : current_broker.filter}";
+      }
+
+      window.localStorage.setItem("search_filter", null);
+
+      $('.search-field').val(searchString);
 
       if(searchString !== "") {
-        $('#clear-btn').css('display', 'initial');
-      } else {
-        $('#clear-btn').css('display', 'none');
+        $('.delete-icon').removeClass('display-none');
       }
 
       jobsList.search(searchString);
@@ -270,28 +409,31 @@
         $('.organization-' + id).removeClass('display-none');
       }
 
-      $('#dropdown-btn').text($('.organization-dropdown[data-value="' + id + '"]').text());
+      $('#dropdown-btn').val(id);
+      // $('#dropdown-btn').text($('.organization-dropdown[data-value="' + id + '"]').text());
     }
 
     $('.nav-pills a').on('shown.bs.tab', function (e) {
       var history_array = JSON.parse(sessionStorage.getItem('history') || '[]')
-      history_array.push(window.location.href.split('#')[0] + e.target.hash);
+      history_array.push(window.location.href.split('#')[0] + e.target.hash );
       sessionStorage.setItem('history', JSON.stringify(history_array))
 
       sessionStorage.setItem('previous', window.location.href);
       if(history.pushState) {
-        history.pushState(null, null, e.target.hash);
+        history.pushState(null, null, params + e.target.hash);
       }
       else {
         location.hash = e.target.hash;
       }
 
+
+      target = e.target.hash.replace('#', '');
       loadSortedColumn();
       setHelp();
     });
 
-    $('.organization-dropdown').click(function(){
-      var id = $(this).attr('data-value');
+    $('#dropdown-btn').on('change', function(){
+      var id = this.value;
       selectedOrganizationId = id;
       if(id === '0') {
         $('.display-none.organization').removeClass('display-none');
@@ -300,12 +442,15 @@
         $('.organization').addClass('display-none');
         $('.organization-' + id).removeClass('display-none');
       }
-
-      $('#dropdown-btn').text($(this).text());
     });
 
     var options = {
-      valueNames: [ 'name', 'provider-name', 'place', 'status', 'street', 'title', 'date', 'allocations', 'jobs', 'status', 'payment', 'feedback', 'description' ]
+      valueNames: [ 'name', 'provider-name', 'place', 'status',
+      'street', 'title', 'date', 'allocations', 'jobs', 'status', 'payment',
+      'feedback', 'description', 'salary', 'manpower', 'duration',
+      'long_description', 'short_description', 'phone',
+      'mobile', 'contact_preference', 'contact_availability', 'company',
+      'email', 'sex', 'additional_contacts', 'occupation', 'languages' ]
     };
 
     var jobsList = new List('jobs', options);
@@ -314,13 +459,14 @@
     var assignmentsList = new List('assignments', options);
     var todosList = new List('todo', options);
 
-    $('#search-field').on('keyup', function() {
+    $('.search-field').on('keyup', function() {
       var searchString = $(this).val();
       if(searchString !== "") {
-        $('#clear-btn').css('display', 'initial');
+        $('.delete-icon').removeClass('display-none');
       } else {
-        $('#clear-btn').css('display', 'none');
+        $('.delete-icon').addClass('display-none');
       }
+      $('.search-field').val(searchString);
 
       jobsList.search(searchString);
       providersList.search(searchString);
@@ -329,9 +475,9 @@
       todosList.search(searchString);
     });
 
-    $('#clear-btn').click(function(){
-      $('#search-field').val("");
-      $('#clear-btn').css('display', 'none');
+    $('.delete-icon').click(function(){
+      $('.search-field').val("");
+      $('.delete-icon').addClass('display-none');
       var searchString = "";
       jobsList.search(searchString);
       providersList.search(searchString);
@@ -342,10 +488,16 @@
 
     checkSearchField();
     loadOrganization();
-    // loadSortedColumn();
+    loadSortedColumn();
 
     window.addEventListener("beforeunload", function (event) {
-      $.post("#{save_settings_broker_dashboard_path}", {filter: $('#search-field').val(), selected_organization_id: parseInt(selectedOrganizationId)}, function(response) {
+      // $(window).scrollTop(0);
+      var searchFieldVal = $('.search-field').val();
+      if(searchFieldVal === null) {
+        searchFieldVal = '';
+      }
+      window.localStorage.setItem("search_filter", searchFieldVal);
+        $.post("#{save_settings_broker_dashboard_path}", {filter: searchFieldVal, selected_organization_id: parseInt(selectedOrganizationId)}, function(response) {
       });
     });
   });

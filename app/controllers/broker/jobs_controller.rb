@@ -50,6 +50,25 @@ class Broker::JobsController < InheritedResources::Base
     render json: { message: 'Job deleted' }, status: 200
   end
 
+  # Adds new comment for seeker
+  #
+  def add_comment
+    comment = params[:comment]
+    Note.create!(job_id: @job.id, broker_id: current_broker.id, message: comment)
+  end
+
+  # Remove broker comment from seeker
+  #
+  def remove_comment
+    id = params[:note_id]
+    note = Note.find_by(id: id)
+    if note.nil? || note.broker.id != current_broker.id || note.job.id != @job.id
+      return
+    end
+
+    note.destroy!
+  end
+
   protected
 
   # Returns currently signed in broker
@@ -61,7 +80,7 @@ class Broker::JobsController < InheritedResources::Base
   end
 
   def permitted_params
-    params.permit(job: [:id, :provider_id, :work_category_id, :state, :title, :long_description, :short_description, :date_type, :start_date, :end_date, :salary, :salary_type, :manpower, :duration, :notes, :organization_id, seeker_ids: []])
+    params.permit(job: [:current_broker_id, :id, :provider_id, :work_category_id, :state, :title, :long_description, :short_description, :date_type, :start_date, :end_date, :salary, :salary_type, :manpower, :duration, :notes, :organization_id, seeker_ids: []])
   end
 
 end

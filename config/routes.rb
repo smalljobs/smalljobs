@@ -4,7 +4,6 @@ require 'api_subdomain'
 require 'smalljobs_subdomain'
 
 Smalljobs::Application.routes.draw do
-
   mount Rich::Engine => '/rich', :as => 'rich'
   devise_for :admins
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
@@ -77,6 +76,8 @@ Smalljobs::Application.routes.draw do
         member do
           get 'contract'
           delete 'delete'
+          post 'add_comment'
+          post 'remove_comment'
         end
       end
 
@@ -85,6 +86,8 @@ Smalljobs::Application.routes.draw do
           get 'agreement'
           delete 'delete'
           post 'send_message'
+          post 'add_comment'
+          post 'remove_comment'
         end
       end
 
@@ -92,6 +95,8 @@ Smalljobs::Application.routes.draw do
         member do
           post 'activate'
           delete 'delete'
+          post 'add_comment'
+          post 'remove_comment'
         end
 
         resources :allocations do
@@ -105,7 +110,11 @@ Smalljobs::Application.routes.draw do
     end
 
     namespace :provider do
-      resource :dashboard, only: :show
+      resource :dashboard, only: :show do
+        member do
+          get 'contract'
+        end
+      end
 
       resources :jobs do
         resources :allocations, only: [:index, :show]
@@ -116,14 +125,11 @@ Smalljobs::Application.routes.draw do
       resource :dashboard, only: :show
 
       resources :jobs, only: [:index, :show] do
-        # resources :allocations, only: [:index, :show]
         resources :allocations
       end
     end
 
     resources :jobs, only: :show
-
-
 
     get '/' => 'regions#show'
   end
@@ -153,6 +159,7 @@ Smalljobs::Application.routes.draw do
     post '/users/password/remind' => 'api#password_remind'
     post '/users/password/validate' => 'api#password_validate'
     post '/users/password/change' => 'api#password_change'
+    put '/messages/update' => 'api#update_messages'
   end
 
   #API
@@ -180,6 +187,7 @@ Smalljobs::Application.routes.draw do
   post '/api/users/password/remind' => 'api#password_remind'
   post '/api/users/password/validate' => 'api#password_validate'
   post '/api/users/password/change' => 'api#password_change'
+  put '/api/messages/update' => 'api#update_messages'
 
   root 'regions#index'
 end

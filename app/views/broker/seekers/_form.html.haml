@@ -40,9 +40,26 @@
       .form-inputs
         = f.input :discussion, label: false, inline_label: true
 
-  %fieldset
-    .form-inputs
-      = f.input :notes, label: "Notizen (nur intern sichtbar)", as: :text
+  - unless @seeker.new_record?
+    %fieldset
+      .form-inputs
+        = f.input :new_note, label: false, as: :text
+        %button.btn.btn-success{id: 'comment-btn'}
+          = "Kommentieren"
+        - Note.where(seeker_id: @seeker.id).order(:created_at).reverse_order.each do |note|
+          %hr
+          %div.row
+            %div.col-md-8
+              %p
+                %span.bold.margin-right-10
+                  = note.broker.name
+                = note.created_at.strftime("%d.%m.%Y, %H:%M")
+            %div.col-md-4.text-right
+              - if note.broker.id == current_broker.id
+                %p.remove-btn{'data-note-id': "#{note.id}"}
+                  = "Löschen"
+          %p
+            = note.message
 
   %fieldset
     .form-inputs
@@ -54,10 +71,8 @@
       - else
         = f.input :password, required: false, autocomplete: 'off'
         = f.input :password_confirmation, required: false
-      -#- else
-      -#  = f.input :password, required: false, autocomplete: 'off', hint: t('devise_views.leave_empty')
-      -#  = f.input :password_confirmation, required: false
       = f.input :mobile, required: true
+      = f.input :additional_contacts, required: false
       = f.input :date_of_birth, required: true, start_year: Date.today.year - 25, end_year: Date.today.year - 13, include_blank: true, hint: 'Du solltest zwischen 13 und 25 Jahre alt sein.'
       = f.input :sex, collection: seeker_sex, include_blank: false
 
@@ -68,11 +83,17 @@
 
   %fieldset
     .form-inputs
-      = f.association :work_categories, as: :check_boxes
+      = f.association :work_categories, as: :check_boxes, label_method: :label
 
   %fieldset
     .form-inputs
       = f.association :certificates, as: :check_boxes, label: 'Zertifikate'
+
+  %fieldset
+    .form-inputs
+      = f.input :languages, required: false
+      = f.input :occupation, required: false
+      = f.input :occupation_end_date, required: false
 
   %fieldset
     %legend
@@ -144,12 +165,32 @@
         }
       }
 
+      $('#comment-btn').click(function(){
+        var comment = $('#seeker_new_note').val();
+        if(comment === '') {
+          return false;
+        }
+
+        $.post("#{add_comment_broker_seeker_path(@seeker)}", {comment: comment}, function(response) {
+          window.location.reload();
+        });
+
+        return false;
+      });
+
+      $('.remove-btn').click(function(){
+        var noteId = $(this).attr('data-note-id');
+
+        $.post("#{remove_comment_broker_seeker_path(@seeker)}", {note_id: noteId}, function(response) {
+          window.location.reload();
+        })
+      });
+
       function disableMessaging() {
         $('.modal-body input').removeAttr('checked');
         $('.modal-body input').attr('disabled', 'true');
         $('.modal-body textarea').attr('disabled', 'true');
         $('.modal-body .btn-send').attr('disabled', 'true');
-        // $('.modal-body button').attr('disabled', 'true');
       }
 
       if("#{@seeker.app_user_id == nil}" == "true") {

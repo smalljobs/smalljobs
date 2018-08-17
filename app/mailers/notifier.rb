@@ -5,6 +5,38 @@ class Notifier < ActionMailer::Base
   default from: 'SmallJobs <hello@smalljobs.ch>'
   helper :mailer
 
+  def weekly_update_for_broker(broker)
+    @broker = broker
+    @jobs = @broker.jobs.includes(:provider, :organization).group('jobs.id').order(:last_change_of_state).reverse_order()
+    allocations = Allocation.where(job: @jobs).includes(:seeker)
+    @providers = @broker.providers.includes(:place, :jobs, :organization).group('providers.id').order(:updated_at).reverse_order()
+    @seekers = @broker.seekers.includes(:place, :organization).group('seekers.id').order(:updated_at).reverse_order()
+    @assignments = @broker.assignments.includes(:seeker, :provider).group('assignments.id').order(:created_at).reverse_order()
+    @todos = Todo.where(seeker: @seekers).or(Todo.where(provider: @providers)).or(Todo.where(job: @jobs)).or(Todo.where(allocation: allocations)).group('todos.id').order(:created_at).reverse_order()
+    return nil if @todos.blank?
+    organization_name = ""
+    unless broker.organizations.first.nil?
+      organization_name = broker.organizations.first.name
+    end
+    Markerb.processing_options = {tables: true}
+    mail(to: broker.email, subject: "Smalljobs Todo für #{organization_name}") do |format|
+      format.text
+      format.html
+    end
+  end
+
+
+  # Send a welcome message to seeker parents after his registration
+  #
+  def send_welcome_message_for_parents(message, email)
+    @message = message
+
+    mail(to: email, subject: 'Willkommen') do |format|
+      format.text
+      format.html
+    end
+  end
+
   # Send a PDF agreement to a job seeker,
   # so he can sign and return the document,
   # so we can activate the seeker.

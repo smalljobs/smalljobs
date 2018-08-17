@@ -78,10 +78,22 @@
     .bottom.right {
       position: absolute;
       display: inline-block;
-      bottom: 25px;
-      right: 37px;
-      font-size: 14px;
-      font-weight: 700;
+      bottom: 0px;
+      padding-right: 37px;
+      right: 0px;
+      font-size: 12px;
+      font-weight: normal;
+      width: 100%;
+      text-align: right;
+    }
+
+    .bottom-right {
+      position: absolute;
+      display: inline-block;
+      bottom: -20px;
+      right: -10px;
+      font-size: 12px;
+      font-weight: normal;
       width: 100%;
       text-align: right;
     }
@@ -89,17 +101,18 @@
     #logo {
       position: absolute;
       top: 37px;
-      right: 32px;
-      max-width: 95px;
+      right: -11px;
+      width: 100px;
     }
 
     p.org-name {
-      margin-top: 102px;
-      font-size: 15px;
+      margin-top: 178px;
+      font-size: 12px;
       font-weight: 400;
       margin-left: 93px;
       border-bottom: 1px solid #000;
       display: inline-block;
+      width: auto;
     }
 
     p.contact-info {
@@ -111,8 +124,14 @@
 
     p.letter-start {
       margin-left: 93px;
-      margin-top: 56px;
+      margin-top: 80px;
       font-size: 15px;
+      /*position: absolute;*/
+      line-height: 1.44;
+      /*top: 307px;*/
+      left: 0;
+      margin-right: 93px;
+      margin-bottom: 100px;
     }
 
     p.second-paragraph {
@@ -143,34 +162,43 @@
     }
 
     p.sign-dots {
-      margin-top: 0px;
+      margin-top: 30px;
       font-size: 15px;
+      /*position: absolute;*/
+      /*top: 799px;*/
+      left: 0;
     }
 
     p.sign-data {
-      margin-top: -5px;
+      /*margin-top: -5px;*/
       font-size: 15px;
+      /*position: relative;*/
       line-height: 1.4;
+      /*top: 864px;*/
+      /*top: 10px;*/
+      left: 0;
     }
 
     p.page2-firstrow {
       margin-left: 37px;
       font-size: 21px;
-      font-weight: 800;
+      font-weight: normal;
       margin-top: -5px;
     }
 
     p.small-stars {
       font-size: 12px;
-      font-weight: 700;
+      font-weight: normal;
       margin-top: 7px;
+      margin-left: 37px;
     }
 
     p.page2-secondrow {
       margin-left: 37px;
       margin-top: -6px;
       font-size: 14px;
-      font-weight: 700;
+      font-weight: normal;
+      margin-bottom: 36px;
     }
 
     p.sign-par {
@@ -205,19 +233,27 @@
       top: 150px;
     }
 
-    .center.qr img {
-      left: 50%;
-      top: 50%;
+    .border-qr {
+      width: 174px;
+      height: 174px;
+      border: 5px solid #07b571;
+      position: relative;
+    }
+
+    .border-qr img {
       position: absolute;
-      margin-top: -42px;
-      margin-left: -46px;
-      width: 90px;
+      margin: auto;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 116px;
     }
 
     h1.provider-name {
       margin-left: 93px;
       font-size: 15px;
-      margin-top: 80px;
+      margin-top: 20px;
       font-weight: 400;
       line-height: 1.4;
     }
@@ -226,7 +262,7 @@
       margin-left: 37px;
       font-size: 21px;
       font-weight: 700;
-      margin-top: 368px;
+      margin-top: 408px;
       margin-bottom: 5px;
     }
 
@@ -234,56 +270,25 @@
       margin-left: 37px;
       font-size: 21px;
       font-weight: 700;
-      margin-top: 35px;
+      margin-top: 45px;
     }
 
-    #page2 ol {
-      margin-top: 15px;
+    #page3 ol {
+      margin-top: 23px;
+      font-size: 15px;
     }
 
-    #page2 ol li {
-      margin-left: 13px;
+    #page3 ol li {
+      margin-left: 18px;
       margin-bottom: 3px;
       padding-left: 7px !important;
       line-height: 1.2;
     }
 
-    #page2 table {
-      margin-left: 37px;
-      margin-right: 37px;
-      width: 719px;
-    }
-
-    #page2 table tbody {
-      background: #fff;
-    }
-
-    #page2 table thead {
-      background: #ecf6ee;
-    }
-
-    #page2 table thead tr th {
-      font-size: 13px;
-      font-weight: 700;
-      border: 0px !important;
-      padding-top: 4px;
-    }
-
-    #page2 table tr td {
-      border: 1px solid #cbe7d5;
-      padding: 3px;
-      padding: 10px 3px;
-      font-size: 13px;
-      border-left: 0px !important;
-      border-right: 0px !important;
-    }
-
     #page3 table {
       margin-left: 37px;
-      margin-right: 37px;
-      width: 719px;
-      position: absolute;
-      top: 425px;
+      /*margin-right: 37px;*/
+      width: 752px;
       left: -5px;
     }
 
@@ -296,17 +301,17 @@
     }
 
     #page3 table thead tr th {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       border: 0px !important;
       padding-top: 4px;
+      text-align: left;
     }
 
     #page3 table tr td {
       border: 1px solid #cbe7d5;
-      padding: 3px;
-      padding: 15px 3px;
-      font-size: 13px;
+      padding: 10px 3px;
+      font-size: 12px;
       border-left: 0px !important;
       border-right: 0px !important;
     }
@@ -316,9 +321,13 @@
       margin-left: 37px;
     }
 
+    #page2 p.large {
+      margin-bottom: 10px;
+    }
+
     #page1 p {
-      margin-left: 93px;
-      margin-right: 93px;
+      margin-left: 96px;
+      /*margin-right: 68px;*/
       text-align: justify;
     }
 
@@ -326,7 +335,7 @@
       position: absolute;
       padding-left: 93px;
       left: 0;
-      bottom: 43px;
+      bottom: 0;
       width: 300px;
     }
 
@@ -337,22 +346,20 @@
       width: 300px;
     }
 
-    #page2 .second-row-table {
-      font-style: italic;
-      font-weight: 400;
-      font-size: 13px;
+    #page3 .second-row-table {
+      font-weight: 300 !important;
+      font-size: 12px;
+      height: 30px;
     }
 
     #baner {
-      left: 15px;
-      right: 15px;
+      left: 19px;
       top: 20px;
       position: absolute;
       z-index: 0;
-      width: 100% !important;
       height: auto;
       display: block;
-      max-width: 760px;
+      width: 792px;
     }
 
     #page3 h1.first-header {
@@ -372,6 +379,7 @@
 
     #page2 h2 {
       position: absolute;
+      line-height: 1;
       z-index: 1;
       color: #fff;
       font-size: 40px;
@@ -381,6 +389,140 @@
     #page2 h2 span {
       font-weight: 400;
     }
+
+    #bank {
+      width: 357px;
+      height: 55px;
+      position: absolute;
+      top: 296px;
+      background-color: white;
+      right: -20px;
+      font-size: 11.5px;
+      text-align: right;
+      padding-top: 10px;
+      padding-right: 20px;
+    }
+
+    #bank span {
+      color: #18bc9c;
+    }
+
+    .row-w {
+      width: 100%;
+      margin-left: 37px;
+    }
+
+    .col1 {
+      width: 20%;
+      float: left;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .col2 {
+      width: 79%;
+      float: left;
+      font-size: 22px;
+    }
+
+    .col1-j {
+      width: 20%;
+      float: left;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .col1-j span {
+      padding-left: 10px;
+      font-weight: normal;
+    }
+
+    .col2-j {
+      width: 78%;
+      float: left;
+      font-size: 20px;
+    }
+
+    .col1-qr {
+      width: 32%;
+      float: left;
+      font-size: 12px;
+    }
+
+    .col2-qr {
+      width: 60%;
+      float: left;
+      padding-left: 26px;
+    }
+
+    .clear-both {
+      clear: both;
+    }
+
+    .large {
+      font-size: 20px;
+    }
+
+    #smalljobs-logo {
+      position: absolute;
+      right: -10px;
+      width: 80px;
+      top: 207px;
+    }
+
+    #org-logo-div {
+      position: absolute;
+      left: 118px;
+      top: 296px;
+      width: 66px;
+      height: 66px;
+      background-color: white;
+      overflow: hidden;
+    }
+
+    #region-logo-div {
+      position: absolute;
+      left: 50px;
+      top: 296px;
+      width: 66px;
+      height: 66px;
+      background-color: white;
+      overflow: hidden;
+    }
+
+    #org-logo {
+      height: 99%;
+      width: auto;
+      position: absolute;
+      margin: auto;
+      top: 1px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    #region-logo {
+      width: 99%;
+      height: auto;
+      position: absolute;
+      margin: auto;
+      top: 0;
+      left: 1px;
+      right: 0;
+      bottom: 0;
+    }
+
+      #bg-text {
+        color: black !important;
+      }
+
+      .bottom-right span {
+        padding-left: 15px;
+      }
+
+      .second-row-table th {
+        font-weight: normal !important;
+      }
   </style>
 </head>
 <body>
@@ -391,45 +533,19 @@
     – <%= @provider.organization.place.full_name %>
   </p>
   <h1 class="provider-name">
-    <%= @provider.company != nil && !@provider.company.empty? ? "#{@provider.company}<br/>".html_safe : "" %>
+    <%= @provider.company != nil && !@provider.company.empty? ? "#{@provider.company}<br/>".html_safe : "<br/>".html_safe %>
     <%= @provider.name %><br/>
     <%= @provider.street %><br/>
     <%= @provider.place.full_name %>
   </h1>
-  <p class="contact-info">
-    Ihre Kontaktdaten:
-    <br/>
-    <%= current_broker.mobile %>
-    <br/>
-    <%= current_broker.email %>
-  </p>
   <p class="letter-start">
-    Guten
-    Tag <%= @provider.name %><%= @provider.company != nil && !@provider.company.empty? ? ", (#{@provider.company})" : "" %>
-  </p>
-  <p class="second-paragraph">
-    Es freut uns sehr, Sie bei der Jobbörse begrüssen zu dürfen! Sie leisten mit Ihrer Teilnahme einen wertvollen
-    Beitrag für die berufliche Integration und den Generationendialog. Unsere Jugendlichen freuen sich,
-    Sie kompetent, freundlich und persönlich unterstützen zu können.
-  </p>
-  <p class="third-paragraph">
-    Beiliegend erhalten Sie eine Vorlage für einen Arbeitsvertrag. Wir bitten Sie, diesen jeweils von
-    jedem Jugendlichen bei Arbeitsbeginn unterschreiben zu lassen. Die Jugendlichen lesen Ihre
-    persönliche Identifikation bei Arbeitsbeginn ein. Das System berechnet den Lohn dann automatisch.
-    Nach Arbeitsende können Sie den Jugendlichen den Lohn bezahlen.
-  </p>
-  <p class="forth-paragraph">
-    Viel Spass bei der Zusammenarbeit mit unseren Jugendlichen. Bei Fragen oder Problemen stehen
-    wir Ihnen gerne zur Verfügung: <%= current_broker.mobile %>
-  </p>
-  <p class="letter-end">
-    Für Ihre Jobbörse <%= @provider.organization.name %>
+    <%= @letter_msg.html_safe %>
   </p>
   <p class="sign-dots">.................................................</p>
   <p class="sign-data">
-    <%= current_broker.name %><br/>
-    <%= current_broker.mobile %><br/>
-    <%= current_broker.email %>
+    <%= @broker.name %><br/>
+    <%= @broker.mobile.empty? ? @broker.phone : @broker.mobile %><br/>
+    <%= @broker.email %>
   </p>
   <footer>
     <p><%= @provider.organization.name %><br/>
@@ -441,31 +557,107 @@
   <% if @provider.organization.background.present? %>
       <img id="baner" src="<%= @provider.organization.background.url(:web) %>" width="100%" height="300mm">
   <% else %>
-      <img id="baner" src="<%= wicked_pdf_asset_base64 'header-pic.jpg' %>" width="100%" height="300mm">
+      <img id="baner" src="<%= wicked_pdf_asset_base64 'ParentalAgreement.jpg' %>" width="100%" height="300mm">
   <% end %>
-  <h2>Sackgeldjobs<br/>
-    <span>Arbeitsvertrag</span></h2>
+  <h2 id="bg-text">Sackgeldjobs<br/>
+    <span>Arbeitszeiterfassung</span></h2>
+  <img id="smalljobs-logo" src="<%= wicked_pdf_asset_base64 'sj-logo-white.png' %>">
   <% if @provider.organization.logo.present? %>
-      <img id="logo-white" src="<%= @provider.organization.logo.url(:web, :normal) %>">
-  <% else %>
-      <img id="logo-white" src="<%= wicked_pdf_asset_base64 'sj-logo-white.png' %>">
+    <div id="org-logo-div">
+      <img id="org-logo" src="<%= @provider.organization.logo.url(:web, :normal) %>">
+    </div>
+  <% end %>
+  <% if @provider.organization.regions.first.logo.present? %>
+    <div id="region-logo-div">
+      <img id="region-logo" src="<%= @provider.organization.regions.first.logo.url(:web, :normal) %>">
+    </div>
   <% end %>
 
+  <div id="bank">
+    Die Sackgeldjob-Börse ist ein kostenloses Angebot von smallJobs<br/>
+    <span>Möchten sie uns unterstützen?</span><br/>
+    <span>Unser Spedenkonto lautet: CH81 0900 0000 8558 01170</span>
+  </div>
+
   <h1 class="arbei">
-    ArbeitgeberIn:
+    Arbeitgeber_in:
   </h1>
   <p class="page2-firstrow">
-    <%= @provider.name %><%= @provider.company != nil && !@provider.company.empty? ? ", (#{@provider.company})" : "" %>
+    <%= @provider.company != nil && !@provider.company.empty? ? "#{@provider.company}, " : "" %><%= @provider.name %>
   </p>
   <p class="page2-secondrow">
     <%= @provider.street %>, <%= @provider.place.full_name %>
   </p>
+
+  <p class="large"><b>1.</b></p>
+  <div class="row-w">
+    <div class="col1-j">Jugendliche_r: <span>></span></div>
+    <div class="col2-j"><span>Diesen Code bei Arbeitsbeginn mit dem Scanner der Jugendapp*
+      einlesen und Anweisungen in der App befolgen.</span></div>
+    <div class="clear-both"></div>
+  </div>
+
+  <br>
+  <br>
+
+  <div class="row-w">
+    <div class="col1-qr">
+      Mit Arbeitsbeginn sind Jugendliche und
+      Arbeitgebende mit den smallJobs Richtlinien
+      einverstanden (siehe Seite 2)
+      <br><br>
+      <b>Keine App vorhanden?</b>
+      <br>
+      Bitte Arbeitsstunden von Hand
+      aufschreiben
+    </div>
+    <div class="col2-qr">
+      <div class="border-qr">
+        <img id="qr" src="<%= @qrcode.to_data_url %>">
+      </div>
+    </div>
+    <div class="clear-both"></div>
+  </div>
+
+  <p class="large"><b>2.</b></p>
+  <div class="row-w">
+    <div class="col1">Jugendliche_r:</div>
+    <div class="col2">> Arbeiten unter Anleitung des Arbeitgebenden.</div>
+    <div class="clear-both"></div>
+  </div>
+
+  <br/>
+
+  <p class="large"><b>3.</b></p>
+  <div class="row-w">
+    <div class="col1">Jugendliche_r:</div>
+    <div class="col2">
+      > Arbeit beenden
+      <br>
+      > Zeitzähler in der App stoppen
+      <br>
+      > Lohn in der App ablesen
+    </div>
+    <div class="clear-both"></div>
+    <br/>
+    <div class="col1">Arbeitgeber_in:</div>
+    <div class="col2">
+      > Lohn auszahlen
+    </div>
+    <div class="clear-both"></div>
+  </div>
+
+  <footer class="bottom-right">
+    *www.jugend.app <span>Seite 1 von 2</span>
+  </footer>
+</div>
+<div id="page3" class="page alwaysbreak">
   <h1 class="page2-secondheader">
-    Ich stimme folgenden Bestimmungen zu:
+    Als Arbeitgeber_in stimme ich folgenden Bestimmungen zu:
   </h1>
   <ol>
     <li>
-      Ich leite Jugendliche fachgerecht in sämtliche Arbeit an und beaufsichtige die Arbeit angemessen.
+      Ich führe Jugendliche fachgerecht in sämtliche Arbeit an und beaufsichtige die Arbeit angemessen.
     </li>
     <li>
       Das Anstellungsverhältnis besteht direkt zwischen mir und dem Jugendlichen.
@@ -494,16 +686,16 @@
   <table border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse;" bordercolor="#cbe7d5">
     <thead>
     <tr>
-      <th>
+      <th style="width: 65px;">
         Alter
       </th>
-      <th>
+      <th style="width: 90px;">
         Arbeitszeiten
       </th>
-      <th colspan="3">
+      <th colspan="3"  style="width: 200px;">
         Max. täglich
       </th>
-      <th colspan="2">
+      <th colspan="2"  style="width: 150px;">
         Max. wöchentlich
       </th>
       <th>
@@ -513,10 +705,10 @@
     <tr class="second-row-table">
       <th></th>
       <th></th>
-      <th>Mo–Fr</th>
-      <th>Sa</th>
+      <th style="width: 60px;">Mo–Fr</th>
+      <th style="width: 30px;">Sa</th>
       <th>So</th>
-      <th>Schulzeit</th>
+      <th style="width: 70px;">Schulzeit</th>
       <th>Ferien</th>
       <th></th>
     </tr>
@@ -542,7 +734,7 @@
         9h
       </td>
       <td>
-        40h<sup>**</sup>
+        40h**
       </td>
       <td>
         Bedienung in Bars, Clubs, u.ä., gefährliche Arbeiten
@@ -568,7 +760,7 @@
         9h
       </td>
       <td>
-        40h<sup>**</sup>
+        40h**
       </td>
       <td>
         Kino, Zirkus, Bedienung von Gästen in Gastrobetrieben
@@ -577,124 +769,11 @@
     </tbody>
   </table>
   <p class="small-stars">
-    <sup>*</sup> Detailbestimmungen: www.smalljobs.ch/jugendschutz
+    * Detailbestimmungen: www.smalljobs.ch/jugendschutz
     <br/>
-    <sup>**</sup> Maximal die halben Ferien lang
+    ** Maximal die halben Ferien lang
   </p>
-  <div class="row">
-    <div class="column">
-      <div class="signature" style="margin-left: 27px;">
-      </div>
-      <p class="sign-par" style="    margin-left: 26px !important;">Ort, Datum</p>
-    </div>
-    <div class="column">
-      <div class="signature" style="margin-right: 26px;">
-      </div>
-      <p class="sign-par" style="margin-left: 0px !important;">Unterschrift <%= @provider.name %></p>
-    </div>
-  </div>
-  <footer class="bottom right">
-    Seite 1 von 2 / Bitte wenden ->
-  </footer>
-</div>
-<div id="page3" class="page alwaysbreak">
-  <h1 class="first-header">
-    <b>Jugendliche/r:</b> Diesen Code bei Arbeitsbeginn mit dem Scanner der Jugendapp<sup>*</sup>
-    einlesen und Anweisungen in der App befolgen.
-  </h1>
-  <p class="small-star">
-    Falls die Jugendapp nicht vor Ort ist, Zeit und Lohn unten von Hand vermerken.<br/>
-    <sup>*</sup>www.jugendinfo.win/app
-  </p>
-  <div>
-    <div class="center qr">
-      <img id="qr" src="<%= @qrcode.to_data_url %>">
-    </div>
-  </div>
-  <h1 class="second-header">
-    Arbeitseinsätze
-  </h1>
-  <table border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse;" bordercolor="#cbe7d5">
-    <thead>
-    <tr>
-      <th>
-        Vorname, Name Jugendliche/r
-      </th>
-      <th>
-        Unterschrift Jugendliche/r
-      </th>
-      <th>
-        Datum
-      </th>
-      <th>
-        Dauer (h)
-      </th>
-      <th>
-        CHF
-      </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    <tr>
-      <td colspan="5"></td>
-    </tr>
-    </tbody>
-  </table>
-  <p class="bottom-txt">
-    Wenn das Formular voll ist, bitte senden an:
-    <br/>
-    <%= @provider.organization.name %> <%= @provider.organization.street %>
-    , <%= @provider.organization.place.full_name %>
-  </p>
-  <footer class="bottom right">
+  <footer class="bottom-right">
     Seite 2 von 2
   </footer>
 </div>

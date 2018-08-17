@@ -15,6 +15,7 @@ de:
       organization: "Jugenarbeit"
       address: "Adresse"
       contact: "Kontakt"
+      messages: "Vorlagen"
       brokers: "Vermittler"
       administration: "Admin"
       authenticatable: "Authentifizierung"
@@ -39,6 +40,7 @@ de:
     about_smalljobs: "Über SmallJobs"
     join_us: "Mitmachen"
     rules_of_action: "Richtlinien"
+    rules: "Richlinien"
     privacy_policy: "Datenschutzrichtlinien"
     terms_of_service: "Geschäftsbedingungen"
     dashboard: 'Übersicht'
@@ -69,6 +71,14 @@ de:
     application: "Bewerben"
     proposal: "Vorschlag"
     seeker_salary: "Lohnvorschlag"
+    messages_templates: "Vorlagen"
+    available_placeholders: "Verfügbare Platzhalter:"
+    seeker_salary_hint_wage_factor: >
+      <ul>
+      <li><b>Stundenlohn pro Altersjahr:</b> Der Jugendliche erhält den angegebenen Lohn * sein Alter * %{wage_factor}.</li>
+      <li><b>Stundenlohn:</b> Altersunabhängiger Stundenlohn.</li>
+      <li><b>Fixer Preis:</b> Der Lohn ist unabhängig von der Dauer der Arbeit und Alter des Jugendlichen.</li>
+      </ul>
   contacts:
     postal: "Per Post"
     email: "Email"
@@ -104,6 +114,7 @@ de:
       hourly: "Stundenlohn"
       fixed: "Fixer Preis"
       hourly_per_age: "Stundenlohn pro Altersjahr"
+      hourly_per_age_with_factor: "Stundenlohn pro Altersjahr * %{wage_factor}"
     date_types:
       agreement: "Nach Absprache"
       date: "An einem bestimmten Tag"
@@ -303,6 +314,7 @@ de:
     completed: "Abgeschlossen"
     back_to_region: "Zurück zur Region %{name}"
     terms: "Ich akzeptiere die %{rules_of_action}, die %{terms_of_service} und die %{privacy_policy}"
+    provider_terms: "Ich akzeptiere die %{rules} des Vereins Smalljobs."
     rating: "%{rating} Punkte"
     invalid_username_or_password: "Falscher Benutzername oder Passwort."
   devise_views:

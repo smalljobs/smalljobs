@@ -5,6 +5,17 @@ RailsAdmin.config do |config|
     redirect_to main_app.root_path unless current_admin != nil
   end
 
+  config.model DefaultTemplate do
+    list do
+      field :template_name
+    end
+
+    edit do
+      field :template_name
+      field :template
+    end
+  end
+
   config.model Todo do
     list do
       field :record_id
@@ -125,6 +136,7 @@ RailsAdmin.config do |config|
 
         field :name
         field :description
+        field :opening_hours
         field :website
         field :wage_factor do
           help I18n.t('admin.groups.wage_factor')
@@ -143,6 +155,18 @@ RailsAdmin.config do |config|
 
         field :phone
         field :email
+      end
+
+      group :messages do
+        label I18n.t('admin.groups.messages')
+
+        field :welcome_letter_employers_msg
+        field :welcome_app_register_msg
+        field :welcome_chat_register_msg
+        field :not_receive_job_msg
+        field :get_job_msg
+        field :activation_msg
+        field :welcome_email_for_parents_msg
       end
 
       group :brokers do
@@ -185,6 +209,14 @@ RailsAdmin.config do |config|
       field :name
       field :subdomain
       field :places
+
+      group :design do
+        label I18n.t('admin.groups.design')
+
+        field :logo do
+          help I18n.t('admin.format.logo')
+        end
+      end
     end
   end
 
@@ -249,6 +281,7 @@ RailsAdmin.config do |config|
         field :mobile
 
         field :contact_availability
+        field :update_prefs
       end
 
       group :employment do
@@ -361,6 +394,7 @@ RailsAdmin.config do |config|
         field :email
         field :phone
         field :mobile
+        field :additional_contacts
         field :contact_preference
         field :contact_availability
       end
@@ -370,7 +404,11 @@ RailsAdmin.config do |config|
         field :work_categories
         field :certificates
         field :organization
+        field :languages
+        field :occupation
+        field :occupation_end_date
       end
+
 
       group :administration do
         label I18n.t('admin.groups.administration')
@@ -440,6 +478,7 @@ RailsAdmin.config do |config|
 
     edit do
       field :name
+      field :icon_name
     end
   end
 

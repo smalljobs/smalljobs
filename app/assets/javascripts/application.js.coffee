@@ -81,7 +81,10 @@ ready = ->
       new_url = history_array.pop()
 
     sessionStorage.setItem('history', JSON.stringify(history_array))
-    window.location.href = new_url
+    if new_url?
+      window.location.href = new_url
+    else
+      window.location.href = '/broker/dashboard'
   );
 
   $('.notifications a.close').click(->

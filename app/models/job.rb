@@ -11,7 +11,12 @@ class Job < ActiveRecord::Base
 
   has_many :assignments
 
+  # has_many :notes
+
   has_many :todos
+
+  attr_accessor :new_note
+  attr_accessor :current_broker_id
 
   validates :provider, presence: true
   validates :work_category, presence: true
@@ -42,6 +47,16 @@ class Job < ActiveRecord::Base
   before_save :set_state_last_change, if: proc { |s| s.state_changed?}
 
   after_save :adjust_todo
+  after_save :finish_allocations, if: proc { |s| s.state_changed? && s.state == 'finished'}
+
+  after_save :add_new_note
+  after_save :send_request_refresh
+
+  def add_new_note
+    return unless new_note.present?
+
+    Note.create!(job_id: id, broker_id: current_broker_id, message: new_note)
+  end
 
   def adjust_todo
     Todo.where(record_type: :job, record_id: id).find_each &:destroy!
@@ -54,6 +69,27 @@ class Job < ActiveRecord::Base
       rescue
         nil
       end
+    end
+  end
+
+
+  # If job is in finished state all open applications should be cancelled
+  #
+  def cancel_applications_if_finished
+    return unless state == 'finished'
+
+    self.allocations.where(state: :application_open).or(self.allocations.where(state: :active)).find_each do |allocation|
+      allocation.state = :cancelled
+      allocation.save
+    end
+  end
+
+  # Finish all related allocations
+  #
+  def finish_allocations
+    self.allocations.find_each do |allocation|
+      allocation.state = :finished
+      allocation.save
     end
   end
 
@@ -155,4 +191,32 @@ class Job < ActiveRecord::Base
     end
   end
 
+  # Make post to jugendarbeit requesting user in app to refresh job list
+  #
+  def send_request_refresh
+    require 'rest-client'
+    dev = 'https://devadmin.jugendarbeit.digital/api/jugendinfo_smalljobs/refresh/'
+    live = 'https://admin.jugendarbeit.digital/api/jugendinfo_smalljobs/refresh/'
+    begin
+      logger.info "Sending changes to jugendinfo"
+      self.organization.regions.each do |region|
+        logger.info "Sending: #{{token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', region_id: region.id}}"
+        response = RestClient.post dev, {token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', region_id: region.id}
+        logger.info "Response from jugendinfo: #{response}"
+      end
+    rescue
+      logger.info "Failed sending changes to jugendinfo"
+      nil
+    end
+  end
+
+  public
+
+  def stat_name
+    if state == "finished"
+      return "finished"
+    end
+
+    return "active"
+  end
 end

@@ -5,6 +5,7 @@ class Broker < ActiveRecord::Base
   include ConfirmToggle
   include Storext.model
 
+  has_and_belongs_to_many :update_prefs
   has_many :employments, inverse_of: :broker
   has_many :organizations, through: :employments
   has_many :regions, through: :employments
@@ -13,10 +14,13 @@ class Broker < ActiveRecord::Base
   has_many :seekers, through: :places
   has_many :jobs, through: :providers
   has_many :assignments, through: :providers
+  has_many :notes
 
   validates :email, email: true, presence: true, uniqueness: true
   validates :firstname, :lastname, :phone, presence: true
   validates :phone, :mobile, phony_plausible: true
+
+  validate :unique_email
 
   phony_normalize :phone, default_country_code: 'CH'
   phony_normalize :mobile, default_country_code: 'CH'
@@ -35,6 +39,16 @@ class Broker < ActiveRecord::Base
     end
 
     all_org.sort_by &:name
+  end
+
+  # Check if there is no seeker or provider with the same email
+  #
+  def unique_email
+    seeker = Seeker.find_by(email: email)
+    provider = Provider.find_by(email: email)
+    if !seeker.nil? || !provider.nil?
+      errors.add(:email, :email_not_unique)
+    end
   end
 
   # Returns the display name
@@ -61,6 +75,18 @@ class Broker < ActiveRecord::Base
   #
   def unauthenticated_message
     confirmed? ? :inactive : :unconfirmed
+  end
+
+  def self.send_weekly_update
+    today = Date.today()
+    day_of_week = today.wday
+    update_pref = UpdatePref.find_by(day_of_week: day_of_week)
+    BrokersUpdatePref.where(update_pref_id: update_pref.id).find_each do |broker_update_pref|
+      broker = broker_update_pref.broker
+      next unless broker.active?
+      mail = Notifier.weekly_update_for_broker(broker)
+      mail.deliver unless mail.nil?
+    end
   end
 
   # @!endgroup
