@@ -61,7 +61,8 @@
   - unless @provider.notes.blank?
     %fieldset
       .form-inputs
-        = f.input :notes, as: :text, disabled: true
+        %h2= "Ältere Notizen"
+        %p= @provider.notes
 
   %fieldset
     .form-inputs
