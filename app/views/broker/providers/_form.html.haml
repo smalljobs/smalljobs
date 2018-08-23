@@ -57,12 +57,14 @@
                   = "Löschen"
           %p
             = note.message
-
-  - unless @provider.notes.blank?
-    %fieldset
-      .form-inputs
-        %h4= "Ältere Notizen"
-        %p= @provider.notes
+        %hr
+        %div.row
+          %div.col-md-8
+            %p
+              %span.bold.margin-right-10
+                = "Ältere Notizen"
+        %p
+          = @provider.notes
 
   %fieldset
     .form-inputs
