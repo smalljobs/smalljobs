@@ -60,6 +60,15 @@
                   = "Löschen"
           %p
             = note.message
+        - unless @seeker.notes.blank?
+          %hr
+          %div.row
+            %div.col-md-8
+              %p
+                %span.bold.margin-right-10
+                  = "Ältere Notizen"
+          %p
+            = @seeker.notes
 
   %fieldset
     .form-inputs
