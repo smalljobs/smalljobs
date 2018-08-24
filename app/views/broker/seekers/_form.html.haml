@@ -60,6 +60,15 @@
                   = "Löschen"
           %p
             = note.message
+        - unless @seeker.notes.blank?
+          %hr
+          %div.row
+            %div.col-md-8
+              %p
+                %span.bold.margin-right-10
+                  = "Ältere Notizen"
+          %p
+            = @seeker.notes
 
   %fieldset
     .form-inputs
@@ -93,7 +102,7 @@
     .form-inputs
       = f.input :languages, required: false
       = f.input :occupation, required: false
-      = f.input :occupation_end_date, required: false
+      = f.input :occupation_end_date, required: false, include_blank: true
 
   %fieldset
     %legend
