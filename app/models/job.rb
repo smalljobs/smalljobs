@@ -23,31 +23,31 @@ class Job < ActiveRecord::Base
 
   validates :organization, presence: true
 
-  validates :state, presence: true, inclusion: { in: lambda { |m| m.state_enum }}
+  validates :state, presence: true, inclusion: {in: lambda {|m| m.state_enum}}
 
   validates :title, presence: true
 
-  validates :date_type, presence: true, inclusion: { in: lambda { |m| m.date_type_enum }}
-  validates :start_date, presence: true, if: lambda { |m| ['date', 'date_range'].include?(m.date_type) }
-  validates :end_date, presence: true, if: lambda { |m| m.date_type == 'date_range' }
+  validates :date_type, presence: true, inclusion: {in: lambda {|m| m.date_type_enum}}
+  validates :start_date, presence: true, if: lambda {|m| ['date', 'date_range'].include?(m.date_type)}
+  validates :end_date, presence: true, if: lambda {|m| m.date_type == 'date_range'}
 
-  validates :salary_type, presence: true, inclusion: { in: lambda { |m| m.salary_type_enum }}
+  validates :salary_type, presence: true, inclusion: {in: lambda {|m| m.salary_type_enum}}
   validates :salary, numericality: true, presence: true, if: lambda {|m| m.salary_type != 'hourly_per_age'}
 
   validates :manpower, presence: true, numericality: {
-    only_integer: true,
-    greater_than_or_equal_to: 1
+      only_integer: true,
+      greater_than_or_equal_to: 1
   }
 
   validates :duration, presence: true, numericality: {
-    only_integer: true,
-    greater_than_or_equal_to: 1
+      only_integer: true,
+      greater_than_or_equal_to: 1
   }
 
-  before_save :set_state_last_change, if: proc { |s| s.state_changed?}
+  before_save :set_state_last_change, if: proc {|s| s.state_changed?}
 
   after_save :adjust_todo
-  after_save :finish_allocations, if: proc { |s| s.state_changed? && s.state == 'finished'}
+  after_save :finish_allocations, if: proc {|s| s.state_changed? && s.state == 'finished'}
 
   after_save :add_new_note
   after_save :send_request_refresh
@@ -87,7 +87,7 @@ class Job < ActiveRecord::Base
   # Finish all related allocations
   #
   def finish_allocations
-    self.allocations.find_each do |allocation|
+    self.allocations.where(state: :active).or(self.allocations.where(state: :application_open)).or(self.allocations.where(state: :proposal)).find_each do |allocation|
       allocation.state = :finished
       allocation.save
     end
