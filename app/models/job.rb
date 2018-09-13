@@ -88,8 +88,10 @@ class Job < ActiveRecord::Base
   #
   def finish_allocations
     self.allocations.find_each do |allocation|
-      allocation.state = :finished
-      allocation.save
+      if allocation.state == :active || allocation.state == :application_open
+        allocation.state = :finished
+        allocation.save
+      end
     end
   end
 
