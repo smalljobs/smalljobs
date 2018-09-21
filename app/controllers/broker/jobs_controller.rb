@@ -2,6 +2,7 @@ class Broker::JobsController < InheritedResources::Base
 
   before_filter :authenticate_broker!
 
+  before_filter :redirect_not_found, only: :edit
   load_and_authorize_resource :job, through: :current_region
   skip_authorize_resource :job, only: :new
   custom_actions resource: :activate
@@ -21,6 +22,10 @@ class Broker::JobsController < InheritedResources::Base
     @job.created_at = DateTime.now()
     @job.state = 'hidden'
     @job.provider_id = params[:provider_id] unless params[:provider_id].nil?
+  end
+
+  def edit
+    edit!
   end
 
   def create
@@ -83,4 +88,11 @@ class Broker::JobsController < InheritedResources::Base
     params.permit(job: [:current_broker_id, :id, :provider_id, :work_category_id, :state, :title, :long_description, :short_description, :date_type, :start_date, :end_date, :salary, :salary_type, :manpower, :duration, :notes, :organization_id, seeker_ids: []])
   end
 
+  def redirect_not_found
+    job = Job.find_by(id: params[:id])
+    if job.nil?
+      redirect_to broker_dashboard_path + "#jobs"
+      return false
+    end
+  end
 end
