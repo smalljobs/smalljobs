@@ -98,7 +98,7 @@ class ApiController < ApplicationController
     end
 
     if seeker.place.nil?
-      seeker.place = seeker.organization.places.first
+      seeker.place = seeker.organization.place
       seeker.save
     end
 
