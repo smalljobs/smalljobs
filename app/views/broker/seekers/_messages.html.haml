@@ -2,7 +2,7 @@
   - @messages = []
 - for message in @messages
   %div.row
-  - if message['from_ji_user_id'].to_str == "#{@seeker.app_user_id}"
+  - if message['from_ji_user_id'].to_s == "#{@seeker.app_user_id}"
     %div.col-sm-8.align-left
       %h5.grey= DateTime.strptime(message['datetime'], '%s').in_time_zone.strftime('%d.%m.%Y,%H:%M')
       %h4.bold= message['title']
