@@ -14,7 +14,7 @@ module MessagingHelper
   # @return [Json] response from the jugendinfo server
   def self.send_message(title, message, device_token, sendermail)
     url = "#{@@current_url}/jugendinfo_push/send"
-    response = RestClient.post url, api: 'ULv8r9J7Hqc7n2B8qYmfQewzerhV9p', message_title: title, message: message, device_token: device_token, sendermail: sendermail
+    response = RestClient.post url, api: 'api-key', message_title: title, message: message, device_token: device_token, sendermail: sendermail
     response
   end
 
@@ -44,7 +44,7 @@ module MessagingHelper
     conversation_id = get_conversation_id(device_token)
     messages = []
     unless conversation_id.nil?
-      url = "#{@@current_url}/jugendinfo_message/get_messages/?key=ULv8r9J7Hqc7n2B8qYmfQewzerhV9p&id=#{conversation_id}&limit=1000"
+      url = "#{@@current_url}/jugendinfo_message/get_messages/?key=api-key&id=#{conversation_id}&limit=1000"
       response = RestClient.get url
       json = JSON.parse(response.body)
       messages = json['messages'].sort_by {|val| DateTime.strptime(val['datetime'], '%s')}.reverse
@@ -62,7 +62,7 @@ module MessagingHelper
     conversation_id = get_conversation_id(device_token)
     message = nil
     unless conversation_id.nil?
-      url = "#{@@current_url}/jugendinfo_message/get_messages/?key=ULv8r9J7Hqc7n2B8qYmfQewzerhV9p&id=#{conversation_id}&last=1"
+      url = "#{@@current_url}/jugendinfo_message/get_messages/?key=api-key&id=#{conversation_id}&last=1"
       response = RestClient.get url
       json = JSON.parse(response.body)
       messages = json['messages']
