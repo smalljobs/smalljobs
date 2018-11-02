@@ -44,12 +44,12 @@ class Provider < ActiveRecord::Base
 
   after_save :add_new_note
 
-  after_initialize :set_default_state
+  before_save :set_default_state
 
   # Sets default state after initializing model
   #
   def set_default_state
-    state = :inactive
+    state ||= :inactive
   end
 
   # Add new note to the model
