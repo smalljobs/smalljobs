@@ -1,6 +1,6 @@
 require_relative '../spec_helper'
 
-describe PagesController, type: :controller do
+describe PagesController do
 
   describe "GET 'join_us'" do
     it "returns http success" do

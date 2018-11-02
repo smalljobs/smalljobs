@@ -103,6 +103,15 @@ shared_examples_for 'a protected controller' do |role, resource, actions|
       authenticate(role, login_user) unless role == :anonymous
     end
 
+    if actions.include?(:index)
+      it 'does allow to list all resources' do
+        p = { format: :json }.merge(params)
+
+        xhr :get, :index, p
+        expect(response.status).to eql(200)
+      end
+    end
+
     if actions.include?(:create)
       let(:create_attributes) do
         send("#{ resource }_attrs") rescue Fabricate.attributes_for(resource)

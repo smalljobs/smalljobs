@@ -1,6 +1,6 @@
 require_relative '../spec_helper'
 
-describe MailerHelper, type: :helper do
+describe MailerHelper do
 
   describe '#subdomain_for' do
     let(:region) { Fabricate(:region_bremgarten) }

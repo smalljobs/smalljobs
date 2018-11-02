@@ -8,8 +8,12 @@ class Provider < ActiveRecord::Base
   has_many :assignments
   belongs_to :place, inverse_of: :providers
   belongs_to :organization
+  # has_many :notes
 
   has_many :todos
+
+  attr_accessor :new_note
+  attr_accessor :current_broker_id
 
   before_save :nullify_blank_email
 
@@ -36,6 +40,28 @@ class Provider < ActiveRecord::Base
 
   after_save :adjust_todo
 
+  validate :unique_email
+
+  after_save :add_new_note
+
+  before_save :set_default_state
+
+  # Sets default state after initializing model
+  #
+  def set_default_state
+    state ||= :inactive
+  end
+
+  # Add new note to the model
+  #
+  def add_new_note
+    return unless new_note.present?
+
+    Note.create!(provider_id: id, broker_id: current_broker_id, message: new_note)
+  end
+
+  # Destroy old todos and create new ones
+  #
   def adjust_todo
     Todo.where(record_type: :provider, record_id: id).find_each &:destroy!
     Todotype.provider.find_each do |todotype|
@@ -47,6 +73,18 @@ class Provider < ActiveRecord::Base
       rescue
         nil
       end
+    end
+  end
+
+  # Check if there is no seeker or broker with the same email
+  #
+  def unique_email
+    return if email.blank? || email.nil?
+
+    seeker = Seeker.find_by(email: email)
+    broker = Broker.find_by(email: email)
+    if !seeker.nil? || !broker.nil?
+      errors.add(:email, :email_not_unique)
     end
   end
 
@@ -124,4 +162,15 @@ class Provider < ActiveRecord::Base
     Notifier.provider_activated_for_provider(self).deliver
   end
 
+  public
+
+  # Used for search in the dashboard
+  #
+  def stat_name
+    if completed?
+      return "finished"
+    end
+
+    return "active"
+  end
 end

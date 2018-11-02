@@ -26,11 +26,11 @@ class Broker::OrganizationsController < InheritedResources::Base
   end
 
   def find_organization
-    @organization = current_region.organizations.first
+    @organization = current_broker.organizations.first
   end
 
   def permitted_params
-    params.permit(organization: [:id, :logo, :background, :name, :description, :website, :street, :email, :phone, :default_hourly_per_age, :place])
+    params.permit(organization: [:wage_factor, :welcome_email_for_parents_msg, :activation_msg, :get_job_msg, :not_receive_job_msg, :welcome_chat_register_msg, :welcome_app_register_msg, :welcome_letter_employers_msg, :opening_hours, :id, :logo, :logo_delete, :background, :background_delete, :name, :description, :website, :street, :email, :phone, :default_hourly_per_age, :place])
   end
 
 end

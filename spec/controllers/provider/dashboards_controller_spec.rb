@@ -1,6 +1,6 @@
 require_relative '../../spec_helper'
 
-describe Provider::DashboardsController, type: :controller do
+describe Provider::DashboardsController do
 
   describe '#show' do
     context 'access control' do

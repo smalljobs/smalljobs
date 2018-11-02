@@ -27,7 +27,7 @@ class Broker::SeekersController < InheritedResources::Base
 
   def edit
     @messages = MessagingHelper::get_messages(@seeker.app_user_id)
-
+    # @seeker.current_broker_id = current_broker.id
     edit!
   end
 
@@ -35,12 +35,7 @@ class Broker::SeekersController < InheritedResources::Base
   #
   def agreement
     @seeker = Seeker.find_by(id: params[:id])
-    respond_to do |format|
-      format.html
-      format.pdf do
-        render pdf: 'Einverständnis', template: 'broker/seekers/agreement.html.erb'
-      end
-    end
+    render pdf: 'Einverständnis', template: 'broker/seekers/agreement.html.erb', margin: {top: 3, left: 3, right: 3, bottom: 3}
   end
 
   def delete
@@ -64,6 +59,25 @@ class Broker::SeekersController < InheritedResources::Base
     render json: { state: 'ok', response: response }
   end
 
+  # Adds new comment for seeker
+  #
+  def add_comment
+    comment = params[:comment]
+    Note.create!(seeker_id: @seeker.id, broker_id: current_broker.id, message: comment)
+  end
+
+  # Remove broker comment from seeker
+  #
+  def remove_comment
+    id = params[:note_id]
+    note = Note.find_by(id: id)
+    if note.nil? || note.broker.id != current_broker.id || note.seeker.id != @seeker.id
+      return
+    end
+
+    note.destroy!
+  end
+
   protected
 
   # Returns currently signed in broker
@@ -81,7 +95,7 @@ class Broker::SeekersController < InheritedResources::Base
   end
 
   def permitted_params
-    params.permit(seeker: [:id, :password, :password_confirmation, :firstname, :lastname, :street, :place_id, :sex, :email, :phone, :mobile, :date_of_birth, :contact_preference, :contact_availability, :active, :confirmed, :terms, :status, :organization_id, :notes, :discussion, :parental, work_category_ids: [], certificate_ids: []])
+    params.permit(seeker: [:occupation, :occupation_end_date, :additional_contacts, :languages, :id, :password, :password_confirmation, :firstname, :lastname, :street, :place_id, :sex, :email, :phone, :mobile, :date_of_birth, :contact_preference, :contact_availability, :active, :confirmed, :terms, :status, :organization_id, :notes, :discussion, :parental, work_category_ids: [], certificate_ids: []])
   end
 
 end

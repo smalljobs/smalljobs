@@ -43,7 +43,8 @@ module ApiHelper
   #
   # @return [Json] organization in json format
   #
-  def self.organization_to_json(organization, region_id)
+  def self.organization_to_json(organization, region_id, message=nil)
+    require 'redcloth'
     json = {}
     json[:id] = organization.id
     json[:region_id] = region_id
@@ -55,6 +56,8 @@ module ApiHelper
     json[:active] = organization.active
     json[:wage_factor] = organization.wage_factor
     json[:place] = place_to_json(organization.place)
+    json[:opening_hours] = RedCloth.new(organization.opening_hours || "").to_html
+    json[:registration_welcome_message] = message unless message.nil?
     brokers = []
     for broker in organization.brokers
       brokers.append(broker_to_json(broker))
@@ -161,6 +164,7 @@ module ApiHelper
     json = {}
     json[:id] = category.id
     json[:name] = category.name
+    json[:icon_name] = category.icon_name
     return json
   end
 
@@ -177,6 +181,7 @@ module ApiHelper
     json[:firstname] = provider.firstname
     json[:lastname] = provider.lastname
     json[:phone] = provider.phone
+    json[:mobile] = provider.mobile
     json[:street] = provider.street
     json[:place] = place_to_json(provider.place)
     return json
@@ -317,7 +322,7 @@ module ApiHelper
     json[:user_id] = allocation.seeker_id
     json[:status] = Allocation.states[allocation.state]
 
-    json[:job] = job_to_json(job, allocation.seeker.organization, show_provider, show_organization, show_assignments, allocation.id)
+    json[:job] = job_to_json(job, job.organization, show_provider, show_organization, show_assignments, allocation.id)
 
     if show_seeker
       json[:user] = seeker_to_json(allocation.seeker)
@@ -361,5 +366,19 @@ module ApiHelper
   #
   def self.generate_code
     (0...6).map { SecureRandom.random_number(10) }.join
+  end
+
+  # Return place id for given zip code
+  #
+  # @param zip [String] zip code
+  #
+  # @return [Int] id of a place with given zip code, or nil if no such place exists in database
+  def self.zip_to_place_id(zip)
+    place = Place.find_by(zip: zip)
+    if place.nil?
+      return nil
+    else
+      return place.id
+    end
   end
 end

@@ -10,15 +10,7 @@
           = @allocation.seeker.name
           = ":"
         %div.form-control.resize-vertical.textarea{contenteditable: true}
-          = "Hallo #{@allocation.seeker.name}"
-          %br
-          = "Du hast den Job «#{@allocation.job.title}»< erhalten! Melde dich doch so schnell wie möglich für den Job bei #{@allocation.job.provider.firstname} #{@allocation.job.provider.lastname}:"
-          %br
-          %a{href: "tel:#{@allocation.job.provider.phone}"}= "#{@allocation.job.provider.phone}"
-          %br
-          %a{href: "tel:#{@allocation.job.provider.mobile}"}= "#{@allocation.job.provider.mobile}"
-          %br
-          = "Für Fragen schreibe uns hier."
+          = @get_job_msg.html_safe
         %br
         - if @allocation.seeker.app_user_id.nil?
           %p

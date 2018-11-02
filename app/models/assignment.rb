@@ -14,4 +14,25 @@ class Assignment < ActiveRecord::Base
   def set_start
     self.start_time = DateTime.now if start_time.nil?
   end
+
+  def description
+    stat = "Aktiv"
+    if self.finished?
+      stat = "Beendet"
+    end
+
+    date = start_time.present? ? start_time.strftime("%d.%m.%Y") : ''
+    dur = ''
+
+    unless duration.nil?
+      minutes = duration/60000
+      minutes = minutes.floor
+      hours = minutes/60
+      hours = hours.floor
+      minutes = minutes % 60
+      dur = "#{hours}:#{minutes}"
+    end
+
+    return "#{stat}, #{date}, #{dur}, CHF #{payment}"
+  end
 end

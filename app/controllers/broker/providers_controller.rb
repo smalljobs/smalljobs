@@ -42,13 +42,12 @@ class Broker::ProvidersController < InheritedResources::Base
   #
   def contract
     require 'rqrcode'
+    @broker = current_broker
     @qrcode = RQRCode::QRCode.new(@provider.id.to_s, mode: :number).as_png
-
-    if request.subdomain == 'winterthur' || params['domain'] == 'winterthur'
-      render pdf: 'contract', template: 'broker/providers/contract_winterthur.html.erb', dpi: '96'
-    else
-      render pdf: 'contract', template: 'broker/providers/contract.html.erb'
-    end
+    provider_phone = @provider.mobile.empty? ? @provider.phone : @provider.mobile
+    @letter_msg = Mustache.render(@provider.organization.welcome_letter_employers_msg || '', provider_first_name: @provider.firstname, provider_last_name: @provider.lastname, provider_phone: provider_phone, broker_first_name: current_broker.firstname, broker_last_name: current_broker.lastname, organization_name: @provider.organization.name, organization_zip: @provider.organization.place.zip, organization_street: @provider.organization.street, organization_place: @provider.organization.place.name, organization_phone: @provider.organization.phone, organization_email: @provider.organization.email, link_to_jobboard_list: url_for(root_url()))
+    @letter_msg.gsub! "\n", "<br>"
+    render pdf: 'contract', template: 'broker/providers/contract.html.erb', margin: {top: 0, left: 0, right: 0, bottom: 0}
   end
 
   def delete
@@ -70,6 +69,25 @@ class Broker::ProvidersController < InheritedResources::Base
     render json: {message: 'Provider deleted'}, status: 200
   end
 
+  # Adds new comment for seeker
+  #
+  def add_comment
+    comment = params[:comment]
+    Note.create!(provider_id: @provider.id, broker_id: current_broker.id, message: comment)
+  end
+
+  # Remove broker comment from seeker
+  #
+  def remove_comment
+    id = params[:note_id]
+    note = Note.find_by(id: id)
+    if note.nil? || note.broker.id != current_broker.id || note.provider.id != @provider.id
+      return
+    end
+
+    note.destroy!
+  end
+
   protected
 
   # Returns currently signed in broker
@@ -87,7 +105,7 @@ class Broker::ProvidersController < InheritedResources::Base
   end
 
   def permitted_params
-    params.permit(provider: %i[id username password password_confirmation firstname lastname street place_id email phone mobile contact_preference contact_availability active confirmed organization_id notes company state contract])
+    params.permit(provider: %i[current_broker_id id username password password_confirmation firstname lastname street place_id email phone mobile contact_preference contact_availability active confirmed organization_id notes company state contract])
   end
 
 end

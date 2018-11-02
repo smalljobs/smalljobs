@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.1'
+ruby '2.3.7'
 
 gem 'rails', '~>5.0'
 
@@ -44,6 +44,9 @@ gem 'aws-sdk'
 gem 'nexmo'
 gem 'puma'
 gem 'puma_worker_killer'
+gem 'mustache'
+gem 'RedCloth'
+gem 'rack-cors', require: 'rack/cors'
 
 group :development, :test do
   gem 'better_errors'

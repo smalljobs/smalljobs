@@ -7,7 +7,24 @@ class Broker::DashboardsController < ApplicationController
   load_and_authorize_resource :seeker, through: :current_region
 
   def show
-    @jobs = current_broker.jobs.includes(:provider, :organization).group('jobs.id').order(:last_change_of_state).reverse_order()
+    if params[:archive] == true || params[:archive] == 'true'
+      @jobs = current_broker.jobs.where(state: 'finished').includes(:provider, :organization).group('jobs.id').order(:last_change_of_state).reverse_order()
+      allocations = Allocation.where(job: @jobs).includes(:seeker)
+      @allocations = []
+      allocations.each do |allocation|
+        @allocations[allocation.job_id] = [] if @allocations[allocation.job_id].nil?
+        @allocations[allocation.job_id][Allocation.states[allocation.state]] = [] if @allocations[allocation.job_id][Allocation.states[allocation.state]].nil?
+        @allocations[allocation.job_id][Allocation.states[allocation.state]].push(allocation)
+      end
+
+      @providers = current_broker.providers.where(state: 3).includes(:place, :jobs, :organization).group('providers.id').order(:updated_at).reverse_order()
+      @seekers = current_broker.seekers.where(status: 3).includes(:place, :organization).group('seekers.id').order(:updated_at).reverse_order()
+      @assignments = current_broker.assignments.where(job: @jobs).includes(:seeker, :provider).group('assignments.id').order(:created_at).reverse_order()
+      @todos = Todo.where(seeker: @seekers).or(Todo.where(provider: @providers)).or(Todo.where(job: @jobs)).or(Todo.where(allocation: allocations)).group('todos.id').order(:created_at).reverse_order()
+      return
+    end
+
+    @jobs = current_broker.jobs.where.not(state: 'finished').includes(:provider, :organization).group('jobs.id').order(:last_change_of_state).reverse_order()
     allocations = Allocation.where(job: @jobs).includes(:seeker)
     @allocations = []
     allocations.each do |allocation|
@@ -16,9 +33,9 @@ class Broker::DashboardsController < ApplicationController
       @allocations[allocation.job_id][Allocation.states[allocation.state]].push(allocation)
     end
 
-    @providers = current_broker.providers.includes(:place, :jobs, :organization).group('providers.id').order(:updated_at).reverse_order()
-    @seekers = current_broker.seekers.includes(:place, :organization).group('seekers.id').order(:updated_at).reverse_order()
-    @assignments = current_broker.assignments.includes(:seeker, :provider).group('assignments.id').order(:created_at).reverse_order()
+    @providers = current_broker.providers.where.not(state: 3).includes(:place, :jobs, :organization).group('providers.id').order(:updated_at).reverse_order()
+    @seekers = current_broker.seekers.where.not(status: 3).includes(:place, :organization).group('seekers.id').order(:updated_at).reverse_order()
+    @assignments = current_broker.assignments.where(job: @jobs).includes(:seeker, :provider).group('assignments.id').order(:created_at).reverse_order()
     @todos = Todo.where(seeker: @seekers).or(Todo.where(provider: @providers)).or(Todo.where(job: @jobs)).or(Todo.where(allocation: allocations)).group('todos.id').order(:created_at).reverse_order()
   end
 

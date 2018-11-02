@@ -15,7 +15,8 @@
           = "Willkommen bei Small.Jobs!"
           %br
           = "Damit du dich auf Jobs bewerben kannst, brauchen wir das Einverständnis deiner Eltern. Dieses Einverständnis bitte hier herunterladen: "
-          %a{href: "#{url_for agreement_broker_seeker_url(@seeker)}?format=pdf"}= "#{url_for agreement_broker_seeker_url(@seeker)}?format=pdf"
+          %br
+          %a{file:'', href: "#{url_for agreement_broker_seeker_url(@seeker)}?format=pdf", type: "application/pdf", title: "Elterneinverständnis herunterladen"}= "Elterneinverständnis herunterladen"
           %br
           = "Dann ausdrucken und uns vorbeibringen:"
           %br

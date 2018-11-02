@@ -1,6 +1,6 @@
 require_relative '../../spec_helper'
 
-describe Provider::JobsController, type: :controller do
+describe Provider::JobsController do
 
   it_behaves_like 'a protected controller', :provider, :job, :all do
     let(:provider)  { Fabricate(:provider) }

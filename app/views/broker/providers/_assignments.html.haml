@@ -1,0 +1,8 @@
+- if @provider.assignments.count > 0
+  %div.provider_allocations
+    %h4.assignments-header= 'Einsätze'
+    %ul.allocations-list
+      - for assignment in @provider.assignments
+        %li.allocations-list-item
+          %p
+            = link_to "#{assignment.seeker.name}, #{assignment.description}", edit_broker_seeker_path(assignment.seeker)

@@ -14,6 +14,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     CFPropertyList (2.3.5)
+    RedCloth (4.3.2)
     actioncable (5.0.3)
       actionpack (= 5.0.3)
       nio4r (>= 1.2, < 3.0)
@@ -401,6 +402,7 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.10.2)
     multi_json (1.12.1)
+    mustache (1.0.5)
     nenv (0.3.0)
     nested_form (0.3.2)
     netrc (0.11.0)
@@ -450,6 +452,7 @@ GEM
     rack (2.0.3)
     rack-cache (1.7.0)
       rack (>= 0.4)
+    rack-cors (1.0.2)
     rack-pjax (1.0.0)
       nokogiri (~> 1.5)
       rack (>= 1.1)
@@ -635,6 +638,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  RedCloth
   activevalidators
   aws-sdk
   better_errors
@@ -667,6 +671,7 @@ DEPENDENCIES
   kaminari
   markerb
   mini_magick
+  mustache
   newrelic_rpm
   nexmo
   paperclip
@@ -681,6 +686,7 @@ DEPENDENCIES
   puma
   puma_worker_killer
   rack-cache
+  rack-cors
   rails (~> 5.0)
   rails-controller-testing
   rails-i18n
@@ -709,7 +715,7 @@ DEPENDENCIES
   wkhtmltopdf-binary
 
 RUBY VERSION
-   ruby 2.3.1p112
+   ruby 2.3.7p456
 
 BUNDLED WITH
-   1.14.6
+   1.16.2

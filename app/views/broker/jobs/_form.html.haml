@@ -22,12 +22,35 @@
     - if !@job.new_record?
       %p= "Erstellt: #{@job.created_at.strftime("%d.%m.%Y")}"
 
-  %fieldset
-    %legend
-      = "Notizen (nur intern sichtbar)"
-    .form-inputs
-      = f.input :notes, label: false
-
+  - unless @job.new_record?
+    %fieldset
+      .form-inputs
+        = f.input :new_note, label: false, as: :text
+        %button.btn.btn-success{id: 'comment-btn'}
+          = "Kommentieren"
+        - Note.where(job_id: @job.id).order(:created_at).reverse_order.each do |note|
+          %hr
+          %div.row
+            %div.col-md-8
+              %p
+                %span.bold.margin-right-10
+                  = note.broker.name
+                = note.created_at.strftime("%d.%m.%Y, %H:%M")
+            %div.col-md-4.text-right
+              - if note.broker.id == current_broker.id
+                %p.remove-btn{'data-note-id': "#{note.id}"}
+                  = "Löschen"
+          %p
+            = note.message
+        - unless @job.notes.blank?
+          %hr
+          %div.row
+            %div.col-md-8
+              %p
+                %span.bold.margin-right-10
+                  = "Ältere Notizen"
+          %p
+            = @job.notes
 
   %fieldset
     %legend
@@ -61,7 +84,7 @@
       = "Arbeitsart"
 
     .form-inputs
-      = f.association :work_category, required: true, include_blank: true, label: false, collection: WorkCategory.all.order(:name)
+      = f.association :work_category, required: true, include_blank: true, label: false, collection: WorkCategory.all.order(:name), label_method: :label
 
   %fieldset
     %legend
@@ -77,7 +100,14 @@
       = t('legends.salary')
 
     .form-inputs
-      = f.input :salary_type, collection: job_salary_types, include_blank: false, label: false
+      -unless @job.new_record?
+        -org = @job.organization
+      -else
+        -org = current_broker.organizations.first
+      -if org.wage_factor != nil && org.wage_factor != 1
+        = f.input :salary_type, collection: job_salary_types_with_factor(org.wage_factor), include_blank: false, hint: t('legends.seeker_salary_hint_wage_factor', wage_factor: org.wage_factor).html_safe
+      -else
+        = f.input :salary_type, collection: job_salary_types, include_blank: false
       = f.input :salary, required: true, input_html: { value: @job.try(:salary) || current_region.organizations.first.default_hourly_per_age }
 
   %fieldset
@@ -106,3 +136,28 @@
         = "Löschen"
 
     = render 'delete_modal'
+
+- if !@job.new_record?
+  :javascript
+    $(document).ready(function() {
+      $('#comment-btn').click(function(){
+        var comment = $('#job_new_note').val();
+        if(comment === '') {
+          return false;
+        }
+
+        $.post("#{add_comment_broker_job_path(@job)}", {comment: comment}, function(response) {
+          window.location.reload();
+        });
+
+        return false;
+      });
+
+      $('.remove-btn').click(function(){
+        var noteId = $(this).attr('data-note-id');
+
+        $.post("#{remove_comment_broker_job_path(@job)}", {note_id: noteId}, function(response) {
+          window.location.reload();
+        })
+      });
+    });

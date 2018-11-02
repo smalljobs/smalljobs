@@ -1,6 +1,6 @@
 require_relative '../spec_helper'
 
-describe ApplicationHelper, type: :helper do
+describe ApplicationHelper do
 
   describe '#provider_contact_preferences' do
     it 'returns the translated contact preferences for job providers' do

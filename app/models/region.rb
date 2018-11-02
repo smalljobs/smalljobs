@@ -14,4 +14,6 @@ class Region < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
   validates :subdomain, presence: true, subdomain: true
   validates :places, length: {minimum: 1}
+
+  mount_uploader :logo, LogoUploader
 end

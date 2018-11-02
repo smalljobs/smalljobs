@@ -1,5 +1,5 @@
 class ApiController < ApplicationController
-  before_action :authenticate, except: [:login, :register, :password_remind, :password_validate, :password_change]
+  before_action :authenticate, except: [:login, :register, :password_remind, :password_validate, :password_change, :update_messages]
   before_action :check_status, only: [:create_assignment, :update_assignment, :apply]
   skip_before_filter :verify_authenticity_token
 
@@ -73,6 +73,23 @@ class ApiController < ApplicationController
     end
 
     user_params[:password_confirmation] = user_params[:password]
+
+    unless user_params[:zip].nil?
+      place_id = ApiHelper.zip_to_place_id(user_params[:zip])
+      if place_id.nil?
+        render json: {code: 'users/invalid', message: 'Ungültige Postleitzahl'}, status: 422
+        return
+      end
+
+      user_params[:place_id] = place_id
+      user_params.except!(:zip)
+    end
+
+
+    parents_email = user_params[:parents_email]
+    # TODO
+    user_params.except!(:parents_email)
+
     seeker = Seeker.new(user_params)
     seeker.status = 'inactive'
     if !seeker.save
@@ -80,11 +97,25 @@ class ApiController < ApplicationController
       return
     end
 
-    message = "\nHallo #{seeker.firstname}\n\nWillkommen bei Small.Jobs!\nDamit du dich auf Jobs bewerben kannst, brauchen wir das Einverständnis deiner Eltern. Dieses Einverständnis bitte hier herunterladen: <a href=\"http://dev.smalljobs.ch/broker/seekers/#{seeker.id}/agreement?format=pdf\">http://dev.smalljobs.ch/broker/seekers/#{seeker.id}/agreement?format=pdf</a>\nDann ausdrucken und uns vorbeibringen:\n#{seeker.organization.name}\n#{seeker.organization.street}\n#{seeker.organization.place.custom_name}\nFür einen Termin schreibe uns hier oder ruf an <a href='tel:#{seeker.organization.phone}'>#{seeker.organization.phone}</a>\n\nDanke,\n\n#{seeker.organization.name}\n"
-    title = 'Elterneinverständnis als Pdf schicken'
-    MessagingHelper::send_message(title, message, seeker.app_user_id, seeker.organization.email)
+    if seeker.place.nil?
+      seeker.place = seeker.organization.place
+      seeker.save
+    end
 
-    render json: {message: 'User created successfully', user: ApiHelper::seeker_to_json(seeker), organization: ApiHelper::organization_to_json(seeker.organization, seeker.organization.regions.first.id)}
+    title = 'Willkommen'
+    seeker_agreement_link = url_for(agreement_broker_seeker_url(seeker, subdomain: seeker.organization.regions.first.subdomain))
+    registration_welcome_message = Mustache.render(seeker.organization.welcome_app_register_msg || '', seeker_first_name: seeker.firstname, seeker_last_name: seeker.lastname, seeker_link_to_agreement: "<a file type='application/pdf' title='Elterneinverständnis herunterladen' href='#{seeker_agreement_link}'>#{seeker_agreement_link}</a>", broker_first_name: seeker.organization.brokers.first.firstname, broker_last_name: seeker.organization.brokers.first.lastname, organization_name: seeker.organization.name, organization_street: seeker.organization.street, organization_zip: seeker.place.zip, organization_place: seeker.place.name, organization_phone: seeker.organization.phone, organization_email: seeker.organization.email, link_to_jobboard_list: url_for(root_url(subdomain: seeker.organization.regions.first.subdomain)))
+    registration_welcome_message.gsub! "\r\n", "<br>"
+    registration_welcome_message.gsub! "\n", "<br>"
+    # MessagingHelper::send_message(title, message, seeker.app_user_id, seeker.organization.email)
+
+    unless parents_email.nil?
+      parent_message = Mustache.render(seeker.organization.welcome_email_for_parents_msg || '', seeker_first_name: seeker.firstname, seeker_last_name: seeker.lastname, seeker_link_to_agreement: url_for(agreement_broker_seeker_url(seeker, subdomain: seeker.organization.regions.first.subdomain)), broker_first_name: seeker.organization.brokers.first.firstname, broker_last_name: seeker.organization.brokers.first.lastname, organization_name: seeker.organization.name, organization_street: seeker.organization.street, organization_zip: seeker.place.zip, organization_place: seeker.place.name, organization_phone: seeker.organization.phone, organization_email: seeker.organization.email, link_to_jobboard_list: url_for(root_url(subdomain: seeker.organization.regions.first.subdomain)))
+      parent_message.gsub! "\n", "<br>"
+      Notifier.send_welcome_message_for_parents(parent_message, parents_email).deliver
+    end
+
+    render json: {message: 'User created successfully', user: ApiHelper::seeker_to_json(seeker), organization: ApiHelper::organization_to_json(seeker.organization, seeker.organization.regions.first.id, registration_welcome_message)}
   end
 
   # GET /api/users
@@ -284,7 +315,7 @@ class ApiController < ApplicationController
     found_jobs = found_jobs.page(page).per(limit)
 
     for job in found_jobs do
-      jobs.append(ApiHelper::job_to_json(job, job.provider.organization, show_provider, show_organization, show_assignments, nil))
+      jobs.append(ApiHelper::job_to_json(job, job.organization, show_provider, show_organization, show_assignments, nil))
     end
 
     render json: jobs, status: 200
@@ -303,8 +334,17 @@ class ApiController < ApplicationController
     end
 
     allocation = Allocation.find_by(job_id: id, seeker_id: @seeker.id)
+    status_ok = true
+    if job.state != 'public' && job.state != 'check'
+      status_ok = false
+    end
+
     if allocation != nil
       if allocation.application_retracted?
+        if !status_ok
+          render json: {code: 'jobs/incorrect_status', message: 'Der Job wurde leider in der Zwischenzeit deaktiviert oder vergeben.'}, status: 406
+          return
+        end
         allocation.state = :application_open
         allocation.save!
         render json: {message: 'Success. Please wait for a message from broker.'}, status: 201
@@ -312,6 +352,11 @@ class ApiController < ApplicationController
         render json: {code: 'jobs/applied', message: 'Already applied for that job'}, status: 422
       end
 
+      return
+    end
+
+    if !status_ok
+      render json: {code: 'jobs/incorrect_status', message: 'Der Job wurde leider in der Zwischenzeit deaktiviert oder vergeben.'}, status: 406
       return
     end
 
@@ -372,7 +417,7 @@ class ApiController < ApplicationController
       status = 2
     end
 
-    render json: ApiHelper::job_to_json(job, job.provider.organization, show_provider, show_organization, show_assignments, nil), status: 200
+    render json: ApiHelper::job_to_json(job, job.organization, show_provider, show_organization, show_assignments, nil), status: 200
   end
 
   # GET /api/allocations?user_id=1&job_id=1&user=true&provider=true&organization=true&assignments=true&status=0&page=1&limit=10
@@ -595,7 +640,7 @@ class ApiController < ApplicationController
 
     seeker = Seeker.find_by(mobile: phone)
     if seeker.nil?
-      render json: {code: 'users/not_found', message: 'User not found'}, status: 404
+      render json: {code: 'users/not_found', message: 'Benutzer nicht gefunden'}, status: 404
       return
     end
 
@@ -607,7 +652,7 @@ class ApiController < ApplicationController
     if seeker.last_recovery == DateTime.now.to_date
       seeker.recovery_times += 1
     else
-      seeker.last_recovery =DateTime.now.to_date
+      seeker.last_recovery = DateTime.now.to_date
       seeker.recovery_times = 1
     end
 
@@ -616,6 +661,8 @@ class ApiController < ApplicationController
     client = Nexmo::Client.new(key: ENV['NEXMO_API_KEY'], secret: ENV['NEXMO_API_SECRET'])
 
     response = client.send_message(from: 'Jugendapp', to: phone, text: "#{code} ist dein Code. Bitte in der App eingeben.")
+
+    logger.info "Response from nexmo: #{response}"
 
     if response['messages'][0]['status'] == '0'
       seeker.recovery_code = code
@@ -635,7 +682,7 @@ class ApiController < ApplicationController
 
     seeker = Seeker.find_by(mobile: phone)
     if seeker.nil?
-      render json: {code: 'users/not_found', message: 'User not found'}, status: 404
+      render json: {code: 'users/not_found', message: 'Benutzer nicht gefunden'}, status: 404
       return
     end
 
@@ -658,7 +705,7 @@ class ApiController < ApplicationController
 
     seeker = Seeker.find_by(mobile: phone)
     if seeker.nil?
-      render json: {code: 'users/not_found', message: 'User not found'}, status: 404
+      render json: {code: 'users/not_found', message: 'Benutzer nicht gefunden'}, status: 404
       return
     end
 
@@ -675,6 +722,33 @@ class ApiController < ApplicationController
     else
       render json: {code: 'users/error', message: seeker.errors.first}, status: 422
     end
+  end
+
+  # PUT /api/messages/update
+  # Called when new message was sent by seeker
+  #
+  def update_messages
+    api_key = params[:token]
+    seeker_id = params[:user_id]
+
+    logger.info "Called update message. Send #{params}, #{params[:token]}, #{params[:user_id]}"
+
+    if api_key != 'eizSpz2JIsKE30Wn8qvd9Bl19LWhPxZM'
+      render json: {code: 'messages/error', message: 'Invalid API key'}, status: 401
+      logger.info "Invalid api key"
+      return
+    end
+
+    seeker = Seeker.find_by(id: seeker_id)
+    if seeker.nil?
+      render json: {code: 'messages/error', message: 'Seeker not found'}, status: 404
+      logger.info "Invalid seeker"
+      return
+    end
+
+    seeker.save
+    logger.info "Success"
+    render json: {message: 'Success'}, status: 200
   end
 
   protected
@@ -741,7 +815,7 @@ class ApiController < ApplicationController
   end
 
   def register_params
-    params.permit(:phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id, :street, :sex, :categories)
+    params.permit(:parents_email, :zip, :phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id, :street, :sex, :categories)
   end
 
   def update_params

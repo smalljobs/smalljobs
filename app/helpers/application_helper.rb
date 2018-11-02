@@ -67,6 +67,19 @@ module ApplicationHelper
     ]
   end
 
+  # Get the translated select options for
+  # the job salary types.
+  #
+  # @return [Array<String, String>] the salary types
+  #
+  def job_salary_types_with_factor(factor)
+    [
+        [I18n.t('jobs.salary_types.hourly_per_age_with_factor', wage_factor: factor), 'hourly_per_age'],
+        [I18n.t('jobs.salary_types.hourly'), 'hourly'],
+        [I18n.t('jobs.salary_types.fixed'), 'fixed']
+    ]
+  end
+
   # Maps the flash message to a bootstrap alert
   #
   # @param [Symbol] kind the flash type

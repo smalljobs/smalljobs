@@ -42,4 +42,29 @@ class Todo < ApplicationRecord
       'Jugendlicher'
     end
   end
+
+  def show_name
+    if record_type == 'job'
+      return 'Job: ' + job.title
+    elsif record_type == 'provider'
+      return 'Anbieterln: ' + provider.name
+    elsif record_type == 'seeker'
+      return 'JugendlicheR: ' + seeker.name
+    elsif record_type == 'allocation'
+      return 'JugendlicheR: ' + seeker.name + ', ' + 'Anbieterln: ' + provider.name + ', ' + 'Job: ' + job.title
+    end
+  end
+
+  def link(subdomain)
+    host = "#{subdomain}.smalljobs.ch"
+    if record_type == 'job'
+      Rails.application.routes.url_helpers.edit_broker_job_url(job, subdomain: subdomain, host: host)
+    elsif record_type == 'provider'
+      Rails.application.routes.url_helpers.edit_broker_provider_url(provider, subdomain: subdomain, host: host)
+    elsif record_type == 'seeker'
+      Rails.application.routes.url_helpers.edit_broker_seeker_url(seeker, subdomain: subdomain, host: host)
+    elsif record_type == 'allocation'
+      Rails.application.routes.url_helpers.broker_job_allocation_url(job, seeker, subdomain: subdomain, host: host)
+    end
+  end
 end

@@ -1,6 +1,6 @@
 require_relative '../../spec_helper'
 
-describe Provider::AllocationsController, type: :controller do
+describe Provider::AllocationsController do
 
   it_behaves_like 'a protected controller', :provider, :allocation, :index do
     let(:provider)          { Fabricate(:provider) }
