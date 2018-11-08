@@ -44,14 +44,24 @@ class Provider < ActiveRecord::Base
 
   after_save :add_new_note
 
+  before_save :set_default_state
+
+  # Sets default state after initializing model
+  #
+  def set_default_state
+    state ||= :inactive
+  end
+
+  # Add new note to the model
+  #
   def add_new_note
     return unless new_note.present?
-    # return unless current_broker_id.present?
-    # return if current_broker_id.empty?
 
     Note.create!(provider_id: id, broker_id: current_broker_id, message: new_note)
   end
 
+  # Destroy old todos and create new ones
+  #
   def adjust_todo
     Todo.where(record_type: :provider, record_id: id).find_each &:destroy!
     Todotype.provider.find_each do |todotype|
@@ -154,6 +164,8 @@ class Provider < ActiveRecord::Base
 
   public
 
+  # Used for search in the dashboard
+  #
   def stat_name
     if completed?
       return "finished"

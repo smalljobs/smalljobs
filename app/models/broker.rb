@@ -33,7 +33,7 @@ class Broker < ActiveRecord::Base
   def all_organizations
     all_org = []
     regions.each do |region|
-      region.organizations.each do |organization|
+      region.organizations.where(active: true).each do |organization|
         all_org.append(organization) if all_org.find_index(organization).nil?
       end
     end
