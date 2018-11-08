@@ -15,7 +15,7 @@ module MessagingHelper
   def self.send_message(title, message, device_token, sendermail)
     url = "#{@@current_url}/jugendinfo_push/send"
     response = RestClient.post url, api: 'ULv8r9J7Hqc7n2B8qYmfQewzerhV9p', message_title: title, message: message, device_token: device_token, sendermail: sendermail
-    Rails.logger.info "send_message post #{url}: {api: #{api}, message_title: #{title}, message: #{message}, device_token: #{device_token}, sendermail: #{sendermail}}"
+    Rails.logger.info "send_message post #{url}: {api: #{'ULv8r9J7Hqc7n2B8qYmfQewzerhV9p'}, message_title: #{title}, message: #{message}, device_token: #{device_token}, sendermail: #{sendermail}}"
     Rails.logger.info "send_message response: #{response}"
     response
   end
