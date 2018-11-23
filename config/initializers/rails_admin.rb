@@ -376,6 +376,9 @@ RailsAdmin.config do |config|
         field :app_user_id do
           read_only true
         end
+        field :recovery_code do
+          read_only true
+        end
       end
 
       group :address do
