@@ -303,7 +303,7 @@ de:
     job_finished: "Beendet"
     job_public: "Öffentlich"
     job_hidden: "Versteckt"
-    jobs_check: "Prüfen"
+    job_check: "Prüfen"
     completed_st: "Beendet"
     inactive: "Inaktiv"
     created: "Erstellt"
