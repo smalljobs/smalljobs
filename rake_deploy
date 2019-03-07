@@ -1,0 +1,3 @@
+generate_secret_token
+db:migrate
+assets:precompile
