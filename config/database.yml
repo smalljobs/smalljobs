@@ -57,5 +57,6 @@ production:
   encoding: unicode
   database: smalljobs_production
   pool: 5
-  username: smalljobs
-  password:
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  host: <%= ENV['DB_HOST'] %>
