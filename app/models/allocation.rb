@@ -9,7 +9,7 @@ class Allocation < ActiveRecord::Base
 
   validates :job, presence: true
   validates :seeker, presence: true
-  validates :seeker, uniqueness: { scope: :job_id }, if: proc { |p| p.job && p.seeker }
+  validates :seeker, uniqueness: { scope: :job_id }
 
   before_save :set_state_last_change, if: proc { |s| s.state_changed?}
   before_save :send_request_refresh, if: proc { |s| s.state_changed?}
