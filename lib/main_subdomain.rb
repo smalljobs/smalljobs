@@ -1,5 +1,5 @@
 class MainSubdomain
   def self.matches?(request)
-    request.subdomain == 'www'
+    request.subdomains.first == 'www'
   end
 end

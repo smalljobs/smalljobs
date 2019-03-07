@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_region
-    @region ||= Region.find_by_subdomain(request.subdomain)
+    @region ||= Region.find_by_subdomain(request.subdomains.first)
   end
 
   def after_sign_in_path_for(resource)
@@ -72,7 +72,7 @@ class ApplicationController < ActionController::Base
     when Seeker
       seeker_dashboard_url(subdomain: ensure_subdomain_for(resource))
     when Admin
-      rails_admin.dashboard_url(subdomain: request.subdomain)
+      rails_admin.dashboard_url(subdomain: request.subdomains.first)
     else
       super
     end
@@ -85,7 +85,7 @@ class ApplicationController < ActionController::Base
       when Broker
         return request.subdomain
       subdomains = resource.regions.pluck(:subdomain)
-      subdomains.include?(request.subdomain) ? request.subdomain : subdomains.first
+      subdomains.include?(request.subdomains.first) ? request.subdomains.first : subdomains.first
     when Provider, Seeker
       resource.place.region.subdomain
     end

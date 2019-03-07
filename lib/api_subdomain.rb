@@ -1,5 +1,5 @@
 class ApiSubdomain
   def self.matches?(request)
-    request.subdomain == 'api'
+    request.subdomains.first == 'api'
   end
 end
