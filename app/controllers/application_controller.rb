@@ -2,7 +2,7 @@ require 'app_responder'
 
 class ApplicationController < ActionController::Base
   before_filter :require_https
-  before_filter :redirect_smalljobs
+  before_filter :redirect_www
 
   self.responder = AppResponder
   respond_to :html, :json
@@ -38,9 +38,15 @@ class ApplicationController < ActionController::Base
     redirect_to protocol: 'https://' unless request.ssl? || request.local? || request.subdomain == 'dev' || Rails.env.test?
   end
 
+  def redirect_www
+    if request.subdomains[0] == 'www'
+      redirect_to request.url.sub('//www.', '//')
+    end
+  end
+
   def redirect_smalljobs
-    if request.host == 'smalljobs.herokuapp.com'
-      redirect_to "#{request.protocol}winterthur.smalljobs.ch#{request.fullpath}", :status => :moved_permanently
+    if request.subdomain == 'smalljobs'
+      redirect_to "https://winterthur.smalljobs.ch#{request.fullpath}", :status => :moved_permanently
     end
   end
 

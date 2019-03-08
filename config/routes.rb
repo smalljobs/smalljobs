@@ -1,6 +1,7 @@
 require 'main_subdomain'
 require 'region_subdomain'
 require 'api_subdomain'
+require 'smalljobs_subdomain'
 
 Smalljobs::Application.routes.draw do
   mount Rich::Engine => '/rich', :as => 'rich'
@@ -26,6 +27,18 @@ Smalljobs::Application.routes.draw do
   get 'join_us',          to: 'pages#join_us'
   get 'rules_of_action',  to: 'pages#rules_of_action'
   get 'app_links',        to: 'pages#app_links'
+
+
+  constraints(SmalljobsSubdomain) do
+    namespace :broker do
+      resources :seekers do
+        member do
+          get 'agreement'
+        end
+      end
+    end
+  end
+
 
   constraints(RegionSubdomain) do
     devise_for :brokers, except: :confirmation, controllers: {

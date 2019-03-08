@@ -28,24 +28,17 @@ module Smalljobs
     config.encoding = 'utf-8'
 
     config.generators do |g|
-      g.helper              false
-      g.helper_specs        false
-      g.stylesheets         false
-      g.javascripts         false
-      g.integration_tool    :rspec
-      g.test_framework      :rspec, fixture: true
+      g.helper false
+      g.helper_specs false
+      g.stylesheets false
+      g.javascripts false
+      g.integration_tool :rspec
+      g.test_framework :rspec, fixture: true
       g.fixture_replacement :fabrication, dir: 'spec/fabricators'
     end
 
     # Asset pipeline
     config.assets.precompile += %w(rails_admin/rails_admin.css rails_admin/rails_admin.js)
     config.serve_static_assets = true
-
-    config.middleware.insert_before 0, Rack::Cors do
-      allow do
-        origins '*'
-        resource '*', headers: :any, methods: [:get, :post, :put, :options]
-      end
-    end
   end
 end
