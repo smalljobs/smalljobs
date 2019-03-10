@@ -47,6 +47,7 @@ gem 'puma_worker_killer'
 gem 'mustache'
 gem 'RedCloth'
 gem 'rack-cors', require: 'rack/cors'
+gem 'rails-ujs'
 
 group :development, :test do
   gem 'better_errors'
