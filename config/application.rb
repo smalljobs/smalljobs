@@ -38,6 +38,13 @@ module Smalljobs
       g.fixture_replacement :fabrication, dir: 'spec/fabricators'
     end
 
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', headers: :any, methods: [:get, :post, :put, :patch, :delete, :options, :head]
+      end
+    end
+
     # Asset pipeline
     config.assets.precompile += %w(rails_admin/rails_admin.css rails_admin/rails_admin.js)
     config.serve_static_assets = true

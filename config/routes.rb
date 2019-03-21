@@ -165,7 +165,7 @@ Smalljobs::Application.routes.draw do
   #API
   post '/api/users/login' => 'api#login'
   get '/api/users/logout' => 'api#logout'
-  post '/api/users/register' => 'api#register'
+  match '/api/users/register' => 'api#register', via: [:get, :post]
   get '/api/users' => 'api#list_users'
   get '/api/users/:id' => 'api#show_user'
   patch '/api/users/:id' => 'api#update_user'
