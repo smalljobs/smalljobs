@@ -52,8 +52,7 @@ class Broker::JobsController < InheritedResources::Base
 
     @job.destroy!
 
-    redirect_to broker_dashboard_path + "#jobs"
-    # render json: { message: 'Job deleted' }, status: 200
+    render json: { message: 'Job deleted' }, status: 200
   end
 
   # Adds new comment for seeker
