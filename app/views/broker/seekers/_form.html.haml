@@ -166,12 +166,12 @@
         if($checkbox.is(":checked")) {
         $.post("#{send_message_broker_seeker_path(@seeker)}", {message: message, title: title}, function(response){
           // console.log(response);
-          //func();
+          func();
         });
         } else {
-          //func();
+          func();
         }
-        func();
+        // func();
       }
 
       $('#comment-btn').click(function(){
