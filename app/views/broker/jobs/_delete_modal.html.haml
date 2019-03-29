@@ -20,7 +20,8 @@
           url: "#{delete_broker_job_path(@job)}",
           type: 'DELETE',
           success: function(result) {
-             window.location.href = "#{broker_dashboard_path}#jobs"
+             window.location.href = "#{broker_dashboard_path}#jobs";
+             return false
           }
         });
       });
