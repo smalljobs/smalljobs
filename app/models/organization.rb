@@ -14,7 +14,7 @@ class Organization < ActiveRecord::Base
   validates :email, email: true, presence: true
   validates :phone, phony_plausible: true, allow_blank: true, allow_nil: true
 
-  validates :default_hourly_per_age, presence: true, numericality: {greater_than_or_equal_to: 0}
+  # validates :default_hourly_per_age, presence: true, numericality: {greater_than_or_equal_to: 0}
 
   scope :random, -> {order('RANDOM()')}
   scope :active, -> {where(active: true)}

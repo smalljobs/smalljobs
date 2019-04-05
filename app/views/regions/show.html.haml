@@ -36,7 +36,7 @@
 %br
 %br
 
-- for organization in @region.organizations.order(:name).distinct
+- for organization in @region.organizations.where(active: true).order(:name).distinct
   %h1.contact_header
     = "Kontakt #{organization.name}"
   %h2= t('regions.show.address')

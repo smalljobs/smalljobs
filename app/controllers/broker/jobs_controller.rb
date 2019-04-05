@@ -2,7 +2,7 @@ class Broker::JobsController < InheritedResources::Base
 
   before_filter :authenticate_broker!
 
-  before_filter :redirect_not_found, only: [:edit, :show]
+  before_action :redirect_not_found, only: [:edit, :show]
   load_and_authorize_resource :job, through: :current_region
   skip_authorize_resource :job, only: :new
   custom_actions resource: :activate
