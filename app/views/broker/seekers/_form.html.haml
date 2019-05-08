@@ -107,6 +107,11 @@
     .form-inputs
       = f.association :certificates, as: :check_boxes, label: 'Zertifikate'
 
+  .form-inputs
+    = f.label "Weitere Fähigkeiten"
+    = f.text_area :other_skills, class: 'text optional form-control'
+
+
   %fieldset
     .form-inputs
       = f.input :languages, required: false
