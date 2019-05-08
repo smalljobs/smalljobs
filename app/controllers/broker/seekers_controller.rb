@@ -81,6 +81,25 @@ class Broker::SeekersController < InheritedResources::Base
     note.destroy!
   end
 
+  def update_comment
+    note = Note.find_by(id: params[:note_id], broker_id: current_broker.id, seeker_id: @seeker.id)
+    respond_to do |format|
+      if note&.update(message: params[:message])
+        format.json {
+          render json: {
+            message: note.message,
+            updated_at: note.updated_at.strftime("%d.%m.%Y, %H:%M")
+          }, status: 200
+        }
+      else
+        format.json {
+          render json: {
+            error: "Wir können eine Notiz nicht aktualisieren"
+          }, status: 422}
+      end
+    end
+  end
+
   protected
 
   # Returns currently signed in broker

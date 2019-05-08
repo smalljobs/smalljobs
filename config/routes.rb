@@ -88,6 +88,9 @@ Smalljobs::Application.routes.draw do
           post 'send_message'
           post 'add_comment'
           post 'remove_comment'
+          resources :note do
+            patch 'update_comment', to: 'seekers#update_comment'
+          end
         end
       end
 
