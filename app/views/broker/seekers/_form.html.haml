@@ -68,7 +68,7 @@
             %div.js-edit-field.edit-field
               = text_area_tag :note_edit, note.message ,class: 'text optional form-control'
               = button_tag "Abbrechen", class: "btn btn-success edit-comment-btns js-btn-note-cancel", type: 'button'
-              = button_tag "Aktualisieren", class: "btn btn-success edit-comment-btns js-btn-note-update", type: 'button', data: {'update-url': broker_note_update_comment_path(@seeker, note)}
+              = button_tag "Aktualisieren", class: "btn btn-success edit-comment-btns js-btn-note-update", type: 'button', data: {'update-url': broker_note_seeker_update_comment_path(@seeker, note)}
 
         - unless @seeker.notes.blank?
           %hr
@@ -213,44 +213,44 @@
         })
       });
 
-      $('.js-btn-edit').click(function(){
-        parent = $(this).closest('.js-note')
-        parent.find('.js-edit-field').show();
-        var noteId = parent.attr('data-note-id');
-      })
-
-      $('.js-btn-note-cancel').click(function(){
-        parent = $(this).closest('.js-note')
-        parent.find('.js-edit-field').hide();
-      })
-
-      $('.js-btn-note-update').click(function(){
-        parent = $(this).closest('.js-note')
-        var url = $(this).data('update-url')
-        var message = $(this).closest('.js-edit-field').find('textarea').val()
-        $.ajax({
-          url: url,
-          type: 'PATCH',
-          data: {message: message },
-          success: function(result) {
-            parent.find('.js-edit-field').hide();
-            parent.find('.js-comment').html(result.message)
-            parent.find('.js-note-date').html(result.updated_at)
-          },
-          error: function(result){
-            parent.append(
-              `
-                <div class="js-note-error" style="color: red; margin-top: 10px;">
-                  ${result.responseJSON.error}
-                </div>
-              `
-            );
-            setTimeout(function(){
-              $('.js-note-error').remove();
-            }, 3000);
-          }
-        });
-      })
+      // $('.js-btn-edit').click(function(){
+      //   parent = $(this).closest('.js-note')
+      //   parent.find('.js-edit-field').show();
+      //   var noteId = parent.attr('data-note-id');
+      // })
+      //
+      // $('.js-btn-note-cancel').click(function(){
+      //   parent = $(this).closest('.js-note')
+      //   parent.find('.js-edit-field').hide();
+      // })
+      //
+      // $('.js-btn-note-update').click(function(){
+      //   parent = $(this).closest('.js-note')
+      //   var url = $(this).data('update-url')
+      //   var message = $(this).closest('.js-edit-field').find('textarea').val()
+      //   $.ajax({
+      //     url: url,
+      //     type: 'PATCH',
+      //     data: {message: message },
+      //     success: function(result) {
+      //       parent.find('.js-edit-field').hide();
+      //       parent.find('.js-comment').html(result.message)
+      //       parent.find('.js-note-date').html(result.updated_at)
+      //     },
+      //     error: function(result){
+      //       parent.append(
+      //         `
+      //           <div class="js-note-error" style="color: red; margin-top: 10px;">
+      //             ${result.responseJSON.error}
+      //           </div>
+      //         `
+      //       );
+      //       setTimeout(function(){
+      //         $('.js-note-error').remove();
+      //       }, 3000);
+      //     }
+      //   });
+      // })
 
       function disableMessaging() {
         $('.modal-body input').removeAttr('checked');

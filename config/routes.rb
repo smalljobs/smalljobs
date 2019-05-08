@@ -78,6 +78,9 @@ Smalljobs::Application.routes.draw do
           delete 'delete'
           post 'add_comment'
           post 'remove_comment'
+          resources :note do
+            patch 'update_comment', to: 'providers#update_comment', as: :provider_update_comment
+          end
         end
       end
 
@@ -89,7 +92,7 @@ Smalljobs::Application.routes.draw do
           post 'add_comment'
           post 'remove_comment'
           resources :note do
-            patch 'update_comment', to: 'seekers#update_comment'
+            patch 'update_comment', to: 'seekers#update_comment', as: :seeker_update_comment
           end
         end
       end
@@ -100,6 +103,9 @@ Smalljobs::Application.routes.draw do
           delete 'delete'
           post 'add_comment'
           post 'remove_comment'
+          resources :note do
+            patch 'update_comment', to: 'jobs#update_comment', as: :job_update_comment
+          end
         end
 
         resources :allocations do
