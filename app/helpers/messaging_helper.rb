@@ -2,7 +2,7 @@ module MessagingHelper
   require 'rest-client'
   @@dev = 'https://devadmin.jugendarbeit.digital/api'
   @@live = 'https://admin.jugendarbeit.digital/api'
-  @@current_url = @@dev
+  @@current_url = @@live
 
   # Send message to given user using jugendinfo api
   #
@@ -16,6 +16,11 @@ module MessagingHelper
     url = "#{@@current_url}/jugendinfo_push/send"
     response = RestClient.post url, api: ENV['JUGENDINFO_API_KEY'], message_title: title, message: message, device_token: device_token, sendermail: sendermail
     response
+  end
+
+  def self.return_proper_title title
+    return "Jugendapp Nachricht" if title == "Nachricht senden"
+    title
   end
 
   # Get conversation id for given user from jugendinfo api

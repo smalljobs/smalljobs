@@ -301,6 +301,10 @@ div.textarea {
   width: 30%;
 }
 
+.edit-comment-btns{
+  margin-top: 10px;
+}
+
 .margin-right-10 {
   margin-right: 10px;
 }
@@ -345,9 +349,14 @@ th.sortable span {
   min-width: 95px;
 }
 
-.remove-btn {
+.remove-btn, .edit-btn{
   color: #95a5a6;
   cursor: pointer;
+  margin-left: 10px;
+}
+
+.edit-field{
+  display: none;
 }
 
 .new-job-btn {
