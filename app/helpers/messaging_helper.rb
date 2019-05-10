@@ -18,6 +18,11 @@ module MessagingHelper
     response
   end
 
+  def self.return_proper_title title
+    return "Jugendapp Nachricht" if title == "Nachricht senden"
+    title
+  end
+
   # Get conversation id for given user from jugendinfo api
   #
   # @param device_token [Integer] user id on jugendinfo server

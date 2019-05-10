@@ -5,7 +5,7 @@
   - if message['from_ji_user_id'].to_s == "#{@seeker.app_user_id}"
     %div.col-sm-8.align-left
       %h5.grey= DateTime.strptime(message['datetime'], '%s').in_time_zone.strftime('%d.%m.%Y,%H:%M')
-      %h4.bold= message['title']
+      %h4.bold= MessagingHelper::return_proper_title(message['title'])
       %p
         - if message['message'] != nil
           = message['message'].html_safe
@@ -15,7 +15,7 @@
     %div.col-sm-4
     %div.col-sm-8.align-left.message
       %h5.grey= DateTime.strptime(message['datetime'], '%s').in_time_zone.strftime('%d.%m.%Y,%H:%M')
-      %h4.bold= message['title']
+      %h4.bold= MessagingHelper::return_proper_title(message['title'])
       %p
         - if message['message'] != nil
           = message['message'].html_safe

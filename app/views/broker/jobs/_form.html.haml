@@ -30,18 +30,27 @@
           = "Kommentieren"
         - Note.where(job_id: @job.id).order(:created_at).reverse_order.each do |note|
           %hr
-          %div.row
-            %div.col-md-8
-              %p
-                %span.bold.margin-right-10
-                  = note.broker.name
-                = note.created_at.strftime("%d.%m.%Y, %H:%M")
-            %div.col-md-4.text-right
-              - if note.broker.id == current_broker.id
-                %p.remove-btn{'data-note-id': "#{note.id}"}
-                  = "Löschen"
-          %p
-            = note.message
+          %div.js-note{'data-note-id': "#{note.id}"}
+            %div.row
+              %div.col-md-8
+                %p
+                  %span.bold.margin-right-10
+                    = note.broker.name
+                  %span.js-note-date
+                    = note.updated_at.strftime("%d.%m.%Y, %H:%M")
+              %div.col-md-4.text-right
+                - if note.broker.id == current_broker.id
+                  %span.edit-btn.js-btn-edit
+                    = "Bearbeiten"
+                  %span.remove-btn{'data-note-id': "#{note.id}"}
+                    = "Löschen"
+              %div.col-md-12.js-comment
+                = note.message
+            %hr
+            %div.js-edit-field.edit-field
+              = text_area_tag :note_edit, note.message ,class: 'text optional form-control'
+              = button_tag "Abbrechen", class: "btn btn-success edit-comment-btns js-btn-note-cancel", type: 'button'
+              = button_tag "Aktualisieren", class: "btn btn-success edit-comment-btns js-btn-note-update", type: 'button', data: {'update-url': broker_note_job_update_comment_path(@job, note)}
         - unless @job.notes.blank?
           %hr
           %div.row
