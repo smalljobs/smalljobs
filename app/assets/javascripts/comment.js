@@ -24,16 +24,7 @@ $(document).ready(function() {
         parent.find('.js-note-date').html(result.updated_at)
       },
       error: function(result){
-        parent.append(
-          `
-                <div class="js-note-error" style="color: red; margin-top: 10px;">
-                  ${result.responseJSON.error}
-                </div>
-              `
-        );
-        setTimeout(function(){
-          $('.js-note-error').remove();
-        }, 3000);
+        alert(result.responseJSON.error);
       }
     });
   })
