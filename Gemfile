@@ -73,6 +73,7 @@ group :development, :test do
   gem 'spring-commands-rspec'
   gem 'bullet'
   gem 'rails-controller-testing'
+  gem 'tzinfo-data'
 end
 
 group :doc do

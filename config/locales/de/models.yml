@@ -118,6 +118,7 @@ de:
         work_categories: "Bevorzugte Arbeiten"
         provider: "Anbieter"
         uid: "UID"
+        other_skills: 'Weitere Fähigkeiten'
         name: "Name"
         username: "Benutzername"
         password: "Passwort"
