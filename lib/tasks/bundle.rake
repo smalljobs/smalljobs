@@ -1,5 +1,10 @@
 namespace :bundle do
   task install: :environment do
-    exec("bundle install")
+    begin
+      exec("RAILS_ENV=production bundle install")
+      logger.info "bundle install VIA RAKE TASK COMPLETED"
+    rescue
+      logger.error "FAILED TO bundle install VIA RAKE TASK!!!!!"
+    end
   end
 end
