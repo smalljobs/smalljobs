@@ -1,4 +1,5 @@
-restart:rails_env_prod
+set:rails_env_prod
+restart:nginx
 generate_secret_token
 bundle:install
 db:migrate
