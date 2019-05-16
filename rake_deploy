@@ -1,6 +1,6 @@
+restart:rails_env_prod
 generate_secret_token
 bundle:install
 db:migrate
 assets:precompile
-restart:nginx_with_env
 restart:passenger
