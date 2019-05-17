@@ -2,7 +2,7 @@ module MessagingHelper
   require 'rest-client'
   @@dev = 'https://devadmin.jugendarbeit.digital/api'
   @@live = 'https://admin.jugendarbeit.digital/api'
-  @@current_url = @@dev
+  @@current_url = Rails.env.production? ? @@live : @@dev
 
   # Send message to given user using jugendinfo api
   #
