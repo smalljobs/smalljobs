@@ -7,6 +7,7 @@
 #= require contextHelp.js
 #= require bootstrap-select.min.js
 #= require_tree .
+#= require todo.js
 
 ready = ->
   history_array = JSON.parse(sessionStorage.getItem('history') || '[]')

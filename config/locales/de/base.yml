@@ -510,10 +510,14 @@ de:
     providers: 'Anbieter'
     seekers: 'Jugendliche'
     assignments: 'Einsätze'
+    aktuelle: 'Aktuelle'
+    verschoben: 'Verschoben'
     todo_table:
       date: 'Datum'
       todo: 'Todo'
       description: 'Beschreibung'
+      postpone: 'Verschieben'
+      postpone_message: 'Das Todo wurde um eine Woche verschoben.'
     jobs_table:
       status: 'Status'
       date: 'Datum'
