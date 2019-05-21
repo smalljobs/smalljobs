@@ -3,14 +3,20 @@ class Broker::TodosController < ApplicationController
   before_filter :authenticate_broker!
 
   def update
+    postponed, message = nil
     if @todo.present?
-      postponed = ( @todo.postponed == nil || @todo.postponed < DateTime.now) ? (DateTime.now+7.days) : nil
+      if(@todo.postponed == nil || @todo.postponed < DateTime.now)
+        postponed = (DateTime.now+7.days)
+        message = t('broker_dashboard.todo_table.postpone_message')
+      else
+        message = t('broker_dashboard.todo_table.postpone_message_back')
+      end
     end
     respond_to do |format|
       if @todo.blank?
-        format.json {render json: {message: "Todo nicht gefunden"}, status: :not_found}
+        format.json {render json: {message: t('broker_dashboard.todo_table.not_found')}, status: :not_found}
       elsif @todo.update(postponed: postponed)
-        format.json {render json: {message: "Das Todo wurde um eine Woche verschoben.", postponed: @todo.postponed&.strftime("%d.%m.%Y")}, status: :ok}
+        format.json {render json: {message: message, postponed: @todo.postponed&.strftime("%d.%m.%Y")}, status: :ok}
       else
         format.json {render json: {error: @todo.errors}, status: :unprocessable_entity}
       end

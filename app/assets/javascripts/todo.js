@@ -1,6 +1,6 @@
 $(document).ready(function() {
   $(document).on('click', '.js-postpone', function(){
-    tr = $(this).parents('tr')
+    tr = $(this).closest('tr')
     url = $(this).data('url')
     todo_type = $(this).data('todo-type')
     $.ajax({
@@ -11,13 +11,14 @@ $(document).ready(function() {
           tr_last = tr.clone()
           tr_last.find('span').data('todo-type', 'current')
           tr_last.find('td').last().remove()
-          $('.js-todo-current').find('tbody').append(tr_last)
+          $('.js-todo-current').find('tbody').prepend(tr_last)
         } else if(todo_type == 'current'){
           tr_last = tr.clone()
           tr_last.find('span').data('todo-type', 'postponed')
           tr_last.append("<td>"+result.postponed+"</td>")
-          $('.js-todo-postponed').find('tbody').append(tr_last)
+          $('.js-todo-postponed').find('tbody').prepend(tr_last)
         }
+        $('.js-postpone-msg').text(result.message)
         $('.js-postpone-msg').show();
         setTimeout(function(){$('.js-postpone-msg').hide()}, 3000)
         tr.remove()
