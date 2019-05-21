@@ -1,4 +1,10 @@
+%span
+  = link_to '< ' + t('common.back'), broker_dashboard_path
+
 = simple_form_for([:broker, @organization], html: { novalidate: true }) do |f|
+  .form-actions
+    = f.button :submit, t('common.edit'), class: 'btn btn-primary'
+
 
   - if notification = f.error_notification
     .alert.alert-danger
