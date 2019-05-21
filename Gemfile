@@ -48,6 +48,7 @@ gem 'mustache'
 gem 'RedCloth'
 gem 'rack-cors', require: 'rack/cors'
 gem 'spawnling', '~>2.1'
+gem 'rails-ujs'
 
 group :development, :test do
   gem 'better_errors'

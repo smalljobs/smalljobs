@@ -6,6 +6,8 @@ class Todo < ApplicationRecord
   belongs_to :provider
   belongs_to :job
   belongs_to :allocation
+  scope :postponed, -> {where("postponed > ?", DateTime.now)}
+  scope :current, -> {where("postponed <= ? OR postponed IS NULL", DateTime.now)}
 
   def organization_id
     if record_type == 'job'
