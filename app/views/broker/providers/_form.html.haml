@@ -61,7 +61,6 @@
                     = "Löschen"
               %div.col-md-12.js-comment
                 = note.message
-            %hr
             %div.js-edit-field.edit-field
               = text_area_tag :note_edit, note.message ,class: 'text optional form-control'
               = button_tag "Abbrechen", class: "btn btn-success edit-comment-btns js-btn-note-cancel", type: 'button'
@@ -76,6 +75,7 @@
                   = "Ältere Notizen"
           %p
             = @provider.notes
+        %hr
 
   %fieldset
     .form-inputs
