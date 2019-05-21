@@ -518,6 +518,8 @@ de:
       description: 'Beschreibung'
       postpone: 'Verschieben'
       postpone_message: 'Das Todo wurde um eine Woche verschoben.'
+      postpone_message_back: 'Todos Datum wurde zurückgezogen'
+      not_found: 'Todo nicht gefunden'
     jobs_table:
       status: 'Status'
       date: 'Datum'
