@@ -1,3 +1,14 @@
+- if (current_broker.present? || current_provider.present?)
+  .vacation-bar.js-organization{data: {id: current_broker.selected_organization_id, name: "Alle Organisationen"}, style: "display: none"}
+    Die
+    %span.js-organisation-name
+      Alle Organisationen
+    Organisation hat Feiertage von
+    %span.js-org-start-date
+      test
+    bis
+    %span.js-org-end-date
+      test2
 %div{id: 'dashboard'}
   %div.row
     %div.col-sm-3
@@ -6,7 +17,7 @@
           %option{value: "0"}
             = "Alle Organisationen"
           - for organization in current_broker.all_organizations
-            %option{value: "#{organization.id}"}
+            %option{value: "#{organization.id}", data: {'vacation-start': organization.start_vacation_date, 'vacation-end': organization.end_vacation_date}}
               = organization.name
     %div.col-sm-2.float-left.display-none
       %input.form-control.search{type: 'text', id: 'search-field', placeholder: 'Suche'}
@@ -434,6 +445,9 @@
 
     $('#dropdown-btn').on('change', function(){
       var id = this.value;
+      var name = $(this).find("option:selected").text();
+      var vacationStart = $(this).find("option:selected").data('vacation-start');
+      var vacationEnd = $(this).find("option:selected").data('vacation-end');
       selectedOrganizationId = id;
       if(id === '0') {
         $('.display-none.organization').removeClass('display-none');
@@ -441,6 +455,14 @@
         $('.display-none.organization').removeClass('display-none');
         $('.organization').addClass('display-none');
         $('.organization-' + id).removeClass('display-none');
+      }
+      if(vacationStart!=undefined){
+        $('.js-organisation-name').text(name)
+        $('.js-org-start-date').text(vacationStart)
+        $('.js-org-end-date').text(vacationEnd)
+        $('.js-organization').show()
+      }else{
+        $('.js-organization').hide()
       }
     });
 

@@ -94,6 +94,20 @@
       = f.input :activation_msg
       = f.input :welcome_email_for_parents_msg
 
+  %fieldset
+    %legend
+      =t('legends.vacations')
+    .row
+      .col-xs-6
+        #start_vacation_date.input-append.date{"data-date" => "12-02-2012", "data-date-format" => "yyyy-mm-dd"}
+          %label
+            =t('organization.edit.start_date')
+          = f.text_field :start_vacation_date, class: 'js-datetime form-control', size: "16"
+      .col-xs-6
+        #end_vacation_date.input-append.date{"data-date" => "12-02-2012", "data-date-format" => "yyyy-mm-dd"}
+          %label
+            =t('organization.edit.end_date')
+          = f.text_field :end_vacation_date, class: 'js-datetime form-control', size: "16"
   .form-actions
     = f.button :submit, t('common.edit'), class: 'btn btn-primary'
 
@@ -101,6 +115,7 @@
   %li= link_to t('common.back'), broker_dashboard_path
 
 :javascript
+  $('.js-datetime').datepicker({    format: 'yyyy-mm-dd'  })
   $(document).ready(function(){
     $('.organization_logo .controls').prepend('<div class="logo-wrapper"></div>');
     $('.organization_logo .controls img').prependTo('.logo-wrapper');

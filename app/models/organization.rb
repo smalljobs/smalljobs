@@ -13,7 +13,7 @@ class Organization < ActiveRecord::Base
 
   validates :email, email: true, presence: true
   validates :phone, phony_plausible: true, allow_blank: true, allow_nil: true
-
+  validate :vacation_date
   # validates :default_hourly_per_age, presence: true, numericality: {greater_than_or_equal_to: 0}
 
   scope :random, -> {order('RANDOM()')}
@@ -63,5 +63,16 @@ class Organization < ActiveRecord::Base
 
   def destroy_background?
     self.remove_background! if @background_delete == "1"
+  end
+
+  private
+
+  def vacation_date
+    if start_vacation_date>=end_vacation_date
+      errors.add(:start_vacation_date, I18n.t('errors.messages.start_date_too_late'))
+    end
+    if end_vacation_date < Date.today
+      errors.add(:end_vacation_date, I18n.t('errors.messages.end_date_too_early'))
+    end
   end
 end
