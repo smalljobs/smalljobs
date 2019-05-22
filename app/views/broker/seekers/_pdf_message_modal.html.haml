@@ -19,20 +19,21 @@
           %a{file:'', href: "#{url_for agreement_broker_seeker_url(@seeker)}?format=pdf", type: "application/pdf", title: "Elterneinverständnis herunterladen"}= "Elterneinverständnis herunterladen"
           %br
           = "Dann ausdrucken und uns vorbeibringen:"
-          %br
-          = @seeker.organization.name
-          %br
-          = @seeker.organization.street
-          %br
-          = @seeker.organization.place.custom_name
-          %br
-          = "Für einen Termin schreibe uns hier oder ruf an "
-          %a{href: "tel:#{@seeker.organization.phone}"}= @seeker.organization.phone
-          %br
-          %br
-          = "Danke,"
-          %br
-          = @seeker.organization.name
+          -if @seeker.organization.present?
+            %br
+            = @seeker.organization.name
+            %br
+            = @seeker.organization.street
+            %br
+            = @seeker.organization.place.custom_name
+            %br
+            = "Für einen Termin schreibe uns hier oder ruf an "
+            %a{href: "tel:#{@seeker.organization.phone}"}= @seeker.organization.phone
+            %br
+            %br
+            = "Danke,"
+            %br
+            = @seeker.organization.name
         %br
         - if @seeker.app_user_id.nil?
           %p

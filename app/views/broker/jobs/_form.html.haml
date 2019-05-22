@@ -113,7 +113,7 @@
         -org = current_broker.organizations.first
       -else
         -org = @job.organization
-      -if org.wage_factor != nil && org.wage_factor != 1
+      -if org.present? && org.wage_factor != nil && org.wage_factor != 1
         = f.input :salary_type, collection: job_salary_types_with_factor(org.wage_factor), include_blank: false, hint: t('legends.seeker_salary_hint_wage_factor', wage_factor: org.wage_factor).html_safe
       -else
         = f.input :salary_type, collection: job_salary_types, include_blank: false
