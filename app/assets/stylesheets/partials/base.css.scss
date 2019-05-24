@@ -65,3 +65,19 @@ body {
     margin-bottom: 25px;
   }
 }
+
+.vacation-bar{
+  background-color: #18bc9c;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  margin-top: -20px;
+  margin-bottom: 10px;
+  border: 1px solid #13a589;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50.1vw;
+  margin-right: -50vw;
+}
