@@ -1,0 +1,71 @@
+%div.col-sm-3
+  %div.dropdown
+    %select{id: 'dropdown-btn'}
+      %option{value: "0"}
+        = "Alle Organisationen"
+      - for organization in current_broker.all_organizations
+        %option{value: "#{organization.id}"}
+          = organization.name
+
+<canvas id="seeker"></canvas>
+
+
+
+:javascript
+  var ctx = document.getElementById('seeker').getContext('2d');
+  var chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['seekers', 'providers', 'assigments', 'allocations', 'jobs'],
+      datasets: [
+      {
+        label: 'Organizatione',
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+        ],
+        borderWidth:1,
+        data: ["#{@seekers}", "#{@providers}", "#{@assignments}", "#{@allocations}", "#{@jobs}"]
+      }]
+    },
+
+      // Configuration options go here
+    options: {
+        legend: {
+            display: true,
+            labels: {
+                boxWidth: 0
+            }
+        }
+    }
+  });
+
+
+  $('#dropdown-btn').on('change', function(){
+    var id = this.value;
+    $.ajax({
+      url: "#{organization_statistics_broker_statistics_path(format: :json)}",
+      type: 'GET',
+      data: {organization_id: id},
+      success: function(result) {
+        console.log('sukces')
+        chart.data.datasets = result
+        chart.update()
+      },
+      error: function(result) {
+        console.log('error')
+        console.log(result)
+      }
+    });
+  });
+
