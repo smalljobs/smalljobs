@@ -561,3 +561,4 @@ de:
       extension_black_list_error: "Es ist nicht erlaubt %{extension} Dateien hochzuladen, %{prohibited_types} sind nicht erlaubt."
       start_date_too_late: 'Das Startdatum darf nicht nach dem Enddatum liegen'
       end_date_too_early: 'Das Enddatum darf nicht vor dem heutigen Datum liegen'
+      start_and_end_date: "Bitte geben Sie das Start- und Enddatum des Urlaubs ein"

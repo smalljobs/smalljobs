@@ -1,3 +1,14 @@
+- if current_provider.present? && (current_provider.organization.end_vacation_date > Date.today)
+  .vacation-bar.js-organization
+    Die
+    %span.js-organisation-name
+      = current_provider.organization.name
+    Organisation hat Feiertage von
+    %span.js-org-start-date
+      = current_provider.organization.start_vacation_date
+    bis
+    %span.js-org-end-date
+      = current_provider.organization.end_vacation_date
 %div.row
   %div.col-md-6
     = link_to t('provider_dashboard.new_job'), new_provider_job_path, class: 'btn btn-success'
