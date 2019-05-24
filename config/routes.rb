@@ -72,6 +72,11 @@ Smalljobs::Application.routes.draw do
 
       resource :organization, only: [:edit, :update]
 
+      resources :statistics, only: [:index] do
+        collection do
+          get 'organization_statistics'
+        end
+      end
       resources :providers do
         member do
           get 'contract'
