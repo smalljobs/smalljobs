@@ -7,6 +7,7 @@
 #= require contextHelp.js
 #= require bootstrap-select.min.js
 #= require_tree .
+#= require bootstrap-datepicker.js
 #= require chart.min.js
 
 ready = ->

@@ -1,22 +1,56 @@
-%div.col-sm-3
-  %div.dropdown
-    %select{id: 'dropdown-btn'}
-      %option{value: "0"}
-        = "Alle Organisationen"
-      - for organization in current_broker.all_organizations
-        %option{value: "#{organization.id}"}
-          = organization.name
-
+%div.row
+  %div.col-sm-3
+    %div.dropdown
+      %select{id: 'dropdown-btn'}
+        %option{value: "0"}
+          = "Alle Organisationen"
+        - for organization in current_broker.all_organizations
+          %option{value: "#{organization.id}"}
+            = organization.name
+  %div.col-sm-9
+    %div.date-wrapper
+      %div.sj-date-input.sj-display-inline-block
+        #start_date.input-append.date{"data-date" => "12-02-2012", "data-date-format" => "yyyy-mm-dd"}
+          = text_field_tag :start_vacation_date, nil, class: 'sj-date-input js-datetime js-datestart', size: "16", "data-date-end-date" => "0d"
+      %div.sj-display-inline-block.sj-date-divider
+        bis
+      %div.sj-date-input.sj-display-inline-block
+        #end_date.input-append.date{"data-date" => "12-02-2012", "data-date-format" => "yyyy-mm-dd", "data-date-end-date" =>"0d"}
+          = text_field_tag :end_vacation_date, nil, class: 'sj-date-input js-datetime js-dateend', size: "16", "data-date-end-date" => "0d"
 <canvas id="seeker"></canvas>
 
 
 
 :javascript
+  $(document).ready(function(){
+    $(".js-datetime").datepicker({
+      format: 'yyyy-mm-dd',
+    }).on("changeDate", function (e) {
+      id = $('#dropdown-btn').attr('selected', 'selected').val();
+      date_start = $('.js-datestart').val()
+      date_end = $('.js-dateend').val()
+      $.ajax({
+        url: "#{organization_statistics_broker_statistics_path(format: :json)}",
+        type: 'GET',
+        data: {organization_id: id, start_date: date_start, end_date: date_end},
+        success: function(result) {
+          console.log('sukces')
+          chart.data.datasets = result
+          chart.update()
+        },
+        error: function(result) {
+          console.log('error')
+          console.log(result)
+        }
+      });
+    });
+  })
+
   var ctx = document.getElementById('seeker').getContext('2d');
   var chart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['seekers', 'providers', 'assigments', 'allocations', 'jobs'],
+      labels: ['Jugendliche', 'Anbieter', 'Einsätze', 'Zuweisung', 'Jobs'],
       datasets: [
       {
         label: 'Organizatione',
@@ -53,10 +87,12 @@
 
   $('#dropdown-btn').on('change', function(){
     var id = this.value;
+    date_start = $('.js-datestart').val()
+    date_end = $('.js-dateend').val()
     $.ajax({
       url: "#{organization_statistics_broker_statistics_path(format: :json)}",
       type: 'GET',
-      data: {organization_id: id},
+      data: {organization_id: id, start_date: date_start, end_date: date_end},
       success: function(result) {
         console.log('sukces')
         chart.data.datasets = result

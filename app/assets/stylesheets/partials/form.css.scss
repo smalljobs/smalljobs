@@ -61,3 +61,23 @@ fieldset {
   margin-bottom: 5px;
   font-weight: bold;
 }
+
+.date-wrapper{
+  float: right;
+  margin-top: 15px;
+  background-color: #eee;
+  border: 1px solid rgb(204,204,204);
+}
+.sj-display-inline-block{
+  display: inline-block;
+}
+
+.sj-date-input{
+  height: 30px;
+  padding: 0px;
+  width: 90px;
+}
+
+.sj-date-divider{
+  padding: 3px;
+}

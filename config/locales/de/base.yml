@@ -47,6 +47,7 @@ de:
     sign_out: 'Abmelden'
     profile: 'Profil'
     organization: 'Organisation'
+    statistic: 'Statistik'
     providers: "Anbieter"
     features: "Funktionen"
     provide_job: "Job erfassen"
