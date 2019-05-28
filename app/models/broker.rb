@@ -30,6 +30,21 @@ class Broker < ActiveRecord::Base
     filter String, default: ''
   end
 
+  ROLES = [:normal, :region_admin, :organisation_admin]
+  ROLES_HASH =  {
+      normal: I18n.t('activerecord.attributes.broker.normal'),
+      region_admin: I18n.t('activerecord.attributes.broker.region_admin'),
+      organization_admin: I18n.t('activerecord.attributes.broker.organization_admin')
+  }
+
+  ROLES.each do |role|
+    #admin?, user?
+    define_method("#{role}?") do
+      self.role == role.to_s
+    end
+  end
+
+
   def all_organizations
     all_org = []
     regions.each do |region|
