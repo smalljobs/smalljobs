@@ -294,9 +294,13 @@ RailsAdmin.config do |config|
         label I18n.t('admin.groups.administration')
 
         field :active
+        field :role do
+          partial "broker/role.html.haml"
+        end
         field :confirmed, :boolean
         # field :terms, :boolean
       end
+
     end
   end
 

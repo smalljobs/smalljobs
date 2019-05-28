@@ -71,7 +71,7 @@ Smalljobs::Application.routes.draw do
       end
 
       resource :organization, only: [:edit, :update]
-
+      resource :region, only: [:edit, :update]
       resources :providers do
         member do
           get 'contract'

@@ -1,0 +1,31 @@
+= simple_form_for([:broker, @region], html: { novalidate: true }) do |f|
+
+  - if notification = f.error_notification
+    .alert.alert-danger
+      = notification
+
+  %fieldset
+    %legend
+      = t('legends.region')
+      %i.fa.fa-2x.fa-home.pull-right
+
+    .form-inputs
+      = f.input :name, required: true, label: 'Name der Region'
+
+    -# implement adding places
+    =@places
+
+    -#implement organizations add/edit (we can try to use resource organization)
+    =@organizations
+
+    -# implement brokers edit
+    =@brokers
+
+    -#= logo_here
+  .form-actions
+    = f.button :submit, t('common.edit'), class: 'btn btn-primary'
+
+
+%ul.nav.nav-pills
+  %li= link_to t('common.back'), broker_dashboard_path
+

@@ -2,6 +2,13 @@ class Broker < ActiveRecord::Base
 
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :confirmable, :registerable, authentication_keys: [:email]
 
+  ROLES = [:normal, :region_admin, :organization_admin]
+  ROLES_HASH =  {
+      normal: I18n.t('activerecord.attributes.broker.normal'),
+      region_admin: I18n.t('activerecord.attributes.broker.region_admin'),
+      organization_admin: I18n.t('activerecord.attributes.broker.organization_admin')
+  }
+
   include ConfirmToggle
   include Storext.model
 
@@ -19,6 +26,7 @@ class Broker < ActiveRecord::Base
   validates :email, email: true, presence: true, uniqueness: true
   validates :firstname, :lastname, :phone, presence: true
   validates :phone, :mobile, phony_plausible: true
+  validates :role, presence: true
 
   validate :unique_email
 
@@ -30,12 +38,6 @@ class Broker < ActiveRecord::Base
     filter String, default: ''
   end
 
-  ROLES = [:normal, :region_admin, :organisation_admin]
-  ROLES_HASH =  {
-      normal: I18n.t('activerecord.attributes.broker.normal'),
-      region_admin: I18n.t('activerecord.attributes.broker.region_admin'),
-      organization_admin: I18n.t('activerecord.attributes.broker.organization_admin')
-  }
 
   ROLES.each do |role|
     #admin?, user?

@@ -157,8 +157,8 @@ de:
       broker:
         <<: *USER
         normal: 'Vermittlung'
-        organization_admin: 'Organisationsadministration'
-        region_admin: 'Regionsadministration'
+        organization_admin: 'Organisations Administration'
+        region_admin: 'Regions Administration'
         organizations: "Organisationen"
         regions: "Regionen"
         employments: "Anstellungen"
