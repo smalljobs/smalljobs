@@ -8,20 +8,39 @@
     %legend
       = t('legends.region')
       %i.fa.fa-2x.fa-home.pull-right
+    .form-actions.section-margins
+      = f.button :submit, t('common.edit'), class: 'btn btn-primary'
 
-    .form-inputs
+    .form-inputs.section-margins
       = f.input :name, required: true, label: 'Name der Region'
 
-    -# implement adding places
-    =@places
+    %div.row.section-margins
+      %div.col-xs-12
+        %label
+          Einzugsgebiet
 
-    -#implement organizations add/edit (we can try to use resource organization)
-    =@organizations
+      %div.col-xs-3.section-margins
+        %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'PLZ oder Ortschaft'}
+        %i.fa.fa-2x.fa-search.delete-icon
+      %div.col-xs-12.js-places-tags
+        - @places.each do |place|
+          %span.place-tag
+            %i.fa.fa-times-circle
+            = "#{place.zip} #{place.province}"
 
-    -# implement brokers edit
-    =@brokers
+    = render 'broker/organizations/list.html.haml'
+    = render 'broker/list.html.haml'
 
-    -#= logo_here
+    %label
+      %div
+        Logo
+    .row
+      .col-xs-4
+        = image_tag @region.logo, class: 'img-responsive'
+        = f.file_field :logo
+        %div.help-block
+          Empfohlene Grösse ist 100x100 Pixels
+
   .form-actions
     = f.button :submit, t('common.edit'), class: 'btn btn-primary'
 

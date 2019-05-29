@@ -1,0 +1,26 @@
+%div
+  %label
+    = "Standorte"
+  %div
+    = button_tag "Neuen Standort", class: "btn btn-success"
+  %div.tab-content
+    %div{id: 'todo', class: 'tab-pane fade in active'}
+      .table-responsive.table-margin
+        %table.table.table-striped.sortable
+          %thead
+            %tr
+              %th.sortable{id: 'organization_name'} name
+              %th.sortable{id: 'organization_strasse'}  Strasse, Nr
+              %th.sortable{id: 'organization_plz'} PLZ Ort
+          %tbody.list
+            - if @organizations.size == 0
+              %tr
+                %td{colspan: 3}= "Es sind noch keine Todo in deiner Region erfasst"
+            - @organizations.each do |organization|
+              %tr
+                %td.modal-link
+                  = organization.name
+                %td
+                  = organization.street
+                %td
+                  = "#{organization&.place&.zip} #{organization&.place&.province}"

@@ -1,0 +1,31 @@
+%div.table-margin
+  %div
+    %label
+      = "Vermittler*innen"
+  %div
+    = button_tag "Neuen Standort", class: "btn btn-success"
+  %div.tab-content
+    %div{id: 'todo', class: 'tab-pane fade in active'}
+      .table-responsive.table-margin
+        %table.table.table-striped.sortable
+          %thead
+            %tr
+              %th.sortable{id: 'broker_name'} Name
+              %th.sortable{id: 'broker_standort'} Standort
+              %th.sortable{id: 'broker_rechte'} Rechte
+              -#%th{id: 'broker_rechte'} Action
+          %tbody.list
+            - if @brokers.size == 0
+              %tr
+                %td{colspan: 3}= "Es sind noch keine Todo in deiner Region erfasst"
+            - @brokers.each do |broker|
+              %tr
+                %td
+                  %span.modal-link
+                    = "#{broker.name} #{broker.lastname}"
+                %td
+                  = broker.organizations&.first&.street
+                %td
+                  = Broker::ROLES_HASH[broker.role.to_sym]
+                -#%td.action-icons
+                -#  %i.fa.fa-trash.fa-2x

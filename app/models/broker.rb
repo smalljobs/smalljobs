@@ -46,7 +46,6 @@ class Broker < ActiveRecord::Base
     end
   end
 
-
   def all_organizations
     all_org = []
     regions.each do |region|

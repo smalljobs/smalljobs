@@ -20,3 +20,42 @@
     }
   }
 }
+
+.modal-link{
+  color: #18bc9c;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-link:hover{
+  text-decoration: underline;
+}
+
+.place-tag{
+  display: inline-block;
+  margin-right: 8px;
+  border-radius: 20px;
+  padding: 2px 6px;
+  color: #11866f;
+}
+
+
+.place-tag:hover {
+  color: white;
+  background-color: #18bc9c;
+  cursor: pointer;
+}
+
+.action-icons{
+  float: right;
+  color: #18bc9c;
+}
+
+.section-margins{
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+.table-margin{
+  margin-top: 10px;
+}

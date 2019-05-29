@@ -2,22 +2,22 @@ class Broker::RegionsController < InheritedResources::Base
 
   before_filter :authenticate_broker!
 
-  actions :edit, :update
-  load_and_authorize_resource
+  # actions :edit, :update
+  load_and_authorize_resource :region
 
   def edit
-    @region = current_region
-    @organizations = @region.organizations
-    @brokers = @region.brokers
-    @places = @region.places
+    @organizations = @region.organizations.distinct
+    @brokers = @region.brokers.distinct
+    @places = @region.places.distinct
   end
-  # def update
-  #   if !@organization.update(permitted_params[:organization])
-  #     redirect_to edit_broker_organization_path, flash: {error: @organization.errors.full_messages[0]}
-  #   else
-  #     redirect_to edit_broker_organization_path, notice: "Organisation gespeichert"
-  #   end
-  # end
+
+  def update
+    if !@region.update(permitted_params)
+      redirect_to edit_broker_region_path, flash: {error: @region.errors.full_messages[0]}
+    else
+      redirect_to edit_broker_region_path, notice: "Region gespeichert"
+    end
+  end
 
   protected
 
@@ -30,6 +30,7 @@ class Broker::RegionsController < InheritedResources::Base
   end
 
   def permitted_params
+    params.require(:region).permit(:name, :logo)
   end
 
 end
