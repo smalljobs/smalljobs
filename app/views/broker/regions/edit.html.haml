@@ -20,7 +20,10 @@
           Einzugsgebiet
 
       %div.col-xs-3.section-margins
-        %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'PLZ oder Ortschaft'}
+        -#%input.form-control.search{type: 'text', class: 'search-field', placeholder: 'PLZ oder Ortschaft'}
+        -#= form_tag autocomplete_place_zip_broker_places_path do
+        = autocomplete_field_tag 'zip_name', '', autocomplete_place_zip_broker_places_path, :size => 75,
+            'data-auto-focus' => true, class: 'js-places-autocomplete form-control search-field', placeholder: 'PLZ oder Ortschaft'
         %i.fa.fa-2x.fa-search.delete-icon
       %div.col-xs-12.js-places-tags
         - @places.each do |place|
@@ -48,3 +51,19 @@
 %ul.nav.nav-pills
   %li= link_to t('common.back'), broker_dashboard_path
 
+:javascript
+  $('.js-places-autocomplete').bind('railsAutocomplete.select', function(event, data){
+    /* Do something here */
+    $.ajax({
+      url: "#{add_place_to_region_broker_places_path}",
+      type: 'POST',
+      data: {id: data.item.id}
+      success: function(result) {
+        $('.js-places-tags').prepend("<span class=\"place-tag\"><i class=\"fa fa-times-circle\"></i>"+data.item.value+"</span>")
+      },
+      errors: function(result){
+        alert(result.responseJSON.error)
+      }
+    });
+    alert(data.item.id);
+  });

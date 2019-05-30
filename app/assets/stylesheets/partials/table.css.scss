@@ -59,3 +59,32 @@
 .table-margin{
   margin-top: 10px;
 }
+
+
+.ui-menu-item{
+  z-index: 2000;
+  height: 43px;
+  padding: 10px 15px;
+  font-size: 15px;
+  line-height: 1.428571429;
+  color: #2c3e50;
+  vertical-align: middle;
+  background-color: #ffffff;
+  background-image: none;
+  border-left: 1px solid #dce4ec;
+  border-right: 1px solid #dce4ec;
+  width: 250px;
+  list-style: none;
+}
+.ui-menu-item:last-child{
+  border-bottom: 1px solid #dce4ec;
+}
+.ui-widget-content{
+  z-index: 2000;
+}
+
+.ui-state-focus{
+  color: #ffffff;
+  background-color: #18bc9c;
+  border-color: #18bc9c;
+}

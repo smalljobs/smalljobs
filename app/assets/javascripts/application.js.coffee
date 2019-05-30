@@ -7,7 +7,8 @@
 #= require contextHelp.js
 #= require bootstrap-select.min.js
 #= require_tree .
-
+#= require jquery-ui
+#= require autocomplete-rails
 ready = ->
   history_array = JSON.parse(sessionStorage.getItem('history') || '[]')
 

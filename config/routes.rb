@@ -74,6 +74,14 @@ Smalljobs::Application.routes.draw do
       resource :region, only: [:edit, :update]
 
       resources :organizations, except: [:edit, :update]
+      resources :places do
+        collection do
+          get :autocomplete_place_zip
+          post :add_place_to_region
+          delete :remove_from_region
+        end
+      end
+
       resources :providers do
         member do
           get 'contract'

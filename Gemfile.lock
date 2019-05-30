@@ -484,6 +484,8 @@ GEM
     rails-i18n (5.0.3)
       i18n (~> 0.7)
       railties (~> 5.0)
+    rails-jquery-autocomplete (1.0.5)
+      rails (>= 3.2)
     rails-ujs (0.1.0)
       railties (>= 3.1)
     rails_12factor (0.0.3)
@@ -673,6 +675,7 @@ DEPENDENCIES
   inherited_resources (>= 1.4.1)
   jbuilder
   jquery-rails
+  jquery-ui-rails
   kaminari
   markerb
   mini_magick
@@ -695,6 +698,7 @@ DEPENDENCIES
   rails (~> 5.0)
   rails-controller-testing
   rails-i18n
+  rails-jquery-autocomplete
   rails-ujs
   rails_12factor
   rails_admin
