@@ -26,13 +26,13 @@ module ApiHelper
   #
   def self.place_to_json(place)
     json = {}
-    json[:id] = place.id
-    json[:name] = place.name
-    json[:zip] = place.zip
-    json[:province] = place.province
-    json[:state] = place.state
-    json[:lat] = place.latitude
-    json[:lng] = place.longitude
+    json[:id] = place&.id
+    json[:name] = place&.name
+    json[:zip] = place&.zip
+    json[:province] = place&.province
+    json[:state] = place&.state
+    json[:lat] = place&.latitude
+    json[:lng] = place&.longitude
     return json
   end
 
