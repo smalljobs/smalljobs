@@ -3,7 +3,6 @@ class Broker::PlacesController < InheritedResources::Base
 
   before_filter :authenticate_broker!
 
-  # actions :edit, :update
   load_and_authorize_resource :region
 
   def autocomplete_place_zip
@@ -16,21 +15,23 @@ class Broker::PlacesController < InheritedResources::Base
   end
 
   def add_place_to_region
+    @place = Place.find(params[:id])
     respond_to do |format|
-      if @region.place
+      if @place.update(region_id: current_region.id)
         format.json { render json: { message: "#{@place.zip} #{@place.name}"}, status: :ok }
       else
-        format.json { render json: { error: @place.errors }, status: :unprocessable_entity }
+        format.json { render json: { error: @place.errors.full_messages }, status: :unprocessable_entity }
       end
     end
   end
 
   def remove_from_region
+    @place = current_region.places.find_by(id: params[:id])
     respond_to do |format|
-      if @place.destroy
+      if @place.update(region_id: nil)
         format.json { render json: { message: "#{@place.zip} #{@place.name}"}, status: :ok }
       else
-        format.json { render json: { error: @place.errors }, status: :unprocessable_entity }
+        format.json { render json: { error: @place.errors.full_messages }, status: :unprocessable_entity }
       end
     end
   end

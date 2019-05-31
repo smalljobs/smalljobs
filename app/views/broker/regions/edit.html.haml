@@ -20,16 +20,15 @@
           Einzugsgebiet
 
       %div.col-xs-3.section-margins
-        -#%input.form-control.search{type: 'text', class: 'search-field', placeholder: 'PLZ oder Ortschaft'}
-        -#= form_tag autocomplete_place_zip_broker_places_path do
         = autocomplete_field_tag 'zip_name', '', autocomplete_place_zip_broker_places_path, :size => 75,
             'data-auto-focus' => true, class: 'js-places-autocomplete form-control search-field', placeholder: 'PLZ oder Ortschaft'
-        %i.fa.fa-2x.fa-search.delete-icon
+        %span
+          %i.fa.fa-2x.fa-search.delete-icon
       %div.col-xs-12.js-places-tags
         - @places.each do |place|
           %span.place-tag
-            %i.fa.fa-times-circle
-            = "#{place.zip} #{place.province}"
+            %i.fa.fa-times-circle.js-delete-from-region{data: {id: place.id}}
+            = "#{place.zip} #{place.name}"
 
     = render 'broker/organizations/list.html.haml'
     = render 'broker/list.html.haml'
@@ -52,18 +51,39 @@
   %li= link_to t('common.back'), broker_dashboard_path
 
 :javascript
+  $(document).on("keydown", "form", function(event) {
+    return event.key != "Enter";
+  });
   $('.js-places-autocomplete').bind('railsAutocomplete.select', function(event, data){
-    /* Do something here */
     $.ajax({
       url: "#{add_place_to_region_broker_places_path}",
       type: 'POST',
-      data: {id: data.item.id}
+      data: {id: data.item.id},
       success: function(result) {
-        $('.js-places-tags').prepend("<span class=\"place-tag\"><i class=\"fa fa-times-circle\"></i>"+data.item.value+"</span>")
+        $('.js-places-tags').prepend("<span class=\"place-tag\"><i class=\"fa fa-times-circle js-delete-from-region\" data-id="+data.item.id+"></i>"+data.item.value+"</span>")
       },
-      errors: function(result){
+      error: function(result){
         alert(result.responseJSON.error)
       }
     });
-    alert(data.item.id);
+  });
+  $(document).on('click', '.js-delete-from-region', function(){
+    id = $(this).data('id')
+    that = $(this)
+    confirmText = "Möchten Sie diesen Ort wirklich aus einer Region löschen?";
+    if(confirm(confirmText)) {
+      $.ajax({
+        url: "#{remove_from_region_broker_places_path}",
+        type: 'DELETE',
+        data: {id: id},
+        success: function(result) {
+          that.closest('.place-tag').remove();
+        },
+        error: function(result){
+          debugger
+          alert(result.responseJSON.error);
+        }
+      });
+    }
+
   });
