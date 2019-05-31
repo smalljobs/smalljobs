@@ -51,6 +51,7 @@ de:
     features: "Funktionen"
     provide_job: "Job erfassen"
   legends:
+    broker: 'Vermittler*in'
     login: "Anmeldedaten"
     address: "Adresse"
     contact: "Kontakt"
@@ -308,6 +309,7 @@ de:
     completed_st: "Beendet"
     inactive: "Inaktiv"
     created: "Erstellt"
+    updated: "Aktualisiert"
     public: "Öffentlich"
     hidden: "Versteckt"
     available: "Verfügbar"

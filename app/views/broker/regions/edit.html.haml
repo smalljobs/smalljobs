@@ -60,7 +60,7 @@
       type: 'POST',
       data: {id: data.item.id},
       success: function(result) {
-        $('.js-places-tags').prepend("<span class=\"place-tag\"><i class=\"fa fa-times-circle js-delete-from-region\" data-id="+data.item.id+"></i>"+data.item.value+"</span>")
+        $('.js-places-tags').prepend("<span class=\"place-tag\"><i class=\"fa fa-times-circle js-delete-from-region\" data-id="+data.item.id+"></i>&nbsp"+data.item.value+"</span>")
       },
       error: function(result){
         alert(result.responseJSON.error)

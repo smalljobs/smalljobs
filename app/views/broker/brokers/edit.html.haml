@@ -1,0 +1,47 @@
+%h2= t('brokers.registrations.edit.title')
+%p.lead= t('brokers.registrations.edit.lead')
+
+= simple_form_for(@broker, url: broker_user_path, html: { method: :put, novalidate: true }) do |f|
+
+  - if notification = f.error_notification
+    .alert.alert-danger
+      = notification
+
+  %fieldset
+    %legend
+      = t('legends.broker')
+      %i.fa.fa-2x.fa-user.pull-right
+
+    .form-actions
+      = f.button :submit, t('common.edit'), class: 'btn btn-primary'
+
+    .form-inputs
+      = f.input :email, autofocus: true
+      = f.input :password, required: false, autocomplete: 'off', hint: t('devise_views.leave_empty')
+
+    .form-inputs
+      = f.input :firstname, required: true
+      = f.input :lastname, required: true
+
+  %fieldset
+    %legend
+      = t('legends.contact')
+      %i.fa.fa-2x.fa-phone.pull-right
+
+    .form-inputs
+      = f.input :phone, required: true
+      = f.input :mobile
+      = f.input :contact_availability, hint: ''
+  %fieldset
+    %legend
+      = "Einstellungen"
+
+    .form-inputs
+      = f.association :update_prefs, as: :check_boxes
+
+  .form-actions
+    = f.button :submit, t('common.edit'), class: 'btn btn-primary'
+
+  .form-actions
+    %a.btn.btn-success{href: "#", "data-toggle": "modal", "data-target": "#delete_seeker_modal"}
+      = "Löschen"
