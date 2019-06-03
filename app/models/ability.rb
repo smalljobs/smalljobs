@@ -13,6 +13,7 @@ class Ability
         can :manage, Organization, place: { id: places }
       elsif user.region_admin?
         can :manage, Region
+        can :manage, Organization, place: {id: places}
       end
 
       can :manage, Provider, place: { id: places }

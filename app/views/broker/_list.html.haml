@@ -3,7 +3,7 @@
     %label
       = "Vermittler*innen"
   %div
-    = button_tag "Neuen Standort", class: "btn btn-success"
+    = link_to "Neuen Standort", '#', class: "btn btn-success", data: {toggle: "modal", target: "#broker_new_modal", url: broker_users_path(format: :json)}
   %div.tab-content
     %div{id: 'todo', class: 'tab-pane fade in active'}
       .table-responsive.table-margin

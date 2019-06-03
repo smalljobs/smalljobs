@@ -1,5 +1,7 @@
-= simple_form_for(Broker.new, url: broker_users_path(format: :json), html: { method: :post, novalidate: true, class: 'js-broker-new-form'}) do |f|
-  %div.js-errors
+= simple_form_for(@broker, url: broker_user_path, html: { method: :put, novalidate: true }) do |f|
+  %ul.nav.nav-pills
+    = link_to '< ' + t('common.back'), broker_dashboard_path
+
   %fieldset
     .form-inputs
       = f.input :role, as: :radio_buttons, collection: broker_role_collection,
@@ -20,8 +22,7 @@
 
     .form-inputs.table-margin
       = f.input :email, autofocus: true
-      = f.input :password, required: true, autocomplete: 'off'#, hint: t('devise_views.leave_empty_2')
-      = f.input :password_confirmation, required: true, autocomplete: 'off'#, hint: t('devise_views.leave_empty_2')
+      = f.input :password, required: false, autocomplete: 'off', hint: t('devise_views.leave_empty_2')
 
     .form-inputs
       = f.input :firstname, required: true
@@ -46,3 +47,8 @@
   .form-actions
     = f.button :submit, t('common.edit'), class: 'btn btn-primary'
 
+  -#broker_user
+  .form-actions
+    = link_to "Löschen", '#', class: "btn btn-success js-delete-modal", data: {toggle: "modal", target: "#delete_modal", url: broker_user_path(@broker, format: :json)}
+
+= render 'shared/delete_modal.html.haml'

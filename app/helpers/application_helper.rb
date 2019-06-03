@@ -279,19 +279,19 @@ module ApplicationHelper
       [
           {
               value: 'region_admin',
-              label: t('activerecord.attributes.broker.region_admin').html_safe
+              label: t('activerecord.attributes.broker.region_admin_html').html_safe
           },
           {
               value: 'organization_admin',
-              label: t('activerecord.attributes.broker.organization_admin').html_safe
+              label: t('activerecord.attributes.broker.organization_admin_html').html_safe
           },
           {
               value: 'normal',
-              label: t('activerecord.attributes.broker.normal').html_safe
+              label: t('activerecord.attributes.broker.normal_html').html_safe
           },
           {
               value: 'blocked',
-              label: t('activerecord.attributes.broker.blocked').html_safe
+              label: t('activerecord.attributes.broker.blocked_html').html_safe
           }
       ]
   end

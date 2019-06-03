@@ -1,0 +1,8 @@
+%div.modal.fade{id: "broker_new_modal"}
+  %div.modal-dialog.wide-table
+    %div.modal-content
+      %div.modal-header
+        %button.close{"data-dismiss": "modal", type: "button"} &times;
+        %h2= 'Vermittler*in'
+      %div.modal-body
+        = render 'broker/brokers/form.html.haml'

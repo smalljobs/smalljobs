@@ -3,10 +3,6 @@ class Broker::BrokersController < InheritedResources::Base
 
   load_and_authorize_resource :region
 
-  def new
-    @broker = current_region.brokers.new
-  end
-
   def edit
     broker
   end
@@ -17,7 +13,7 @@ class Broker::BrokersController < InheritedResources::Base
       if @broker.save
         format.json { render json: { message: t('common.created')}, status: :ok }
       else
-        format.json { render json: { error: @broker.errors.full_messages.join('.') }, status: :unprocessable_entity }
+        format.json { render json: { error: @broker.errors.full_messages }, status: :unprocessable_entity }
       end
     end
   end
@@ -71,8 +67,8 @@ class Broker::BrokersController < InheritedResources::Base
   end
 
   def permitted_params
-    params.require(:broker).permit(:email, :password, :firstname, :lastname, :phone, :mobile, :contact_availability,
-                                   :active, :role, update_pref_ids: [])
+    params.require(:broker).permit(:email, :password, :password_confirmation, :firstname, :lastname, :phone, :mobile, :contact_availability,
+                                   :active, :role, employment_ids: [], update_pref_ids: [])
   end
 
 end

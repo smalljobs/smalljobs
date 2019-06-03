@@ -60,7 +60,22 @@
   margin-top: 10px;
 }
 
+.wide-table{
+  width: 45%;
+}
 
+
+@media only screen and (max-width: 1350px) {
+  .wide-table{
+    width: 80%;
+  }
+}
+
+@media only screen and (min-width: 1351px) and (max-width: 1450px) {
+  .wide-table{
+    width: 55%;
+  }
+}
 .ui-menu-item{
   z-index: 2000;
   height: 43px;

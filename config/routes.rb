@@ -64,7 +64,7 @@ Smalljobs::Application.routes.draw do
     post 'context_help', to: 'pages#context_help'
 
     namespace :broker do
-      resources :users, only: [:new, :edit, :update, :create, :destroy], controller: :brokers
+      resources :users, only: [:edit, :update, :create, :destroy], controller: :brokers
       resource :dashboard, only: :show do
         member do
           post 'save_settings'
