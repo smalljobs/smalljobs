@@ -327,6 +327,7 @@ de:
     no_broker_registration: "Sie können sich nicht selber als Anbieter registrieren. Bitte kontaktieren Sie uns unter hello@smalljobs.ch"
     wait_confirmation: "Warte auf die Bestätigung von: %{email}"
     leave_empty: "Lassen Sie das Passwort leer, wenn Sie es nicht ändern wollen."
+    leave_empty_2: 'Passwort leer lassen, wenn es nicht geändert werden soll.'
     need_password: "Wir benötigen ihr aktuelles Passwort um die Änderung zu Bestätigen."
     sign_in: "Anmelden"
     sign_in_with: "Mit %{provider} anmelden"

@@ -6,7 +6,8 @@ class Broker < ActiveRecord::Base
   ROLES_HASH =  {
       normal: I18n.t('activerecord.attributes.broker.normal'),
       region_admin: I18n.t('activerecord.attributes.broker.region_admin'),
-      organization_admin: I18n.t('activerecord.attributes.broker.organization_admin')
+      organization_admin: I18n.t('activerecord.attributes.broker.organization_admin'),
+      blocked: I18n.t('activerecord.attributes.broker.blocked')
   }
 
   include ConfirmToggle
@@ -40,7 +41,7 @@ class Broker < ActiveRecord::Base
 
 
   ROLES.each do |role|
-    #admin?, user?
+    #normal?, region_admin?, :organization_admin?
     define_method("#{role}?") do
       self.role == role.to_s
     end

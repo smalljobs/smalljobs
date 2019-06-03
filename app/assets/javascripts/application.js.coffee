@@ -9,6 +9,7 @@
 #= require_tree .
 #= require jquery-ui
 #= require autocomplete-rails
+#= require shared.js
 ready = ->
   history_array = JSON.parse(sessionStorage.getItem('history') || '[]')
 
