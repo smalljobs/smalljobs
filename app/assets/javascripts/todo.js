@@ -29,6 +29,15 @@ $(document).ready(function() {
     });
   })
 
+  window.setTimeout(
+    function(){
+      if($('.js-active-tab').find('.active > a').attr('href') != '#todo_current') {
+        $('.js-todo-tabs').hide()
+      }else{
+        $('.js-todo-tabs').show()
+      }
+  },0)
+
   $('.js-active-tab').on('click', function(){
     window.setTimeout(
       function(){

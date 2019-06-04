@@ -6,7 +6,7 @@ class Broker::TodosController < ApplicationController
     postponed, message = nil
     if @todo.present?
       if(@todo.postponed == nil || @todo.postponed < DateTime.now)
-        postponed = (DateTime.now+7.days)
+        postponed = (DateTime.now+7.days).in_time_zone.beginning_of_day
         message = t('broker_dashboard.todo_table.postpone_message')
       else
         message = t('broker_dashboard.todo_table.postpone_message_back')
