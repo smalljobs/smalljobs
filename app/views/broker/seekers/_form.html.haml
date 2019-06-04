@@ -91,7 +91,7 @@
         = f.input :password_confirmation, required: false
       = f.input :email
       = f.input :additional_contacts, required: false
-      = f.input :date_of_birth, required: true, start_year: Date.today.year - 25, end_year: Date.today.year - 13, include_blank: true, hint: 'Du solltest zwischen 13 und 25 Jahre alt sein.'
+      = f.input :date_of_birth, required: true, start_year: Date.today.year - 25, end_year: Date.today.year - 13, include_blank: true, hint: ''
       = f.input :sex, collection: seeker_sex, include_blank: false
 
   %fieldset
