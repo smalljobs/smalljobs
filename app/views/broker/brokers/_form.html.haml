@@ -26,6 +26,7 @@
     .form-inputs
       = f.input :firstname, required: true
       = f.input :lastname, required: true
+      -#= f.association :organization, required: true, collection: current_region.organizations, include_blank: true
 
   %fieldset
     %legend
