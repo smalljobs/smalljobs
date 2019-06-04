@@ -14,16 +14,30 @@ $(document).ready(function() {
   });
 
 
-
-  $('.js-broker-new-form').ajaxForm({
+  $('.js-new-form').ajaxForm({
     success: function(response){
     },
-    error: function(response){
-      $('.js-errors').append('<ul></ul>')
+    error: function(response, statusText, xhr,  form){
+      $(form).find('.js-errors').append('<ul></ul>')
       errors = response.responseJSON.error
       for(var i = 0 ; i < errors.length ; i++){
-        $('.js-errors > ul').append("<li>"+errors[i]+"</li>")
+        $(form).find('.js-errors > ul').append("<li>"+errors[i]+"</li>")
       }
     }
+  })
+
+  $(document).on('click', '.js-modal-edit', function(){
+    url = $(this).data('url')
+    $.ajax({
+      url: url,
+      type: 'GET',
+      success: function(result) {
+        $('.js-edit-modal-body').append(result)
+        $('#broker_edit_modal').modal('show')
+      },
+      error: function(result){
+        alert(result.responseJSON.error)
+      }
+    });
   })
 });

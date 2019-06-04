@@ -4,7 +4,11 @@ SimpleNavigation::Configuration.run do |navigation|
   navigation.items do |primary|
     if broker_signed_in?
       primary.item :dashboard, { icon: 'fa', text: I18n.t('navigation.dashboard') }, broker_dashboard_path
-      primary.item :profile,   { icon: 'fa', text: I18n.t('navigation.organization') }, edit_broker_organization_path
+      if current_broker.region_admin?
+        primary.item :region,   { icon: 'fa', text: I18n.t('navigation.region') }, edit_broker_region_path
+      elsif current_broker.organization_admin?
+        primary.item :profile,   { icon: 'fa', text: I18n.t('navigation.organization_2') }, edit_broker_organization_path
+      end
       primary.item :profile,   { icon: 'fa fa-user', text: "#{current_broker.firstname}" }, edit_broker_registration_path
       primary.item :sign_out,  { icon: 'fa fa-sign-out', text: I18n.t('navigation.sign_out') }, destroy_broker_session_path, method: :delete
 

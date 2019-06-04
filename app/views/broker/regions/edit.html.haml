@@ -51,6 +51,7 @@
   %li= link_to t('common.back'), broker_dashboard_path
 
 = render 'broker/brokers/new.html.haml'
+= render 'broker/region_organizations/new.html.haml'
 
 :javascript
   $(document).on("keydown", "form", function(event) {

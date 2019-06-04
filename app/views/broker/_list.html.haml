@@ -3,7 +3,7 @@
     %label
       = "Vermittler*innen"
   %div
-    = link_to "Neuen Standort", '#', class: "btn btn-success", data: {toggle: "modal", target: "#broker_new_modal", url: broker_users_path(format: :json)}
+    = link_to "Neuen Vermittler*in", '#', class: "btn btn-success", data: {toggle: "modal", target: "#broker_new_modal", url: broker_users_path(format: :json)}
   %div.tab-content
     %div{id: 'todo', class: 'tab-pane fade in active'}
       .table-responsive.table-margin
@@ -22,7 +22,8 @@
               %tr
                 %td
                   %span.modal-link
-                    = "#{broker.name} #{broker.lastname}"
+                    = link_to edit_broker_user_path(broker) do
+                      = "#{broker.name} #{broker.lastname}"
                 %td
                   = broker.organizations&.first&.street
                 %td

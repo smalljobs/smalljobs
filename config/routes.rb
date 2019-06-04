@@ -72,9 +72,11 @@ Smalljobs::Application.routes.draw do
       end
 
       resource :organization, only: [:edit, :update]
-      resource :region, only: [:edit, :update]
-
-      resources :organizations, except: [:edit, :update]
+      resource :region, only: [:edit, :update] do
+        collection do
+          resources :organizations, except: [:new], controller: :region_organizations, as: :region_organizations
+        end
+      end
       resources :places do
         collection do
           get :autocomplete_place_zip

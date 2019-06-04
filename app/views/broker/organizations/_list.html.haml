@@ -2,7 +2,8 @@
   %label
     = "Standorte"
   %div
-    = button_tag "Neuen Standort", class: "btn btn-success"
+    = link_to "Neuen Standort", '#', class: "btn btn-success", data: {toggle: "modal",
+        target: "#organization_new_modal", url: broker_region_organizations_path(format: :json)}
   %div.tab-content
     %div{id: 'todo', class: 'tab-pane fade in active'}
       .table-responsive.table-margin
@@ -19,7 +20,8 @@
             - @organizations.each do |organization|
               %tr
                 %td.modal-link
-                  = organization.name
+                  = link_to edit_broker_region_organization_path(organization) do
+                    = organization.name
                 %td
                   = organization.street
                 %td

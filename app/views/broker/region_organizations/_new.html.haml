@@ -1,8 +1,8 @@
-%div.modal.fade{id: "broker_new_modal"}
+%div.modal.fade{id: "organization_new_modal"}
   %div.modal-dialog.wide-table
     %div.modal-content
       %div.modal-header
         %button.close{"data-dismiss": "modal", type: "button"} &times;
-        %h2= 'Neuen Vermittler*in'
+        %h2= 'Neuen Standort'
       %div.modal-body
-        = render 'broker/brokers/form.html.haml'
+        = render 'broker/region_organizations/form.html.haml'

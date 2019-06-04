@@ -1,0 +1,123 @@
+= simple_form_for(@organization, url: broker_region_organization_path(@organization), html: { novalidate: true }) do |f|
+
+  - if notification = f.error_notification
+    .alert.alert-danger
+      = notification
+
+  %fieldset
+    %legend
+      = t('legends.organization')
+      %i.fa.fa-2x.fa-home.pull-right
+
+    .form-inputs
+      = f.input :name, required: true
+      = f.input :description, required: true
+      = f.input :opening_hours, required: true
+      = f.input :street, required: true
+      = f.association :place, required: true, collection: current_region.places, include_blank: true
+
+  %fieldset
+    %legend
+      = t('legends.contact')
+      %i.fa.fa-2x.fa-phone.pull-right
+
+    .form-inputs
+      = f.input :website
+      = f.input :email
+      = f.input :phone
+
+  %fieldset
+    %legend
+      = t('legends.branding')
+
+    .form-inputs
+      = f.input :logo, as: :image_preview, input_html: { preview_version: :web }
+      = f.input :logo_delete, as: :boolean, inline_label: false, label: false, input_html: {class: 'display-none'}
+      = f.input :background, as: :image_preview, input_html: { preview_version: :web }
+      = f.input :background_delete, as: :boolean, inline_label: false, label: false, input_html: {class: 'display-none'}
+
+  %fieldset
+    %legend
+      = t('legends.seeker_salary')
+      %i.fa.fa-2x.fa-money.pull-right
+
+    .form-inputs
+      -#= f.input :default_hourly_per_age
+      = f.input :wage_factor
+
+  %fieldset
+    %legend
+      = t('legends.messages_templates')
+
+    %p
+      = t('legends.available_placeholders')
+    %ul
+      %li
+        {{{seeker_first_name}}}: Jugendlicher Vorname
+      %li
+        {{{seeker_last_name}}}: Jugendlicher Nachname
+      %li
+        {{{seeker_link_to_agreement}}}: Link zur Elterneinverständniserklärung
+      %li
+        {{{provider_first_name}}}: Anbieter Vorname
+      %li
+        {{{provider_last_name}}}: Anbieter Nachname
+      %li
+        {{{provider_phone}}}: Anbieter Telefon
+      %li
+        {{{broker_first_name}}}: Vermittler Vorname
+      %li
+        {{{broker_last_name}}}: Vermittler Nachname
+      %li
+        {{{organization_name}}}: Organisation Name
+      %li
+        {{{organization_zip}}}: Organisation PLZ
+      %li
+        {{{organization_street}}}: Organisation Strasse
+      %li
+        {{{organization_place}}}: Organisation Ort
+      %li
+        {{{organization_phone}}}: Telefonnummer
+      %li
+        {{{organization_email}}}: E-Mail
+      %li
+        {{{link_to_jobboard_list}}}: Link zur Job-Liste
+      %li
+        {{{job_title}}}: Job Titel
+
+    .form-inputs
+      = f.input :welcome_letter_employers_msg
+      = f.input :welcome_app_register_msg
+      = f.input :welcome_chat_register_msg
+      = f.input :not_receive_job_msg
+      = f.input :get_job_msg
+      = f.input :activation_msg
+      = f.input :welcome_email_for_parents_msg
+
+  .form-actions
+    = f.button :submit, t('common.edit'), class: 'btn btn-primary'
+
+%ul.nav.nav-pills
+  %li= link_to t('common.back'), broker_dashboard_path
+
+:javascript
+  $(document).ready(function(){
+    $('.organization_logo .controls').prepend('<div class="logo-wrapper"></div>');
+    $('.organization_logo .controls img').prependTo('.logo-wrapper');
+    $('.organization_logo .controls img').after('<i class="fa fa-trash fa-2x delete-logo-icon"/>');
+    $('.organization_background .controls').prepend('<div class="bg-wrapper"></div>');
+    $('.organization_background .controls img').prependTo('.bg-wrapper');
+    $('.organization_background .controls img').after('<i class="fa fa-trash fa-2x delete-bg-icon"/>');
+
+    $('.delete-logo-icon').click(function(){
+      $('#organization_logo_delete')[0].checked = true;
+      $('.logo-wrapper img').remove();
+      $('.delete-logo-icon').remove();
+    });
+
+    $('.delete-bg-icon').click(function(){
+      $('#organization_background_delete')[0].checked = true;
+      $('.bg-wrapper img').remove();
+      $('.delete-bg-icon').remove();
+    });
+  });

@@ -47,6 +47,8 @@ de:
     sign_out: 'Abmelden'
     profile: 'Profil'
     organization: 'Organisation'
+    organization_2: 'Standort'
+    region: 'Region'
     providers: "Anbieter"
     features: "Funktionen"
     provide_job: "Job erfassen"
