@@ -23,7 +23,6 @@ class Broker < ActiveRecord::Base
   has_many :jobs, through: :providers
   has_many :assignments, through: :providers
   has_many :notes
-
   validates :email, email: true, presence: true, uniqueness: true
   validates :firstname, :lastname, :phone, presence: true
   validates :phone, :mobile, phony_plausible: true
@@ -39,6 +38,20 @@ class Broker < ActiveRecord::Base
     filter String, default: ''
   end
 
+  after_create :connect_to_region
+  attr_accessor :assigned_to_region, :region_id
+
+  def connect_to_region
+    if assigned_to_region == 'true'
+      employment = Employment.new(broker_id: self.id, region_id: region_id)
+      employment.assigned_only_to_region = true
+      employment.save
+    end
+  end
+
+  def organization
+    self.organizations.first
+  end
 
   ROLES.each do |role|
     #normal?, region_admin?, :organization_admin?

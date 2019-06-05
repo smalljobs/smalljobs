@@ -1,6 +1,7 @@
 = simple_form_for(Broker.new, url: broker_users_path(format: :json), html: { method: :post, novalidate: true, class: 'js-new-form'}) do |f|
   %div.js-errors
   %fieldset
+    = f.input :assigned_to_region, as: :hidden, input_html: {value: true}
     .form-inputs
       = f.input :role, as: :radio_buttons, collection: broker_role_collection,
       label_method: ->(obj){obj[:label]}, value_method: -> (obj){obj[:value]},

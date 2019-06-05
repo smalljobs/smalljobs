@@ -15,13 +15,19 @@ $(document).ready(function() {
 
 
   $('.js-new-form').ajaxForm({
-    success: function(response){
+    success: function(response, statusText, xhr,  form){
+      window.location = window.location.href
     },
-    error: function(response, statusText, xhr,  form){
+    error: function(response, statusText, xhr,  form) {
+      $(form).find('.js-errors').html('')
       $(form).find('.js-errors').append('<ul></ul>')
       errors = response.responseJSON.error
-      for(var i = 0 ; i < errors.length ; i++){
-        $(form).find('.js-errors > ul').append("<li>"+errors[i]+"</li>")
+      for (var i = 0; i < errors.length; i++) {
+        $(form).find('.js-errors > ul').append("<li>" + errors[i] + "</li>")
+      }
+      buttons = $(form).find('.form-actions > input')
+      for (var i = 0; i < buttons.length; i++) {
+        $(buttons[i]).removeAttr('disabled');
       }
     }
   })

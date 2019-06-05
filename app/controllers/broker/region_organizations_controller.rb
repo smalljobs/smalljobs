@@ -8,7 +8,9 @@ class Broker::RegionOrganizationsController < InheritedResources::Base
   end
 
   def create
-    @organization = current_region.organizations.new(permitted_params)
+    params[:organization][:region_id] = current_region.id
+    params[:organization][:assigned_to_region] = 'true'
+    @organization = Organization.new(permitted_params)
     respond_to do |format|
       if @organization.save
         format.json { render json: { message: t('common.created')}, status: :ok }
@@ -47,7 +49,7 @@ class Broker::RegionOrganizationsController < InheritedResources::Base
   end
 
   def permitted_params
-    params.require(:organization).permit(:wage_factor, :welcome_email_for_parents_msg, :activation_msg, :get_job_msg, :not_receive_job_msg, :welcome_chat_register_msg, :welcome_app_register_msg, :welcome_letter_employers_msg, :opening_hours, :id, :logo, :logo_delete, :background, :background_delete, :name, :description, :website, :street, :email, :phone, :default_hourly_per_age, :place)
+    params.require(:organization).permit(:wage_factor, :welcome_email_for_parents_msg, :activation_msg, :get_job_msg, :not_receive_job_msg, :welcome_chat_register_msg, :welcome_app_register_msg, :welcome_letter_employers_msg, :opening_hours, :id, :logo, :logo_delete, :background, :background_delete, :name, :description, :website, :street, :email, :phone, :default_hourly_per_age, :place_id,:assigned_to_region, :region_id, :broker_ids)
   end
 
 end

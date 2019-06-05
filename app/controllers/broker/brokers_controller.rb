@@ -8,7 +8,8 @@ class Broker::BrokersController < InheritedResources::Base
   end
 
   def create
-    @broker = current_region.brokers.new(permitted_params)
+    params[:broker][:region_id] = current_region.id
+    @broker = Broker.new(permitted_params)
     respond_to do |format|
       if @broker.save
         format.json { render json: { message: t('common.created')}, status: :ok }
@@ -20,6 +21,7 @@ class Broker::BrokersController < InheritedResources::Base
 
   def update
     set_additional_params(params)
+    debugger
     respond_to do |format|
       if broker.update(permitted_params)
         flash[:notice] = t('common.updated')
@@ -45,6 +47,24 @@ class Broker::BrokersController < InheritedResources::Base
 
   protected
 
+  # to check
+  def add_broker_to_organization
+    if params[:organization].present?
+      employment = Employment.where(region_id: current_region.id, organization_id: params[:organization], broker_id: nil)
+      if employment.present?
+        employment.update(broker_id: broker.id)
+      else
+        Employment.create(region_id: current_region.id, organization_id: params[:organization], broker_id: broker.id)
+      end
+    else
+      employments = Employment.where(region_id: current_region.id, broker_id: broker.id)
+      employments.each do |emp|
+        emp.assigned_only_to_region = true
+        emp.update(broker_id: nil)
+      end
+    end
+  end
+
   def set_additional_params params
     if params[:broker][:password].blank?
       params[:broker].delete(:password)
@@ -68,7 +88,7 @@ class Broker::BrokersController < InheritedResources::Base
 
   def permitted_params
     params.require(:broker).permit(:email, :password, :password_confirmation, :firstname, :lastname, :phone, :mobile, :contact_availability,
-                                   :active, :role, employment_ids: [], update_pref_ids: [])
+                                   :active, :role, :assigned_to_region, :region_id, employment_ids: [], update_pref_ids: [])
   end
 
 end
