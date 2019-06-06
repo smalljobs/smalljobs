@@ -1,8 +1,8 @@
 %div
   %label
-    = "Standorte"
+    = t('legends.organization_2a')
   %div
-    = link_to "Neuen Standort", '#', class: "btn btn-success", data: {toggle: "modal",
+    = link_to t('organizations.add_new'), '#', class: "btn btn-success", data: {toggle: "modal",
         target: "#organization_new_modal", url: broker_region_organizations_path(format: :json)}
   %div.tab-content
     %div{id: 'todo', class: 'tab-pane fade in active'}
@@ -10,13 +10,16 @@
         %table.table.table-striped.sortable
           %thead
             %tr
-              %th.sortable{id: 'organization_name'} name
-              %th.sortable{id: 'organization_strasse'}  Strasse, Nr
-              %th.sortable{id: 'organization_plz'} PLZ Ort
+              %th.sortable{id: 'organization_name'}
+                =t('legends.name')
+              %th.sortable{id: 'organization_strasse'}
+                =t('legends.street')
+              %th.sortable{id: 'organization_plz'}
+                =t('legends.ort')
           %tbody.list
             - if @organizations.size == 0
               %tr
-                %td{colspan: 3}= "Es sind noch keine Todo in deiner Region erfasst"
+                %td{colspan: 3}
             - @organizations.each do |organization|
               %tr
                 %td.modal-link

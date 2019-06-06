@@ -26,11 +26,7 @@ class Broker::OrganizationsController < InheritedResources::Base
   end
 
   def find_organization
-    if params[:id].present?
-      @organization = current_region.organizations.where(id: params[:id])
-    else
       @organization = current_broker.organizations.first
-    end
   end
 
   def permitted_params

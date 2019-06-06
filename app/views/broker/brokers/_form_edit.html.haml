@@ -1,6 +1,9 @@
 = simple_form_for(@broker, url: broker_user_path, html: { method: :put, novalidate: true }) do |f|
   %ul.nav.nav-pills
-    = link_to '< ' + t('common.back'), broker_dashboard_path
+    - if current_broker.region_admin?
+      = link_to '< ' + t('common.back'), edit_broker_region_path
+    - else
+      = link_to '< ' + t('common.back'), broker_organization_path
 
   %fieldset
     .form-inputs
@@ -28,8 +31,8 @@
       = f.input :firstname, required: true
       = f.input :lastname, required: true
       %label
-        Standort
-      = select_tag :organization, options_for_select(   current_region.organizations.collect{|u| [u.name, u.id]}.unshift(['', '']), @broker.organization&.id   ), class: 'form-control'
+        = t('legends.organization_2')
+      = select_tag :organization, options_for_select(   current_region.organizations.uniq.collect{|u| [u.name, u.id]}.unshift(['', '']), @broker.organization&.id   ), class: 'form-control'
 
   %fieldset
     %legend

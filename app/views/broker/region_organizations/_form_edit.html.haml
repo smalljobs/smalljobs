@@ -1,5 +1,9 @@
 = simple_form_for(@organization, url: broker_region_organization_path(@organization), html: { novalidate: true }) do |f|
-
+  %ul.nav.nav-pills
+    - if current_broker.region_admin?
+      = link_to '< ' + t('common.back'), edit_broker_region_path
+    - else
+      = link_to '< ' + t('common.back'), broker_organization_path
   - if notification = f.error_notification
     .alert.alert-danger
       = notification

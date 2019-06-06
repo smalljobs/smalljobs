@@ -19,6 +19,9 @@ class Broker::RegionsController < InheritedResources::Base
     end
   end
 
+  def destroy_logo
+    @region.remove_logo!
+  end
   protected
 
   # Returns currently signed in broker

@@ -66,6 +66,13 @@ de:
     seekers: "Jugendliche"
     assignments: "Zuweisungen"
     organization: "Organisation"
+    organization_2: 'Standort'
+    organization_2a: 'Standorte'
+    name: "Name"
+    street: "Strasse, Nr"
+    ort: "PLZ Ort"
+    role: 'Rechte'
+    broker_inside: 'Vermittler*innen'
     region: "Region"
     branding: "Branding"
     terms: "Bedingungen"
@@ -422,6 +429,7 @@ de:
       lead: "Hier kannst du dich als Jugendlicher mit deinen Benutzerdaten anmelden."
       action: "Als Jugendlicher anmelden"
   brokers:
+    add_new: "Neue Vermittler*in"
     not_responsible: "Sie können keinen Provider ausserhalb ihrer Region definieren."
     registrations:
       edit:
@@ -436,6 +444,8 @@ de:
       title: "Als Vermittler anmelden"
       lead: "Hier können sie sich als neuer Vermittler mit ihren Benutzerangaben für die gewählte Region anmelden."
       action: "Als Vermittler anmelden"
+  organizations:
+    add_new: 'Neuen Standort'
   regions:
     index:
       teaser: "Willkommen bei SmallJobs"

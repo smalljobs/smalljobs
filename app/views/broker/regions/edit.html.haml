@@ -38,8 +38,12 @@
         Logo
     .row
       .col-xs-4
-        = image_tag @region.logo, class: 'img-responsive'
+        - if @region.logo.present?
+          = image_tag @region.logo, class: 'img-responsive js-remove-img'
         = f.file_field :logo
+        - if @region.logo.present?
+          %i.fa.fa-trash.fa-2x.js-delete-region-icon.delete-region-icon
+
         %div.help-block
           Empfohlene Grösse ist 100x100 Pixels
 
@@ -83,10 +87,22 @@
           that.closest('.place-tag').remove();
         },
         error: function(result){
-          debugger
           alert(result.responseJSON.error);
         }
       });
     }
-
   });
+  $(document).on('click', '.js-delete-region-icon', function(){
+    that = $(this)
+    $.ajax({
+      url: "#{destroy_logo_broker_region_path}",
+      type: 'DELETE',
+      success: function(result) {
+        $('.js-remove-img').remove();
+        that.remove();
+      },
+      error: function(result){
+        alert(result.responseJSON.error);
+      }
+    });
+  })

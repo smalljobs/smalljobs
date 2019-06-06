@@ -8,10 +8,8 @@ class Broker::BrokersController < InheritedResources::Base
   end
 
   def create
-    params[:broker][:region_id] = current_region.id
-    @broker = Broker.new(permitted_params)
     respond_to do |format|
-      if @broker.save
+      if create_broker
         format.json { render json: { message: t('common.created')}, status: :ok }
       else
         format.json { render json: { error: @broker.errors.full_messages }, status: :unprocessable_entity }
@@ -21,9 +19,8 @@ class Broker::BrokersController < InheritedResources::Base
 
   def update
     set_additional_params(params)
-    debugger
     respond_to do |format|
-      if broker.update(permitted_params)
+      if update_broker
         flash[:notice] = t('common.updated')
         format.html { redirect_to edit_broker_user_path(broker) }
         format.json { render json: { message: t('common.updated')}, status: :ok }
@@ -47,8 +44,23 @@ class Broker::BrokersController < InheritedResources::Base
 
   protected
 
-  # to check
-  def add_broker_to_organization
+  def create_broker
+    params[:broker][:region_id] = current_region.id
+    @broker = Broker.new(permitted_params)
+    ActiveRecord::Base.transaction do
+      @broker.save
+      create_employment
+    end
+  end
+
+  def update_broker
+    ActiveRecord::Base.transaction do
+      broker.update(permitted_params)
+      create_employment
+    end
+  end
+
+  def create_employment
     if params[:organization].present?
       employment = Employment.where(region_id: current_region.id, organization_id: params[:organization], broker_id: nil)
       if employment.present?
@@ -60,7 +72,7 @@ class Broker::BrokersController < InheritedResources::Base
       employments = Employment.where(region_id: current_region.id, broker_id: broker.id)
       employments.each do |emp|
         emp.assigned_only_to_region = true
-        emp.update(broker_id: nil)
+        emp.update(organization_id: nil)
       end
     end
   end

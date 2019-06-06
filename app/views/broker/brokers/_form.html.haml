@@ -27,7 +27,10 @@
     .form-inputs
       = f.input :firstname, required: true
       = f.input :lastname, required: true
-      -#= f.association :organization, required: true, collection: current_region.organizations, include_blank: true
+      %label
+        = t('legends.organization_2')
+      = select_tag :organization, options_for_select(   current_region.organizations.uniq.collect{|u| [u.name, u.id]}.unshift(['', '']), nil), class: 'form-control'
+
 
   %fieldset
     %legend

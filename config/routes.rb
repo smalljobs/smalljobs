@@ -73,6 +73,7 @@ Smalljobs::Application.routes.draw do
 
       resource :organization, only: [:edit, :update]
       resource :region, only: [:edit, :update] do
+        delete :destroy_logo
         collection do
           resources :organizations, except: [:new], controller: :region_organizations, as: :region_organizations
         end
