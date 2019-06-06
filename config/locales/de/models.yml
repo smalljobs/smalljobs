@@ -163,7 +163,7 @@ de:
         normal: Vermittlung
         organization_admin: Organisations Administration
         region_admin: Regions Administration
-        blocked: <div class='control__indicator'></div>Deaktiviert
+        blocked: 'Deaktiviert'
         organizations: "Organisationen"
         regions: "Regionen"
         employments: "Anstellungen"
