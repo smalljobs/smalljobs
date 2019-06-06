@@ -1,4 +1,4 @@
-- if current_provider.present? && (current_provider.organization.end_vacation_date > Date.today)
+- if current_provider.present? && current_provider.organization.vacation_active && (current_provider.organization.end_vacation_date > Date.today)
   .vacation-bar.js-organization
     Die
     %span.js-organisation-name

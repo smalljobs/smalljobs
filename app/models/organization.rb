@@ -68,14 +68,16 @@ class Organization < ActiveRecord::Base
   private
 
   def vacation_date
-    if start_vacation_date.present? ^ end_vacation_date.present?
-      errors.add(:base, I18n.t('errors.messages.start_and_end_date'))
-    end
-    if [start_vacation_date, end_vacation_date].all?(&:present?) && (start_vacation_date>=end_vacation_date)
-      errors.add(:start_vacation_date, I18n.t('errors.messages.start_date_too_late'))
-    end
-    if end_vacation_date.present? && (end_vacation_date < Date.today)
-      errors.add(:end_vacation_date, I18n.t('errors.messages.end_date_too_early'))
+    if vacation_active
+      if start_vacation_date.present? ^ end_vacation_date.present?
+        errors.add(:base, I18n.t('errors.messages.start_and_end_date'))
+      end
+      if [start_vacation_date, end_vacation_date].all?(&:present?) && (start_vacation_date>=end_vacation_date)
+        errors.add(:start_vacation_date, I18n.t('errors.messages.start_date_too_late'))
+      end
+      if end_vacation_date.present? && (end_vacation_date < Date.today)
+        errors.add(:end_vacation_date, I18n.t('errors.messages.end_date_too_early'))
+      end
     end
   end
 end

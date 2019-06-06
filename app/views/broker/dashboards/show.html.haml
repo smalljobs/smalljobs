@@ -19,7 +19,7 @@
           - for organization in current_broker.all_organizations
             %option{value: "#{organization.id}", data: {'vacation-start': organization.start_vacation_date,
             'vacation-end': organization.end_vacation_date,
-            'show-date': (organization.end_vacation_date.present? && (organization.end_vacation_date > Date.today)).to_s}}
+            'show-date': ( organization.vacation_active && (organization.end_vacation_date.present? && (organization.end_vacation_date > Date.today))).to_s}}
               = organization.name
     %div.col-sm-2.float-left.display-none
       %input.form-control.search{type: 'text', id: 'search-field', placeholder: 'Suche'}

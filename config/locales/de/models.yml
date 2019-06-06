@@ -69,6 +69,8 @@ de:
         created_at: "Erstellt"
         updated_at: "Bearbeitet"
       organization:
+        inactive_vacation: <b>Kein Urlaub</b>
+        active_vacation: <b>Urlaub aktiviert</b>
         logo: "Logo"
         background: "Hintergrund"
         logo_delete: "Lösche das Logo"
