@@ -60,6 +60,7 @@ module ApiHelper
     json[:registration_welcome_message] = message unless message.nil?
     json[:start_vacation_date] = organization.start_vacation_date
     json[:end_vacation_date] = organization.end_vacation_date
+    json[:vacation_active] = organization.vacation_active
     brokers = []
     for broker in organization.brokers
       brokers.append(broker_to_json(broker))
