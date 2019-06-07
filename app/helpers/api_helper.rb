@@ -58,9 +58,11 @@ module ApiHelper
     json[:place] = place_to_json(organization.place)
     json[:opening_hours] = RedCloth.new(organization.opening_hours || "").to_html
     json[:registration_welcome_message] = message unless message.nil?
-    json[:start_vacation_date] = organization.start_vacation_date
-    json[:end_vacation_date] = organization.end_vacation_date
-    json[:vacation_active] = organization.vacation_active
+    json[:vacations] = {
+        active: organization.vacation_active,
+        start: organization.start_vacation_date,
+        end: organization.end_vacation_date
+    }
     brokers = []
     for broker in organization.brokers
       brokers.append(broker_to_json(broker))
