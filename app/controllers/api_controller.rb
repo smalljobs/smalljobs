@@ -179,6 +179,10 @@ class ApiController < ApplicationController
       user_params.except!(:birthdate)
     end
 
+    if user_params[:occupation_end_date] != nil
+      user_params[:occupation_end_date] = DateTime.strptime(user_params[:occupation_end_date], '%s')
+    end
+
     if user_params[:categories] != nil
       user_params[:work_category_ids] = JSON.parse user_params[:categories]
       user_params.except!(:categories)
@@ -820,6 +824,10 @@ class ApiController < ApplicationController
   end
 
   def update_params
-    params.permit(:phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id, :street, :sex, :status, :categories)
+    # params.permit(:phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id, :street, :sex, :status, :categories)
+    params.permit(:phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id,
+                  :street, :sex, :status, :categories,
+                  :login, :mobile, :email, :additional_contacts, :languages, :occupation, :occupation_end_date,
+                  :contact_availability, :contact_preference)
   end
 end

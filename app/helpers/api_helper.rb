@@ -58,6 +58,9 @@ module ApiHelper
     json[:place] = place_to_json(organization.place)
     json[:opening_hours] = RedCloth.new(organization.opening_hours || "").to_html
     json[:registration_welcome_message] = message unless message.nil?
+    json[:start_vacation_date] = organization.start_vacation_date
+    json[:end_vacation_date] = organization.end_vacation_date
+    json[:vacation_active] = organization.vacation_active
     brokers = []
     for broker in organization.brokers
       brokers.append(broker_to_json(broker))
@@ -353,7 +356,15 @@ module ApiHelper
     json[:status] = Seeker.statuses[seeker.status]
     json[:sex] = seeker.sex
     json[:place] = place_to_json(seeker.place)
-    json[:categories] = []
+    json[:login] = seeker.login
+    json[:mobile] = seeker.mobile
+    json[:email] = seeker.email
+    json[:additional_contacts] = seeker.additional_contacts
+    json[:languages] = seeker.languages
+    json[:occupation] = seeker.occupation
+    json[:occupation_end_date] = seeker.occupation_end_date
+    json[:contact_availability] = seeker.contact_availability
+    json[:contact_preference] = seeker.contact_preference
     for category in seeker.work_categories
       json[:categories].append(category_to_json(category))
     end
