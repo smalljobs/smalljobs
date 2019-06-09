@@ -1,10 +1,11 @@
 module Statistic
   class Seekers
 
-    attr_accessor :organization
+    attr_accessor :organization, :interval
 
     def initialize(organization)
       organization = organization
+      interval = interval
     end
 
     def call
@@ -21,20 +22,14 @@ module Statistic
         p "#{x} #{y.count} #{y.first.created_at} #{y.last.created_at}"
       end
 
-      # Seeker.where(:published_state => 'published').group('year(created_at)').group('month(created_at)').count(:id)
-      # @seekers = current_broker
-      #
-      # organizations_id = "(#{Organization.all.pluck(:id).uniq.join(',')})"
-      # Seeker.find_by_sql("
-      #   SELECT *
-      #   FROM seekers
-      #   WHERE organization_id IN #{organizations_id}
-      # ")
-      Seeker.find_by_sql("
-        SELECT COUNT(id),to_char(to_date('2014-01-10 13:30:10','yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd') AS date_part
+      sql = "
+        SELECT date_trunc('#{interval}', created_at) AS \"date_interval\" , count(*) AS \"records_number\"
         FROM seekers
-        GROUP BY to_char(to_date('2014-01-10 13:30:10','yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd')
-      ")
+        GROUP BY 1
+        ORDER BY 1;
+      "
+      records_array = ActiveRecord::Base.connection.execute(sql)
+      Statistic::Dataset.new(records_array).call
     end
 
   end
