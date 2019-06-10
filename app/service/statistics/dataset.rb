@@ -1,9 +1,11 @@
-module Statistic
+module Statistics
   class Dataset
-    attr_reader :data
+    attr_reader :data, :color, :name
 
-    def initialize data
-      data = data
+    def initialize data, color, name
+      @data = data
+      @color = color
+      @name = name
     end
 
     def call
@@ -13,55 +15,22 @@ module Statistic
     private
 
     def create_dataset
-      labels, dataset = [], []
-      data.map do |single_data|
-        labels << single_data['date_interval']
-        dataset << single_data['records_number']
-      end
+      dataset = data.map{|single_data| {x: single_data['date_interval'].to_date.strftime("%Y-%m-%d"), y: single_data['records_number']}}
       {
-          data: {
-              labels: labels,
-              dataset: [
-                  {
-                      label: 'Costam',
-                      fill: false,
-                      pointRadius: 4,
-                      lineTension: 0,
-                      borderWidth: 4,
-                      borderColor: [
-                        'rgba(255,0,0,1)'
-                      ],
-                      pointBackgroundColor: 'rgba(0,0,255,1)',
-                      data: dataset
-                  }
-              ]
-          }
+        label: name,
+        fill: false,
+        pointRadius: 3,
+        lineTension: 0.1,
+        borderWidth: 2,
+        borderColor: [
+          color
+        ],
+        backgroundColor: [
+          color
+        ],
+        pointBackgroundColor: color,
+        data: dataset
       }
     end
-
-
-
-    # data: {
-    #     labels: ['January', 'February', 'March', 'April', 'May'],
-    #     datasets: [
-    #         {
-    #             label: 'Organizatione',
-    #             fill: false,
-    #             pointRadius: 4,
-    #             lineTension: 0,
-    #             borderWidth: 4,
-    #             borderColor: [
-    #                 'rgba(255,0,0,1)'
-    #             ],
-    #             borderWidth:1,
-    #             pointBackgroundColor: 'rgba(0,0,255,1)',
-    #             data: ["#{@seekers}", "#{@providers}", "#{@assignments}", "#{@allocations}", "#{@jobs}"]
-    #         }]
-    # }
-
-
-
-
-
   end
 end

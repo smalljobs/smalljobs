@@ -23,6 +23,51 @@
 
 :javascript
   $(document).ready(function(){
+    id = $('#dropdown-btn').attr('selected', 'selected').val();
+    date_start = $('.js-datestart').val()
+    date_end = $('.js-dateend').val()
+    $.ajax({
+      url: "#{organization_statistics_broker_statistics_path(format: :json)}",
+      type: 'GET',
+      data: {organization_id: id, start_date: date_start, end_date: date_end},
+      success: function(result) {
+        var ctx = document.getElementById('seeker').getContext('2d');
+        window.chart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: result["label"],
+            datasets: result["statistic"]
+          },
+          options: {
+              legend: {
+                  display: true,
+                  labels: {
+                      boxWidth: 15,
+                  }
+              },
+              scales: {
+                  xAxes: [{
+                      type: 'category',
+                      ticks: {
+                        autoSkip: true,
+                        maxTicksLimit: 20
+                      }
+                  }]
+
+              },
+              hover: {
+                mode: 'x'
+              },
+              type: "line"
+          }
+        });
+      },
+      error: function(result) {
+        console.log('error')
+        console.log(result)
+      }
+    });
+
     $(".js-datetime").datepicker({
       format: 'yyyy-mm-dd',
     }).on("changeDate", function (e) {
@@ -35,8 +80,31 @@
         data: {organization_id: id, start_date: date_start, end_date: date_end},
         success: function(result) {
           console.log('sukces')
-          chart.data.datasets = result
-          chart.update()
+          window.chart.data.labels = result["label"]
+          window.chart.data.datasets = result["statistic"]
+          window.chart.update()
+          console.log(result)
+        },
+        error: function(result) {
+          console.log('error')
+          console.log(result)
+        }
+      });
+    });
+
+    $('#dropdown-btn').on('change', function(){
+      var id = this.value;
+      date_start = $('.js-datestart').val()
+      date_end = $('.js-dateend').val()
+      $.ajax({
+        url: "#{organization_statistics_broker_statistics_path(format: :json)}",
+        type: 'GET',
+        data: {organization_id: id, start_date: date_start, end_date: date_end},
+        success: function(result) {
+          console.log('sukces')
+          window.chart.data.labels = result["label"]
+          window.chart.data.datasets = result["statistic"]
+          window.chart.update()
         },
         error: function(result) {
           console.log('error')
@@ -45,57 +113,4 @@
       });
     });
   })
-
-  var ctx = document.getElementById('seeker').getContext('2d');
-  var chart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ['January', 'February', 'March', 'April', 'May'],
-      datasets: [
-      {
-        label: 'Organizatione',
-        fill: false,
-        pointRadius: 4,
-        lineTension: 0,
-        borderWidth: 4,
-        borderColor: [
-          'rgba(255,0,0,1)'
-        ],
-        borderWidth:1,
-        pointBackgroundColor: 'rgba(0,0,255,1)',
-        data: ["#{@seekers}", "#{@providers}", "#{@assignments}", "#{@allocations}", "#{@jobs}"]
-      }]
-    },
-
-      // Configuration options go here
-    options: {
-        legend: {
-            display: true,
-            labels: {
-                boxWidth: 0
-            }
-        }
-    }
-  });
-
-
-  $('#dropdown-btn').on('change', function(){
-    var id = this.value;
-    date_start = $('.js-datestart').val()
-    date_end = $('.js-dateend').val()
-    $.ajax({
-      url: "#{organization_statistics_broker_statistics_path(format: :json)}",
-      type: 'GET',
-      data: {organization_id: id, start_date: date_start, end_date: date_end},
-      success: function(result) {
-        console.log('sukces')
-        chart.data.datasets = result
-        chart.update()
-      },
-      error: function(result) {
-        console.log('error')
-        console.log(result)
-      }
-    });
-  });
 
