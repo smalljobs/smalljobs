@@ -7,11 +7,15 @@ class Broker::StatisticsController < InheritedResources::Base
 
   def organization_statistics
     organization = params[:organization_id] == '0' ? current_broker.all_organizations.pluck(:id) : [params[:organization_id]]
-    data = ::Statistics::GenerateDataForChart.new(get_date_range, 'week', organization).call
+    data = ::Statistics::GenerateDataForChart.new(get_date_range, organization, options).call
     render json: {statistic: data[:datasets], label: data[:labels]}
   end
 
   protected
+
+  def options
+    params.permit(:interval, :sum_type)
+  end
 
   def get_date_range
     lowest_date = [Seeker, Provider, Job].map{|x| x.order(created_at: :asc).first.created_at}.sort.first.to_date

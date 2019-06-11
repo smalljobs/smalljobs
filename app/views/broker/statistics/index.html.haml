@@ -1,13 +1,23 @@
 %div.row
-  %div.col-sm-3
-    %div.dropdown
+  %div.col-sm-6
+    %span.dropdown
       %select{id: 'dropdown-btn'}
         %option{value: "0"}
           = "Alle Organisationen"
         - for organization in current_broker.all_organizations
           %option{value: "#{organization.id}"}
             = organization.name
-  %div.col-sm-9
+    %span.sum-type.js-sum-type
+      %label.all
+        = radio_button_tag :sum_type, 'all', true
+        Alle
+      %label.new
+        = radio_button_tag :sum_type, 'new', false
+        Neue
+
+  %div.col-sm-6
+    .dropdown
+      = select_tag :intervals, options_for_select(intervals, 'week'), class: 'pull-right sj-dropdown js-interval-dropdown'
     %div.date-wrapper
       %div.sj-date-input.sj-display-inline-block
         #start_date.input-append.date{"data-date" => "12-02-2012", "data-date-format" => "yyyy-mm-dd"}
@@ -17,19 +27,19 @@
       %div.sj-date-input.sj-display-inline-block
         #end_date.input-append.date{"data-date" => "12-02-2012", "data-date-format" => "yyyy-mm-dd", "data-date-end-date" =>"0d"}
           = text_field_tag :end_vacation_date, nil, class: 'sj-date-input js-datetime js-dateend', size: "16", "data-date-end-date" => "0d"
-<canvas id="seeker"></canvas>
 
-
-
+%canvas#seeker
 :javascript
   $(document).ready(function(){
     id = $('#dropdown-btn').attr('selected', 'selected').val();
+    interval = $(".js-interval-dropdown").attr('selected', 'selected').val();
     date_start = $('.js-datestart').val()
     date_end = $('.js-dateend').val()
+    sum_type = $(".js-sum-type input[type='radio']:checked").val()
     $.ajax({
       url: "#{organization_statistics_broker_statistics_path(format: :json)}",
       type: 'GET',
-      data: {organization_id: id, start_date: date_start, end_date: date_end},
+      data: {organization_id: id, start_date: date_start, end_date: date_end, interval: interval, sum_type: sum_type},
       success: function(result) {
         var ctx = document.getElementById('seeker').getContext('2d');
         window.chart = new Chart(ctx, {
@@ -72,35 +82,35 @@
       format: 'yyyy-mm-dd',
     }).on("changeDate", function (e) {
       id = $('#dropdown-btn').attr('selected', 'selected').val();
-      date_start = $('.js-datestart').val()
-      date_end = $('.js-dateend').val()
-      $.ajax({
-        url: "#{organization_statistics_broker_statistics_path(format: :json)}",
-        type: 'GET',
-        data: {organization_id: id, start_date: date_start, end_date: date_end},
-        success: function(result) {
-          console.log('sukces')
-          window.chart.data.labels = result["label"]
-          window.chart.data.datasets = result["statistic"]
-          window.chart.update()
-          console.log(result)
-        },
-        error: function(result) {
-          console.log('error')
-          console.log(result)
-        }
-      });
+      getStatistics(id)
     });
 
     $('#dropdown-btn').on('change', function(){
       var id = this.value;
+      getStatistics(id)
+    });
+
+    $('.js-interval-dropdown').on('change', function(){
+      id = $('#dropdown-btn').attr('selected', 'selected').val();
+      getStatistics(id)
+    });
+
+    $('.js-sum-type').on('change', function(){
+      id = $('#dropdown-btn').attr('selected', 'selected').val();
+      getStatistics(id)
+    })
+
+    getStatistics = function(id) {
       date_start = $('.js-datestart').val()
       date_end = $('.js-dateend').val()
+      interval = $(".js-interval-dropdown").attr('selected', 'selected').val();
+      sum_type = $(".js-sum-type input[type='radio']:checked").val()
       $.ajax({
         url: "#{organization_statistics_broker_statistics_path(format: :json)}",
         type: 'GET',
-        data: {organization_id: id, start_date: date_start, end_date: date_end},
+        data: {organization_id: id, start_date: date_start, end_date: date_end, interval: interval, sum_type: sum_type},
         success: function(result) {
+          console.log(result)
           console.log('sukces')
           window.chart.data.labels = result["label"]
           window.chart.data.datasets = result["statistic"]
@@ -111,6 +121,6 @@
           console.log(result)
         }
       });
-    });
+    }
   })
 

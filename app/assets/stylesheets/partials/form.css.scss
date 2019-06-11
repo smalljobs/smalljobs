@@ -81,3 +81,23 @@ fieldset {
 .sj-date-divider{
   padding: 3px;
 }
+
+.sj-dropdown{
+  margin-top: 10px;
+  margin-left: 25px;
+  height: 42px;
+}
+
+.sum-type{
+  margin-left: 10px;
+}
+
+.sum-type > label{
+  font-weight: 400;
+  margin-left: 5px;
+}
+
+.sum-type > label:nth-child(n+1){
+  margin-left: 10px;
+}
+

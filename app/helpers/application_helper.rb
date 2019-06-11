@@ -275,4 +275,13 @@ module ApplicationHelper
     active ? 'active' : nil
   end
 
+  def intervals
+    [
+        ["day", "day"],
+        ["week", "week"],
+        ["month", "month"],
+        ["year", "year"]
+    ]
+  end
+
 end
