@@ -1,15 +1,20 @@
 module Statistics
   class GenerateDataForChart
-    attr_accessor :organization, :options, :date_range
+    attr_accessor :organization, :options, :date_range, :jobs_ids
 
     def initialize(date_range, organization, options)
       @organization = organization
       @date_range = date_range
       @options = options
+      @jobs_ids = get_jobs_ids
     end
 
     def call
       generate_data
+    end
+
+    def get_jobs_ids
+      Statistics::GetJobsIds.new(date_range, organization, options).call
     end
 
     def generate_data
@@ -18,8 +23,8 @@ module Statistics
             Statistics::Seekers.new(date_range, organization, options).call,
             Statistics::Providers.new(date_range, organization, options).call,
             Statistics::Jobs.new(date_range, organization, options).call,
-            Statistics::Assignments.new(date_range, organization, options).call,
-            Statistics::Allocations.new(date_range, organization, options).call
+            Statistics::Assignments.new(date_range, organization, options.merge({jobs_ids: @jobs_ids})).call,
+            Statistics::Allocations.new(date_range, organization, options.merge({jobs_ids: @jobs_ids})).call
           ],
           labels: labels,
       }

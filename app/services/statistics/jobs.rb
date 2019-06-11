@@ -4,6 +4,7 @@ module Statistics
       jobs = "(#{organization.join(',')})"
       return "organization_id IN #{jobs}"
     end
+
     def get_grouped_data
       sql = "
         SELECT date_trunc('#{options[:interval]}', created_at) AS \"date_interval\" , count(*) AS \"records_number\"

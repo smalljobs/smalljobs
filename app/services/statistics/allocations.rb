@@ -1,8 +1,13 @@
 module Statistics
   class Allocations < StatisticObject
-    
+
+    def initialize(date_range, organization, options)
+      super
+      @jids = options[:jobs_ids]
+    end
+
     def jobs_ids
-      ids = Broker.first.jobs.where(created_at: (date_range[0]..date_range[-1])).uniq.pluck(:id).join(',')
+      ids = @jids
       if ids.present?
         jobs = "(#{Broker.first.jobs.where(created_at: (date_range[0]..date_range[-1])).uniq.pluck(:id).join(',')})"
         return "AND allocations.job_id IN #{jobs}"
