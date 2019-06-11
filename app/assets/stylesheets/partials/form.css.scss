@@ -94,10 +94,21 @@ fieldset {
 
 .sum-type > label{
   font-weight: 400;
-  margin-left: 5px;
 }
 
 .sum-type > label:nth-child(n+1){
   margin-left: 10px;
 }
 
+.sj-checkbox-active{
+  margin-left: 20px;
+}
+
+.sj-checkbox-active > label{
+  font-weight: 700;
+  margin-left: 5px;
+}
+
+.margin-top-10{
+  margin-top: 10px;
+}

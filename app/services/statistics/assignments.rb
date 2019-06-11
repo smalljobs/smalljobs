@@ -9,7 +9,7 @@ module Statistics
     def jobs_ids
       ids = @jids
       if ids.present?
-        jobs = "(#{Broker.first.jobs.where(created_at: (date_range[0]..date_range[-1])).uniq.pluck(:id).join(',')})"
+        jobs = "(#{ids.join(',')})"
         return "AND assignments.job_id IN #{jobs}"
       else
         return "AND 0=1"

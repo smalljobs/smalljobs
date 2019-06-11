@@ -9,6 +9,14 @@ module Statistics
       @options = options
     end
 
+    def is_true?(option)
+      option == 'true'
+    end
+
+    def is_false?(option)
+      !is_true?(option)
+    end
+
     def region
       Region.find_by(id: options[:region_id])
     end
@@ -18,7 +26,23 @@ module Statistics
     end
 
     def get_jobs_ids
-      region.jobs.where(created_at: (date_range[0]..date_range[-1]), organization_id: organization).pluck(:id).uniq
+      if is_true?(options[:active]) && is_true?(options[:archived])
+        region.jobs
+              .where(created_at: (date_range[0]..date_range[-1]), organization_id: organization)
+              .pluck(:id).uniq
+      elsif is_true?(options[:active]) && is_false?(options[:archived])
+        region.jobs
+            .where(created_at: (date_range[0]..date_range[-1]), organization_id: organization)
+            .where.not(state: 'finished')
+            .pluck(:id).uniq
+      elsif is_false?(options[:active]) && is_true?(options[:archived])
+        region.jobs
+            .where(created_at: (date_range[0]..date_range[-1]), organization_id: organization)
+            .where(state: 'finished')
+            .pluck(:id).uniq
+      elsif is_false?(options[:active]) && is_false?(options[:archived])
+        []
+      end
     end
   end
 end

@@ -1,5 +1,5 @@
 %div.row
-  %div.col-sm-6
+  %div.col-sm-7.margin-top-10
     %span.dropdown
       %select{id: 'dropdown-btn'}
         %option{value: "0"}
@@ -8,14 +8,21 @@
           %option{value: "#{organization.id}"}
             = organization.name
     %span.sum-type.js-sum-type
-      %label.all
+      %label
         = radio_button_tag :sum_type, 'all', true
         Alle
-      %label.new
+      %label
         = radio_button_tag :sum_type, 'new', false
         Neue
+    %span.sj-checkbox-active
+      %label
+        = check_box_tag :active, 'active', true, class: 'js-checkbox js-active-checkbox'
+        Aktive
+      %label
+        = check_box_tag :archived, 'archived', true, class: 'js-checkbox js-archived-checkbox'
+        Beendete
 
-  %div.col-sm-6
+  %div.col-sm-5
     .dropdown
       = select_tag :intervals, options_for_select(intervals, 'week'), class: 'pull-right sj-dropdown js-interval-dropdown'
     %div.date-wrapper
@@ -36,10 +43,20 @@
     date_start = $('.js-datestart').val()
     date_end = $('.js-dateend').val()
     sum_type = $(".js-sum-type input[type='radio']:checked").val()
+    active = $('.js-active-checkbox').is(':checked')
+    archived = $('.js-archived-checkbox').is(':checked')
     $.ajax({
       url: "#{organization_statistics_broker_statistics_path(format: :json)}",
       type: 'GET',
-      data: {organization_id: id, start_date: date_start, end_date: date_end, interval: interval, sum_type: sum_type},
+      data: {
+                organization_id: id,
+                start_date: date_start,
+                end_date: date_end,
+                interval: interval,
+                sum_type: sum_type,
+                active: active,
+                archived: archived
+            },
       success: function(result) {
         var ctx = document.getElementById('seeker').getContext('2d');
         window.chart = new Chart(ctx, {
@@ -99,16 +116,30 @@
       id = $('#dropdown-btn').attr('selected', 'selected').val();
       getStatistics(id)
     })
+    $('.js-checkbox').on('change', function(){
+      id = $('#dropdown-btn').attr('selected', 'selected').val();
+      getStatistics(id)
+    })
 
     getStatistics = function(id) {
       date_start = $('.js-datestart').val()
       date_end = $('.js-dateend').val()
       interval = $(".js-interval-dropdown").attr('selected', 'selected').val();
       sum_type = $(".js-sum-type input[type='radio']:checked").val()
+      active = $('.js-active-checkbox').is(':checked')
+      archived = $('.js-archived-checkbox').is(':checked')
       $.ajax({
         url: "#{organization_statistics_broker_statistics_path(format: :json)}",
         type: 'GET',
-        data: {organization_id: id, start_date: date_start, end_date: date_end, interval: interval, sum_type: sum_type},
+        data: {
+                  organization_id: id,
+                  start_date: date_start,
+                  end_date: date_end,
+                  interval: interval,
+                  sum_type: sum_type,
+                  active: active,
+                  archived: archived
+              },
         success: function(result) {
           console.log(result)
           console.log('sukces')
