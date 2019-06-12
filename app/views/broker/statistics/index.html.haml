@@ -42,8 +42,21 @@
     bis
 
 %canvas#seeker
+Exportieren:
+%a.js-save-to-jpg{download: "chart.png"}
+  PNG
+%span
+  ,Excel(CSV)
 :javascript
   $(document).ready(function(){
+
+    $('.js-save-to-jpg').on('click', function(){
+      url_base64jp = document.getElementById("seeker").toDataURL("image/png");
+      $(this).attr('href', url_base64jp)
+    })
+
+
+
     id = $('#dropdown-btn').attr('selected', 'selected').val();
     interval = $(".js-interval-dropdown").attr('selected', 'selected').val();
     date_start = $('.js-datestart').val()
