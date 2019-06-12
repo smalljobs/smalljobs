@@ -15,7 +15,7 @@ module Statistics
     private
 
     def create_dataset
-      dataset = data.map{|single_data| {x: single_data['date_interval'].to_date.strftime("%Y-%m-%d"), y: single_data['records_number']}}
+      dataset = data.map{|single_data| {x: single_data['date_interval'], y: single_data['records_number']}}
       {
         label: name,
         fill: false,

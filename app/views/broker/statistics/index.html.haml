@@ -34,6 +34,12 @@
       %div.sj-date-input.sj-display-inline-block
         #end_date.input-append.date{"data-date" => "12-02-2012", "data-date-format" => "yyyy-mm-dd", "data-date-end-date" =>"0d"}
           = text_field_tag :end_vacation_date, nil, class: 'sj-date-input js-datetime js-dateend', size: "16", "data-date-end-date" => "0d"
+.sj-statistics-title.js-statistics-title{style: 'display: none'}
+  = "Statistik Smalljobs, #{current_region.name}"
+  %span.js-organization
+  %span.js-from
+  %span.js-to
+    bis
 
 %canvas#seeker
 :javascript
@@ -58,6 +64,11 @@
                 archived: archived
             },
       success: function(result) {
+        console.log(result)
+        $('.js-from').html(date_start)
+        $('.js-to').html(date_end)
+        $('.js-organization').html($('#dropdown-btn').find("option:selected").text())
+        $('.js-statistics-title').show()
         var ctx = document.getElementById('seeker').getContext('2d');
         window.chart = new Chart(ctx, {
           type: 'line',
@@ -128,6 +139,11 @@
       sum_type = $(".js-sum-type input[type='radio']:checked").val()
       active = $('.js-active-checkbox').is(':checked')
       archived = $('.js-archived-checkbox').is(':checked')
+      $('.js-from').html(date_start)
+      if(date_end != undefined && date_end != '') {
+        $('.js-to').html('bis '+date_end)
+      }
+      $('.js-organization').html($('#dropdown-btn').find("option:selected").text())
       $.ajax({
         url: "#{organization_statistics_broker_statistics_path(format: :json)}",
         type: 'GET',
