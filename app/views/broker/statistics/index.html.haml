@@ -77,6 +77,15 @@
             datasets: result["statistic"]
           },
           options: {
+                tooltips: {
+                  callbacks: {
+                    title: function(tooltipItem, data) {
+                      label = data.datasets[tooltipItem[0].datasetIndex].label || '';
+                      data_label = data['datasets'].filter(function(e){return e.label == label})[0].data[tooltipItem[0].index].x
+                      return data_label;
+                    }
+                  }
+                },
               legend: {
                   display: true,
                   labels: {

@@ -26,14 +26,30 @@ module Statistics
     end
 
     def format_array(records_array)
+      arr = []
       if options[:interval] == 'year'
-        records_array.each{|record| record['date_interval'] = record['date_interval'].to_date.strftime("%Y")}
+        records_array.each do |record|
+          arr << {
+              'date_interval' => record['date_interval'].to_date.strftime("%Y"),
+              'records_number' => record['records_number']
+          }
+        end
       elsif options[:interval] == 'month'
-        records_array.each{|record| record['date_interval'] = record['date_interval'].to_date.strftime("%Y-%m")}
+        records_array.each do |record|
+          arr << {
+              'date_interval' => record['date_interval'].to_date.strftime("%Y-%m"),
+              'records_number' => record['records_number']
+          }
+        end
       else
-        records_array.each{|record| record['date_interval'] = record['date_interval'].to_date.strftime("%Y-%m-%d")}
+        records_array.each do |record|
+          arr << {
+              'date_interval' => record['date_interval'].to_date.strftime("%Y-%m-%d"),
+              'records_number' => record['records_number']
+          }
+        end
       end
-      records_array
+      arr
     end
 
   end

@@ -277,10 +277,10 @@ module ApplicationHelper
 
   def intervals
     [
-        ["day", "day"],
-        ["week", "week"],
-        ["month", "month"],
-        ["year", "year"]
+        ["Tage", "day"],
+        ["Wochen", "week"],
+        ["Monate", "month"],
+        ["Jahre", "year"]
     ]
   end
 
