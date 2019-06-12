@@ -75,6 +75,8 @@ Smalljobs::Application.routes.draw do
       resources :statistics, only: [:index] do
         collection do
           get 'organization_statistics'
+          get 'download_csv'
+          get 'prepare_data_for_download'
         end
       end
       resources :providers do

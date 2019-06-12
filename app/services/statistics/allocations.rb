@@ -29,7 +29,7 @@ module Statistics
         records_array = get_summed_records(records_array)
       end
       records_array = format_array(records_array)
-      Statistics::Dataset.new(records_array, 'rgba(99,132,255,1)', 'Allocation').call
+      Statistics::Dataset.new(records_array, 'rgba(99,132,255,1)', 'Einsätze').call
     end
   end
 end

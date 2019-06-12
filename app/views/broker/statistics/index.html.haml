@@ -1,3 +1,6 @@
+%fieldset
+  %legend
+    = t('legends.organization')
 %div.row
   %div.col-sm-7.margin-top-10
     %span.dropdown
@@ -45,7 +48,7 @@
 Exportieren:
 %a.js-save-to-jpg{download: "chart.png"}
   PNG
-%span
+%a.js-download-csv
   ,Excel(CSV)
 :javascript
   $(document).ready(function(){
@@ -56,7 +59,6 @@ Exportieren:
     })
 
 
-
     id = $('#dropdown-btn').attr('selected', 'selected').val();
     interval = $(".js-interval-dropdown").attr('selected', 'selected').val();
     date_start = $('.js-datestart').val()
@@ -64,6 +66,32 @@ Exportieren:
     sum_type = $(".js-sum-type input[type='radio']:checked").val()
     active = $('.js-active-checkbox').is(':checked')
     archived = $('.js-archived-checkbox').is(':checked')
+
+
+    $('.js-download-csv').on('click', function(){
+      $.ajax({
+        url: "#{prepare_data_for_download_broker_statistics_path(format: :json)}",
+        type: 'GET',
+        data: {
+                  organization_id: id,
+                  start_date: date_start,
+                  end_date: date_end,
+                  interval: interval,
+                  sum_type: sum_type,
+                  active: active,
+                  archived: archived
+              },
+        success: function(result) {
+          window.location = result['link']
+          console.log('sukces')
+        },
+        error: function(result) {
+          console.log('error')
+        }
+      });
+    })
+
+
     $.ajax({
       url: "#{organization_statistics_broker_statistics_path(format: :json)}",
       type: 'GET',
