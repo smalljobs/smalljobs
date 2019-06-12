@@ -2,6 +2,14 @@ class Broker < ActiveRecord::Base
 
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :confirmable, :registerable, authentication_keys: [:email]
 
+  ROLES = [:normal, :region_admin, :organization_admin]
+  ROLES_HASH =  {
+      normal: I18n.t('activerecord.attributes.broker.normal', locale: :de),
+      region_admin: I18n.t('activerecord.attributes.broker.region_admin', locale: :de),
+      organization_admin: I18n.t('activerecord.attributes.broker.organization_admin', locale: :de),
+      blocked: I18n.t('activerecord.attributes.broker.blocked', locale: :de)
+  }
+
   include ConfirmToggle
   include Storext.model
 
@@ -15,10 +23,10 @@ class Broker < ActiveRecord::Base
   has_many :jobs, through: :providers
   has_many :assignments, through: :providers
   has_many :notes
-
   validates :email, email: true, presence: true, uniqueness: true
   validates :firstname, :lastname, :phone, presence: true
   validates :phone, :mobile, phony_plausible: true
+  validates :role, presence: true
 
   validate :unique_email
 
@@ -28,6 +36,28 @@ class Broker < ActiveRecord::Base
   store_attributes :settings do
     selected_organization_id Integer, default: 0
     filter String, default: ''
+  end
+
+  after_create :connect_to_region
+  attr_accessor :assigned_to_region, :region_id
+
+  def connect_to_region
+    if assigned_to_region == 'true'
+      employment = Employment.new(broker_id: self.id, region_id: region_id)
+      employment.assigned_only_to_region = true
+      employment.save
+    end
+  end
+
+  def organization
+    self.organizations.first
+  end
+
+  ROLES.each do |role|
+    #normal?, region_admin?, :organization_admin?
+    define_method("#{role}?") do
+      self.role == role.to_s
+    end
   end
 
   def all_organizations

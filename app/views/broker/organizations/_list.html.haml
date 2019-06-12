@@ -1,0 +1,31 @@
+%div
+  %label
+    = t('legends.organization_2a')
+  %div
+    = link_to t('organizations.add_new'), '#', class: "btn btn-success", data: {toggle: "modal",
+        target: "#organization_new_modal", url: broker_region_organizations_path(format: :json)}
+  %div.tab-content
+    %div{id: 'todo', class: 'tab-pane fade in active'}
+      .table-responsive.table-margin
+        %table.table.table-striped.sortable
+          %thead
+            %tr
+              %th.sortable{id: 'organization_name'}
+                =t('legends.name')
+              %th.sortable{id: 'organization_strasse'}
+                =t('legends.street')
+              %th.sortable{id: 'organization_plz'}
+                =t('legends.ort')
+          %tbody.list
+            - if @organizations.size == 0
+              %tr
+                %td{colspan: 3}
+            - @organizations.each do |organization|
+              %tr
+                %td.modal-link
+                  = link_to edit_broker_region_organization_path(organization) do
+                    = organization.name
+                %td
+                  = organization.street
+                %td
+                  = "#{organization&.place&.zip} #{organization&.place&.province}"

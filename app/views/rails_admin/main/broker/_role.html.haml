@@ -1,0 +1,5 @@
+- Broker::ROLES.each do |role|
+  %p.permission_roles
+    = radio_button_tag 'broker[role]', role, @object.send("#{role}?")
+    %span
+      = Broker::ROLES_HASH[role]

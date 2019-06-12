@@ -65,6 +65,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def current_ability
+    @current_ability ||= Ability.new(current_user, current_region)
+  end
+
   def current_region
     @region ||= Region.find_by_subdomain(request.subdomains.first)
   end

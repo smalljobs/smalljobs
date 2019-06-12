@@ -29,6 +29,17 @@ class Organization < ActiveRecord::Base
 
   after_initialize :copy_default_templates
 
+  after_create :connect_to_region
+  attr_accessor :assigned_to_region, :region_id
+
+  def connect_to_region
+    if assigned_to_region == 'true'
+      employment = Employment.new(organization_id: self.id, region_id: region_id)
+      employment.assigned_only_to_region = true
+      employment.save
+    end
+  end
+
   def copy_default_templates
     template_names = ['welcome_letter_employers_msg', 'welcome_app_register_msg', 'welcome_chat_register_msg',
                       'not_receive_job_msg', 'get_job_msg', 'activation_msg', 'welcome_email_for_parents_msg']

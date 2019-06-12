@@ -1,0 +1,35 @@
+%div.table-margin
+  %div
+    %label
+      = t('legends.broker_inside')
+  %div
+    = link_to t('brokers.add_new'), '#', class: "btn btn-success", data: {toggle: "modal", target: "#broker_new_modal", url: broker_users_path(format: :json)}
+  %div.tab-content
+    %div{id: 'todo', class: 'tab-pane fade in active'}
+      .table-responsive.table-margin
+        %table.table.table-striped.sortable
+          %thead
+            %tr
+              %th.sortable{id: 'broker_name'}
+                =t('legends.name')
+              %th.sortable{id: 'broker_standort'}
+                =t('legends.organization_2')
+              %th.sortable{id: 'broker_rechte'}
+                =t('legends.role')
+              -#%th{id: 'broker_rechte'} Action
+          %tbody.list
+            - if @brokers.size == 0
+              %tr
+                %td{colspan: 3}
+            - @brokers.each do |broker|
+              %tr
+                %td
+                  %span.modal-link
+                    = link_to edit_broker_user_path(broker) do
+                      = "#{broker.name} #{broker.lastname}"
+                %td
+                  = broker.organizations&.first&.name
+                %td
+                  = Broker::ROLES_HASH[broker.role.to_sym]
+                -#%td.action-icons
+                -#  %i.fa.fa-trash.fa-2x

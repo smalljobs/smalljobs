@@ -1,0 +1,108 @@
+= simple_form_for([:broker, @region], html: { novalidate: true }) do |f|
+
+  - if notification = f.error_notification
+    .alert.alert-danger
+      = notification
+
+  %fieldset
+    %legend
+      = t('legends.region')
+      %i.fa.fa-2x.fa-home.pull-right
+    .form-actions.section-margins
+      = f.button :submit, t('common.edit'), class: 'btn btn-primary'
+
+    .form-inputs.section-margins
+      = f.input :name, required: true, label: 'Name der Region'
+
+    %div.row.section-margins
+      %div.col-xs-12
+        %label
+          Einzugsgebiet
+
+      %div.col-xs-3.section-margins
+        = autocomplete_field_tag 'zip_name', '', autocomplete_place_zip_broker_places_path, :size => 75,
+            'data-auto-focus' => true, class: 'js-places-autocomplete form-control search-field', placeholder: 'PLZ oder Ortschaft'
+        %span
+          %i.fa.fa-2x.fa-search.delete-icon
+      %div.col-xs-12.js-places-tags
+        - @places.each do |place|
+          %span.place-tag
+            %i.fa.fa-times-circle.js-delete-from-region{data: {id: place.id}}
+            = "#{place.zip} #{place.name}"
+
+    = render 'broker/organizations/list.html.haml'
+    = render 'broker/list.html.haml'
+
+    %label
+      %div
+        Logo
+    .row
+      .col-xs-4
+        - if @region.logo.present?
+          = image_tag @region.logo, class: 'img-responsive js-remove-img'
+        = f.file_field :logo
+        - if @region.logo.present?
+          %i.fa.fa-trash.fa-2x.js-delete-region-icon.delete-region-icon
+
+        %div.help-block
+          Empfohlene Grösse ist 100x100 Pixels
+
+  .form-actions
+    = f.button :submit, t('common.edit'), class: 'btn btn-primary'
+
+
+%ul.nav.nav-pills
+  %li= link_to t('common.back'), broker_dashboard_path
+
+= render 'broker/brokers/new.html.haml'
+= render 'broker/region_organizations/new.html.haml'
+
+:javascript
+  $(document).on("keydown", "form", function(event) {
+    return event.key != "Enter";
+  });
+  $('.js-places-autocomplete').bind('railsAutocomplete.select', function(event, data){
+    $.ajax({
+      url: "#{add_place_to_region_broker_places_path}",
+      type: 'POST',
+      data: {id: data.item.id},
+      success: function(result) {
+        $('.js-places-tags').prepend("<span class=\"place-tag\"><i class=\"fa fa-times-circle js-delete-from-region\" data-id="+data.item.id+"></i>&nbsp"+data.item.value+"</span>")
+      },
+      error: function(result){
+        alert(result.responseJSON.error)
+      }
+    });
+  });
+  $(document).on('click', '.js-delete-from-region', function(){
+    id = $(this).data('id')
+    that = $(this)
+    confirmText = "Möchten Sie diesen Ort wirklich aus einer Region löschen?";
+    if(confirm(confirmText)) {
+      $.ajax({
+        url: "#{remove_from_region_broker_places_path}",
+        type: 'DELETE',
+        data: {id: id},
+        success: function(result) {
+          that.closest('.place-tag').remove();
+        },
+        error: function(result){
+          alert(result.responseJSON.error);
+        }
+      });
+    }
+  });
+  $(document).on('click', '.js-delete-region-icon', function(){
+    that = $(this)
+    $.ajax({
+      url: "#{destroy_logo_broker_region_path}",
+      type: 'DELETE',
+      success: function(result) {
+        $('.js-remove-img').remove();
+        that.remove();
+      },
+      error: function(result){
+        alert(result.responseJSON.error);
+      }
+    });
+  })

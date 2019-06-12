@@ -49,6 +49,8 @@ gem 'RedCloth'
 gem 'rack-cors', require: 'rack/cors'
 gem 'spawnling', '~>2.1'
 gem 'rails-ujs'
+gem 'jquery-ui-rails'
+gem 'rails-jquery-autocomplete'
 
 group :development, :test do
   gem 'better_errors'

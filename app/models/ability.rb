@@ -1,7 +1,7 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
+  def initialize(user, region)
     if user.is_a?(Admin)
       can :access, :rails_admin
       can :manage, :all
@@ -9,7 +9,12 @@ class Ability
     elsif user.is_a?(Broker)
       places = user.places.pluck(:id)
 
-      can :manage, Organization, place: { id: places }
+      if user.organization_admin?
+        can :manage, Organization, place: { id: places }
+      elsif user.region_admin?
+        can :manage, Region
+        can :manage, Organization, place: { id: places }
+      end
 
       can :manage, Provider, place: { id: places }
       can :manage, Seeker, place: { id: places }

@@ -10,6 +10,10 @@
 #= require_tree .
 #= require todo.js
 
+#= require jquery-ui
+#= require autocomplete-rails
+#= require shared.js
+#= require jquery.form.min.js
 ready = ->
   history_array = JSON.parse(sessionStorage.getItem('history') || '[]')
 

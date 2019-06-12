@@ -158,6 +158,14 @@ de:
         ended_html:  <div class='control__indicator'></div>Beendet
       broker:
         <<: *USER
+        normal_html: <div class='control__indicator'></div>Vermittlung
+        organization_admin_html: <div class='control__indicator'></div>Organisations Administration
+        region_admin_html: <div class='control__indicator'></div>Regions Administration
+        blocked_html: <div class='control__indicator'></div>Deaktiviert
+        normal: Vermittlung
+        organization_admin: Organisations Administration
+        region_admin: Regions Administration
+        blocked: 'Deaktiviert'
         organizations: "Organisationen"
         regions: "Regionen"
         employments: "Anstellungen"

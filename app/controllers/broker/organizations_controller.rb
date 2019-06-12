@@ -26,7 +26,7 @@ class Broker::OrganizationsController < InheritedResources::Base
   end
 
   def find_organization
-    @organization = current_broker.organizations.first
+      @organization = current_broker.organizations.first
   end
 
   def permitted_params

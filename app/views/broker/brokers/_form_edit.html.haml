@@ -1,0 +1,60 @@
+= simple_form_for(@broker, url: broker_user_path, html: { method: :put, novalidate: true }) do |f|
+  %ul.nav.nav-pills
+    - if current_broker.region_admin?
+      = link_to '< ' + t('common.back'), edit_broker_region_path
+    - else
+      = link_to '< ' + t('common.back'), broker_organization_path
+
+  %fieldset
+    .form-inputs
+      = f.input :role, as: :radio_buttons, collection: broker_role_collection,
+      label_method: ->(obj){obj[:label]}, value_method: -> (obj){obj[:value]},
+      label: false, inline_label: '', item_wrapper_class: 'control control--radio'
+
+  - if notification = f.error_notification
+    .alert.alert-danger
+      = notification
+
+  %fieldset
+    %legend
+      = t('legends.broker')
+      %i.fa.fa-2x.fa-user.pull-right
+
+    .form-actions.table-margin
+      = f.button :submit, t('common.edit'), class: 'btn btn-primary'
+
+    .form-inputs.table-margin
+      = f.input :email, autofocus: true
+      = f.input :password, required: false, autocomplete: 'off', hint: t('devise_views.leave_empty_2')
+
+    .form-inputs
+      = f.input :firstname, required: true
+      = f.input :lastname, required: true
+      %label
+        = t('legends.organization_2')
+      = select_tag :organization, options_for_select(   current_region.organizations.uniq.collect{|u| [u.name, u.id]}.unshift(['', '']), @broker.organization&.id   ), class: 'form-control'
+
+  %fieldset
+    %legend
+      = t('legends.contact')
+      %i.fa.fa-2x.fa-phone.pull-right
+
+    .form-inputs
+      = f.input :phone, required: true
+      = f.input :mobile
+      = f.input :contact_availability, hint: ''
+  %fieldset
+    %legend
+      = "Einstellungen"
+
+    .form-inputs
+      = f.association :update_prefs, as: :check_boxes
+
+  .form-actions
+    = f.button :submit, t('common.edit'), class: 'btn btn-primary'
+
+  -#broker_user
+  .form-actions
+    = link_to "Löschen", '#', class: "btn btn-success js-delete-modal", data: {toggle: "modal", target: "#delete_modal", url: broker_user_path(@broker, format: :json)}
+
+= render 'shared/delete_modal.html.haml'

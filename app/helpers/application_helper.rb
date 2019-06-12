@@ -275,4 +275,24 @@ module ApplicationHelper
     active ? 'active' : nil
   end
 
+  def broker_role_collection
+      [
+          {
+              value: 'region_admin',
+              label: t('activerecord.attributes.broker.region_admin_html').html_safe
+          },
+          {
+              value: 'organization_admin',
+              label: t('activerecord.attributes.broker.organization_admin_html').html_safe
+          },
+          {
+              value: 'normal',
+              label: t('activerecord.attributes.broker.normal_html').html_safe
+          },
+          {
+              value: 'blocked',
+              label: t('activerecord.attributes.broker.blocked_html').html_safe
+          }
+      ]
+  end
 end

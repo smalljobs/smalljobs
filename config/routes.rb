@@ -64,6 +64,7 @@ Smalljobs::Application.routes.draw do
     post 'context_help', to: 'pages#context_help'
 
     namespace :broker do
+      resources :users, only: [:edit, :update, :create, :destroy], controller: :brokers
       resource :dashboard, only: :show do
         member do
           post 'save_settings'
@@ -71,6 +72,19 @@ Smalljobs::Application.routes.draw do
       end
 
       resource :organization, only: [:edit, :update]
+      resource :region, only: [:edit, :update] do
+        delete :destroy_logo
+        collection do
+          resources :organizations, except: [:new], controller: :region_organizations, as: :region_organizations
+        end
+      end
+      resources :places do
+        collection do
+          get :autocomplete_place_zip
+          post :add_place_to_region
+          delete :remove_from_region
+        end
+      end
 
       resources :todos, only: [:update]
       resources :providers do
