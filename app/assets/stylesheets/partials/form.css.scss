@@ -61,3 +61,60 @@ fieldset {
   margin-bottom: 5px;
   font-weight: bold;
 }
+
+.date-wrapper{
+  float: right;
+  margin-top: 15px;
+  background-color: #eee;
+  border: 1px solid rgb(204,204,204);
+}
+.sj-display-inline-block{
+  display: inline-block;
+}
+
+.sj-date-input{
+  height: 30px;
+  padding: 0px;
+  width: 90px;
+}
+
+.sj-date-divider{
+  padding: 3px;
+}
+
+.sj-dropdown{
+  margin-top: 10px;
+  margin-left: 25px;
+  height: 42px;
+}
+
+.sum-type{
+  margin-left: 10px;
+}
+
+.sum-type > label{
+  font-weight: 400;
+}
+
+.sum-type > label:nth-child(n+1){
+  margin-left: 10px;
+}
+
+.sj-checkbox-active{
+  margin-left: 20px;
+}
+
+.sj-checkbox-active > label{
+  font-weight: 700;
+  margin-left: 5px;
+}
+
+.margin-top-10{
+  margin-top: 10px;
+}
+
+.sj-statistics-title{
+  margin-top: 15px;
+  font-size: 20px;
+  text-align: center;
+}

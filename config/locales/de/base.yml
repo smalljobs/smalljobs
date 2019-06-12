@@ -49,6 +49,7 @@ de:
     organization: 'Organisation'
     organization_2: 'Standort'
     region: 'Region'
+    statistic: 'Statistik'
     providers: "Anbieter"
     features: "Funktionen"
     provide_job: "Job erfassen"
@@ -74,6 +75,7 @@ de:
     role: 'Rechte'
     broker_inside: 'Vermittler*innen'
     region: "Region"
+    statistic: "Statistic"
     branding: "Branding"
     vacations: "Urlaub"
     terms: "Bedingungen"

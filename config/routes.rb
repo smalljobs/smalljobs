@@ -87,6 +87,13 @@ Smalljobs::Application.routes.draw do
       end
 
       resources :todos, only: [:update]
+      resources :statistics, only: [:index] do
+        collection do
+          get 'organization_statistics'
+          get 'download_csv'
+          get 'prepare_data_for_download'
+        end
+      end
       resources :providers do
         member do
           get 'contract'

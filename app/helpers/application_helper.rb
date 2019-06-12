@@ -295,4 +295,13 @@ module ApplicationHelper
           }
       ]
   end
+  def intervals
+    [
+        ["Tage", "day"],
+        ["Wochen", "week"],
+        ["Monate", "month"],
+        ["Jahre", "year"]
+    ]
+  end
+
 end

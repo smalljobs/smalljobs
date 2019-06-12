@@ -9,6 +9,8 @@
 #= require bootstrap-datepicker.js
 #= require_tree .
 #= require todo.js
+#= require bootstrap-datepicker.js
+#= require chart.min.js
 
 #= require jquery-ui
 #= require autocomplete-rails

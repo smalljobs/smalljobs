@@ -9,6 +9,7 @@ SimpleNavigation::Configuration.run do |navigation|
       elsif current_broker.organization_admin?
         primary.item :profile,   { icon: 'fa', text: I18n.t('navigation.organization_2') }, edit_broker_organization_path
       end
+      primary.item :statistics,   { icon: 'fa', text: I18n.t('navigation.statistic') }, broker_statistics_path
       primary.item :profile,   { icon: 'fa fa-user', text: "#{current_broker.firstname}" }, edit_broker_registration_path
       primary.item :sign_out,  { icon: 'fa fa-sign-out', text: I18n.t('navigation.sign_out') }, destroy_broker_session_path, method: :delete
 

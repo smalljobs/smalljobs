@@ -1,0 +1,223 @@
+%fieldset
+  %legend
+    = t('legends.organization')
+%div.row
+  %div.col-sm-7.margin-top-10
+    %span.dropdown
+      %select{id: 'dropdown-btn'}
+        %option{value: "0"}
+          = "Alle Organisationen"
+        - for organization in current_broker.all_organizations
+          %option{value: "#{organization.id}"}
+            = organization.name
+    %span.sum-type.js-sum-type
+      %label
+        = radio_button_tag :sum_type, 'all', true
+        Alle
+      %label
+        = radio_button_tag :sum_type, 'new', false
+        Neue
+    %span.sj-checkbox-active
+      %label
+        = check_box_tag :active, 'active', true, class: 'js-checkbox js-active-checkbox'
+        Aktive
+      %label
+        = check_box_tag :archived, 'archived', true, class: 'js-checkbox js-archived-checkbox'
+        Beendete
+
+  %div.col-sm-5
+    .dropdown
+      = select_tag :intervals, options_for_select(intervals, 'week'), class: 'pull-right sj-dropdown js-interval-dropdown'
+    %div.date-wrapper
+      %div.sj-date-input.sj-display-inline-block
+        #start_date.input-append.date{"data-date" => "12-02-2012", "data-date-format" => "yyyy-mm-dd"}
+          = text_field_tag :start_vacation_date, nil, class: 'sj-date-input js-datetime js-datestart', size: "16", "data-date-end-date" => "0d"
+      %div.sj-display-inline-block.sj-date-divider
+        bis
+      %div.sj-date-input.sj-display-inline-block
+        #end_date.input-append.date{"data-date" => "12-02-2012", "data-date-format" => "yyyy-mm-dd", "data-date-end-date" =>"0d"}
+          = text_field_tag :end_vacation_date, nil, class: 'sj-date-input js-datetime js-dateend', size: "16", "data-date-end-date" => "0d"
+.sj-statistics-title.js-statistics-title{style: 'display: none'}
+  = "Statistik Smalljobs, #{current_region.name}"
+  %span.js-organization
+  %span.js-from
+  %span.js-to
+    bis
+
+%canvas#seeker
+Exportieren:
+%a.js-save-to-jpg{download: "chart.png"}
+  PNG
+%a.js-download-csv
+  ,Excel(CSV)
+:javascript
+  $(document).ready(function(){
+
+    $('.js-save-to-jpg').on('click', function(){
+      url_base64jp = document.getElementById("seeker").toDataURL("image/png");
+      $(this).attr('href', url_base64jp)
+    })
+
+
+    id = $('#dropdown-btn').attr('selected', 'selected').val();
+    interval = $(".js-interval-dropdown").attr('selected', 'selected').val();
+    date_start = $('.js-datestart').val()
+    date_end = $('.js-dateend').val()
+    sum_type = $(".js-sum-type input[type='radio']:checked").val()
+    active = $('.js-active-checkbox').is(':checked')
+    archived = $('.js-archived-checkbox').is(':checked')
+
+
+    $('.js-download-csv').on('click', function(){
+      $.ajax({
+        url: "#{prepare_data_for_download_broker_statistics_path(format: :json)}",
+        type: 'GET',
+        data: {
+                  organization_id: id,
+                  start_date: date_start,
+                  end_date: date_end,
+                  interval: interval,
+                  sum_type: sum_type,
+                  active: active,
+                  archived: archived
+              },
+        success: function(result) {
+          window.location = result['link']
+          console.log('sukces')
+        },
+        error: function(result) {
+          console.log('error')
+        }
+      });
+    })
+
+
+    $.ajax({
+      url: "#{organization_statistics_broker_statistics_path(format: :json)}",
+      type: 'GET',
+      data: {
+                organization_id: id,
+                start_date: date_start,
+                end_date: date_end,
+                interval: interval,
+                sum_type: sum_type,
+                active: active,
+                archived: archived
+            },
+      success: function(result) {
+        console.log(result)
+        $('.js-from').html(date_start)
+        $('.js-to').html(date_end)
+        $('.js-organization').html($('#dropdown-btn').find("option:selected").text())
+        $('.js-statistics-title').show()
+        var ctx = document.getElementById('seeker').getContext('2d');
+        window.chart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: result["label"],
+            datasets: result["statistic"]
+          },
+          options: {
+                tooltips: {
+                  callbacks: {
+                    title: function(tooltipItem, data) {
+                      label = data.datasets[tooltipItem[0].datasetIndex].label || '';
+                      data_label = data['datasets'].filter(function(e){return e.label == label})[0].data[tooltipItem[0].index].x
+                      return data_label;
+                    }
+                  }
+                },
+              legend: {
+                  display: true,
+                  labels: {
+                      boxWidth: 15,
+                  }
+              },
+              scales: {
+                  xAxes: [{
+                      type: 'category',
+                      ticks: {
+                        autoSkip: true,
+                        maxTicksLimit: 20
+                      }
+                  }]
+
+              },
+              hover: {
+                mode: 'x'
+              },
+              type: "line"
+          }
+        });
+      },
+      error: function(result) {
+        console.log('error')
+        console.log(result)
+      }
+    });
+
+    $(".js-datetime").datepicker({
+      format: 'yyyy-mm-dd',
+    }).on("changeDate", function (e) {
+      id = $('#dropdown-btn').attr('selected', 'selected').val();
+      getStatistics(id)
+    });
+
+    $('#dropdown-btn').on('change', function(){
+      var id = this.value;
+      getStatistics(id)
+    });
+
+    $('.js-interval-dropdown').on('change', function(){
+      id = $('#dropdown-btn').attr('selected', 'selected').val();
+      getStatistics(id)
+    });
+
+    $('.js-sum-type').on('change', function(){
+      id = $('#dropdown-btn').attr('selected', 'selected').val();
+      getStatistics(id)
+    })
+    $('.js-checkbox').on('change', function(){
+      id = $('#dropdown-btn').attr('selected', 'selected').val();
+      getStatistics(id)
+    })
+
+    getStatistics = function(id) {
+      date_start = $('.js-datestart').val()
+      date_end = $('.js-dateend').val()
+      interval = $(".js-interval-dropdown").attr('selected', 'selected').val();
+      sum_type = $(".js-sum-type input[type='radio']:checked").val()
+      active = $('.js-active-checkbox').is(':checked')
+      archived = $('.js-archived-checkbox').is(':checked')
+      $('.js-from').html(date_start)
+      if(date_end != undefined && date_end != '') {
+        $('.js-to').html('bis '+date_end)
+      }
+      $('.js-organization').html($('#dropdown-btn').find("option:selected").text())
+      $.ajax({
+        url: "#{organization_statistics_broker_statistics_path(format: :json)}",
+        type: 'GET',
+        data: {
+                  organization_id: id,
+                  start_date: date_start,
+                  end_date: date_end,
+                  interval: interval,
+                  sum_type: sum_type,
+                  active: active,
+                  archived: archived
+              },
+        success: function(result) {
+          console.log(result)
+          console.log('sukces')
+          window.chart.data.labels = result["label"]
+          window.chart.data.datasets = result["statistic"]
+          window.chart.update()
+        },
+        error: function(result) {
+          console.log('error')
+          console.log(result)
+        }
+      });
+    }
+  })
+
