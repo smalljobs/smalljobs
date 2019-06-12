@@ -6,7 +6,6 @@
 #= require list.min.js
 #= require contextHelp.js
 #= require bootstrap-select.min.js
-#= require bootstrap-datepicker.js
 #= require_tree .
 #= require todo.js
 #= require bootstrap-datepicker.js

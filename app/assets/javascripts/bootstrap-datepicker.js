@@ -2050,3 +2050,4 @@
   });
 
 }));
+$.fn.BSdatepicker = $.fn.datepicker

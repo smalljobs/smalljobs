@@ -51,6 +51,7 @@ class Broker::BrokersController < InheritedResources::Base
       @broker.save
       create_employment
     end
+    @broker.errors.blank?
   end
 
   def update_broker
@@ -58,21 +59,29 @@ class Broker::BrokersController < InheritedResources::Base
       broker.update(permitted_params)
       create_employment
     end
+    broker.errors.blank?
   end
 
+  # This is mockup, this is bad. When we have more time we have to makes employments unique and check all data if they're still correct.
+  # I made it to create employment without broker or organizaiton.
   def create_employment
     if params[:organization].present?
-      employment = Employment.where(region_id: current_region.id, organization_id: params[:organization], broker_id: nil)
-      if employment.present?
-        employment.update(broker_id: broker.id)
-      else
-        Employment.create(region_id: current_region.id, organization_id: params[:organization], broker_id: broker.id)
-      end
+      Employment.where(region_id: current_region.id, broker_id: broker.try('id')).destroy_all
+      # takes employment if exisit, if not, takes empty slot of organization. if those does not exist, create one.
+      # employment = Employment.where(region_id: current_region.id, organization_id: params[:organization], broker_id: broker.try('id')).first ||
+      #              Employment.where(region_id: current_region.id, organization_id: params[:organization], broker_id: nil).first ||
+      #              Employment.where(region_id: current_region.id, broker_id: broker.try('id')).first
+      # if employment.present? && employment.broker.blank?
+      #   employment.update(broker_id: broker.id)
+      #   raise ActiveRecord::Rollback if employment.errors.present?
+        emp = Employment.create(region_id: current_region.id, organization_id: params[:organization], broker_id: broker.id)
+        raise ActiveRecord::Rollback unless emp
     else
       employments = Employment.where(region_id: current_region.id, broker_id: broker.id)
       employments.each do |emp|
         emp.assigned_only_to_region = true
         emp.update(organization_id: nil)
+        raise ActiveRecord::Rollback if emp.errors.present?
       end
     end
   end

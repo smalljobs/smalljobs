@@ -52,7 +52,6 @@ Exportieren:
   ,Excel(CSV)
 :javascript
   $(document).ready(function(){
-
     $('.js-save-to-jpg').on('click', function(){
       url_base64jp = document.getElementById("seeker").toDataURL("image/png");
       $(this).attr('href', url_base64jp)
@@ -156,7 +155,7 @@ Exportieren:
       }
     });
 
-    $(".js-datetime").datepicker({
+    $(".js-datetime").BSdatepicker({
       format: 'yyyy-mm-dd',
     }).on("changeDate", function (e) {
       id = $('#dropdown-btn').attr('selected', 'selected').val();
