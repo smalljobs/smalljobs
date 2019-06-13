@@ -35,19 +35,19 @@ module Statistics
     end
 
     def day
-      (date_range[0]..date_range[-1]).to_a.map{|d| d.to_date.strftime("%Y-%m-%d")}
+      (date_range[0]..date_range[-1]).to_a.map{|d| d.to_date.strftime("%d-%m-%Y")}
     end
 
     def week
-      get_range('week').map{|d|d.to_date.strftime("%Y-%m-%d")}
+      get_range('week').map{|d|d.to_date.strftime("%d-%m-%Y")}
     end
 
     def month
-      get_range('month').map{|d|d.to_date.strftime("%Y-%m")}
+      get_range('month').map{|d|d.to_date.strftime("%d-%m-%Y")}
     end
 
     def year
-      get_range('year').map{|d|d.to_date.strftime("%Y")}
+      get_range('year').map{|d|d.to_date.strftime("%d-%m-%Y")}
     end
 
     def get_range interval

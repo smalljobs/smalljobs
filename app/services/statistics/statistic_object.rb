@@ -37,14 +37,14 @@ module Statistics
       elsif options[:interval] == 'month'
         records_array.each do |record|
           arr << {
-              'date_interval' => record['date_interval'].to_date.strftime("%Y-%m"),
+              'date_interval' => record['date_interval'].to_date.strftime("%m-%Y"),
               'records_number' => record['records_number']
           }
         end
       else
         records_array.each do |record|
           arr << {
-              'date_interval' => record['date_interval'].to_date.strftime("%Y-%m-%d"),
+              'date_interval' => record['date_interval'].to_date.strftime("%d-%m-%Y"),
               'records_number' => record['records_number']
           }
         end

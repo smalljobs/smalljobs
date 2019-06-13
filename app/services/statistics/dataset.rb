@@ -19,7 +19,7 @@ module Statistics
       {
         label: name,
         fill: false,
-        pointRadius: 3,
+        pointRadius: 4,
         lineTension: 0.1,
         borderWidth: 2,
         borderColor: [

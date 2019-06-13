@@ -45,11 +45,12 @@
     bis
 
 %canvas#seeker
-Exportieren:
-%a.js-save-to-jpg{download: "chart.png"}
-  PNG
-%a.js-download-csv
-  ,Excel(CSV)
+%div.sj-export
+  Exportieren:
+  %a.js-save-to-jpg{download: "chart.png"}
+    PNG
+  %a.js-download-csv
+    ,Excel(CSV)
 :javascript
   $(document).ready(function(){
     $('.js-save-to-jpg').on('click', function(){
@@ -123,6 +124,18 @@ Exportieren:
                       label = data.datasets[tooltipItem[0].datasetIndex].label || '';
                       data_label = data['datasets'].filter(function(e){return e.label == label})[0].data[tooltipItem[0].index].x
                       return data_label;
+                    },
+                    label: function(tooltipItems, data) {
+                        var tooltipcontent = data.datasets[tooltipItems.datasetIndex].label + ": " + tooltipItems.value;
+
+                        // show difference to the value form the last interval in addition to current value
+                        if (tooltipItems.index > 0) {
+                            var prev = data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index-1];
+                            var dif = tooltipItems.yLabel-prev.y;
+                            tooltipcontent += " ("+Math.abs(dif)+" "+((dif>0) ? "neu" : "weniger")+")";
+                        }
+
+                        return tooltipcontent;
                     }
                   }
                 },
