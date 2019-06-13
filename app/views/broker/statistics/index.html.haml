@@ -43,7 +43,7 @@
   %span.js-from
   %span.js-to
     bis
-
+#chart-legends
 %canvas#seeker
 %div.sj-export
   Exportieren:
@@ -118,6 +118,24 @@
             datasets: result["statistic"]
           },
           options: {
+                legendCallback: function(chart) {
+                    console.log(chart);
+                    var legendHtml = [];
+                    legendHtml.push('<table>');
+                    legendHtml.push('<tr>');
+                    for (var i=0; i<chart.data.datasets.length; i++) {
+                        legendHtml.push('<td><div class="chart-legend" style="background-color:' + chart.data.datasets[i].backgroundColor + '"></div></td>');
+                        if (chart.data.datasets[i].label) {
+                            legendHtml.push('<td class="chart-legend-label-text" onclick="updateDataset(event, ' + '\'' + chart.legend.legendItems[i].datasetIndex + '\'' + ')">' +"<i class=\"fa fa-check\" style=\"background-color:"+chart.data.datasets[i].backgroundColor[0]+"\"></i>"+ chart.data.datasets[i].label + '</td>');
+                        }
+                    }
+                    legendHtml.push('</tr>');
+                    legendHtml.push('</table>');
+                    return legendHtml.join("");
+                },
+                legend: {
+                    display: false
+                },
                 tooltips: {
                   callbacks: {
                     title: function(tooltipItem, data) {
@@ -139,12 +157,6 @@
                     },
                   }
                 },
-              legend: {
-                  display: true,
-                  labels: {
-                      boxWidth: 15,
-                  }
-              },
               scales: {
                   xAxes: [{
                       type: 'category',
@@ -161,6 +173,35 @@
               type: "line"
           }
         });
+
+        updateDataset = function(e, datasetIndex) {
+          var index = datasetIndex;
+          var ci = window.chart;
+          var meta = ci.getDatasetMeta(index);
+          if($(e.target).hasClass('fa')){
+            if($(e.target).hasClass('fa-check')){
+              $(e.target).removeClass('fa-check')
+            }else{
+              $(e.target).addClass('fa-check')
+            }
+          }else{
+            if($(e.currentTarget).find('.fa').hasClass('fa-check')){
+              $(e.currentTarget).find('.fa').removeClass('fa-check')
+            }else{
+              $(e.currentTarget).find('.fa').addClass('fa-check')
+            }
+          }
+          // e.currentTarget
+          // See controller.isDatasetVisible comment
+          meta.hidden = meta.hidden === null? !ci.data.datasets[index].hidden : null;
+
+          // We hid a dataset ... rerender the chart
+          ci.update();
+        };
+
+        var ctx = document.getElementById("seeker").getContext("2d");
+        document.getElementById('chart-legends').innerHTML = window.chart.generateLegend();
+
       },
       error: function(result) {
         console.log('error')

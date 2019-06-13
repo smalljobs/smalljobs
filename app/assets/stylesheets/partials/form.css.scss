@@ -122,3 +122,21 @@ fieldset {
 .sj-export > a:hover{
   cursor: pointer;
 }
+
+#chart-legends{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#chart-legends > table{
+  margin: 0 auto;
+}
+
+.chart-legend-label-text > i{
+  color: white;
+  padding: 4px;
+  font-size: 12px;
+  margin-right: 4px;
+  margin-left: 15px;
+  width: 20px;
+  height: 20px;
+}
