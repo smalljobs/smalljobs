@@ -43,11 +43,11 @@ module Statistics
     end
 
     def month
-      get_range('month').map{|d|d.to_date.strftime("%d-%m-%Y")}
+      get_range('month').map{|d|d.to_date.strftime("%m-%Y")}
     end
 
     def year
-      get_range('year').map{|d|d.to_date.strftime("%d-%m-%Y")}
+      get_range('year').map{|d|d.to_date.strftime("%Y")}
     end
 
     def get_range interval

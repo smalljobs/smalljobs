@@ -1,6 +1,6 @@
 %fieldset
   %legend
-    = t('legends.organization')
+    = t('legends.statistic')
 %div.row
   %div.col-sm-7.margin-top-10
     %span.dropdown
@@ -136,7 +136,7 @@
                         }
 
                         return tooltipcontent;
-                    }
+                    },
                   }
                 },
               legend: {
@@ -222,7 +222,11 @@
           console.log(result)
           console.log('sukces')
           window.chart.data.labels = result["label"]
-          window.chart.data.datasets = result["statistic"]
+          // window.chart.data.datasets = result["statistic"]
+          for(var i = 0 ; i < result["statistic"].length ; i++){
+              var label = result["statistic"][i].label
+              window.chart.data.datasets.filter(function(e){return e.label == label})[0].data = result["statistic"][i].data
+          }
           window.chart.update()
         },
         error: function(result) {
