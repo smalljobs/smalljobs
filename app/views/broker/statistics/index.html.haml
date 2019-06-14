@@ -178,20 +178,24 @@
           var index = datasetIndex;
           var ci = window.chart;
           var meta = ci.getDatasetMeta(index);
+
           if($(e.target).hasClass('fa')){
-            if($(e.target).hasClass('fa-check')){
-              $(e.target).removeClass('fa-check')
+            if($(e.target).hasClass('sj-invisible')){
+              $(e.target).removeClass('sj-invisible')
+              $(e.target).css('color', 'white')
             }else{
-              $(e.target).addClass('fa-check')
+              $(e.target).addClass('sj-invisible')
+              $(e.target).css('color', meta.dataset._model.borderColor[0])
             }
           }else{
-            if($(e.currentTarget).find('.fa').hasClass('fa-check')){
-              $(e.currentTarget).find('.fa').removeClass('fa-check')
+            if($(e.currentTarget).find('.fa').hasClass('sj-invisible')){
+              $(e.currentTarget).find('.fa').removeClass('sj-invisible')
+              $(e.target).css('color', 'white')
             }else{
-              $(e.currentTarget).find('.fa').addClass('fa-check')
+              $(e.currentTarget).find('.fa').addClass('sj-invisible')
+              $(e.target).css('color', meta.dataset._model.borderColor[0])
             }
           }
-          // e.currentTarget
           // See controller.isDatasetVisible comment
           meta.hidden = meta.hidden === null? !ci.data.datasets[index].hidden : null;
 
