@@ -183,17 +183,21 @@
             if($(e.target).hasClass('sj-invisible')){
               $(e.target).removeClass('sj-invisible')
               $(e.target).css('color', 'white')
+              $(e.target).closest('.chart-legend-label-text').css('text-decoration', 'none')
             }else{
               $(e.target).addClass('sj-invisible')
               $(e.target).css('color', meta.dataset._model.borderColor[0])
+              $(e.target).closest('.chart-legend-label-text').css('text-decoration', 'line-through')
             }
           }else{
             if($(e.currentTarget).find('.fa').hasClass('sj-invisible')){
               $(e.currentTarget).find('.fa').removeClass('sj-invisible')
-              $(e.target).css('color', 'white')
+              $(e.currentTarget).find('.fa').css('color', 'white')
+              $(e.currentTarget).css('text-decoration', 'none')
             }else{
               $(e.currentTarget).find('.fa').addClass('sj-invisible')
-              $(e.target).css('color', meta.dataset._model.borderColor[0])
+              $(e.currentTarget).find('.fa').css('color', meta.dataset._model.borderColor[0])
+              $(e.currentTarget).css('text-decoration', 'line-through')
             }
           }
           // See controller.isDatasetVisible comment
