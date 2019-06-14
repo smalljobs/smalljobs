@@ -8,6 +8,7 @@ class Broker::BrokersController < InheritedResources::Base
   end
 
   def create
+    params[:broker][:active] = !(params[:broker][:role] == "blocked")
     respond_to do |format|
       if create_broker
         format.json { render json: { message: t('common.created')}, status: :ok }
