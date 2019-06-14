@@ -32,6 +32,9 @@ de:
   filters:
     all: "Alle"
     without_applications: "Ohne Bewerbungen"
+  messages:
+    place:
+      not_found: 'Kein Ort gefunden'
   navigation:
     home: ""
     sign_up: "Registrieren"
@@ -140,6 +143,14 @@ de:
     allocations: "Zuweisungen"
     reviews: "Bewertungen"
   broker:
+    normal_html: <div class='control__indicator'></div>Vermittlung
+    organization_admin_html: <div class='control__indicator'></div>Organisationsadministration
+    region_admin_html: <div class='control__indicator'></div>Regionsadministration
+    blocked_html: <div class='control__indicator'></div>Deaktiviert
+    normal: Vermittlung
+    organization_admin: Organisationsadministration
+    region_admin: Regionsadministration
+    blocked: 'Deaktiviert'
     jobs:
       new:
         title: "Job erfassen"

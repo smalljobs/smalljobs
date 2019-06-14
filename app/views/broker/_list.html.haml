@@ -26,7 +26,7 @@
                 %td
                   %span.modal-link
                     = link_to edit_broker_user_path(broker) do
-                      = "#{broker.name} #{broker.lastname}"
+                      = "#{broker.firstname} #{broker.lastname}"
                 %td
                   = broker.organizations&.first&.name
                 %td

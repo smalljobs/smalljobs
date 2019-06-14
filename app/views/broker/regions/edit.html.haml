@@ -58,6 +58,7 @@
 = render 'broker/region_organizations/new.html.haml'
 
 :javascript
+  jQuery.railsAutocomplete.options.noMatchesLabel = "#{t('messages.place.not_found')}";
   $(document).on("keydown", "form", function(event) {
     return event.key != "Enter";
   });

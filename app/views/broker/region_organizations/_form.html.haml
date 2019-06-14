@@ -17,7 +17,7 @@
       = f.input :description, required: true
       = f.input :opening_hours, required: true
       = f.input :street, required: true
-      = f.association :place, required: true, collection: current_region.places, include_blank: true
+      = f.association :place, required: true, collection: current_region.places, include_blank: true, :label_method => lambda { |place| "#{place.zip} #{place.name}" }
 
   %fieldset
     %legend

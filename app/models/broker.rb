@@ -4,10 +4,10 @@ class Broker < ActiveRecord::Base
 
   ROLES = [:normal, :region_admin, :organization_admin]
   ROLES_HASH =  {
-      normal: I18n.t('activerecord.attributes.broker.normal', locale: :de),
-      region_admin: I18n.t('activerecord.attributes.broker.region_admin', locale: :de),
-      organization_admin: I18n.t('activerecord.attributes.broker.organization_admin', locale: :de),
-      blocked: I18n.t('activerecord.attributes.broker.blocked', locale: :de)
+      normal: I18n.t('broker.normal', locale: :de, default: 'Vermittlung'),
+      region_admin: I18n.t('broker.region_admin', locale: :de, default: 'Regionsadministration'),
+      organization_admin: I18n.t('broker.organization_admin', locale: :de, default: 'Organisationsadministration'),
+      blocked: I18n.t('broker.blocked', locale: :de, default: 'Deaktiviert')
   }
 
   include ConfirmToggle
