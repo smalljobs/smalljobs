@@ -52,9 +52,9 @@
 %div.sj-export
   Exportieren:
   %a.js-save-to-jpg{download: "chart.png"}
-    PNG
+    PNG,
   %a.js-download-csv
-    ,Excel(CSV)
+    Excel(CSV)
 :javascript
   $(document).ready(function(){
 
@@ -98,10 +98,8 @@
               },
         success: function(result) {
           window.location = result['link']
-          console.log('sukces')
         },
         error: function(result) {
-          console.log('error')
         }
       });
     })
@@ -120,7 +118,6 @@
                 archived: archived
             },
       success: function(result) {
-        console.log(result)
         $('.js-from').html(date_start)
         $('.js-to').html(date_end)
         $('.js-organization').html($('#dropdown-btn').find("option:selected").text())
@@ -134,7 +131,6 @@
           },
           options: {
                 legendCallback: function(chart) {
-                    console.log(chart);
                     var legendHtml = [];
                     legendHtml.push('<table>');
                     legendHtml.push('<tr>');
@@ -227,8 +223,6 @@
 
       },
       error: function(result) {
-        console.log('error')
-        console.log(result)
       }
     });
 
@@ -283,8 +277,6 @@
                   archived: archived
               },
         success: function(result) {
-          console.log(result)
-          console.log('sukces')
           window.chart.data.labels = result["label"]
           // window.chart.data.datasets = result["statistic"]
           for(var i = 0 ; i < result["statistic"].length ; i++){
@@ -294,8 +286,6 @@
           window.chart.update()
         },
         error: function(result) {
-          console.log('error')
-          console.log(result)
         }
       });
     }
