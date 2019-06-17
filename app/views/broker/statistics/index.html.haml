@@ -1,50 +1,54 @@
 %fieldset
   %legend
     = t('legends.statistic')
-%div.row
-  %div.col-sm-7.margin-top-10
-    %span.dropdown
-      %select{id: 'dropdown-btn'}
-        %option{value: "0"}
-          = "Alle Organisationen"
-        - for organization in current_broker.all_organizations
-          %option{value: "#{organization.id}"}
-            = organization.name
-    %span.sum-type.js-sum-type
-      %label
-        = radio_button_tag :sum_type, 'all', true
-        Alle
-      %label
-        = radio_button_tag :sum_type, 'new', false
-        Neue
-    %span.sj-checkbox-active
-      %label
-        = check_box_tag :active, 'active', true, class: 'js-checkbox js-active-checkbox'
-        Aktive
-      %label
-        = check_box_tag :archived, 'archived', true, class: 'js-checkbox js-archived-checkbox'
-        Beendete
+.js-download-chart{ width: '3000px !important', height: '3000px !important' }
 
-  %div.col-sm-5
-    .dropdown
-      = select_tag :intervals, options_for_select(intervals, 'week'), class: 'pull-right sj-dropdown js-interval-dropdown'
-    %div.date-wrapper
-      %div.sj-date-input.sj-display-inline-block
-        #start_date.input-append.date{"data-date" => "12-02-2012", "data-date-format" => "yyyy-mm-dd"}
-          = text_field_tag :start_vacation_date, nil, class: 'sj-date-input js-datetime js-datestart', size: "16", "data-date-end-date" => "0d"
-      %div.sj-display-inline-block.sj-date-divider
-        bis
-      %div.sj-date-input.sj-display-inline-block
-        #end_date.input-append.date{"data-date" => "12-02-2012", "data-date-format" => "yyyy-mm-dd", "data-date-end-date" =>"0d"}
-          = text_field_tag :end_vacation_date, nil, class: 'sj-date-input js-datetime js-dateend', size: "16", "data-date-end-date" => "0d"
-.sj-statistics-title.js-statistics-title{style: 'display: none'}
-  = "Statistik Smalljobs, #{current_region.name}"
-  %span.js-organization
-  %span.js-from
-  %span.js-to
-    bis
-#chart-legends
-%canvas#seeker
+  %div.row
+    %div.col-sm-7.margin-top-10
+      %span.dropdown
+        %select{id: 'dropdown-btn'}
+          %option{value: "0"}
+            = "Alle Organisationen"
+          - for organization in current_broker.all_organizations
+            %option{value: "#{organization.id}"}
+              = organization.name
+      %span.sum-type.js-sum-type
+        %label
+          = radio_button_tag :sum_type, 'all', true
+          Alle
+        %label
+          = radio_button_tag :sum_type, 'new', false
+          Neue
+      %span.sj-checkbox-active
+        %label
+          = check_box_tag :active, 'active', true, class: 'js-checkbox js-active-checkbox'
+          Aktive
+        %label
+          = check_box_tag :archived, 'archived', true, class: 'js-checkbox js-archived-checkbox'
+          Beendete
+
+    %div.col-sm-5
+      .dropdown
+        = select_tag :intervals, options_for_select(intervals, 'week'), class: 'pull-right sj-dropdown js-interval-dropdown'
+      %div.date-wrapper
+        %div.sj-date-input.sj-display-inline-block
+          #start_date.input-append.date{"data-date" => "12-02-2012", "data-date-format" => "yyyy-mm-dd"}
+            = text_field_tag :start_vacation_date, nil, class: 'sj-date-input js-datetime js-datestart', size: "16", "data-date-end-date" => "0d"
+        %div.sj-display-inline-block.sj-date-divider
+          bis
+        %div.sj-date-input.sj-display-inline-block
+          #end_date.input-append.date{"data-date" => "12-02-2012", "data-date-format" => "yyyy-mm-dd", "data-date-end-date" =>"0d"}
+            = text_field_tag :end_vacation_date, nil, class: 'sj-date-input js-datetime js-dateend', size: "16", "data-date-end-date" => "0d"
+  .sj-statistics-title.js-statistics-title{style: 'display: none'}
+    = "Statistik Smalljobs, #{current_region.name}"
+    %span.js-organization
+    %span.js-from
+    %span.js-to
+      bis
+  #chart-legends
+  %canvas#seeker
+.toPic
+.toCanvas
 %div.sj-export
   Exportieren:
   %a.js-save-to-jpg{download: "chart.png"}
@@ -53,10 +57,21 @@
     ,Excel(CSV)
 :javascript
   $(document).ready(function(){
-    $('.js-save-to-jpg').on('click', function(){
-      url_base64jp = document.getElementById("seeker").toDataURL("image/png");
-      $(this).attr('href', url_base64jp)
-    })
+
+    $('.js-save-to-jpg').click(function(e) {
+      window.scrollTo(0,0)
+      html2canvas($('.js-download-chart').get(0)).then(function(canvas) {
+        var canvasWidth = canvas.width;
+        var canvasHeight = canvas.height;
+        url_base64jp = canvas.toDataURL("image/png");
+        $(this).attr('href', url_base64jp)
+        var hiddenElement = document.createElement('a');
+        hiddenElement.href = url_base64jp
+        hiddenElement.target = '_blank';
+        hiddenElement.download = 'chart.png';
+        hiddenElement.click();
+      });
+    });
 
 
     id = $('#dropdown-btn').attr('selected', 'selected').val();
