@@ -2,11 +2,11 @@ class Broker < ActiveRecord::Base
 
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :confirmable, :registerable, authentication_keys: [:email]
 
-  ROLES = [:normal, :region_admin, :organization_admin]
+  ROLES = [:normal, :organization_admin, :region_admin]
   ROLES_HASH =  {
       normal: I18n.t('broker.normal', locale: :de, default: 'Vermittlung'),
-      region_admin: I18n.t('broker.region_admin', locale: :de, default: 'Regionsadministration'),
       organization_admin: I18n.t('broker.organization_admin', locale: :de, default: 'Organisationsadministration'),
+      region_admin: I18n.t('broker.region_admin', locale: :de, default: 'Regionsadministration'),
       blocked: I18n.t('broker.blocked', locale: :de, default: 'Deaktiviert')
   }
 

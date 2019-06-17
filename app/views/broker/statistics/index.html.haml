@@ -40,7 +40,7 @@
           #end_date.input-append.date{"data-date" => "12-02-2012", "data-date-format" => "yyyy-mm-dd", "data-date-end-date" =>"0d"}
             = text_field_tag :end_vacation_date, nil, class: 'sj-date-input js-datetime js-dateend', size: "16", "data-date-end-date" => "0d"
   .sj-statistics-title.js-statistics-title{style: 'display: none'}
-    = "Statistik Smalljobs, #{current_region.name}"
+    = "Statistik Smalljobs #{current_region.name},"
     %span.js-organization
     %span.js-from
     %span.js-to
@@ -61,11 +61,11 @@
     $('.js-save-to-jpg').click(function(e) {
       window.scrollTo(0,0)
       html2canvas($('.js-download-chart').get(0)).then(function(canvas) {
-        var canvasWidth = canvas.width;
-        var canvasHeight = canvas.height;
         url_base64jp = canvas.toDataURL("image/png");
         $(this).attr('href', url_base64jp)
         var hiddenElement = document.createElement('a');
+        hiddenElement.classList.add('hidden')
+        document.body.appendChild(hiddenElement);
         hiddenElement.href = url_base64jp
         hiddenElement.target = '_blank';
         hiddenElement.download = 'chart.png';
