@@ -25,6 +25,7 @@ module Statistics
         ORDER BY 1;
       "
       records_array = ActiveRecord::Base.connection.execute(sql)
+      records_array = populate_with_zeros(records_array)
       if options[:sum_type] == 'all'
         records_array = get_summed_records(records_array)
       end
