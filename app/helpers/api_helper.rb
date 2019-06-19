@@ -367,6 +367,7 @@ module ApiHelper
     json[:occupation_end_date] = seeker.occupation_end_date
     json[:contact_availability] = seeker.contact_availability
     json[:contact_preference] = seeker.contact_preference
+    json[:categories] = []
     for category in seeker.work_categories
       json[:categories].append(category_to_json(category))
     end
