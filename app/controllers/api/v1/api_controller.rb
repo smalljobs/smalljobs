@@ -36,5 +36,8 @@ class Api::V1::ApiController < ApplicationController
     token
   end
 
+  def true?(obj)
+    obj.to_s == 'true'
+  end
 
 end

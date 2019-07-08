@@ -242,7 +242,7 @@ module ApiHelper
     json[:message] = assignment.feedback
     json[:job_id] = assignment.job.id
     json[:user_id] = assignment.seeker.id
-    json[:provider_id] = assignment.provider.id
+    json[:provider_id] = assignment.provider_id
     json[:start_datetime] = assignment.start_time != nil ? assignment.start_time.strftime('%s') : nil
     json[:stop_datetime] = assignment.end_time != nil ? assignment.end_time.strftime('%s') : nil
     json[:duration] = assignment.duration

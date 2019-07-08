@@ -247,6 +247,13 @@ Smalljobs::Application.routes.draw do
           put :update, action: :update_messages, path: :update
         end
       end
+
+      resource :market, only: [] do
+        resources :regions, only: [:show, :index]
+        resources :organizations, only: [:show, :index]
+      end
+
+      resources :assignments, only: [:create, :update, :destroy, :index, :show]
     end
   end
   #API
