@@ -1,6 +1,7 @@
 class Api::V1::SeekersController < Api::V1::ApiController
-  before_action :authenticate_via_phone, only: [:password_validate, :password_change]
-  skip_before_action :authenticate, only: [:password_validate, :password_change]
+  before_action :authenticate_via_phone, only: [:password_validate, :password_change, :password_remind]
+
+  skip_before_action :authenticate, only: [:password_validate, :password_change, :password_remind]
 
   # GET /api/v1/user
   # Displays profile of user.
@@ -20,14 +21,14 @@ class Api::V1::SeekersController < Api::V1::ApiController
     end
   end
 
-  # POST /api/v1/user/password/validate
+  # POST /api/v1/users/password/validate
   # Check if passed security code is valid
   #
   def password_validate
     render(json: {message: 'Success. Security code is valid.'}, status: 200)
   end
 
-  # POST /api/v1/user/password/change
+  # POST /api/v1/users/password/change
   # Change user password
   # Cancel action when phone number or security code are invalid
   #
@@ -39,6 +40,40 @@ class Api::V1::SeekersController < Api::V1::ApiController
     end
   end
 
+  # POST /api/v1/users/password/remind
+  # Check if user with passed phone number exists in database
+  # If user exists then send 6 digit code via SMS
+  #
+  def password_remind
+    if @seeker.last_recovery == DateTime.now.to_date && @seeker.recovery_times >= 3
+      render json: {code: 'users/limit_exceeded', message: 'Exceeded daily recovery limit'}
+      return
+    end
+
+    if @seeker.last_recovery == DateTime.now.to_date
+      @seeker.recovery_times += 1
+    else
+      @seeker.last_recovery = DateTime.now.to_date
+      @seeker.recovery_times = 1
+    end
+
+    code = ApiHelper::generate_code
+    client = Nexmo::Client.new(key: ENV['NEXMO_API_KEY'], secret: ENV['NEXMO_API_SECRET'])
+    response = client.send_message(from: 'Jugendapp', to: params[:phone], text: "#{code} ist dein Code. Bitte in der App eingeben.")
+    logger.info "Response from nexmo: #{response}"
+
+    if response['messages'][0]['status'] == '0'
+      @seeker.recovery_code = code
+      @seeker.save!
+      render json: {message: 'Success. SMS sent to user'}, status: 200
+    else
+      render json: {code: 'users/error', message: 'Error sending message'}, status: 500
+    end
+  end
+
+  # PUT /api/messages/update
+  # Called when new message was sent by seeker
+  #
   def update_messages
     api_key = params[:token]
     seeker_id = params[:user_id]
