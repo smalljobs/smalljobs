@@ -230,6 +230,16 @@ Smalljobs::Application.routes.draw do
   namespace :api do
     namespace :v1 do
       # resources :users, only: [:index, :show], controller: '/api/v1/seekers_controller'
+      #
+      namespace :admin do
+        resources :users, only: [:index, :update, :destroy, :create], controller: '/api/v1/admin/seekers' do
+          collection do
+            get :show, path: :show
+            post :check_if_exists
+            post :create_access_token
+          end
+        end
+      end
       resource :user, only: [:show, :update, :destroy], controller: '/api/v1/seekers'
 
       resources :users, only: [], controller: '/api/v1/seekers' do
