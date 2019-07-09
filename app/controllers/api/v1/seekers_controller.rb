@@ -136,6 +136,16 @@ class Api::V1::SeekersController < Api::V1::ApiController
     end
   end
 
+  # PATCH /api/v1/user
+  # Destroy profile of a user.
+  def destroy
+    if @seeker.destroy
+      render json: {message: 'User deleted'}, status: 200
+    else
+      render json: {code: 'users/invalid', message: @seeker.errors.first}, status: 422
+    end
+  end
+
   # POST /api/v1/users/password/validate
   # Check if passed security code is valid
   #
