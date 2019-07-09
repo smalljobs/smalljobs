@@ -100,7 +100,7 @@ module ApiHelper
   def self.job_to_json(job, organization, show_provider, show_organization, show_assignments, allocation_id)
     json = {}
     json[:id] = job.id
-    json[:organization_id] = organization.id
+    json[:organization_id] = organization&.id
 
     status = Job::state_to_integer(job.state)
 

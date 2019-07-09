@@ -1,6 +1,6 @@
 class Api::V1::AssignmentsController < Api::V1::ApiController
   before_action :set_assignment, only: [:show, :destroy, :update]
-  
+
 # GET /api/v1/assignments?organization_id=1&user_id=1&provider_id=1&status=1&user=true&provider=true&organization=true&job=true&page=1&limit=10
 # Returns list of assignments
 # Optionally you can retrieve list of assignments from defined organization
@@ -88,7 +88,7 @@ class Api::V1::AssignmentsController < Api::V1::ApiController
       duration: duration
     )
 
-    render(json: {code: 'assignments/invalid', message: assignment.errors.first}, status: 422 && return) unless assignment.save
+    render(json: {code: 'assignments/invalid', message: assignment.errors.first}, status: 422) && return unless assignment.save
     render json: ApiHelper::assignment_to_json(assignment), status: 201
   end
 

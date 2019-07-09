@@ -232,8 +232,12 @@ Smalljobs::Application.routes.draw do
       # resources :users, only: [:index, :show], controller: '/api/v1/seekers_controller'
       resource :user, only: [:show, :update, :destroy], controller: '/api/v1/seekers'
 
-      resources :users, only: [] do
+      resources :users, only: [], controller: '/api/v1/seekers' do
         collection do
+          post :login
+          post :logout
+          post :register
+
           resource :password, controller: '/api/v1/seekers' do
             post :password_change, path: :change
             post :password_remind, path: :remind
@@ -253,6 +257,14 @@ Smalljobs::Application.routes.draw do
         resources :organizations, only: [:show, :index]
       end
 
+      resources :jobs, only: [:show, :index] do
+        collection do
+          post :revoke
+          post :apply
+          post :list_my_jobs
+        end
+      end
+      resources :allocations, only: [:index]
       resources :assignments, only: [:create, :update, :destroy, :index, :show]
     end
   end

@@ -1,7 +1,7 @@
 class Api::V1::ApiController < ApplicationController
   before_action :authenticate, except: [:login, :register, :password_remind, :update_messages]
+  before_action :check_status, only: [:create_assignment, :update_assignment, :apply]
   skip_before_filter :verify_authenticity_token
-
 
 
   def authenticate
@@ -38,6 +38,10 @@ class Api::V1::ApiController < ApplicationController
 
   def true?(obj)
     obj.to_s == 'true'
+  end
+
+  def check_status
+    @seeker.status == 'active' || render_unauthorized_status
   end
 
 end
