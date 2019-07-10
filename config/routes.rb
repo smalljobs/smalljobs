@@ -240,6 +240,8 @@ Smalljobs::Application.routes.draw do
           end
         end
       end
+
+      resources :places, only: [:show, :index]
       resource :user, only: [:show, :update, :destroy], controller: '/api/v1/seekers'
 
       resources :users, only: [], controller: '/api/v1/seekers' do
