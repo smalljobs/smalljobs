@@ -255,8 +255,6 @@ class Seeker < ActiveRecord::Base
       response = RestClient.post CURRENT_LINK,
                                  {operation: method,  data: [jugendinfo_data]},
                                  {Authorization: "Bearer ob7jwke6axsaaygrcin54er1n7xoou6e3n1xduwm"}
-      debugger
-      123
       logger.info "Response from jugendinfo: #{response}"
     rescue
       logger.info "Failed sending changes to jugendinfo"
