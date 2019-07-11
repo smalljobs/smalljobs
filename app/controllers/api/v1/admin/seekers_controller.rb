@@ -1,7 +1,36 @@
 class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
   before_action :set_seeker_by_phone_or_id, only: [:show]
   before_action :set_seeker, only: [:destroy, :update]
-  before_action :authenticate_via_phone, only: [:create_access_token]
+  before_action :set_user_via_phone, only: [:create_access_token]
+
+  # POST /api/v1/admin/users/login
+  # Performs the login.
+  # Returns a access_token which is passed along as a header with all future requests to authenticate the user.
+  # You must provide the Authorization: Bearer {access_token} header in all other requests.
+  # Access tokens are tied to the user who logs in. Tokens are only valid for 30 days.
+  #
+  def login
+    email, password = params[:email], params[:password]
+
+    admin = Admin.find_by(email: email)
+    return render json: {code: 'users/not_found', message: 'User not found'}, status: 404 if admin == nil
+    return render json: {code: 'users/invalid', message: 'Invalid phone or password'}, status: 422 if !admin.valid_password?(password)
+
+    AccessToken.find_by(userable_id: admin.id, userable_type: 'Admin')&.destroy
+    token = AccessToken.new(userable_id: admin.id, userable_type: 'Admin', token_type: 'bearer')
+    token.expire_at = DateTime.now() + 30.days
+    token.save!
+
+    render json: {
+        access_token: token.access_token,
+        token_type: token.token_type,
+        expires_in: token.expire_at.strftime('%s'),
+        created_at: token.created_at,
+        refresh_token: token.refresh_token,
+      }, status: 200
+  end
+
+
 
   # POST /api/v1/admin/users/
   # Register new user.
@@ -111,7 +140,7 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
     render json: {exists: is_seeker_exists}
   end
 
-  def create_access_token
+  def create_seekers_access_token
     token = AccessToken.find_by(seeker_id: @seeker.id)
     token.destroy! if token != nil
 
@@ -131,7 +160,7 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
 
   private
 
-  def authenticate_via_phone
+  def set_user_via_phone
     phone = PhonyRails.normalize_number(params[:phone], default_country_code: 'CH')
     @seeker = Seeker.where("mobile = ? OR login = ? OR phone = ?", phone, login_params[:phone], phone ).first
     @seeker || render_phone_errors

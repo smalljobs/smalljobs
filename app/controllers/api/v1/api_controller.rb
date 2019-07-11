@@ -16,7 +16,7 @@ class Api::V1::ApiController < ApplicationController
     expiration_date = token.expire_at || (token.created_at + 30.days)
     return false if expiration_date < DateTime.now
 
-    @seeker = token.seeker
+    @seeker = token.userable
   end
 
   # Return information about invalid access token

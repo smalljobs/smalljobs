@@ -11,7 +11,7 @@ class Seeker < ActiveRecord::Base
 
   has_many :allocations, dependent: :destroy
   has_many :assignments, dependent: :destroy
-  has_many :access_tokens, dependent: :destroy
+  has_many :access_tokens, as: :userable, dependent: :destroy
   # has_many :notes
 
   has_many :jobs, through: :allocations

@@ -22,12 +22,10 @@ class Api::V1::SeekersController < Api::V1::ApiController
       return
     end
 
-    token = AccessToken.find_by(seeker_id: seeker.id)
-    if token != nil
-      token.destroy!
-    end
+    token = AccessToken.find_by(userable_id: seeker.id, userable_type: 'Seeker')
+    token.destroy! if token != nil
 
-    token = AccessToken.new(seeker_id: seeker.id, token_type: 'bearer')
+    token = AccessToken.new(userable_id: seeker.id, userable_type: 'Seeker', token_type: 'bearer')
     token.expire_at = DateTime.now() + 30.days
     token.save!
 

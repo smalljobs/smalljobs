@@ -236,7 +236,8 @@ Smalljobs::Application.routes.draw do
           collection do
             get :show, path: :show
             post :check_if_exists
-            post :create_access_token
+            post :create_seekers_access_token
+            post :login
           end
         end
       end
