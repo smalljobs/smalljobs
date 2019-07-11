@@ -263,7 +263,7 @@ Smalljobs::Application.routes.draw do
       resources :users, only: [], controller: '/api/v1/seekers' do
         collection do
           post :login
-          post :logout
+          get :logout
           post :register
 
           resource :password, controller: '/api/v1/seekers' do
