@@ -193,44 +193,6 @@ Smalljobs::Application.routes.draw do
     put '/messages/update' => 'api#update_messages'
 
     namespace :v1 do
-      resources :users, only: [:index, :show], controller: '/api/v1/seekers_controller' do
-
-      end
-
-
-
-      # post '/users/login' => 'api#login'
-      # get '/users/logout' => 'api#logout'
-      # post '/users/register' => 'api#register'
-      # get '/users' => 'api#list_users'
-      # get '/users/:id' => 'api#show_user'
-      # patch '/users/:id' => 'api#update_user'
-      # get '/market/regions' => 'api#list_regions'
-      # get '/market/regions/:id' => 'api#show_region'
-      # get '/market/organizations' => 'api#list_organizations'
-      # get '/market/organizations/:id' => 'api#show_organization'
-      # get '/jobs' => 'api#list_jobs'
-      # post '/jobs/apply' => 'api#apply'
-      # post '/jobs/revoke' => 'api#revoke'
-      # # get '/jobs/my' => 'api#list_my_jobs'
-      # get '/jobs/:id' => 'api#show_job'
-      # get '/allocations' => 'api#list_my_jobs'
-      # post '/assignments' => 'api#create_assignment'
-      # patch '/assignments/:id' => 'api#update_assignment'
-      # delete '/assignments/:id' => 'api#delete_assignment'
-      # get '/assignments' => 'api#list_assignments'
-      # get '/assignments/:id' => 'api#show_assignment'
-      # post '/users/password/remind' => 'api#password_remind'
-      # post '/users/password/validate' => 'api#password_validate'
-      # post '/users/password/change' => 'api#password_change'
-      # put '/messages/update' => 'api#update_messages'
-    end
-  end
-
-  namespace :api do
-    namespace :v1 do
-      # resources :users, only: [:index, :show], controller: '/api/v1/seekers_controller'
-      #
       namespace :admin do
         resources :users, only: [:index, :update, :destroy, :create], controller: '/api/v1/admin/seekers' do
           collection do
@@ -281,6 +243,60 @@ Smalljobs::Application.routes.draw do
       resources :assignments, only: [:create, :update, :destroy, :index, :show]
     end
   end
+
+  namespace :api do
+    namespace :v1 do
+      namespace :admin do
+        resources :users, only: [:index, :update, :destroy, :create], controller: '/api/v1/admin/seekers' do
+          collection do
+            get :show, path: :show
+            post :check_if_exists
+            post :create_seekers_access_token
+            post :login
+          end
+        end
+      end
+
+      resources :places, only: [:show, :index]
+      resource :user, only: [:show, :update, :destroy], controller: '/api/v1/seekers'
+
+      resources :users, only: [], controller: '/api/v1/seekers' do
+        collection do
+          post :login
+          post :logout
+          post :register
+
+          resource :password, controller: '/api/v1/seekers' do
+            post :password_change, path: :change
+            post :password_remind, path: :remind
+            post :password_validate, path: :validate
+          end
+        end
+      end
+
+      resources :messages, only: [], controller: '/api/v1/seekers' do
+        collection do
+          put :update, action: :update_messages, path: :update
+        end
+      end
+
+      resource :market, only: [] do
+        resources :regions, only: [:show, :index]
+        resources :organizations, only: [:show, :index]
+      end
+
+      resources :jobs, only: [:show, :index] do
+        collection do
+          post :revoke
+          post :apply
+          post :list_my_jobs
+        end
+      end
+      resources :allocations, only: [:index]
+      resources :assignments, only: [:create, :update, :destroy, :index, :show]
+    end
+  end
+
   #API
   post '/api/users/login' => 'api#login'
   get '/api/users/logout' => 'api#logout'
