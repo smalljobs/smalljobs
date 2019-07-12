@@ -95,7 +95,7 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
 
   # GET /api/v1/admin/users
   # Returns list of users.
-  # Optionally you can retrieve list of users from defined organization.
+  # Optioneally you can retrieve list of users from defined organization.
   def index
     users = []
     organization_id = params[:organization_id]
@@ -144,7 +144,7 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
     token = AccessToken.find_by(seeker_id: @seeker.id)
     token.destroy! if token != nil
 
-    token = AccessToken.new(seeker_id: @seeker.id, token_type: 'bearer')
+    token = AccessToken.new(userable_id: @seeker.id, userable_type: 'Seeker',  token_type: 'bearer')
     token.expire_at = DateTime.now() + 30.days
     token.save!
 
