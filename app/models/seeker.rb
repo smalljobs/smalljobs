@@ -65,6 +65,7 @@ class Seeker < ActiveRecord::Base
 
   before_save :update_messages_count
 
+  before_save :generate_agreement_id
 
   DEV = 'https://admin.staging.jugendarbeit.digital/api/ji/jobboard/ping/user'
   LIVE = 'https://admin.staging.jugendarbeit.digital/api/ji/jobboard/ping/user'
@@ -311,5 +312,9 @@ class Seeker < ActiveRecord::Base
     end
 
     return "active"
+  end
+
+  def generate_agreement_id
+    self.agreement_id = SecureRandom.uuid
   end
 end

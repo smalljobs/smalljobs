@@ -67,13 +67,12 @@
         =t('broker_dashboard.verschoben')
     %span.js-postpone-msg.margin_left_20{style: 'display: none'}
       =t('broker_dashboard.todo_table.postpone_message')
-
+    %div.col-sm-3.float-right
+      %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
+      %i.fa.fa-2x.fa-times-circle.delete-icon.display-none
   %div.tab-content
     %div{id: 'todo_current', class: 'tab-pane fade in active js-todo-current'}
       %div.row.margin-top-25
-        %div.col-sm-3.float-right
-          %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
-          %i.fa.fa-2x.fa-times-circle.delete-icon.display-none
       .table-responsive
         %table.table.table-striped.sortable
           %thead
