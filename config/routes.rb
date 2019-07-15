@@ -31,7 +31,7 @@ Smalljobs::Application.routes.draw do
 
   constraints(SmalljobsSubdomain) do
     namespace :broker do
-      resources :seekers do
+      resources :seekers, param: :agreement_id do
         member do
           get 'agreement'
         end
@@ -106,9 +106,14 @@ Smalljobs::Application.routes.draw do
         end
       end
 
-      resources :seekers do
+      resources :seekers, only: [], param: :agreement_id do
         member do
           get 'agreement'
+        end
+      end
+
+      resources :seekers do
+        member do
           delete 'delete'
           post 'send_message'
           post 'add_comment'
