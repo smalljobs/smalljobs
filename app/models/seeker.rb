@@ -315,6 +315,6 @@ class Seeker < ActiveRecord::Base
   end
 
   def generate_agreement_id
-    self.agreement_id = SecureRandom.uuid
+    self.agreement_id = SecureRandom.uuid if self.agreement_id.nil?
   end
 end
