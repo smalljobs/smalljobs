@@ -58,7 +58,7 @@
     %li
       %a{'data-toggle': 'tab', href: '#assignments'}
         =t('broker_dashboard.assignments')
-  %ul.nav.nav-pills.margin_top_20.js-todo-tabs{style: {display: 'none'}}
+  %ul.nav.nav-pills.margin-top-25.js-todo-tabs{style: {display: 'none'}}
     %li.active
       %a{'data-toggle': 'tab', href: '#todo_current'}
         =t('broker_dashboard.aktuelle')
@@ -67,12 +67,12 @@
         =t('broker_dashboard.verschoben')
     %span.js-postpone-msg.margin_left_20{style: 'display: none'}
       =t('broker_dashboard.todo_table.postpone_message')
-    %div.col-sm-3.float-right
-      %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
-      %i.fa.fa-2x.fa-times-circle.delete-icon.display-none
+    %div.row
+      %div.col-sm-3.float-right
+        %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
+        %i.fa.fa-2x.fa-times-circle.delete-icon.display-none
   %div.tab-content
     %div{id: 'todo_current', class: 'tab-pane fade in active js-todo-current'}
-      %div.row.margin-top-25
       .table-responsive
         %table.table.table-striped.sortable
           %thead
@@ -110,10 +110,6 @@
                   %span.sj-postpone.js-postpone{data: {url: broker_todo_path(todo.id), todo_type: 'current'}}
                     %i.fa.fa-2x.fa-clock-o.pull-right.safari-fix
     %div{id: 'todo_postponed', class: 'tab-pane fade in js-todo-postponed'}
-      %div.row.margin-top-25
-        %div.col-sm-3.float-right
-          %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
-          %i.fa.fa-2x.fa-times-circle.delete-icon.display-none
       .table-responsive
         %table.table.table-striped.sortable
           %thead
