@@ -323,7 +323,8 @@
               %th.sortable{id: 'assignment_date'}= t('broker_dashboard.jobs_table.date')
               %th.sortable{id: 'assignment_seeker'}= t('broker_dashboard.assignments_table.seeker')
               %th.sortable{id: 'assignment_provider'}= t('broker_dashboard.assignments_table.provider')
-              %th.sortable{id: 'assignment_payment'}= t('broker_dashboard.assignments_table.duration_payment')
+              %th.sortable{id: 'assignment_duration'}= t('broker_dashboard.assignments_table.duration')
+              %th.sortable{id: 'assignment_payment'}= t('broker_dashboard.assignments_table.payment')
               %th.sortable{id: 'assignment_feedback'}= t('broker_dashboard.assignments_table.feedback')
           %tbody.list
             - if @assignments.size == 0
@@ -340,7 +341,7 @@
                   = link_to assignment.seeker.name, edit_broker_seeker_path(assignment.seeker)
                 %td.provider-name
                   = link_to assignment.provider.name, edit_broker_provider_path(assignment.provider)
-                %td.payment
+                %td.duration
                   - if assignment.duration != nil
                     - minutes = assignment.duration/60000
                     - minutes = minutes.floor
@@ -349,8 +350,9 @@
                     - minutes = minutes % 60
                     = "#{hours}:#{minutes}"
                     = " "
-                    - if assignment.payment != nil
-                      = ", CHF #{assignment.payment.floor}.-"
+                %td.payment{data: {id: assignment.payment.floor}}
+                  - if assignment.payment != nil
+                    = assignment.payment.floor
                 %td.feedback
                   = assignment.feedback
 
