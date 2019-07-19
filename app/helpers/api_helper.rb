@@ -57,7 +57,7 @@ module ApiHelper
     json[:wage_factor] = organization.wage_factor
     json[:place] = place_to_json(organization.place)
     json[:opening_hours] = RedCloth.new(organization.opening_hours || "").to_html
-    json[:registration_welcome_message] = message unless message.nil?
+    json[:registration_welcome_message] = message
     json[:vacations] = {
         active: organization.vacation_active,
         start: organization.start_vacation_date,
