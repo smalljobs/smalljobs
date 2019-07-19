@@ -229,22 +229,7 @@ class Seeker < ActiveRecord::Base
   end
 
   def jugendinfo_data
-    {
-      token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH',
-      id: app_user_id,
-      smalljobs_user_id: id,
-      firstname: firstname,
-      lastname: lastname,
-      mobile: mobile,
-      address: street,
-      zip: place.zip,
-      birthdate: date_of_birth.strftime('%Y-%m-%d'),
-      city: place.name,
-      smalljobs_status: Seeker.statuses[status],
-      smalljobs_parental_consent: parental,
-      smalljobs_first_visit: discussion,
-      smalljobs_organization_id: organization.id
-    }
+    ApiHelper::seeker_to_json(self)
   end
 
   # Make post request to jugendinfo API
@@ -253,9 +238,7 @@ class Seeker < ActiveRecord::Base
     begin
       logger.info "Sending changes to jugendinfo"
       logger.info "Sending: #{jugendinfo_data}"
-      response = RestClient.post CURRENT_LINK,
-                                 {operation: method,  data: [jugendinfo_data]},
-                                 {Authorization: "Bearer ob7jwke6axsaaygrcin54er1n7xoou6e3n1xduwm"}
+      response = RestClient.post CURRENT_LINK, {operation: method,  data: jugendinfo_data}, {Authorization: "Bearer ob7jwke6axsaaygrcin54er1n7xoou6e3n1xduwm"}
       logger.info "Response from jugendinfo: #{response}"
     rescue
       logger.info "Failed sending changes to jugendinfo"
