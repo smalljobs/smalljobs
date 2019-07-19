@@ -367,8 +367,18 @@ module ApiHelper
     json[:contact_availability] = seeker.contact_availability
     json[:contact_preference] = seeker.contact_preference
     # json[:organization_id] = seeker.organization_id
+    json[:internal_interview] = seeker.discussion
+    json[:parental_consent] = seeker.parental
     if seeker.organization.present?
-      json[:organization] = self.organization_to_json(seeker.organization, seeker.organization.regions.first.try(:id), message=nil)
+
+      helpers_url = Rails.application.routes.url_helpers
+      host = "#{seeker.organization.regions.first.subdomain}.smalljobs.ch"
+      seeker_agreement_link = helpers_url.agreement_broker_seeker_url(seeker.agreement_id, subdomain: seeker.organization.regions.first.subdomain, host: host, protocol: 'https')
+      registration_welcome_message = Mustache.render(seeker.organization.welcome_app_register_msg || '', seeker_first_name: seeker.firstname, seeker_last_name: seeker.lastname, seeker_link_to_agreement: "<a file type='application/pdf' title='Elterneinverständnis herunterladen' href='#{seeker_agreement_link}'>#{seeker_agreement_link}</a>", broker_first_name: seeker.organization.brokers.first.firstname, broker_last_name: seeker.organization.brokers.first.lastname, organization_name: seeker.organization.name, organization_street: seeker.organization.street, organization_zip: seeker.organization.place.zip, organization_place: seeker.organization.place.name, organization_phone: seeker.organization.phone, organization_email: seeker.organization.email, link_to_jobboard_list: helpers_url.root_url(subdomain: seeker.organization.regions.first.subdomain, host: host, protocol: 'https'))
+      registration_welcome_message.gsub! "\r\n", "<br>"
+      registration_welcome_message.gsub! "\n", "<br>"
+
+      json[:organization] = self.organization_to_json(seeker.organization, seeker.organization.regions.first.try(:id), registration_welcome_message)
     end
     json[:categories] = []
     for category in seeker.work_categories
