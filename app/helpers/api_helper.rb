@@ -356,6 +356,7 @@ module ApiHelper
     json[:street] = seeker.street
     json[:status] = Seeker.statuses[seeker.status]
     json[:sex] = seeker.sex
+    json[:place] = seeker.place_id
     json[:place] = place_to_json(seeker.place)
     json[:login] = seeker.login
     json[:mobile] = seeker.mobile
@@ -369,6 +370,7 @@ module ApiHelper
     # json[:organization_id] = seeker.organization_id
     json[:internal_interview] = seeker.discussion
     json[:parental_consent] = seeker.parental
+    json[:organization_id] = seeker.organization_id
     if seeker.organization.present?
 
       helpers_url = Rails.application.routes.url_helpers
