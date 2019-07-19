@@ -347,7 +347,6 @@ module ApiHelper
     json = {}
     json[:id] = seeker.id
     json[:app_user_id] = seeker.app_user_id
-    json[:organization_id] = seeker.organization_id
     json[:created_at] = seeker.created_at.strftime('%s')
     json[:updated_at] = seeker.updated_at.strftime('%s')
     json[:lastname] = seeker.lastname
@@ -367,6 +366,10 @@ module ApiHelper
     json[:occupation_end_date] = seeker.occupation_end_date
     json[:contact_availability] = seeker.contact_availability
     json[:contact_preference] = seeker.contact_preference
+    # json[:organization_id] = seeker.organization_id
+    if seeker.organization.present?
+      json[:organization] = self.organization_to_json(seeker.organization, seeker.organization.regions.first.try(:id), message=nil)
+    end
     json[:categories] = []
     for category in seeker.work_categories
       json[:categories].append(category_to_json(category))
