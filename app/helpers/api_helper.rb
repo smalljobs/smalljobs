@@ -356,7 +356,7 @@ module ApiHelper
     json[:street] = seeker.street
     json[:status] = Seeker.statuses[seeker.status]
     json[:sex] = seeker.sex
-    json[:place] = seeker.place_id
+    json[:place_id] = seeker.place_id
     json[:place] = place_to_json(seeker.place)
     json[:login] = seeker.login
     json[:mobile] = seeker.mobile
