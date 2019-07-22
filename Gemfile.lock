@@ -629,6 +629,9 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
     wicked_pdf (1.1.0)
+    will_paginate (3.1.7)
+    will_paginate-bootstrap (1.0.2)
+      will_paginate (>= 3.0.3)
     wkhtmltopdf-binary (0.12.3.1)
     xml-simple (1.1.5)
     xmlrpc (0.3.0)
@@ -718,6 +721,7 @@ DEPENDENCIES
   unf
   validate_url
   wicked_pdf
+  will_paginate-bootstrap (~> 1.0, >= 1.0.1)
   wkhtmltopdf-binary
 
 RUBY VERSION

@@ -350,6 +350,9 @@
                 %td.feedback
                   = assignment.feedback
 
+%div#infinite-scrolling
+  = will_paginate @todos, renderer: BootstrapPagination::Rails
+
 :javascript
   var target = window.location.hash;
   var params = window.location.search.substr(1);

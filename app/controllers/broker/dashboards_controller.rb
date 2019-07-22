@@ -55,6 +55,8 @@ class Broker::DashboardsController < ApplicationController
                  .where("seeker_id IN (?) OR provider_id IN (?) OR job_id IN (?) OR allocation_id IN (?)",
                        @seekers.pluck(:id), @providers.pluck(:id), @jobs.pluck(:id), allocations.pluck(:id))
                  .reverse_order()
+
+    @todos = @todos.paginate(page: params[:page], per_page: 20)
   end
 
   # Save broker settings from dashboard (current filter and selected organization)
