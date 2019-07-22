@@ -119,7 +119,13 @@
                 active: active,
                 archived: archived
             },
+      beforeSend: function(result){
+        $("#seeker").hide()
+        $('#loader').show()
+      },
       success: function(result) {
+        $("#loader").hide()
+        $('#seeker').show()
         $('.js-from').html(date_start)
         $('.js-to').html(date_end)
         $('.js-organization').html($('#dropdown-btn').find("option:selected").text())
