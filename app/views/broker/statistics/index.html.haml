@@ -47,6 +47,8 @@
       bis
   #chart-legends
   %canvas#seeker
+  %div.margin-top-40
+    #loader.loader{style: 'display: none;'}
 .toPic
 .toCanvas
 %div.sj-export
@@ -276,7 +278,13 @@
                   active: active,
                   archived: archived
               },
+        beforeSend: function(result){
+          $("#seeker").hide()
+          $('#loader').show()
+        },
         success: function(result) {
+          $('#loader').hide()
+          $("#seeker").show()
           window.chart.data.labels = result["label"]
           // window.chart.data.datasets = result["statistic"]
           for(var i = 0 ; i < result["statistic"].length ; i++){
