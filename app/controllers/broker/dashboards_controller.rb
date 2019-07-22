@@ -56,7 +56,18 @@ class Broker::DashboardsController < ApplicationController
                        @seekers.pluck(:id), @providers.pluck(:id), @jobs.pluck(:id), allocations.pluck(:id))
                  .reverse_order()
 
-    @todos = @todos.paginate(page: params[:page], per_page: 20)
+    @todos = @todos.paginate(page: params[:page], per_page: 10)
+    @seekers = @seekers.paginate(page: params[:page], per_page: 10)
+    @jobs = @jobs.paginate(page: params[:page], per_page: 10)
+    @assignments = @assignments.paginate(page: params[:page], per_page: 10)
+    @providers = @providers.paginate(page: params[:page], per_page: 10)
+
+    # render 'show.js.erb'
+
+    respond_to do |format|
+      format.html
+      format.js { render template: 'show.js.erb' }
+    end
   end
 
   # Save broker settings from dashboard (current filter and selected organization)

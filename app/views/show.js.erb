@@ -1,0 +1,18 @@
+//$('#todos_body').append('<%= j render(@todos) %>');
+<%# if @todos.next_page %>
+//  console.log("next_page")
+//  $('.pagination').replaceWith('<%= j will_paginate(@todos) %>');
+<%# else %>
+//  $(window).off('scroll');
+//  $('.pagination').remove();
+<%# end %>
+
+
+
+$('#todos_body').append('<%= j render @todos %>');
+<% if @todos.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate @todos, renderer: BootstrapPagination::Rails %>');
+<% else %>
+  $(window).off('scroll');
+  $('.pagination').remove();
+<% end %>
