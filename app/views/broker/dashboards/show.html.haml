@@ -83,7 +83,7 @@
               %th= t('broker_dashboard.todo_table.description')
               %th.pull-right= t('broker_dashboard.todo_table.postpone')
           %tbody.list
-            - if @todos.current.size == 0
+            - if @todos.current.count == 0
               %tr
                 %td{colspan: 3}= "Es sind noch keine Todo in deiner Region erfasst"
             - @todos.current.each do |todo|
@@ -125,7 +125,7 @@
               %th.pull-right= t('broker_dashboard.todo_table.postpone')
               %th= t('broker_dashboard.todo_table.date')
           %tbody.list
-            - if @todos.postponed.size == 0
+            - if @todos.postponed.count == 0
               %tr
                 %td{colspan: 3}= "Es sind noch keine Todo in deiner Region erfasst"
             - @todos.postponed.each do |todo|
