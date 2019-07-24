@@ -42,9 +42,9 @@ class Broker::DashboardsController < ApplicationController
       @allocations[allocation.job_id][Allocation.states[allocation.state]].push(allocation)
     end
 
-    @providers = current_broker.providers.where.not(state: 3).includes(:place, :jobs, :organization).group('providers.id').order(:updated_at).reverse_order()
-    @seekers = current_broker.seekers.where.not(status: 3).includes(:place, :organization).group('seekers.id').order(:updated_at).reverse_order()
-    @assignments = current_broker.assignments.where(job: @jobs).includes(:seeker, :provider).group('assignments.id').order(:created_at).reverse_order()
+    @providers = current_broker.providers.where.not(state: 3).includes(:place, :jobs, :organization).distinct.order(:updated_at).reverse_order()
+    @seekers = current_broker.seekers.where.not(status: 3).includes(:place, :organization).distinct.order(:updated_at).reverse_order()
+    @assignments = current_broker.assignments.where(job: @jobs).includes(:seeker, :provider).distinct.order(:created_at).reverse_order()
     @todos = Todo.includes(:seeker, :provider, :job, :allocation, :todotype)
                .includes(
                  seeker: :organization,
@@ -53,7 +53,7 @@ class Broker::DashboardsController < ApplicationController
                  allocation: :organization,
                  )
                .where("seeker_id IN (?) OR provider_id IN (?) OR job_id IN (?) OR allocation_id IN (?)",
-                      @seekers.pluck(:id), @providers.pluck(:id), @jobs.pluck(:id), allocations.pluck(:id))
+                      @seekers.map(&:id), @providers.map(&:id), @jobs.map(&:id), allocations.map(&:id))
                .reverse_order()
   end
 
