@@ -41,22 +41,21 @@
             = "Dieses Job Formular soll ausschliesslich da zur Anwendung kommen, wo nicht mit der digitalen Version gearbeitet werden kann. Das Formular kann ausgedruckt und in den jeweiligen Institutionen aufgelegt werden. Hier geht's zum Download:"
           = link_to "Job Formular", asset_path("Job_Formular.pdf"), class: 'btn btn-success'
         %div.modal-footer
-
   %ul.nav.nav-pills.js-active-tab
     %li.active
-      %a{'data-toggle': 'tab', href: '#todos'}
+      %a{'data-toggle': 'tab', href: '#todos', 'data-page': 1}
         =t('broker_dashboard.todo')
     %li
-      %a{'data-toggle': 'tab', href: '#jobs'}
+      %a{'data-toggle': 'tab', href: '#jobs', 'data-page': 1}
         =t('broker_dashboard.jobs')
     %li
-      %a{'data-toggle': 'tab', href: '#providers'}
+      %a{'data-toggle': 'tab', href: '#providers', 'data-page': 1}
         =t('broker_dashboard.providers')
     %li
-      %a{'data-toggle': 'tab', href: '#seekers'}
+      %a{'data-toggle': 'tab', href: '#seekers', 'data-page': 1}
         =t('broker_dashboard.seekers')
     %li
-      %a{'data-toggle': 'tab', href: '#assignments'}
+      %a{'data-toggle': 'tab', href: '#assignments', 'data-page': 1}
         =t('broker_dashboard.assignments')
   %div.tab-content
     %div{id: 'todos', class: 'tab-pane fade in active'}
@@ -82,7 +81,7 @@
                 %th.sortable{id: 'todo_todo'}= t('broker_dashboard.todo_table.todo')
                 %th= t('broker_dashboard.todo_table.description')
                 %th.pull-right= t('broker_dashboard.todo_table.postpone')
-            %tbody.list{id: 'todos_body'}
+            %tbody.list{id:"todos_body"}
               - if @todos.current.size == 0
                 %tr
                   %td{colspan: 3}= "Es sind noch keine Todo in deiner Region erfasst"
@@ -151,35 +150,13 @@
               %th.sortable{id: 'job_job'}= t('broker_dashboard.jobs_table.job')
               %th.sortable{id: 'job_provider'}= t('broker_dashboard.jobs_table.provider')
               %th= t('broker_dashboard.jobs_table.allocations')
-          %tbody.list
+          %tbody.list{id: 'jobs_body'}
             - if @jobs.size == 0
               %tr
                 %td{ colspan: 6 }= t('broker.jobs.index.no_jobs')
 
             - @jobs.each do |job|
-              - @job = job
-              %tr{ class: "organization organization-#{job.try(:organization).try(:id)} status-#{job.stat_name}" }
-                %td.status
-                  = job_label(job)
-                - sortable_date = job.last_change_of_state == nil ?  "": job.last_change_of_state.strftime("%Y%m%d%H%M%S")
-                %td.date{sorttable_customkey: sortable_date}
-                  = job.last_change_of_state == nil ?  "": job.last_change_of_state.strftime("%d.%m.%Y")
-                %td.title
-                  = link_to job.title, edit_broker_job_path(job)
-                %td.name
-                  = link_to job.provider.name, edit_broker_provider_path(job.provider)
-                %td.allocations
-                  = render 'allocations'
-                %td.salary.display-none
-                  = job.salary
-                %td.manpower.display-none
-                  = job.manpower
-                %td.duration.display-none
-                  = job.duration
-                %td.long_description.display-none
-                  = job.long_description
-                %td.short_description.display-none
-                  = job.short_description
+              = render job
     %div{id: 'providers', class: 'tab-pane fade in'}
       %div.row.margin-top-25
         %div.col-sm-2.float-left
@@ -201,34 +178,13 @@
               %th.sortable{id: 'provider_address'}= t('broker_dashboard.providers_table.address')
               %th.sortable{id: 'provider_plz'}= t('broker_dashboard.providers_table.plz')
               %th.sortable{id: 'provider_jobs'}= t('broker_dashboard.providers_table.jobs')
-          %tbody.list
+          %tbody.list{id: "providers_body"}
             - if @providers.size == 0
               %tr
                 %td{ colspan: 5 }= t('providers.index.no_providers')
 
             - @providers.each do |provider|
-              %tr{ class: "organization organization-#{provider.organization&.id} status-#{provider.stat_name}" }
-                %td.status
-                  = provider_label(provider)
-                %td.date{sorttable_customkey: provider.updated_at.strftime("%Y%m%d%H%M%S")}
-                  = provider.updated_at.strftime("%d.%m.%Y")
-                %td.name= link_to provider.name, edit_broker_provider_path(provider)
-                %td.street= provider.street
-                %td.place= provider.place.zip + ' ' + provider.place.name
-                %td.jobs
-                  -provider.jobs.each do |job|
-                    %ul.list-unstyled
-                      %li= link_to job.title, edit_broker_job_path(job)
-                %td.phone.display-none
-                  = provider.phone
-                %td.mobile.display-none
-                  = provider.mobile
-                %td.contact_preference.display-none
-                  = provider.contact_preference
-                %td.contact_availability.display-none
-                  = provider.contact_availability
-                %td.company.display-none
-                  = provider.company
+              = render provider
     %div{id: 'seekers', class: 'tab-pane fade in'}
       %div.row.margin-top-25
         %div.col-sm-2.float-left
@@ -249,38 +205,13 @@
               %th.sortable{id: 'seeker_seeker'}= t('broker_dashboard.seekers_table.name')
               %th.sortable{id: 'seeker_address'}= t('broker_dashboard.seekers_table.address')
               %th.sortable{id: 'seeker_plz'}= t('broker_dashboard.seekers_table.plz')
-          %tbody.list
+          %tbody.list{id: "seekers_body"}
             - if @seekers.size == 0
               %tr
                 %td{ colspan: 4 }= t('seekers.index.no_seekers')
 
             - @seekers.each do |seeker|
-              %tr{ class: "organization organization-#{seeker.try(:organization).try(:id)} status-#{seeker.stat_name}" }
-                %td.status
-                  = seeker_label(seeker)
-                %td{sorttable_customkey: seeker.updated_at.strftime("%Y%m%d%H%M%S")}
-                  = seeker.updated_at.strftime("%d.%m.%Y")
-                %td.name= link_to seeker.name, edit_broker_seeker_path(seeker)
-                %td.street= seeker.street
-                %td.place= seeker.place.zip + ' ' + seeker.place.name
-                %td.phone.display-none
-                  = seeker.phone
-                %td.mobile.display-none
-                  = seeker.mobile
-                %td.contact_preference.display-none
-                  = seeker.contact_preference
-                %td.contact_availability.display-none
-                  = seeker.contact_availability
-                %td.email.display-none
-                  = seeker.email
-                %td.sex.display-none
-                  = seeker.sex
-                %td.occupation.display-none
-                  = seeker.occupation
-                %td.additional_contacts.display-none
-                  = seeker.additional_contacts
-                %td.languages.display-none
-                  = seeker.languages
+              = render seeker
     %div{id: 'assignments', class: 'tab-pane fade in'}
       %div.row.margin-top-25
         %div.col-sm-3.float-right
@@ -299,39 +230,40 @@
               %th.sortable{id: 'assignment_provider'}= t('broker_dashboard.assignments_table.provider')
               %th.sortable{id: 'assignment_payment'}= t('broker_dashboard.assignments_table.duration_payment')
               %th.sortable{id: 'assignment_feedback'}= t('broker_dashboard.assignments_table.feedback')
-          %tbody.list
+          %tbody.list{id: 'assignments_body'}
             - if @assignments.size == 0
               %tr
                 %td{ colspan: 5 }= t('seekers.index.no_seekers')
 
             - @assignments.each do |assignment|
-              %tr{ class: "organization organization-#{assignment.provider.try(:organization).try(:id)}" }
-                %td.status
-                  = assignment_label(assignment)
-                %td.date{sorttable_customkey: assignment.created_at.strftime("%Y%m%d%H%M%S")}
-                  = assignment.created_at.strftime("%d.%m.%Y")
-                %td.name
-                  = link_to assignment.seeker.name, edit_broker_seeker_path(assignment.seeker)
-                %td.provider-name
-                  = link_to assignment.provider.name, edit_broker_provider_path(assignment.provider)
-                %td.payment
-                  - if assignment.duration != nil
-                    - minutes = assignment.duration/60000
-                    - minutes = minutes.floor
-                    - hours = minutes/60
-                    - hours = hours.floor
-                    - minutes = minutes % 60
-                    = "#{hours}:#{minutes}"
-                    = " "
-                    - if assignment.payment != nil
-                      = ", CHF #{assignment.payment.floor}.-"
-                %td.feedback
-                  = assignment.feedback
+              = render assignment
+
 
 %div#infinite-scrolling
-  = will_paginate @todos, renderer: BootstrapPagination::Rails
 
 :javascript
+   var last_scrolled = Date.now()
+   var organization_id
+   var page_number
+   var table_name
+   var url
+
+   function infiniteScroll(){
+   console.log("frsit")
+    if ($('#infinite-scrolling').size() > 0) {
+      $(window).on('scroll', function() {
+        page_number = $('.js-active-tab > .active > a').data('page') + 1
+        table_name = $('.js-active-tab > .active > a').attr('href').substr(1)
+        url = "/broker/dashboard?table="+table_name+"&"+table_name+"_page="+page_number+"&organization_id="+organization_id;
+        if ($(window).scrollTop() > ($(document).height() - $(window).height() - 60)  && (Date.now() - last_scrolled) > 1000) {
+          last_scrolled = Date.now()
+          console.log(url)
+          $.getScript(url);
+       }
+      });
+    }
+  }
+
   var target = window.location.hash;
   var params = window.location.search.substr(1);
   if(params === undefined || params === null || params === '') {
@@ -347,6 +279,7 @@
   // window.location.hash = '';
 
   $(document).ready(function(){
+    infiniteScroll()
 
     $('.nav-pills a[href="#' + target + '"]').tab('show');
     setHelp();
@@ -448,6 +381,7 @@
 
     function loadOrganization() {
       var id = "#{current_broker.selected_organization_id}";
+      organization_id = id
       selectedOrganizationId = id;
       if(id === '0') {
         $('.display-none.organization').removeClass('display-none');
@@ -458,6 +392,7 @@
       }
 
       $('#dropdown-btn').val(id);
+      console.log(id)
       // $('#dropdown-btn').text($('.organization-dropdown[data-value="' + id + '"]').text());
     }
 
@@ -481,27 +416,43 @@
     });
 
     $('#dropdown-btn').on('change', function(){
+      table_name = $('.js-active-tab > .active > a').attr('href').substr(1)
+      $("tbody[id^=" + table_name + "] tr").remove()
+      $('.js-active-tab > .active > a').data('page', 0)
       var id = this.value;
-      var name = $(this).find("option:selected").text();
-      var vacationStart = $(this).find("option:selected").data('vacation-start');
-      var vacationEnd = $(this).find("option:selected").data('vacation-end');
-      var showDate = $(this).find("option:selected").data('show-date');
-      selectedOrganizationId = id;
-      if(id === '0') {
-        $('.display-none.organization').removeClass('display-none');
-      } else {
-        $('.display-none.organization').removeClass('display-none');
-        $('.organization').addClass('display-none');
-        $('.organization-' + id).removeClass('display-none');
-      }
-      if(vacationStart!=undefined && showDate){
-        $('.js-organisation-name').text(name)
-        $('.js-org-start-date').text(vacationStart)
-        $('.js-org-end-date').text(vacationEnd)
-        $('.js-organization').show()
-      }else{
-        $('.js-organization').hide()
-      }
+      organization_id = id
+      page_number = $('.js-active-tab > .active > a').data('page') + 1
+      url = "/broker/dashboard?table="+table_name+"&"+table_name+"_page="+page_number+"&organization_id="+organization_id;
+      console.log(url)
+      $.getScript(url);
+
+      // page_number = 0
+      //  url = "/broker/dashboard?organization_id="+organization_id;
+      //  console.log(url)
+      //  $.getScript(url);
+      //
+      //
+      // // var name = $(this).find("option:selected").text();
+      // // var vacationStart = $(this).find("option:selected").data('vacation-start');
+      // // var vacationEnd = $(this).find("option:selected").data('vacation-end');
+      // // var showDate = $(this).find("option:selected").data('show-date');
+      // // selectedOrganizationId = id;
+      // // if(id === '0') {
+      // //   $('.display-none.organization').removeClass('display-none');
+      // // } else {
+      // //   $('.display-none.organization').removeClass('display-none');
+      // //   $('.organization').addClass('display-none');
+      // //   $('.organization-' + id).removeClass('display-none');
+      // // }
+      // // if(vacationStart!=undefined && showDate){
+      // //   $('.js-organisation-name').text(name)
+      // //   $('.js-org-start-date').text(vacationStart)
+      // //   $('.js-org-end-date').text(vacationEnd)
+      // //   $('.js-organization').show()
+      // // }else{
+      // //   $('.js-organization').hide()
+      // }
+
     });
 
     var options = {

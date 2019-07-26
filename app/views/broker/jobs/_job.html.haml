@@ -1,0 +1,23 @@
+- @job = job
+%tr{ class: "organization organization-#{job.try(:organization).try(:id)} status-#{job.stat_name}" }
+  %td.status
+    = job_label(job)
+  - sortable_date = job.last_change_of_state == nil ?  "": job.last_change_of_state.strftime("%Y%m%d%H%M%S")
+  %td.date{sorttable_customkey: sortable_date}
+    = job.last_change_of_state == nil ?  "": job.last_change_of_state.strftime("%d.%m.%Y")
+  %td.title
+    = link_to job.title, edit_broker_job_path(job)
+  %td.name
+    = link_to job.provider.name, edit_broker_provider_path(job.provider)
+  %td.allocations
+    = render 'allocations'
+  %td.salary.display-none
+    = job.salary
+  %td.manpower.display-none
+    = job.manpower
+  %td.duration.display-none
+    = job.duration
+  %td.long_description.display-none
+    = job.long_description
+  %td.short_description.display-none
+    = job.short_description

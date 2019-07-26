@@ -56,22 +56,42 @@ class Broker::DashboardsController < ApplicationController
                        @seekers.pluck(:id), @providers.pluck(:id), @jobs.pluck(:id), allocations.pluck(:id))
                  .reverse_order()
 
-    @todos = @todos.paginate(page: params[:page], per_page: 10)
-    @seekers = @seekers.paginate(page: params[:page], per_page: 10)
-    @jobs = @jobs.paginate(page: params[:page], per_page: 10)
-    @assignments = @assignments.paginate(page: params[:page], per_page: 10)
-    @providers = @providers.paginate(page: params[:page], per_page: 10)
 
-    # render 'show.js.erb'
+    if !params[:organization_id].blank?
+      unless params[:organization_id] == "0"
+        @providers = @providers.where(organization_id: params[:organization_id])
+        @seekers = @seekers.where(organization_id: params[:organization_id])
+        @jobs = @jobs.where(organization_id: params[:organization_id])
+      end
+    end
+
+
+
+    @seekers = @seekers.paginate(page: params[:seekers_page], per_page: 15)
+    @todos = @todos.paginate(page: params[:todos_page], per_page: 15)
+    @providers = @providers.paginate(page: params[:providers_page], per_page: 15)
+    @jobs = @jobs.paginate(page: params[:jobs_page], per_page: 15)
+    @assignments = @assignments.paginate(page: params[:assignments_page], per_page: 15)
+
+
 
     respond_to do |format|
       format.html
-      format.js { render template: 'show.js.erb' }
+      format.js { render template: '/broker/show.js.erb' }
     end
+
+    #  assignmets ma kilka organizacji po: seeker, provider, jobs
+    #  Assignment.joins("JOIN seekers ON assignments.seeker_id = seekers.id JOIN organizations ON seekers.organization_id = 3")
+
+    # todo_ids = @todos.pluck(:id)
+    # @todos = Todo.where(id: todo_ids)
+    # @todos = @todos.joins("LEFT JOIN seekers ON seekers.id = todos.seeker_id LEFT JOIN providers ON providers.id = todos.provider_id LEFT JOIN jobs on jobs.id = todos.job_id")
+    #              .where("seekers.organization_id = ? OR providers.organization_id = ? OR jobs.organization_id = ?", params[:organization_id], params[:organization_id], params[:organization_id])
+
+
   end
 
   # Save broker settings from dashboard (current filter and selected organization)
-  #
   def save_settings
     current_broker.selected_organization_id = params[:selected_organization_id]
     current_broker.filter = params[:filter]

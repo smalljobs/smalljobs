@@ -1,0 +1,23 @@
+next_page = $('.js-active-tab > .active > a').data('page') + 1
+
+if ( $(location).attr('hash') == "#todos" ||  $(location).attr('hash') == "" || $(location).attr('hash') == "#todo_current" || $(location).attr('hash') == "#todo_postponed") {
+    $('#todos_body').append('<%= j render @todos %>');
+    $('.js-active-tab > .active > a').data('page', next_page)
+
+} else if ( $(location).attr('hash') == "#jobs" )  {
+    $('#jobs_body').append('<%= j render @jobs %>');
+    $('.js-active-tab > .active > a').data('page', next_page)
+
+} else if ( $(location).attr('hash') == "#providers" ) {
+    $('#providers_body').append('<%= j render @providers %>');
+    $('.js-active-tab > .active > a').data('page', next_page)
+
+
+} else if ( $(location).attr('hash') == "#seekers" ) {
+    $('#seekers_body').append('<%= j render @seekers %>');
+    $('.js-active-tab > .active > a').data('page', next_page)
+
+} else if ( $(location).attr('hash') == "#assignments" ) {
+    $('#assignments_body').append('<%= j render @assignments %>');
+    $('.js-active-tab > .active > a').data('page', next_page)
+}
