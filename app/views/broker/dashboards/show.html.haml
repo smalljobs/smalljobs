@@ -81,11 +81,11 @@
                 %th.sortable{id: 'todo_todo'}= t('broker_dashboard.todo_table.todo')
                 %th= t('broker_dashboard.todo_table.description')
                 %th.pull-right= t('broker_dashboard.todo_table.postpone')
-            %tbody.list{id:"todos_body"}
-              - if @todos.current.size == 0
+            %tbody.list{id:"todos_current_body"}
+              - if @todos_current.size == 0
                 %tr
                   %td{colspan: 3}= "Es sind noch keine Todo in deiner Region erfasst"
-              - @todos.current.each do |todo|
+              - @todos_current.each do |todo|
                 = render todo
       %div{id: 'todo_postponed', class: 'tab-pane js-todo-postponed'}
         .table-responsive
@@ -97,7 +97,7 @@
                 %th= t('broker_dashboard.todo_table.description')
                 %th.pull-right= t('broker_dashboard.todo_table.postpone')
                 %th= t('broker_dashboard.todo_table.date')
-            %tbody.list
+            %tbody.list{id:"todos_postponed_body"}
               - if @todos.postponed.size == 0
                 %tr
                   %td{colspan: 3}= "Es sind noch keine Todo in deiner Region erfasst"
@@ -242,6 +242,9 @@
 %div#infinite-scrolling
 
 :javascript
+
+   $(".container").css("min-height", "100vh")
+
    var last_scrolled = Date.now()
    var organization_id
    var page_number
@@ -249,13 +252,18 @@
    var url
 
    function infiniteScroll(){
-   console.log("frsit")
     if ($('#infinite-scrolling').size() > 0) {
       $(window).on('scroll', function() {
+        if (window.location.hash.substr(1).length > 1) {
+          table_name = window.location.hash.substr(1)
+        } else {
+          table_name = $('.js-active-tab > .active > a').attr('href').substr(1)
+        }
+
         page_number = $('.js-active-tab > .active > a').data('page') + 1
-        table_name = $('.js-active-tab > .active > a').attr('href').substr(1)
         url = "/broker/dashboard?table="+table_name+"&"+table_name+"_page="+page_number+"&organization_id="+organization_id;
-        if ($(window).scrollTop() > ($(document).height() - $(window).height() - 60)  && (Date.now() - last_scrolled) > 1000) {
+        console.log(table_name)
+        if ($(window).scrollTop() > ($(document).height() - $(window).height() - 100)  && (Date.now() - last_scrolled) > 1000) {
           last_scrolled = Date.now()
           console.log(url)
           $.getScript(url);
@@ -416,7 +424,7 @@
     });
 
     $('#dropdown-btn').on('change', function(){
-      table_name = $('.js-active-tab > .active > a').attr('href').substr(1)
+      table_name = window.location.hash.substr(1)
       $("tbody[id^=" + table_name + "] tr").remove()
       $('.js-active-tab > .active > a').data('page', 0)
       var id = this.value;
@@ -425,34 +433,6 @@
       url = "/broker/dashboard?table="+table_name+"&"+table_name+"_page="+page_number+"&organization_id="+organization_id;
       console.log(url)
       $.getScript(url);
-
-      // page_number = 0
-      //  url = "/broker/dashboard?organization_id="+organization_id;
-      //  console.log(url)
-      //  $.getScript(url);
-      //
-      //
-      // // var name = $(this).find("option:selected").text();
-      // // var vacationStart = $(this).find("option:selected").data('vacation-start');
-      // // var vacationEnd = $(this).find("option:selected").data('vacation-end');
-      // // var showDate = $(this).find("option:selected").data('show-date');
-      // // selectedOrganizationId = id;
-      // // if(id === '0') {
-      // //   $('.display-none.organization').removeClass('display-none');
-      // // } else {
-      // //   $('.display-none.organization').removeClass('display-none');
-      // //   $('.organization').addClass('display-none');
-      // //   $('.organization-' + id).removeClass('display-none');
-      // // }
-      // // if(vacationStart!=undefined && showDate){
-      // //   $('.js-organisation-name').text(name)
-      // //   $('.js-org-start-date').text(vacationStart)
-      // //   $('.js-org-end-date').text(vacationEnd)
-      // //   $('.js-organization').show()
-      // // }else{
-      // //   $('.js-organization').hide()
-      // }
-
     });
 
     var options = {

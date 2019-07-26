@@ -1,8 +1,10 @@
 next_page = $('.js-active-tab > .active > a').data('page') + 1
+console.log("---")
 
-if ( $(location).attr('hash') == "#todos" ||  $(location).attr('hash') == "" || $(location).attr('hash') == "#todo_current" || $(location).attr('hash') == "#todo_postponed") {
-    $('#todos_body').append('<%= j render @todos %>');
+if ( $(location).attr('hash') == "#todos" ||  $(location).attr('hash') == "" || $(location).attr('hash') == "#todo_current" ) {
+    $('#todos_current_body').append('<%= j render @todos_current %>');
     $('.js-active-tab > .active > a').data('page', next_page)
+
 
 } else if ( $(location).attr('hash') == "#jobs" )  {
     $('#jobs_body').append('<%= j render @jobs %>');
@@ -21,3 +23,8 @@ if ( $(location).attr('hash') == "#todos" ||  $(location).attr('hash') == "" || 
     $('#assignments_body').append('<%= j render @assignments %>');
     $('.js-active-tab > .active > a').data('page', next_page)
 }
+
+
+
+
+
