@@ -57,18 +57,27 @@ class Broker::DashboardsController < ApplicationController
                  .reverse_order()
 
     @todos_current = @todos.current
+    @todos_postponed = @todos.postponed
 
-    if !params[:organization_id].blank?
-      unless params[:organization_id] == "0"
-        @providers = @providers.where(organization_id: params[:organization_id])
-        @seekers = @seekers.where(organization_id: params[:organization_id])
-        @jobs = @jobs.where(organization_id: params[:organization_id])
-        @assignments = @assignments.joins("LEFT JOIN providers as prov ON assignments.provider_id = prov.id").where("prov.organization_id = #{params[:organization_id]}")
-        @todos_current = Todo.joins("LEFT JOIN seekers ON seekers.id = todos.seeker_id LEFT JOIN providers ON providers.id = todos.provider_id LEFT JOIN jobs on jobs.id = todos.job_id")
-                         .where("seekers.organization_id = ? OR providers.organization_id = ? OR jobs.organization_id = ?", params[:organization_id], params[:organization_id], params[:organization_id])
-                          .where(id: @todos.map(&:id))
-      end
+    if params[:organization_id].blank?
+      params[:organization_id] = current_broker&.selected_organization_id
     end
+
+    unless params[:organization_id] == "0"
+      @providers = @providers.where(organization_id: params[:organization_id])
+      @seekers = @seekers.where(organization_id: params[:organization_id])
+      @jobs = @jobs.where(organization_id: params[:organization_id])
+      @assignments = @assignments.joins("LEFT JOIN providers as prov ON assignments.provider_id = prov.id").where("prov.organization_id = #{params[:organization_id]}")
+
+      @todos_current = Todo.joins("LEFT JOIN seekers ON seekers.id = todos.seeker_id LEFT JOIN providers ON providers.id = todos.provider_id LEFT JOIN jobs on jobs.id = todos.job_id")
+                       .where("seekers.organization_id = ? OR providers.organization_id = ? OR jobs.organization_id = ?", params[:organization_id], params[:organization_id], params[:organization_id])
+                        .where(id: @todos_current.map(&:id))
+
+      @todos_postponed = Todo.joins("LEFT JOIN seekers ON seekers.id = todos.seeker_id LEFT JOIN providers ON providers.id = todos.provider_id LEFT JOIN jobs on jobs.id = todos.job_id")
+                           .where("seekers.organization_id = ? OR providers.organization_id = ? OR jobs.organization_id = ?", params[:organization_id], params[:organization_id], params[:organization_id])
+                            .where(id: @todos_postponed.map(&:id))
+    end
+
 
 
     if params[:todo_current_page].blank?
@@ -76,6 +85,8 @@ class Broker::DashboardsController < ApplicationController
     else
       @todos_current = @todos_current.paginate(page: params[:todo_current_page], per_page: 15)
     end
+
+    @todos_postponed = @todos_postponed.paginate(page: params[:todo_postponed_page], per_page: 15 )
 
     @seekers = @seekers.paginate(page: params[:seekers_page], per_page: 15)
     @providers = @providers.paginate(page: params[:providers_page], per_page: 15)

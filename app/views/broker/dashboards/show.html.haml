@@ -43,28 +43,28 @@
         %div.modal-footer
   %ul.nav.nav-pills.js-active-tab
     %li.active
-      %a{'data-toggle': 'tab', href: '#todos', 'data-page': 1}
+      %a{'data-toggle': 'tab', href: '#todos'}
         =t('broker_dashboard.todo')
     %li
-      %a{'data-toggle': 'tab', href: '#jobs', 'data-page': 1}
+      %a{'data-toggle': 'tab', href: '#jobs', 'data-page': 1, 'data-total': @jobs.total_pages}
         =t('broker_dashboard.jobs')
     %li
-      %a{'data-toggle': 'tab', href: '#providers', 'data-page': 1}
+      %a{'data-toggle': 'tab', href: '#providers', 'data-page': 1, 'data-total': @providers.total_pages}
         =t('broker_dashboard.providers')
     %li
-      %a{'data-toggle': 'tab', href: '#seekers', 'data-page': 1}
+      %a{'data-toggle': 'tab', href: '#seekers', 'data-page': 1, 'data-total': @seekers.total_pages}
         =t('broker_dashboard.seekers')
     %li
-      %a{'data-toggle': 'tab', href: '#assignments', 'data-page': 1}
+      %a{'data-toggle': 'tab', href: '#assignments', 'data-page': 1, 'data-total': @assignments.total_pages}
         =t('broker_dashboard.assignments')
   %div.tab-content
     %div{id: 'todos', class: 'tab-pane fade in active'}
       %ul.nav.nav-pills.margin-top-25.js-todo-tabs{style: {display: 'none'}}
         %li.active
-          %a{'data-toggle': 'tab', href: '#todo_current'}
+          %a{'data-toggle': 'tab', href: '#todo_current', 'data-page': 1, 'data-total': @todos_current.total_pages}
             =t('broker_dashboard.aktuelle')
         %li.margin_left_20
-          %a{'data-toggle': 'tab', href: '#todo_postponed'}
+          %a{'data-toggle': 'tab', href: '#todo_postponed', 'data-page': 1, 'data-total': @todos_postponed.total_pages}
             =t('broker_dashboard.verschoben')
         %span.js-postpone-msg.margin_left_20{style: 'display: none'}
           =t('broker_dashboard.todo_table.postpone_message')
@@ -81,7 +81,7 @@
                 %th.sortable{id: 'todo_todo'}= t('broker_dashboard.todo_table.todo')
                 %th= t('broker_dashboard.todo_table.description')
                 %th.pull-right= t('broker_dashboard.todo_table.postpone')
-            %tbody.list{id:"todos_current_body"}
+            %tbody.list{id:"todo_current_body"}
               - if @todos_current.size == 0
                 %tr
                   %td{colspan: 3}= "Es sind noch keine Todo in deiner Region erfasst"
@@ -97,36 +97,12 @@
                 %th= t('broker_dashboard.todo_table.description')
                 %th.pull-right= t('broker_dashboard.todo_table.postpone')
                 %th= t('broker_dashboard.todo_table.date')
-            %tbody.list{id:"todos_postponed_body"}
-              - if @todos.postponed.size == 0
+            %tbody.list{id:"todo_postponed_body"}
+              - if @todos_postponed.postponed.size == 0
                 %tr
                   %td{colspan: 3}= "Es sind noch keine Todo in deiner Region erfasst"
-              - @todos.postponed.each do |todo|
-                %tr{ class: "organization organization-#{todo.organization_id}" }
-                  - sortable_date = todo.created_at.strftime("%Y%m%d%H%M%S")
-                  %td.date{sorttable_customkey: sortable_date}
-                    = todo.created_at.strftime("%d.%m.%Y")
-                  %td.title
-                    = todo.todotype.title
-                  %td.description
-                    - if todo.record_type == 'job'
-                      = link_to 'Job: ' + todo.job.title, edit_broker_job_path(todo.job)
-                    - elsif todo.record_type == 'provider'
-                      = link_to 'Anbieterln: ' + todo.provider.name, edit_broker_provider_path(todo.provider)
-                    - elsif todo.record_type == 'seeker'
-                      = link_to 'JugendlicheR: ' + todo.seeker.name, edit_broker_seeker_path(todo.seeker)
-                    - elsif todo.record_type == 'allocation'
-                      %a{href: "#{url_for broker_job_allocation_path(todo.job, todo.seeker)}"}
-                        = 'JugendlicheR: ' + todo.seeker.name
-                        %br
-                        = 'Anbieterln: ' + todo.provider.name
-                        %br
-                        = 'Job: ' + todo.job.title
-                  %td
-                    %span.sj-postpone.js-postpone{data: {url: broker_todo_path(todo.id), 'todo-type' => 'postponed'}}
-                      %i.fa.fa-2x.fa-clock-o.pull-right.safari-fix
-                  %td
-                    = todo.postponed.strftime("%d.%m.%Y")
+              - @todos_postponed.postponed.each do |todo|
+                = render template: 'broker/todos/_todo_postponed', locals: { todo: todo }
 
     %div{id: 'jobs', class: 'tab-pane fade in'}
       %div.row.margin-top-25
@@ -250,20 +226,29 @@
    var page_number
    var table_name
    var url
+   var allow
 
    function infiniteScroll(){
-    if ($('#infinite-scrolling').size() > 0) {
+    if ($('#infinite-scrolling').size() > 0 ){
       $(window).on('scroll', function() {
+
         if (window.location.hash.substr(1).length > 1) {
           table_name = window.location.hash.substr(1)
         } else {
           table_name = $('.js-active-tab > .active > a').attr('href').substr(1)
         }
 
-        page_number = $('.js-active-tab > .active > a').data('page') + 1
+        if ( window.location.hash.substr(1) == "" ||  window.location.hash.substr(1) == "todos" || window.location.hash.substr(1) == "todo_current" || window.location.hash.substr(1) == "todo_postponed") {
+          page_number = $('.js-todo-tabs > .active > a').data('page') + 1
+          allow = $('.js-todo-tabs > .active > a').data('total') >= page_number
+        } else {
+          allow = $('.js-active-tab > .active > a').data('total') >= page_number
+          page_number = $('.js-active-tab > .active > a').data('page') + 1
+        }
+
         url = "/broker/dashboard?table="+table_name+"&"+table_name+"_page="+page_number+"&organization_id="+organization_id;
-        console.log(table_name)
-        if ($(window).scrollTop() > ($(document).height() - $(window).height() - 100)  && (Date.now() - last_scrolled) > 1000) {
+
+        if ($(window).scrollTop() > ($(document).height() - $(window).height() - 100)  && (Date.now() - last_scrolled) > 1000 && allow) {
           last_scrolled = Date.now()
           console.log(url)
           $.getScript(url);
@@ -287,9 +272,11 @@
   // window.location.hash = '';
 
   $(document).ready(function(){
+
     infiniteScroll()
 
     $('.nav-pills a[href="#' + target + '"]').tab('show');
+
     setHelp();
 
     var selectedOrganizationId = 0;
@@ -400,15 +387,43 @@
       }
 
       $('#dropdown-btn').val(id);
-      console.log(id)
       // $('#dropdown-btn').text($('.organization-dropdown[data-value="' + id + '"]').text());
+    }
+
+    function dropdownSettings(){
+     if (window.location.hash.substr(1).length > 1 ) {
+        table_name = window.location.hash.substr(1)
+      } else {
+        table_name = 'todo_current'
+      }
+
+     if (window.location.hash.substr(1) == 'todos') {
+      table_name = 'todo_current'
+     }
+
+      if ($('.js-active-tab > .active > a').attr("href") == "#todos") {
+        $('.js-todo-tabs > .active > a').data('page', 0)
+        page_number = $('.js-todo-tabs > .active > a').data('page') + 1
+      } else {
+        $('.js-active-tab > .active > a').data('page', 0)
+        page_number = $('.js-active-tab > .active > a').data('page') + 1
+      }
+
+      $("tbody[id^=" + table_name + "_body] tr").remove()
+
+      var id = $('#dropdown-btn').val();
+      organization_id = id
+
+      url = "/broker/dashboard?table="+table_name+"&"+table_name+"_page="+page_number+"&organization_id="+organization_id;
+
+      console.log(url)
+      $.getScript(url);
     }
 
     $('.nav-pills a').on('shown.bs.tab', function (e) {
       var history_array = JSON.parse(sessionStorage.getItem('history') || '[]')
       history_array.push(window.location.href.split('#')[0] + e.target.hash );
       sessionStorage.setItem('history', JSON.stringify(history_array))
-
       sessionStorage.setItem('previous', window.location.href);
       if(history.pushState) {
         history.pushState(null, null, params + e.target.hash);
@@ -417,23 +432,13 @@
         location.hash = e.target.hash;
       }
 
-
+      dropdownSettings();
       target = e.target.hash.replace('#', '');
       loadSortedColumn();
       setHelp();
     });
 
-    $('#dropdown-btn').on('change', function(){
-      table_name = window.location.hash.substr(1)
-      $("tbody[id^=" + table_name + "] tr").remove()
-      $('.js-active-tab > .active > a').data('page', 0)
-      var id = this.value;
-      organization_id = id
-      page_number = $('.js-active-tab > .active > a').data('page') + 1
-      url = "/broker/dashboard?table="+table_name+"&"+table_name+"_page="+page_number+"&organization_id="+organization_id;
-      console.log(url)
-      $.getScript(url);
-    });
+    $('#dropdown-btn').on('change', dropdownSettings)
 
     var options = {
       valueNames: [ 'name', 'provider-name', 'place', 'status',
