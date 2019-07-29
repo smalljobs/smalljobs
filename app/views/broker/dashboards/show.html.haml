@@ -230,6 +230,7 @@
    var table_name
    var url
    var allow
+   var archive = false
 
    function infiniteScroll(){
     if ($('#infinite-scrolling').size() > 0 ){
@@ -249,7 +250,7 @@
           page_number = $('.js-active-tab > .active > a').data('page') + 1
         }
 
-        url = "/broker/dashboard?table="+table_name+"&"+table_name+"_page="+page_number+"&organization_id="+organization_id;
+        url = "/broker/dashboard?table="+table_name+"&"+table_name+"_page="+page_number+"&organization_id="+organization_id+"&archive="+archive;
 
         if ($(window).scrollTop() > ($(document).height() - $(window).height() - 100)  && (Date.now() - last_scrolled) > 1500 && allow) {
           last_scrolled = Date.now()
@@ -289,23 +290,10 @@
     var selectedOrganizationId = 0;
     var finishedVisible = false;
 
-    if(params.includes('archive=true')) {
-      $('.archive-btn').addClass('archive-btn-selected');
-    }
-
     $('.archive-btn').click(function(){
-      if(params.includes('archive=true')) {
-        var newLocation = window.location.href.split('#')[0].replace('?archive=true', '') + '#' + target;
-        window.location.href = newLocation;
-      } else {
-        if(window.location.href.includes('?')) {
-          var newLocation = window.location.href.split('#')[0] + 'archive=true' + '#' + target;
-        } else {
-          var newLocation = window.location.href.split('#')[0] + '?archive=true' + '#' + target;
-        }
-
-        window.location.href = newLocation;
-      }
+      $('.archive-btn').toggleClass('archive-btn-selected');
+      archive=!archive
+      dropdownSettings()
     });
 
     var tableSorted = [false, false, false, false, false];
@@ -421,7 +409,7 @@
       var id = $('#dropdown-btn').val();
       organization_id = id
 
-      url = "/broker/dashboard?table="+table_name+"&"+table_name+"_page="+page_number+"&organization_id="+organization_id;
+      url = "/broker/dashboard?table="+table_name+"&"+table_name+"_page="+page_number+"&organization_id="+organization_id+"&archive="+archive;
 
       $(".loader").append("<div id='loader'></div>")
       $.getScript(url).success(function(){
