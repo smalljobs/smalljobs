@@ -18,7 +18,7 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
 
     AccessToken.find_by(userable_id: admin.id, userable_type: 'Admin')&.destroy
     token = AccessToken.new(userable_id: admin.id, userable_type: 'Admin', token_type: 'bearer')
-    token.expire_at = DateTime.now() + 30.days
+    token.expire_at = DateTime.now() + 30.years
     token.save!
 
     render json: {
@@ -144,7 +144,30 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
     }, status: 200
   end
 
+  def update
+    user_params = set_update_params
+    if @seeker.update(user_params)
+      render json: {message: 'User updated successfully'}, status: 200
+    else
+      render json: {code: 'users/invalid', message: @seeker.errors.first}, status: 422
+    end
+  end
+
   private
+  def update_params
+    params.permit(:phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id,
+                  :street, :sex, :status, :categories, :login, :mobile, :email, :additional_contacts, :languages,
+                  :occupation, :occupation_end_date, :contact_availability, :contact_preference)
+  end
+  def set_update_params
+    user_params = update_params
+    user_params[:date_of_birth] = DateTime.strptime(user_params[:birthdate], '%s') if user_params[:birthdate] != nil
+    user_params[:occupation_end_date] = DateTime.strptime(user_params[:occupation_end_date], '%s') if user_params[:occupation_end_date] != nil
+    user_params[:work_category_ids] = JSON.parse user_params[:categories] if user_params[:categories] != nil
+    user_params[:password_confirmation] = user_params[:password] if user_params[:password] != nil
+    user_params.except!(:birthdate, :categories)
+    user_params
+  end
 
   def set_user_via_phone
     phone = PhonyRails.normalize_number(params[:phone], default_country_code: 'CH')

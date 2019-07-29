@@ -57,7 +57,7 @@ module ApiHelper
     json[:wage_factor] = organization.wage_factor
     json[:place] = place_to_json(organization.place)
     json[:opening_hours] = RedCloth.new(organization.opening_hours || "").to_html
-    json[:registration_welcome_message] = message unless message.nil?
+    json[:registration_welcome_message] = message
     json[:vacations] = {
         active: organization.vacation_active,
         start: organization.start_vacation_date,
@@ -347,7 +347,6 @@ module ApiHelper
     json = {}
     json[:id] = seeker.id
     json[:app_user_id] = seeker.app_user_id
-    json[:organization_id] = seeker.organization_id
     json[:created_at] = seeker.created_at.strftime('%s')
     json[:updated_at] = seeker.updated_at.strftime('%s')
     json[:lastname] = seeker.lastname
@@ -357,6 +356,7 @@ module ApiHelper
     json[:street] = seeker.street
     json[:status] = Seeker.statuses[seeker.status]
     json[:sex] = seeker.sex
+    json[:place_id] = seeker.place_id
     json[:place] = place_to_json(seeker.place)
     json[:login] = seeker.login
     json[:mobile] = seeker.mobile
@@ -367,6 +367,21 @@ module ApiHelper
     json[:occupation_end_date] = seeker.occupation_end_date
     json[:contact_availability] = seeker.contact_availability
     json[:contact_preference] = seeker.contact_preference
+    # json[:organization_id] = seeker.organization_id
+    json[:internal_interview] = seeker.discussion
+    json[:parental_consent] = seeker.parental
+    json[:organization_id] = seeker.organization_id
+    if seeker.organization.present?
+
+      helpers_url = Rails.application.routes.url_helpers
+      host = "#{seeker.organization.regions.first.subdomain}.smalljobs.ch"
+      seeker_agreement_link = helpers_url.agreement_broker_seeker_url(seeker.agreement_id, subdomain: seeker.organization.regions.first.subdomain, host: host, protocol: 'https')
+      registration_welcome_message = Mustache.render(seeker.organization.welcome_app_register_msg || '', seeker_first_name: seeker.firstname, seeker_last_name: seeker.lastname, seeker_link_to_agreement: "<a file type='application/pdf' title='Elterneinverständnis herunterladen' href='#{seeker_agreement_link}'>#{seeker_agreement_link}</a>", broker_first_name: seeker.organization.brokers.first.firstname, broker_last_name: seeker.organization.brokers.first.lastname, organization_name: seeker.organization.name, organization_street: seeker.organization.street, organization_zip: seeker.organization.place.zip, organization_place: seeker.organization.place.name, organization_phone: seeker.organization.phone, organization_email: seeker.organization.email, link_to_jobboard_list: helpers_url.root_url(subdomain: seeker.organization.regions.first.subdomain, host: host, protocol: 'https'))
+      registration_welcome_message.gsub! "\r\n", "<br>"
+      registration_welcome_message.gsub! "\n", "<br>"
+
+      json[:organization] = self.organization_to_json(seeker.organization, seeker.organization.regions.first.try(:id), registration_welcome_message)
+    end
     json[:categories] = []
     for category in seeker.work_categories
       json[:categories].append(category_to_json(category))
