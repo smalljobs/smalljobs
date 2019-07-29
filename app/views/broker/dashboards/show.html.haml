@@ -81,12 +81,12 @@
                 %th.sortable{id: 'todo_todo'}= t('broker_dashboard.todo_table.todo')
                 %th= t('broker_dashboard.todo_table.description')
                 %th.pull-right= t('broker_dashboard.todo_table.postpone')
-            %tbody.list{id:"todo_current_body"}
+            %tbody.list{id:"todo_current_body", 'data-total': @todos_current.total_pages }
               - if @todos_current.size == 0
                 %tr
                   %td{colspan: 3}= "Es sind noch keine Todo in deiner Region erfasst"
               - @todos_current.each do |todo|
-                = render todo
+                = render template: "broker/todos/_todo_current", locals: { todo: todo }
       %div{id: 'todo_postponed', class: 'tab-pane js-todo-postponed'}
         .table-responsive
           %table.table.table-striped.sortable
@@ -217,9 +217,12 @@
 
 %div#infinite-scrolling
 
+%div.loader
+  #loader
+
 :javascript
 
-   $(".container").css("min-height", "100vh")
+   // $(".container").css("min-height", "100vh")
 
    var last_scrolled = Date.now()
    var organization_id
@@ -248,11 +251,15 @@
 
         url = "/broker/dashboard?table="+table_name+"&"+table_name+"_page="+page_number+"&organization_id="+organization_id;
 
-        if ($(window).scrollTop() > ($(document).height() - $(window).height() - 100)  && (Date.now() - last_scrolled) > 1000 && allow) {
+        if ($(window).scrollTop() > ($(document).height() - $(window).height() - 100)  && (Date.now() - last_scrolled) > 1500 && allow) {
           last_scrolled = Date.now()
-          console.log(url)
-          $.getScript(url);
-       }
+          // console.log(url)
+          $(".loader").append("<div id='loader'></div>")
+
+          $.getScript(url).success(function(){
+            $("#loader").remove();
+          });
+        }
       });
     }
   }
@@ -272,8 +279,8 @@
   // window.location.hash = '';
 
   $(document).ready(function(){
-
     infiniteScroll()
+    $("#loader").remove()
 
     $('.nav-pills a[href="#' + target + '"]').tab('show');
 
@@ -416,8 +423,10 @@
 
       url = "/broker/dashboard?table="+table_name+"&"+table_name+"_page="+page_number+"&organization_id="+organization_id;
 
-      console.log(url)
-      $.getScript(url);
+      $(".loader").append("<div id='loader'></div>")
+      $.getScript(url).success(function(){
+            $("#loader").remove();
+      });
     }
 
     $('.nav-pills a').on('shown.bs.tab', function (e) {

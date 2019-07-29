@@ -62,7 +62,7 @@ $(document).ready(function() {
       which_todo = $('.js-todo-tabs').find('.active > a').attr('href')
       if($('.js-active-tab').find('.active > a').attr('href') == '#todos') {
         $(which_todo).show()
-        console.log(which_todo)
+        // console.log(which_todo)
         if(which_todo == '#todo_current'){
           $('#todo_postponed').hide()
         }else{
