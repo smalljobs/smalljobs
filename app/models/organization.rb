@@ -12,8 +12,11 @@ class Organization < ActiveRecord::Base
   validates :street, :place, presence: true
 
   validates :email, email: true, presence: true
+  validates :from_age, presence: true
+  validates :to_age, presence: true
   validates :phone, phony_plausible: true, allow_blank: true, allow_nil: true
   validate :vacation_date
+  validate :age_range
   # validates :default_hourly_per_age, presence: true, numericality: {greater_than_or_equal_to: 0}
 
   scope :random, -> {order('RANDOM()')}
@@ -90,5 +93,9 @@ class Organization < ActiveRecord::Base
         errors.add(:end_vacation_date, I18n.t('errors.messages.end_date_too_early'))
       end
     end
+  end
+
+  def age_range
+    errors.add(:age_range, I18n.t('errors.messages.age_range')) if from_age > to_age
   end
 end

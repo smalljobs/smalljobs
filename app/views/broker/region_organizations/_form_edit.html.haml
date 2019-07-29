@@ -97,7 +97,19 @@
       = f.input :get_job_msg
       = f.input :activation_msg
       = f.input :welcome_email_for_parents_msg
-
+  %fieldset
+    %legend
+      =t('legends.age_range')
+  .form-inputs
+    .row
+      .col-xs-3
+        %label
+          = t('organization.edit.from_age')
+        = f.select :from_age, ((1..100).map{|i| [i,i] }), {}, {class: 'form-control'}
+      .col-xs-3
+        %label
+          = t('organization.edit.to_age')
+        = f.select :to_age, ((1..100).map{|i| [i,i] }),{}, { class: 'form-control'}
   .form-actions
     = f.button :submit, t('common.edit'), class: 'btn btn-primary'
 

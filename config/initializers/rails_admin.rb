@@ -141,6 +141,8 @@ RailsAdmin.config do |config|
         field :wage_factor do
           help I18n.t('admin.groups.wage_factor')
         end
+
+
       end
 
       group :address do
@@ -185,6 +187,11 @@ RailsAdmin.config do |config|
         field :background do
           help I18n.t('admin.format.background')
         end
+      end
+
+      group I18n.t('legends.age_range') do
+        field :from_age
+        field :to_age
       end
 
       group :administration do
