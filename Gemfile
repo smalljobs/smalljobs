@@ -51,6 +51,7 @@ gem 'spawnling', '~>2.1'
 gem 'rails-ujs'
 gem 'jquery-ui-rails'
 gem 'rails-jquery-autocomplete'
+gem 'figaro'
 
 group :development, :test do
   gem 'better_errors'
@@ -77,6 +78,13 @@ group :development, :test do
   gem 'bullet'
   gem 'rails-controller-testing'
   gem 'tzinfo-data'
+  gem 'capistrano-figaro'
+end
+
+group :development do
+  gem "capistrano", "~> 3.10", require: false
+  gem "capistrano-rails", "~> 1.4", require: false
+  gem 'capistrano-rvm'
 end
 
 group :doc do
