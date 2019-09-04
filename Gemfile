@@ -78,7 +78,6 @@ group :development, :test do
   gem 'bullet'
   gem 'rails-controller-testing'
   gem 'tzinfo-data'
-  gem 'capistrano-figaro'
 end
 
 group :development do
