@@ -589,7 +589,6 @@ de:
     edit:
       start_date: 'Startdatum'
       end_date: 'Enddatum'
-      message_above_18: 'Nachrichten für Suchende über 18'
   errors:
     messages:
       carrierwave_processing_error: "Kann das Bild leider nicht bearbeiten."

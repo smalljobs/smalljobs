@@ -170,9 +170,6 @@ RailsAdmin.config do |config|
         field :activation_msg
         field :welcome_email_for_parents_msg
 
-        field :welcome_app_register_above_18_msg
-        field :welcome_chat_register_above_18_msg
-        field :welcome_email_for_parents_above_18_msg
       end
 
       group :brokers do

@@ -33,8 +33,7 @@ class Organization < ActiveRecord::Base
   attr_accessor :assigned_to_region, :region_id
 
   TEMPLATES_NAMES = ['welcome_letter_employers_msg', 'welcome_app_register_msg', 'welcome_chat_register_msg',
-                     'not_receive_job_msg', 'get_job_msg', 'activation_msg', 'welcome_email_for_parents_msg',
-                     'welcome_app_register_above_18_msg', 'welcome_chat_register_above_18_msg', 'welcome_email_for_parents_above_18_msg']
+                     'not_receive_job_msg', 'get_job_msg', 'activation_msg', 'welcome_email_for_parents_msg']
 
   def connect_to_region
     if assigned_to_region == 'true'
