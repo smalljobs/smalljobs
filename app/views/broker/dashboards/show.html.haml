@@ -115,7 +115,7 @@
                 %th= t('broker_dashboard.todo_table.description')
                 %th.pull-right= t('broker_dashboard.todo_table.postpone')
             %tbody.list
-              - if @todos.current.size == 0
+              - if @todos.current.count == 0
                 %tr
                   %td{colspan: 3}= "Es sind noch keine Todo in deiner Region erfasst"
               - @todos.current.each do |todo|
@@ -153,7 +153,7 @@
                 %th.pull-right= t('broker_dashboard.todo_table.postpone')
                 %th= t('broker_dashboard.todo_table.date')
             %tbody.list
-              - if @todos.postponed.size == 0
+              - if @todos.postponed.count == 0
                 %tr
                   %td{colspan: 3}= "Es sind noch keine Todo in deiner Region erfasst"
               - @todos.postponed.each do |todo|
@@ -212,7 +212,7 @@
 
             - @jobs.each do |job|
               - @job = job
-              %tr{ class: "organization organization-#{job.try(:organization).try(:id)} status-#{job.stat_name}" }
+              %tr{ class: "organization organization-#{job.organization_id} status-#{job.stat_name}" }
                 %td.status
                   = job_label(job)
                 - sortable_date = job.last_change_of_state == nil ?  "": job.last_change_of_state.strftime("%Y%m%d%H%M%S")
@@ -261,7 +261,7 @@
                 %td{ colspan: 5 }= t('providers.index.no_providers')
 
             - @providers.each do |provider|
-              %tr{ class: "organization organization-#{provider.organization&.id} status-#{provider.stat_name}" }
+              %tr{ class: "organization organization-#{provider.organization_id} status-#{provider.stat_name}" }
                 %td.status
                   = provider_label(provider)
                 %td.date{sorttable_customkey: provider.updated_at.strftime("%Y%m%d%H%M%S")}
@@ -309,7 +309,7 @@
                 %td{ colspan: 4 }= t('seekers.index.no_seekers')
 
             - @seekers.each do |seeker|
-              %tr{ class: "organization organization-#{seeker.try(:organization).try(:id)} status-#{seeker.stat_name}" }
+              %tr{ class: "organization organization-#{seeker.organization_id} status-#{seeker.stat_name}" }
                 %td.status
                   = seeker_label(seeker)
                 %td{sorttable_customkey: seeker.updated_at.strftime("%Y%m%d%H%M%S")}
@@ -360,7 +360,7 @@
                 %td{ colspan: 5 }= t('seekers.index.no_seekers')
 
             - @assignments.each do |assignment|
-              %tr{ class: "organization organization-#{assignment.provider.try(:organization).try(:id)}" }
+              %tr{ class: "organization organization-#{assignment.provider.organization_id}" }
                 %td.status
                   = assignment_label(assignment)
                 %td.date{sorttable_customkey: assignment.created_at.strftime("%Y%m%d%H%M%S")}

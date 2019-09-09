@@ -47,6 +47,7 @@ class Organization < ActiveRecord::Base
     DefaultTemplate.where(template_name: template_names).each do |default_template|
       template_name = default_template.template_name
       self[template_name] = default_template.template if self[template_name].blank?
+
     end
   end
 
