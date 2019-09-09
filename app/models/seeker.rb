@@ -48,10 +48,12 @@ class Seeker < ActiveRecord::Base
 
   validate :unique_email
 
-  after_create :send_create_to_jugendinfo
-  after_update :send_update_to_jugendinfo
-  after_destroy :send_delete_to_jugendinfo
-  after_destroy :delete_access_tokens
+  after_save :send_to_jugendinfo
+  ## New option
+  ## after_create :send_create_to_jugendinfo
+  ## after_update :send_update_to_jugendinfo
+  ## after_destroy :send_delete_to_jugendinfo
+  ## after_destroy :delete_access_tokens
 
   after_save :adjust_todo
 
@@ -236,8 +238,10 @@ class Seeker < ActiveRecord::Base
   def send_to_jugendinfo(method)
     begin
       logger.info "Sending changes to jugendinfo"
-      logger.info "Sending: #{jugendinfo_data}"
-      response = RestClient.post CURRENT_LINK, {operation: method,  data: jugendinfo_data}, {Authorization: "Bearer ob7jwke6axsaaygrcin54er1n7xoou6e3n1xduwm"}
+      # logger.info "Sending: #{jugendinfo_data}"
+      logger.info "Sending: #{{token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', id: app_user_id, smalljobs_user_id: id, firstname: firstname, lastname: lastname, mobile: mobile, address: street, zip: place.zip, birthdate: date_of_birth.strftime('%Y-%m-%d'), city: place.name, smalljobs_status: Seeker.statuses[status], smalljobs_parental_consent: parental, smalljobs_first_visit: discussion, smalljobs_organization_id: organization.id}}"
+      # response = RestClient.post CURRENT_LINK, {operation: method,  data: jugendinfo_data}, {Authorization: "Bearer ob7jwke6axsaaygrcin54er1n7xoou6e3n1xduwm"}
+      response = RestClient.post current_link, {token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', id: app_user_id, smalljobs_user_id: id, firstname: firstname, lastname: lastname, mobile: mobile, address: street, zip: place.zip, birthdate: date_of_birth.strftime('%Y-%m-%d'), city: place.name, smalljobs_status: Seeker.statuses[status], smalljobs_parental_consent: parental, smalljobs_first_visit: discussion, smalljobs_organization_id: organization.id}
       logger.info "Response from jugendinfo: #{response}"
     rescue
       logger.info "Failed sending changes to jugendinfo"
