@@ -55,7 +55,7 @@ test:
 staging:
   adapter: postgresql
   encoding: unicode
-  database: smalljobs_production
+  database: smalljobs_staging
   pool: 5
   username: <%= ENV['DB_USERNAME'] %>
   password: <%= ENV['DB_PASSWORD'] %>
