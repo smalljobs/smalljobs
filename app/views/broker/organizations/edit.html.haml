@@ -124,21 +124,6 @@
           %label
             =t('organization.edit.end_date')
           = f.text_field :end_vacation_date, class: 'js-datetime form-control', size: "16"
-
-  %fieldset
-    %legend
-      =t('legends.age_range')
-  .form-inputs
-    .row
-      .col-xs-3
-        %label
-          = t('organization.edit.from_age')
-        = f.select :from_age, ((1..100).map{|i| [i,i] }), {}, {class: 'form-control'}
-      .col-xs-3
-        %label
-          = t('organization.edit.to_age')
-        = f.select :to_age, ((1..100).map{|i| [i,i] }),{}, { class: 'form-control'}
-
   .form-actions
     = f.button :submit, t('common.edit'), class: 'btn btn-primary'
 

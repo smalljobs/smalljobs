@@ -30,7 +30,7 @@ class Broker::OrganizationsController < InheritedResources::Base
   end
 
   def permitted_params
-    params.permit(organization: [:wage_factor, :welcome_email_for_parents_msg, :activation_msg, :get_job_msg, :not_receive_job_msg, :welcome_chat_register_msg, :welcome_app_register_msg, :welcome_app_register_above_18_msg, :welcome_chat_register_above_18_msg, :welcome_email_for_parents_above_18_msg, :welcome_letter_employers_msg, :opening_hours, :id, :logo, :logo_delete, :background, :background_delete, :name, :description, :website, :street, :email, :phone, :default_hourly_per_age, :place, :start_vacation_date, :end_vacation_date, :vacation_active, :from_age, :to_age])
+    params.permit(organization: [:wage_factor, :welcome_email_for_parents_msg, :activation_msg, :get_job_msg, :not_receive_job_msg, :welcome_chat_register_msg, :welcome_app_register_msg, :welcome_app_register_above_18_msg, :welcome_chat_register_above_18_msg, :welcome_email_for_parents_above_18_msg, :welcome_letter_employers_msg, :opening_hours, :id, :logo, :logo_delete, :background, :background_delete, :name, :description, :website, :street, :email, :phone, :default_hourly_per_age, :place, :start_vacation_date, :end_vacation_date, :vacation_active])
   end
 
 end
