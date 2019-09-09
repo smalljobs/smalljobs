@@ -44,116 +44,144 @@
 
   %ul.nav.nav-pills.js-active-tab
     %li.active
-      %a{'data-toggle': 'tab', href: '#todo_current'}
+      %a{'data-toggle': 'tab', href: '#todos'}
         =t('broker_dashboard.todo')
+        (
+        %span.sj-text-red
+          = @todos&.length.to_i
+        )
     %li
       %a{'data-toggle': 'tab', href: '#jobs'}
         =t('broker_dashboard.jobs')
+        (
+        %span.sj-text-red
+          = @jobs&.length.to_i
+        )
     %li
       %a{'data-toggle': 'tab', href: '#providers'}
         =t('broker_dashboard.providers')
+        (
+        %span.sj-text-red
+          = @providers&.length.to_i
+        )
+
     %li
       %a{'data-toggle': 'tab', href: '#seekers'}
         =t('broker_dashboard.seekers')
+        (
+        %span.sj-text-red
+          = @seekers&.length.to_i
+        )
     %li
       %a{'data-toggle': 'tab', href: '#assignments'}
         =t('broker_dashboard.assignments')
-  %ul.nav.nav-pills.margin_top_20.js-todo-tabs{style: {display: 'none'}}
-    %li.active
-      %a{'data-toggle': 'tab', href: '#todo_current'}
-        =t('broker_dashboard.aktuelle')
-    %li.margin_left_20
-      %a{'data-toggle': 'tab', href: '#todo_postponed'}
-        =t('broker_dashboard.verschoben')
-    %span.js-postpone-msg.margin_left_20{style: 'display: none'}
-      =t('broker_dashboard.todo_table.postpone_message')
+
+        (
+        %span.sj-text-red
+          = @assignments&.length.to_i
+        )
 
   %div.tab-content
-    %div{id: 'todo_current', class: 'tab-pane fade in active js-todo-current'}
-      %div.row.margin-top-25
-        %div.col-sm-3.float-right
-          %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
-          %i.fa.fa-2x.fa-times-circle.delete-icon.display-none
-      .table-responsive
-        %table.table.table-striped.sortable
-          %thead
-            %tr
-              %th.sortable{id: 'todo_date'}= t('broker_dashboard.todo_table.date')
-              %th.sortable{id: 'todo_todo'}= t('broker_dashboard.todo_table.todo')
-              %th= t('broker_dashboard.todo_table.description')
-              %th.pull-right= t('broker_dashboard.todo_table.postpone')
-          %tbody.list
-            - if @todos.current.count == 0
+    %div{id: 'todos', class: 'tab-pane fade in active'}
+      %ul.nav.nav-pills.margin_top_20.js-todo-tabs{style: {display: 'none'}}
+        %li.active
+          %a{'data-toggle': 'tab', href: '#todo_current'}
+            =t('broker_dashboard.aktuelle')
+            (
+            %span.sj-text-red
+              = @todos.current.length.to_i
+            )
+        %li.margin_left_20
+          %a{'data-toggle': 'tab', href: '#todo_postponed'}
+            =t('broker_dashboard.verschoben')
+            (
+            %span.sj-text-red
+              = @todos.postponed.length.to_i
+            )
+        %span.js-postpone-msg.margin_left_20{style: 'display: none'}
+          =t('broker_dashboard.todo_table.postpone_message')
+
+        %div.row
+          %div.col-sm-3.float-right
+            %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
+            %i.fa.fa-2x.fa-times-circle.delete-icon.display-none
+      %div{id: 'todo_current', class: 'tab-pane active js-todo-current'}
+        .table-responsive
+          %table.table.table-striped.sortable
+            %thead
               %tr
-                %td{colspan: 3}= "Es sind noch keine Todo in deiner Region erfasst"
-            - @todos.current.each do |todo|
-              %tr{ class: "organization organization-#{todo.organization_id}" }
-                - sortable_date = todo.created_at.strftime("%Y%m%d%H%M%S")
-                %td.date{sorttable_customkey: sortable_date}
-                  = todo.created_at.strftime("%d.%m.%Y")
-                %td.title
-                  = todo.todotype.title
-                %td.description
-                  - if todo.record_type == 'job'
-                    = link_to 'Job: ' + todo.job.title, edit_broker_job_path(todo.job)
-                  - elsif todo.record_type == 'provider'
-                    = link_to 'Anbieterln: ' + todo.provider.name, edit_broker_provider_path(todo.provider)
-                  - elsif todo.record_type == 'seeker'
-                    = link_to 'JugendlicheR: ' + todo.seeker.name, edit_broker_seeker_path(todo.seeker)
-                  - elsif todo.record_type == 'allocation'
-                    %a{href: "#{url_for broker_job_allocation_path(todo.job, todo.seeker)}"}
-                      = 'JugendlicheR: ' + todo.seeker.name
-                      %br
-                      = 'Anbieterln: ' + todo.provider.name
-                      %br
-                      = 'Job: ' + todo.job.title
-                %td
-                  %span.sj-postpone.js-postpone{data: {url: broker_todo_path(todo.id), todo_type: 'current'}}
-                    %i.fa.fa-2x.fa-clock-o.pull-right.safari-fix
-    %div{id: 'todo_postponed', class: 'tab-pane fade in js-todo-postponed'}
-      %div.row.margin-top-25
-        %div.col-sm-3.float-right
-          %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
-          %i.fa.fa-2x.fa-times-circle.delete-icon.display-none
-      .table-responsive
-        %table.table.table-striped.sortable
-          %thead
-            %tr
-              %th.sortable{id: 'todo_date'}= t('broker_dashboard.todo_table.date')
-              %th.sortable{id: 'todo_todo'}= t('broker_dashboard.todo_table.todo')
-              %th= t('broker_dashboard.todo_table.description')
-              %th.pull-right= t('broker_dashboard.todo_table.postpone')
-              %th= t('broker_dashboard.todo_table.date')
-          %tbody.list
-            - if @todos.postponed.count == 0
+                %th.sortable{id: 'todo_date'}= t('broker_dashboard.todo_table.date')
+                %th.sortable{id: 'todo_todo'}= t('broker_dashboard.todo_table.todo')
+                %th= t('broker_dashboard.todo_table.description')
+                %th.pull-right= t('broker_dashboard.todo_table.postpone')
+            %tbody.list
+              - if @todos.current.count == 0
+                %tr
+                  %td{colspan: 3}= "Es sind noch keine Todo in deiner Region erfasst"
+              - @todos.current.each do |todo|
+                %tr{ class: "organization organization-#{todo.organization_id}" }
+                  - sortable_date = todo.created_at.strftime("%Y%m%d%H%M%S")
+                  %td.date{sorttable_customkey: sortable_date}
+                    = todo.created_at.strftime("%d.%m.%Y")
+                  %td.title
+                    = todo.todotype.title
+                  %td.description
+                    - if todo.record_type == 'job'
+                      = link_to 'Job: ' + todo.job.title, edit_broker_job_path(todo.job)
+                    - elsif todo.record_type == 'provider'
+                      = link_to 'Anbieterln: ' + todo.provider.name, edit_broker_provider_path(todo.provider)
+                    - elsif todo.record_type == 'seeker'
+                      = link_to 'JugendlicheR: ' + todo.seeker.name, edit_broker_seeker_path(todo.seeker)
+                    - elsif todo.record_type == 'allocation'
+                      %a{href: "#{url_for broker_job_allocation_path(todo.job, todo.seeker)}"}
+                        = 'JugendlicheR: ' + todo.seeker.name
+                        %br
+                        = 'Anbieterln: ' + todo.provider.name
+                        %br
+                        = 'Job: ' + todo.job.title
+                  %td
+                    %span.sj-postpone.js-postpone{data: {url: broker_todo_path(todo.id), todo_type: 'current'}}
+                      %i.fa.fa-2x.fa-clock-o.pull-right.safari-fix
+      %div{id: 'todo_postponed', class: 'tab-pane js-todo-postponed'}
+        .table-responsive
+          %table.table.table-striped.sortable
+            %thead
               %tr
-                %td{colspan: 3}= "Es sind noch keine Todo in deiner Region erfasst"
-            - @todos.postponed.each do |todo|
-              %tr{ class: "organization organization-#{todo.organization_id}" }
-                - sortable_date = todo.created_at.strftime("%Y%m%d%H%M%S")
-                %td.date{sorttable_customkey: sortable_date}
-                  = todo.created_at.strftime("%d.%m.%Y")
-                %td.title
-                  = todo.todotype.title
-                %td.description
-                  - if todo.record_type == 'job'
-                    = link_to 'Job: ' + todo.job.title, edit_broker_job_path(todo.job)
-                  - elsif todo.record_type == 'provider'
-                    = link_to 'Anbieterln: ' + todo.provider.name, edit_broker_provider_path(todo.provider)
-                  - elsif todo.record_type == 'seeker'
-                    = link_to 'JugendlicheR: ' + todo.seeker.name, edit_broker_seeker_path(todo.seeker)
-                  - elsif todo.record_type == 'allocation'
-                    %a{href: "#{url_for broker_job_allocation_path(todo.job, todo.seeker)}"}
-                      = 'JugendlicheR: ' + todo.seeker.name
-                      %br
-                      = 'Anbieterln: ' + todo.provider.name
-                      %br
-                      = 'Job: ' + todo.job.title
-                %td
-                  %span.sj-postpone.js-postpone{data: {url: broker_todo_path(todo.id), 'todo-type' => 'postponed'}}
-                    %i.fa.fa-2x.fa-clock-o.pull-right.safari-fix
-                %td
-                  = todo.postponed.strftime("%d.%m.%Y")
+                %th.sortable{id: 'todo_date'}= t('broker_dashboard.todo_table.date')
+                %th.sortable{id: 'todo_todo'}= t('broker_dashboard.todo_table.todo')
+                %th= t('broker_dashboard.todo_table.description')
+                %th.pull-right= t('broker_dashboard.todo_table.postpone')
+                %th= t('broker_dashboard.todo_table.date')
+            %tbody.list
+              - if @todos.postponed.count == 0
+                %tr
+                  %td{colspan: 3}= "Es sind noch keine Todo in deiner Region erfasst"
+              - @todos.postponed.each do |todo|
+                %tr{ class: "organization organization-#{todo.organization_id}" }
+                  - sortable_date = todo.created_at.strftime("%Y%m%d%H%M%S")
+                  %td.date{sorttable_customkey: sortable_date}
+                    = todo.created_at.strftime("%d.%m.%Y")
+                  %td.title
+                    = todo.todotype.title
+                  %td.description
+                    - if todo.record_type == 'job'
+                      = link_to 'Job: ' + todo.job.title, edit_broker_job_path(todo.job)
+                    - elsif todo.record_type == 'provider'
+                      = link_to 'Anbieterln: ' + todo.provider.name, edit_broker_provider_path(todo.provider)
+                    - elsif todo.record_type == 'seeker'
+                      = link_to 'JugendlicheR: ' + todo.seeker.name, edit_broker_seeker_path(todo.seeker)
+                    - elsif todo.record_type == 'allocation'
+                      %a{href: "#{url_for broker_job_allocation_path(todo.job, todo.seeker)}"}
+                        = 'JugendlicheR: ' + todo.seeker.name
+                        %br
+                        = 'Anbieterln: ' + todo.provider.name
+                        %br
+                        = 'Job: ' + todo.job.title
+                  %td
+                    %span.sj-postpone.js-postpone{data: {url: broker_todo_path(todo.id), 'todo-type' => 'postponed'}}
+                      %i.fa.fa-2x.fa-clock-o.pull-right.safari-fix
+                  %td
+                    = todo.postponed.strftime("%d.%m.%Y")
 
     %div{id: 'jobs', class: 'tab-pane fade in'}
       %div.row.margin-top-25
@@ -323,7 +351,8 @@
               %th.sortable{id: 'assignment_date'}= t('broker_dashboard.jobs_table.date')
               %th.sortable{id: 'assignment_seeker'}= t('broker_dashboard.assignments_table.seeker')
               %th.sortable{id: 'assignment_provider'}= t('broker_dashboard.assignments_table.provider')
-              %th.sortable{id: 'assignment_payment'}= t('broker_dashboard.assignments_table.duration_payment')
+              %th.sortable{id: 'assignment_duration'}= t('broker_dashboard.assignments_table.duration')
+              %th.sortable{id: 'assignment_payment'}= t('broker_dashboard.assignments_table.payment')
               %th.sortable{id: 'assignment_feedback'}= t('broker_dashboard.assignments_table.feedback')
           %tbody.list
             - if @assignments.size == 0
@@ -340,7 +369,7 @@
                   = link_to assignment.seeker.name, edit_broker_seeker_path(assignment.seeker)
                 %td.provider-name
                   = link_to assignment.provider.name, edit_broker_provider_path(assignment.provider)
-                %td.payment
+                %td.duration
                   - if assignment.duration != nil
                     - minutes = assignment.duration/60000
                     - minutes = minutes.floor
@@ -349,8 +378,9 @@
                     - minutes = minutes % 60
                     = "#{hours}:#{minutes}"
                     = " "
-                    - if assignment.payment != nil
-                      = ", CHF #{assignment.payment.floor}.-"
+                %td.payment{data: {id: assignment.payment.floor}}
+                  - if assignment.payment != nil
+                    = assignment.payment.floor
                 %td.feedback
                   = assignment.feedback
 

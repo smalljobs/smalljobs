@@ -42,14 +42,12 @@ class Organization < ActiveRecord::Base
 
   def copy_default_templates
     template_names = ['welcome_letter_employers_msg', 'welcome_app_register_msg', 'welcome_chat_register_msg',
-                      'not_receive_job_msg', 'get_job_msg', 'activation_msg', 'welcome_email_for_parents_msg']
-    to_download = []
-    template_names.each{ |template_name| to_download << template_name if self[template_name].blank? }
-    if to_download.present?
-      DefaultTemplate.where(template_name: to_download).each do |default_template|
-        template_name = default_template.template_name
-        self[template_name] = default_template.template if self[template_name].blank?
-      end
+                      'not_receive_job_msg', 'get_job_msg', 'activation_msg', 'welcome_email_for_parents_msg',
+                      'welcome_app_register_above_18_msg', 'welcome_chat_register_above_18_msg', 'welcome_email_for_parents_above_18_msg']
+    DefaultTemplate.where(template_name: template_names).each do |default_template|
+      template_name = default_template.template_name
+      self[template_name] = default_template.template if self[template_name].blank?
+
     end
   end
 

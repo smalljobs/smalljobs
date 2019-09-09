@@ -35,7 +35,7 @@ class Broker::SeekersController < InheritedResources::Base
   # Renders seeker agreement as pdf file
   #
   def agreement
-    @seeker = Seeker.find_by(id: params[:id])
+    @seeker = Seeker.find_by(agreement_id: params[:agreement_id])
     render pdf: 'Einverständnis', template: 'broker/seekers/agreement.html.erb', margin: {top: 3, left: 3, right: 3, bottom: 3}
   end
 
