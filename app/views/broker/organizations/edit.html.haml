@@ -99,6 +99,14 @@
       = f.input :get_job_msg
       = f.input :activation_msg
       = f.input :welcome_email_for_parents_msg
+    %h3.margin-top-25
+      = t('organization.edit.message_above_18')
+    .form-inputs
+      = f.input :welcome_app_register_above_18_msg
+      = f.input :welcome_chat_register_above_18_msg
+      = f.input :welcome_email_for_parents_above_18_msg
+  .form-actions
+    = button_tag 'Reset to default', class: 'btn btn-info js-reset-to-defaults', type: :button
 
   %fieldset
     %legend
@@ -138,6 +146,23 @@
   %li= link_to t('common.back'), broker_dashboard_path
 
 :javascript
+  $('.js-reset-to-defaults').on('click', function(){
+    $.ajax({
+      url: "#{broker_region_organization_reset_templates_to_default_path(@organization.id)}",
+      type: 'POST',
+      success: function(result) {
+        console.log('success')
+        for(var es in result){
+          console.log($("#organization_"+es).val(result[es]))
+        }
+        console.log(result)
+      },
+      error: function(result){
+        console.log('error')
+        console.log(result)
+      }
+    });
+  })
 
   $(document).ready(function(){
     $('.js-datetime').BSdatepicker({    format: 'yyyy-mm-dd'  })

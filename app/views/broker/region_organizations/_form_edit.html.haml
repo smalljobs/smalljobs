@@ -97,6 +97,7 @@
       = f.input :get_job_msg
       = f.input :activation_msg
       = f.input :welcome_email_for_parents_msg
+
   %fieldset
     %legend
       =t('legends.age_range')
@@ -110,6 +111,18 @@
         %label
           = t('organization.edit.to_age')
         = f.select :to_age, ((1..100).map{|i| [i,i] }),{}, { class: 'form-control'}
+
+      
+    %h3.margin-top-25
+      = t('organization.edit.message_above_18')
+    .form-inputs
+      = f.input :welcome_app_register_above_18_msg
+      = f.input :welcome_chat_register_above_18_msg
+      = f.input :welcome_email_for_parents_above_18_msg
+  .form-actions
+    = button_tag 'Reset to default', class: 'btn btn-info js-reset-to-defaults', type: :button
+
+
   .form-actions
     = f.button :submit, t('common.edit'), class: 'btn btn-primary'
 
@@ -118,6 +131,25 @@
 
 :javascript
   $(document).ready(function(){
+    $('.js-reset-to-defaults').on('click', function(){
+      $.ajax({
+        url: "#{broker_region_organization_reset_templates_to_default_path(@organization.id)}",
+        type: 'POST',
+        success: function(result) {
+          console.log('success')
+          for(var es in result){
+            console.log($("#organization_"+es).val(result[es]))
+          }
+          console.log(result)
+        },
+        error: function(result){
+          console.log('error')
+          console.log(result)
+        }
+      });
+    })
+
+
     $('.organization_logo .controls').prepend('<div class="logo-wrapper"></div>');
     $('.organization_logo .controls img').prependTo('.logo-wrapper');
     $('.organization_logo .controls img').after('<i class="fa fa-trash fa-2x delete-logo-icon"/>');
