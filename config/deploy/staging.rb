@@ -8,7 +8,7 @@ set  :ssh_options, {
 }
 
 
-set :branch, 'staging-minor-taks'
+set :branch, 'staging'
 set :stage, :staging
 set :rails_env, :staging
 
