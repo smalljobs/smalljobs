@@ -793,7 +793,7 @@ class ApiController < ApplicationController
       return false
     end
 
-    @seeker = Seeker.find_by(id: token.seeker_id)
+    @seeker = Seeker.find_by(id: token.userable_id)
     return true
   end
 
