@@ -74,13 +74,15 @@ RailsAdmin.config do |config|
   config.model AccessToken do
     list do
       field :access_token
-      field :seeker
+      # field :seeker
+      field :userable
       field :expire_at
     end
 
     edit do
       field :access_token
-      field :seeker
+      # field :seeker
+      field :userable
       field :expire_at
     end
   end
@@ -167,6 +169,10 @@ RailsAdmin.config do |config|
         field :get_job_msg
         field :activation_msg
         field :welcome_email_for_parents_msg
+
+        field :welcome_app_register_above_18_msg
+        field :welcome_chat_register_above_18_msg
+        field :welcome_email_for_parents_above_18_msg
       end
 
       group :brokers do

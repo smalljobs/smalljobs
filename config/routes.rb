@@ -31,7 +31,7 @@ Smalljobs::Application.routes.draw do
 
   constraints(SmalljobsSubdomain) do
     namespace :broker do
-      resources :seekers do
+      resources :seekers, param: :agreement_id do
         member do
           get 'agreement'
         end
@@ -108,9 +108,14 @@ Smalljobs::Application.routes.draw do
         end
       end
 
-      resources :seekers do
+      resources :seekers, only: [], param: :agreement_id do
         member do
           get 'agreement'
+        end
+      end
+
+      resources :seekers do
+        member do
           delete 'delete'
           post 'send_message'
           post 'add_comment'
@@ -193,6 +198,110 @@ Smalljobs::Application.routes.draw do
     post '/users/password/validate' => 'api#password_validate'
     post '/users/password/change' => 'api#password_change'
     put '/messages/update' => 'api#update_messages'
+
+    namespace :v1 do
+      namespace :admin do
+        resources :users, only: [:index, :update, :destroy, :create], controller: '/api/v1/admin/seekers' do
+          collection do
+            get :show, path: :show
+            post :check_if_exists
+            post :create_seekers_access_token
+            post :login
+          end
+        end
+      end
+
+      resources :places, only: [:show, :index]
+      resource :user, only: [:show, :update, :destroy], controller: '/api/v1/seekers'
+
+      resources :users, only: [], controller: '/api/v1/seekers' do
+        collection do
+          post :login
+          post :logout
+          post :register
+
+          resource :password, controller: '/api/v1/seekers' do
+            post :password_change, path: :change
+            post :password_remind, path: :remind
+            post :password_validate, path: :validate
+          end
+        end
+      end
+
+      resources :messages, only: [], controller: '/api/v1/seekers' do
+        collection do
+          put :update, action: :update_messages, path: :update
+        end
+      end
+
+      resource :market, only: [] do
+        resources :regions, only: [:show, :index]
+        resources :organizations, only: [:show, :index]
+      end
+
+      resources :jobs, only: [:show, :index] do
+        collection do
+          post :revoke
+          post :apply
+          post :list_my_jobs
+        end
+      end
+      resources :allocations, only: [:index]
+      resources :assignments, only: [:create, :update, :destroy, :index, :show]
+    end
+  end
+
+  namespace :api do
+    namespace :v1 do
+      namespace :admin do
+        resources :users, only: [:index, :update, :destroy, :create], controller: '/api/v1/admin/seekers' do
+          collection do
+            get :show, path: :show
+            post :check_if_exists
+            post :create_seekers_access_token
+            post :login
+          end
+        end
+      end
+
+      resources :places, only: [:show, :index]
+      resource :user, only: [:show, :update, :destroy], controller: '/api/v1/seekers'
+
+      resources :users, only: [], controller: '/api/v1/seekers' do
+        collection do
+          post :login
+          get :logout
+          post :register
+
+          resource :password, controller: '/api/v1/seekers' do
+            post :password_change, path: :change
+            post :password_remind, path: :remind
+            post :password_validate, path: :validate
+          end
+        end
+      end
+
+      resources :messages, only: [], controller: '/api/v1/seekers' do
+        collection do
+          put :update, action: :update_messages, path: :update
+        end
+      end
+
+      resource :market, only: [] do
+        resources :regions, only: [:show, :index]
+        resources :organizations, only: [:show, :index]
+      end
+
+      resources :jobs, only: [:show, :index] do
+        collection do
+          post :revoke
+          post :apply
+          post :list_my_jobs
+        end
+      end
+      resources :allocations, only: [:index]
+      resources :assignments, only: [:create, :update, :destroy, :index, :show]
+    end
   end
 
   #API

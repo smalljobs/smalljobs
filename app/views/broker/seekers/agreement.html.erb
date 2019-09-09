@@ -2,7 +2,13 @@
 <html>
 <head>
   <meta charset='utf-8'/>
-  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+  <%if Rails.env.staging?%>
+    <link href="//fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+  <% else %>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+
+  <% end %>
+
   <style>
     body {
       width: 100%;

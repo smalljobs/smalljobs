@@ -1,6 +1,6 @@
 require 'securerandom'
 class AccessToken < ActiveRecord::Base
-  belongs_to :seeker
+  belongs_to :userable, polymorphic: true
   before_create :set_access_token
   before_create :set_refresh_token
 
