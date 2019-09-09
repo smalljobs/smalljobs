@@ -1,0 +1,45 @@
+if ( $(location).attr('hash') == "#todos" ||  $(location).attr('hash') == "" || $(location).attr('hash') == "#todo_current" ) {
+    next_page = $('.js-todo-tabs > .active > a').data('page') + 1
+    $('#todo_current_body').append('<%= j render @todos_current %>');
+    $('.js-todo-tabs > .active > a').data('page', next_page)
+    $('.js-todo-tabs > .active > a').data('total', <%= @todos_current.total_pages %>)
+
+} else if ( $(location).attr('hash') == "#todo_postponed" )  {
+    next_page = $('.js-todo-tabs > .active > a').data('page') + 1
+    $('#todo_postponed_body').append('<%= j render @todos_postponed %>');
+    $('.js-todo-tabs > .active > a').data('page', next_page)
+    $('.js-todo-tabs > .active > a').data('total', <%= @todos_postponed.total_pages %>)
+
+
+}else if ( $(location).attr('hash') == "#jobs" )  {
+    next_page = $('.js-active-tab > .active > a').data('page') + 1
+    $('#jobs_body').append('<%= j render @jobs %>');
+    $('.js-active-tab > .active > a').data('page', next_page)
+    $('.js-active-tab > .active > a').data('total', <%= @jobs.total_pages %>)
+
+
+} else if ( $(location).attr('hash') == "#providers" ) {
+    next_page = $('.js-active-tab > .active > a').data('page') + 1
+    $('#providers_body').append('<%= j render @providers %>');
+    $('.js-active-tab > .active > a').data('page', next_page)
+    $('.js-active-tab > .active > a').data('total', <%= @jobs.total_pages %>)
+
+
+} else if ( $(location).attr('hash') == "#seekers" ) {
+    next_page = $('.js-active-tab > .active > a').data('page') + 1
+    $('#seekers_body').append('<%= j render @seekers %>');
+    $('.js-active-tab > .active > a').data('page', next_page)
+    $('.js-active-tab > .active > a').data('total', <%= @jobs.total_pages %>)
+
+} else if ( $(location).attr('hash') == "#assignments" ) {
+    next_page = $('.js-active-tab > .active > a').data('page') + 1
+    $('#assignments_body').append('<%= j render @assignments %>');
+    $('.js-active-tab > .active > a').data('page', next_page)
+    $('.js-active-tab > .active > a').data('total', <%= @jobs.total_pages %>)
+
+}
+
+
+
+
+

@@ -1,0 +1,23 @@
+%tr{ class: "organization organization-#{todo.organization_id}" }
+  - sortable_date = todo.created_at.strftime("%Y%m%d%H%M%S")
+  %td.date{sorttable_customkey: sortable_date}
+    = todo.created_at.strftime("%d.%m.%Y")
+  %td.title
+    = todo.todotype.title
+  %td.description
+    - if todo.record_type == 'job'
+      = link_to 'Job: ' + todo.job.title, edit_broker_job_path(todo.job)
+    - elsif todo.record_type == 'provider'
+      = link_to 'Anbieterln: ' + todo.provider.name, edit_broker_provider_path(todo.provider)
+    - elsif todo.record_type == 'seeker'
+      = link_to 'JugendlicheR: ' + todo.seeker.name, edit_broker_seeker_path(todo.seeker)
+    - elsif todo.record_type == 'allocation'
+      %a{href: "#{url_for broker_job_allocation_path(todo.job, todo.seeker)}"}
+        = 'JugendlicheR: ' + todo.seeker.name
+        %br
+        = 'Anbieterln: ' + todo.provider.name
+        %br
+        = 'Job: ' + todo.job.title
+  %td
+    %span.sj-postpone.js-postpone{data: {url: broker_todo_path(todo.id), todo_type: 'current'}}
+      %i.fa.fa-2x.fa-clock-o.pull-right.safari-fix

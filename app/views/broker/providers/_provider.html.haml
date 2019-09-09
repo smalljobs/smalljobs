@@ -1,0 +1,22 @@
+%tr{ class: "organization organization-#{provider.organization&.id} status-#{provider.stat_name}" }
+  %td.status
+    = provider_label(provider)
+  %td.date{sorttable_customkey: provider.updated_at.strftime("%Y%m%d%H%M%S")}
+    = provider.updated_at.strftime("%d.%m.%Y")
+  %td.name= link_to provider.name, edit_broker_provider_path(provider)
+  %td.street= provider.street
+  %td.place= provider.place.zip + ' ' + provider.place.name
+  %td.jobs
+    -provider.jobs.each do |job|
+      %ul.list-unstyled
+        %li= link_to job.title, edit_broker_job_path(job)
+  %td.phone.display-none
+    = provider.phone
+  %td.mobile.display-none
+    = provider.mobile
+  %td.contact_preference.display-none
+    = provider.contact_preference
+  %td.contact_availability.display-none
+    = provider.contact_availability
+  %td.company.display-none
+    = provider.company

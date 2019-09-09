@@ -3,6 +3,8 @@ ruby '2.3.7'
 
 gem 'rails', '~>5.0'
 
+
+gem 'will_paginate-bootstrap', '~> 1.0', '>= 1.0.1'
 gem 'activevalidators'
 gem 'bootstrap-sass'
 gem 'cancancan'

@@ -1,0 +1,22 @@
+%tr{ class: "organization organization-#{assignment.provider.try(:organization).try(:id)}" }
+  %td.status
+    = assignment_label(assignment)
+  %td.date{sorttable_customkey: assignment.created_at.strftime("%Y%m%d%H%M%S")}
+    = assignment.created_at.strftime("%d.%m.%Y")
+  %td.name
+    = link_to assignment.seeker.name, edit_broker_seeker_path(assignment.seeker)
+  %td.provider-name
+    = link_to assignment.provider.name, edit_broker_provider_path(assignment.provider)
+  %td.payment
+    - if assignment.duration != nil
+      - minutes = assignment.duration/60000
+      - minutes = minutes.floor
+      - hours = minutes/60
+      - hours = hours.floor
+      - minutes = minutes % 60
+      = "#{hours}:#{minutes}"
+      = " "
+      - if assignment.payment != nil
+        = ", CHF #{assignment.payment.floor}.-"
+  %td.feedback
+    = assignment.feedback

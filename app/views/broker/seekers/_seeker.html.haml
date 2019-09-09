@@ -1,0 +1,26 @@
+%tr{ class: "organization organization-#{seeker.try(:organization).try(:id)} status-#{seeker.stat_name}" }
+  %td.status
+    = seeker_label(seeker)
+  %td{sorttable_customkey: seeker.updated_at.strftime("%Y%m%d%H%M%S")}
+    = seeker.updated_at.strftime("%d.%m.%Y")
+  %td.name= link_to seeker.name, edit_broker_seeker_path(seeker)
+  %td.street= seeker.street
+  %td.place= seeker.place.zip + ' ' + seeker.place.name
+  %td.phone.display-none
+    = seeker.phone
+  %td.mobile.display-none
+    = seeker.mobile
+  %td.contact_preference.display-none
+    = seeker.contact_preference
+  %td.contact_availability.display-none
+    = seeker.contact_availability
+  %td.email.display-none
+    = seeker.email
+  %td.sex.display-none
+    = seeker.sex
+  %td.occupation.display-none
+    = seeker.occupation
+  %td.additional_contacts.display-none
+    = seeker.additional_contacts
+  %td.languages.display-none
+    = seeker.languages
