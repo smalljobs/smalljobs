@@ -574,6 +574,8 @@ de:
       seeker: 'Jugendlicher'
       provider: 'Anbieter'
       duration_payment: 'Dauer, Lohn'
+      duration: 'Dauer'
+      payment: 'Lohn (CHF)'
       feedback: 'Feedback'
   seeker_dashboard:
     title: 'Willkommen'

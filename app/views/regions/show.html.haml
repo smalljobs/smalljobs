@@ -12,7 +12,7 @@
 %p.lead
   = "Sie haben einen Job für Jugendliche? Gartenarbeit, IT-Support, Haushalt, Botengänge oder andere kleinere Arbeiten? Melden sie sich hier online an oder "
   %a{ href: '#contact_header'}
-    = "rufen sie uns an."
+    = "rufen Sie uns an."
 = link_to "Job ausschreiben", new_provider_registration_path, class: 'btn btn-success'
 
 %br
@@ -37,7 +37,7 @@
 %br
 
 - for organization in @region.organizations.where(active: true).order(:name).distinct
-  %h1.contact_header
+  %h1#contact_header
     = "Kontakt #{organization.name}"
   %h2= t('regions.show.address')
   %address
@@ -56,7 +56,7 @@
       %br
 
     - if organization.email
-      %a{ href: 'mailto:#' }= organization.email
+      %a{ href: "mailto:#{organization.email}" }= organization.email
       %br
 
     - if organization.website
@@ -108,3 +108,13 @@
         - is_first = false
         = place.full_name
 
+:javascript
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+      });
+  });

@@ -23,12 +23,10 @@ class ApiController < ApplicationController
       return
     end
 
-    token = AccessToken.find_by(seeker_id: seeker.id)
-    if token != nil
-      token.destroy!
-    end
+    token = AccessToken.find_by(userable_id: seeker.id, userable_type: 'Seeker')
+    token.destroy! if token != nil
 
-    token = AccessToken.new(seeker_id: seeker.id, token_type: 'bearer')
+    token = AccessToken.new(userable_id: seeker.id, userable_type: 'Seeker', token_type: 'bearer')
     token.expire_at = DateTime.now() + 30.days
     token.save!
 
@@ -104,14 +102,14 @@ class ApiController < ApplicationController
 
     title = 'Willkommen'
     host = "#{seeker.organization.regions.first.subdomain}.smalljobs.ch"
-    seeker_agreement_link = url_for(agreement_broker_seeker_url(seeker, subdomain: seeker.organization.regions.first.subdomain, host: host, protocol: 'https'))
-    registration_welcome_message = Mustache.render(seeker.organization.welcome_app_register_msg || '', seeker_first_name: seeker.firstname, seeker_last_name: seeker.lastname, seeker_link_to_agreement: "<a file type='application/pdf' title='Elterneinverständnis herunterladen' href='#{seeker_agreement_link}'>#{seeker_agreement_link}</a>", broker_first_name: seeker.organization.brokers.first.firstname, broker_last_name: seeker.organization.brokers.first.lastname, organization_name: seeker.organization.name, organization_street: seeker.organization.street, organization_zip: seeker.place.zip, organization_place: seeker.place.name, organization_phone: seeker.organization.phone, organization_email: seeker.organization.email, link_to_jobboard_list: url_for(root_url(subdomain: seeker.organization.regions.first.subdomain, host: host, protocol: 'https')))
+    seeker_agreement_link = url_for(agreement_broker_seeker_url(seeker.agreement_id, subdomain: seeker.organization.regions.first.subdomain, host: host, protocol: 'https'))
+    registration_welcome_message = Mustache.render(seeker.organization.welcome_app_register_msg || '', seeker_first_name: seeker.firstname, seeker_last_name: seeker.lastname, seeker_link_to_agreement: "<a file type='application/pdf' title='Elterneinverständnis herunterladen' href='#{seeker_agreement_link}'>#{seeker_agreement_link}</a>", broker_first_name: seeker.organization.brokers.first.firstname, broker_last_name: seeker.organization.brokers.first.lastname, organization_name: seeker.organization.name, organization_street: seeker.organization.street, organization_zip: seeker.organization.place.zip, organization_place: seeker.organization.place.name, organization_phone: seeker.organization.phone, organization_email: seeker.organization.email, link_to_jobboard_list: url_for(root_url(subdomain: seeker.organization.regions.first.subdomain, host: host, protocol: 'https')))
     registration_welcome_message.gsub! "\r\n", "<br>"
     registration_welcome_message.gsub! "\n", "<br>"
     # MessagingHelper::send_message(title, message, seeker.app_user_id, seeker.organization.email)
 
     unless parents_email.blank?
-      parent_message = Mustache.render(seeker.organization.welcome_email_for_parents_msg || '', seeker_first_name: seeker.firstname, seeker_last_name: seeker.lastname, seeker_link_to_agreement: url_for(agreement_broker_seeker_url(seeker, subdomain: seeker.organization.regions.first.subdomain, host: host, protocol: 'https')), broker_first_name: seeker.organization.brokers.first.firstname, broker_last_name: seeker.organization.brokers.first.lastname, organization_name: seeker.organization.name, organization_street: seeker.organization.street, organization_zip: seeker.place.zip, organization_place: seeker.place.name, organization_phone: seeker.organization.phone, organization_email: seeker.organization.email, link_to_jobboard_list: url_for(root_url(subdomain: seeker.organization.regions.first.subdomain, host: host, protocol: 'https')))
+      parent_message = Mustache.render(seeker.organization.welcome_email_for_parents_msg || '', seeker_first_name: seeker.firstname, seeker_last_name: seeker.lastname, seeker_link_to_agreement: url_for(agreement_broker_seeker_url(seeker.agreement_id, subdomain: seeker.organization.regions.first.subdomain, host: host, protocol: 'https')), broker_first_name: seeker.organization.brokers.first.firstname, broker_last_name: seeker.organization.brokers.first.lastname, organization_name: seeker.organization.name, organization_street: seeker.organization.street, organization_zip: seeker.organization.place.zip, organization_place: seeker.organization.place.name, organization_phone: seeker.organization.phone, organization_email: seeker.organization.email, link_to_jobboard_list: url_for(root_url(subdomain: seeker.organization.regions.first.subdomain, host: host, protocol: 'https')))
       parent_message.gsub! "\n", "<br>"
       Notifier.send_welcome_message_for_parents(parent_message, parents_email).deliver
     end
@@ -177,10 +175,6 @@ class ApiController < ApplicationController
     if user_params[:birthdate] != nil
       user_params[:date_of_birth] = DateTime.strptime(user_params[:birthdate], '%s')
       user_params.except!(:birthdate)
-    end
-
-    if user_params[:occupation_end_date] != nil
-      user_params[:occupation_end_date] = DateTime.strptime(user_params[:occupation_end_date], '%s')
     end
 
     if user_params[:categories] != nil
@@ -799,7 +793,7 @@ class ApiController < ApplicationController
       return false
     end
 
-    @seeker = Seeker.find_by(id: token.seeker_id)
+    @seeker = Seeker.find_by(id: token.userable_id)
     return true
   end
 
@@ -824,10 +818,6 @@ class ApiController < ApplicationController
   end
 
   def update_params
-    # params.permit(:phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id, :street, :sex, :status, :categories)
-    params.permit(:phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id,
-                  :street, :sex, :status, :categories,
-                  :login, :mobile, :email, :additional_contacts, :languages, :occupation, :occupation_end_date,
-                  :contact_availability, :contact_preference)
+    params.permit(:phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id, :street, :sex, :status, :categories)
   end
 end

@@ -35,21 +35,45 @@ $(document).ready(function() {
 
   window.setTimeout(
     function(){
-      if($('.js-active-tab').find('.active > a').attr('href') != '#todo_current') {
-        $('.js-todo-tabs').hide()
-      }else{
-        $('.js-todo-tabs').show()
+      if($('.js-active-tab').find('.active > a').attr('href') == '#todos') {
+        which_todo = $('.js-todo-tabs').find('.active > a').attr('href')
+        $(which_todo).show()
+        if(which_todo == '#todo_current'){
+          $('#todo_postponed').hide()
+        }else{
+          $('#todo_current').hide()
+        }
       }
   },0)
 
   $('.js-active-tab').on('click', function(){
     window.setTimeout(
       function(){
-        if($('.js-active-tab').find('.active > a').attr('href') != '#todo_current') {
-          $('.js-todo-tabs').hide()
-        }else{
-          $('.js-todo-tabs').show()
+        if($('.js-active-tab').find('.active > a').attr('href') == '#todos') {
+          which_todo = $('.js-todo-tabs').find('.active > a').attr('href')
+          $(which_todo).show()
+          if(which_todo == '#todo_current'){
+            $('#todo_postponed').hide()
+          }else{
+            $('#todo_current').hide()
+          }
         }
       },0)
   })
-});
+
+  $('.js-todo-tabs').on('click', function() {
+    window.setTimeout(function(){
+      which_todo = $('.js-todo-tabs').find('.active > a').attr('href')
+      if($('.js-active-tab').find('.active > a').attr('href') == '#todos') {
+        $(which_todo).show()
+        console.log(which_todo)
+        if(which_todo == '#todo_current'){
+          $('#todo_postponed').hide()
+        }else{
+          $('#todo_current').hide()
+        }
+      }
+    }, 0)
+  })
+
+  });
