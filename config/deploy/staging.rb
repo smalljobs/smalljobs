@@ -1,6 +1,6 @@
 server ENV['SERVER_IP'],
        user: ENV['SERVER_USER'],
-       roles: %w{web app}
+       roles: %w{web app db}
 set  :ssh_options, {
     keepalive: true,
     keepalive_interval: 60, #seconds
@@ -8,7 +8,7 @@ set  :ssh_options, {
 }
 
 
-set :branch, 'staging'
+set :branch, 'staging-minor-taks'
 set :stage, :staging
 set :rails_env, :staging
 
