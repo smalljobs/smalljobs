@@ -34,6 +34,16 @@ class Broker::RegionOrganizationsController < InheritedResources::Base
     end
   end
 
+  def reset_templates_to_default
+    template_names = ['welcome_letter_employers_msg', 'welcome_app_register_msg', 'welcome_chat_register_msg',
+                      'not_receive_job_msg', 'get_job_msg', 'activation_msg', 'welcome_email_for_parents_msg']
+    default_templates = {}
+    DefaultTemplate.where(template_name: template_names).each do |default_template|
+      default_templates[default_template.template_name] = default_template.template
+    end
+    render json: default_templates
+  end
+
   protected
 
   # Returns currently signed in broker
