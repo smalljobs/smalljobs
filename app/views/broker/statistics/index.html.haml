@@ -47,7 +47,7 @@
       bis
   #chart-legends
   %canvas#seeker
-  %div.margin-top-40
+  %div.margin-top-40.js-loader-container
     #loader.loader{style: 'display: none;'}
 .toPic
 .toCanvas
@@ -120,10 +120,12 @@
                 archived: archived
             },
       beforeSend: function(result){
+        $('.js-loader-container').height($("#seeker").height())
         $("#seeker").hide()
         $('#loader').show()
       },
       success: function(result) {
+        $('.js-loader-container').height(0)
         $("#loader").hide()
         $('#seeker').show()
         $('.js-from').html(date_start)
@@ -285,10 +287,13 @@
                   archived: archived
               },
         beforeSend: function(result){
+          $('.js-loader-container').height($("#seeker").height())
           $("#seeker").hide()
           $('#loader').show()
         },
         success: function(result) {
+          $('.js-loader-container').height(0)
+          $("#loader").hide()
           $('#loader').hide()
           $("#seeker").show()
           window.chart.data.labels = result["label"]
