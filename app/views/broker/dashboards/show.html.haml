@@ -67,11 +67,8 @@
     %li
       %a{'data-toggle': 'tab', href: '#assignments'}
         =t('broker_dashboard.assignments')
-
         %span
           = "(#{@assignments&.length.to_i})"
-
-
   %div.tab-content
     %div{id: 'todos', class: 'tab-pane fade in active'}
       %ul.nav.nav-pills.margin_top_20.js-todo-tabs{style: {display: 'none'}}
@@ -88,6 +85,7 @@
         %span.js-postpone-msg.margin_left_20{style: 'display: none'}
           =t('broker_dashboard.todo_table.postpone_message')
 
+
         %div.row
           %div.col-sm-3.float-right
             %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
@@ -103,6 +101,7 @@
                 %th.pull-right= t('broker_dashboard.todo_table.postpone')
             %tbody.list
               - if @todos.current.count == 0
+
                 %tr
                   %td{colspan: 3}= "Es sind noch keine Todo in deiner Region erfasst"
               - @todos.current.each do |todo|
@@ -141,6 +140,7 @@
                 %th= t('broker_dashboard.todo_table.date')
             %tbody.list
               - if @todos.postponed.count == 0
+
                 %tr
                   %td{colspan: 3}= "Es sind noch keine Todo in deiner Region erfasst"
               - @todos.postponed.each do |todo|

@@ -45,6 +45,7 @@ class Organization < ActiveRecord::Base
 
   def copy_default_templates
     template_names = TEMPLATES_NAMES
+
     DefaultTemplate.where(template_name: template_names).each do |default_template|
       template_name = default_template.template_name
       self[template_name] = default_template.template if self[template_name].blank?
