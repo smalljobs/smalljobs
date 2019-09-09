@@ -19,13 +19,13 @@
         %label
           = radio_button_tag :sum_type, 'new', false
           Neue
-      %span.sj-checkbox-active
-        %label
-          = check_box_tag :active, 'active', true, class: 'js-checkbox js-active-checkbox'
-          Aktive
-        %label
-          = check_box_tag :archived, 'archived', true, class: 'js-checkbox js-archived-checkbox'
-          Beendete
+      -#%span.sj-checkbox-active
+      -#  %label
+      -#    = check_box_tag :active, 'active', true, class: 'js-checkbox js-active-checkbox'
+      -#    Aktive
+      -#  %label
+      -#    = check_box_tag :archived, 'archived', true, class: 'js-checkbox js-archived-checkbox'
+      -#    Beendete
 
     %div.col-sm-5
       .dropdown
@@ -47,6 +47,8 @@
       bis
   #chart-legends
   %canvas#seeker
+  %div.margin-top-40.js-loader-container
+    #loader.loader{style: 'display: none;'}
 .toPic
 .toCanvas
 %div.sj-export
@@ -79,9 +81,10 @@
     date_start = $('.js-datestart').val()
     date_end = $('.js-dateend').val()
     sum_type = $(".js-sum-type input[type='radio']:checked").val()
-    active = $('.js-active-checkbox').is(':checked')
-    archived = $('.js-archived-checkbox').is(':checked')
-
+    // active = $('.js-active-checkbox').is(':checked')
+    // archived = $('.js-archived-checkbox').is(':checked')
+    active = true
+    archived = true
 
     $('.js-download-csv').on('click', function(){
       $.ajax({
@@ -117,7 +120,15 @@
                 active: active,
                 archived: archived
             },
+      beforeSend: function(result){
+        $('.js-loader-container').height($("#seeker").height())
+        $("#seeker").hide()
+        $('#loader').show()
+      },
       success: function(result) {
+        $('.js-loader-container').height(0)
+        $("#loader").hide()
+        $('#seeker').show()
         $('.js-from').html(date_start)
         $('.js-to').html(date_end)
         $('.js-organization').html($('#dropdown-btn').find("option:selected").text())
@@ -220,7 +231,8 @@
 
         var ctx = document.getElementById("seeker").getContext("2d");
         document.getElementById('chart-legends').innerHTML = window.chart.generateLegend();
-
+        $("#start_vacation_date").BSdatepicker("setDate", new Date(result.label.slice(0,1)[0].split('-').reverse()))
+        $("#end_vacation_date").BSdatepicker("setDate", new Date(result.label.slice(-1)[0].split('-').reverse()))
       },
       error: function(result) {
       }
@@ -257,8 +269,10 @@
       date_end = $('.js-dateend').val()
       interval = $(".js-interval-dropdown").attr('selected', 'selected').val();
       sum_type = $(".js-sum-type input[type='radio']:checked").val()
-      active = $('.js-active-checkbox').is(':checked')
-      archived = $('.js-archived-checkbox').is(':checked')
+      // active = $('.js-active-checkbox').is(':checked')
+      // archived = $('.js-archived-checkbox').is(':checked')
+      active = true
+      archived = true
       $('.js-from').html(date_start)
       if(date_end != undefined && date_end != '') {
         $('.js-to').html('bis '+date_end)
@@ -276,7 +290,16 @@
                   active: active,
                   archived: archived
               },
+        beforeSend: function(result){
+          $('.js-loader-container').height($("#seeker").height())
+          $("#seeker").hide()
+          $('#loader').show()
+        },
         success: function(result) {
+          $('.js-loader-container').height(0)
+          $("#loader").hide()
+          $('#loader').hide()
+          $("#seeker").show()
           window.chart.data.labels = result["label"]
           // window.chart.data.datasets = result["statistic"]
           for(var i = 0 ; i < result["statistic"].length ; i++){

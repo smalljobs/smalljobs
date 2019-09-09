@@ -74,13 +74,15 @@ RailsAdmin.config do |config|
   config.model AccessToken do
     list do
       field :access_token
-      field :seeker
+      # field :seeker
+      field :userable
       field :expire_at
     end
 
     edit do
       field :access_token
-      field :seeker
+      # field :seeker
+      field :userable
       field :expire_at
     end
   end
