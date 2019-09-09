@@ -80,35 +80,27 @@
         %span.sj-text-red
           = @assignments&.length.to_i
         )
-  %ul.nav.nav-pills.margin_top_20.js-todo-tabs{style: {display: 'none'}}
-    %li.active
-      %a{'data-toggle': 'tab', href: '#todo_current'}
-        =t('broker_dashboard.aktuelle')
-        (
-        %span.sj-text-red
-          = @todos.current.length.to_i
-        )
-    %li.margin_left_20
-      %a{'data-toggle': 'tab', href: '#todo_postponed'}
-        =t('broker_dashboard.verschoben')
-        (
-        %span.sj-text-red
-          = @todos.postponed.length.to_i
-        )
-    %span.js-postpone-msg.margin_left_20{style: 'display: none'}
-      =t('broker_dashboard.todo_table.postpone_message')
 
   %div.tab-content
     %div{id: 'todos', class: 'tab-pane fade in active'}
-      %ul.nav.nav-pills.margin-top-25.js-todo-tabs{style: {display: 'none'}}
+      %ul.nav.nav-pills.margin_top_20.js-todo-tabs{style: {display: 'none'}}
         %li.active
           %a{'data-toggle': 'tab', href: '#todo_current'}
             =t('broker_dashboard.aktuelle')
+            (
+            %span.sj-text-red
+              = @todos.current.length.to_i
+            )
         %li.margin_left_20
           %a{'data-toggle': 'tab', href: '#todo_postponed'}
             =t('broker_dashboard.verschoben')
+            (
+            %span.sj-text-red
+              = @todos.postponed.length.to_i
+            )
         %span.js-postpone-msg.margin_left_20{style: 'display: none'}
           =t('broker_dashboard.todo_table.postpone_message')
+
         %div.row
           %div.col-sm-3.float-right
             %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
