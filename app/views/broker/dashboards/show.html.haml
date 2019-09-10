@@ -75,13 +75,9 @@
         %li.active
           %a{'data-toggle': 'tab', href: '#todo_current'}
             =t('broker_dashboard.aktuelle')
-            %span
-              = "(#{@todos.current.length.to_i})"
         %li.margin_left_20
           %a{'data-toggle': 'tab', href: '#todo_postponed'}
             =t('broker_dashboard.verschoben')
-            %span
-              = "(#{@todos.postponed.length.to_i})"
         %span.js-postpone-msg.margin_left_20{style: 'display: none'}
           =t('broker_dashboard.todo_table.postpone_message')
 
