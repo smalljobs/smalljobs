@@ -34,6 +34,15 @@ class Broker::RegionOrganizationsController < InheritedResources::Base
     end
   end
 
+  def reset_templates_to_default
+    template_names = Organization::TEMPLATES_NAMES
+    default_templates = {}
+    DefaultTemplate.where(template_name: template_names).each do |default_template|
+      default_templates[default_template.template_name] = default_template.template
+    end
+    render json: default_templates
+  end
+
   protected
 
   # Returns currently signed in broker

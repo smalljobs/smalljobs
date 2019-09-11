@@ -1,7 +1,7 @@
 class LogoUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
-  storage :fog
+  storage :fog if Rails.env.production? or Rails.env.staging?
 
   def store_dir
     "uploads/#{ model.class.to_s.underscore }/#{ mounted_as }/#{ model.id }"
