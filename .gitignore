@@ -22,3 +22,5 @@
 .idea/
 public/assets
 .byebug_history
+
+/config/application.yml

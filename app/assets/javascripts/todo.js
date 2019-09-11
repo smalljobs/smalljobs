@@ -12,11 +12,15 @@ $(document).ready(function() {
           tr_last.find('span').data('todo-type', 'current')
           tr_last.find('td').last().remove()
           $('.js-todo-current').find('tbody').prepend(tr_last)
+          $('.js-todo-tabs > li > a[href="#todo_current"] > .sj-text-red').html($('#todo_current').find('tbody').find('tr').length)
+          $('.js-todo-tabs > li > a[href="#todo_postponed"] > .sj-text-red').html($('#todo_postponed').find('tbody').find('tr').length-1)
         } else if(todo_type == 'current'){
           tr_last = tr.clone()
           tr_last.find('span').data('todo-type', 'postponed')
-          tr_last.append("<td>"+result.postponed+"</td>")
+          tr_last.append("<td>"+result.postponed+"</td>śś")
           $('.js-todo-postponed').find('tbody').prepend(tr_last)
+          $('.js-todo-tabs > li > a[href="#todo_postponed"] > .sj-text-red').html($('#todo_postponed').find('tbody').find('tr').length)
+          $('.js-todo-tabs > li > a[href="#todo_current"] > .sj-text-red').html($('#todo_current').find('tbody').find('tr').length-1)
         }
         $('.js-postpone-msg').text(result.message)
         $('.js-postpone-msg').show();
@@ -31,21 +35,45 @@ $(document).ready(function() {
 
   window.setTimeout(
     function(){
-      if($('.js-active-tab').find('.active > a').attr('href') != '#todo_current') {
-        $('.js-todo-tabs').hide()
-      }else{
-        $('.js-todo-tabs').show()
+      if($('.js-active-tab').find('.active > a').attr('href') == '#todos') {
+        which_todo = $('.js-todo-tabs').find('.active > a').attr('href')
+        $(which_todo).show()
+        if(which_todo == '#todo_current'){
+          $('#todo_postponed').hide()
+        }else{
+          $('#todo_current').hide()
+        }
       }
   },0)
 
   $('.js-active-tab').on('click', function(){
     window.setTimeout(
       function(){
-        if($('.js-active-tab').find('.active > a').attr('href') != '#todo_current') {
-          $('.js-todo-tabs').hide()
-        }else{
-          $('.js-todo-tabs').show()
+        if($('.js-active-tab').find('.active > a').attr('href') == '#todos') {
+          which_todo = $('.js-todo-tabs').find('.active > a').attr('href')
+          $(which_todo).show()
+          if(which_todo == '#todo_current'){
+            $('#todo_postponed').hide()
+          }else{
+            $('#todo_current').hide()
+          }
         }
       },0)
   })
-});
+
+  $('.js-todo-tabs').on('click', function() {
+    window.setTimeout(function(){
+      which_todo = $('.js-todo-tabs').find('.active > a').attr('href')
+      if($('.js-active-tab').find('.active > a').attr('href') == '#todos') {
+        $(which_todo).show()
+        console.log(which_todo)
+        if(which_todo == '#todo_current'){
+          $('#todo_postponed').hide()
+        }else{
+          $('#todo_current').hide()
+        }
+      }
+    }, 0)
+  })
+
+  });

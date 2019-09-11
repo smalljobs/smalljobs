@@ -32,6 +32,9 @@ class Organization < ActiveRecord::Base
   after_create :connect_to_region
   attr_accessor :assigned_to_region, :region_id
 
+  TEMPLATES_NAMES = ['welcome_letter_employers_msg', 'welcome_app_register_msg', 'welcome_chat_register_msg',
+                     'not_receive_job_msg', 'get_job_msg', 'activation_msg', 'welcome_email_for_parents_msg']
+
   def connect_to_region
     if assigned_to_region == 'true'
       employment = Employment.new(organization_id: self.id, region_id: region_id)
@@ -41,12 +44,12 @@ class Organization < ActiveRecord::Base
   end
 
   def copy_default_templates
-    template_names = ['welcome_letter_employers_msg', 'welcome_app_register_msg', 'welcome_chat_register_msg',
-                      'not_receive_job_msg', 'get_job_msg', 'activation_msg', 'welcome_email_for_parents_msg']
-    for template_name in template_names
-      default_template = DefaultTemplate.find_by(template_name: template_name)
-      next if default_template.nil?
+    template_names = TEMPLATES_NAMES
+
+    DefaultTemplate.where(template_name: template_names).each do |default_template|
+      template_name = default_template.template_name
       self[template_name] = default_template.template if self[template_name].blank?
+
     end
   end
 

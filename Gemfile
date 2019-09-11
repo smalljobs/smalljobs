@@ -36,6 +36,7 @@ gem 'kaminari'
 gem 'rest-client'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+# gem 'wkhtmltopdf-binary-edge', '~> 0.12.5.0'
 gem 'rqrcode'
 gem 'storext'
 gem 'rich', github: 'kreativgebiet/rich'
@@ -51,6 +52,7 @@ gem 'spawnling', '~>2.1'
 gem 'rails-ujs'
 gem 'jquery-ui-rails'
 gem 'rails-jquery-autocomplete'
+gem 'figaro'
 
 group :development, :test do
   gem 'better_errors'
@@ -77,6 +79,12 @@ group :development, :test do
   gem 'bullet'
   gem 'rails-controller-testing'
   gem 'tzinfo-data'
+end
+
+group :development do
+  gem "capistrano", "~> 3.10", require: false
+  gem "capistrano-rails", "~> 1.4", require: false
+  gem 'capistrano-rvm'
 end
 
 group :doc do
