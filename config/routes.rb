@@ -142,6 +142,7 @@ Smalljobs::Application.routes.draw do
             get 'change_state'
             get 'cancel_state'
             post 'send_message'
+            get 'contract'
           end
         end
       end

@@ -12,21 +12,10 @@
     });
 - else
   %div.row
-    %div.col-sm-8
+    %div.col-xs-12.col-sm-12.col-md-10.col-lg-8
       - if @allocation.application_open?
         %h2= "Bewerbung"
-        %p
-          = "Job: "
-          = link_to @job.title, edit_broker_job_path(@job)
-        %p
-          = "JugendlicheR: "
-          = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
-        %p
-          = "ArbeitgerIn: "
-          = link_to @allocation.job.provider.name, edit_broker_provider_path(@allocation.job.provider)
-        %p
-          = "Datum: "
-          = @allocation.last_change_of_state.strftime("%d.%m.%Y")
+        = render partial: "basic_allocation_date", locals: {job: @job, allocation: @allocation}
         %div.row
           %div.col-md-4
             %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#open_to_active_modal"}
@@ -42,18 +31,7 @@
 
       - if @allocation.application_rejected?
         %h2= "Bewerbung abgelehnt"
-        %p
-          = "Job: "
-          = link_to @job.title, edit_broker_job_path(@job)
-        %p
-          = "JugendlicheR: "
-          = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
-        %p
-          = "ArbeitgerIn: "
-          = link_to @allocation.job.provider.name, edit_broker_provider_path(@allocation.job.provider)
-        %p
-          = "Datum: "
-          = @allocation.last_change_of_state.strftime("%d.%m.%Y")
+        = render partial: "basic_allocation_date", locals: {job: @job, allocation: @allocation}
         %div.row
           %div.col-md-4
             %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#rejected_to_active_modal"}
@@ -66,18 +44,7 @@
 
       - if @allocation.proposal?
         %h2= "Vorgeschlagen"
-        %p
-          = "Job: "
-          = link_to @job.title, edit_broker_job_path(@job)
-        %p
-          = "JugendlicheR: "
-          = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
-        %p
-          = "ArbeitgerIn: "
-          = link_to @allocation.job.provider.name, edit_broker_provider_path(@allocation.job.provider)
-        %p
-          = "Datum: "
-          = @allocation.last_change_of_state.strftime("%d.%m.%Y")
+        = render partial: "basic_allocation_date", locals: {job: @job, allocation: @allocation}
         %div.row
           %div.col-md-4
             %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#proposal_to_active_modal"}
@@ -93,43 +60,33 @@
 
       - if @allocation.active?
         %h2= "Anstellung"
-        %p
-          = "Job: "
-          = link_to @job.title, edit_broker_job_path(@job)
-        %p
-          = "JugendlicheR: "
-          = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
-        %p
-          = "ArbeitgerIn: "
-          = link_to @allocation.job.provider.name, edit_broker_provider_path(@allocation.job.provider)
-        %p
-          = "Datum: "
-          = @allocation.last_change_of_state.strftime("%d.%m.%Y")
-        %div.row
-          %div.col-md-4
-            %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#active_to_finished_modal"}
-              = "Anstellung beenden"
-          %div.col-md-4
-            %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#active_to_canceled_modal"}
-              = "Anstellung abbrechen"
-          %div.col-md-4
+        = render partial: "basic_allocation_date", locals: {job: @job, allocation: @allocation}
+        %div.row.sj-div-with-btn-responsive
+          %div.col-xs-12.col-md-3
             %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#active_to_nothing_modal"}
+              %i.fa.fa-send
               = "Nachricht senden"
+          %div.div.col-xs-12.col-md-3
+            %a.btn.btn-success{href: "#"}
+              %i.fa.fa-send
+              = "Vertrag senden"
+            %br
+            = link_to  contract_broker_job_allocation_path(@job, @allocation, format: :pdf), target: '_blank' do
+              %i.fa.fa-print
+              = "Verträge drucken"
+          %div.div.col-xs-12.col-md-2
+            %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#active_to_finished_modal"}
+              %i.fa.fa-archive
+              = "Beenden"
+          %div.div.col-xs-12.col-md-2
+            %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#active_to_canceled_modal"}
+              %i.fa.fa-times
+              = "Abbrechen"
+
 
       - if @allocation.finished?
         %h2= "Anstellung beendet"
-        %p
-          = "Job: "
-          = link_to @job.title, edit_broker_job_path(@job)
-        %p
-          = "JugendlicheR: "
-          = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
-        %p
-          = "ArbeitgerIn: "
-          = link_to @allocation.job.provider.name, edit_broker_provider_path(@allocation.job.provider)
-        %p
-          = "Datum: "
-          = @allocation.last_change_of_state.strftime("%d.%m.%Y")
+        = render partial: "basic_allocation_date", locals: {job: @job, allocation: @allocation}
         %div.row
           %div.col-md-4
             %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_active_modal"}
@@ -140,18 +97,7 @@
 
       - if @allocation.cancelled?
         %h2= "Anstellung abgebrochen"
-        %p
-          = "Job: "
-          = link_to @job.title, edit_broker_job_path(@job)
-        %p
-          = "JugendlicheR: "
-          = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
-        %p
-          = "ArbeitgerIn: "
-          = link_to @allocation.job.provider.name, edit_broker_provider_path(@allocation.job.provider)
-        %p
-          = "Datum: "
-          = @allocation.last_change_of_state.strftime("%d.%m.%Y")
+        = render partial: "basic_allocation_date", locals: {job: @job, allocation: @allocation}
         %div.row
           %div.col-md-4
             %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_active_modal"}
@@ -161,18 +107,7 @@
               = "Nachricht senden"
       - if @allocation.application_retracted?
         %h2= "Bewerbung zurückgenommen"
-        %p
-          = "Job: "
-          = link_to @job.title, edit_broker_job_path(@job)
-        %p
-          = "JugendlicheR: "
-          = link_to @allocation.seeker.name, edit_broker_seeker_path(@allocation.seeker)
-        %p
-          = "ArbeitgerIn: "
-          = link_to @allocation.job.provider.name, edit_broker_provider_path(@allocation.job.provider)
-        %p
-          = "Datum: "
-          = @allocation.last_change_of_state.strftime("%d.%m.%Y")
+        = render partial: "basic_allocation_date", locals: {job: @job, allocation: @allocation}
         %div.row
           %div.col-md-4
             %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#retracted_to_active_modal"}

@@ -98,6 +98,30 @@ class Broker::AllocationsController < InheritedResources::Base
     render json: {state: 'ok', response: response}
   end
 
+
+  # Render contract as pdf file
+  #
+  def contract
+
+    @job = Job.find_by(id: params[:job_id])
+    @allocation = Allocation.find_by(id: params[:id])
+
+    @provider = @allocation.provider
+    @broker = Broker.first
+    @letter_msg = Mustache.render(nil || '', provider_first_name: '',
+                                  provider_last_name: '',
+                                  provider_phone: '',
+                                  broker_first_name: '',
+                                  broker_last_name: '',
+                                  organization_name: '',
+                                  organization_zip: '',
+                                  organization_street: '',
+                                  organization_place: '',
+                                  organization_phone: '',
+                                  organization_email: '', link_to_jobboard_list: url_for(root_url()))
+    @letter_msg.gsub! "\n", "<br>"
+    render pdf: 'contract', template: 'broker/allocations/contract.html.erb', margin: {top: 0, left: 0, right: 0, bottom: 0}
+  end
   protected
 
   # Changes states of all open allocations for given job to application_rejected
