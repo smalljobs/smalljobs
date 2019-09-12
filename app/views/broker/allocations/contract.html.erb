@@ -539,7 +539,7 @@
     .banner-container{
       position: absolute;
       height: 120px;
-      width: 792px;
+      width: 100%;
       left: 19px;
       top: 20px;
       z-index: 0;
@@ -551,6 +551,7 @@
       position: relative;
       padding: 0;
       margin: 0;
+
     }
 
     .banner #baner{
@@ -560,7 +561,7 @@
   </style>
 </head>
 <body>
-<div id="page2" class="alwaysbreak page page-table" >
+<div id="page2" class="alwaysbreak page page-table">
   <div class="banner-container">
   <div class="banner">
     <% if @provider.organization.background.present? %>
@@ -585,21 +586,54 @@
   </div>
 
   <h1 class="arbei">
-    Arbeitgeber_in:
+
   </h1>
-  <p class="page2-firstrow">
-    <%= @provider.company != nil && !@provider.company.empty? ? "#{@provider.company}, " : "" %><%= @provider.name %>
-  </p>
-  <p class="page2-secondrow">
-    <%= @provider.street %>, <%= @provider.place.full_name %>
+  <p>
+    <%= @job.title %>
   </p>
 
+  <p>
+    <%= @allocation.last_change_of_state.strftime("%d.%m.%Y") %>
+  </p>
+
+  <p>
+    <% if @job.duration.present? %>
+    Dauer: ca <%= @job.duration %> Studen
+    <% end %>
+  </p>
+
+  <p>
+    Lohn:
+
+      <% if @job.salary_type == 'fixed' %>
+      <%= t('jobs.fixed_price', salary: number_to_currency(@job.salary)) %>
+
+      <% elsif @job.salary_type == 'hourly' %>
+      <%= t('jobs.hourly_rate', salary: number_to_currency(@job.salary)) %>
+
+      <% elsif @job.salary_type == 'hourly_per_age' %>
+      <%= t('jobs.hourly_rate', salary: number_to_currency(@job.organization.wage_factor * get_age(@allocation.seeker.date_of_birth))) %>
+      <% end %>
+  </p>
+
+  <p><%= @job.short_description %></p>
+
+  <p><%= @job.long_description %></p>
   <h1 class="second-header">
     1. Vor der Arbeit unterschreiben
   </h1>
   <p>
     Ich stimme den gesetzlichen Regelungen des Jugendschutz und den Bestimmungen von Smalljobs zu. Details zu beidem
     sind auf Seite 2 und auf www.smalljobs.ch/jugendschutz aufgeführt.
+  </p>
+
+  <p>
+    Arbeitgeber_in:
+    <%= @provider.firstname %>
+    <%= @provider.lastname %>,
+    <%= @provider.street %>
+    <%= @provider.place.zip %>
+    <%= @provider.place.name %>
   </p>
   <div class="row">
     <div class="column">
@@ -614,7 +648,14 @@
     </div>
   </div>
 
-
+  <p>
+    Arbeitgeber_in:
+    <%= @allocation.seeker.firstname %>
+    <%= @allocation.seeker.lastname %>,
+    <%= @allocation.seeker.street %>
+    <%= @allocation.seeker.place.zip %>
+    <%= @allocation.seeker.place.name %>
+  </p>
   <div class="row">
     <div class="column">
       <div class="signature" style="margin-left: 27px;">

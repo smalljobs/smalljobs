@@ -67,7 +67,7 @@
               %i.fa.fa-send
               = "Nachricht senden"
           %div.div.col-xs-12.col-md-3
-            %a.btn.btn-success{href: "#"}
+            %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#active_send_contract_modal"}
               %i.fa.fa-send
               = "Vertrag senden"
             %br
@@ -134,6 +134,7 @@
   = render 'nothing'
   = render 'retracted_to_active'
   = render 'retracted_to_nothing'
+  = render 'active_send_contract'
 
   :javascript
     $(document).ready(function() {
@@ -204,6 +205,32 @@
           func();
         }
       }
+
+
+      $('.js-send-contract').click(function(){
+        $('button').attr('disabled', 'disabled');
+        sendContract(function(){
+        // sessionStorage.setItem('showModal', true);
+        //   window.location.reload();
+        // });
+      });
+
+      function sendContract(func) {
+        var message = $(modalId + " .textarea").html();
+        message = message.replace(/<br>/g, '');
+        var title = $(modalId + " h2").text();
+        var $checkbox = $(modalId + " input[type='checkbox']");
+        if($checkbox.is(":checked")) {
+          $.post("#{send_contract_broker_job_allocation_path(@job, @allocation)}", {message: message, title: title}, function(response){
+            // console.log(response);
+            func();
+          });
+        } else {
+          func();
+        }
+      }
+
+
 
       function disableMessaging() {
         $('.modal-body input').removeAttr('checked');

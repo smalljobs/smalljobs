@@ -1,0 +1,46 @@
+%div.modal.fade{id: "active_send_contract_modal"}
+  %div.modal-dialog
+    %div.modal-content
+      %div.modal-header
+        %button.close{"data-dismiss": "modal", type: "button"} &times;
+        %h2= "Elterneinverständnis als Pdf schicken"
+      %div.modal-body
+        %input{type: "checkbox", checked: "true"}
+          = "Nachricht an "
+          = @allocation.seeker.name
+          = ":"
+        %div.form-control.resize-vertical.textarea{contenteditable: true}
+          = "Hallo #{@allocation.seeker.firstname}"
+          %br
+          = "Willkommen bei Small.Jobs!"
+          %br
+          = "Damit du dich auf Jobs bewerben kannst, brauchen wir das Einverständnis deiner Eltern. Dieses Einverständnis bitte hier herunterladen: "
+          %br
+          %a{file:'', href: "#{url_for agreement_broker_seeker_url(@allocation.seeker.agreement_id)}?format=pdf", type: "application/pdf", title: "Elterneinverständnis herunterladen"}= "Elterneinverständnis herunterladen"
+          %br
+          = "Dann ausdrucken und uns vorbeibringen:"
+          -if @org.present?
+            %br
+            = @org.name
+            %br
+            = @org.street
+            %br
+            = @org.place.custom_name
+            %br
+            = "Für einen Termin schreibe uns hier oder ruf an "
+            %a{href: "tel:#{@org.phone}"}= @org.phone
+            %br
+            %br
+            = "Danke,"
+            %br
+            = @org.name
+        %br
+        - if @allocation.seeker.app_user_id.nil?
+          %p
+            = "Keine App für Messaging installiert. Per Telefon Kontakt aufnehmen"
+            %a{href: "tel:#{@allocation.seeker.mobile}"}
+              = @allocation.seeker.mobile
+        %button.btn.btn-success.btn-send.js-send-contract
+          = "Elterneinverständnis als Pdf schicken"
+      %div.modal-footer
+        = render 'messages'

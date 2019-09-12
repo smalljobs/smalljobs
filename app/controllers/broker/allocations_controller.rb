@@ -107,7 +107,7 @@ class Broker::AllocationsController < InheritedResources::Base
     @allocation = Allocation.find_by(id: params[:id])
 
     @provider = @allocation.provider
-    @broker = Broker.first
+    @seeker = @allocation.seeker
     @letter_msg = Mustache.render(nil || '', provider_first_name: '',
                                   provider_last_name: '',
                                   provider_phone: '',
@@ -122,6 +122,22 @@ class Broker::AllocationsController < InheritedResources::Base
     @letter_msg.gsub! "\n", "<br>"
     render pdf: 'contract', template: 'broker/allocations/contract.html.erb', margin: {top: 0, left: 0, right: 0, bottom: 0}
   end
+
+
+  # Sends contract and given message to the seeker
+  #
+  def send_contract
+    @job = Job.find_by(id: params[:job_id])
+    @allocation = Allocation.find_by(id: params[:id])
+    seeker = @allocation.seeker
+    title = params[:title]
+    message = params[:message]
+
+    response = MessagingHelper::send_message(title, message, seeker.app_user_id, @allocation.provider.email)
+
+    render json: {state: 'ok', response: response}
+  end
+
   protected
 
   # Changes states of all open allocations for given job to application_rejected
