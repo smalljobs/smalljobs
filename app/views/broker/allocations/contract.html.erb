@@ -3,676 +3,128 @@
 <head>
   <meta charset='utf-8'/>
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
-  <style>
-    body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      /*background-color: #FAFAFA;*/
-      font-family: 'Lato', sans-serif;
-    }
-
-    div.alwaysbreak {
-      page-break-before: always;
-    }
-
-    #logo-white {
-      position: absolute;
-      right: 40px;
-      max-width: 90px;
-      top: 40px;
-    }
-
-    div.nobreak:before {
-      clear: both;
-    }
-
-    div.nobreak {
-      page-break-inside: avoid;
-    }
-
-    div.page {
-      position: relative;
-      width: 210mm;
-      min-height: 297mm;
-      display: inline-block;
-    }
-
-    @page {
-      size: A4;
-      margin: 0;
-    }
-
-    .row {
-      display: table;
-      width: 100%;
-      table-layout: fixed;
-      border-spacing: 10px;
-    }
-
-    .column {
-      display: table-cell;
-    }
-
-    .signature {
-      height: 17mm;
-      background-color: rgb(235, 246, 238);
-      border-bottom: 2px solid #d1ebdc;
-    }
-
-    .bottom {
-      position: relative;
-      bottom: 0;
-    }
-
-    .right {
-      position: relative;
-      right: 0;
-    }
-
-    #page3.table.tbody.tr {
-      height: 5mm;
-    }
-
-    .bottom.right {
-      position: absolute;
-      display: inline-block;
-      bottom: 0px;
-      padding-right: 37px;
-      right: 0px;
-      font-size: 12px;
-      font-weight: normal;
-      width: 100%;
-      text-align: right;
-    }
-
-    .bottom-right {
-      position: absolute;
-      display: inline-block;
-      bottom: -20px;
-      right: -10px;
-      font-size: 12px;
-      font-weight: normal;
-      width: 100%;
-      text-align: right;
-    }
-
-    #logo {
-      position: absolute;
-      top: 37px;
-      right: -11px;
-      width: 100px;
-    }
-
-    p.org-name {
-      margin-top: 178px;
-      font-size: 12px;
-      font-weight: 400;
-      margin-left: 93px;
-      border-bottom: 1px solid #000;
-      display: inline-block;
-      width: auto;
-    }
-
-    p.contact-info {
-      margin-left: 93px;
-      margin-top: 58px;
-      line-height: 1.4;
-      font-size: 15px;
-    }
-
-    p.letter-start {
-      margin-left: 93px;
-      margin-top: 80px;
-      font-size: 15px;
-      /*position: absolute;*/
-      line-height: 1.44;
-      /*top: 307px;*/
-      left: 0;
-      margin-right: 93px;
-      margin-bottom: 100px;
-    }
-
-    p.second-paragraph {
-      margin-top: 25px;
-      font-size: 15px;
-      margin-right: 93px;
-      line-height: 1.4;
-    }
-
-    p.third-paragraph {
-      margin-top: 25px;
-      font-size: 15px;
-      margin-right: 93px;
-      line-height: 1.4;
-    }
-
-    p.forth-paragraph {
-      margin-top: 20px;
-      font-size: 15px;
-      margin-right: 93px;
-      line-height: 1.4;
-    }
-
-    p.letter-end {
-      margin-top: 23px;
-      font-size: 15px;
-      margin-bottom: 0px;
-    }
-
-    p.sign-dots {
-      margin-top: 30px;
-      font-size: 15px;
-      /*position: absolute;*/
-      /*top: 799px;*/
-      left: 0;
-    }
-
-    p.sign-data {
-      /*margin-top: -5px;*/
-      font-size: 15px;
-      /*position: relative;*/
-      line-height: 1.4;
-      /*top: 864px;*/
-      /*top: 10px;*/
-      left: 0;
-    }
-
-    p.page2-firstrow {
-      margin-left: 37px;
-      font-size: 21px;
-      font-weight: normal;
-      margin-top: -5px;
-    }
-
-    p.small-stars {
-      font-size: 12px;
-      font-weight: normal;
-      margin-top: 7px;
-      margin-left: 37px;
-    }
-
-    p.page2-secondrow {
-      margin-left: 37px;
-      margin-top: -6px;
-      font-size: 14px;
-      font-weight: normal;
-      margin-bottom: 36px;
-    }
-
-    p.sign-par {
-      margin-left: 26px;
-      margin-top: 0px;
-      padding-top: 0px;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    p.bottom-txt {
-      position: absolute;
-      bottom: 33px;
-      left: 31px;
-      font-weight: 700;
-    }
-
-    p.small-star {
-      margin-top: 87px;
-      font-size: 13px;
-      margin-left: 32px;
-      font-weight: 700;
-    }
-
-    .center.qr {
-      width: 174px;
-      height: 174px;
-      position: absolute;
-      left: 50%;
-      margin-left: -95px;
-      border: 5px solid #07b571;
-      top: 150px;
-    }
-
-    .border-qr {
-      width: 174px;
-      height: 174px;
-      border: 5px solid #07b571;
-      position: relative;
-    }
-
-    .border-qr img {
-      position: absolute;
-      margin: auto;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      width: 116px;
-    }
-
-    h1.provider-name {
-      margin-left: 93px;
-      font-size: 15px;
-      margin-top: 20px;
-      font-weight: 400;
-      line-height: 1.4;
-    }
-
-    h1.arbei {
-      margin-left: 37px;
-      font-size: 21px;
-      font-weight: 700;
-      margin-top: 150px;
-      margin-bottom: 5px;
-    }
-
-
-
-    h1.second-header {
-      margin-left: 37px;
-      font-size: 21px;
-      font-weight: 700;
-      margin-top: 45px;
-    }
-
-    h1.page2-secondheader {
-      margin-left: 37px;
-      font-size: 21px;
-      font-weight: 700;
-      margin-top: 45px;
-    }
-
-    #page3 ol {
-      margin-top: 23px;
-      font-size: 15px;
-    }
-
-    #page3 ol li {
-      margin-left: 18px;
-      margin-bottom: 3px;
-      padding-left: 7px !important;
-      line-height: 1.2;
-    }
-
-    .page-table table {
-      margin-left: 37px;
-      /*margin-right: 37px;*/
-      width: 752px;
-      left: -5px;
-    }
-
-    .page-table table tbody {
-      background: #fff;
-    }
-
-    .page-table table thead {
-      background: #ecf6ee;
-    }
-
-    .page-table table thead tr th {
-      font-size: 12px;
-      font-weight: 700;
-      border: 0px !important;
-      padding-top: 4px;
-      text-align: left;
-    }
-
-    .page-table table tr td {
-      border: 1px solid #cbe7d5;
-      padding: 10px 3px;
-      font-size: 12px;
-      border-left: 0px !important;
-      border-right: 0px !important;
-    }
-
-    #page2 p {
-      margin-right: 37px;
-      margin-left: 37px;
-    }
-
-    #page2 p.large {
-      margin-bottom: 10px;
-    }
-
-    #page1 p {
-      margin-left: 96px;
-      /*margin-right: 68px;*/
-      text-align: justify;
-    }
-
-    #page1 footer {
-      position: absolute;
-      padding-left: 93px;
-      left: 0;
-      bottom: 0;
-      width: 300px;
-    }
-
-    #page1 footer p {
-      margin-left: 0px;
-      font-size: 12px;
-      margin-bottom: 0px;
-      width: 300px;
-    }
-
-    #page3 .second-row-table {
-      font-weight: 300 !important;
-      font-size: 12px;
-      height: 30px;
-    }
-
-    #baner {
-      left: 19px;
-      top: 20px;
-      position: absolute;
-      z-index: 0;
-      height: auto;
-      display: block;
-      width: 792px;
-    }
-
-    #page3 h1.first-header {
-      position: absolute;
-      top: 17px;
-      left: 33px;
-      font-size: 20px;
-      font-weight: 700;
-    }
-
-    #page3 h1.second-header {
-      position: absolute;
-      top: 372px;
-      font-size: 22px;
-      left: 33px;
-    }
-
-    #page2 h2 {
-      position: absolute;
-      line-height: 1;
-      z-index: 1;
-      color: #fff;
-      font-size: 40px;
-      left: 40px;
-    }
-
-    #page2 h2 span {
-      font-weight: 400;
-    }
-
-    #bank {
-      width: 357px;
-      height: 55px;
-      position: absolute;
-      top: 296px;
-      background-color: white;
-      right: -20px;
-      font-size: 11.5px;
-      text-align: right;
-      padding-top: 10px;
-      padding-right: 20px;
-    }
-
-    #bank span {
-      color: #18bc9c;
-    }
-
-    .row-w {
-      width: 100%;
-      margin-left: 37px;
-    }
-
-    .col1 {
-      width: 20%;
-      float: left;
-      font-size: 22px;
-      font-weight: bold;
-    }
-
-    .col2 {
-      width: 79%;
-      float: left;
-      font-size: 22px;
-    }
-
-    .col1-j {
-      width: 20%;
-      float: left;
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    .col1-j span {
-      padding-left: 10px;
-      font-weight: normal;
-    }
-
-    .col2-j {
-      width: 78%;
-      float: left;
-      font-size: 20px;
-    }
-
-    .col1-qr {
-      width: 32%;
-      float: left;
-      font-size: 12px;
-    }
-
-    .col2-qr {
-      width: 60%;
-      float: left;
-      padding-left: 26px;
-    }
-
-    .clear-both {
-      clear: both;
-    }
-
-    .large {
-      font-size: 20px;
-    }
-
-    #smalljobs-logo {
-      position: absolute;
-      right: 10px;
-      width: 80px;
-      top: 30px;
-    }
-
-    #org-logo-div {
-      position: absolute;
-      left: 118px;
-      top: 296px;
-      width: 66px;
-      height: 66px;
-      background-color: white;
-      overflow: hidden;
-    }
-
-    #region-logo-div {
-      position: absolute;
-      left: 50px;
-      top: 296px;
-      width: 66px;
-      height: 66px;
-      background-color: white;
-      overflow: hidden;
-    }
-
-    #org-logo {
-      height: 99%;
-      width: auto;
-      position: absolute;
-      margin: auto;
-      top: 1px;
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
-
-    #region-logo {
-      width: 99%;
-      height: auto;
-      position: absolute;
-      margin: auto;
-      top: 0;
-      left: 1px;
-      right: 0;
-      bottom: 0;
-    }
-
-    #bg-text {
-      color: white !important;
-      margin-top: 18px;
-      margin-left: -10px;
-
-    }
-
-    .bottom-right span {
-      padding-left: 15px;
-    }
-
-    .second-row-table th {
-      font-weight: normal !important;
-    }
-
-    .banner-container{
-      position: absolute;
-      height: 120px;
-      width: 100%;
-      left: 19px;
-      top: 20px;
-      z-index: 0;
-      display: block;
-    }
-    .banner{
-      height: 120px;
-      overflow: hidden;
-      position: relative;
-      padding: 0;
-      margin: 0;
-
-    }
-
-    .banner #baner{
-      top: 0;
-      left: 0;
-    }
-  </style>
+  <%= stylesheet_link_tag wicked_pdf_asset_base64("pdf") %>
 </head>
 <body>
-<div id="page2" class="alwaysbreak page page-table">
-  <div class="banner-container">
-  <div class="banner">
+<div id="page-2" class="alwaysbreak page page-default">
+  <div class="banner-container banner-short">
+
     <% if @provider.organization.background.present? %>
       <img id="baner" src="<%= @provider.organization.background.url(:web) %>" width="100%">
     <% else %>
       <img id="baner" src="<%= wicked_pdf_asset_base64 'header-pic.jpg' %>" width="100%">
     <% end %>
-    <h2 id="bg-text">Sackgeldjobs<br/>
-      <span>Auftragsvereinbarung</span></h2>
-    <img id="smalljobs-logo" src="<%= wicked_pdf_asset_base64 'sj-logo-white.png' %>">
-    <% if @provider.organization.logo.present? %>
-      <div id="org-logo-div">
-        <img id="org-logo" src="<%= @provider.organization.logo.url(:web, :normal) %>">
-      </div>
-    <% end %>
-    <% if @provider.organization.regions.first.logo.present? %>
-      <div id="region-logo-div">
-        <img id="region-logo" src="<%= @provider.organization.regions.first.logo.url(:web, :normal) %>">
-      </div>
-    <% end %>
-  </div>
-  </div>
-
-  <h1 class="arbei">
-
-  </h1>
-  <p>
-    <%= @job.title %>
-  </p>
-
-  <p>
-    <%= @allocation.last_change_of_state.strftime("%d.%m.%Y") %>
-  </p>
-
-  <p>
-    <% if @job.duration.present? %>
-    Dauer: ca <%= @job.duration %> Studen
-    <% end %>
-  </p>
-
-  <p>
-    Lohn:
-
-      <% if @job.salary_type == 'fixed' %>
-      <%= t('jobs.fixed_price', salary: number_to_currency(@job.salary)) %>
-
-      <% elsif @job.salary_type == 'hourly' %>
-      <%= t('jobs.hourly_rate', salary: number_to_currency(@job.salary)) %>
-
-      <% elsif @job.salary_type == 'hourly_per_age' %>
-      <%= t('jobs.hourly_rate', salary: number_to_currency(@job.organization.wage_factor * get_age(@allocation.seeker.date_of_birth))) %>
+    <div class="banner-title white-text">Sackgeldjobs<br/>
+      <span>Auftragsvereinbarung</span></div>
+    <div class="group-logos">
+      <% if @provider.organization.logo.present? %>
+          <img class="others-logo-img" src="<%= @provider.organization.logo.url(:web, :normal) %>">
       <% end %>
-  </p>
+      <% if @provider.organization.regions.first.logo.present? %>
+          <img class="others-logo-img" src="<%= @provider.organization.regions.first.logo.url(:web, :normal) %>">
+      <% end %>
+      <img class="smalljobs-logo-img" src="<%= wicked_pdf_asset_base64 'sj-logo-white.png' %>">
+    </div>
+  </div>
 
-  <p><%= @job.short_description %></p>
+  <div class="body-container">
 
-  <p><%= @job.long_description %></p>
-  <h1 class="second-header">
+  <div class="font-bigger margin-top-40">
+    <%= @job.title %>
+  </div>
+  <div class="row standard-text">
+    <div class="column">
+      <%= @allocation.last_change_of_state.strftime("%d.%m.%Y") %>
+    </div>
+
+    <div class="column text-center">
+      <% if @job.duration.present? %>
+        Dauer: ca <%= @job.duration %> Studen
+      <% end %>
+    </div>
+
+    <div class="column text-right">
+      Lohn:
+
+        <% if @job.salary_type == 'fixed' %>
+        <%= t('jobs.fixed_price', salary: number_to_currency(@job.salary)) %>
+
+        <% elsif @job.salary_type == 'hourly' %>
+        <%= t('jobs.hourly_rate', salary: number_to_currency(@job.salary)) %>
+
+        <% elsif @job.salary_type == 'hourly_per_age' %>
+        <%= t('jobs.hourly_rate', salary: number_to_currency(@job.organization.wage_factor * get_age(@allocation.seeker.date_of_birth))) %>
+        <% end %>
+    </div>
+
+  </div>
+
+  <div class="standard-text margin-top-20">
+    <%= @job.short_description %>
+  </div>
+
+  <div class="standard-text margin-top-20">
+    <%= @job.long_description %>
+  </div>
+
+  <div class="font-bigger font-bold margin-top-40">
     1. Vor der Arbeit unterschreiben
-  </h1>
-  <p>
+  </div>
+  <div class="standard-text margin-top-20">
     Ich stimme den gesetzlichen Regelungen des Jugendschutz und den Bestimmungen von Smalljobs zu. Details zu beidem
     sind auf Seite 2 und auf www.smalljobs.ch/jugendschutz aufgeführt.
-  </p>
+  </div>
 
-  <p>
+  <div class="font-bigger margin-top-20">
     Arbeitgeber_in:
     <%= @provider.firstname %>
-    <%= @provider.lastname %>,
+    <%= @provider.lastname %>
+  </div>
+  <div class="font-smaller padding-bottom-5">
     <%= @provider.street %>
     <%= @provider.place.zip %>
     <%= @provider.place.name %>
-  </p>
+  </div>
   <div class="row">
-    <div class="column">
-      <div class="signature" style="margin-left: 27px;">
+    <div class="column column-left">
+      <div class="signature">
       </div>
-      <p class="sign-par" style="    margin-left: 26px !important;">Ort, Datum</p>
+      <div class="font-smaller">Ort, Datum</div>
     </div>
-    <div class="column">
-      <div class="signature" style="margin-right: 26px;">
+    <div class="column column-right">
+      <div class="signature">
       </div>
-      <p class="sign-par" style="margin-left: 0px !important;">Unterschrift <%= @provider.name %></p>
+      <div class="font-smaller">Unterschrift <%= @provider.name %></div>
     </div>
   </div>
 
-  <p>
+  <div class="font-bigger margin-top-20">
     Arbeitgeber_in:
     <%= @allocation.seeker.firstname %>
-    <%= @allocation.seeker.lastname %>,
+    <%= @allocation.seeker.lastname %>
+  </div>
+  <div class="font-smaller padding-bottom-5">
     <%= @allocation.seeker.street %>
     <%= @allocation.seeker.place.zip %>
     <%= @allocation.seeker.place.name %>
-  </p>
-  <div class="row">
-    <div class="column">
-      <div class="signature" style="margin-left: 27px;">
-      </div>
-      <p class="sign-par" style="    margin-left: 26px !important;">Ort, Datum</p>
-    </div>
-    <div class="column">
-      <div class="signature" style="margin-right: 26px;">
-      </div>
-      <p class="sign-par" style="margin-left: 0px !important;">Unterschrift <%= @provider.name %></p>
-    </div>
   </div>
+    <div class="row">
+      <div class="column column-left">
+        <div class="signature">
+        </div>
+        <div class="font-smaller">Ort, Datum</div>
+      </div>
+      <div class="column column-right">
+        <div class="signature">
+        </div>
+        <div class="font-smaller">Unterschrift <%= @allocation.seeker.name %></div>
+      </div>
+    </div>
 
-  <h1 class="second-header">
+  <div class="font-bigger margin-top-40 font-bold padding-bottom-5">
     2. Nach der Arbeit ausfüllen und Lohn an Jugendliche/n auszahlen
-  </h1>
-  <table border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse;" bordercolor="#cbe7d5">
+  </div>
+  <table border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse;" bordercolor="#cbe7d5" class="green-table height-td">
     <thead>
     <tr>
       <th>
@@ -699,15 +151,17 @@
   </table>
 
 
-  <footer class="bottom-right">
+  <footer class="footer-right">
     *www.jugend.app <span>Seite 1 von 2</span>
   </footer>
+  </div>
 </div>
-<div id="page3" class="page alwaysbreak page-table">
-  <h1 class="page2-secondheader">
+<div id="page-3" class="page alwaysbreak page-default">
+  <div class="body-container">
+  <div class="font-bigger font-bold margin-top-40">
     Als Arbeitgeber_in stimme ich folgenden Bestimmungen zu:
-  </h1>
-  <ol>
+  </div>
+  <ol class="list-align-left">
     <li>
       Ich führe Jugendliche fachgerecht in sämtliche Arbeit an und beaufsichtige die Arbeit angemessen.
     </li>
@@ -735,7 +189,7 @@
       Arbeiten im folgenden Rahmen erlaubt*:
     </li>
   </ol>
-  <table border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse;" bordercolor="#cbe7d5">
+  <table border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse;" bordercolor="#cbe7d5" class="green-table">
     <thead>
     <tr>
       <th style="width: 65px;">
@@ -825,9 +279,10 @@
     <br/>
     ** Maximal die halben Ferien lang
   </p>
-  <footer class="bottom-right">
+  <footer class="footer-right">
     Seite 2 von 2
   </footer>
+  </div>
 </div>
 </body>
 </html>
