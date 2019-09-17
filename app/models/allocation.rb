@@ -16,6 +16,8 @@ class Allocation < ActiveRecord::Base
 
   after_save :adjust_todo
 
+  before_save :generate_agreement_id
+
   def adjust_todo
     job.adjust_todo unless job.nil?
     Todo.where(record_type: :allocation, record_id: id).find_each &:destroy!
@@ -69,5 +71,9 @@ class Allocation < ActiveRecord::Base
       logger.info "Failed sending changes to jugendinfo"
       nil
     end
+  end
+
+  def generate_contract_id
+    self.contract_id = SecureRandom.uuid if self.contract_id.nil?
   end
 end

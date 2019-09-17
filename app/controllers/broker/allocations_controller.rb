@@ -102,10 +102,8 @@ class Broker::AllocationsController < InheritedResources::Base
   # Render contract as pdf file
   #
   def contract
-
-    @job = Job.find_by(id: params[:job_id])
-    @allocation = Allocation.find_by(id: params[:id])
-
+    @allocation = Allocation.find_by(contract_id: params[:allocation_id])
+    @job = @allocation.job
     @provider = @allocation.provider
     @seeker = @allocation.seeker
     @letter_msg = Mustache.render(nil || '', provider_first_name: '',

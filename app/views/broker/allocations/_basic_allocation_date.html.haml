@@ -15,19 +15,23 @@
     = label_tag :feedback_seeker,  "JugendlicheR", class: "control-label col-xs-12 col-md-4 col-lg-3"
     .col-xs-12.col-md-8.col-lg-9
       = link_to allocation.seeker.name, edit_broker_seeker_path(allocation.seeker)
-      = text_area_tag(:feedback_seeker,'', class: 'form-control', placeholder: 'Feedback JugendlicheR')
-  .form-group
-    .col-md-offset-4.col-lg-offset-3.col-md-8.col-lg-9
-      = button_tag type: :button,  class: "btn btn-success allocation_btn" do
-        = "Speichern"
+      - if @allocation.active? or @allocation.finished?
+        = text_area_tag(:feedback_seeker,'', class: 'form-control', placeholder: 'Feedback JugendlicheR')
+  - if @allocation.active? or @allocation.finished?
+    .form-group
+      .col-md-offset-4.col-lg-offset-3.col-md-8.col-lg-9
+        = button_tag type: :button,  class: "btn btn-success allocation_btn" do
+          = "Speichern"
 
 .form-horizontal.sj-label-left
   .form-group
     = label_tag :feedback_provider,  "ArbeitgerIn ", class: "control-label col-xs-12 col-md-4 col-lg-3"
     .col-xs-12.col-md-8.col-lg-9
       = link_to allocation.job.provider.name, edit_broker_provider_path(allocation.job.provider)
-      = text_area_tag(:feedback_provider,'', class: 'form-control', placeholder: 'Feedback ArbeitgebendeR')
-  .form-group
-    .col-md-offset-4.col-lg-offset-3.col-md-8.col-lg-9
-      = button_tag type: :button,  class: "btn btn-success allocation_btn" do
-        = "Speichern"
+      - if @allocation.active? or @allocation.finished?
+        = text_area_tag(:feedback_provider,'', class: 'form-control', placeholder: 'Feedback ArbeitgebendeR')
+  - if @allocation.active? or @allocation.finished?
+    .form-group
+      .col-md-offset-4.col-lg-offset-3.col-md-8.col-lg-9
+        = button_tag type: :button,  class: "btn btn-success allocation_btn" do
+          = "Speichern"

@@ -12,28 +12,15 @@
         %div.form-control.resize-vertical.textarea{contenteditable: true}
           = "Hallo #{@allocation.seeker.firstname}"
           %br
-          = "Willkommen bei Small.Jobs!"
+          = "Hier senden wir dir den Vertrag für deinen Job bei #{@allocation.provider.firstname} #{@allocation.provider.lastname}."
           %br
-          = "Damit du dich auf Jobs bewerben kannst, brauchen wir das Einverständnis deiner Eltern. Dieses Einverständnis bitte hier herunterladen: "
+          = "Lade den Vertrag hier herunter, drucke ihn aus und bringe ihn zur Arbeit mit: "
           %br
-          %a{file:'', href: "#{url_for agreement_broker_seeker_url(@allocation.seeker.agreement_id)}?format=pdf", type: "application/pdf", title: "Elterneinverständnis herunterladen"}= "Elterneinverständnis herunterladen"
+          %a{file:'', href: "#{url_for broker_allocation_contract_path(@allocation.contract_id, format: :pdf)}", type: "application/pdf", title: "Herunterladen"}= "Herunterladen"
           %br
-          = "Dann ausdrucken und uns vorbeibringen:"
-          -if @org.present?
-            %br
-            = @org.name
-            %br
-            = @org.street
-            %br
-            = @org.place.custom_name
-            %br
-            = "Für einen Termin schreibe uns hier oder ruf an "
-            %a{href: "tel:#{@org.phone}"}= @org.phone
-            %br
-            %br
-            = "Danke,"
-            %br
-            = @org.name
+          = "Vor Arbeitsstart solltest du und die Arbeitgebenden den Vertrag unterzeichnen."
+          %br
+          = "Für Fragen schreibe uns hier!"
         %br
         - if @allocation.seeker.app_user_id.nil?
           %p
