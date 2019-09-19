@@ -27,7 +27,7 @@
             = "Keine App für Messaging installiert. Per Telefon Kontakt aufnehmen"
             %a{href: "tel:#{@allocation.seeker.mobile}"}
               = @allocation.seeker.mobile
-        %button.btn.btn-success.btn-send.js-send-contract
+        %button.btn.btn-success.btn-send.js-send-contract{data: {'loading-text': 'Versendung'}}
           = "Elterneinverständnis als Pdf schicken"
       %div.modal-footer
         = render 'messages'

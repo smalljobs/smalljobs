@@ -216,8 +216,13 @@
 
 
       $('.js-send-contract').click(function(){
-        $('button').attr('disabled', 'disabled');
+        _btn = $(this)
+        $(this).button('loading')
         sendContract(function(){
+        toastr.success('Success!');
+        $('#active_send_contract_modal').modal('hide')
+        _btn.button('reset')
+
         // sessionStorage.setItem('showModal', true);
         //   window.location.reload();
         });

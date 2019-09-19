@@ -20,7 +20,7 @@
   - if @allocation.active? or @allocation.finished?
     .form-group
       .col-md-offset-4.col-lg-offset-3.col-md-8.col-lg-9
-        = button_tag type: :button,  class: "btn btn-success allocation_btn js-feedback-send" , data: {url: broker_job_allocation_path(@job, @allocation)} do
+        = button_tag type: :button,  class: "btn btn-success allocation_btn js-feedback-send" , data: {url: broker_job_allocation_path(@job, @allocation), 'loading-text': 'Versendung'} do
           = "Speichern"
 
 .form-horizontal.sj-label-left.js-feedback-container
@@ -33,5 +33,5 @@
   - if @allocation.active? or @allocation.finished?
     .form-group
       .col-md-offset-4.col-lg-offset-3.col-md-8.col-lg-9
-        = button_tag type: :button,  class: "btn btn-success allocation_btn js-feedback-send" , data: {url: broker_job_allocation_path(@job, @allocation)} do
+        = button_tag type: :button,  class: "btn btn-success allocation_btn js-feedback-send" , data: {url: broker_job_allocation_path(@job, @allocation), 'loading-text': 'Versendung'} do
           = "Speichern"

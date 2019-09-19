@@ -1,7 +1,6 @@
 $ ->
   $(document).on
     click: (e)->
-      console.log 'hello'
       e.preventDefault()
       _btn = $(@).button('loading')
       _container = $(@).parents('.js-feedback-container')
@@ -12,12 +11,11 @@ $ ->
           allocation:
             "#{$("textarea", _container).attr('id')}": $("textarea", _container).val()
         success: (respond)->
-          console.log 'succes'
-          toastr.success('Success!', 'Message')
+          toastr.success('Success!')
           _btn.button('reset')
-        error: ()->
-          console.log 'error'
-          toastr.error('Error', 'Message')
+        error: (respond)->
+          _error = respond.responseJSON['error'][0]
+          toastr.error(_error, 'Error')
           _btn.button('reset')
 
   , '.js-feedback-send'

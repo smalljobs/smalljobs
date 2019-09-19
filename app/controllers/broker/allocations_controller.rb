@@ -32,9 +32,9 @@ class Broker::AllocationsController < InheritedResources::Base
     @allocation = Allocation.find_by(id: params[:id])
     respond_to do |format|
       if @allocation.update(permitted_params_update[:allocation])
-        format.json { render json: {state: :ok}}
+        format.json { render json: {}, status: :ok}
       else
-        format.json { render json: { error: @allocation.errors.full_messages,  state: :unprocessable_entity}}
+        format.json { render json: { error: @allocation.errors.full_messages}, status: :unprocessable_entity}
       end
     end
   end
