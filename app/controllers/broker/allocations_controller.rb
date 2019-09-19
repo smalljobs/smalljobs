@@ -26,6 +26,18 @@ class Broker::AllocationsController < InheritedResources::Base
     @not_receive_job_msg.gsub! "\n", "<br>"
   end
 
+
+  def update
+    @job = Job.find_by(id: params[:job_id])
+    @allocation = Allocation.find_by(id: params[:id])
+    respond_to do |format|
+      if @allocation.update(permitted_params_update[:allocation])
+        format.json { render json: {state: :ok}}
+      else
+        format.json { render json: { error: @allocation.errors.full_messages,  state: :unprocessable_entity}}
+      end
+    end
+  end
   # Changes state of allocation to the next one
   #
   def change_state
@@ -159,5 +171,9 @@ class Broker::AllocationsController < InheritedResources::Base
 
   def permitted_params
     params.permit(allocation: [:id, :job_id, :seeker_id, :state, :feedback_seeker, :feedback_provider, :contract_returned])
+  end
+
+  def permitted_params_update
+    params.permit(allocation: [:feedback_provider, :feedback_seeker])
   end
 end

@@ -16,7 +16,7 @@ class Allocation < ActiveRecord::Base
 
   after_save :adjust_todo
 
-  before_save :generate_agreement_id
+  before_save :generate_contract_id
 
   def adjust_todo
     job.adjust_todo unless job.nil?
