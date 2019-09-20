@@ -84,20 +84,21 @@
       <%= @provider.street %>, <%= @provider.place.full_name %>
     </div>
     <div class="font-bigger font-bold margin-top-40">
-      Ich stimme folgenden Bestimmungen zu:
+      Smalljobs Bestimmungen
     </div>
     <ol class="list-align-left">
       <li>
-        Ich leite Jugendliche fachgerecht in sämtliche Arbeit an und beaufsichtige die Arbeit angemessen.
+        Arbeitgebende führen Jugendliche fachgerecht in sämtliche Arbeit ein und beaufsichtige die Arbeit angemessen.
       </li>
       <li>
-        Das Anstellungsverhältnis besteht direkt zwischen mir und dem Jugendlichen.
+        Das Anstellungsverhältnis besteht direkt zwischen Arbeitgebenden und Jugendlichen.
       </li>
       <li>
         Die vermittelnde Jobbörse kann unter keinen Umständen haftbar gemacht werden.
       </li>
       <li>
-        Der Stundenlohn entspricht dem Alter des Jugendlichen mal <%= @provider.organization.wage_factor %> (z.B. 17 Jahre x <%= @provider.organization.wage_factor %> = <%= 17 * @provider.organization.wage_factor %> CHF).
+        Der Stundenlohn wird vor Arbeitsbeginn festgelegt order entspricht dem Alter des Jugendlichen mal <%= @provider.organization.wage_factor || 1 %> (z.B. 2h x 17 Jahre
+        x <%= @provider.organization.wage_factor || 1 %> = <%= 17 * (@provider.organization.wage_factor || 1) %> CHF).
       </li>
       <li>
         Unfallversicherung: Familienversicherung des Jugendlichen (bis zu einem Jahreslohn von 750 CHF).
