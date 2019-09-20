@@ -3,7 +3,13 @@
     %div.modal-content
       %div.modal-header
         %button.close{"data-dismiss": "modal", type: "button"} &times;
-        %h2= "Elterneinverständnis als Pdf schicken"
+        %h2= "Als Pdf Datei senden"
+        %p.js-link-to-pdf
+          = link_to broker_allocation_contract_path(@allocation.contract_id, format: :pdf), class: '', target: :_blank do
+            %i.fa.fa-print
+            = "Vertrag drucken (Pdf)"
+
+
       %div.modal-body
         %input{type: "checkbox", checked: "true"}
           = "Nachricht an "
@@ -28,6 +34,6 @@
             %a{href: "tel:#{@allocation.seeker.mobile}"}
               = @allocation.seeker.mobile
         %button.btn.btn-success.btn-send.js-send-contract{data: {'loading-text': 'Versendung'}}
-          = "Elterneinverständnis als Pdf schicken"
+          = "Als Pdf Datei senden"
       %div.modal-footer
         = render 'messages'

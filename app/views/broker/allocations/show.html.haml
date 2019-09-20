@@ -154,6 +154,7 @@
           sessionStorage.setItem('showModal', false);
           modalId = '#nothing_modal';
           $('#nothing_modal .modal-header h2').text(sessionStorage.getItem('buttonText'));
+          $('#nothing_modal .modal-header .js-link-to-pdf').html(sessionStorage.getItem('linkToPdf'));
           $('#nothing_modal').modal();
         }
       }
@@ -220,11 +221,11 @@
         $(this).button('loading')
         sendContract(function(){
         toastr.success('Success!');
-        $('#active_send_contract_modal').modal('hide')
+        // $('#active_send_contract_modal').modal('hide')
         _btn.button('reset')
 
-        // sessionStorage.setItem('showModal', true);
-        //   window.location.reload();
+         sessionStorage.setItem('showModal', true);
+           window.location.reload();
         });
       });
 
@@ -236,6 +237,7 @@
         if($checkbox.is(":checked")) {
           $.post("#{send_contract_broker_job_allocation_path(@job, @allocation)}", {message: message, title: title}, function(response){
             // console.log(response);
+            sessionStorage.setItem('linkToPdf', $(modalId + ' .js-link-to-pdf').html());
             func();
           });
         } else {
