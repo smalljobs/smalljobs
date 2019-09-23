@@ -304,4 +304,9 @@ module ApplicationHelper
     ]
   end
 
+
+  def get_age(date_of_birth)
+    ((Time.zone.now - date_of_birth.to_time) / 1.year.seconds).floor
+  end
+
 end

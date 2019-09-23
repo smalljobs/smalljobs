@@ -156,3 +156,11 @@ fieldset {
 .sj-invisible{
   text-decoration: line-through;
 }
+
+.form-horizontal.sj-label-left{
+  .control-label{
+      text-align: left;
+      padding-top: 0;
+      font-weight: normal;
+  }
+}
