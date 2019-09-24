@@ -5,6 +5,6 @@ class JobsCertificate < ApplicationRecord
 
   private
   def generate_jobs_certificate_id
-    self.jobs_certyficate_id = SecureRandom.uuid if self.jobs_certyficate_id.nil?
+    self.jobs_certificate_id = SecureRandom.uuid if self.jobs_certificate_id.nil?
   end
 end

@@ -16,6 +16,9 @@ class Seeker < ActiveRecord::Base
   # has_many :notes
 
   has_many :jobs, through: :allocations
+  has_many :providers, through: :jobs
+
+  has_one :jobs_certificate
 
   has_many :todos, dependent: :destroy
 

@@ -28,6 +28,11 @@
         = "Nachricht senden"
 
     %fieldset
+      %a{href: "#", "data-toggle": "modal", "data-target": "#jobs_certificate_modal"}
+        %i.fa.fa-file-text
+        = "Arbeitszeugnis erstellen"
+
+    %fieldset
       .form-inputs
         = f.input :parental, label: false, inline_label: true
 
@@ -141,6 +146,7 @@
 - if !@seeker.new_record?
   = render 'pdf_message_modal'
   = render 'message_modal'
+  = render 'jobs_certificate_modal'
 
   :javascript
     $(document).ready(function() {

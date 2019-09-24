@@ -20,3 +20,31 @@ $ ->
 
   , '.js-feedback-send'
 
+
+
+  $(document).on
+    click: (e)->
+      e.preventDefault()
+      tinyMCE.activeEditor.setContent($(@).data('content'));
+  , '.js-job-certifacate-reset'
+
+  $(document).on
+    click: (e)->
+      e.preventDefault()
+      $.ajax
+        url: $(@).attr('href')
+        method: 'PUT'
+        data:
+          jobs_certificate:
+            content: $(".js-jobs-certificate-content").val()
+        success: (respond)->
+          toastr.success('Success!')
+          window.open(respond['pdf_link'], '_blank');
+        error: (respond)->
+          _error = respond.responseJSON['error'][0]
+          toastr.error(_error, 'Error')
+
+
+  , '.js-job-certificate-pdf'
+
+
