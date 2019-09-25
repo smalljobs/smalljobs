@@ -69,8 +69,10 @@ class Seeker < ActiveRecord::Base
 
   before_save :generate_agreement_id
 
-  DEV = 'https://admin.staging.jugendarbeit.digital/api/ji/jobboard/ping/user'
-  LIVE = 'https://admin.staging.jugendarbeit.digital/api/ji/jobboard/ping/user'
+  # DEV = 'https://admin.staging.jugendarbeit.digital/api/ji/jobboard/ping/user'
+  # LIVE = 'https://admin.staging.jugendarbeit.digital/api/ji/jobboard/ping/user'
+  DEV = 'https://devadmin.jugendarbeit.digital/api/jugendinfo_user/update_data/'
+  LIVE = 'https://admin.jugendarbeit.digital/api/jugendinfo_user/update_data/'
   CURRENT_LINK = Rails.env.production? ? LIVE : DEV
 
 
@@ -242,7 +244,7 @@ class Seeker < ActiveRecord::Base
       # logger.info "Sending: #{jugendinfo_data}"
       logger.info "Sending: #{{token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', id: app_user_id, smalljobs_user_id: id, firstname: firstname, lastname: lastname, mobile: mobile, address: street, zip: place.zip, birthdate: date_of_birth.strftime('%Y-%m-%d'), city: place.name, smalljobs_status: Seeker.statuses[status], smalljobs_parental_consent: parental, smalljobs_first_visit: discussion, smalljobs_organization_id: organization.id}}"
       # response = RestClient.post CURRENT_LINK, {operation: method,  data: jugendinfo_data}, {Authorization: "Bearer ob7jwke6axsaaygrcin54er1n7xoou6e3n1xduwm"}
-      response = RestClient.post current_link, {token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', id: app_user_id, smalljobs_user_id: id, firstname: firstname, lastname: lastname, mobile: mobile, address: street, zip: place.zip, birthdate: date_of_birth.strftime('%Y-%m-%d'), city: place.name, smalljobs_status: Seeker.statuses[status], smalljobs_parental_consent: parental, smalljobs_first_visit: discussion, smalljobs_organization_id: organization.id}
+      response = RestClient.post CURRENT_LINK, {token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', id: app_user_id, smalljobs_user_id: id, firstname: firstname, lastname: lastname, mobile: mobile, address: street, zip: place.zip, birthdate: date_of_birth.strftime('%Y-%m-%d'), city: place.name, smalljobs_status: Seeker.statuses[status], smalljobs_parental_consent: parental, smalljobs_first_visit: discussion, smalljobs_organization_id: organization.id}
       logger.info "Response from jugendinfo: #{response}"
     rescue
       logger.info "Failed sending changes to jugendinfo"
