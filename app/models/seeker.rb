@@ -235,7 +235,8 @@ class Seeker < ActiveRecord::Base
 
   # Make post request to jugendinfo API
   #
-  def send_to_jugendinfo(method)
+  # def send_to_jugendinfo(method)
+  def send_to_jugendinfo
     begin
       logger.info "Sending changes to jugendinfo"
       # logger.info "Sending: #{jugendinfo_data}"
@@ -252,17 +253,17 @@ class Seeker < ActiveRecord::Base
   # Make post request to jugendinfo API
   #
   def send_update_to_jugendinfo
-    send_to_jugendinfo("UPDATE")
+    # send_to_jugendinfo("UPDATE")
   end
   # Make post request to jugendinfo API
   #
   def send_create_to_jugendinfo
-    send_to_jugendinfo("CREATE")
+    # send_to_jugendinfo("CREATE")
   end
   # Make post request to jugendinfo API
   #
   def send_delete_to_jugendinfo
-    send_to_jugendinfo("DELETE")
+    # send_to_jugendinfo("DELETE")
   end
 
   # Sends welcome message through chat to new seeker
