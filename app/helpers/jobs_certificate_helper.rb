@@ -49,32 +49,36 @@ module JobsCertificateHelper
     end
 
 
-    content_tag(:table, style: "width: 100%") do
-      content_tag(:tr, style: "text-align: left") do
-        content_tag(:th, "Datum")+
-        content_tag(:th, "Anzahl Einsätze:")+
-        content_tag(:th, "Dauer")+
-        content_tag(:th, "Arbeitgebende")+
-        content_tag(:th, "Tätigkeit")
+    content_tag(:table, class:"green-table", style: "width: 100%, border-collapse:collapse;", border: "1", cellpadding: "0",  cellspacing: "0", bordercolor: "#cbe7d5" ) do
+      content_tag(:thead) do
+        content_tag(:tr, style: "text-align: left") do
+          content_tag(:th, "Datum")+
+          content_tag(:th, "Anzahl Einsätze:")+
+          content_tag(:th, "Dauer")+
+          content_tag(:th, "Arbeitgebende")+
+          content_tag(:th, "Tätigkeit")
+        end
       end+
+      content_tag(:tbody) do
       provider_jobs.map do |_, provider_job|
         content_tag(:tr) do
-          content_tag(:td, "#{provider_job[:jobs_start]} #{"-" if provider_job[:jobs_start].present? and provider_job[:jobs_end].present?} #{provider_job[:jobs_end]}")+
+          content_tag(:td) do
+            content_tag(:div,"#{provider_job[:jobs_start]} #{"-".html_safe if provider_job[:jobs_start].present? and provider_job[:jobs_end].present?} #{provider_job[:jobs_end]}".html_safe, style: "white-space: nowrap;")
+          end+
           content_tag(:td, "#{provider_job[:assignment_count]}x")+
           content_tag(:td, "#{provider_job[:assignment_duration]}")+
           content_tag(:td, "#{provider_job[:company]} #{"<br>" if provider_job[:company].present? and provider_job[:provider].present?}  #{provider_job[:provider]}".html_safe)+
           content_tag(:td) do
             provider_job[:jobs].map do |job|
               content_tag(:div) do
-                content_tag(:strong, job.title)+
-                content_tag(:br)+
+                content_tag(:strong, job.title, style: "display: block")+
                 content_tag(:span, job.allocations.where(seeker_id: seeker.id).map{|allocation| allocation.feedback_provider}.join("<br>").html_safe)
               end.html_safe
             end.join("").html_safe
           end
         end
       end.join("").html_safe
-
+     end
     end.html_safe
 
 

@@ -7,282 +7,56 @@
 </head>
 <body>
 <div id="page-2" class="alwaysbreak page page-default">
-<!--  <div class="banner-container banner-short">-->
+  <div class="banner-container banner-short">
+    <img class="smalljobs-logo-img" src="<%= wicked_pdf_asset_base64 'sj-logo.png' %>">
+    <div class="group-logos">
+      <% if @organization.logo.present? %>
+          <img class="others-logo-img" src="<%= @organization.logo.url(:web, :normal) %>">
+      <% end %>
+    </div>
+  </div>
 
-    <%# if @provider.organization.background.present? %>
-<!--      <img id="baner" src="<%#= @provider.organization.background.url(:web) %>" width="100%">-->
-    <%# else %>
-<!--      <img id="baner" src="<%#= wicked_pdf_asset_base64 'header-pic.jpg' %>" width="100%">-->
-    <%# end %>
-<!--    <div class="banner-title white-text">Sackgeldjobs<br/>-->
-<!--      <span>Auftragsvereinbarung</span></div>-->
-<!--    <div class="group-logos">-->
-      <%# if @provider.organization.logo.present? %>
-<!--          <img class="others-logo-img" src="<%#= @provider.organization.logo.url(:web, :normal) %>">-->
-      <%# end %>
-      <%# if @provider.organization.regions.first.logo.present? %>
-<!--          <img class="others-logo-img" src="<%#= @provider.organization.regions.first.logo.url(:web, :normal) %>">-->
-      <%# end %>
-<!--      <img class="smalljobs-logo-img" src="<%#= wicked_pdf_asset_base64 'sj-logo-white.png' %>">-->
-<!--    </div>-->
-<!--  </div>-->
+  <div class="body-container">
+  <div class="row standard-text margin-top-40">
+    <div class="column">
+      <%= @seeker.firstname %> <%= @seeker.lastname %><br>
+      <%= @seeker.street %><br>
+      <%= @seeker.place.zip %> <%= @seeker.place.name %>
+    </div>
 
-<!--  <div class="body-container">-->
 
-<!--  <div class="font-bigger margin-top-40">-->
-    <%#= @job.title %>
-<!--  </div>-->
-<!--  <div class="row standard-text">-->
-<!--    <div class="column">-->
-      <%#= @allocation.last_change_of_state.strftime("%d.%m.%Y") %>
-<!--    </div>-->
-
-<!--    <div class="column text-center">-->
-      <%# if @job.duration.present? %>
-<!--        Dauer: ca <%#= @job.duration %> Studen-->
-      <%# end %>
-<!--    </div>-->
-
-<!--    <div class="column text-right">-->
-<!--      Lohn:-->
-
-        <%# if @job.salary_type == 'fixed' %>
-        <%#= t('jobs.fixed_price', salary: number_to_currency(@job.salary)) %>
-
-        <%# elsif @job.salary_type == 'hourly' %>
-        <%#= t('jobs.hourly_rate', salary: number_to_currency(@job.salary)) %>
-
-        <%# elsif @job.salary_type == 'hourly_per_age' %>
-        <%#= t('jobs.hourly_rate', salary: number_to_currency(@job.organization.wage_factor * get_age(@allocation.seeker.date_of_birth))) %>
-        <%# end %>
-<!--    </div>-->
+    <div class="column padding-left-60">
+      <%= @organization.name %><br>
+      <%= @organization.street %><br>
+      <%= @organization.place.zip %> <%= @organization.place.name %>
+    </div>
 
   </div>
 
-<!--  <div class="standard-text margin-top-20">-->
-    <%#= @job.short_description %>
-<!--  </div>-->
-
-<!--  <div class="standard-text margin-top-20">-->
-    <%#= @job.long_description %>
-<!--  </div>-->
-
-<!--  <div class="font-bigger font-bold margin-top-40">-->
-<!--    1. Vor der Arbeit unterschreiben-->
-<!--  </div>-->
-<!--  <div class="standard-text margin-top-20">-->
-<!--    Ich stimme den gesetzlichen Regelungen des Jugendschutz und den Bestimmungen von Smalljobs zu. Details zu beidem-->
-<!--    sind auf Seite 2 und auf www.smalljobs.ch/jugendschutz aufgeführt.-->
-<!--  </div>-->
-
-<!--  <div class="font-bigger margin-top-20">-->
-<!--    Arbeitgeber_in:-->
-    <%#= @provider.firstname %>
-    <%#= @provider.lastname %>
-<!--  </div>-->
-<!--  <div class="font-smaller padding-bottom-5">-->
-    <%#= @provider.street %>
-    <%#= @provider.place.zip %>
-    <%#= @provider.place.name %>
-<!--  </div>-->
-<!--  <div class="row">-->
-<!--    <div class="column column-left">-->
-<!--      <div class="signature">-->
-<!--      </div>-->
-<!--      <div class="font-smaller">Ort, Datum</div>-->
-<!--    </div>-->
-<!--    <div class="column column-right">-->
-<!--      <div class="signature">-->
-<!--      </div>-->
-<!--      <div class="font-smaller">Unterschrift <%#= @provider.name %></div>-->
-<!--    </div>-->
-<!--  </div>-->
-
-<!--  <div class="font-bigger margin-top-20">-->
-<!--    Arbeitgeber_in:-->
-    <%#= @allocation.seeker.firstname %>
-    <%#= @allocation.seeker.lastname %>
-<!--  </div>-->
-<!--  <div class="font-smaller padding-bottom-5">-->
-    <%#= @allocation.seeker.street %>
-    <%#= @allocation.seeker.place.zip %>
-    <%#= @allocation.seeker.place.name %>
-<!--  </div>-->
-<!--    <div class="row">-->
-<!--      <div class="column column-left">-->
-<!--        <div class="signature">-->
-<!--        </div>-->
-<!--        <div class="font-smaller">Ort, Datum</div>-->
-<!--      </div>-->
-<!--      <div class="column column-right">-->
-<!--        <div class="signature">-->
-<!--        </div>-->
-<!--        <div class="font-smaller">Unterschrift <%#= @allocation.seeker.name %></div>-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--  <div class="font-bigger margin-top-40 font-bold padding-bottom-5">-->
-<!--    2. Nach der Arbeit ausfüllen und Lohn an Jugendliche/n auszahlen-->
-<!--  </div>-->
-<!--  <table border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse;" bordercolor="#cbe7d5" class="green-table height-td">-->
-<!--    <thead>-->
-<!--    <tr>-->
-<!--      <th>-->
-<!--        Datum-->
-<!--      </th>-->
-<!--      <th>-->
-<!--        Dauer (h)-->
-<!--      </th>-->
-<!--      <th>-->
-<!--        CHF-->
-<!--      </th>-->
-<!--      <th>-->
-<!--        Unterschrift Jugendliche/r-->
-<!--      </th>-->
-<!--    </tr>-->
-<!--    </thead>-->
-<!--    <tbody>-->
-<!--    <tr><td colspan="4"></td></tr>-->
-<!--    <tr><td colspan="4"></td></tr>-->
-<!--    <tr><td colspan="4"></td></tr>-->
-<!--    <tr><td colspan="4"></td></tr>-->
-
-<!--    </tbody>-->
-<!--  </table>-->
 
 
-<!--  <footer class="footer-right">-->
-<!--    *www.jugend.app <span>Seite 1 von 2</span>-->
-<!--  </footer>-->
-<!--  </div>-->
-<!--</div>-->
-<!--<div id="page-3" class="page alwaysbreak page-default">-->
-<!--  <div class="body-container">-->
-<!--  <div class="font-bigger font-bold margin-top-40">-->
-<!--    Als Arbeitgeber_in stimme ich folgenden Bestimmungen zu:-->
-<!--  </div>-->
-<!--  <ol class="list-align-left">-->
-<!--    <li>-->
-<!--      Ich führe Jugendliche fachgerecht in sämtliche Arbeit an und beaufsichtige die Arbeit angemessen.-->
-<!--    </li>-->
-<!--    <li>-->
-<!--      Das Anstellungsverhältnis besteht direkt zwischen mir und dem Jugendlichen.-->
-<!--    </li>-->
-<!--    <li>-->
-<!--      Die vermittelnde Jobbörse kann unter keinen Umständen haftbar gemacht werden.-->
-<!--    </li>-->
-<!--    <li>-->
-<!--      Der Stundenlohn entspricht dem Alter des Jugendlichen mal <%#= @provider.organization.wage_factor || 1 %> (z.B. 17 Jahre-->
-<!--      x <%#= @provider.organization.wage_factor || 1 %> = <%#= 17 * (@provider.organization.wage_factor || 1) %> CHF).-->
-<!--    </li>-->
-<!--    <li>-->
-<!--      Unfallversicherung: Familienversicherung des Jugendlichen (bis zu einem Jahreslohn von 750 CHF).-->
-<!--    </li>-->
-<!--    <li>-->
-<!--      Haftpflichtversicherung : Familienversicherung oder Arbeitgeberversicherung.-->
-<!--    </li>-->
-<!--    <li>-->
-<!--      Ausnahme für gewerbliche Arbeitgeber: Unfall-/Haftpflichtversicherung ist Sache des Arbeitgebers.-->
-<!--    </li>-->
-<!--    <li>-->
-<!--      Gemäss Jugendarbeitschutz sind für Jugendliche ab 13 Jahren in der Schweiz leichte-->
-<!--      Arbeiten im folgenden Rahmen erlaubt*:-->
-<!--    </li>-->
-<!--  </ol>-->
-<!--  <table border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse;" bordercolor="#cbe7d5" class="green-table">-->
-<!--    <thead>-->
-<!--    <tr>-->
-<!--      <th style="width: 65px;">-->
-<!--        Alter-->
-<!--      </th>-->
-<!--      <th style="width: 90px;">-->
-<!--        Arbeitszeiten-->
-<!--      </th>-->
-<!--      <th colspan="3"  style="width: 200px;">-->
-<!--        Max. täglich-->
-<!--      </th>-->
-<!--      <th colspan="2"  style="width: 150px;">-->
-<!--        Max. wöchentlich-->
-<!--      </th>-->
-<!--      <th>-->
-<!--        Verbotene Arbeiten-->
-<!--      </th>-->
-<!--    </tr>-->
-<!--    <tr class="second-row-table">-->
-<!--      <th></th>-->
-<!--      <th></th>-->
-<!--      <th style="width: 60px;">Mo–Fr</th>-->
-<!--      <th style="width: 30px;">Sa</th>-->
-<!--      <th>So</th>-->
-<!--      <th style="width: 70px;">Schulzeit</th>-->
-<!--      <th>Ferien</th>-->
-<!--      <th></th>-->
-<!--    </tr>-->
-<!--    </thead>-->
-<!--    <tbody>-->
-<!--    <tr>-->
-<!--      <td>-->
-<!--        16–18-->
-<!--      </td>-->
-<!--      <td>-->
-<!--        8–22 Uhr-->
-<!--      </td>-->
-<!--      <td>-->
-<!--        3h-->
-<!--      </td>-->
-<!--      <td>-->
-<!--        8h-->
-<!--      </td>-->
-<!--      <td>-->
-<!--        0h-->
-<!--      </td>-->
-<!--      <td>-->
-<!--        9h-->
-<!--      </td>-->
-<!--      <td>-->
-<!--        40h**-->
-<!--      </td>-->
-<!--      <td>-->
-<!--        Bedienung in Bars, Clubs, u.ä., gefährliche Arbeiten-->
-<!--      </td>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--      <td>-->
-<!--        13–15-->
-<!--      </td>-->
-<!--      <td>-->
-<!--        8–18 Uhr-->
-<!--      </td>-->
-<!--      <td>-->
-<!--        3h-->
-<!--      </td>-->
-<!--      <td>-->
-<!--        8h-->
-<!--      </td>-->
-<!--      <td>-->
-<!--        0h-->
-<!--      </td>-->
-<!--      <td>-->
-<!--        9h-->
-<!--      </td>-->
-<!--      <td>-->
-<!--        40h**-->
-<!--      </td>-->
-<!--      <td>-->
-<!--        Kino, Zirkus, Bedienung von Gästen in Gastrobetrieben-->
-<!--      </td>-->
-<!--    </tr>-->
-<!--    </tbody>-->
-<!--  </table>-->
-<!--  <p class="small-stars">-->
-<!--    * Detailbestimmungen: www.smalljobs.ch/jugendschutz-->
-<!--    <br/>-->
-<!--    ** Maximal die halben Ferien lang-->
-<!--  </p>-->
-<!--  <footer class="footer-right">-->
-<!--    Seite 2 von 2-->
-<!--  </footer>-->
-<!--  </div>-->
-<!--</div>-->
+  <div class="font-bigger font-bold margin-top-40">
+    Arbeitszeugnis
+  </div>
+  <div class="standard-text margin-top-20">
+    <%= @jobs_certificate.content.html_safe %>
+  </div>
+
+
+  <div class="row margin-top-40">
+    <div class="column column-left">
+      <div class="signature">
+      </div>
+      <div class="font-smaller">Ort, Datum</div>
+    </div>
+    <div class="column column-right">
+      <div class="signature">
+      </div>
+      <div class="font-smaller">Unterschrift</div>
+    </div>
+  </div>
+  </div>
+
+</div>
 </body>
 </html>

@@ -1,6 +1,6 @@
 class Broker::JobsCertificatesController < InheritedResources::Base
 
-  before_filter :authenticate_broker!, except: [:show]
+  before_filter :authenticate_broker!, except: [:certificate]
 
   def update
     @seeker = Seeker.find(params[:id])
@@ -17,7 +17,9 @@ class Broker::JobsCertificatesController < InheritedResources::Base
 
   def certificate
     @jobs_certificate = JobsCertificate.find_by(jobs_certificate_id: params[:jobs_certificate_id])
-    render pdf: 'certificate', template: 'broker/jobs_certificates/certificate.html.erb', margin: {top: 0, left: 0, right: 0, bottom: 0}
+    @seeker = @jobs_certificate.seeker
+    @organization = @seeker.organization
+    render pdf: "Arbeitszeugnis_#{@seeker.firstname}_#{@seeker.lastname}", template: 'broker/jobs_certificates/certificate.html.erb', margin: {top: 0, left: 0, right: 0, bottom: 0}
   end
 
   private

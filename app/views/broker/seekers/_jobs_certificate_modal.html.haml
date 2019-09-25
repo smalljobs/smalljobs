@@ -1,4 +1,6 @@
 - default_content = certificate_for_editor(@seeker, @seeker.organization)
+- content = default_content
+- content = @jobs_certificate.content if @jobs_certificate.present?
 %div.modal.fade{id: "jobs_certificate_modal"}
   %div.modal-dialog.modal-lg
     %div.modal-content
@@ -18,5 +20,5 @@
         .row.sj-row-margin
           .col-xs-12
             = tinymce
-            = text_area_tag :content,  default_content, :class => "tinymce js-jobs-certificate-content"
+            = text_area_tag :content,  content, :class => "tinymce js-jobs-certificate-content"
       %div.modal-footer

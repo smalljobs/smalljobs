@@ -36,7 +36,7 @@ $ ->
         method: 'PUT'
         data:
           jobs_certificate:
-            content: $(".js-jobs-certificate-content").val()
+            content: tinyMCE.activeEditor.getContent()
         success: (respond)->
           toastr.success('Success!')
           window.open(respond['pdf_link'], '_blank');
