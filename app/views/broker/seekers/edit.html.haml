@@ -1,13 +1,14 @@
-%a.back_button{href: '#'}
-  = '< ' + t('common.back')
-
+= link_to broker_dashboard_path do
+  = t('navigation.dashboard')
+%strong
+  = " >  JugendlicheR"
 %div.row
   %div.col-sm-8
     = render 'form'
   %div.col-sm-4.margin_top_120.bg-allocations
-    = render 'todos'
     - if @seeker.allocations.where.not(job: nil).exists?
       %div.provider_allocations
         = render 'allocations'
+    = render 'todos'
     = render 'assignments'
 

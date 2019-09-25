@@ -15,11 +15,12 @@
       = f.input :status, as: :radio_buttons, collection: [{value: 'inactive', label: t('activerecord.attributes.seeker.inactive_html')}, {value: 'active', label: t('activerecord.attributes.seeker.active_html')}, {value: 'completed', label: t('activerecord.attributes.seeker.ended_html')}], label_method: ->(obj){obj[:label]}, value_method: ->(obj){obj[:value]}, label: false, inline_label: '', item_wrapper_class: 'control control--radio'
 
   %fieldset
-    %legend
-      = "JugendlicheR"
     .form-inputs
-      = f.input :firstname, required: true
-      = f.input :lastname, required: true
+      .row
+        .col-xs-12.col-md-6
+          = f.input :firstname, required: true
+        .col-xs-12.col-md-6
+          = f.input :lastname, required: true
 
   - if !@seeker.new_record?
     %fieldset
