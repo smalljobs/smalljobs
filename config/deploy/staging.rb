@@ -8,7 +8,7 @@ set  :ssh_options, {
 }
 
 
-set :branch, 'staging-seeker-modification'
+set :branch, 'staging'
 set :stage, :staging
 set :rails_env, :staging
 
