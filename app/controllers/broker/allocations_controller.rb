@@ -130,7 +130,7 @@ class Broker::AllocationsController < InheritedResources::Base
                                   organization_phone: '',
                                   organization_email: '', link_to_jobboard_list: url_for(root_url()))
     @letter_msg.gsub! "\n", "<br>"
-    render pdf: 'contract', template: 'broker/allocations/certificate.html.erb', margin: {top: 0, left: 0, right: 0, bottom: 0}
+    render pdf: 'contract', template: 'broker/allocations/contract.html.erb', margin: {top: 0, left: 0, right: 0, bottom: 0}
   end
 
 

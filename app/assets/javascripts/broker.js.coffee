@@ -11,6 +11,7 @@ $ ->
           allocation:
             "#{$("textarea", _container).attr('id')}": $("textarea", _container).val()
         success: (respond)->
+
           toastr.success('Gespeichert!')
           _btn.button('reset')
         error: (respond)->
@@ -19,7 +20,6 @@ $ ->
           _btn.button('reset')
 
   , '.js-feedback-send'
-
 
 
   $(document).on
@@ -46,5 +46,3 @@ $ ->
 
 
   , '.js-job-certificate-pdf'
-
-

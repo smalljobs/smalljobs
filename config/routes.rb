@@ -155,6 +155,7 @@ Smalljobs::Application.routes.draw do
       resources :jobs_certificates, only: [] do
         get 'certificate'
       end
+
     end
 
     namespace :provider do
