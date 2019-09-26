@@ -1,4 +1,6 @@
-%a.back_button{href: '#'}
-  = '< ' + t('common.back')
+= link_to broker_dashboard_path do
+  = t('navigation.dashboard')
+%strong
+  = " >  JugendlicheR"
 
 = render 'form'

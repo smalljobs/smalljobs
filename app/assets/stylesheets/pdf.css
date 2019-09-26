@@ -178,7 +178,7 @@ div.page {
     bottom: 80px;
 }
 
-.banner-container .group-logos .smalljobs-logo-img{
+.banner-container .group-logos .smalljobs-logo-img, .banner-container  .smalljobs-logo-img{
     width: 100px;
 }
 
@@ -363,6 +363,7 @@ div.page {
 
 .green-table{
     width: 100%;
+    border-color: #cbe7d5;
 }
 
 
@@ -377,6 +378,7 @@ div.page {
 
 .green-table thead {
     background: #ecf6ee;
+    display: table-row-group;
 }
 
 .green-table thead tr th {
@@ -395,6 +397,10 @@ div.page {
     font-size: 12px;
     border-left: 0px !important;
     border-right: 0px !important;
+    /*word-break: break-all;*/
+}
+.green-table tr td div{
+    page-break-before: always;
 }
 
 .green-table.height-td tr td{
@@ -473,3 +479,7 @@ div.page {
 }
 
 
+
+.padding-left-60{
+    padding-left: 60px;
+}

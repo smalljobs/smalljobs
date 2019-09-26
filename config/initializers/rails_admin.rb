@@ -604,7 +604,7 @@ RailsAdmin.config do |config|
   end
 
   config.model Certificate do
-    navigation_label 'Zertifikate'
+    navigation_label I18n.t('admin.menu.certificate')
 
     list do
       field :title
@@ -614,4 +614,21 @@ RailsAdmin.config do |config|
       field :title
     end
   end
+
+  config.model JobsCertificate do
+    navigation_label I18n.t('admin.menu.jobs_certificate')
+    list do
+      field :content
+      field :seeker
+
+    end
+
+
+    edit do
+      field :content
+      field :seeker
+
+    end
+  end
+
 end

@@ -139,8 +139,6 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
-    coolline (0.5.0)
-      unicode_utils (~> 1.4)
     countries (1.2.5)
       currencies (~> 0.4.2)
       i18n_data (~> 0.7.0)
@@ -454,8 +452,6 @@ GEM
     pry-byebug (3.4.2)
       byebug (~> 9.0)
       pry (~> 0.10)
-    pry-coolline (0.2.5)
-      coolline (~> 0.5)
     pry-doc (0.10.0)
       pry (~> 0.9)
       yard (~> 0.9)
@@ -624,6 +620,8 @@ GEM
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (2.0.7)
+    tinymce-rails (5.0.15)
+      railties (>= 3.1.1)
     trollop (2.1.2)
     tunemygc (1.0.69)
     tzinfo (1.2.3)
@@ -635,7 +633,6 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.4)
-    unicode_utils (1.4.0)
     uniform_notifier (1.10.0)
     validate_url (1.0.2)
       activemodel (>= 3.0.0)
@@ -709,7 +706,6 @@ DEPENDENCIES
   phony_rails
   pry
   pry-byebug
-  pry-coolline
   pry-doc
   pry-rails
   pry-stack_explorer
@@ -739,6 +735,7 @@ DEPENDENCIES
   spring-commands-rspec
   storext
   therubyracer
+  tinymce-rails
   tunemygc
   tzinfo-data
   uglifier

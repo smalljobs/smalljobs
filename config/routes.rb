@@ -123,6 +123,7 @@ Smalljobs::Application.routes.draw do
           resources :note do
             patch 'update_comment', to: 'seekers#update_comment', as: :seeker_update_comment
           end
+          resource :jobs_certificate, only: [:update]
         end
       end
 
@@ -151,6 +152,10 @@ Smalljobs::Application.routes.draw do
       resources :allocations, only: [] do
         get 'contract'
       end
+      resources :jobs_certificates, only: [] do
+        get 'certificate'
+      end
+
     end
 
     namespace :provider do

@@ -11,7 +11,8 @@ $ ->
           allocation:
             "#{$("textarea", _container).attr('id')}": $("textarea", _container).val()
         success: (respond)->
-          toastr.success('Success!')
+
+          toastr.success('Gespeichert!')
           _btn.button('reset')
         error: (respond)->
           _error = respond.responseJSON['error'][0]
@@ -20,3 +21,28 @@ $ ->
 
   , '.js-feedback-send'
 
+
+  $(document).on
+    click: (e)->
+      e.preventDefault()
+      tinyMCE.activeEditor.setContent($(@).data('content'));
+  , '.js-job-certifacate-reset'
+
+  $(document).on
+    click: (e)->
+      e.preventDefault()
+      $.ajax
+        url: $(@).attr('href')
+        method: 'PUT'
+        data:
+          jobs_certificate:
+            content: tinyMCE.activeEditor.getContent()
+        success: (respond)->
+          toastr.success('Gespeichert!')
+          window.open(respond['pdf_link'], '_blank');
+        error: (respond)->
+          _error = respond.responseJSON['error'][0]
+          toastr.error(_error, 'Error')
+
+
+  , '.js-job-certificate-pdf'
