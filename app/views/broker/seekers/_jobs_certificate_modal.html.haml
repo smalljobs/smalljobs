@@ -1,0 +1,24 @@
+- default_content = certificate_for_editor(@seeker, @seeker.organization)
+- content = default_content
+- content = @jobs_certificate.content if @jobs_certificate.present?
+%div.modal.fade{id: "jobs_certificate_modal"}
+  %div.modal-dialog.modal-lg
+    %div.modal-content
+      %div.modal-header
+        %button.close{"data-dismiss": "modal", type: "button"} &times;
+        %h2= "Arbeitszeugnis erstellen"
+      %div.modal-body
+        .row.sj-row-margin
+          .col-md-6.col-xs-12
+            = link_to broker_jobs_certificate_url(@seeker.id), class: 'pull-left js-job-certificate-pdf' do
+              %i.fa.fa-file-pdf-o
+              Pdf herunterladen
+          .col-md-6.col-xs-12
+            = link_to "", class: 'pull-right js-job-certifacate-reset', data: {content: default_content} do
+              %i.fa.fa-refresh
+              Neu erstellen (Änderungen werden gelöscht)
+        .row.sj-row-margin
+          .col-xs-12
+            = tinymce
+            = text_area_tag :content,  content, :class => "tinymce js-jobs-certificate-content"
+      %div.modal-footer

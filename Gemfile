@@ -53,6 +53,7 @@ gem 'rails-ujs'
 gem 'jquery-ui-rails'
 gem 'rails-jquery-autocomplete'
 gem 'figaro'
+gem 'tinymce-rails'
 
 group :development, :test do
   gem 'better_errors'
@@ -68,7 +69,7 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'pry'
   gem 'pry-byebug'
-  gem 'pry-coolline'
+  # gem 'pry-coolline'
   gem 'pry-doc'
   gem 'pry-rails'
   gem 'pry-stack_explorer'

@@ -1,16 +1,25 @@
+
+%h2= "Aktivitäten"
+%p
+  =allocations_with_numbers(@seeker)
+%p
+  = total_amount_earned_in_assignment(@seeker)
+%br
 - allocations = @seeker.allocations.application_open.where.not(job: nil)
 - if allocations.count > 0
-  %h4= "Bewerbungen"
+  %h4#application_open
+    = "Bewerbungen"
   %ul.allocations-list
     - for allocation in allocations
       - if !allocation.job.nil? && !allocation.job.provider.nil?
-        %li.allocations-list-item
+        %li.allocations-list-itemf
           %p
             = link_to "#{allocation.job.provider.name}, #{allocation.job.title}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation.seeker)
 
 - allocations = @seeker.allocations.application_rejected.where.not(job: nil)
 - if allocations.count > 0
-  %h4= "Bewerbungen abgelehnt"
+  %h4#application_rejected
+    = "Bewerbungen abgelehnt"
   %ul.allocations-list
     - for allocation in allocations
       - if !allocation.job.nil? && !allocation.job.provider.nil?
@@ -20,7 +29,8 @@
 
 - allocations = @seeker.allocations.proposal.where.not(job: nil)
 - if allocations.count > 0
-  %h4= "Job Vorschläge"
+  %h4#proposal
+    = "Job Vorschläge"
   %ul.allocations-list
     - for allocation in allocations
       - if !allocation.job.nil? && !allocation.job.provider.nil?
@@ -30,7 +40,8 @@
 
 - allocations = @seeker.allocations.active.where.not(job: nil)
 - if allocations.count > 0
-  %h4= "Aktive Anstellungen"
+  %h4#active
+    = "Aktive Anstellungen"
   %ul.allocations-list
     - for allocation in allocations
       - if !allocation.job.nil? && !allocation.job.provider.nil?
@@ -40,7 +51,8 @@
 
 - allocations = @seeker.allocations.finished.where.not(job: nil)
 - if allocations.count > 0
-  %h4= "Beendete Anstellungen"
+  %h4#finished
+    = "Beendete Anstellungen"
   %ul.allocations-list
     - for allocation in allocations
       - if !allocation.job.nil? && !allocation.job.provider.nil?
@@ -50,7 +62,8 @@
 
 - allocations = @seeker.allocations.cancelled.where.not(job: nil)
 - if allocations.count > 0
-  %h4= "Abgebrochene Anstellungen"
+  %h4#cancelled
+    = "Abgebrochene Anstellungen"
   %ul.allocations-list
     - for allocation in allocations
       - if !allocation.job.nil? && !allocation.job.provider.nil?

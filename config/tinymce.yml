@@ -1,0 +1,5 @@
+height: 500
+menubar: false
+statusbar: false
+toolbar:
+  - styleselect | bold italic underline strikethrough | fontsizeselect | undo redo

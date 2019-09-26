@@ -27,6 +27,7 @@ class Broker::SeekersController < InheritedResources::Base
   end
 
   def edit
+    @jobs_certificate = @seeker.jobs_certificate
     @messages = MessagingHelper::get_messages(@seeker.app_user_id)
     # @seeker.current_broker_id = current_broker.id
     edit!

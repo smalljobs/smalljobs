@@ -19,6 +19,9 @@
 #= require html2canvas.min.js
 #= require toastr.min.js
 
+##= require tinymce-jquery
+#= require tinymce
+
 #= require broker
 
 ready = ->
