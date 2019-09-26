@@ -153,7 +153,7 @@ de:
         <<: *USER
         parental: "Elterneinverständnis erhalten"
         discussion: "Erstgespräch"
-        inactive_html: <div class='control__indicator'></div>Inaktiv
+        inactive_html: <div class='control__indicator'></div>Prüfen
         active_html: <div class='control__indicator'></div>Aktiv
         ended_html:  <div class='control__indicator'></div>Beendet
       broker:
