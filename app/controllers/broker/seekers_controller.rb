@@ -37,7 +37,7 @@ class Broker::SeekersController < InheritedResources::Base
   #
   def agreement
     @seeker = Seeker.find_by(agreement_id: params[:agreement_id])
-    render pdf: 'Einverständnis', template: 'broker/seekers/agreement.html.erb', margin: {top: 3, left: 3, right: 3, bottom: 3}
+    render pdf: 'Einverständnis', template: 'broker/seekers/agreement.html.erb', margin: {top: 0, left: 0, right: 0, bottom: 0}
   end
 
   def delete
