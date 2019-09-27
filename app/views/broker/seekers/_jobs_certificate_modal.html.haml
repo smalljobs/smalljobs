@@ -10,7 +10,7 @@
       %div.modal-body
         .row.sj-row-margin
           .col-md-6.col-xs-12
-            = link_to broker_jobs_certificate_url(@seeker.id), class: 'pull-left js-job-certificate-pdf' do
+            = link_to broker_jobs_certificate_path(@seeker.id), class: 'pull-left js-job-certificate-pdf' do
               %i.fa.fa-file-pdf-o
               Pdf herunterladen
           .col-md-6.col-xs-12

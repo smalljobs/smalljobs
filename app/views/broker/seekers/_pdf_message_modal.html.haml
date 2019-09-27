@@ -16,7 +16,7 @@
           %br
           = "Damit du dich auf Jobs bewerben kannst, brauchen wir das Einverständnis deiner Eltern. Dieses Einverständnis bitte hier herunterladen: "
           %br
-          %a{file:'', href: "#{url_for agreement_broker_seeker_path(@seeker.agreement_id)}?format=pdf", type: "application/pdf", title: "Elterneinverständnis herunterladen"}= "Elterneinverständnis herunterladen"
+          %a{file:'', href: "#{url_for agreement_broker_seeker_url(@seeker.agreement_id)}?format=pdf", type: "application/pdf", title: "Elterneinverständnis herunterladen"}= "Elterneinverständnis herunterladen"
           %br
           = "Dann ausdrucken und uns vorbeibringen:"
           -if @seeker.organization.present?
