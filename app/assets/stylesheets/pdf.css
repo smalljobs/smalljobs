@@ -79,7 +79,6 @@ div.page {
     padding-left: 10px;
     padding-right: 10px;
     height: 1152px;
-
 }
 
 
@@ -176,6 +175,10 @@ div.page {
 
 .banner-container .group-logos.bottom-80{
     bottom: 80px;
+}
+
+.banner-container .group-logos.bottom-20{
+    bottom: 20px;
 }
 
 .banner-container .group-logos .smalljobs-logo-img, .banner-container  .smalljobs-logo-img{

@@ -1,317 +1,111 @@
 <!doctype html>
 <html>
-<head>
-  <meta charset='utf-8'/>
-  <%if Rails.env.staging?%>
-    <link href="//fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
-  <% else %>
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+  <head>
+    <meta charset='utf-8'/>
+    <%if Rails.env.production?%>
+      <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+    <% else %>
+      <link href="//fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+    <% end %>
 
-  <% end %>
-
-  <style>
-    body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      /*background-color: #FAFAFA;*/
-      font-family: 'Lato', sans-serif;
-    }
-
-    div.alwaysbreak {
-      page-break-before: always;
-    }
-
-    #logo-white {
-      position: absolute;
-      right: 40px;
-      max-width: 90px;
-      top: 40px;
-    }
-
-    div.nobreak:before {
-      clear: both;
-    }
-
-    div.nobreak {
-      page-break-inside: avoid;
-    }
-
-    div.page {
-      position: relative;
-      width: 210mm;
-      min-height: 297mm;
-      display: inline-block;
-      padding: 0;
-    }
-
-    @page {
-      size: A4;
-      margin: 0;
-    }
-
-    .row {
-      display: table;
-      width: 100%;
-      table-layout: fixed;
-      border-spacing: 10px;
-    }
-
-    .column {
-      display: table-cell;
-    }
-
-    .signature {
-      height: 17mm;
-      background-color: rgb(235, 246, 238);
-      border-bottom: 2px solid #d1ebdc;
-    }
-
-    .right {
-      position: relative;
-      right: 0;
-    }
-
-    p.page2-firstrow {
-      margin-left: 20px;
-      font-size: 21px;
-      font-weight: 800;
-      margin-top: -5px;
-    }
-
-    p.page2-secondrow {
-      margin-left: 20px;
-      margin-top: -6px;
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    p.sign-par {
-      margin-left: 20px;
-      margin-top: 0px;
-      padding-top: 0px;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    h1.arbei {
-      margin-left: 20px;
-      font-size: 21px;
-      font-weight: 800;
-      margin-top: 368px;
-      margin-bottom: 5px;
-    }
-
-    h1.page2-secondheader {
-      margin-left: 20px;
-      font-size: 21px;
-      font-weight: 700;
-      margin-top: 35px;
-    }
-
-    #page4 ol {
-      margin-top: 15px;
-    }
-
-    #page4 ol li {
-      margin-left: 13px;
-      margin-bottom: 3px;
-      padding-left: 7px !important;
-      line-height: 1.2;
-    }
-
-    #page4 p {
-      margin-right: 20px;
-      margin-left: 20px;
-    }
-
-    #baner {
-      left: 5px;
-      top: 5px;
-      position: absolute;
-      z-index: 0;
-      height: auto;
-      display: block;
-      width: 810px;
-    }
-
-    #page4 h2 {
-      position: absolute;
-      z-index: 1;
-      color: #000;
-      font-size: 43px;
-      left: 30px;
-      top: -20px;
-      font-weight: 700;
-      width: 100%;
-    }
-
-    #page4 h2 span {
-      font-weight: 400;
-    }
-
-    #smalljobs-logo {
-      position: absolute;
-      right: 0;
-      width: 90px;
-      top: 180px;
-    }
-
-    #org-logo-div {
-      position: absolute;
-      left: 88px;
-      top: 286px;
-      width: 66px;
-      height: 66px;
-      background-color: white;
-      overflow: hidden;
-    }
-
-    #region-logo-div {
-      position: absolute;
-      left: 20px;
-      top: 286px;
-      width: 66px;
-      height: 66px;
-      background-color: white;
-      overflow: hidden;
-    }
-
-    #org-logo {
-      height: 99%;
-      width: auto;
-      position: absolute;
-      margin: auto;
-      top: 1px;
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
-
-    #region-logo {
-      width: 99%;
-      height: auto;
-      position: absolute;
-      margin: auto;
-      top: 0;
-      left: 1px;
-      right: 0;
-      bottom: 0;
-    }
-
-    #bank {
-      width: 380px;
-      height: 66px;
-      position: absolute;
-      top: 280px;
-      background-color: white;
-      right: -25px;
-      font-size: 13px;
-      text-align: right;
-      padding-top: 10px;
-      padding-right: 10px;
-    }
-
-    #bank span {
-      color: #18bc9c;
-    }
-
-  </style>
-</head>
+    <%= stylesheet_link_tag wicked_pdf_asset_base64("pdf") %>
+  </head>
 <body>
-<div id="page4" class="alwaysbreak page">
-  <% if @seeker.organization.present? &&  @seeker.organization.background.present? %>
-    <img id="baner" src="<%= @seeker.organization.background.url(:web) %>" width="100%" height="300mm">
-  <% else %>
-    <img id="baner" src="<%= wicked_pdf_asset_base64 'ParentalAgreement.jpg' %>" width="100%" height="300mm">
-  <% end %>
-  <img id="smalljobs-logo" src="<%= wicked_pdf_asset_base64 'sj-logo-white.png' %>">
-  <% if @seeker.organization.present? && @seeker.organization.logo.present? %>
-    <div id="org-logo-div">
-      <img id="org-logo" src="<%= @seeker.organization.logo.url(:web, :normal) %>">
+  <div id="page-1" class="alwaysbreak page page-default">
+    <div class="banner-container">
+      <% if  @seeker.organization.present? &&  @seeker.organization.background.present? %>
+        <img id="baner" src="<%= @seeker.organization.background.url(:web) %>" width="100%" height="300mm">
+      <% else %>
+        <img id="baner" src="<%= wicked_pdf_asset_base64 'ParentalAgreement.jpg' %>" width="100%" height="300mm">
+      <% end %>
+      <div class="banner-title">Sackgeldjob-Börse<br/>
+        <%= @seeker.organization&.name %><br/>
+        <span>Einverständnis zur Teilnahme</span></div>
+      <div class="group-logos bottom-20">
+
+        <% if @seeker.organization.logo.present? %>
+          <img class="others-logo-img"  src="<%= @seeker.organization.logo.url(:web, :normal) %>">
+        <% end %>
+        <% if @seeker.organization.regions.first.logo.present? %>
+          <img class="others-logo-img"  src="<%= @seeker.organization.regions.first.logo.url(:web, :normal) %>">
+        <% end %>
+        <img class="smalljobs-logo-img" src="<%= wicked_pdf_asset_base64 'sj-logo-white.png' %>">
+      </div>
     </div>
-  <% end %>
-  <% if @seeker.organization.present? && @seeker.organization.regions.first.logo.present? %>
-    <div id="region-logo-div">
-      <img id="region-logo" src="<%= @seeker.organization.regions.first.logo.url(:web, :normal) %>">
+
+
+
+  <div class="body-container">
+    <div class="margin-top-40 font-bigger font-bold">
+      <%= @seeker.name %>, <%= @seeker.date_of_birth.strftime('%d.%m.%Y') %>
     </div>
-  <% end %>
-  <h2>
-    Sackgeldjob-Börse<br/>
-    <%= @seeker.organization&.name %><br/>
-    <span>Einverständnis zur Teilnahme</span>
-  </h2>
-  <div id="bank">
-    Die Sackgeldjob-Börse ist ein kostenloses Angebot von smallJobs<br/>
-    <span>Möchten sie uns unterstützen?</span><br/>
-    <span>Unser Spendenkonto lautet: CH81 0900 0000 8558 01170</span>
+    <p class="font-smaller font-bold">
+      <%= @seeker.street %>, <%= @seeker.place.full_name %>
+    </p>
+    <p>
+      Ich bestätige hiermit, dass:
+    </p>
+    <ol class="list-align-left">
+      <li>
+        meine Angaben gegenüber <%= @seeker.organization&.name %> wahrheitsgetreu sind.
+      </li>
+      <li>
+        ich mich bei den mir vermittelten Jobs an die Richtlinien von Smalljobs und die Weisungen meiner Jobbörse
+        <%= @seeker.organization&.name %> halte.
+      </li>
+    </ol>
+
+
+    <div class="row margin-top-40">
+      <div class="column column-left">
+        <div class="signature">
+        </div>
+        <div class="font-smaller">Ort, Datum</div>
+      </div>
+      <div class="column column-right">
+        <div class="signature">
+        </div>
+        <div class="font-smaller">Unterschrift <%= @seeker.name %></div>
+      </div>
+    </div>
+
+    <div class="margin-top-40 font-bigger font-bold">
+      Einverständnis der Eltern / Erziehungsberechtigten:
+    </div>
+    <p>Ich bestätige hiermit, dass</p>
+    <ol class="list-align-left">
+      <li>
+        ich für <%= @seeker.name %> erziehungsberechtigt bin.
+      </li>
+      <li>
+        <%= @seeker.name %> mit meiner Einverständnis bei der Sackgeldjob-Börse anmeldet.
+      </li>
+      <li>
+        ich die gesetzlichen Richtlinien kenne und einverstanden bin, dass <%= @seeker.name %> in diesem Rahmen
+        Sackgeldjobs macht (siehe www.smalljobs.ch/jugendschutz).
+      </li>
+      <li>
+        ich für <%= @seeker.name %> eine gültige Unfall- und Haftpflichtversicherung abgeschlossen habe.
+      </li>
+    </ol>
+
+
+    <div class="row margin-top-40">
+      <div class="column column-left">
+        <div class="signature">
+        </div>
+        <div class="font-smaller">Ort, Datum</div>
+      </div>
+      <div class="column column-right">
+        <div class="signature">
+        </div>
+        <div class="font-smaller">Unterschrift
+          Erziehungsberechtigte <%= @seeker.name %></div>
+      </div>
+    </div>
+
+
   </div>
-  <h1 class="arbei">
-    JugendlicheR:
-  </h1>
-  <p class="page2-firstrow">
-    <%= @seeker.name %>, <%= @seeker.date_of_birth.strftime('%d.%m.%Y') %>
-  </p>
-  <p class="page2-secondrow">
-    <%= @seeker.street %>, <%= @seeker.place.full_name %>
-  </p>
-  <p>
-    Ich bestätige, dass:
-  </p>
-  <ol>
-    <li>
-      Meine Angaben gegenüber <%= @seeker.organization&.name %> wahrheitsgetreu sind.
-    </li>
-    <li>
-      Ich mich bei den mir vermittelten Jobs an die Richtlinien von Smalljobs und die Weisungen meiner Jobbörse
-      <%= @seeker.organization&.name %> halte.
-    </li>
-  </ol>
-  <div class="row">
-    <div class="column">
-      <div class="signature" style="margin-left: 10px;">
-      </div>
-      <p class="sign-par" style="margin-left: 10px !important;">Ort, Datum</p>
-    </div>
-    <div class="column">
-      <div class="signature" style="margin-right: 10px;">
-      </div>
-      <p class="sign-par" style="margin-left: 0px !important;">Unterschrift <%= @seeker.name %></p>
-    </div>
   </div>
-  <h1 class="page2-secondheader">
-    Einverständnis der Eltern / Erziehungsberechtigte:
-  </h1>
-  <p>Ich bestätige, dass</p>
-  <ol>
-    <li>
-      Ich für <%= @seeker.name %> erziehungsberechtigt bin.
-    </li>
-    <li>
-      <%= @seeker.name %> mit meiner Einverständnis bei der Sackgeldjob-Börse anmeldet.
-    </li>
-    <li>
-      Ich die gesetzlichen Richtlinien kenne und einverstanden bin, dass <%= @seeker.name %> in diesem Rahmen
-      Sackgeldjobs macht (siehe www.smalljobs.ch/jugendschutz).
-    </li>
-    <li>
-      Ich für <%= @seeker.name %> eine gültige Unfall- und Haftpflichtversicherung abgeschlossen habe.
-    </li>
-  </ol>
-  <div class="row">
-    <div class="column">
-      <div class="signature" style="margin-left: 10px;">
-      </div>
-      <p class="sign-par" style="margin-left: 10px !important;">Ort, Datum</p>
-    </div>
-    <div class="column">
-      <div class="signature" style="margin-right: 10px;">
-      </div>
-      <p class="sign-par" style="margin-left: 0px !important;">Unterschrift
-        Erziehungsberechtigte <%= @seeker.name %></p>
-    </div>
-  </div>
-</div>
 </body>
 </html>
