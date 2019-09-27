@@ -361,7 +361,7 @@
                     - minutes = minutes % 60
                     = "#{hours}:#{minutes}"
                     = " "
-                %td.payment{data: {id: assignment.payment.floor}}
+                %td.payment{data: {id: (assignment.payment.present?  ? assignment.payment.floor : 0)}}
                   - if assignment.payment != nil
                     = assignment.payment.floor
                 %td.feedback
