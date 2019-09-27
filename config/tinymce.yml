@@ -2,7 +2,8 @@ height: 500
 menubar: false
 statusbar: false
 toolbar:
-  - styleselect | bold italic underline strikethrough | undo redo | table
+  - styleselect | bold italic underline strikethrough | undo redo | tableinsertrowbefore tableinsertrowafter tabledeleterow
+table_toolbar: tableinsertrowbefore tableinsertrowafter tabledeleterow
 style_formats:
   - title: 'Header 1'
     format: 'h1'
@@ -18,5 +19,6 @@ style_formats:
     format: 'h6'
 plugins:
   - table
+
 
 

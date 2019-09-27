@@ -40,8 +40,8 @@ module JobsCertificateHelper
       jobs = seeker.jobs.where(provider_id: provider.id).order(:start_date)
       jobs_last_end_date = seeker.jobs.where(provider_id: provider.id).order(end_date: :asc).limit(1).first
       provider_jobs[provider.id][:jobs] = jobs
-      provider_jobs[provider.id][:jobs_start] = jobs.first.start_date
-      provider_jobs[provider.id][:jobs_end] = jobs_last_end_date.end_date
+      provider_jobs[provider.id][:jobs_start] = jobs.first.start_date.present? ? jobs.first.start_date.strftime("%d.%m.%Y") : nil
+      provider_jobs[provider.id][:jobs_end] = jobs_last_end_date.end_date.present? ? jobs_last_end_date.end_date.strftime("%d.%m.%Y") : nil
       provider_jobs[provider.id][:assignment_count] = seeker.assignments.where(job_id: jobs.pluck(:id)).count
       provider_jobs[provider.id][:assignment_duration] = seeker.assignments.where(job_id: jobs.pluck(:id)).sum(:duration)/(60_000*60)
       provider_jobs[provider.id][:company] = provider.company.try(:name)
@@ -53,7 +53,7 @@ module JobsCertificateHelper
       content_tag(:thead) do
         content_tag(:tr, style: "text-align: left") do
           content_tag(:th, "Datum")+
-          content_tag(:th, "Anzahl Einsätze:")+
+          content_tag(:th, "Anzahl Einsätze")+
           content_tag(:th, "Dauer")+
           content_tag(:th, "Arbeitgebende")+
           content_tag(:th, "Tätigkeit")
@@ -71,8 +71,9 @@ module JobsCertificateHelper
           content_tag(:td) do
             provider_job[:jobs].map do |job|
               content_tag(:div) do
-                content_tag(:strong, job.title, style: "display: block")+
-                content_tag(:span, job.allocations.where(seeker_id: seeker.id).map{|allocation| allocation.feedback_provider}.join("<br>").html_safe)
+                content_tag(:div, job.title)+
+                content_tag(:span, job.allocations.where(seeker_id: seeker.id).map{|allocation| allocation.feedback_seeker}.join("<br>").html_safe)+
+                content_tag(:br)
               end.html_safe
             end.join("").html_safe
           end
