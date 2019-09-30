@@ -1,0 +1,19 @@
+%div.modal.fade{id: "region_modal"}
+  %div.modal-dialog.modal-lg
+    %div.modal-content
+      %div.modal-header
+        %button.close{"data-dismiss": "modal", type: "button"} &times;
+        %h2= "#{@seeker.firstname} #{@seeker.lastname} transferieren"
+      %div.modal-body
+        .row.sj-row-margin
+          .col-xs-12
+            Du verlierst damit Zugriff auf den Jugendlichen und er oder sie wird in Zukunft von der gewählten Jobbörse verwaltet.
+        .row.sj-row-margin
+          .col-xs-12
+            .controls
+              = select_tag :organization, grouped_options_for_select(@organizations_and_regions, @seeker.organization_id), class: "select required form-control js-seeker-transfer-organization-select", data: {url: '#'}
+            -#= f.association :organization, required: true, include_blank: true, label: false, collection: [1,2], class: "js-region-select"
+        .row.sj-row-margin
+          .col-xs-12
+            = button_tag "Übertragen", class: 'btn btn-success js-seeker-region-transfer', data: {url: update_organization_broker_seeker_path(@seeker.id)}
+

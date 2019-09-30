@@ -195,6 +195,25 @@ class Seeker < ActiveRecord::Base
     :inactive
   end
   # @!endgroup
+  #
+  # Update seeker region through organization and set to inactive if region is changes
+  #
+  def update_organization(organization_id)
+    if self.region != Organization.find(organization_id).regions.first
+      self.organization_id = organization_id
+      self.status = :inactive
+    else
+      self.organization_id = organization_id
+    end
+    self.save
+  end
+
+  # Return seeker current region
+  #
+  def region
+    return self.organization.regions.first if self.organization.present?
+    nil
+  end
 
   private
 
