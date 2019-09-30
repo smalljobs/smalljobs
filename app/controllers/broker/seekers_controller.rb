@@ -28,6 +28,7 @@ class Broker::SeekersController < InheritedResources::Base
 
   def edit
     @jobs_certificate = @seeker.jobs_certificate
+    @organizations_and_regions = Region.order(:name).includes(:organizations).map{|x| [x.name, x.organizations.order(:name).distinct.map{|y|  [y.name, y.id]}]}
     @messages = MessagingHelper::get_messages(@seeker.app_user_id)
     # @seeker.current_broker_id = current_broker.id
     edit!
@@ -101,6 +102,14 @@ class Broker::SeekersController < InheritedResources::Base
     end
   end
 
+  def update_organization
+    if @seeker.update(permitted_organization_params)
+      format.json { render json: {}, status: :ok}
+    else
+      format.json { render json: { error: @seeker.errors.full_messages}, status: :unprocessable_entity}
+    end
+  end
+
   protected
 
   # Returns currently signed in broker
@@ -121,7 +130,12 @@ class Broker::SeekersController < InheritedResources::Base
     params.permit(seeker: [:occupation, :occupation_end_date, :additional_contacts, :languages, :id, :password, :password_confirmation, :firstname, :lastname, :street, :place_id, :sex, :email, :phone, :mobile, :date_of_birth, :contact_preference, :contact_availability, :active, :confirmed, :terms, :status, :organization_id, :notes, :discussion, :parental, :other_skills, work_category_ids: [], certificate_ids: []])
   end
 
-  def redirect_smalljobs
+    def permitted_organization_params
+      params.permit(seeker: [:organization_id])
+    end
+
+
+    def redirect_smalljobs
     if request.subdomain == 'smalljobs'
       redirect_to "https://winterthur.smalljobs.ch#{request.fullpath}", :status => :moved_permanently
     end

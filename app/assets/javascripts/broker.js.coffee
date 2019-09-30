@@ -46,3 +46,26 @@ $ ->
 
 
   , '.js-job-certificate-pdf'
+
+
+
+  $(document).on
+    click: (e)->
+      e.preventDefault()
+      _btn = $(@).button('loading')
+      $.ajax
+        url: $(@).data('url')
+        method: 'PUT'
+        data:
+          seeker:
+            organization_id: $('.js-seeker-transfer-organization-select option:selected').val()
+        success: (respond)->
+          toastr.success('Gespeichert!')
+          _btn.button('reset')
+        error: (respond)->
+          _error = respond.responseJSON['error'][0]
+          toastr.error(_error, 'Error')
+          _btn.button('reset')
+
+
+  , '.js-seeker-transfer-organization'
