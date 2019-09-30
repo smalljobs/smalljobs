@@ -83,6 +83,7 @@ class Broker::SeekersController < InheritedResources::Base
     note.destroy!
   end
 
+
   def update_comment
     note = Note.find_by(id: params[:note_id], broker_id: current_broker.id, seeker_id: @seeker.id)
     respond_to do |format|
@@ -102,11 +103,16 @@ class Broker::SeekersController < InheritedResources::Base
     end
   end
 
+
+  # Update organization and change status if change region
+  #
   def update_organization
-    if @seeker.update(permitted_organization_params)
-      format.json { render json: {}, status: :ok}
-    else
-      format.json { render json: { error: @seeker.errors.full_messages}, status: :unprocessable_entity}
+    respond_to do |format|
+      if @seeker.update_organization(permitted_organization_params[:seeker][:organization_id])
+        format.json { render json: {}, status: :ok}
+      else
+        format.json { render json: { error: @seeker.errors.full_messages}, status: :unprocessable_entity}
+      end
     end
   end
 

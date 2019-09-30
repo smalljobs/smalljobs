@@ -11,9 +11,9 @@
         .row.sj-row-margin
           .col-xs-12
             .controls
-              = select_tag :organization, grouped_options_for_select(@organizations_and_regions), class: "select required form-control js-seeker-transfer-organization-select", data: {url: '#'}
+              = select_tag :organization, grouped_options_for_select(@organizations_and_regions, @seeker.organization_id), class: "select required form-control js-seeker-transfer-organization-select", data: {url: '#'}
             -#= f.association :organization, required: true, include_blank: true, label: false, collection: [1,2], class: "js-region-select"
         .row.sj-row-margin
           .col-xs-12
-            = button_tag "Übertragen", class: 'btn btn-success js-seeker-region-transfer'
+            = button_tag "Übertragen", class: 'btn btn-success js-seeker-region-transfer', data: {url: update_organization_broker_seeker_path(@seeker.id)}
 

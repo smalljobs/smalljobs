@@ -68,4 +68,4 @@ $ ->
           _btn.button('reset')
 
 
-  , '.js-seeker-transfer-organization'
+  , '.js-seeker-region-transfer'
