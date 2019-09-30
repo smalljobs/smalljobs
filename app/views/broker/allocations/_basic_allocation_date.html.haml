@@ -12,7 +12,7 @@
 
 .form-horizontal.sj-label-left.js-feedback-container
   .form-group
-    = label_tag :feedback_seeker,  "JugendlicheR", class: "control-label col-xs-12 col-md-4 col-lg-3"
+    = label_tag :feedback_seeker,  "Jugendliche_r", class: "control-label col-xs-12 col-md-4 col-lg-3"
     .col-xs-12.col-md-8.col-lg-9
       = link_to allocation.seeker.name, edit_broker_seeker_path(allocation.seeker)
       - if @allocation.active? or @allocation.finished?
@@ -25,7 +25,7 @@
 
 .form-horizontal.sj-label-left.js-feedback-container
   .form-group
-    = label_tag :feedback_provider,  "ArbeitgerIn ", class: "control-label col-xs-12 col-md-4 col-lg-3"
+    = label_tag :feedback_provider,  "Arbeitger_in ", class: "control-label col-xs-12 col-md-4 col-lg-3"
     .col-xs-12.col-md-8.col-lg-9
       = link_to allocation.job.provider.name, edit_broker_provider_path(allocation.job.provider)
       - if @allocation.active? or @allocation.finished?
