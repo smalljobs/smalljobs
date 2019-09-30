@@ -72,10 +72,9 @@ module JobsCertificateHelper
             provider_job[:jobs].map do |job|
               content_tag(:div) do
                 content_tag(:div, job.title)+
-                content_tag(:span, job.allocations.where(seeker_id: seeker.id).map{|allocation| allocation.feedback_seeker}.join("<br>").html_safe)+
-                content_tag(:br)
+                content_tag(:span, job.allocations.where(seeker_id: seeker.id).map{|allocation| allocation.feedback_seeker.present? ? allocation.feedback_seeker : nil }.compact.join("<br>").html_safe)
               end.html_safe
-            end.join("").html_safe
+            end.join("<br>").html_safe
           end
         end
       end.join("").html_safe
