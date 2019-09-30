@@ -130,7 +130,8 @@
       = "Zuständige Organisation"
     .form-inputs
       = f.association :organization, required: true, include_blank: true, label: false, collection: current_broker.all_organizations
-
+      = link_to "", class: 'js-seeker-change-region' do
+        = "Zu einer anderen Jobbörse übertragen"
   .form-actions
     - if @seeker.new_record?
       = f.button :submit, "Jugendlichen erstellen", class: 'btn btn-primary btn-success'
