@@ -130,8 +130,9 @@
       = "Zuständige Organisation"
     .form-inputs
       = f.association :organization, required: true, include_blank: true, label: false, collection: current_broker.all_organizations
-      %a{href: "#", "data-toggle": "modal", "data-target": "#region_modal"}
-        Zu einer anderen Jobbörse übertragen
+      -# change paused, if we change region we have to change place for seeker
+      -#%a{href: "#", "data-toggle": "modal", "data-target": "#region_modal"}
+      -#  Zu einer anderen Jobbörse übertragen
   .form-actions
     - if @seeker.new_record?
       = f.button :submit, "Jugendlichen erstellen", class: 'btn btn-primary btn-success'
@@ -144,7 +145,8 @@
         = "Löschen"
 
     = render 'delete_modal'
-    = render 'region_modal'
+    -# change paused, if we change region we have to change place for seeker
+    -#= render 'region_modal'
 - if !@seeker.new_record?
   = render 'pdf_message_modal'
   = render 'message_modal'
