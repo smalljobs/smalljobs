@@ -7,6 +7,8 @@ de:
       org: "Jugendarbeit"
       application: "Bewerbungsprozess"
       assignment: "Einsatz"
+      certificate: "Zertifikate"
+      jobs_certificate: "Arbeitszeugnisse"
     groups:
       place: "Ortschaft"
       political: "Politisch"

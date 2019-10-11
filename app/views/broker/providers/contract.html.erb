@@ -1,689 +1,196 @@
 <!doctype html>
 <html>
-<head>
-  <meta charset='utf-8'/>
-  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
-  <style>
-    body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      /*background-color: #FAFAFA;*/
-      font-family: 'Lato', sans-serif;
-    }
-
-    div.alwaysbreak {
-      page-break-before: always;
-    }
-
-    #logo-white {
-      position: absolute;
-      right: 40px;
-      max-width: 90px;
-      top: 40px;
-    }
-
-    div.nobreak:before {
-      clear: both;
-    }
-
-    div.nobreak {
-      page-break-inside: avoid;
-    }
-
-    div.page {
-      position: relative;
-      width: 210mm;
-      min-height: 297mm;
-      display: inline-block;
-    }
-
-    @page {
-      size: A4;
-      margin: 0;
-    }
-
-    .row {
-      display: table;
-      width: 100%;
-      table-layout: fixed;
-      border-spacing: 10px;
-    }
-
-    .column {
-      display: table-cell;
-    }
-
-    .signature {
-      height: 17mm;
-      background-color: rgb(235, 246, 238);
-      border-bottom: 2px solid #d1ebdc;
-    }
-
-    .bottom {
-      position: relative;
-      bottom: 0;
-    }
-
-    .right {
-      position: relative;
-      right: 0;
-    }
-
-    #page3.table.tbody.tr {
-      height: 5mm;
-    }
-
-    .bottom.right {
-      position: absolute;
-      display: inline-block;
-      bottom: 0px;
-      padding-right: 37px;
-      right: 0px;
-      font-size: 12px;
-      font-weight: normal;
-      width: 100%;
-      text-align: right;
-    }
-
-    .bottom-right {
-      position: absolute;
-      display: inline-block;
-      bottom: -20px;
-      right: -10px;
-      font-size: 12px;
-      font-weight: normal;
-      width: 100%;
-      text-align: right;
-    }
-
-    #logo {
-      position: absolute;
-      top: 37px;
-      right: -11px;
-      width: 100px;
-    }
-
-    p.org-name {
-      margin-top: 178px;
-      font-size: 12px;
-      font-weight: 400;
-      margin-left: 93px;
-      border-bottom: 1px solid #000;
-      display: inline-block;
-      width: auto;
-    }
-
-    p.contact-info {
-      margin-left: 93px;
-      margin-top: 58px;
-      line-height: 1.4;
-      font-size: 15px;
-    }
-
-    p.letter-start {
-      margin-left: 93px;
-      margin-top: 80px;
-      font-size: 15px;
-      /*position: absolute;*/
-      line-height: 1.44;
-      /*top: 307px;*/
-      left: 0;
-      margin-right: 93px;
-      margin-bottom: 100px;
-    }
-
-    p.second-paragraph {
-      margin-top: 25px;
-      font-size: 15px;
-      margin-right: 93px;
-      line-height: 1.4;
-    }
-
-    p.third-paragraph {
-      margin-top: 25px;
-      font-size: 15px;
-      margin-right: 93px;
-      line-height: 1.4;
-    }
-
-    p.forth-paragraph {
-      margin-top: 20px;
-      font-size: 15px;
-      margin-right: 93px;
-      line-height: 1.4;
-    }
-
-    p.letter-end {
-      margin-top: 23px;
-      font-size: 15px;
-      margin-bottom: 0px;
-    }
-
-    p.sign-dots {
-      margin-top: 30px;
-      font-size: 15px;
-      /*position: absolute;*/
-      /*top: 799px;*/
-      left: 0;
-    }
-
-    p.sign-data {
-      /*margin-top: -5px;*/
-      font-size: 15px;
-      /*position: relative;*/
-      line-height: 1.4;
-      /*top: 864px;*/
-      /*top: 10px;*/
-      left: 0;
-    }
-
-    p.page2-firstrow {
-      margin-left: 37px;
-      font-size: 21px;
-      font-weight: normal;
-      margin-top: -5px;
-    }
-
-    p.small-stars {
-      font-size: 12px;
-      font-weight: normal;
-      margin-top: 7px;
-      margin-left: 37px;
-    }
-
-    p.page2-secondrow {
-      margin-left: 37px;
-      margin-top: -6px;
-      font-size: 14px;
-      font-weight: normal;
-      margin-bottom: 36px;
-    }
-
-    p.sign-par {
-      margin-left: 26px;
-      margin-top: 0px;
-      padding-top: 0px;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    p.bottom-txt {
-      position: absolute;
-      bottom: 33px;
-      left: 31px;
-      font-weight: 700;
-    }
-
-    p.small-star {
-      margin-top: 87px;
-      font-size: 13px;
-      margin-left: 32px;
-      font-weight: 700;
-    }
-
-    .center.qr {
-      width: 174px;
-      height: 174px;
-      position: absolute;
-      left: 50%;
-      margin-left: -95px;
-      border: 5px solid #07b571;
-      top: 150px;
-    }
-
-    .border-qr {
-      width: 174px;
-      height: 174px;
-      border: 5px solid #07b571;
-      position: relative;
-    }
-
-    .border-qr img {
-      position: absolute;
-      margin: auto;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      width: 116px;
-    }
-
-    h1.provider-name {
-      margin-left: 93px;
-      font-size: 15px;
-      margin-top: 20px;
-      font-weight: 400;
-      line-height: 1.4;
-    }
-
-    h1.arbei {
-      margin-left: 37px;
-      font-size: 21px;
-      font-weight: 700;
-      margin-top: 408px;
-      margin-bottom: 5px;
-    }
-
-    h1.page2-secondheader {
-      margin-left: 37px;
-      font-size: 21px;
-      font-weight: 700;
-      margin-top: 45px;
-    }
-
-    #page3 ol {
-      margin-top: 23px;
-      font-size: 15px;
-    }
-
-    #page3 ol li {
-      margin-left: 18px;
-      margin-bottom: 3px;
-      padding-left: 7px !important;
-      line-height: 1.2;
-    }
-
-    #page3 table {
-      margin-left: 37px;
-      /*margin-right: 37px;*/
-      width: 752px;
-      left: -5px;
-    }
-
-    #page3 table tbody {
-      background: #fff;
-    }
-
-    #page3 table thead {
-      background: #ecf6ee;
-    }
-
-    #page3 table thead tr th {
-      font-size: 12px;
-      font-weight: 700;
-      border: 0px !important;
-      padding-top: 4px;
-      text-align: left;
-    }
-
-    #page3 table tr td {
-      border: 1px solid #cbe7d5;
-      padding: 10px 3px;
-      font-size: 12px;
-      border-left: 0px !important;
-      border-right: 0px !important;
-    }
-
-    #page2 p {
-      margin-right: 37px;
-      margin-left: 37px;
-    }
-
-    #page2 p.large {
-      margin-bottom: 10px;
-    }
-
-    #page1 p {
-      margin-left: 96px;
-      /*margin-right: 68px;*/
-      text-align: justify;
-    }
-
-    #page1 footer {
-      position: absolute;
-      padding-left: 93px;
-      left: 0;
-      bottom: 0;
-      width: 300px;
-    }
-
-    #page1 footer p {
-      margin-left: 0px;
-      font-size: 12px;
-      margin-bottom: 0px;
-      width: 300px;
-    }
-
-    #page3 .second-row-table {
-      font-weight: 300 !important;
-      font-size: 12px;
-      height: 30px;
-    }
-
-    #baner {
-      left: 19px;
-      top: 20px;
-      position: absolute;
-      z-index: 0;
-      height: auto;
-      display: block;
-      width: 792px;
-    }
-
-    #page3 h1.first-header {
-      position: absolute;
-      top: 17px;
-      left: 33px;
-      font-size: 20px;
-      font-weight: 700;
-    }
-
-    #page3 h1.second-header {
-      position: absolute;
-      top: 372px;
-      font-size: 22px;
-      left: 33px;
-    }
-
-    #page2 h2 {
-      position: absolute;
-      line-height: 1;
-      z-index: 1;
-      color: #fff;
-      font-size: 40px;
-      left: 40px;
-    }
-
-    #page2 h2 span {
-      font-weight: 400;
-    }
-
-    #bank {
-      width: 357px;
-      height: 55px;
-      position: absolute;
-      top: 296px;
-      background-color: white;
-      right: -20px;
-      font-size: 11.5px;
-      text-align: right;
-      padding-top: 10px;
-      padding-right: 20px;
-    }
-
-    #bank span {
-      color: #18bc9c;
-    }
-
-    .row-w {
-      width: 100%;
-      margin-left: 37px;
-    }
-
-    .col1 {
-      width: 20%;
-      float: left;
-      font-size: 22px;
-      font-weight: bold;
-    }
-
-    .col2 {
-      width: 79%;
-      float: left;
-      font-size: 22px;
-    }
-
-    .col1-j {
-      width: 20%;
-      float: left;
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    .col1-j span {
-      padding-left: 10px;
-      font-weight: normal;
-    }
-
-    .col2-j {
-      width: 78%;
-      float: left;
-      font-size: 20px;
-    }
-
-    .col1-qr {
-      width: 32%;
-      float: left;
-      font-size: 12px;
-    }
-
-    .col2-qr {
-      width: 60%;
-      float: left;
-      padding-left: 26px;
-    }
-
-    .clear-both {
-      clear: both;
-    }
-
-    .large {
-      font-size: 20px;
-    }
-
-    #smalljobs-logo {
-      position: absolute;
-      right: -10px;
-      width: 80px;
-      top: 207px;
-    }
-
-    #org-logo-div {
-      position: absolute;
-      left: 118px;
-      top: 296px;
-      width: 66px;
-      height: 66px;
-      background-color: white;
-      overflow: hidden;
-    }
-
-    #region-logo-div {
-      position: absolute;
-      left: 50px;
-      top: 296px;
-      width: 66px;
-      height: 66px;
-      background-color: white;
-      overflow: hidden;
-    }
-
-    #org-logo {
-      height: 99%;
-      width: auto;
-      position: absolute;
-      margin: auto;
-      top: 1px;
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
-
-    #region-logo {
-      width: 99%;
-      height: auto;
-      position: absolute;
-      margin: auto;
-      top: 0;
-      left: 1px;
-      right: 0;
-      bottom: 0;
-    }
-
-      #bg-text {
-        color: black !important;
-      }
-
-      .bottom-right span {
-        padding-left: 15px;
-      }
-
-      .second-row-table th {
-        font-weight: normal !important;
-      }
-  </style>
-</head>
+  <head>
+    <meta charset='utf-8'/>
+    <%if Rails.env.production?%>
+      <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+    <% else %>
+      <link href="//fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+    <% end %>
+    <%= stylesheet_link_tag wicked_pdf_asset_base64("pdf") %>
+  </head>
 <body>
-<div id="page1" class="alwaysbreak page">
-  <img id="logo" src="<%= wicked_pdf_asset_base64 'sj-logo.png' %>">
-  <p class="org-name">
-    <%= @provider.organization.name %> – <%= @provider.organization.street %>
-    – <%= @provider.organization.place.full_name %>
-  </p>
-  <h1 class="provider-name">
-    <%= @provider.company != nil && !@provider.company.empty? ? "#{@provider.company}<br/>".html_safe : "<br/>".html_safe %>
-    <%= @provider.name %><br/>
-    <%= @provider.street %><br/>
-    <%= @provider.place.full_name %>
-  </h1>
-  <p class="letter-start">
-    <%= @letter_msg.html_safe %>
-  </p>
-  <p class="sign-dots">.................................................</p>
-  <p class="sign-data">
-    <%= @broker.name %><br/>
-    <%= @broker.mobile.empty? ? @broker.phone : @broker.mobile %><br/>
-    <%= @broker.email %>
-  </p>
-  <footer>
-    <p><%= @provider.organization.name %><br/>
-      <%= @provider.organization.street %>, <%= @provider.organization.place.full_name %><br/>
-      <%= @provider.organization.phone %>, <%= @provider.organization.email %></p>
-  </footer>
-</div>
-<div id="page2" class="alwaysbreak page">
-  <% if @provider.organization.background.present? %>
-      <img id="baner" src="<%= @provider.organization.background.url(:web) %>" width="100%" height="300mm">
-  <% else %>
-      <img id="baner" src="<%= wicked_pdf_asset_base64 'ParentalAgreement.jpg' %>" width="100%" height="300mm">
-  <% end %>
-  <h2 id="bg-text">Sackgeldjobs<br/>
-    <span>Arbeitszeiterfassung</span></h2>
-  <img id="smalljobs-logo" src="<%= wicked_pdf_asset_base64 'sj-logo-white.png' %>">
-  <% if @provider.organization.logo.present? %>
-    <div id="org-logo-div">
-      <img id="org-logo" src="<%= @provider.organization.logo.url(:web, :normal) %>">
-    </div>
-  <% end %>
-  <% if @provider.organization.regions.first.logo.present? %>
-    <div id="region-logo-div">
-      <img id="region-logo" src="<%= @provider.organization.regions.first.logo.url(:web, :normal) %>">
-    </div>
-  <% end %>
 
-  <div id="bank">
-    Die Sackgeldjob-Börse ist ein kostenloses Angebot von smallJobs<br/>
-    <span>Möchten sie uns unterstützen?</span><br/>
-    <span>Unser Spendenkonto lautet: CH81 0900 0000 8558 01170</span>
-  </div>
-
-  <h1 class="arbei">
-    Arbeitgeber_in:
-  </h1>
-  <p class="page2-firstrow">
-    <%= @provider.company != nil && !@provider.company.empty? ? "#{@provider.company}, " : "" %><%= @provider.name %>
-  </p>
-  <p class="page2-secondrow">
-    <%= @provider.street %>, <%= @provider.place.full_name %>
-  </p>
-
-  <p class="large"><b>1.</b></p>
-  <div class="row-w">
-    <div class="col1-j">Jugendliche_r: <span>></span></div>
-    <div class="col2-j"><span>Diesen Code bei Arbeitsbeginn mit dem Scanner der Jugendapp*
-      einlesen und Anweisungen in der App befolgen.</span></div>
-    <div class="clear-both"></div>
-  </div>
-
-  <br>
-  <br>
-
-  <div class="row-w">
-    <div class="col1-qr">
-      Mit Arbeitsbeginn sind Jugendliche und
-      Arbeitgebende mit den smallJobs Richtlinien
-      einverstanden (siehe Seite 2)
-      <br><br>
-      <b>Keine App vorhanden?</b>
-      <br>
-      Bitte Arbeitsstunden von Hand
-      aufschreiben
-    </div>
-    <div class="col2-qr">
-      <div class="border-qr">
-        <img id="qr" src="<%= @qrcode.to_data_url %>">
+  <div id="page-1" class="alwaysbreak page page-default">
+    <div class="text-container">
+      <img id="logo" src="<%= wicked_pdf_asset_base64 'sj-logo.png' %>">
+      <div class="header-text">
+        <%= @provider.organization.name %> – <%= @provider.organization.street %>
+        – <%= @provider.organization.place.full_name %>
       </div>
+      <div class="standard-text margin-top-120">
+        <%= @provider.company != nil && !@provider.company.empty? ? "#{@provider.company}<br/>".html_safe : "<br/>".html_safe %>
+        <%= @provider.name %><br/>
+        <%= @provider.street %><br/>
+        <%= @provider.place.full_name %>
+      </div>
+      <div class="standard-text margin-top-80">
+        <%= @letter_msg.html_safe %>
+      </div>
+      <div class="standard-text margin-top-40">.................................................</div>
+      <div class="standard-text">
+        <%= @broker.name %><br/>
+        <%= @broker.mobile.empty? ? @broker.phone : @broker.mobile %><br/>
+        <%= @broker.email %>
+      </div>
+      <footer class="left-footer">
+        <p>
+          <%= @provider.organization.name %><br/>
+          <%= @provider.organization.street %>, <%= @provider.organization.place.full_name %><br/>
+          <%= @provider.organization.phone %>, <%= @provider.organization.email %>
+        </p>
+      </footer>
     </div>
-    <div class="clear-both"></div>
   </div>
 
-  <p class="large"><b>2.</b></p>
-  <div class="row-w">
-    <div class="col1">Jugendliche_r:</div>
-    <div class="col2">> Arbeiten unter Anleitung des Arbeitgebenden.</div>
-    <div class="clear-both"></div>
+
+
+
+
+<div id="page-2" class="alwaysbreak page page-default">
+  <div class="banner-container">
+    <% if @provider.organization.background.present? %>
+        <img id="baner" src="<%= @provider.organization.background.url(:web) %>" width="100%" height="300mm">
+    <% else %>
+        <img id="baner" src="<%= wicked_pdf_asset_base64 'ParentalAgreement.jpg' %>" width="100%" height="300mm">
+    <% end %>
+    <div class="banner-title">Sackgeldjobs<br/>
+      <span>Arbeitszeiterfassung</span></div>
+    <div class="group-logos bottom-80">
+
+    <% if @provider.organization.logo.present? %>
+        <img class="others-logo-img"  src="<%= @provider.organization.logo.url(:web, :normal) %>">
+    <% end %>
+    <% if @provider.organization.regions.first.logo.present? %>
+        <img class="others-logo-img"  src="<%= @provider.organization.regions.first.logo.url(:web, :normal) %>">
+    <% end %>
+    <img class="smalljobs-logo-img" src="<%= wicked_pdf_asset_base64 'sj-logo-white.png' %>">
+    </div>
+    <div class="bank-info">
+      Die Sackgeldjob-Börse ist ein kostenloses Angebot von smallJobs<br/>
+      <span>Möchten sie uns unterstützen?</span><br/>
+      <span>Unser Spendenkonto lautet: CH81 0900 0000 8558 01170</span>
+    </div>
   </div>
 
-  <br/>
 
-  <p class="large"><b>3.</b></p>
-  <div class="row-w">
-    <div class="col1">Jugendliche_r:</div>
-    <div class="col2">
-      > Arbeit beenden
-      <br>
-      > Zeitzähler in der App stoppen
-      <br>
-      > Lohn in der App ablesen
+  <div class="body-container">
+    <div class="margin-top-40 font-bigger font-bold">
+      Arbeitgeber_in:
     </div>
-    <div class="clear-both"></div>
+    <div class="font-bigger">
+      <%= @provider.company != nil && !@provider.company.empty? ? "#{@provider.company}, " : "" %><%= @provider.name %>
+    </div>
+    <p class="font-smaller">
+      <%= @provider.street %>, <%= @provider.place.full_name %>
+    </p>
+
+
+
+    <p class="font-bigger padding-bottom-5"><b>1.</b></p>
+    <div class="row-w font-20">
+      <div class="col1">Jugendliche_r:</div>
+      <div class="col2"><span>> Diesen Code bei Arbeitsbeginn mit dem Scanner der<br>
+        &nbsp; &nbsp;Jugendapp* einlesen und Anweisungen in der App befolgen.</span></div>
+      <div class="clear-both"></div>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="row-w">
+      <div class="col1-qr">
+        Mit Arbeitsbeginn sind Jugendliche und
+        Arbeitgebende mit den smallJobs Richtlinien
+        einverstanden (siehe Seite 2)
+        <br><br>
+        <b>Keine App vorhanden?</b>
+        <br>
+        Bitte Arbeitsstunden von Hand
+        aufschreiben
+      </div>
+      <div class="col2-qr">
+        <div class="border-qr">
+          <img id="qr" src="<%= @qrcode.to_data_url %>">
+        </div>
+      </div>
+      <div class="clear-both"></div>
+    </div>
+
+
+
+    <p class="font-bigger padding-bottom-5"><b>2.</b></p>
+    <div class="row-w font-20">
+      <div class="col1">Jugendliche_r:</div>
+      <div class="col2">> Arbeiten unter Anleitung des Arbeitgebenden.</div>
+      <div class="clear-both"></div>
+    </div>
+
     <br/>
-    <div class="col1">Arbeitgeber_in:</div>
-    <div class="col2">
-      > Lohn auszahlen
-    </div>
-    <div class="clear-both"></div>
-  </div>
 
-  <footer class="bottom-right">
+    <p class="font-bigger padding-bottom-5"><b>3.</b></p>
+    <div class="row-w font-20">
+      <div class="col1">Jugendliche_r:</div>
+      <div class="col2">
+        > Arbeit beenden
+        <br>
+        > Zeitzähler in der App stoppen
+        <br>
+        > Lohn in der App ablesen
+      </div>
+      <div class="clear-both"></div>
+      <br/>
+      <div class="col1">Arbeitgeber_in:</div>
+      <div class="col2">
+        > Lohn auszahlen
+      </div>
+      <div class="clear-both"></div>
+    </div>
+  </div>
+  <footer class="footer-right">
     *www.jugend.app <span>Seite 1 von 2</span>
   </footer>
 </div>
-<div id="page3" class="page alwaysbreak">
-  <h1 class="page2-secondheader">
-    Als Arbeitgeber_in stimme ich folgenden Bestimmungen zu:
-  </h1>
-  <ol>
-    <li>
-      Ich führe Jugendliche fachgerecht in sämtliche Arbeit an und beaufsichtige die Arbeit angemessen.
-    </li>
-    <li>
-      Das Anstellungsverhältnis besteht direkt zwischen mir und dem Jugendlichen.
-    </li>
-    <li>
-      Die vermittelnde Jobbörse kann unter keinen Umständen haftbar gemacht werden.
-    </li>
-    <li>
-      Der Stundenlohn entspricht dem Alter des Jugendlichen mal <%= @provider.organization.wage_factor || 1 %> (z.B. 17 Jahre
-      x <%= @provider.organization.wage_factor || 1 %> = <%= 17 * (@provider.organization.wage_factor || 1) %> CHF).
-    </li>
-    <li>
-      Unfallversicherung: Familienversicherung des Jugendlichen (bis zu einem Jahreslohn von 750 CHF).
-    </li>
-    <li>
-      Haftpflichtversicherung : Familienversicherung oder Arbeitgeberversicherung.
-    </li>
-    <li>
-      Ausnahme für gewerbliche Arbeitgeber: Unfall-/Haftpflichtversicherung ist Sache des Arbeitgebers.
-    </li>
-    <li>
-      Gemäss Jugendarbeitschutz sind für Jugendliche ab 13 Jahren in der Schweiz leichte
-      Arbeiten im folgenden Rahmen erlaubt*:
-    </li>
-  </ol>
-  <table border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse;" bordercolor="#cbe7d5">
+
+
+
+
+
+<div id="page-3" class="page alwaysbreak page-default">
+  <div class="body-container">
+    <div class="font-bigger font-bold margin-top-40">
+      Als Arbeitgeber_in stimme ich folgenden Bestimmungen zu:
+    </div>
+      <ol class="list-align-left">
+        <li>
+          Ich führe Jugendliche fachgerecht in sämtliche Arbeit an und beaufsichtige die Arbeit angemessen.
+        </li>
+        <li>
+          Das Anstellungsverhältnis besteht direkt zwischen mir und dem Jugendlichen.
+        </li>
+        <li>
+          Die vermittelnde Jobbörse kann unter keinen Umständen haftbar gemacht werden.
+        </li>
+        <li>
+          Der Stundenlohn entspricht dem Alter des Jugendlichen mal <%= @provider.organization.wage_factor || 1 %> (z.B. 17 Jahre
+          x <%= @provider.organization.wage_factor || 1 %> = <%= 17 * (@provider.organization.wage_factor || 1) %> CHF).
+        </li>
+        <li>
+          Unfallversicherung: Familienversicherung des Jugendlichen (bis zu einem Jahreslohn von 750 CHF).
+        </li>
+        <li>
+          Haftpflichtversicherung : Familienversicherung oder Arbeitgeberversicherung.
+        </li>
+        <li>
+          Ausnahme für gewerbliche Arbeitgeber: Unfall-/Haftpflichtversicherung ist Sache des Arbeitgebers.
+        </li>
+        <li>
+          Gemäss Jugendarbeitschutz sind für Jugendliche ab 13 Jahren in der Schweiz leichte
+          Arbeiten im folgenden Rahmen erlaubt*:
+        </li>
+      </ol>
+
+    <table border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse;" bordercolor="#cbe7d5" class="green-table">
     <thead>
     <tr>
       <th style="width: 65px;">
@@ -768,14 +275,16 @@
     </tr>
     </tbody>
   </table>
-  <p class="small-stars">
-    * Detailbestimmungen: www.smalljobs.ch/jugendschutz
-    <br/>
-    ** Maximal die halben Ferien lang
-  </p>
-  <footer class="bottom-right">
-    Seite 2 von 2
-  </footer>
+    <p class="small-stars">
+      * Detailbestimmungen: www.smalljobs.ch/jugendschutz
+      <br/>
+      ** Maximal die halben Ferien lang
+    </p>
+      <footer class="footer-right">
+        Seite 2 von 2
+      </footer>
+  </div>
+
 </div>
 </body>
 </html>

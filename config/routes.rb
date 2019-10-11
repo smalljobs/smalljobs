@@ -120,9 +120,11 @@ Smalljobs::Application.routes.draw do
           post 'send_message'
           post 'add_comment'
           post 'remove_comment'
+          put 'update_organization'
           resources :note do
             patch 'update_comment', to: 'seekers#update_comment', as: :seeker_update_comment
           end
+          resource :jobs_certificate, only: [:update]
         end
       end
 
@@ -142,9 +144,19 @@ Smalljobs::Application.routes.draw do
             get 'change_state'
             get 'cancel_state'
             post 'send_message'
+            # get 'contract'
+            post 'send_contract'
           end
         end
       end
+
+      resources :allocations, only: [] do
+        get 'contract'
+      end
+      resources :jobs_certificates, only: [] do
+        get 'certificate'
+      end
+
     end
 
     namespace :provider do

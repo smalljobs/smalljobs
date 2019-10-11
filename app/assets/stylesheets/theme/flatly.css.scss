@@ -6497,6 +6497,15 @@ button.close {
   }
 }
 
+@media screen and (min-width: 992px) {
+  .modal-dialog {
+    &.modal-lg {
+      width: 900px;
+    }
+  }
+}
+
+
 .tooltip {
   position: absolute;
   z-index: 1030;

@@ -10,19 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170614083159) do
+ActiveRecord::Schema.define(version: 20190923121734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
   create_table "access_tokens", force: :cascade do |t|
-    t.string   "access_token"
-    t.string   "token_type"
-    t.string   "refresh_token"
-    t.integer  "seeker_id"
+    t.string   "access_token",  limit: 255
+    t.string   "token_type",    limit: 255
+    t.string   "refresh_token", limit: 255
+    t.integer  "userable_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "expire_at"
+    t.string   "userable_type",             default: "Seeker"
   end
 
   create_table "admins", force: :cascade do |t|
@@ -54,6 +56,8 @@ ActiveRecord::Schema.define(version: 20170614083159) do
     t.datetime "updated_at"
     t.integer  "conversation_id"
     t.integer  "provider_id"
+    t.uuid     "contract_id"
+    t.index ["job_id", "seeker_id"], name: "index_allocations_on_job_id_and_seeker_id", unique: true, using: :btree
     t.index ["job_id"], name: "index_allocations_on_job_id", using: :btree
     t.index ["provider_id"], name: "index_allocations_on_provider_id", using: :btree
     t.index ["seeker_id"], name: "index_allocations_on_seeker_id", using: :btree
@@ -75,17 +79,17 @@ ActiveRecord::Schema.define(version: 20170614083159) do
   end
 
   create_table "brokers", force: :cascade do |t|
-    t.string   "firstname",              limit: 255,                 null: false
-    t.string   "lastname",               limit: 255,                 null: false
-    t.string   "phone",                  limit: 255,                 null: false
+    t.string   "firstname",              limit: 255,                    null: false
+    t.string   "lastname",               limit: 255,                    null: false
+    t.string   "phone",                  limit: 255,                    null: false
     t.string   "mobile",                 limit: 255
     t.boolean  "active",                             default: false
-    t.string   "email",                  limit: 255, default: "",    null: false
-    t.string   "encrypted_password",     limit: 255, default: "",    null: false
+    t.string   "email",                  limit: 255, default: "",       null: false
+    t.string   "encrypted_password",     limit: 255, default: "",       null: false
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0,     null: false
+    t.integer  "sign_in_count",                      default: 0,        null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
@@ -97,14 +101,22 @@ ActiveRecord::Schema.define(version: 20170614083159) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "contact_availability"
-    t.jsonb    "settings",                           default: {},    null: false
+    t.jsonb    "settings",                           default: {},       null: false
+    t.text     "role",                               default: "normal"
     t.index ["confirmation_token"], name: "index_brokers_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_brokers_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_brokers_on_reset_password_token", unique: true, using: :btree
   end
 
+  create_table "brokers_update_prefs", force: :cascade do |t|
+    t.integer "broker_id"
+    t.integer "update_pref_id"
+    t.index ["broker_id"], name: "index_brokers_update_prefs_on_broker_id", using: :btree
+    t.index ["update_pref_id"], name: "index_brokers_update_prefs_on_update_pref_id", using: :btree
+  end
+
   create_table "certificates", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["title"], name: "index_certificates_on_title", using: :btree
@@ -113,6 +125,13 @@ ActiveRecord::Schema.define(version: 20170614083159) do
   create_table "certificates_seekers", force: :cascade do |t|
     t.integer "seeker_id"
     t.integer "certificate_id"
+  end
+
+  create_table "default_templates", force: :cascade do |t|
+    t.text     "template_name"
+    t.text     "template"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "employments", force: :cascade do |t|
@@ -155,21 +174,46 @@ ActiveRecord::Schema.define(version: 20170614083159) do
     t.index ["title"], name: "index_jobs_on_title", using: :btree
   end
 
+  create_table "notes", force: :cascade do |t|
+    t.text     "message"
+    t.integer  "broker_id"
+    t.integer  "seeker_id"
+    t.integer  "provider_id"
+    t.integer  "job_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["broker_id"], name: "index_notes_on_broker_id", using: :btree
+    t.index ["job_id"], name: "index_notes_on_job_id", using: :btree
+    t.index ["provider_id"], name: "index_notes_on_provider_id", using: :btree
+    t.index ["seeker_id"], name: "index_notes_on_seeker_id", using: :btree
+  end
+
   create_table "organizations", force: :cascade do |t|
-    t.string   "logo",                   limit: 255
-    t.string   "background",             limit: 255
-    t.string   "name",                   limit: 255,                                         null: false
-    t.string   "website",                limit: 255
+    t.string   "logo",                          limit: 255
+    t.string   "background",                    limit: 255
+    t.string   "name",                          limit: 255,                                         null: false
+    t.string   "website",                       limit: 255
     t.text     "description"
-    t.string   "street",                 limit: 255,                                         null: false
-    t.string   "email",                  limit: 255,                                         null: false
-    t.string   "phone",                  limit: 255
-    t.boolean  "active",                                                     default: true
+    t.string   "street",                        limit: 255,                                         null: false
+    t.string   "email",                         limit: 255,                                         null: false
+    t.string   "phone",                         limit: 255
+    t.boolean  "active",                                                            default: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "place_id"
-    t.decimal  "default_hourly_per_age",             precision: 8, scale: 2, default: "1.0"
+    t.decimal  "default_hourly_per_age",                    precision: 8, scale: 2, default: "1.0"
     t.float    "wage_factor"
+    t.text     "opening_hours"
+    t.text     "welcome_letter_employers_msg"
+    t.text     "welcome_app_register_msg"
+    t.text     "welcome_chat_register_msg"
+    t.text     "not_receive_job_msg"
+    t.text     "get_job_msg"
+    t.text     "activation_msg"
+    t.text     "welcome_email_for_parents_msg"
+    t.date     "start_vacation_date"
+    t.date     "end_vacation_date"
+    t.boolean  "vacation_active",                                                   default: false
     t.index ["name"], name: "index_organizations_on_name", unique: true, using: :btree
   end
 
@@ -183,7 +227,7 @@ ActiveRecord::Schema.define(version: 20170614083159) do
     t.decimal  "latitude",               precision: 9, scale: 6, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "full_name"
+    t.string   "full_name",  limit: 255
     t.index ["name"], name: "index_places_on_name", using: :btree
     t.index ["zip"], name: "index_places_on_zip", using: :btree
   end
@@ -220,8 +264,8 @@ ActiveRecord::Schema.define(version: 20170614083159) do
     t.integer  "organization_id"
     t.boolean  "contract",                           default: true
     t.text     "notes"
-    t.string   "company"
-    t.integer  "state",                              default: 2
+    t.string   "company",                limit: 255
+    t.integer  "state",                              default: 1
     t.index ["confirmation_token"], name: "index_providers_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_providers_on_email", using: :btree
     t.index ["organization_id"], name: "index_providers_on_organization_id", using: :btree
@@ -245,6 +289,7 @@ ActiveRecord::Schema.define(version: 20170614083159) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "subdomain",  limit: 255, null: false
+    t.string   "logo"
     t.index ["name"], name: "index_regions_on_name", unique: true, using: :btree
     t.index ["subdomain"], name: "index_regions_on_subdomain", using: :btree
   end
@@ -263,47 +308,57 @@ ActiveRecord::Schema.define(version: 20170614083159) do
   end
 
   create_table "seekers", force: :cascade do |t|
-    t.string   "firstname",              limit: 255,                      null: false
-    t.string   "lastname",               limit: 255,                      null: false
-    t.string   "street",                 limit: 255
+    t.string   "firstname",                     limit: 255,                      null: false
+    t.string   "lastname",                      limit: 255,                      null: false
+    t.string   "street",                        limit: 255
     t.date     "date_of_birth"
-    t.string   "phone",                  limit: 255
-    t.string   "mobile",                 limit: 255
-    t.string   "contact_preference",     limit: 255, default: "whatsapp"
+    t.string   "phone",                         limit: 255
+    t.string   "mobile",                        limit: 255
+    t.string   "contact_preference",            limit: 255, default: "whatsapp"
     t.text     "contact_availability"
-    t.boolean  "active",                             default: false
-    t.string   "provider",               limit: 255
-    t.string   "uid",                    limit: 255
-    t.string   "name",                   limit: 255
-    t.string   "email",                  limit: 255, default: ""
-    t.string   "encrypted_password",     limit: 255, default: "",         null: false
-    t.string   "reset_password_token",   limit: 255
+    t.boolean  "active",                                    default: false
+    t.string   "provider",                      limit: 255
+    t.string   "uid",                           limit: 255
+    t.string   "name",                          limit: 255
+    t.string   "email",                         limit: 255, default: ""
+    t.string   "encrypted_password",            limit: 255, default: "",         null: false
+    t.string   "reset_password_token",          limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0,          null: false
+    t.integer  "sign_in_count",                             default: 0,          null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",     limit: 255
-    t.string   "last_sign_in_ip",        limit: 255
-    t.string   "confirmation_token",     limit: 255
+    t.string   "current_sign_in_ip",            limit: 255
+    t.string   "last_sign_in_ip",               limit: 255
+    t.string   "confirmation_token",            limit: 255
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email",      limit: 255
+    t.string   "unconfirmed_email",             limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "place_id"
-    t.string   "sex",                    limit: 255
+    t.string   "sex",                           limit: 255
     t.integer  "ji_user_id"
     t.integer  "organization_id"
-    t.string   "login",                              default: "",         null: false
-    t.integer  "status",                             default: 1
+    t.string   "login",                         limit: 255, default: "",         null: false
+    t.integer  "status",                                    default: 1
     t.integer  "app_user_id"
     t.text     "notes"
-    t.boolean  "parental",                           default: false
-    t.boolean  "discussion",                         default: false
+    t.boolean  "parental",                                  default: false
+    t.boolean  "discussion",                                default: false
     t.string   "recovery_code"
     t.date     "last_recovery"
     t.integer  "recovery_times"
+    t.string   "occupation"
+    t.date     "occupation_end_date"
+    t.text     "additional_contacts"
+    t.string   "languages"
+    t.datetime "last_message_date"
+    t.boolean  "last_message_sent_from_seeker"
+    t.boolean  "last_message_seen"
+    t.integer  "messages_count"
+    t.text     "other_skills"
+    t.uuid     "agreement_id"
     t.index ["confirmation_token"], name: "index_seekers_on_confirmation_token", unique: true, using: :btree
     t.index ["organization_id"], name: "index_seekers_on_organization_id", using: :btree
     t.index ["reset_password_token"], name: "index_seekers_on_reset_password_token", unique: true, using: :btree
@@ -324,6 +379,7 @@ ActiveRecord::Schema.define(version: 20170614083159) do
     t.integer  "allocation_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.datetime "postponed"
     t.index ["allocation_id"], name: "index_todos_on_allocation_id", using: :btree
     t.index ["job_id"], name: "index_todos_on_job_id", using: :btree
     t.index ["provider_id"], name: "index_todos_on_provider_id", using: :btree
@@ -340,10 +396,18 @@ ActiveRecord::Schema.define(version: 20170614083159) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "update_prefs", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "day_of_week"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "work_categories", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "icon_name"
     t.index ["name"], name: "index_work_categories_on_name", using: :btree
   end
 
