@@ -215,6 +215,15 @@ class Seeker < ActiveRecord::Base
     nil
   end
 
+  # Date of birth in '%d.%m.%Y' format
+  #
+  # @return [String] date or empty string
+  #
+  def date_of_birth_format
+    return self.date_of_birth.strftime('%d.%m.%Y') if self.date_of_birth.present?
+    ""
+  end
+
   private
 
   def delete_access_tokens

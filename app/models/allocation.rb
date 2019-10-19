@@ -73,6 +73,11 @@ class Allocation < ActiveRecord::Base
     end
   end
 
+  def provider_name
+    return "#{self.provider.firstname} #{self.provider.lastname}" if self.provider.present?
+    nil
+  end
+
   def generate_contract_id
     self.contract_id = SecureRandom.uuid if self.contract_id.nil?
   end
