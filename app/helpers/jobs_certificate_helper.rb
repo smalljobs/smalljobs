@@ -8,7 +8,7 @@ module JobsCertificateHelper
   #
   def certificate_for_editor(seeker, organization)
     @content = "#{seeker.firstname} #{seeker.lastname}, geboren #{seeker.date_of_birth_format} von #{seeker.place.name}, arbeitet seit
-                #{seeker.created_at.strftime('%d.%m.%Y')} im Rahmen der Taschengeld-Vermittlungs-Börse von #{organization.name}.
+                #{seeker.created_at.strftime('%d.%m.%Y')} im Rahmen der Taschengeld-Vermittlungs-Börse von #{organization&.name}.
                 <br/>
                 <br/>
                 #{seeker.firstname} #{seeker.lastname} hat in dieser Zeit bei #{seeker.providers.count} Arbeitgebenden
