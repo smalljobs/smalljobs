@@ -54,6 +54,7 @@ gem 'jquery-ui-rails'
 gem 'rails-jquery-autocomplete'
 gem 'figaro'
 gem 'tinymce-rails'
+gem "sentry-raven"
 
 group :development, :test do
   gem 'better_errors'

@@ -19,6 +19,7 @@ development:
   DB_HOST: ''
   DB_USERNAME: ''
   JUGENDINFO_API_KEY: ''
+  SENTRY_DSN: ''
 
 test:
   SERVER_IP: ''
@@ -85,3 +86,4 @@ production:
   DB_HOST: ''
   DB_USERNAME: ''
   JUGENDINFO_API_KEY: ''
+  SENTRY_DSN: ''
