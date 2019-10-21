@@ -178,6 +178,8 @@ GEM
     excon (0.55.0)
     execjs (2.7.0)
     fabrication (2.16.1)
+    faraday (0.17.0)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
     figaro (1.1.1)
       thor (~> 0.14)
@@ -417,6 +419,7 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.10.2)
     multi_json (1.12.1)
+    multipart-post (2.1.1)
     mustache (1.0.5)
     nenv (0.3.0)
     nested_form (0.3.2)
@@ -584,6 +587,8 @@ GEM
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
+    sentry-raven (2.12.0)
+      faraday (>= 0.7.6, < 1.0)
     sexp_processor (4.9.0)
     shellany (0.0.1)
     simple-navigation (3.14.0)
@@ -727,6 +732,7 @@ DEPENDENCIES
   sass-rails (>= 4.0.2)
   sdoc
   selenium-webdriver
+  sentry-raven
   simple_form
   simple_navigation_renderers
   social-share-button
