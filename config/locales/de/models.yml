@@ -263,6 +263,8 @@ de:
           attributes:
             phone:
               improbable_phone: "ist keine gültige Telefonnummer"
+            website:
+              url: "ist keine gültige URL (Beispiel http://example.com)"
         region:
           attributes:
             places:
