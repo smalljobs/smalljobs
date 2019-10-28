@@ -19,10 +19,10 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every :sunday, at: '12pm' do # Use any day of the week or :weekend, :weekday
+every 1.day, at: '4am' do # Use any day of the week or :weekend, :weekday
   rake "smalljobs:send_weekly_update"
 end
 
-every :monday, at: '12pm' do # Use any day of the week or :weekend, :weekday
-  rake "smalljobs:send_job_reminder"
-end
+# every :monday, at: '12pm' do # Use any day of the week or :weekend, :weekday
+#   rake "smalljobs:send_job_reminder"
+# end
