@@ -13,7 +13,7 @@
 <div id="page-2" class="alwaysbreak page page-default">
   <div class="banner-container banner-short">
 
-    <% if @provider.organization.background.present? %>
+    <% if @provider&.organization&.background&.present? %>
       <img id="baner" src="<%= @provider.organization.background.url(:web) %>" width="100%">
     <% else %>
       <img id="baner" src="<%= wicked_pdf_asset_base64 'header-pic.jpg' %>" width="100%">
@@ -21,10 +21,10 @@
     <div class="banner-title white-text">Sackgeldjobs<br/>
       <span>Auftragsvereinbarung</span></div>
     <div class="group-logos">
-      <% if @provider.organization.logo.present? %>
+      <% if @provider&.organization&.logo&.present? %>
           <img class="others-logo-img" src="<%= @provider.organization.logo.url(:web, :normal) %>">
       <% end %>
-      <% if @provider.organization.regions.first.logo.present? %>
+      <% if @provider&.organization&.regions&.first&.logo&.present? %>
           <img class="others-logo-img" src="<%= @provider.organization.regions.first.logo.url(:web, :normal) %>">
       <% end %>
       <img class="smalljobs-logo-img" src="<%= wicked_pdf_asset_base64 'sj-logo-white.png' %>">
@@ -81,13 +81,13 @@
 
   <div class="font-bigger margin-top-20">
     Arbeitgeber_in:
-    <%= @provider.firstname %>
-    <%= @provider.lastname %>
+    <%= @provider&.firstname %>
+    <%= @provider&.lastname %>
   </div>
   <div class="font-smaller padding-bottom-5">
-    <%= @provider.street %>
-    <%= @provider.place.zip %>
-    <%= @provider.place.name %>
+    <%= @provider&.street %>
+    <%= @provider&.place&.zip %>
+    <%= @provider&.place&.name %>
   </div>
   <div class="row">
     <div class="column column-left">
@@ -98,7 +98,7 @@
     <div class="column column-right">
       <div class="signature">
       </div>
-      <div class="font-smaller">Unterschrift <%= @provider.name %></div>
+      <div class="font-smaller">Unterschrift <%= @provider&.name %></div>
     </div>
   </div>
 
@@ -176,8 +176,8 @@
       Die vermittelnde Jobbörse kann unter keinen Umständen haftbar gemacht werden.
     </li>
     <li>
-      Der Stundenlohn entspricht dem Alter des Jugendlichen mal <%= @provider.organization.wage_factor || 1 %> (z.B. 17 Jahre
-      x <%= @provider.organization.wage_factor || 1 %> = <%= 17 * (@provider.organization.wage_factor || 1) %> CHF).
+      Der Stundenlohn entspricht dem Alter des Jugendlichen mal <%= @provider&.organization&.wage_factor || 1 %> (z.B. 17 Jahre
+      x <%= @provider&.organization&.wage_factor || 1 %> = <%= 17 * (@provider&.organization&.wage_factor || 1) %> CHF).
     </li>
     <li>
       Unfallversicherung: Familienversicherung des Jugendlichen (bis zu einem Jahreslohn von 750 CHF).
