@@ -336,4 +336,13 @@ class Seeker < ActiveRecord::Base
   def generate_agreement_id
     self.agreement_id = SecureRandom.uuid if self.agreement_id.nil?
   end
+
+  # Return phone if exist, if not return mobile
+  #
+  # @return [String] phone or mobile
+  #
+  def phone_or_mobile
+    return phone if phone.present?
+    return mobile
+  end
 end

@@ -349,6 +349,7 @@ de:
     rating: "%{rating} Punkte"
     invalid_username_or_password: "Falscher Benutzername oder Passwort."
     invalid_subdomain: "Bitte auf der Website deiner Region anmelden."
+    reset_to_default: "Zurücksetzen auf Standardeinstellungen"
   devise_views:
     no_broker_registration: "Sie können sich nicht selber als Anbieter registrieren. Bitte kontaktieren Sie uns unter hello@smalljobs.ch"
     wait_confirmation: "Warte auf die Bestätigung von: %{email}"

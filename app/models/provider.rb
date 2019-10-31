@@ -139,6 +139,15 @@ class Provider < ActiveRecord::Base
     super
   end
 
+  # Return phone if exist, if not return mobile
+  #
+  # @return [String] phone or mobile
+  #
+  def phone_or_mobile
+    return phone if phone.present?
+    return mobile
+  end
+
   # @!endgroup
 
   protected

@@ -35,8 +35,10 @@ class Broker::StatisticsController < InheritedResources::Base
   end
 
   def get_date_range
-    lowest_date = [Seeker, Provider, Job, Allocation, Assignment].map{|x| x.order(created_at: :asc).first.created_at}.sort.first.to_date
-    highest_date = [Seeker, Provider, Job, Allocation, Assignment].map{|x| x.order(created_at: :desc).first.created_at}.sort.last.to_date
+    # lowest_date = [Seeker, Provider, Job, Allocation, Assignment].map{|x| x.order(created_at: :asc).first.created_at}.sort.first.to_date
+    lowest_date = Date.today - 6.month
+    highest_date = Date.today + 1.month
+    # highest_date = [Seeker, Provider, Job, Allocation, Assignment].map{|x| x.order(created_at: :desc).first.created_at}.sort.last.to_date
     [
         params[:start_date].present? ? params[:start_date].to_date : lowest_date,
         params[:end_date].present? ? params[:end_date].to_date : highest_date
