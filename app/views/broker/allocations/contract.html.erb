@@ -43,7 +43,7 @@
 
     <div class="column text-center">
       <% if @job.duration.present? %>
-        Dauer: ca <%= @job.duration %> Studen
+        Dauer: ca <%= @job.duration %> Stude(n)
       <% end %>
     </div>
 
@@ -64,28 +64,29 @@
   </div>
 
   <div class="standard-text margin-top-20">
-    <%= @job.short_description %>
+    <%=simple_format_for_pdf(@job.short_description)  %>
   </div>
 
   <div class="standard-text margin-top-20">
-    <%= @job.long_description %>
+    <%=simple_format_for_pdf(@job.long_description.to_s)  %>
   </div>
 
   <div class="font-bigger font-bold margin-top-40">
     1. Vor der Arbeit unterschreiben
   </div>
   <div class="standard-text margin-top-20">
-    Ich stimme den gesetzlichen Regelungen des Jugendschutz und den Bestimmungen von Smalljobs zu. Details zu beidem
+    Ich stimme den gesetzlichen Regelungen des Jugendschutzes und den Bestimmungen von Smalljobs zu. Details zu beiden
     sind auf Seite 2 und auf www.smalljobs.ch/jugendschutz aufgeführt.
   </div>
 
   <div class="font-bigger margin-top-20">
     Arbeitgeber_in:
     <%= @provider&.firstname %>
-    <%= @provider&.lastname %>
+    <%= @provider&.lastname %>,
+    <%= @provider&.phone_or_mobile %>
   </div>
   <div class="font-smaller padding-bottom-5">
-    <%= @provider&.street %>
+    <%= @provider&.street %>,
     <%= @provider&.place&.zip %>
     <%= @provider&.place&.name %>
   </div>
@@ -103,12 +104,13 @@
   </div>
 
   <div class="font-bigger margin-top-20">
-    Jugendlicher_r:
+    Jugendliche_r:
     <%= @allocation.seeker.firstname %>
-    <%= @allocation.seeker.lastname %>
+    <%= @allocation.seeker.lastname %>,
+    <%= @allocation.seeker.phone_or_mobile %>
   </div>
   <div class="font-smaller padding-bottom-5">
-    <%= @allocation.seeker.street %>
+    <%= @allocation.seeker.street %>,
     <%= @allocation.seeker.place.zip %>
     <%= @allocation.seeker.place.name %>
   </div>
@@ -163,33 +165,33 @@
 <div id="page-3" class="page alwaysbreak page-default">
   <div class="body-container">
   <div class="font-bigger font-bold margin-top-40">
-    Als Arbeitgeber_in stimme ich folgenden Bestimmungen zu:
+    Als Arbeitgeber/in stimme ich folgenden Bestimmungen zu:
   </div>
   <ol class="list-align-left">
     <li>
-      Ich führe Jugendliche fachgerecht in sämtliche Arbeit an und beaufsichtige die Arbeit angemessen.
+      Ich führe Jugendliche fachgerecht in sämtlichen Arbeiten an und beaufsichtige die Arbeit angemessen.
     </li>
     <li>
-      Das Anstellungsverhältnis besteht direkt zwischen mir und dem Jugendlichen.
+      Das Anstellungsverhältnis besteht direkt zwischen mir und dem/der Jugendlichen.
     </li>
     <li>
       Die vermittelnde Jobbörse kann unter keinen Umständen haftbar gemacht werden.
     </li>
-    <li>
+   <!-- <li>
       Der Stundenlohn entspricht dem Alter des Jugendlichen mal <%= @provider&.organization&.wage_factor || 1 %> (z.B. 17 Jahre
       x <%= @provider&.organization&.wage_factor || 1 %> = <%= 17 * (@provider&.organization&.wage_factor || 1) %> CHF).
-    </li>
+    </li>-->
     <li>
-      Unfallversicherung: Familienversicherung des Jugendlichen (bis zu einem Jahreslohn von 750 CHF).
+      Unfallversicherung: Familienversicherung des/der Jugendlichen (bis zu einem Jahreslohn von 750 CHF).
     </li>
     <li>
       Haftpflichtversicherung : Familienversicherung oder Arbeitgeberversicherung.
     </li>
     <li>
-      Ausnahme für gewerbliche Arbeitgeber: Unfall-/Haftpflichtversicherung ist Sache des Arbeitgebers.
+      Ausnahme für gewerbliche Arbeitgebende: Unfall-/Haftpflichtversicherung ist Sache des Arbeitgebers.
     </li>
     <li>
-      Gemäss Jugendarbeitschutz sind für Jugendliche ab 13 Jahren in der Schweiz leichte
+      Gemäss Jugendarbeitsschutz sind für Jugendliche ab 13 Jahren in der Schweiz leichte
       Arbeiten im folgenden Rahmen erlaubt*:
     </li>
   </ol>
@@ -282,6 +284,9 @@
     * Detailbestimmungen: www.smalljobs.ch/jugendschutz
     <br/>
     ** Maximal die halben Ferien lang
+  </p>
+  <p>
+    Bei Fragen und Unklarheiten stehen wir Ihnen gerne persönlich zur Verfügung.
   </p>
   <footer class="footer-right">
     Seite 2 von 2

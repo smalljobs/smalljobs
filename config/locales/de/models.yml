@@ -210,7 +210,7 @@ de:
           active: 'Anstellung'
           finished: 'Anstellung beendet'
           cancelled: 'Anstellung abgebrochen'
-          application_retracted: "Abgebrochene Bewerbungen"
+          application_retracted: "Zurückgezogene Bewerbungen"
       review:
         provider: "Anbieter"
         seeker: "Jugendlicher"

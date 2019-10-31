@@ -1,7 +1,7 @@
 
 %h2= "Aktivitäten"
 %p
-  =allocations_with_numbers(@seeker)
+  = allocations_with_numbers(@seeker)
 %p
   = total_amount_earned_in_assignment(@seeker)
 %br
@@ -64,6 +64,16 @@
 - if allocations.count > 0
   %h4#cancelled
     = "Abgebrochene Anstellungen"
+  %ul.allocations-list
+    - for allocation in allocations
+      - if !allocation.job.nil? && !allocation.job.provider.nil?
+        %li.allocations-list-item
+          %p
+            = link_to "#{allocation.job.provider.name}, #{allocation.job.title}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}", broker_job_allocation_path(allocation.job, allocation.seeker)
+- allocations = @seeker.allocations.application_retracted.where.not(job: nil)
+- if allocations.count > 0
+  %h4#application_retracted
+    = "Zurückgezogene Bewerbungen"
   %ul.allocations-list
     - for allocation in allocations
       - if !allocation.job.nil? && !allocation.job.provider.nil?
