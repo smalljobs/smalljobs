@@ -16,6 +16,9 @@ class Seeker < ActiveRecord::Base
   # has_many :notes
 
   has_many :jobs, through: :allocations
+  has_many :providers, through: :jobs
+
+  has_one :jobs_certificate
 
   has_many :todos, dependent: :destroy
 
@@ -69,8 +72,10 @@ class Seeker < ActiveRecord::Base
 
   before_save :generate_agreement_id
 
-  DEV = 'https://admin.staging.jugendarbeit.digital/api/ji/jobboard/ping/user'
-  LIVE = 'https://admin.staging.jugendarbeit.digital/api/ji/jobboard/ping/user'
+  # DEV = 'https://admin.staging.jugendarbeit.digital/api/ji/jobboard/ping/user'
+  # LIVE = 'https://admin.staging.jugendarbeit.digital/api/ji/jobboard/ping/user'
+  DEV = 'https://devadmin.jugendarbeit.digital/api/jugendinfo_user/update_data/'
+  LIVE = 'https://admin.jugendarbeit.digital/api/jugendinfo_user/update_data/'
   CURRENT_LINK = Rails.env.production? ? LIVE : DEV
 
 
@@ -190,6 +195,34 @@ class Seeker < ActiveRecord::Base
     :inactive
   end
   # @!endgroup
+  #
+  # Update seeker region through organization and set to inactive if region is changes
+  #
+  def update_organization(organization_id)
+    if self.region != Organization.find(organization_id).regions.first
+      self.organization_id = organization_id
+      self.status = :inactive
+    else
+      self.organization_id = organization_id
+    end
+    self.save
+  end
+
+  # Return seeker current region
+  #
+  def region
+    return self.organization.regions.first if self.organization.present?
+    nil
+  end
+
+  # Date of birth in '%d.%m.%Y' format
+  #
+  # @return [String] date or empty string
+  #
+  def date_of_birth_format
+    return self.date_of_birth.strftime('%d.%m.%Y') if self.date_of_birth.present?
+    ""
+  end
 
   private
 
@@ -235,13 +268,14 @@ class Seeker < ActiveRecord::Base
 
   # Make post request to jugendinfo API
   #
-  def send_to_jugendinfo(method)
+  # def send_to_jugendinfo(method)
+  def send_to_jugendinfo
     begin
       logger.info "Sending changes to jugendinfo"
       # logger.info "Sending: #{jugendinfo_data}"
       logger.info "Sending: #{{token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', id: app_user_id, smalljobs_user_id: id, firstname: firstname, lastname: lastname, mobile: mobile, address: street, zip: place.zip, birthdate: date_of_birth.strftime('%Y-%m-%d'), city: place.name, smalljobs_status: Seeker.statuses[status], smalljobs_parental_consent: parental, smalljobs_first_visit: discussion, smalljobs_organization_id: organization.id}}"
       # response = RestClient.post CURRENT_LINK, {operation: method,  data: jugendinfo_data}, {Authorization: "Bearer ob7jwke6axsaaygrcin54er1n7xoou6e3n1xduwm"}
-      response = RestClient.post current_link, {token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', id: app_user_id, smalljobs_user_id: id, firstname: firstname, lastname: lastname, mobile: mobile, address: street, zip: place.zip, birthdate: date_of_birth.strftime('%Y-%m-%d'), city: place.name, smalljobs_status: Seeker.statuses[status], smalljobs_parental_consent: parental, smalljobs_first_visit: discussion, smalljobs_organization_id: organization.id}
+      response = RestClient.post CURRENT_LINK, {token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', id: app_user_id, smalljobs_user_id: id, firstname: firstname, lastname: lastname, mobile: mobile, address: street, zip: place.zip, birthdate: date_of_birth.strftime('%Y-%m-%d'), city: place.name, smalljobs_status: Seeker.statuses[status], smalljobs_parental_consent: parental, smalljobs_first_visit: discussion, smalljobs_organization_id: organization.id}
       logger.info "Response from jugendinfo: #{response}"
     rescue
       logger.info "Failed sending changes to jugendinfo"
@@ -252,17 +286,17 @@ class Seeker < ActiveRecord::Base
   # Make post request to jugendinfo API
   #
   def send_update_to_jugendinfo
-    send_to_jugendinfo("UPDATE")
+    # send_to_jugendinfo("UPDATE")
   end
   # Make post request to jugendinfo API
   #
   def send_create_to_jugendinfo
-    send_to_jugendinfo("CREATE")
+    # send_to_jugendinfo("CREATE")
   end
   # Make post request to jugendinfo API
   #
   def send_delete_to_jugendinfo
-    send_to_jugendinfo("DELETE")
+    # send_to_jugendinfo("DELETE")
   end
 
   # Sends welcome message through chat to new seeker
@@ -270,7 +304,7 @@ class Seeker < ActiveRecord::Base
   def send_welcome_message
     title = 'Willkommen'
     host = "#{self.organization.regions.first.subdomain}.smalljobs.ch"
-    seeker_agreement_link = "#{(Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host, protocol: 'https'))}/broker/seekers/#{self.id}/agreement"
+    seeker_agreement_link = "#{(Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host, protocol: 'https'))}/broker/seekers/#{self.agreement_id}/agreement"
     message = Mustache.render(self.organization.welcome_chat_register_msg || '', organization_name: self.organization.name, organization_street: self.organization.street, organization_zip: self.organization.place.zip, organization_place: self.organization.place.name, organization_phone: self.organization.phone, organization_email: self.organization.email, seeker_first_name: self.firstname, seeker_last_name: self.lastname, broker_first_name: self.organization.brokers.first.firstname, broker_last_name: self.organization.brokers.first.lastname, seeker_link_to_agreement: "<a file type='application/pdf' title='Elterneinverständnis herunterladen' href='#{seeker_agreement_link}'>#{seeker_agreement_link}</a>", link_to_jobboard_list: (Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host)))
     logger.info "Welcome message: #{message}"
 
@@ -283,7 +317,7 @@ class Seeker < ActiveRecord::Base
     title = 'Willkommen'
     host = "#{self.organization.regions.first.subdomain}.smalljobs.ch"
 
-    seeker_agreement_link = "#{(Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host, protocol: 'https'))}/broker/seekers/#{self.id}/agreement"
+    seeker_agreement_link = "#{(Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host, protocol: 'https'))}/broker/seekers/#{self.agreement_id}/agreement"
     message = Mustache.render(self.organization.activation_msg || '', organization_name: self.organization.name, organization_street: self.organization.street, organization_zip: self.organization.place.zip, organization_place: self.organization.place.name, organization_phone: self.organization.phone, organization_email: self.organization.email, seeker_first_name: self.firstname, seeker_last_name: self.lastname, broker_first_name: self.organization.brokers.first.firstname, broker_last_name: self.organization.brokers.first.lastname, seeker_link_to_agreement: "<a file type='application/pdf' title='Elterneinverständnis herunterladen' href='#{seeker_agreement_link}'>#{seeker_agreement_link}</a>", link_to_jobboard_list: (Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host)))
 
     MessagingHelper::send_message(title, message, self.app_user_id, self.organization.email)
@@ -301,5 +335,14 @@ class Seeker < ActiveRecord::Base
 
   def generate_agreement_id
     self.agreement_id = SecureRandom.uuid if self.agreement_id.nil?
+  end
+
+  # Return phone if exist, if not return mobile
+  #
+  # @return [String] phone or mobile
+  #
+  def phone_or_mobile
+    return phone if phone.present?
+    return mobile
   end
 end

@@ -361,7 +361,7 @@
                     - minutes = minutes % 60
                     = "#{hours}:#{minutes}"
                     = " "
-                %td.payment{data: {id: assignment.payment.floor}}
+                %td.payment{data: {id: (assignment.payment.present?  ? assignment.payment.floor : 0)}}
                   - if assignment.payment != nil
                     = assignment.payment.floor
                 %td.feedback
@@ -530,6 +530,8 @@
         $('.organization').addClass('display-none');
         $('.organization-' + id).removeClass('display-none');
       }
+
+
       if(vacationStart!=undefined && showDate){
         $('.js-organisation-name').text(name)
         $('.js-org-start-date').text(vacationStart)
@@ -538,6 +540,13 @@
       }else{
         $('.js-organization').hide()
       }
+
+      $.each($('.js-active-tab a'), function(){
+        console.log($(this).attr('href'))
+        value = $("tr.organization", $($(this).attr('href'))).length - $("tr.display-none", $($(this).attr('href'))).length
+        console.log(value)
+        $("span",$("[href='"+$(this).attr('href')+"']")).text("("+value+")")
+      })
     });
 
     var options = {

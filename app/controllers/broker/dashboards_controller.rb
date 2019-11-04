@@ -24,8 +24,7 @@ class Broker::DashboardsController < ApplicationController
                  .includes(
                    seeker: :organization,
                    provider: :organization,
-                   job: :organization,
-                   allocation: :organization,
+                   job: :organization
                    )
                  .where("seeker_id IN (?) OR provider_id IN (?) OR job_id IN (?) OR allocation_id IN (?)",
                         @seekers.pluck(:id), @providers.pluck(:id), @jobs.pluck(:id), allocations.pluck(:id))
@@ -49,8 +48,7 @@ class Broker::DashboardsController < ApplicationController
                .includes(
                  seeker: :organization,
                  provider: :organization,
-                 job: :organization,
-                 allocation: :organization,
+                 job: :organization
                  )
                .where("seeker_id IN (?) OR provider_id IN (?) OR job_id IN (?) OR allocation_id IN (?)",
                       @seekers.map(&:id), @providers.map(&:id), @jobs.map(&:id), allocations.map(&:id))

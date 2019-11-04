@@ -28,7 +28,12 @@ class SessionsController < Devise::SessionsController
       self.resource = broker
 
       if broker.valid_password?(password)
-        authenticated = true
+        if broker.regions.pluck(:id).include?(current_region.id)
+          authenticated = true
+        else
+          flash[:error_info] = I18n.t('common.invalid_subdomain')
+          return redirect_to global_sign_in_path
+        end
       end
     elsif !admin.nil?
       resource_name = :admin

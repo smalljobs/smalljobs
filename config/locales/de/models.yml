@@ -153,7 +153,7 @@ de:
         <<: *USER
         parental: "Elterneinverständnis erhalten"
         discussion: "Erstgespräch"
-        inactive_html: <div class='control__indicator'></div>Inaktiv
+        inactive_html: <div class='control__indicator'></div>Prüfen
         active_html: <div class='control__indicator'></div>Aktiv
         ended_html:  <div class='control__indicator'></div>Beendet
       broker:
@@ -210,7 +210,7 @@ de:
           active: 'Anstellung'
           finished: 'Anstellung beendet'
           cancelled: 'Anstellung abgebrochen'
-          application_retracted: "Abgebrochene Bewerbungen"
+          application_retracted: "Zurückgezogene Bewerbungen"
       review:
         provider: "Anbieter"
         seeker: "Jugendlicher"
@@ -263,6 +263,8 @@ de:
           attributes:
             phone:
               improbable_phone: "ist keine gültige Telefonnummer"
+            website:
+              url: "ist keine gültige URL (Beispiel http://example.com)"
         region:
           attributes:
             places:

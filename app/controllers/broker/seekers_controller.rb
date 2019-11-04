@@ -27,6 +27,8 @@ class Broker::SeekersController < InheritedResources::Base
   end
 
   def edit
+    @jobs_certificate = @seeker.jobs_certificate
+    @organizations_and_regions = Region.order(:name).includes(:organizations).map{|x| [x.name, x.organizations.order(:name).distinct.map{|y|  [y.name, y.id]}]}
     @messages = MessagingHelper::get_messages(@seeker.app_user_id)
     # @seeker.current_broker_id = current_broker.id
     edit!
@@ -36,7 +38,7 @@ class Broker::SeekersController < InheritedResources::Base
   #
   def agreement
     @seeker = Seeker.find_by(agreement_id: params[:agreement_id])
-    render pdf: 'Einverständnis', template: 'broker/seekers/agreement.html.erb', margin: {top: 3, left: 3, right: 3, bottom: 3}
+    render pdf: 'Einverständnis', template: 'broker/seekers/agreement.html.erb', margin: {top: 0, left: 0, right: 0, bottom: 0}
   end
 
   def delete
@@ -81,6 +83,7 @@ class Broker::SeekersController < InheritedResources::Base
     note.destroy!
   end
 
+
   def update_comment
     note = Note.find_by(id: params[:note_id], broker_id: current_broker.id, seeker_id: @seeker.id)
     respond_to do |format|
@@ -96,6 +99,19 @@ class Broker::SeekersController < InheritedResources::Base
           render json: {
             error: "Wir können eine Notiz nicht aktualisieren"
           }, status: 422}
+      end
+    end
+  end
+
+
+  # Update organization and change status if change region
+  #
+  def update_organization
+    respond_to do |format|
+      if @seeker.update_organization(permitted_organization_params[:seeker][:organization_id])
+        format.json { render json: {}, status: :ok}
+      else
+        format.json { render json: { error: @seeker.errors.full_messages}, status: :unprocessable_entity}
       end
     end
   end
@@ -120,7 +136,12 @@ class Broker::SeekersController < InheritedResources::Base
     params.permit(seeker: [:occupation, :occupation_end_date, :additional_contacts, :languages, :id, :password, :password_confirmation, :firstname, :lastname, :street, :place_id, :sex, :email, :phone, :mobile, :date_of_birth, :contact_preference, :contact_availability, :active, :confirmed, :terms, :status, :organization_id, :notes, :discussion, :parental, :other_skills, work_category_ids: [], certificate_ids: []])
   end
 
-  def redirect_smalljobs
+    def permitted_organization_params
+      params.permit(seeker: [:organization_id])
+    end
+
+
+    def redirect_smalljobs
     if request.subdomain == 'smalljobs'
       redirect_to "https://winterthur.smalljobs.ch#{request.fullpath}", :status => :moved_permanently
     end

@@ -1,5 +1,6 @@
 #= require jquery
 #= require jquery_ujs
+#= require jquery-ui
 #= require bootstrap
 #= require social-share-button
 #= require sortable.js
@@ -11,11 +12,18 @@
 #= require bootstrap-datepicker.js
 #= require chart.min.js
 
-#= require jquery-ui
+
 #= require autocomplete-rails
 #= require shared.js
 #= require jquery.form.min.js
 #= require html2canvas.min.js
+#= require toastr.min.js
+
+##= require tinymce-jquery
+#= require tinymce
+
+
+#= require broker
 
 ready = ->
   history_array = JSON.parse(sessionStorage.getItem('history') || '[]')

@@ -2,9 +2,10 @@ class Broker::RegionOrganizationsController < InheritedResources::Base
 
   before_filter :authenticate_broker!
   load_and_authorize_resource :organization
+  before_filter :organization, only: [:edit, :update]
 
   def edit
-    organization
+
   end
 
   def create
@@ -21,15 +22,16 @@ class Broker::RegionOrganizationsController < InheritedResources::Base
   end
 
   def update
+
     respond_to do |format|
-      if organization.update(permitted_params)
+      if @organization.update(permitted_params)
         flash[:notice] = t('common.created')
-        format.html { redirect_to edit_broker_region_organization_path(organization) }
+        format.html { redirect_to edit_broker_region_organization_path(@organization) }
         format.json { render json: { message: t('common.updated')}, status: :ok }
       else
-        flash[:error] = organization.errors.full_messages.join('.')
-        format.html { redirect_to edit_broker_region_organization_path(organization) }
-        format.json { render json: { error: broker.errors.full_messages.join('.') }, status: :unprocessable_entity }
+        flash[:error] = @organization.errors.full_messages.join('.')
+        format.html { redirect_to edit_broker_region_organization_path(@organization) }
+        format.json { render json: { error: @organization.errors.full_messages.join('.') }, status: :unprocessable_entity }
       end
     end
   end

@@ -1,0 +1,39 @@
+%div.modal.fade{id: "active_send_contract_modal"}
+  %div.modal-dialog
+    %div.modal-content
+      %div.modal-header
+        %button.close{"data-dismiss": "modal", type: "button"} &times;
+        %h2= "Als Pdf Datei senden"
+        %p.js-link-to-pdf
+          = link_to broker_allocation_contract_path(@allocation.contract_id, format: :pdf), class: '', target: :_blank do
+            %i.fa.fa-print
+            = "Vertrag drucken (Pdf)"
+
+
+      %div.modal-body
+        %input{type: "checkbox", checked: "true"}
+          = "Nachricht an "
+          = @allocation.seeker.name
+          = ":"
+        %div.form-control.resize-vertical.textarea{contenteditable: true}
+          = "Hallo #{@allocation.seeker.firstname}"
+          %br
+          = "Hier senden wir dir den Vertrag für deinen Job bei #{@allocation.provider_name}."
+          %br
+          = "Lade den Vertrag hier herunter, drucke ihn aus und bringe ihn zur Arbeit mit: "
+          %br
+          %a{file:'', href: "#{url_for broker_allocation_contract_path(@allocation.contract_id, format: :pdf)}", type: "application/pdf", title: "Herunterladen"}= "Herunterladen"
+          %br
+          = "Vor Arbeitsstart solltest du und die Arbeitgebenden den Vertrag unterzeichnen."
+          %br
+          = "Für Fragen schreibe uns hier!"
+        %br
+        - if @allocation.seeker.app_user_id.nil?
+          %p
+            = "Keine App für Messaging installiert. Per Telefon Kontakt aufnehmen"
+            %a{href: "tel:#{@allocation.seeker.mobile}"}
+              = @allocation.seeker.mobile
+        %button.btn.btn-success.btn-send.js-send-contract{data: {'loading-text': 'Versendung'}}
+          = "Senden"
+      %div.modal-footer
+        = render 'messages'

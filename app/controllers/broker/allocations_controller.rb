@@ -26,6 +26,18 @@ class Broker::AllocationsController < InheritedResources::Base
     @not_receive_job_msg.gsub! "\n", "<br>"
   end
 
+
+  def update
+    @job = Job.find_by(id: params[:job_id])
+    @allocation = Allocation.find_by(id: params[:id])
+    respond_to do |format|
+      if @allocation.update(permitted_params_update[:allocation])
+        format.json { render json: {}, status: :ok}
+      else
+        format.json { render json: { error: @allocation.errors.full_messages}, status: :unprocessable_entity}
+      end
+    end
+  end
   # Changes state of allocation to the next one
   #
   def change_state
@@ -98,6 +110,44 @@ class Broker::AllocationsController < InheritedResources::Base
     render json: {state: 'ok', response: response}
   end
 
+
+  # Render contract as pdf file
+  #
+  def contract
+    @allocation = Allocation.find_by(contract_id: params[:allocation_id])
+    @job = @allocation.job
+    @provider = @allocation.provider
+    @seeker = @allocation.seeker
+    @letter_msg = Mustache.render(nil || '', provider_first_name: '',
+                                  provider_last_name: '',
+                                  provider_phone: '',
+                                  broker_first_name: '',
+                                  broker_last_name: '',
+                                  organization_name: '',
+                                  organization_zip: '',
+                                  organization_street: '',
+                                  organization_place: '',
+                                  organization_phone: '',
+                                  organization_email: '', link_to_jobboard_list: url_for(root_url()))
+    @letter_msg.gsub! "\n", "<br>"
+    render pdf: 'contract', template: 'broker/allocations/contract.html.erb', margin: {top: 0, left: 0, right: 0, bottom: 0}
+  end
+
+
+  # Sends contract and given message to the seeker
+  #
+  def send_contract
+    @job = Job.find_by(id: params[:job_id])
+    @allocation = Allocation.find_by(id: params[:id])
+    seeker = @allocation.seeker
+    title = params[:title]
+    message = params[:message]
+
+    response = MessagingHelper::send_message(title, message, seeker.app_user_id, @allocation.provider.email)
+
+    render json: {state: 'ok', response: response}
+  end
+
   protected
 
   # Changes states of all open allocations for given job to application_rejected
@@ -121,5 +171,9 @@ class Broker::AllocationsController < InheritedResources::Base
 
   def permitted_params
     params.permit(allocation: [:id, :job_id, :seeker_id, :state, :feedback_seeker, :feedback_provider, :contract_returned])
+  end
+
+  def permitted_params_update
+    params.permit(allocation: [:feedback_provider, :feedback_seeker])
   end
 end

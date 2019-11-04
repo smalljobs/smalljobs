@@ -1,7 +1,7 @@
 
 server ENV['SERVER_IP'],
        user: ENV['SERVER_USER'],
-       roles: %w{web app}
+       roles: %w{web app db}
 set  :ssh_options, {
     keepalive: true,
     keepalive_interval: 60, #seconds

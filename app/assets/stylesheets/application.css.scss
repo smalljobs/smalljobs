@@ -2,6 +2,7 @@
  *= require font-awesome
  *= require_self
  *= require social-share-button
+ *= require toastr.min
  */
 
 @import "bootstrap";
@@ -411,4 +412,9 @@ th.sortable span {
 
 .delete-region-icon:hover{
   cursor: pointer;
+}
+
+.sj-row-margin{
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

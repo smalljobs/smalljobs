@@ -15,17 +15,23 @@
       = f.input :status, as: :radio_buttons, collection: [{value: 'inactive', label: t('activerecord.attributes.seeker.inactive_html')}, {value: 'active', label: t('activerecord.attributes.seeker.active_html')}, {value: 'completed', label: t('activerecord.attributes.seeker.ended_html')}], label_method: ->(obj){obj[:label]}, value_method: ->(obj){obj[:value]}, label: false, inline_label: '', item_wrapper_class: 'control control--radio'
 
   %fieldset
-    %legend
-      = "JugendlicheR"
     .form-inputs
-      = f.input :firstname, required: true
-      = f.input :lastname, required: true
+      .row
+        .col-xs-12.col-md-6
+          = f.input :firstname, required: true
+        .col-xs-12.col-md-6
+          = f.input :lastname, required: true
 
   - if !@seeker.new_record?
     %fieldset
       %a{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
         %i.fa.fa-envelope
         = "Nachricht senden"
+
+    %fieldset
+      %a{href: "#", "data-toggle": "modal", "data-target": "#jobs_certificate_modal"}
+        %i.fa.fa-file-text
+        = "Arbeitszeugnis erstellen"
 
     %fieldset
       .form-inputs
@@ -124,7 +130,9 @@
       = "Zuständige Organisation"
     .form-inputs
       = f.association :organization, required: true, include_blank: true, label: false, collection: current_broker.all_organizations
-
+      -# change paused, if we change region we have to change place for seeker
+      -#%a{href: "#", "data-toggle": "modal", "data-target": "#region_modal"}
+      -#  Zu einer anderen Jobbörse übertragen
   .form-actions
     - if @seeker.new_record?
       = f.button :submit, "Jugendlichen erstellen", class: 'btn btn-primary btn-success'
@@ -137,10 +145,13 @@
         = "Löschen"
 
     = render 'delete_modal'
-
+    -# change paused, if we change region we have to change place for seeker
+    -#= render 'region_modal'
 - if !@seeker.new_record?
   = render 'pdf_message_modal'
   = render 'message_modal'
+  = render 'jobs_certificate_modal'
+
 
   :javascript
     $(document).ready(function() {
