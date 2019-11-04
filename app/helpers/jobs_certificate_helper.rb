@@ -35,15 +35,19 @@ module JobsCertificateHelper
   def jobs_table(seeker)
     provider_jobs = {}
     seeker.providers.each do |provider|
-      provider_jobs[provider.id] = {}
-
-      jobs = seeker.jobs.where(provider_id: provider.id).order(:start_date)
-      jobs_last_end_date = seeker.jobs.where(provider_id: provider.id).order(end_date: :asc).limit(1).first
+      jobs = seeker.jobs.where(provider_id: provider.id).includes(:allocations).
+          where("allocations.seeker_id = ?", seeker.id).where.not("allocations.state": [:application_rejected, :cancelled]).
+          order(:start_date)
+      jobs_last_end_date = seeker.jobs.where(provider_id: provider.id).includes(:allocations).
+          where("allocations.seeker_id = ?", seeker.id).where.not("allocations.state": [:application_rejected, :cancelled]).
+          order(end_date: :asc).limit(1).first
 
       if jobs.present? and jobs.first.assignments.exists? and jobs.first.assignments.first.start_time.present?
         start_date = jobs.first.assignments.order(:start_time).first.start_time.to_date.strftime("%d.%m.%Y")
       elsif jobs.present?  and jobs.first.start_date.present?
-        start_date = jobs.first.start_date.strftime("%d.%m.%Y") and jobs.first.start_date.present?
+        start_date = jobs.first.start_date.strftime("%d.%m.%Y")
+      elsif jobs.present?
+        start_date = jobs.first.created_at.strftime("%d.%m.%Y")
       else
         start_date = nil
       end
@@ -51,18 +55,21 @@ module JobsCertificateHelper
       if jobs_last_end_date.present? and jobs_last_end_date.assignments.exists? and jobs_last_end_date.assignments.first.end_time.present?
         end_date = jobs_last_end_date.assignments.order(end_time: :desc).first.end_time.to_date.strftime("%d.%m.%Y")
       elsif jobs_last_end_date.present?  and jobs_last_end_date.end_date.present?
-        end_date = jobs_last_end_date.end_date.strftime("%d.%m.%Y") and jobs_last_end_date.end_date.present?
+        end_date = jobs_last_end_date.end_date.strftime("%d.%m.%Y")
       else
         end_date = nil
       end
 
-      provider_jobs[provider.id][:jobs] = jobs
-      provider_jobs[provider.id][:jobs_start] = start_date
-      provider_jobs[provider.id][:jobs_end] = end_date
-      provider_jobs[provider.id][:assignment_count] = seeker.assignments.where(job_id: jobs.pluck(:id)).count
-      provider_jobs[provider.id][:assignment_duration] = seeker.assignments.where(job_id: jobs.pluck(:id)).sum(:duration)/(60_000*60)
-      provider_jobs[provider.id][:company] = provider.company.try(:name)
-      provider_jobs[provider.id][:provider] = "#{provider.firstname} #{provider.lastname}"
+      if jobs.present?
+        provider_jobs[provider.id] = {}
+        provider_jobs[provider.id][:jobs] = jobs
+        provider_jobs[provider.id][:jobs_start] = start_date
+        provider_jobs[provider.id][:jobs_end] = end_date
+        provider_jobs[provider.id][:assignment_count] = seeker.assignments.where(job_id: jobs.pluck(:id)).count
+        provider_jobs[provider.id][:assignment_duration] = seeker.assignments.where(job_id: jobs.pluck(:id)).sum(:duration)/(60_000*60)
+        provider_jobs[provider.id][:company] = provider.company
+        provider_jobs[provider.id][:provider] = "#{provider.firstname} #{provider.lastname}"
+      end
     end
 
 
