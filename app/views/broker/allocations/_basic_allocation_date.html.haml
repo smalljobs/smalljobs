@@ -16,7 +16,7 @@
     .col-xs-12.col-md-8.col-lg-9
       = link_to allocation.seeker.name, edit_broker_seeker_path(allocation.seeker)
       - if @allocation.active? or @allocation.finished?
-        = text_area_tag(:feedback_seeker, @allocation.feedback_seeker.to_s, class: 'form-control', placeholder: 'Feedback Jugendliche_r')
+        = text_area_tag(:feedback_seeker, @allocation.feedback_seeker.to_s, class: 'form-control', placeholder: 'Feedback für Jugendliche_r')
   - if @allocation.active? or @allocation.finished?
     .form-group
       .col-md-offset-4.col-lg-offset-3.col-md-8.col-lg-9
@@ -29,7 +29,7 @@
     .col-xs-12.col-md-8.col-lg-9
       = link_to allocation.job.provider.name, edit_broker_provider_path(allocation.job.provider)
       - if @allocation.active? or @allocation.finished?
-        = text_area_tag(:feedback_provider, @allocation.feedback_provider.to_s, class: 'form-control', placeholder: 'Feedback Arbeitgeber_in')
+        = text_area_tag(:feedback_provider, @allocation.feedback_provider.to_s, class: 'form-control', placeholder: 'Feedback für Arbeitgeber_in')
   - if @allocation.active? or @allocation.finished?
     .form-group
       .col-md-offset-4.col-lg-offset-3.col-md-8.col-lg-9

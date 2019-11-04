@@ -30,17 +30,22 @@ $ ->
 
   $(document).on
     click: (e)->
+      _this = $(@)
       e.preventDefault()
+      e.stopPropagation()
       $.ajax
-        url: $(@).attr('href')
+        url: _this.data('url')
         method: 'PUT'
         data:
           jobs_certificate:
             content: tinyMCE.activeEditor.getContent()
         success: (respond)->
           toastr.success('Gespeichert!')
-          window.open(respond['pdf_link'], '_blank');
+          setTimeout (event)=>
+            window.open(respond['pdf_link'], '_blank');
+          , 500
         error: (respond)->
+          e.preventDefault()
           _error = respond.responseJSON['error'][0]
           toastr.error(_error, 'Error')
 
