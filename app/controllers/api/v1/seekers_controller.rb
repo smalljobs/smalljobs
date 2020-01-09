@@ -168,7 +168,7 @@ class Api::V1::SeekersController < Api::V1::ApiController
   # If user exists then send 6 digit code via SMS
   #
   def password_remind
-    if @seeker.last_recovery == DateTime.now.to_date && @seeker.recovery_times >= 3
+    if @seeker.last_recovery == DateTime.now.to_date && @seeker.recovery_times.to_i >= 3
       render json: {code: 'users/limit_exceeded', message: 'Exceeded daily recovery limit'}
       return
     end
