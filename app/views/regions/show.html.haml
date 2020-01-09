@@ -1,6 +1,7 @@
-.jumbotron.organization{ style: @organization.background.present? ? "background-image: url(#{ @organization.background.url(:web) })" : ''}
-  - if @organization.logo.present?
-    = image_tag(@organization.logo.url(:web, :normal), alt: @organization.name)
+-#.jumbotron.organization{ style: @organization.background.present? ? "background-image: url(#{ @organization.background.url(:web) })" : ''}
+.jumbotron.organization
+  - if @region.logo.present?
+    = image_tag(@region.logo.url(:web, :normal), alt: @region.name)
   - else
     %h1= @region.name
   %p.lead
