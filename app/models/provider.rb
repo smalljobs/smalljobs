@@ -10,7 +10,7 @@ class Provider < ActiveRecord::Base
   belongs_to :organization
   # has_many :notes
 
-  has_many :todos
+  has_many :todos, dependent: :destroy
 
   attr_accessor :new_note
   attr_accessor :current_broker_id
