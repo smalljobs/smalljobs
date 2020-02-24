@@ -325,6 +325,13 @@ class Seeker < ActiveRecord::Base
 
   public
 
+  # show seeker age
+  def age
+    return Date.today.year - self.date_of_birth.year if self.date_of_birth.present?
+    return 0
+  end
+
+
   def stat_name
     if completed?
       return "finished"

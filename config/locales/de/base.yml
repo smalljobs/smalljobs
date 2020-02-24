@@ -603,3 +603,7 @@ de:
       start_date_too_late: 'Das Startdatum darf nicht nach dem Enddatum liegen'
       end_date_too_early: 'Das Enddatum darf nicht vor dem heutigen Datum liegen'
       start_and_end_date: "Bitte geben Sie das Start- und Enddatum des Urlaubs ein"
+  helpers:
+    api_helpers:
+      salary_calculated_1: 'CHF %{salary} pro Stunde (ca%{duration}h)'
+      salary_calculated_2: 'CHF %{salary} (pauschal)'
