@@ -97,7 +97,7 @@ module ApiHelper
   #
   # @return [Json] job in json format
   #
-  def self.job_to_json(job, organization, show_provider, show_organization, show_assignments, allocation_id)
+  def self.job_to_json(job, organization, show_provider, show_organization, show_assignments, allocation_id, seeker=nil)
     json = {}
     json[:id] = job.id
     json[:organization_id] = organization&.id
@@ -130,6 +130,22 @@ module ApiHelper
 
       json[:assignments] = assignments
     end
+
+
+    salary_to_show = nil
+
+    if seeker.present? and organization.present? and seeker.class == Seeker
+      if (job.salary_type == "hourly_per_age")
+        salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_1", salary: (seeker.age * organization.wage_factor), duration: job.duration)
+      elsif (job.salary_type == "hourly" )
+        salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_1", salary: job.salary, duration: job.duration)
+      elsif (job.salary_type == "fixed")
+        salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_2", salary: job.salary)
+      end
+    end
+
+
+    json[:salary_calculated] = salary_to_show
 
     return json
   end
