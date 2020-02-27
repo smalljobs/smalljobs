@@ -1,7 +1,7 @@
 class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
   before_action :set_seeker_by_phone_or_id, only: [:show]
   before_action :set_seeker, only: [:destroy, :update]
-  before_action :set_user_via_phone, only: [:create_access_token]
+  before_action :set_user_via_phone, only: [:create_seeker_access_token]
 
   # POST /api/v1/admin/users/login
   # Performs the login.
