@@ -337,14 +337,14 @@ module ApiHelper
   #
   # @return [Json] allocation in json format
   #
-  def self.allocation_with_job_to_json(allocation, job, show_provider, show_organization, show_seeker, show_assignments)
+  def self.allocation_with_job_to_json(allocation, job, show_provider, show_organization, show_seeker, show_assignments, current_seeker=nil)
     json = {}
     json[:id] = allocation.id
     json[:job_id] = allocation.job_id
     json[:user_id] = allocation.seeker_id
     json[:status] = Allocation.states[allocation.state]
 
-    json[:job] = job_to_json(job, job.organization, show_provider, show_organization, show_assignments, allocation.id)
+    json[:job] = job_to_json(job, job.organization, show_provider, show_organization, show_assignments, allocation.id, current_seeker)
 
     if show_seeker
       json[:user] = seeker_to_json(allocation.seeker)

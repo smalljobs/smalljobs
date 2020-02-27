@@ -20,7 +20,7 @@ class Api::V1::AllocationsController < Api::V1::ApiController
     found_allocations = found_allocations.page(page).per(limit)
 
     for allocation in found_allocations
-      allocations.append(ApiHelper::allocation_with_job_to_json(allocation, allocation.job, show_provider, show_organization, show_seeker, show_assignments))
+      allocations.append(ApiHelper::allocation_with_job_to_json(allocation, allocation.job, show_provider, show_organization, show_seeker, show_assignments, @seeker))
     end
 
     render json: allocations, status: 200
