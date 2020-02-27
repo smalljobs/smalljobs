@@ -127,7 +127,7 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
   end
 
   def create_seekers_access_token
-    token = AccessToken.find_by(seeker_id: @seeker.id)
+    token = AccessToken.find_by(userable_id: @seeker.id, userable_type: 'Seeker')
     token.destroy! if token != nil
 
     token = AccessToken.new(userable_id: @seeker.id, userable_type: 'Seeker',  token_type: 'bearer')
