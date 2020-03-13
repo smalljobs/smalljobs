@@ -18,7 +18,7 @@ class Api::V1::JobsController < Api::V1::ApiController
     jobs = []
     found_jobs = []
 
-    if !region_id.nil?
+    if region_id.present?
       region = Region.find_by(id: region_id)
       render(json: {code: 'jobs/not_found', message: 'Region not found'}, status: 404) && return if region.nil?
       found_jobs = region.jobs
@@ -158,4 +158,40 @@ class Api::V1::JobsController < Api::V1::ApiController
     render json: allocations, status: 200
   end
 
+  def my
+    if @seeker.present?
+      organization_id = params[:organization_id]
+      region_id = params[:region_id]
+      status = params[:status] == nil ? nil : params[:status].to_i
+      show_provider = true?(params[:provider])
+      show_organization = true?(params[:organization])
+      show_assignments = true?(params[:assignments])
+      page = params[:page] == nil ? 1 : params[:page].to_i
+      limit = params[:limit] == nil ? 10 : params[:limit].to_i
+
+      state = Job::state_from_integer(status)
+
+      jobs = []
+      found_jobs = @seeker.jobs
+
+      if region_id.present?
+        region = Region.find_by(id: region_id)
+        render(json: {code: 'jobs/not_found', message: 'Region not found'}, status: 404) && return if region.nil?
+        found_jobs = region.jobs.joins(:seekers).where("seekers.id = ?", @seeker.id)
+        found_jobs = found_jobs.where(organization_id: organization_id) if !organization_id.nil?
+      else
+        if !organization_id.nil?
+          found_jobs = found_jobs.joins(:provider).where(providers: {organization_id: organization_id})
+        end
+      end
+      found_jobs = found_jobs.where(state: state) if !state.nil?
+      found_jobs = found_jobs.page(page).per(limit)
+      found_jobs.each do |job|
+        jobs.append(ApiHelper::job_to_json(job, job.organization, show_provider, show_organization, show_assignments, nil, @seeker))
+      end
+      render json: jobs, status: 200
+    else
+      render json: {code: 'jobs/not_found', message: 'User not found'}, status: 404
+    end
+  end
 end

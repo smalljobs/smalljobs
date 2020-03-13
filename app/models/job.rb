@@ -8,6 +8,7 @@ class Job < ActiveRecord::Base
   has_many :seekers, through: :allocations
 
   has_one :place, through: :provider
+  has_one :region, through: :place
 
   has_many :assignments
 
