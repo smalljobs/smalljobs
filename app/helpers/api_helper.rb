@@ -98,6 +98,27 @@ module ApiHelper
   # @return [Json] job in json format
   #
   def self.job_to_json(job, organization, show_provider, show_organization, show_assignments, allocation_id, seeker=nil)
+    json = job_to_json_v1({job: job,
+                           organization: organization,
+                           show_provider: show_provider,
+                           show_organization: show_organization,
+                           show_assignments: show_assignments,
+                           allocation_id: allocation_id,
+                           seeker: seeker})
+
+    return json
+  end
+
+  def self.job_to_json_v1(hash = {})
+    job = hash[:job]
+    organization = hash[:organization]
+    show_provider = hash[:show_provider]
+    show_organization = hash[:show_organization]
+    show_assignments = hash[:show_assignments]
+    allocation_id = hash[:allocation_id]
+    seeker = hash[:seeker]
+    show_allocations = hash[:show_allocations]
+
     json = {}
     json[:id] = job.id
     json[:organization_id] = organization&.id
@@ -132,6 +153,15 @@ module ApiHelper
     end
 
 
+    if show_allocations
+      allocations = []
+      all_allocations = job.allocations
+      all_allocations = all_allocations.where(seeker_id: seeker.id) if seeker.present?
+      all_allocations.each do |allocation|
+        allocations.append(allocation_to_json(allocation))
+      end
+      json[:allocations] = allocations
+    end
     salary_to_show = nil
 
     if seeker.present? and organization.present? and seeker.class == Seeker
@@ -223,16 +253,7 @@ module ApiHelper
     json[:job_id] = allocation.job_id
     json[:user_id] = allocation.seeker_id
     json[:provider_id] = allocation.provider_id
-    json[:start_datetime] = allocation.start_datetime != nil ? allocation.start_datetime.strftime('%s') : nil
-    json[:stop_datetime] = allocation.stop_datetime != nil ? allocation.stop_datetime.strftime('%s') : nil
     json[:payment] = allocation.job.salary
-
-    duration = nil
-    if allocation.stop_datetime != nil && allocation.start_datetime != nil
-      duration = allocation.stop_datetime - allocation.start_datetime
-    end
-
-    json[:duration] = duration
     return json
   end
 

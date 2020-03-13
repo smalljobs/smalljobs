@@ -13,6 +13,8 @@ class Api::V1::JobsController < Api::V1::ApiController
     page = params[:page] == nil ? 1 : params[:page].to_i
     limit = params[:limit] == nil ? 10 : params[:limit].to_i
 
+    show_allocations = true?(params[:allocations])
+
     state = Job::state_from_integer(status)
 
     jobs = []
@@ -31,9 +33,16 @@ class Api::V1::JobsController < Api::V1::ApiController
       end
     end
     found_jobs = found_jobs.where(state: state) if !state.nil?
-    found_jobs = found_jobs.page(page).per(limit)
-    for job in found_jobs do
-      jobs.append(ApiHelper::job_to_json(job, job.organization, show_provider, show_organization, show_assignments, nil, @seeker))
+    found_jobs = found_jobs.order(:updated_at).page(page).per(limit)
+
+    found_jobs.each do |job|
+      jobs.append(ApiHelper::job_to_json_v1({job: job,
+                                             organization: job.organization,
+                                             show_provider: show_provider,
+                                             show_organization: show_organization,
+                                             show_assignments: show_assignments,
+                                             seeker: @seeker,
+                                             show_allocations: show_allocations}))
     end
 
     render json: jobs, status: 200
@@ -168,6 +177,7 @@ class Api::V1::JobsController < Api::V1::ApiController
       show_assignments = true?(params[:assignments])
       page = params[:page] == nil ? 1 : params[:page].to_i
       limit = params[:limit] == nil ? 10 : params[:limit].to_i
+      show_allocations = true?(params[:allocations])
 
       state = Job::state_from_integer(status)
 
@@ -185,9 +195,15 @@ class Api::V1::JobsController < Api::V1::ApiController
         end
       end
       found_jobs = found_jobs.where(state: state) if !state.nil?
-      found_jobs = found_jobs.page(page).per(limit)
+      found_jobs = found_jobs.order(:updated_at).page(page).per(limit)
       found_jobs.each do |job|
-        jobs.append(ApiHelper::job_to_json(job, job.organization, show_provider, show_organization, show_assignments, nil, @seeker))
+        jobs.append(ApiHelper::job_to_json_v1({job: job,
+                                               organization: job.organization,
+                                               show_provider: show_provider,
+                                               show_organization: show_organization,
+                                               show_assignments: show_assignments,
+                                               seeker: @seeker,
+                                               show_allocations: show_allocations}))
       end
       render json: jobs, status: 200
     else
