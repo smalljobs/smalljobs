@@ -43,7 +43,7 @@ module ApiHelper
   #
   # @return [Json] organization in json format
   #
-  def self.organization_to_json(organization, region_id, message=nil)
+  def self.organization_to_json(organization, region_id, message=nil, agreement_url=nil)
     require 'redcloth'
     json = {}
     json[:id] = organization.id
@@ -58,6 +58,7 @@ module ApiHelper
     json[:place] = place_to_json(organization.place)
     json[:opening_hours] = RedCloth.new(organization.opening_hours || "").to_html
     json[:registration_welcome_message] = message
+    json[:agreement_url] = agreement_url
     json[:vacations] = {
         active: organization.vacation_active,
         start: organization.start_vacation_date,
