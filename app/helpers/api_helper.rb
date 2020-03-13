@@ -145,7 +145,9 @@ module ApiHelper
     end
     if show_assignments
       assignments = []
-      for assignment in job.assignments
+      all_assignments = job.assignments
+      all_assignments = all_assignments.where(seeker_id: seeker.id) if seeker.present?
+      all_assignments.each do |assignment| 
         assignments.append(assignment_to_json(assignment))
       end
 
