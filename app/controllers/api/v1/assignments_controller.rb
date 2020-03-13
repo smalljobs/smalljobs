@@ -6,6 +6,11 @@ class Api::V1::AssignmentsController < Api::V1::ApiController
 # Optionally you can retrieve list of assignments from defined organization
 #
   def index
+    if @seeker.class == Seeker
+      seeker_id = @seeker.id
+    else
+      seeker_id = params[:user_id]
+    end
     available_statuses = [0,1]
     organization_id = params[:organization_id]
     status = params[:status] == nil ? nil : params[:status].to_i
@@ -15,7 +20,6 @@ class Api::V1::AssignmentsController < Api::V1::ApiController
     show_job = true?(params[:job])
     page = params[:page] == nil ? 1 : params[:page].to_i
     limit = params[:limit] == nil ? 10 : params[:limit].to_i
-    seeker_id = params[:user_id]
     provider_id = params[:provider_id]
 
     state = available_statuses[status] if status.present?
