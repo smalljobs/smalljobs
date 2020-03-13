@@ -120,8 +120,10 @@ class Api::V1::JobsController < Api::V1::ApiController
     show_provider = true?(params[:provider])
     show_organization = true?(params[:organization])
     show_assignments = true?(params[:assignments])
-    job = Job.find_by(id: id)
-    if job == nil
+    show_allocations = true?(params[:allocations])
+    job = @seeker.jobs.find_by(id: id) if @seeker.class == Seeker
+    job = Job.find_by(id: id) if @seeker.class != Seeker
+    if job.blank?
       render json: {code: 'jobs/not_found', message: 'Job not found'}, status: 404
       return
     end
@@ -135,7 +137,13 @@ class Api::V1::JobsController < Api::V1::ApiController
       status = 2
     end
 
-    render json: ApiHelper::job_to_json(job, job.organization, show_provider, show_organization, show_assignments, nil, @seeker), status: 200
+    render json: ApiHelper::job_to_json_v1({job: job,
+                                            organization: job.organization,
+                                            show_provider: show_provider,
+                                            show_organization: show_organization,
+                                            show_assignments: show_assignments,
+                                            seeker: @seeker,
+                                            show_allocations: show_allocations}), status: 200
   end
 
   # GET /api/allocations?user_id=1&job_id=1&user=true&provider=true&organization=true&assignments=true&status=0&page=1&limit=10
