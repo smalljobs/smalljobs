@@ -255,7 +255,7 @@ Smalljobs::Application.routes.draw do
         collection do
           post :revoke
           post :apply
-          post :list_my_jobs
+          get :list_my_jobs
         end
       end
       resources :allocations, only: [:index]
@@ -308,7 +308,8 @@ Smalljobs::Application.routes.draw do
         collection do
           post :revoke
           post :apply
-          post :list_my_jobs
+          get :list_my_jobs
+          get :my
         end
       end
       resources :allocations, only: [:index]
