@@ -99,12 +99,12 @@ class Api::V1::SeekersController < Api::V1::ApiController
       seeker.save
     end
 
-    title = 'Willkommen'
+    #title = 'Willkommen'
     host = "#{seeker.organization.regions.first.subdomain}.smalljobs.ch"
-    seeker_agreement_link = url_for(agreement_broker_seeker_url(seeker.agreement_id, subdomain: seeker.organization.regions.first.subdomain, host: host, protocol: 'https'))
-    registration_welcome_message = Mustache.render(seeker.organization.welcome_app_register_msg || '', seeker_first_name: seeker.firstname, seeker_last_name: seeker.lastname, seeker_link_to_agreement: "<a file type='application/pdf' title='Elterneinverständnis herunterladen' href='#{seeker_agreement_link}'>#{seeker_agreement_link}</a>", broker_first_name: seeker.organization.brokers.first.firstname, broker_last_name: seeker.organization.brokers.first.lastname, organization_name: seeker.organization.name, organization_street: seeker.organization.street, organization_zip: seeker.organization.place.zip, organization_place: seeker.organization.place.name, organization_phone: seeker.organization.phone, organization_email: seeker.organization.email, link_to_jobboard_list: url_for(root_url(subdomain: seeker.organization.regions.first.subdomain, host: host, protocol: 'https')))
-    registration_welcome_message.gsub! "\r\n", "<br>"
-    registration_welcome_message.gsub! "\n", "<br>"
+    #seeker_agreement_link = url_for(agreement_broker_seeker_url(seeker.agreement_id, subdomain: seeker.organization.regions.first.subdomain, host: host, protocol: 'https'))
+    #registration_welcome_message = Mustache.render(seeker.organization.welcome_app_register_msg || '', seeker_first_name: seeker.firstname, seeker_last_name: seeker.lastname, seeker_link_to_agreement: "<a file type='application/pdf' title='Elterneinverständnis herunterladen' href='#{seeker_agreement_link}'>#{seeker_agreement_link}</a>", broker_first_name: seeker.organization.brokers.first.firstname, broker_last_name: seeker.organization.brokers.first.lastname, organization_name: seeker.organization.name, organization_street: seeker.organization.street, organization_zip: seeker.organization.place.zip, organization_place: seeker.organization.place.name, organization_phone: seeker.organization.phone, organization_email: seeker.organization.email, link_to_jobboard_list: url_for(root_url(subdomain: seeker.organization.regions.first.subdomain, host: host, protocol: 'https')))
+    #registration_welcome_message.gsub! "\r\n", "<br>"
+    #registration_welcome_message.gsub! "\n", "<br>"
     # MessagingHelper::send_message(title, message, seeker.app_user_id, seeker.organization.email)
 
     unless parents_email.nil?
@@ -113,7 +113,8 @@ class Api::V1::SeekersController < Api::V1::ApiController
       Notifier.send_welcome_message_for_parents(parent_message, parents_email).deliver
     end
 
-    render json: {message: 'User created successfully', user: ApiHelper::seeker_to_json(seeker), organization: ApiHelper::organization_to_json(seeker.organization, seeker.organization.regions.first.id, registration_welcome_message, seeker_agreement_link)}
+    #render json: {message: 'User created successfully', user: ApiHelper::seeker_to_json(seeker), organization: ApiHelper::organization_to_json(seeker.organization, seeker.organization.regions.first.id, registration_welcome_message, seeker_agreement_link)}
+    render json: {message: 'User created successfully', user: ApiHelper::seeker_to_json(seeker)}
   end
 
   # GET /api/v1/user
