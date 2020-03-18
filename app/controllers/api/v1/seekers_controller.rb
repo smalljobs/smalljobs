@@ -113,7 +113,7 @@ class Api::V1::SeekersController < Api::V1::ApiController
       Notifier.send_welcome_message_for_parents(parent_message, parents_email).deliver
     end
 
-    render json: {message: 'User created successfully', user: ApiHelper::seeker_to_json(seeker), organization: ApiHelper::organization_to_json(seeker.organization, seeker.organization.regions.first.id, registration_welcome_message)}
+    render json: {message: 'User created successfully', user: ApiHelper::seeker_to_json(seeker), organization: ApiHelper::organization_to_json(seeker.organization, seeker.organization.regions.first.id, registration_welcome_message, seeker_agreement_link)}
   end
 
   # GET /api/v1/user
@@ -168,7 +168,7 @@ class Api::V1::SeekersController < Api::V1::ApiController
   # If user exists then send 6 digit code via SMS
   #
   def password_remind
-    if @seeker.last_recovery == DateTime.now.to_date && @seeker.recovery_times >= 3
+    if @seeker.last_recovery == DateTime.now.to_date && @seeker.recovery_times.to_i >= 3
       render json: {code: 'users/limit_exceeded', message: 'Exceeded daily recovery limit'}
       return
     end

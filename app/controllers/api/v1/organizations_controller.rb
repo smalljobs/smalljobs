@@ -8,7 +8,7 @@ class Api::V1::OrganizationsController < Api::V1::ApiController
 
     if params[:region].present?
       region = Region.find_by(id: params[:region])
-      if region.present?
+      if region.blank?
         render(json: {code: 'market/not_found', message: 'Region not found'}, status: 404) && return
       end
     end

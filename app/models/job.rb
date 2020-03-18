@@ -8,12 +8,13 @@ class Job < ActiveRecord::Base
   has_many :seekers, through: :allocations
 
   has_one :place, through: :provider
+  has_one :region, through: :place
 
   has_many :assignments
 
   # has_many :notes
 
-  has_many :todos
+  has_many :todos, dependent: :destroy
 
   attr_accessor :new_note
   attr_accessor :current_broker_id

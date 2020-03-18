@@ -43,7 +43,7 @@ module ApiHelper
   #
   # @return [Json] organization in json format
   #
-  def self.organization_to_json(organization, region_id, message=nil)
+  def self.organization_to_json(organization, region_id, message=nil, agreement_url=nil)
     require 'redcloth'
     json = {}
     json[:id] = organization.id
@@ -58,6 +58,7 @@ module ApiHelper
     json[:place] = place_to_json(organization.place)
     json[:opening_hours] = RedCloth.new(organization.opening_hours || "").to_html
     json[:registration_welcome_message] = message
+    json[:agreement_url] = agreement_url
     json[:vacations] = {
         active: organization.vacation_active,
         start: organization.start_vacation_date,
@@ -97,7 +98,28 @@ module ApiHelper
   #
   # @return [Json] job in json format
   #
-  def self.job_to_json(job, organization, show_provider, show_organization, show_assignments, allocation_id)
+  def self.job_to_json(job, organization, show_provider, show_organization, show_assignments, allocation_id, seeker=nil)
+    json = job_to_json_v1({job: job,
+                           organization: organization,
+                           show_provider: show_provider,
+                           show_organization: show_organization,
+                           show_assignments: show_assignments,
+                           allocation_id: allocation_id,
+                           seeker: seeker})
+
+    return json
+  end
+
+  def self.job_to_json_v1(hash = {})
+    job = hash[:job]
+    organization = hash[:organization]
+    show_provider = hash[:show_provider]
+    show_organization = hash[:show_organization]
+    show_assignments = hash[:show_assignments]
+    allocation_id = hash[:allocation_id]
+    seeker = hash[:seeker]
+    show_allocations = hash[:show_allocations]
+
     json = {}
     json[:id] = job.id
     json[:organization_id] = organization&.id
@@ -124,12 +146,39 @@ module ApiHelper
     end
     if show_assignments
       assignments = []
-      for assignment in job.assignments
+      all_assignments = job.assignments
+      all_assignments = all_assignments.where(seeker_id: seeker.id) if seeker.present?
+      all_assignments.each do |assignment|
         assignments.append(assignment_to_json(assignment))
       end
 
       json[:assignments] = assignments
     end
+
+
+    if show_allocations
+      allocations = []
+      all_allocations = job.allocations
+      all_allocations = all_allocations.where(seeker_id: seeker.id) if seeker.present?
+      all_allocations.each do |allocation|
+        allocations.append(allocation_to_json(allocation))
+      end
+      json[:allocations] = allocations
+    end
+    salary_to_show = nil
+
+    if seeker.present? and organization.present? and seeker.class == Seeker
+      if (job.salary_type == "hourly_per_age")
+        salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_1", salary: (seeker.age * organization.wage_factor), duration: job.duration)
+      elsif (job.salary_type == "hourly" )
+        salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_1", salary: job.salary, duration: job.duration)
+      elsif (job.salary_type == "fixed")
+        salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_2", salary: job.salary)
+      end
+    end
+
+
+    json[:salary_calculated] = salary_to_show
 
     return json
   end
@@ -202,21 +251,12 @@ module ApiHelper
   def self.allocation_to_json(allocation)
     json = {}
     json[:id] = allocation.id
-    json[:status] = allocation.state
+    json[:status] = allocation.state_before_type_cast
     json[:message] = allocation.feedback_seeker
     json[:job_id] = allocation.job_id
     json[:user_id] = allocation.seeker_id
     json[:provider_id] = allocation.provider_id
-    json[:start_datetime] = allocation.start_datetime != nil ? allocation.start_datetime.strftime('%s') : nil
-    json[:stop_datetime] = allocation.stop_datetime != nil ? allocation.stop_datetime.strftime('%s') : nil
     json[:payment] = allocation.job.salary
-
-    duration = nil
-    if allocation.stop_datetime != nil && allocation.start_datetime != nil
-      duration = allocation.stop_datetime - allocation.start_datetime
-    end
-
-    json[:duration] = duration
     return json
   end
 
@@ -321,14 +361,14 @@ module ApiHelper
   #
   # @return [Json] allocation in json format
   #
-  def self.allocation_with_job_to_json(allocation, job, show_provider, show_organization, show_seeker, show_assignments)
+  def self.allocation_with_job_to_json(allocation, job, show_provider, show_organization, show_seeker, show_assignments, current_seeker=nil)
     json = {}
     json[:id] = allocation.id
     json[:job_id] = allocation.job_id
     json[:user_id] = allocation.seeker_id
     json[:status] = Allocation.states[allocation.state]
 
-    json[:job] = job_to_json(job, job.organization, show_provider, show_organization, show_assignments, allocation.id)
+    json[:job] = job_to_json(job, job.organization, show_provider, show_organization, show_assignments, allocation.id, current_seeker)
 
     if show_seeker
       json[:user] = seeker_to_json(allocation.seeker)
