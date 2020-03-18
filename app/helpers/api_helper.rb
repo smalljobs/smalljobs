@@ -420,7 +420,7 @@ module ApiHelper
       registration_welcome_message.gsub! "\r\n", "<br>"
       registration_welcome_message.gsub! "\n", "<br>"
 
-      json[:organization] = self.organization_to_json(seeker.organization, seeker.organization.regions.first.try(:id), registration_welcome_message)
+      json[:organization] = self.organization_to_json(seeker.organization, seeker.organization.regions.first.try(:id), registration_welcome_message, seeker_agreement_link)
     end
     json[:categories] = []
     for category in seeker.work_categories
