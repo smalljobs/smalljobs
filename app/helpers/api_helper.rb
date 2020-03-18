@@ -148,7 +148,7 @@ module ApiHelper
       assignments = []
       all_assignments = job.assignments
       all_assignments = all_assignments.where(seeker_id: seeker.id) if seeker.present?
-      all_assignments.each do |assignment| 
+      all_assignments.each do |assignment|
         assignments.append(assignment_to_json(assignment))
       end
 
@@ -251,7 +251,7 @@ module ApiHelper
   def self.allocation_to_json(allocation)
     json = {}
     json[:id] = allocation.id
-    json[:status] = allocation.state
+    json[:status] = allocation.state_before_type_cast
     json[:message] = allocation.feedback_seeker
     json[:job_id] = allocation.job_id
     json[:user_id] = allocation.seeker_id
