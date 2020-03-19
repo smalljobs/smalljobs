@@ -3,9 +3,10 @@ class Api::V1::AllocationsController < Api::V1::ApiController
   # Display allocations list
   # Optionally show/hide provider or organization info
   def index
+    id = nil
     if @seeker.class == Seeker
       id = @seeker.id
-    else
+    elsif params[:user_id].present?
       id = params[:user_id]
     end
 
@@ -19,7 +20,11 @@ class Api::V1::AllocationsController < Api::V1::ApiController
     limit = params[:limit] == nil ? 10 : params[:limit].to_i
 
     allocations = []
-    found_allocations = Allocation.where(seeker_id: id).all
+    if id.present?
+      found_allocations = Allocation.where(seeker_id: id).order(id: :desc)
+    else
+      found_allocations = Allocation.order(id: :desc)
+    end
     found_allocations = found_allocations.where(state: status) if status != nil
     found_allocations = found_allocations.where(job_id: job_id) if job_id != nil
     found_allocations = found_allocations.page(page).per(limit)
