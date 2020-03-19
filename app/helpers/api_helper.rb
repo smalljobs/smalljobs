@@ -144,7 +144,7 @@ module ApiHelper
     if show_organization and organization.present?
       json[:organization] = organization_to_json(organization, organization.regions.first == nil ? nil : organization.regions.first.id)
     end
-    if show_assignments
+    if show_assignments and seeker.present?
       assignments = []
       all_assignments = job.assignments
       all_assignments = all_assignments.where(seeker_id: seeker.id) if seeker.present?
@@ -156,7 +156,7 @@ module ApiHelper
     end
 
 
-    if show_allocations
+    if show_allocations and seeker.present?
       allocations = []
       all_allocations = job.allocations
       all_allocations = all_allocations.where(seeker_id: seeker.id) if seeker.present?
