@@ -120,6 +120,7 @@ module ApiHelper
     seeker = hash[:seeker]
     show_allocations = hash[:show_allocations]
 
+    return nil if seeker.present? and !job.seekers.where(id: seeker.id).exists?
     json = {}
     json[:id] = job.id
     json[:organization_id] = organization&.id
