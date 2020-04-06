@@ -45,7 +45,7 @@ class Api::V1::JobsController < Api::V1::ApiController
                                              show_allocations: show_allocations}))
     end
 
-    render json: jobs, status: 200
+    render json: jobs.compact, status: 200
   end
 
   # POST /api/jobs/apply
@@ -213,7 +213,7 @@ class Api::V1::JobsController < Api::V1::ApiController
                                                seeker: @seeker,
                                                show_allocations: show_allocations}))
       end
-      render json: jobs, status: 200
+      render json: jobs.compact, status: 200
     else
       render json: {code: 'jobs/not_found', message: 'User not found'}, status: 404
     end
