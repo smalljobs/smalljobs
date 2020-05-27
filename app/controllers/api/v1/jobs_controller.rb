@@ -33,7 +33,7 @@ class Api::V1::JobsController < Api::V1::ApiController
       end
     end
     found_jobs = found_jobs.where(state: state) if !state.nil?
-    found_jobs = found_jobs.order(:updated_at).page(page).per(limit)
+    found_jobs = found_jobs.order(updated_at: :desc).page(page).per(limit)
 
     found_jobs.each do |job|
       jobs.append(ApiHelper::job_to_json_v1({job: job,
