@@ -547,6 +547,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    rocketchat (0.1.19)
     rqrcode (0.10.1)
       chunky_png (~> 1.0)
     rspec (3.5.0)
@@ -730,6 +731,7 @@ DEPENDENCIES
   redcarpet
   rest-client
   rich!
+  rocketchat
   rqrcode
   rspec-rails
   sass-rails (>= 4.0.2)

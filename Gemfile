@@ -56,6 +56,7 @@ gem 'figaro'
 gem 'tinymce-rails'
 gem "sentry-raven"
 gem 'whenever', require: false
+gem 'rocketchat'
 
 group :development, :test do
   gem 'better_errors'
