@@ -10,3 +10,4 @@ class Broker::ReocketChatsController < InheritedResources::Base
 
   end
 end
+
