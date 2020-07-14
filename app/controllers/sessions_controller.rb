@@ -28,6 +28,9 @@ class SessionsController < Devise::SessionsController
       self.resource = broker
 
       if broker.valid_password?(password)
+        Rails.logger.info "\n\n\n\n\n-------------------"
+        broker.create_rc_account
+        Rails.logger.info "-------------------\n\n\n\n\n"
         if broker.regions.pluck(:id).include?(current_region.id)
           authenticated = true
         else
