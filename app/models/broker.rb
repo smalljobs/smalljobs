@@ -100,9 +100,11 @@ class Broker < ActiveRecord::Base
         self.rc_username = user[:user_name]
         self.save
       else
-        puts rc.error
+        Rails.logger.error rc.error
         false
       end
+    else
+      true
     end
   end
 

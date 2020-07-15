@@ -1,13 +1,17 @@
-class Broker::ReocketChatsController < InheritedResources::Base
+class Broker::RocketchatsController < InheritedResources::Base
+
   before_filter :authenticate_broker!
 
   def create
-    rocket_server = RocketChat::Server.new(ENV['ROCKET_CHAT_URL'])
-    session = rocket_server.login('username', 'password')
-    user = session.users.create('new_username', 'user@example.com', 'New User', '123456',
-                                active: true, send_welcome_email: false)
-    token = session.users.create_token(user_id: user.id)
-
+    rc = RocketChat::Users.new
+    answer = rc.create_token(current_broker.rc_id)
+    respond_to do |format|
+      if answer
+        format.json { render json: answer, status: :ok }
+      else
+        format.json { render json: { error: rc.error }, status: :unprocessable_entity }
+        end
+    end
   end
-end
 
+end

@@ -157,6 +157,7 @@ Smalljobs::Application.routes.draw do
         get 'certificate'
       end
 
+      resources :rocketchats, onlye: [:create]
     end
 
     namespace :provider do

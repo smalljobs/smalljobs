@@ -21,8 +21,6 @@
 
 ##= require tinymce-jquery
 #= require tinymce
-
-
 #= require broker
 
 ready = ->

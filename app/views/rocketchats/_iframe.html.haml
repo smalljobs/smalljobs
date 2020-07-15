@@ -1,0 +1,6 @@
+- if current_broker.try(:rc_id).present?
+  =link_to "click", broker_rocketchats_path, class: "sj-rocketchat-icon js-rocketchat-icon"
+
+.js-rocketchat-iframe-container.sj-rocketchat-iframe-container
+  -# - if current_broker.try(:rc_id).present?
+  -#   %iframe#js-rocketchat-iframe{:frameborder => "0", :src => "#{ENV['ROCKET_CHAT_URL']}/extras=ji/?uid=#{current_broker.rc_id}=#{current_broker.rc_username}"}

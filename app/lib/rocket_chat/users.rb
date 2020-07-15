@@ -47,7 +47,6 @@ module RocketChat
         false
       else
         @error = 'Something went wrong'
-        @session = nil
         false
       end
     end
