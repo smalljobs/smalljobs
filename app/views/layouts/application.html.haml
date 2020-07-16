@@ -53,7 +53,8 @@
           = render_navigation(context: :footer_main, expand_all: true)
         - else
           = render_navigation(context: :footer_region, expand_all: true)
-    = render partial: "/rocketchats/iframe"
+    - if ENV['ROCKET_CHAT_URL'].present?
+      = render partial: "/rocketchats/iframe"
 
 
     %div.modal.fade{id: "contextHelpModal"}
