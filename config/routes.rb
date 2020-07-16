@@ -157,6 +157,12 @@ Smalljobs::Application.routes.draw do
         get 'certificate'
       end
 
+      resources :rocketchats, onlye: [:create] do
+        collection do
+          get 'room/:rc_username', to: "rocketchats#room", as: :room
+
+        end
+      end
     end
 
     namespace :provider do

@@ -248,7 +248,7 @@ class Api::V1::SeekersController < Api::V1::ApiController
   def update_params
     params.permit(:phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id,
                   :street, :sex, :status, :categories, :login, :mobile, :email, :additional_contacts, :languages,
-                  :occupation, :occupation_end_date, :contact_availability, :contact_preference)
+                  :occupation, :occupation_end_date, :contact_availability, :contact_preference, :rc_id, :rc_username)
   end
 
   def login_params

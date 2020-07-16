@@ -1,0 +1,15 @@
+- if current_broker.try(:rc_id).present?
+  =link_to "", broker_rocketchats_path, class: "sj-rocketchat-icon js-rocketchat-icon"
+
+
+  -# - if current_broker.try(:rc_id).present?
+  -#   %iframe#js-rocketchat-iframe{:frameborder => "0", :src => "#{ENV['ROCKET_CHAT_URL']}/extras=ji/?uid=#{current_broker.rc_id}=#{current_broker.rc_username}"}
+%div.modal.fade{id: "js-rocket-chat-modal"}
+  %div.modal-dialog.modal-lg
+    %div.modal-content
+      %div.modal-header
+        %button.close{"data-dismiss": "modal", type: "button"} &times;
+        = "Chat"
+      %div
+        .js-rocketchat-iframe-container.sj-rocketchat-iframe-container
+      -#%div.modal-footer

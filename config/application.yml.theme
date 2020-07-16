@@ -20,6 +20,9 @@ development:
   DB_USERNAME: ''
   JUGENDINFO_API_KEY: ''
   SENTRY_DSN: ''
+  ROCKET_CHAT_URL: ''
+  ROCKET_CHAT_USER_ID: ''
+  ROCKET_CHAT_USER_TOKEN: ''
 
 test:
   SERVER_IP: ''
@@ -42,6 +45,9 @@ test:
   DB_HOST: ''
   DB_USERNAME: ''
   JUGENDINFO_API_KEY: ''
+  ROCKET_CHAT_URL: ''
+  ROCKET_CHAT_USER_ID: ''
+  ROCKET_CHAT_USER_TOKEN: ''
 
 staging:
   SERVER_IP: ''
@@ -64,6 +70,9 @@ staging:
   DB_HOST: ''
   DB_USERNAME: ''
   JUGENDINFO_API_KEY: ''
+  ROCKET_CHAT_URL: ''
+  ROCKET_CHAT_USER_ID: ''
+  ROCKET_CHAT_USER_TOKEN: ''
 
 production:
   SERVER_IP: ''
@@ -87,3 +96,6 @@ production:
   DB_USERNAME: ''
   JUGENDINFO_API_KEY: ''
   SENTRY_DSN: ''
+  ROCKET_CHAT_URL: ''
+  ROCKET_CHAT_USER_ID: ''
+  ROCKET_CHAT_USER_TOKEN: ''

@@ -39,6 +39,7 @@ class Broker < ActiveRecord::Base
   end
 
   after_create :connect_to_region
+  after_create :create_rc_account
   attr_accessor :assigned_to_region, :region_id
 
   def connect_to_region
@@ -78,6 +79,32 @@ class Broker < ActiveRecord::Base
     provider = Provider.find_by(email: email)
     if !seeker.nil? || !provider.nil?
       errors.add(:email, :email_not_unique)
+    end
+  end
+
+  def create_rc_account
+    if self.rc_id.blank?
+      rc = RocketChat::Users.new
+      user = rc.create({
+                    name: self.name,
+                    email: self.email,
+                    username: "smalljobs_#{self.id}",
+                    password: SecureRandom.hex,
+                    customFields: {
+                      smalljobs_user_id: self.id,
+                      is_support_user: "No"
+                    }
+                })
+      if user
+        self.rc_id = user[:user_id]
+        self.rc_username = user[:user_name]
+        self.save
+      else
+        Rails.logger.error rc.error
+        false
+      end
+    else
+      true
     end
   end
 
