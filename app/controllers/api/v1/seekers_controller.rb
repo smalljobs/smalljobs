@@ -256,7 +256,8 @@ class Api::V1::SeekersController < Api::V1::ApiController
   end
 
   def register_params
-    params.permit(:parents_email, :zip, :phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id, :street, :sex, :categories)
+    params.permit(:parents_email, :zip, :phone, :password, :app_user_id, :organization_id, :firstname, :lastname,
+                  :birthdate, :place_id, :street, :sex, :categories, :rc_id, :rc_username)
   end
 
 end
