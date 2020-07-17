@@ -414,8 +414,8 @@ module ApiHelper
     json[:internal_interview] = seeker.discussion
     json[:parental_consent] = seeker.parental
     json[:organization_id] = seeker.organization_id
-    json[:rc_id] == seeker.rc_id
-    json[:rc_username] == seeker.rc_username
+    json[:rc_id] = seeker.rc_id
+    json[:rc_username] = seeker.rc_username
     if seeker.organization.present?
 
       helpers_url = Rails.application.routes.url_helpers
