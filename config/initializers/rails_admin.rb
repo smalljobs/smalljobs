@@ -212,12 +212,16 @@ RailsAdmin.config do |config|
       field :name
       field :subdomain
       field :places
+      field :content
 
       group :design do
         label I18n.t('admin.groups.design')
 
         field :logo do
           help I18n.t('admin.format.logo')
+        end
+        field :header_image do
+          help I18n.t('admin.format.header_image')
         end
       end
     end

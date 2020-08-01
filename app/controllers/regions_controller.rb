@@ -18,6 +18,9 @@ class RegionsController < ApplicationController
     @organization = current_region.organizations.first
     @jobs = current_region.jobs.where(state: 'public')
     @region = current_region
+    respond_to do |format|
+      format.html {render layout: 'header_image_application'}
+    end
   end
 
   def current_user
