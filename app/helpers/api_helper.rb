@@ -55,6 +55,7 @@ module ApiHelper
     json[:email] = organization.email
     json[:active] = organization.active
     json[:wage_factor] = organization.wage_factor
+    json[:salary_deduction] = organization.salary_deduction
     json[:place] = place_to_json(organization.place)
     json[:opening_hours] = RedCloth.new(organization.opening_hours || "").to_html
     json[:registration_welcome_message] = message
@@ -174,7 +175,7 @@ module ApiHelper
 
     if seeker.present? and organization.present? and seeker.class == Seeker
       if (job.salary_type == "hourly_per_age")
-        salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_1", salary: (seeker.age * organization.wage_factor), duration: job.duration)
+        salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_1", salary: (seeker.age * organization.wage_factor - organization.salary_deduction), duration: job.duration)
       elsif (job.salary_type == "hourly" )
         salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_1", salary: job.salary, duration: job.duration)
       elsif (job.salary_type == "fixed")

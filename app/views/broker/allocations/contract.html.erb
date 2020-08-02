@@ -57,7 +57,7 @@
         <%= t('jobs.hourly_rate', salary: number_to_currency(@job.salary)) %>
 
         <% elsif @job.salary_type == 'hourly_per_age' %>
-        <%= t('jobs.hourly_rate', salary: number_to_currency(@job.organization.wage_factor * get_age(@allocation.seeker.date_of_birth))) %>
+        <%= t('jobs.hourly_rate', salary: number_to_currency(get_age(@allocation.seeker.date_of_birth) * @job.organization.wage_factor - @job.organization.salary_deduction)) %>
         <% end %>
     </div>
 

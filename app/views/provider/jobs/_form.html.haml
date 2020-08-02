@@ -36,7 +36,7 @@
 
     .form-inputs
       -if current_provider.organization.wage_factor != nil && current_provider.organization.wage_factor != 1
-        = f.input :salary_type, collection: job_salary_types_with_factor(current_provider.organization.wage_factor), include_blank: false, hint: t('legends.seeker_salary_hint_wage_factor', wage_factor: current_provider.organization.wage_factor).html_safe
+        = f.input :salary_type, collection: job_salary_types_with_factor(current_provider.organization.wage_factor, current_provider.organization.salary_deduction), include_blank: false, hint: t('legends.seeker_salary_hint_wage_factor', wage_factor: current_provider.organization.wage_factor).html_safe
       -else
         = f.input :salary_type, collection: job_salary_types, include_blank: false
       = f.input :salary, include_blank: true, required: true

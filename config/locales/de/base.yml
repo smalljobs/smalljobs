@@ -134,7 +134,7 @@ de:
       hourly: "Stundenlohn"
       fixed: "Fixer Preis"
       hourly_per_age: "Stundenlohn pro Altersjahr"
-      hourly_per_age_with_factor: "Stundenlohn pro Altersjahr * %{wage_factor}"
+      hourly_per_age_with_factor: "Stundenlohn pro Altersjahr * %{wage_factor} - #{salary_deduction}"
     date_types:
       agreement: "Nach Absprache"
       date: "An einem bestimmten Tag"

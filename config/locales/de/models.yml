@@ -101,6 +101,7 @@ de:
         end_vacation_date: 'Letzter Tag'
         vacation_title: 'Abwesenheitsmeldung Titel'
         vacation_text: 'Abwesenheitsmeldung Text'
+        salary_deduction: 'Lohnabzug'
       employment:
         organization: "Organisation"
         broker: "Vermittler"
