@@ -144,6 +144,7 @@ RailsAdmin.config do |config|
           help I18n.t('admin.groups.wage_factor')
         end
         field :salary_deduction
+        field :hide_deduction
 
         label I18n.t('admin.groups.vacation')
         field :start_vacation_date

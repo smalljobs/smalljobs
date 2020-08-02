@@ -90,7 +90,7 @@ de:
     allocation: "Zuweisung"
     application: "Bewerben"
     proposal: "Vorschlag"
-    seeker_salary: "Lohnvorschlag"
+    seeker_salary: "Lohn"
     messages_templates: "Vorlagen"
     available_placeholders: "Verfügbare Platzhalter:"
     seeker_salary_hint_wage_factor: >

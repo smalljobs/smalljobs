@@ -56,6 +56,7 @@ module ApiHelper
     json[:active] = organization.active
     json[:wage_factor] = organization.wage_factor
     json[:salary_deduction] = organization.salary_deduction
+    json[:hide_salary] = organization.hide_salary
     json[:place] = place_to_json(organization.place)
     json[:opening_hours] = RedCloth.new(organization.opening_hours || "").to_html
     json[:registration_welcome_message] = message
