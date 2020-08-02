@@ -140,6 +140,7 @@ RailsAdmin.config do |config|
         field :description
         field :opening_hours
         field :website
+        field :signature_on_contract
         field :wage_factor do
           help I18n.t('admin.groups.wage_factor')
         end

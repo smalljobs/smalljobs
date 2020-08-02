@@ -68,7 +68,7 @@ class Broker::RegionOrganizationsController < InheritedResources::Base
                                          :street, :email, :phone, :default_hourly_per_age,
                                          :place_id,:assigned_to_region, :region_id, :broker_ids,
                                          :vacation_active, :start_vacation_date, :end_vacation_date, :vacation_title,
-                                         :vacation_text, :salary_deduction, :hide_salary)
+                                         :vacation_text, :salary_deduction, :hide_salary, :signature_on_contract)
   end
 
 end

@@ -103,6 +103,7 @@ de:
         vacation_text: 'Abwesenheitsmeldung Text'
         salary_deduction: 'Lohnabzug'
         hide_salary: 'Lohn in den Ausschreibungen verstecken'
+        signature_on_contract: 'Unterschrift im Vertrag mit Arbeitgebenden verlangen'
       employment:
         organization: "Organisation"
         broker: "Vermittler"
