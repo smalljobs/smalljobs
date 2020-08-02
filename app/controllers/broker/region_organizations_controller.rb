@@ -5,7 +5,8 @@ class Broker::RegionOrganizationsController < InheritedResources::Base
   before_filter :organization, only: [:edit, :update]
 
   def edit
-
+    @organization.vacation_title = I18n.t('organizations.edit.vacation_title_default') if @organization.vacation_title.blank?
+    @organization.vacation_text = I18n.t('organizations.edit.vacation_text_default') if @organization.vacation_text.blank?
   end
 
   def create
@@ -60,7 +61,14 @@ class Broker::RegionOrganizationsController < InheritedResources::Base
   end
 
   def permitted_params
-    params.require(:organization).permit(:wage_factor, :welcome_email_for_parents_msg, :activation_msg, :get_job_msg, :not_receive_job_msg, :welcome_chat_register_msg, :welcome_app_register_msg, :welcome_letter_employers_msg, :opening_hours, :id, :logo, :logo_delete, :background, :background_delete, :name, :description, :website, :street, :email, :phone, :default_hourly_per_age, :place_id,:assigned_to_region, :region_id, :broker_ids)
+    params.require(:organization).permit(:wage_factor, :welcome_email_for_parents_msg, :activation_msg, :get_job_msg,
+                                         :not_receive_job_msg, :welcome_chat_register_msg, :welcome_app_register_msg,
+                                         :welcome_letter_employers_msg, :opening_hours, :id, :logo, :logo_delete,
+                                         :background, :background_delete, :name, :description, :website,
+                                         :street, :email, :phone, :default_hourly_per_age,
+                                         :place_id,:assigned_to_region, :region_id, :broker_ids,
+                                         :vacation_active, :start_vacation_date, :end_vacation_date, :vacation_title,
+                                         :vacation_text)
   end
 
 end

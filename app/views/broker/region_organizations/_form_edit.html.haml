@@ -22,6 +22,21 @@
 
   %fieldset
     %legend
+      = t('legends.vacations')
+      %i.fa.fa-2x.fa-umbrella.pull-right
+
+    .form-inputs
+      = f.input :vacation_active, as: :boolean, inline_label: true, label: false, input_html: {class: "js-vacation-active"}
+      .sj-vacation-container.js-vacation-container
+        = f.input :start_vacation_date, as: :date
+        = f.input :end_vacation_date, as: :date
+        = f.input :vacation_title
+        = f.input :vacation_text
+
+
+
+  %fieldset
+    %legend
       = t('legends.contact')
       %i.fa.fa-2x.fa-phone.pull-right
 

@@ -62,7 +62,9 @@ module ApiHelper
     json[:vacations] = {
         active: organization.vacation_active,
         start: organization.start_vacation_date,
-        end: organization.end_vacation_date
+        end: organization.end_vacation_date,
+        title: organization.vacation_title,
+        text: organization.vacation_text
     }
     brokers = []
     for broker in organization.brokers

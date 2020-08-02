@@ -79,6 +79,17 @@ class Organization < ActiveRecord::Base
     self.remove_background! if @background_delete == "1"
   end
 
+  def self.end_vacation(date = Time.zone.now.to_date )
+    organizations = Organization.where("end_vacation_date < ?", date)
+    organizations.each do |organization|
+      organization.update(
+          vacation_active: false,
+          start_vacation_date: nil,
+          end_vacation_date: nil
+      )
+    end
+  end
+
   private
 
   def vacation_date

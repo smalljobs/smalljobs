@@ -96,6 +96,11 @@ de:
         get_job_msg: "Job erhalten"
         activation_msg: "Aktivierungsnachricht"
         welcome_email_for_parents_msg: "Willkommensmail für Eltern"
+        vacation_active: 'Abwesenheitsmeldung aktiviert'
+        start_vacation_date: 'Erster Tag'
+        end_vacation_date: 'Letzter Tag'
+        vacation_title: 'Abwesenheitsmeldung Titel'
+        vacation_text: 'Abwesenheitsmeldung Text'
       employment:
         organization: "Organisation"
         broker: "Vermittler"
