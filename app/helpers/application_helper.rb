@@ -72,9 +72,9 @@ module ApplicationHelper
   #
   # @return [Array<String, String>] the salary types
   #
-  def job_salary_types_with_factor(factor)
+  def job_salary_types_with_factor(factor, salary_deduction=0)
     [
-        [I18n.t('jobs.salary_types.hourly_per_age_with_factor', wage_factor: factor), 'hourly_per_age'],
+        [I18n.t('jobs.salary_types.hourly_per_age_with_factor', wage_factor: factor, salary_deduction: salary_deduction), 'hourly_per_age'],
         [I18n.t('jobs.salary_types.hourly'), 'hourly'],
         [I18n.t('jobs.salary_types.fixed'), 'fixed']
     ]

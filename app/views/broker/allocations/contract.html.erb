@@ -57,7 +57,7 @@
         <%= t('jobs.hourly_rate', salary: number_to_currency(@job.salary)) %>
 
         <% elsif @job.salary_type == 'hourly_per_age' %>
-        <%= t('jobs.hourly_rate', salary: number_to_currency(@job.organization.wage_factor * get_age(@allocation.seeker.date_of_birth))) %>
+        <%= t('jobs.hourly_rate', salary: number_to_currency(get_age(@allocation.seeker.date_of_birth) * @job.organization.wage_factor - @job.organization.salary_deduction)) %>
         <% end %>
     </div>
 
@@ -130,31 +130,33 @@
   <div class="font-bigger margin-top-40 font-bold padding-bottom-5">
     2. Nach der Arbeit ausfüllen und Lohn an Jugendliche_n auszahlen
   </div>
-  <table border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse;" bordercolor="#cbe7d5" class="green-table height-td">
-    <thead>
-    <tr>
-      <th>
-        Datum
-      </th>
-      <th>
-        Dauer (h)
-      </th>
-      <th>
-        CHF
-      </th>
-      <th>
-        Unterschrift Jugendliche_r
-      </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr><td colspan="4"></td></tr>
-    <tr><td colspan="4"></td></tr>
-    <tr><td colspan="4"></td></tr>
-    <tr><td colspan="4"></td></tr>
+  <% if @provider&.organization&.signature_on_contract %>
+    <table border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse;" bordercolor="#cbe7d5" class="green-table height-td">
+      <thead>
+      <tr>
+        <th>
+          Datum
+        </th>
+        <th>
+          Dauer (h)
+        </th>
+        <th>
+          CHF
+        </th>
+        <th>
+          Unterschrift Jugendliche_r
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr><td colspan="4"></td></tr>
+      <tr><td colspan="4"></td></tr>
+      <tr><td colspan="4"></td></tr>
+      <tr><td colspan="4"></td></tr>
 
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  <% end %>
 
 
   <footer class="footer-right">

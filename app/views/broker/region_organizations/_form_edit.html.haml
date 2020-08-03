@@ -19,6 +19,21 @@
       = f.input :opening_hours, required: true
       = f.input :street, required: true
       = f.association :place, required: true, collection: current_region.places, include_blank: true, :label_method => lambda { |place| "#{place.zip} #{place.name}" }
+      = f.input :signature_on_contract, as: :boolean, inline_label: true, label: false
+  %fieldset
+    %legend
+      = t('legends.vacations')
+      %i.fa.fa-2x.fa-umbrella.pull-right
+
+    .form-inputs
+      = f.input :vacation_active, as: :boolean, inline_label: true, label: false, input_html: {class: "js-vacation-active"}
+      .sj-vacation-container.js-vacation-container
+        = f.input :start_vacation_date, as: :date
+        = f.input :end_vacation_date, as: :date
+        = f.input :vacation_title
+        = f.input :vacation_text
+
+
 
   %fieldset
     %legend
@@ -48,6 +63,8 @@
     .form-inputs
       -#= f.input :default_hourly_per_age
       = f.input :wage_factor
+      = f.input :salary_deduction
+      = f.input :hide_salary, as: :boolean, inline_label: true, label: false
 
   %fieldset
     %legend

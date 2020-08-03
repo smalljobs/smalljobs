@@ -23,6 +23,11 @@ every 1.day, at: '4am' do # Use any day of the week or :weekend, :weekday
   rake "smalljobs:send_weekly_update"
 end
 
+every 1.day, at: '3am' do # Use any day of the week or :weekend, :weekday
+  rake "smalljobs:end_vacation"
+end
+
+
 # every :monday, at: '12pm' do # Use any day of the week or :weekend, :weekday
 #   rake "smalljobs:send_job_reminder"
 # end
