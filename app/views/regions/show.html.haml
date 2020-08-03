@@ -1,12 +1,51 @@
 -#.jumbotron.organization{ style: @organization.background.present? ? "background-image: url(#{ @organization.background.url(:web) })" : ''}
-.jumbotron.organization
-  - if @region.logo.present?
-    = image_tag(@region.logo.url(:web, :normal), alt: @region.name)
-  - else
-    %h1= @region.name
-  %p.lead
-    = "Sackgeldjobs für Jugendliche bei Familien, SeniorInnen, anderen Erwachsenen und Firmen für Generationendialog, berufliche Integration und sozialen Zusammenhalt."
-    = link_to "Mehr über uns", "https://smalljobs.ch"
+.jumbotron.sj-header-image-jumbotron
+  .row
+    .visible-sm.visible-xs.col-xs-12
+      - if @region.logo.present?
+        = image_tag(@region.logo.url(:web, :normal), alt: @region.name)
+      - else
+        %h1= @region.name
+    .col-xs-12.col-md-7
+      - @region.organizations.where(active: true).order(:name).distinct.limit(1).each do |organization|
+        %address
+          = organization.name
+          %br
+          = organization.street
+          %br
+
+          = organization.place.zip + ' ' + organization.place.name
+          %br
+          %br
+
+          - if organization.phone
+            %abbr{ title: t('activerecord.attributes.provider.phone') } T:
+            = organization.phone.phony_formatted
+            %br
+
+          - if organization.email
+            %a{ href: "mailto:#{organization.email}" }= organization.email
+            %br
+
+          - if organization.website
+            = link_to organization.website, organization.website
+            %br
+    .hidden-sm.hidden-xs.col-md-5.text-right
+      - if @region.logo.present?
+        = image_tag(@region.logo.url(:web, :normal), alt: @region.name, class: 'sj-header-image-logo')
+      - else
+        %h1= @region.name
+  .row
+    .col-xs-12.text-right
+      = link_to "Job anbieten", new_provider_registration_path, class: 'btn btn-success'
+      = link_to "Job finden", new_provider_registration_path, class: 'btn btn-success'
+
+    -#%p.lead
+    -#  = "Sackgeldjobs für Jugendliche bei Familien, SeniorInnen, anderen Erwachsenen und Firmen für Generationendialog, berufliche Integration und sozialen Zusammenhalt."
+    -#  = link_to "Mehr über uns", "https://smalljobs.ch"
+
+
+=raw @region.content
 
 
 %h1= "Job anbieten"

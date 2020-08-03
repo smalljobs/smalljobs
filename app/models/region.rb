@@ -16,4 +16,5 @@ class Region < ActiveRecord::Base
   validates :places, length: {minimum: 1}
 
   mount_uploader :logo, LogoUploader
+  mount_uploader :header_image, HeaderImageUploader
 end

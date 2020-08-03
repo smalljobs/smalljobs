@@ -31,6 +31,7 @@ de:
     format:
       logo: "Format 400x220"
       background: "Format 700x400"
+      header_image: "Format 1600x1060"
   filters:
     all: "Alle"
     without_applications: "Ohne Bewerbungen"
