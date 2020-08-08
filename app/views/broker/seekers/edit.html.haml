@@ -13,7 +13,7 @@
     = render 'assignments'
 
 .hidden
+  .js-rc-seeker-username{data: {username: @seeker.rc_username.to_s, error: I18n.t("broker.seeker.edit.error")}}
   - if @seeker.rc_username.present?
-    .js-rc-seeker-username{data: {username: @seeker.rc_username.to_s, error: I18n.t("broker.seeker.edit.error")}}
     = link_to '#', room_broker_rocketchats_path(@seeker.rc_username), class: 'js-rocket-chat-room'
 

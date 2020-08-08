@@ -32,9 +32,9 @@ generateIframe = (user_id, token, url)->
       $('#js-rocket-chat-modal').modal('show')
       $('#js-rocket-chat-modal').on 'shown.bs.modal', (e)->
         $('.js-rocketchat-icon').removeClass('sj-rotate')
-        if $('.js-rocket-chat-room') and $('.js-rc-seeker-username').data('username').length
+        if $('.js-rocket-chat-room')
           getRoomId()
-        else if $('.js-rc-seeker-username').length and $('.js-rc-seeker-username').data('username').length == 0
+        else if $('.js-rc-seeker-username') and $('.js-rc-seeker-username').data('username').length == 0
           toastr.error($('.js-rc-seeker-username').data('error'), 'Error')
 
     return
