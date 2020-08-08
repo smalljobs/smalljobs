@@ -1,24 +1,48 @@
-height: 500
-menubar: false
-statusbar: false
-toolbar:
-  - styleselect | bold italic underline strikethrough | undo redo | tableinsertrowbefore tableinsertrowafter tabledeleterow
-table_toolbar: tableinsertrowbefore tableinsertrowafter tabledeleterow
-style_formats:
-  - title: 'Header 1'
-    format: 'h1'
-  - title: 'Header 2'
-    format: 'h2'
-  - title: 'Header 3'
-    format: 'h3'
-  - title: 'Header 4'
-    format: 'h4'
-  - title: 'Header 5'
-    format: 'h5'
-  - title: 'Header 6'
-    format: 'h6'
-plugins:
-  - table
+default:
+  height: 500
+  menubar: false
+  statusbar: false
+  toolbar:
+    - styleselect | bold italic underline strikethrough | undo redo | tableinsertrowbefore tableinsertrowafter tabledeleterow
+  table_toolbar: tableinsertrowbefore tableinsertrowafter tabledeleterow
+  style_formats:
+    - title: 'Header 1'
+      format: 'h1'
+    - title: 'Header 2'
+      format: 'h2'
+    - title: 'Header 3'
+      format: 'h3'
+    - title: 'Header 4'
+      format: 'h4'
+    - title: 'Header 5'
+      format: 'h5'
+    - title: 'Header 6'
+      format: 'h6'
+  plugins:
+    - table
 
-
-
+expanded:
+  height: 500
+  menubar: false
+  statusbar: false
+  toolbar:
+    - code | styleselect | bold italic underline strikethrough | undo redo | tableinsertrowbefore tableinsertrowafter tabledeleterow | image | link
+  table_toolbar: tableinsertrowbefore tableinsertrowafter tabledeleterow
+  style_formats:
+    - title: 'Header 1'
+      format: 'h1'
+    - title: 'Header 2'
+      format: 'h2'
+    - title: 'Header 3'
+      format: 'h3'
+    - title: 'Header 4'
+      format: 'h4'
+    - title: 'Header 5'
+      format: 'h5'
+    - title: 'Header 6'
+      format: 'h6'
+  plugins:
+    - code
+    - table
+    - image
+    - link

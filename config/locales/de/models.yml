@@ -60,6 +60,8 @@ de:
         employments: "Anstellungen"
         brokers: "Vermittler"
         organizations: "Organization"
+        content: "Inhalt"
+        contact_content: "Kontaktinhalt"
       place:
         name: "Name"
         state: "Kanton"
