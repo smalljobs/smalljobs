@@ -214,6 +214,9 @@ de:
           lead: "Hier können Sie alle Bewertungen für einen Job betrachten."
           add_new: "Neue Bewertung hinzufügen"
           no_reviews: "Es sind noch keine Bewertungen für diesen Job erfasst"
+    seeker:
+      edit:
+        error: "Chat ist deaktiviert für diese Person. Bitte per Telefon Kontakt aufnehmen."
   provider:
     jobs:
       new:

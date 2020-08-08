@@ -3,7 +3,6 @@ $ ->
     click: (e)->
       e.preventDefault()
       $('.js-rocketchat-icon').addClass('sj-rotate')
-
       $.ajax
         url: $(@).attr('href')
         method: 'POST'
@@ -33,14 +32,16 @@ generateIframe = (user_id, token, url)->
       $('#js-rocket-chat-modal').modal('show')
       $('#js-rocket-chat-modal').on 'shown.bs.modal', (e)->
         $('.js-rocketchat-icon').removeClass('sj-rotate')
-        if $('.js-rocket-chat-room')
+        if $('.js-rocket-chat-room') and $('.js-rc-seeker-username').data('username').length
           getRoomId()
+        else if $('.js-rc-seeker-username').length and $('.js-rc-seeker-username').data('username').length == 0
+          toastr.error($('.js-rc-seeker-username').data('error'), 'Error')
 
     return
 
 
 getRoomId = ()->
-  console.log "getRoom"
+
   $.ajax
     url: $('.js-rocket-chat-room').attr('href')
     method: 'GET'
