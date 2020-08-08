@@ -223,6 +223,7 @@ RailsAdmin.config do |config|
       field :subdomain
       field :places
       field :content
+      field :contact_content
 
       group :design do
         label I18n.t('admin.groups.design')
