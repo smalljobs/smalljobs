@@ -22,11 +22,11 @@
         .col-xs-12.col-md-6
           = f.input :lastname, required: true
 
-  - if !@seeker.new_record? and ENV['ROCKET_CHAT_URL'].blank?
-    %fieldset
-      %a{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
-        %i.fa.fa-envelope
-        = "Nachricht senden"
+    - if !@seeker.new_record? and ENV['ROCKET_CHAT_URL'].blank?
+      %fieldset
+        %a{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+          %i.fa.fa-envelope
+          = "Nachricht senden"
 
     %fieldset
       %a{href: "#", "data-toggle": "modal", "data-target": "#jobs_certificate_modal"}
