@@ -2,7 +2,7 @@
   %div.provider_allocations
     %h4.assignments-header= 'Einsätze'
     %ul.allocations-list
-      - for assignment in @job.assignments
+      - @job.assignments.order(created_at: :desc).each do |assignment|
         %li.allocations-list-item
           %p
             = link_to "#{assignment.provider.name}, #{assignment.description}", edit_broker_seeker_path(assignment.seeker)
