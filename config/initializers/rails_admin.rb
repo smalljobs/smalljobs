@@ -279,6 +279,8 @@ RailsAdmin.config do |config|
       field :email
       field :active
       field :confirmed
+      field :rc_id
+      field :rc_username
     end
 
     edit do
