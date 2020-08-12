@@ -2,7 +2,7 @@
   %div.provider_allocations
     %h4.assignments-header= 'Einsätze'
     %ul.allocations-list
-      - for assignment in @seeker.assignments
+      - @seeker.assignments.order(created_at: :desc).each do |assignment|
         - if assignment.provider.present?
           %li.allocations-list-item
             %p
