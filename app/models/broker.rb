@@ -40,6 +40,7 @@ class Broker < ActiveRecord::Base
 
   after_create :connect_to_region
   after_create :create_rc_account
+  after_update :create_rc_account
   attr_accessor :assigned_to_region, :region_id
 
   def connect_to_region
