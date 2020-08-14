@@ -302,6 +302,8 @@ RailsAdmin.config do |config|
 
         field :contact_availability
         field :update_prefs
+        field :rc_id
+        field :rc_username
       end
 
       group :employment do
