@@ -74,6 +74,7 @@ Smalljobs::Application.routes.draw do
       resource :organization, only: [:edit, :update]
       resource :region, only: [:edit, :update] do
         delete :destroy_logo
+        delete :destroy_header_image
         collection do
           resources :organizations, except: [:new], controller: :region_organizations, as: :region_organizations do
             post :reset_templates_to_default

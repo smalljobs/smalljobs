@@ -3,7 +3,7 @@
   .row
     .visible-sm.visible-xs.col-xs-12
       - if @region.logo.present?
-        = image_tag(@region.logo.url(:web, :normal), alt: @region.name)
+        = image_tag(@region.logo.url(:web, :normal), alt: @region.name, class: 'sj-header-image-logo')
       - else
         %h1= @region.name
     .col-xs-12.col-md-7
@@ -14,10 +14,12 @@
       - else
         %h1= @region.name
   .row
-    .col-xs-12.text-right
-      = link_to "Job anbieten", app_links_path, class: 'btn btn-success'
-      = link_to "Job finden", new_provider_registration_path, class: 'btn btn-success'
-
+    .col-xs-12.text-left.visible-sm.visible-xs.sj-btn-font-bigger
+      = link_to "Job finden", app_links_path, class: 'btn btn-success'
+      = link_to "Job anbieten", new_provider_registration_path, class: 'btn btn-success'
+    .col-xs-12.text-right.hidden-sm.hidden-xs
+      = link_to "Job finden", app_links_path, class: 'btn btn-success'
+      = link_to "Job anbieten", new_provider_registration_path, class: 'btn btn-success'
     -#%p.lead
     -#  = "Sackgeldjobs für Jugendliche bei Familien, SeniorInnen, anderen Erwachsenen und Firmen für Generationendialog, berufliche Integration und sozialen Zusammenhalt."
     -#  = link_to "Mehr über uns", "https://smalljobs.ch"
