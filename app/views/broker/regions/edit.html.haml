@@ -13,6 +13,20 @@
 
     .form-inputs.section-margins
       = f.input :name, required: true, label: 'Name der Region'
+    %label
+      %div
+        Website Kontakt
+    .row
+      .col-xs-12
+        = f.text_area :contact_content, class: 'tinymce'
+
+    %label
+      %div
+        Website Inhalt
+    .row
+      .col-xs-12
+        = tinymce :expanded
+        = f.text_area :content, class: 'tinymce'
 
     %div.row.section-margins
       %div.col-xs-12
@@ -47,34 +61,7 @@
         %div.help-block
           Empfohlene Grösse ist 100x100 Pixels
 
-    %label
-      %div
-        Bild in der Kopfzeile
-    .row
-      .col-xs-4
-        - if @region.header_image.present?
-          = image_tag @region.header_image, class: 'img-responsive js-remove-img'
-        = f.file_field :header_image
-        - if @region.header_image.present?
-          %i.fa.fa-trash.fa-2x.js-delete-region-icon.delete-region-icon
 
-        %div.help-block
-          Empfohlene Grösse ist 1600x1060 Pixels
-
-    %label
-      %div
-        Inhalt
-    .row
-      .col-xs-12
-        = tinymce :expanded
-        = f.text_area :content, class: 'tinymce'
-
-    %label
-      %div
-        Kontaktinhalt
-    .row
-      .col-xs-12
-        = f.text_area :contact_content, class: 'tinymce'
 
   .form-actions
     = f.button :submit, t('common.edit'), class: 'btn btn-primary'

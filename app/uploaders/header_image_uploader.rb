@@ -12,7 +12,7 @@ class HeaderImageUploader < CarrierWave::Uploader::Base
   end
 
   version(:web) do
-    version(:normal) { process(resize_to_fit: [1600, 1057]) }
+    version(:normal) { process(resize_to_fit: [2048, 1352]) }
     version(:small) { process(resize_to_fit: [110, 110]) }
   end
 end
