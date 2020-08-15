@@ -62,8 +62,8 @@
 
     .form-inputs
       -#= f.input :default_hourly_per_age
-      = f.input :wage_factor
-      = f.input :salary_deduction
+      = f.input :wage_factor, input_html: {type: 'text'}
+      = f.input :salary_deduction, input_html: {type: 'text'}
       = f.input :hide_salary, as: :boolean, inline_label: true, label: false
 
   %fieldset
