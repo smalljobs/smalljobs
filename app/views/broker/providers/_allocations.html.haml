@@ -2,7 +2,7 @@
   %button.btn.btn-success.prevail_state.width-100.new-job-btn
     = "Neuen Job erfassen"
 
-- jobs = @provider.jobs.where(state: 'running')
+- jobs = @provider.jobs.where(state: 'check')
 - if jobs.count > 0
   %h4.allocations-header= "Jobs: Prüfen"
   = t('activerecord.attributes.allocation.state_label.')
