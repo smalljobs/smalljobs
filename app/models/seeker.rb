@@ -210,7 +210,7 @@ class Seeker < ActiveRecord::Base
   end
 
   # Return seeker current region
-  # not use
+  # unused
   #
   def region_through_org
     return self.organization.regions.first if self.organization.present?
