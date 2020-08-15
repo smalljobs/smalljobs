@@ -4,8 +4,9 @@ class Provider < ActiveRecord::Base
 
   enum state: {inactive: 1, active: 2, completed: 3}
 
-  has_many :jobs
-  has_many :assignments
+  has_many :jobs, dependent: :nullify
+  has_many :assignments, dependent: :nullify
+  has_many :allocation, dependent: :nullify
   belongs_to :place, inverse_of: :providers
   belongs_to :organization
   # has_many :notes
