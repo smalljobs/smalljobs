@@ -5,7 +5,6 @@
 - jobs = @provider.jobs.where(state: 'check')
 - if jobs.count > 0
   %h4.allocations-header= "Jobs: Prüfen"
-  = t('activerecord.attributes.allocation.state_label.')
   - for job in jobs
     = link_to "#{job.title}, #{job.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_job_path(job), class: 'bold'
     %ul.allocations-list
