@@ -7,6 +7,8 @@ class Allocation < ActiveRecord::Base
 
   enum state: {application_open: 0, application_rejected: 1, proposal: 2, active: 3, finished: 4, cancelled: 5, application_retracted: 6}
 
+  CUSTOM_ORDER_STATE = [:active, :application_open, :proposal, :cancelled, :application_rejected, :application_retracted, :finished]
+
   validates :job, presence: true
   validates :seeker, presence: true
   validates :seeker, uniqueness: { scope: :job_id }

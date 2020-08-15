@@ -3,9 +3,10 @@ module SeekerHelper
 
   def allocations_with_numbers(seeker)
     allocations_group = seeker.allocations.order(:state).group(:state).count
-    allocations_group.map do |k,v|
-      if v > 0
-        link_to "#{v} #{I18n.t("activerecord.attributes.allocation.state_label.#{k}")}", "##{k}"
+
+    Allocation::CUSTOM_ORDER_STATE.map do |state|
+      if allocations_group[state.to_s].to_i > 0
+        link_to "#{allocations_group[state.to_s]} #{I18n.t("activerecord.attributes.allocation.state_label.#{state}")}", "##{state}"
       end
     end.compact.join(", ").html_safe
   end
