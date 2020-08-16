@@ -271,8 +271,13 @@
         %div.col-sm-2.float-left
           = link_to t('seekers.index.add_new'), new_broker_seeker_path, class: 'btn btn-success'
         %div.col-sm-3.float-right
-          %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
-          %i.fa.fa-2x.fa-times-circle.delete-icon.display-none
+          %input.form-control.search{type: 'text', class: 'search-field js-search-field-seeker', placeholder: 'Suche'}
+          %i.fa.fa-2x.fa-times-circle.delete-icon.display-none.js-seeker-delete-icon
+          .sj-age-slider-container.js-age-slider-container.display-none
+            #js-lower-value.sj-lower-value.col-xs-2
+            .sj-slider.col-xs-6.col-xs-offset-1
+              #js-age-scroll
+            #js-higher-value.sj-higher-value.col-xs-2.col-xs-offset-1
         %div.col-sm-1.float-right
           %a.btn.archive-btn
             = "Archiv"
@@ -318,6 +323,8 @@
                   = seeker.additional_contacts
                 %td.languages.display-none
                   = seeker.languages
+                %td.age.display-none
+                  = seeker.age
     %div{id: 'assignments', class: 'tab-pane fade in'}
       %div.row.margin-top-25
         %div.col-sm-3.float-right
@@ -522,7 +529,7 @@
       var vacationStart = $(this).find("option:selected").data('vacation-start');
       var vacationEnd = $(this).find("option:selected").data('vacation-end');
       var showDate = $(this).find("option:selected").data('show-date');
-      
+
       if(selectedOrganizationId === '0') {
         $('.display-none.organization').removeClass('display-none');
       } else {
@@ -553,12 +560,13 @@
       'feedback', 'description', 'salary', 'manpower', 'duration',
       'long_description', 'short_description', 'phone',
       'mobile', 'contact_preference', 'contact_availability', 'company',
-      'email', 'sex', 'additional_contacts', 'occupation', 'languages' ]
+      'email', 'sex', 'additional_contacts', 'occupation', 'languages',
+      'age' ]
     };
 
     var jobsList = new List('jobs', options);
     var providersList = new List('providers', options);
-    var seekersList = new List('seekers', options);
+    window.seekersList = new List('seekers', options);
     var assignmentsList = new List('assignments', options);
     var todosCurrentList = new List('todo_current', options);
     var todosPostponedList = new List('todo_postponed', options);
