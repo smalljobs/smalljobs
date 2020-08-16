@@ -19,7 +19,7 @@
         – <%= @provider.organization.place.full_name %>
       </div>
       <div class="standard-text margin-top-120">
-        <%= @provider.company != nil && !@provider.company.empty? ? "#{@provider.company}<br/>".html_safe : "<br/>".html_safe %>
+        <%= @provider.company != nil && !@provider.company.blank? ? "#{@provider.company}<br/>".html_safe : "<br/>".html_safe %>
         <%= @provider.name %><br/>
         <%= @provider.street %><br/>
         <%= @provider.place.full_name %>
@@ -30,7 +30,7 @@
       <div class="standard-text margin-top-40">.................................................</div>
       <div class="standard-text">
         <%= @broker.name %><br/>
-        <%= @broker.mobile.empty? ? @broker.phone : @broker.mobile %><br/>
+        <%= @broker.mobile.blank? ? @broker.phone : @broker.mobile %><br/>
         <%= @broker.email %>
       </div>
       <footer class="left-footer">
@@ -79,7 +79,7 @@
       Arbeitgeber_in:
     </div>
     <div class="font-bigger">
-      <%= @provider.company != nil && !@provider.company.empty? ? "#{@provider.company}, " : "" %><%= @provider.name %>
+      <%= @provider.company != nil && !@provider.company.blank? ? "#{@provider.company}, " : "" %><%= @provider.name %>
     </div>
     <p class="font-smaller">
       <%= @provider.street %>, <%= @provider.place.full_name %>
@@ -172,8 +172,13 @@
           Die vermittelnde Jobbörse kann unter keinen Umständen haftbar gemacht werden.
         </li>
         <li>
-          Der Stundenlohn entspricht dem Alter des Jugendlichen mal <%= @provider.organization.wage_factor || 1 %> (z.B. 17 Jahre
-          x <%= @provider.organization.wage_factor || 1 %> = <%= 17 * (@provider.organization.wage_factor || 1) %> CHF).
+          Den Stundenlohn können Sie selbst bestimmen, wir empfehlen jedoch einen Richtwert
+          von Alter x <%= @provider.organization.wage_factor || 1 %>
+          (z.B. 17 Jahre x <%= @provider.organization.wage_factor || 1 %> =
+          <%= 17 * (BigDecimal.new((@provider.organization.wage_factor || 1).to_s)) %> CHF)
+
+<!--          Der Stundenlohn entspricht dem Alter des Jugendlichen mal <%#= @provider.organization.wage_factor || 1 %> (z.B. 17 Jahre-->
+<!--          x <%#= @provider.organization.wage_factor || 1 %> = <%#= 17 * (@provider.organization.wage_factor || 1) %> CHF).-->
         </li>
         <li>
           Unfallversicherung: Familienversicherung des Jugendlichen (bis zu einem Jahreslohn von 750 CHF).
