@@ -41,12 +41,12 @@ $ ->
   $(document).on
     click: (e)->
       $('.js-seeker-delete-icon').removeClass('display-none')
-      $('.js-age-slider-container').removeClass('display-none')
+      $('.js-age-slider-container').removeClass('opacity-0')
     '.js-search-field-seeker'
 
   $(document).on
     click: (e)->
-      $('.js-age-slider-container').addClass('display-none')
+      $('.js-age-slider-container').addClass('opacity-0')
       window.seekersList.filter()
     '.js-seeker-delete-icon'
 
