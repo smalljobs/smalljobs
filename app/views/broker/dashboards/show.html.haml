@@ -19,7 +19,9 @@
           - for organization in current_broker.all_organizations
             %option{value: "#{organization.id}", data: {'vacation-start': organization.start_vacation_date,
             'vacation-end': organization.end_vacation_date,
-            'show-date': ( organization.vacation_active && (organization.end_vacation_date.present? && (organization.end_vacation_date > Date.today))).to_s}}
+            'show-date': ( organization.vacation_active && (organization.end_vacation_date.present? && (organization.end_vacation_date > Date.today))).to_s},
+            selected: organization.id == current_broker.selected_organization_id}
+
               = organization.name
     %div.col-sm-2.float-left.display-none
       %input.form-control.search{type: 'text', id: 'search-field', placeholder: 'Suche'}
@@ -273,7 +275,7 @@
         %div.col-sm-3.float-right
           %input.form-control.search{type: 'text', class: 'search-field js-search-field-seeker', placeholder: 'Suche'}
           %i.fa.fa-2x.fa-times-circle.delete-icon.display-none.js-seeker-delete-icon
-          .sj-age-slider-container.js-age-slider-container.display-none
+          .sj-age-slider-container.js-age-slider-container.opacity-0
             #js-lower-value.sj-lower-value.col-xs-2
             .sj-slider.col-xs-6.col-xs-offset-1
               #js-age-scroll
@@ -525,6 +527,7 @@
 
     $('#dropdown-btn').on('change', function(){
       selectedOrganizationId = this.value;
+      $.post("#{save_settings_broker_dashboard_path}", {selected_organization_id: parseInt(selectedOrganizationId)}, function(response) {});
       var name = $(this).find("option:selected").text();
       var vacationStart = $(this).find("option:selected").data('vacation-start');
       var vacationEnd = $(this).find("option:selected").data('vacation-end');
@@ -549,10 +552,38 @@
       }
 
       $.each($('.js-active-tab a'), function(){
-        value = $("tr.organization", $($(this).attr('href'))).length - $("tr.display-none", $($(this).attr('href'))).length
-        $("span",$("[href='"+$(this).attr('href')+"']")).text("("+value+")")
+           if ($(this).attr('href') != "#todos"){
+            value = $("tr.organization", $($(this).attr('href'))).length - $("tr.display-none", $($(this).attr('href'))).length
+            $("span",$("[href='"+$(this).attr('href')+"']")).text("("+value+")")
+          }else{
+            $.each($('.js-todo-tabs a'), function(){
+              if($(this).attr('aria-expanded') == 'true'){
+                value = $("tr.organization", $($(this).attr('href'))).length - $("tr.display-none", $($(this).attr('href'))).length
+                $("span",$("[href='#todos']")).text("("+value+")")
+              }
+            })
+          }
       })
     });
+
+    $('.js-todo-tabs a').on('click', function(){
+      _that = $(this);
+      $.each($('.js-active-tab a'), function(){
+          if ($(this).attr('href') != "#todos"){
+            value = $("tr.organization", $($(this).attr('href'))).length - $("tr.display-none", $($(this).attr('href'))).length
+            $("span",$("[href='"+$(this).attr('href')+"']")).text("("+value+")")
+          }else{
+            $.each($('.js-todo-tabs a'), function(){
+              // if($(this).attr('aria-expanded') == 'true'){
+              if($(this).attr('href') == _that.attr('href')){
+                value = $("tr.organization", $($(this).attr('href'))).length - $("tr.display-none", $($(this).attr('href'))).length
+                $("span",$("[href='#todos']")).text("("+value+")")
+              }
+            })
+          }
+
+        })
+    })
 
     var options = {
       valueNames: [ 'name', 'provider-name', 'place', 'status',
@@ -611,7 +642,6 @@
         searchFieldVal = '';
       }
       window.localStorage.setItem("search_filter", searchFieldVal);
-        $.post("#{save_settings_broker_dashboard_path}", {filter: searchFieldVal, selected_organization_id: parseInt(selectedOrganizationId)}, function(response) {
-      });
+      $.post("#{save_settings_broker_dashboard_path}", {filter: searchFieldVal, selected_organization_id: parseInt(selectedOrganizationId)}, function(response) {});
     });
   });

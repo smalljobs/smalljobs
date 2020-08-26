@@ -13,20 +13,7 @@
 
     .form-inputs.section-margins
       = f.input :name, required: true, label: 'Name der Region'
-    %label
-      %div
-        Website Kontakt
-    .row
-      .col-xs-12
-        = f.text_area :contact_content, class: 'tinymce'
 
-    %label
-      %div
-        Website Inhalt
-    .row
-      .col-xs-12
-        = tinymce :expanded
-        = f.text_area :content, class: 'tinymce'
 
     %div.row.section-margins
       %div.col-xs-12
@@ -60,7 +47,20 @@
 
         %div.help-block
           Empfohlene Grösse ist 100x100 Pixels
+    %label
+      %div
+        Website Kontakt
+    .row
+      .col-xs-12
+        = f.text_area :contact_content, class: 'tinymce'
 
+    %label
+      %div
+        Website Inhalt
+    .row
+      .col-xs-12
+        = tinymce :expanded
+        = f.text_area :content, class: 'tinymce'
 
 
   .form-actions
