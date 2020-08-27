@@ -275,11 +275,12 @@
         %div.col-sm-3.float-right
           %input.form-control.search{type: 'text', class: 'search-field js-search-field-seeker', placeholder: 'Suche'}
           %i.fa.fa-2x.fa-times-circle.delete-icon.display-none.js-seeker-delete-icon
-          .sj-age-slider-container.js-age-slider-container.opacity-0
-            #js-lower-value.sj-lower-value.col-xs-2
-            .sj-slider.col-xs-6.col-xs-offset-1
-              #js-age-scroll
-            #js-higher-value.sj-higher-value.col-xs-2.col-xs-offset-1
+          .sj-age-slider-container-relative
+            .sj-age-slider-container.js-age-slider-container.display-none
+              #js-lower-value.sj-lower-value.col-xs-2
+              .sj-slider.col-xs-6.col-xs-offset-1
+                #js-age-scroll
+              #js-higher-value.sj-higher-value.col-xs-2.col-xs-offset-1
         %div.col-sm-1.float-right
           %a.btn.archive-btn
             = "Archiv"
