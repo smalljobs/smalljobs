@@ -22,10 +22,17 @@ $(document).ready(function() {
           $('.js-todo-tabs > li > a[href="#todo_postponed"] > .sj-text-red').html($('#todo_postponed').find('tbody').find('tr').length)
           $('.js-todo-tabs > li > a[href="#todo_current"] > .sj-text-red').html($('#todo_current').find('tbody').find('tr').length-1)
         }
-        $('.js-postpone-msg').text(result.message)
-        $('.js-postpone-msg').show();
-        setTimeout(function(){$('.js-postpone-msg').hide()}, 3000)
+				toastr.info(result.message)
+        // $('.js-postpone-msg').text(result.message)
+        // $('.js-postpone-msg').show();
+        // setTimeout(function(){$('.js-postpone-msg').hide()}, 3000)
         tr.remove()
+				$.each($('.js-todo-tabs a'), function(){
+					if($(this).attr('aria-expanded') == 'true'){
+						value = $("tr.organization", $($(this).attr('href'))).length - $("tr.display-none", $($(this).attr('href'))).length
+						$("span",$("[href='#todos']")).text("("+value+")")
+					}
+				})
       },
       error: function(result){
         alert(result.responseJSON.error);
