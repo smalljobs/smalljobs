@@ -1,4 +1,4 @@
-%div.modal.fade{id: "pdf_message_modal"}
+%div.modal.fade.js-pdf-message-modal{id: "pdf_message_modal"}
   %div.modal-dialog
     %div.modal-content
       %div.modal-header
@@ -16,7 +16,10 @@
           %br
           = "Damit du dich auf Jobs bewerben kannst, brauchen wir das Einverständnis deiner Eltern. Dieses Einverständnis bitte hier herunterladen: "
           %br
-          %a{file:'', href: "#{url_for agreement_broker_seeker_url(@seeker.agreement_id)}?format=pdf", type: "application/pdf", title: "Elterneinverständnis herunterladen"}= "Elterneinverständnis herunterladen"
+          - if ENV['ROCKET_CHAT_URL'].blank?
+            %a{file:'', href: "#{url_for agreement_broker_seeker_url(@seeker.agreement_id)}?format=pdf", type: "application/pdf", title: "Elterneinverständnis herunterladen"}= "Elterneinverständnis herunterladen"
+          - else
+            =  "Elterneinverständnis herunterladen #{url_for agreement_broker_seeker_url(@seeker.agreement_id)}?format=pdf"
           %br
           = "Dann ausdrucken und uns vorbeibringen:"
           -if @seeker.organization.present?

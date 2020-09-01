@@ -27,4 +27,17 @@ class Broker::RocketchatsController < InheritedResources::Base
     end
   end
 
+  def message
+    se = RocketChat::Session.new(current_broker.rc_id)
+    message = RocketChat::Chat.new
+    answer = message.create(se, [params[:rc_username]], params[:message])
+    respond_to do |format|
+      if answer
+        format.json { render json: {id: answer['_id']}, status: :ok }
+      else
+        format.json { render json: { error: answer.error }, status: :unprocessable_entity }
+      end
+    end
+  end
+
 end

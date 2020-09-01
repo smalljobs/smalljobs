@@ -161,7 +161,7 @@ Smalljobs::Application.routes.draw do
       resources :rocketchats, onlye: [:create] do
         collection do
           get 'room/:rc_username', to: "rocketchats#room", as: :room
-
+          post 'message', to: "rocketchats#message", as: :message
         end
       end
     end
