@@ -25,6 +25,23 @@ $ ->
     else if $('.js-rc-seeker-username').length and $('.js-rc-seeker-username').data('username').length == 0
       toastr.error($('.js-rc-seeker-username').data('error'), 'Error')
 
+
+  $(document).on
+    click: (e)->
+      e.preventDefault()
+      $.ajax
+        url: $(@).attr('href')
+        method: 'POST'
+        data:
+          rc_username:  $('.js-rc-seeker-username').data('username')
+          message: $('.js-pdf-message-modal .textarea').text()
+        success: (respond)->
+          $('#js-rocket-chat-modal').modal('show')
+        error: (respond)->
+          _error = respond.responseJSON['error']
+          toastr.error(_error, 'Error')
+  , '.js-pdf-message-rc'
+
 generateIframe = (user_id, token, url)->
   if $("#js-rocketchat-iframe")
     $("#js-rocketchat-iframe").remove()

@@ -48,11 +48,7 @@ $ ->
           e.preventDefault()
           _error = respond.responseJSON['error'][0]
           toastr.error(_error, 'Error')
-
-
   , '.js-job-certificate-pdf'
-
-
 
   $(document).on
     click: (e)->
@@ -71,6 +67,5 @@ $ ->
           _error = respond.responseJSON['error'][0]
           toastr.error(_error, 'Error')
           _btn.button('reset')
-
-
   , '.js-seeker-region-transfer'
+
