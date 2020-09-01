@@ -27,9 +27,10 @@ $(document).ready(function() {
         // $('.js-postpone-msg').show();
         // setTimeout(function(){$('.js-postpone-msg').hide()}, 3000)
         tr.remove()
-				$.each($('.js-todo-tabs a'), function(){
-					if($(this).attr('aria-expanded') == 'true'){
-						value = $("tr.organization", $($(this).attr('href'))).length - $("tr.display-none", $($(this).attr('href'))).length
+				$.each($('.js-todo-tabs li'), function(){
+					if($(this).hasClass('active')){
+						_that = $("a", $(this))
+						value = $("tr.organization", $(_that.attr('href'))).length - $("tr.display-none", $(_that.attr('href'))).length
 						$("span",$("[href='#todos']")).text("("+value+")")
 					}
 				})
