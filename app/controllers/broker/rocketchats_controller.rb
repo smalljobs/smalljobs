@@ -35,7 +35,7 @@ class Broker::RocketchatsController < InheritedResources::Base
       if answer
         format.json { render json: {id: answer['_id']}, status: :ok }
       else
-        format.json { render json: { error: answer.error }, status: :unprocessable_entity }
+        format.json { render json: { error: message.error }, status: :unprocessable_entity }
       end
     end
   end
