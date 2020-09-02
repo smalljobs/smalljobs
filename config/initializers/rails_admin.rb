@@ -167,6 +167,7 @@ RailsAdmin.config do |config|
 
         field :phone
         field :email
+        field :broker
       end
 
       group :messages do

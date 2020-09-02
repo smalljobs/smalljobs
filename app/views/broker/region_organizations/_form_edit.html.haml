@@ -20,6 +20,7 @@
       = f.input :street, required: true
       = f.association :place, required: true, collection: current_region.places, include_blank: true, :label_method => lambda { |place| "#{place.zip} #{place.name}" }
       = f.input :signature_on_contract, as: :boolean, inline_label: true, label: false
+      = f.input :default_broker_id, collection: current_region.brokers, include_blank: true, :label_method => lambda { |broker| "#{broker.firstname} #{broker.lastname}" }
   %fieldset
     %legend
       = t('legends.vacations')

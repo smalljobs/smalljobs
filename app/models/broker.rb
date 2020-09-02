@@ -23,6 +23,8 @@ class Broker < ActiveRecord::Base
   has_many :jobs, through: :providers
   has_many :assignments, through: :providers
   has_many :notes
+  # organization method is used, uses different logic
+  # belongs_to :organization, foreign_key: :default_broker_id
   validates :email, email: true, presence: true, uniqueness: true
   validates :firstname, :lastname, :phone, presence: true
   validates :phone, :mobile, phony_plausible: true
