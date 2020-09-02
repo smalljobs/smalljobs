@@ -54,6 +54,7 @@ module ApiHelper
     json[:phone] = organization.phone
     json[:email] = organization.email
     json[:active] = organization.active
+    json[:default_broker_id] = organization.default_broker_id
     json[:signature_on_contract] = organization.signature_on_contract
     json[:wage_factor] = organization.wage_factor
     json[:salary_deduction] = organization.salary_deduction

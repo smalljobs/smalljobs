@@ -5,6 +5,7 @@ class Organization < ActiveRecord::Base
   has_many :places, through: :regions
 
   belongs_to :place, inverse_of: :organization
+  belongs_to :broker, foreign_key: :default_broker_id
 
   validates :name, presence: true, uniqueness: true
   validates :website, url: true, allow_blank: true, allow_nil: true
