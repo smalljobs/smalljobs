@@ -9,7 +9,6 @@ de:
       assignment: "Einsatz"
       certificate: "Zertifikate"
       jobs_certificate: "Arbeitszeugnisse"
-      editor_files: "Dateien aus dem Editor"
     groups:
       place: "Ortschaft"
       political: "Politisch"
