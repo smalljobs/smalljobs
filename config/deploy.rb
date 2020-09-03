@@ -31,6 +31,7 @@ set :linked_dirs, fetch(:linked_dirs, []).push(
     'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets',
     'vendor/bundle', 'public/system',
     'public/ckeditor_assets', 'public/files',
+    'public/uploads',
     'hidden_files')
 
 

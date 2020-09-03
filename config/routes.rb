@@ -27,7 +27,7 @@ Smalljobs::Application.routes.draw do
   get 'join_us',          to: 'pages#join_us'
   get 'rules_of_action',  to: 'pages#rules_of_action'
   get 'app_links',        to: 'pages#app_links'
-
+  post 'uploader/image', to: 'uploader#image'
 
   constraints(SmalljobsSubdomain) do
     namespace :broker do

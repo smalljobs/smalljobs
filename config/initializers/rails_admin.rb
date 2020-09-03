@@ -653,4 +653,12 @@ RailsAdmin.config do |config|
     end
   end
 
+  config.model EditorFile do
+    navigation_label I18n.t('admin.menu.editor_files')
+    list do
+      field :file
+    end
+
+  end
+
 end
