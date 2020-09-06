@@ -1,4 +1,4 @@
-%div.modal.fade{id: "active_to_finished_modal"}
+%div.modal.fade.js-active-to-finished-modal-rc{id: "active_to_finished_modal"}
   %div.modal-dialog
     %div.modal-content
       %div.modal-header
@@ -14,14 +14,14 @@
           %br
           = "Deine Anstellung bei #{@allocation.job.provider.name} ist abgeschlossen."
           %br
-          = "Danke für deine Arbeit!"   
+          = "Danke für deine Arbeit!"
         %br
         - if @allocation.seeker.app_user_id.nil?
           %p
             = "Keine App für Messaging installiert. Per Telefon Kontakt aufnehmen"
             %a{href: "tel:#{@allocation.seeker.mobile}"}
               = @allocation.seeker.mobile
-        %button.btn.btn-success.change_state
+        %button.btn.btn-success.js-change-state
           = "Anstellung beenden"
       %div.modal-footer
         = render 'messages'

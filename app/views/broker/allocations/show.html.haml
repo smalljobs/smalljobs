@@ -18,15 +18,29 @@
         = render partial: "basic_allocation_date", locals: {job: @job, allocation: @allocation}
         .row.sj-div-with-btn-responsive
           .col-xs-12.col-md-3
-            %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#open_to_active_modal"}
-              = "Anstellen"
+            - if ENV['ROCKET_CHAT_URL'].blank?
+              %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#open_to_active_modal"}
+                = "Anstellen"
+            - else
+              %a.btn.btn-success.allocation_btn.js-open-to-active-rc{href: "#{message_broker_rocketchats_path}",  "data-target": "#open_to_active_modal"}
+                = "Anstellen"
           .col-xs-12.col-md-4
-            %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#open_to_rejected_modal"}
-              = "Bewerbung ablehnen"
+            - if ENV['ROCKET_CHAT_URL'].blank?
+              %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#open_to_rejected_modal"}
+                = "Bewerbung ablehnen"
+            - else
+              %a.btn.btn-success.allocation_btn.js-open-to-rejected-rc{href: "#{message_broker_rocketchats_path}", "data-target": "#open_to_rejected_modal"}
+                = "Bewerbung ablehnen"
           .col-xs-12.col-md-4
-            %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#open_to_nothing_modal"}
-              %i.fa.fa-send
-              = "Nachricht senden"
+            - if ENV['ROCKET_CHAT_URL'].blank?
+              %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#open_to_nothing_modal"}
+                %i.fa.fa-send
+                = "Nachricht senden"
+            - else
+              %a.btn.btn-success.allocation_btn.nothing_btn.js-open-to-nothing-rc{href: "#{message_broker_rocketchats_path}", "data-target": "#open_to_nothing_modal"}
+                %i.fa.fa-send
+                = "Nachricht senden"
+
         %br
         %input{type: "checkbox", checked: "true", id: "reject_checkbox"}
           = "Andere offene Bewerbungen ablehnen"
@@ -36,12 +50,23 @@
         = render partial: "basic_allocation_date", locals: {job: @job, allocation: @allocation}
         .row.sj-div-with-btn-responsive
           .col-xs-12.col-md-3
-            %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#rejected_to_active_modal"}
-              = "Anstellen"
+            - if ENV['ROCKET_CHAT_URL'].blank?
+              %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#rejected_to_active_modal"}
+                = "Anstellen"
+            - else
+              %a.btn.btn-success.allocation_btn.js-rejected-to-active-rc{href: "#{message_broker_rocketchats_path}", "data-target": "#rejected_to_active_modal"}
+                = "Anstellen"
           .col-xs-12.col-md-4
-            %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#rejected_to_nothing_modal"}
-              %i.fa.fa-send
-              = "Nachricht senden"
+            - if ENV['ROCKET_CHAT_URL'].blank?
+              %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#rejected_to_nothing_modal"}
+                %i.fa.fa-send
+                = "Nachricht senden"
+            - else
+              %a.btn.btn-success.allocation_btn.nothing_btn.js-rejected-to-nothing-rc{href: "#{message_broker_rocketchats_path}", "data-target": "#rejected_to_nothing_modal"}
+                %i.fa.fa-send
+                = "Nachricht senden"
+
+
         %br
         %input{type: "checkbox", checked: "true", id: "reject_checkbox"}
           = "Andere offene Bewerbungen ablehnen"
@@ -51,15 +76,28 @@
         = render partial: "basic_allocation_date", locals: {job: @job, allocation: @allocation}
         .row.sj-div-with-btn-responsive
           .col-xs-12.col-md-3
-            %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#proposal_to_active_modal"}
-              = "Anstellen"
+            - if ENV['ROCKET_CHAT_URL'].blank?
+              %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#proposal_to_active_modal"}
+                = "Anstellen"
+            - else
+              %a.btn.btn-success.allocation_btn.js-proposal-to-active-rc{href: "#{message_broker_rocketchats_path}", "data-target": "#proposal_to_active_modal"}
+                = "Anstellen"
           .col-xs-12.col-md-4
-            %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#proposal_to_deleted_modal"}
-              = "Vorschlag löschen"
+            - if ENV['ROCKET_CHAT_URL'].blank?
+              %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#proposal_to_deleted_modal"}
+                = "Vorschlag löschen"
+            - else
+              %a.btn.btn-success.allocation_btn.js-proposal-to-deleted-rc{href: "#{message_broker_rocketchats_path}", "data-target": "#proposal_to_deleted_modal"}
+                = "Vorschlag löschen"
           .col-xs-12.col-md-4
-            %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#proposal_to_nothing_modal"}
-              %i.fa.fa-send
-              = "Nachricht senden"
+            - if ENV['ROCKET_CHAT_URL'].blank?
+              %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#proposal_to_nothing_modal"}
+                %i.fa.fa-send
+                = "Nachricht senden"
+            - else
+              %a.btn.btn-success.allocation_btn.nothing_btn.js-proposal-to-nothing-rc{href: "#{message_broker_rocketchats_path}", "data-target": "#proposal_to_nothing_modal"}
+                %i.fa.fa-send
+                = "Nachricht senden"
         %br
         %input{type: "checkbox", checked: "true", id: "reject_checkbox"}
           = "Andere offene Bewerbungen ablehnen"
@@ -69,25 +107,47 @@
         = render partial: "basic_allocation_date", locals: {job: @job, allocation: @allocation}
         .row.sj-div-with-btn-responsive
           .col-xs-12.col-md-3
-            %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#active_to_nothing_modal"}
-              %i.fa.fa-send
-              = "Nachricht senden"
+            - if ENV['ROCKET_CHAT_URL'].blank?
+              %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#active_to_nothing_modal"}
+                %i.fa.fa-send
+                = "Nachricht senden"
+            - else
+              %a.btn.btn-success.allocation_btn.nothing_btn.js-active-to-nothing-rc{href: "#{message_broker_rocketchats_path}", "data-target": "#active_to_nothing_modal" }
+                %i.fa.fa-send
+                = "Nachricht senden"
+
           .col-xs-12.col-md-3
-            %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#active_send_contract_modal"}
-              %i.fa.fa-send
-              = "Vertrag senden"
+            - if ENV['ROCKET_CHAT_URL'].blank?
+              %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#active_send_contract_modal"}
+                %i.fa.fa-send
+                = "Vertrag senden"
+            - else
+              %a.btn.btn-success.allocation_btn.js-active-send-contract-rc{href: "#{message_broker_rocketchats_path}", "data-target": "#active_send_contract_modal"}
+                %i.fa.fa-send
+                = "Vertrag senden"
             %br
             = link_to  broker_allocation_contract_path(@allocation.contract_id, format: :pdf), target: '_blank' do
               %i.fa.fa-print
               = "Vertrag drucken"
           .col-xs-12.col-md-2
-            %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#active_to_finished_modal"}
-              %i.fa.fa-archive
-              = "Beenden"
+            - if ENV['ROCKET_CHAT_URL'].blank?
+              %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#active_to_finished_modal"}
+                %i.fa.fa-archive
+                = "Beenden"
+            - else
+              %a.btn.btn-success.allocation_btn.js-active-to-finished-rc{href: "#{message_broker_rocketchats_path}", "data-target": "#active_to_finished_modal"}
+                %i.fa.fa-archive
+                = "Beenden"
+
           .col-xs-12.col-md-2
-            %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#active_to_canceled_modal"}
-              %i.fa.fa-times
-              = "Abbrechen"
+            - if ENV['ROCKET_CHAT_URL'].blank?
+              %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#active_to_canceled_modal"}
+                %i.fa.fa-times
+                = "Abbrechen"
+            - else
+              %a.btn.btn-success.allocation_btn.js-active-to-canceled-rc{href: "#{message_broker_rocketchats_path}", "data-target": "#active_to_canceled_modal"}
+                %i.fa.fa-times
+                = "Abbrechen"
 
 
       - if @allocation.finished?
@@ -95,34 +155,66 @@
         = render partial: "basic_allocation_date", locals: {job: @job, allocation: @allocation}
         .row.sj-div-with-btn-responsive
           .col-xs-12.col-md-4
-            %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_active_modal"}
-              = "Anstellung reaktivieren"
+            - if ENV['ROCKET_CHAT_URL'].blank?
+              %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_active_modal"}
+                = "Anstellung reaktivieren"
+            - else
+              %a.btn.btn-success.allocation_btn.js-finished-to-active-rc{href: "#{message_broker_rocketchats_path}", "data-target": "#finished_to_active_modal"}
+                = "Anstellung reaktivieren"
+
           .col-xs-12.col-md-4
-            %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_nothing_modal"}
-              %i.fa.fa-send
-              = "Nachricht senden"
+            - if ENV['ROCKET_CHAT_URL'].blank?
+              %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_nothing_modal"}
+                %i.fa.fa-send
+                = "Nachricht senden"
+            - else
+              %a.btn.btn-success.allocation_btn.nothing_btn.js-finished-to-nothing-rc{href: "#{message_broker_rocketchats_path}", "data-target": "#finished_to_nothing_modal"}
+                %i.fa.fa-send
+                = "Nachricht senden"
+
 
       - if @allocation.cancelled?
         %h2= "Anstellung abgebrochen"
         = render partial: "basic_allocation_date", locals: {job: @job, allocation: @allocation}
         %div.row
           %div.col-md-4
-            %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_active_modal"}
-              = "Anstellung reaktivieren"
+            - if ENV['ROCKET_CHAT_URL'].blank?
+              %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_active_modal"}
+                = "Anstellung reaktivieren"
+            - else
+              %a.btn.btn-success.allocation_btn.js-finished-to-active-rc{href: "#{message_broker_rocketchats_path}", "data-target": "#finished_to_active_modal"}
+                = "Anstellung reaktivieren"
+
           %div.col-md-4
-            %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_nothing_modal"}
-              %i.fa.fa-send
-              = "Nachricht senden"
+            - if ENV['ROCKET_CHAT_URL'].blank?
+              %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#finished_to_nothing_modal"}
+                %i.fa.fa-send
+                = "Nachricht senden"
+            - else
+              %a.btn.btn-success.allocation_btn.nothing_btn.js-finished-to-nothing-rc{href: "#{message_broker_rocketchats_path}", "data-target": "#finished_to_nothing_modal"}
+                %i.fa.fa-send
+                = "Nachricht senden"
+
       - if @allocation.application_retracted?
         %h2= "Bewerbung zurückgenommen"
         = render partial: "basic_allocation_date", locals: {job: @job, allocation: @allocation}
         %div.row
           %div.col-md-4
-            %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#retracted_to_active_modal"}
-              = "Anstellen"
+            - if ENV['ROCKET_CHAT_URL'].blank?
+              %a.btn.btn-success.allocation_btn{href: "#", "data-toggle": "modal", "data-target": "#retracted_to_active_modal"}
+                = "Anstellen"
+            - else
+              %a.btn.btn-success.allocation_btn.js-retracted-to-active-rc{href: "#{message_broker_rocketchats_path}", "data-target": "#retracted_to_active_modal"}
+                = "Anstellen"
+
           %div.col-md-4
-            %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#retracted_to_nothing_modal"}
-              = "Nachricht senden"
+            - if ENV['ROCKET_CHAT_URL'].blank?
+              %a.btn.btn-success.allocation_btn.nothing_btn{href: "#", "data-toggle": "modal", "data-target": "#retracted_to_nothing_modal"}
+                = "Nachricht senden"
+            - else
+              %a.btn.btn-success.allocation_btn.nothing_btn.js-retracted-to-nothing-rc{href: "#{message_broker_rocketchats_path}", "data-target": "#retracted_to_nothing_modal"}
+                = "Nachricht senden"
+
     %div.col-sm-4
       = render 'todos'
 
@@ -143,6 +235,7 @@
   = render 'retracted_to_active'
   = render 'retracted_to_nothing'
   = render 'active_send_contract'
+  = render partial: '/rocketchats/rc_seeker', locals: {seeker: @allocation.seeker}
 
   :javascript
     $(document).ready(function() {
@@ -166,8 +259,10 @@
         sessionStorage.setItem('buttonText', $(modalId + ' .modal-body .btn').text());
       });
 
-      $('.change_state').click(function(){
-        $('button').attr('disabled', 'disabled');
+      $('.js-change-state').click(function(){
+        if("#{ENV['ROCKET_CHAT_URL'].blank?}" == "true"){
+          $('button').attr('disabled', 'disabled');
+        }
         var $checkbox = $('#reject_checkbox');
         var reject_other = false;
         if($checkbox.is(":checked")) {
@@ -176,9 +271,12 @@
 
         $.get("#{change_state_broker_job_allocation_path(@job, @allocation)}?reject_other=" + reject_other, function(response){
           sendMessage(function(){
-          sessionStorage.setItem('showModal', true);
-            window.location.href = response['redirect_to'];
+            if("#{ENV['ROCKET_CHAT_URL'].blank?}" == "true"){
+              sessionStorage.setItem('showModal', true);
+              window.location.href = response['redirect_to'];
+            }
           });
+
         });
       });
 
