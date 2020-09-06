@@ -1,4 +1,4 @@
-%div.modal.fade{id: "active_to_nothing_modal"}
+%div.modal.fade.js-active-to-nothing-modal-rc{id: "active_to_nothing_modal"}
   %div.modal-dialog
     %div.modal-content
       %div.modal-header
@@ -10,7 +10,7 @@
           = @allocation.seeker.name
           = ":"
         %div.form-control.resize-vertical.textarea{contenteditable: true}
-          = "Hallo #{@allocation.seeker.name}"   
+          = "Hallo #{@allocation.seeker.name}"
         %br
         - if @allocation.seeker.app_user_id.nil?
           %p
