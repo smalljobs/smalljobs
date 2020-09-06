@@ -106,6 +106,7 @@ de:
         salary_deduction: 'Lohnabzug'
         hide_salary: 'Lohn in den Ausschreibungen verstecken'
         signature_on_contract: 'Unterschrift im Vertrag mit Arbeitgebenden verlangen'
+        default_broker_id: 'Ansprechperson'
       employment:
         organization: "Organisation"
         broker: "Vermittler"
