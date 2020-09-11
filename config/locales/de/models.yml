@@ -107,6 +107,8 @@ de:
         hide_salary: 'Lohn in den Ausschreibungen verstecken'
         signature_on_contract: 'Unterschrift im Vertrag mit Arbeitgebenden verlangen'
         default_broker_id: 'Ansprechperson'
+        first_reminder_message: 'Registrationserinnerung nach 30 Tagen'
+        second_reminder_message: 'Deaktivierungsnachricht nach 30 Tagen'
       employment:
         organization: "Organisation"
         broker: "Vermittler"
