@@ -93,6 +93,7 @@
           %table.table.table-striped.sortable
             %thead
               %tr
+                %th
                 %th.sortable{id: 'todo_date'}= t('broker_dashboard.todo_table.date')
                 %th.sortable{id: 'todo_todo'}= t('broker_dashboard.todo_table.todo')
                 %th= t('broker_dashboard.todo_table.description')
@@ -101,10 +102,13 @@
               - if @todos.current.count == 0
 
                 %tr
-                  %td{colspan: 3}= "Es sind noch keine Todo in deiner Region erfasst"
+                  %td{colspan: 5}= "Es sind noch keine Todo in deiner Region erfasst"
               - @todos.current.each do |todo|
                 %tr{ class: "organization organization-#{todo.organization_id}" }
                   - sortable_date = todo.created_at.strftime("%Y%m%d%H%M%S")
+                  %td.completed
+                    %a{href: "#"}
+                      %i.fa.fa-2x.fa-check-circle
                   %td.date{sorttable_customkey: sortable_date}
                     = todo.created_at.strftime("%d.%m.%Y")
                   %td.title
@@ -140,10 +144,13 @@
               - if @todos.postponed.count == 0
 
                 %tr
-                  %td{colspan: 3}= "Es sind noch keine Todo in deiner Region erfasst"
+                  %td{colspan: 5}= "Es sind noch keine Todo in deiner Region erfasst"
               - @todos.postponed.each do |todo|
                 %tr{ class: "organization organization-#{todo.organization_id}" }
                   - sortable_date = todo.created_at.strftime("%Y%m%d%H%M%S")
+                  %td.completed
+                    %a{href: "#"}
+                      %i.fa.fa-2x.fa-check-circle
                   %td.date{sorttable_customkey: sortable_date}
                     = todo.created_at.strftime("%d.%m.%Y")
                   %td.title

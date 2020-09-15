@@ -23,6 +23,10 @@ class Broker::TodosController < ApplicationController
     end
   end
 
+  def completed
+    
+  end
+
   def set_todo
     allocations = Allocation.where(job: @jobs)
     @providers = current_broker.providers.includes(:place, :jobs, :organization).group('providers.id').order(:updated_at).reverse_order()
