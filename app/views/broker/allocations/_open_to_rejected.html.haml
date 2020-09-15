@@ -17,7 +17,11 @@
             = "Keine App für Messaging installiert. Per Telefon Kontakt aufnehmen"
             %a{href: "tel:#{@allocation.seeker.mobile}"}
               = @allocation.seeker.mobile
-        %button.btn.btn-success.cancel_state
-          = "Bewerbung ablehnen"
+        - if ENV['ROCKET_CHAT_URL'].blank?
+          %button.btn.btn-success.cancel_state
+            = "Bewerbung ablehnen"
+        - else
+          %button.btn.btn-success.cancel_state.js-open-to-rejected-rc{data: {href: "#{message_broker_rocketchats_path}"}}
+            = "Bewerbung ablehnen"
       %div.modal-footer
         = render 'messages'

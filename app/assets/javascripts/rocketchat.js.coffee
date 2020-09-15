@@ -18,6 +18,12 @@ $ ->
     else if $('.js-rc-seeker-username').length and $('.js-rc-seeker-username').data('username').length == 0
       toastr.error($('.js-rc-seeker-username').data('error'), 'Error')
 
+  $('#js-rocket-chat-modal').on 'hidden.bs.modal', (e)->
+    if window.redirect_href?
+      window.location.href = window.redirect_href
+    else if $('.js-reload-after-close-rc').length
+      window.location.reload();
+
   $(document).on
     click: (e)->
       e.preventDefault()
@@ -32,12 +38,13 @@ $ ->
     click: (e)->
       e.preventDefault()
       $.ajax
-        url: $(@).attr('href')
+        url: $(@).data('href')
         method: 'POST'
         data:
           rc_username:  $('.js-rc-seeker-username').data('username')
           message: $('.js-pdf-message-modal .textarea').text()
         success: (respond)->
+          $('.js-pdf-message-modal').modal('hide')
           $('#js-rocket-chat-modal').modal('show')
         error: (respond)->
           _error = respond.responseJSON['error']
@@ -58,15 +65,16 @@ $ ->
       _modal_class = _click_class.replace("-rc", "-modal-rc")
 
       $.ajax
-        url: $(@).attr('href')
+        url: $(@).data('href')
         method: 'POST'
         data:
           rc_username:  $('.js-rc-seeker-username').data('username')
           message: $(".#{_modal_class} .textarea").text()
         success: (respond)->
+          $(".#{_modal_class}").modal('hide')
           $('#js-rocket-chat-modal').modal('show')
-          if $(".#{_modal_class} .js-change-state").length
-            $(".#{_modal_class} .js-change-state").click()
+#          if $(".#{_modal_class} .js-change-state").length
+#            $(".#{_modal_class} .js-change-state").click()
         error: (respond)->
           _error = respond.responseJSON['error']
           toastr.error(_error, 'Error')

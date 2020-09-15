@@ -43,7 +43,12 @@
             = "Keine App für Messaging installiert. Per Telefon Kontakt aufnehmen"
             %a{href: "tel:#{@seeker.mobile}"}
               = @seeker.mobile
-        %button.btn.btn-success.btn-send
-          = "Elterneinverständnis als Pdf schicken"
+        - if ENV['ROCKET_CHAT_URL'].blank?
+          %button.btn.btn-success.btn-send
+            = "Elterneinverständnis als Pdf schicken"
+        - else
+          %button.btn.btn-success.js-pdf-message-rc{data: {href: "#{message_broker_rocketchats_path}"}}
+            = "Elterneinverständnis als Pdf schicken"
+
       %div.modal-footer
         = render 'messages'

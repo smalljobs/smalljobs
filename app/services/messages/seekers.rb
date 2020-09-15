@@ -39,7 +39,7 @@ module Messages
         organization = seeker.organization
         broker = organization.try(:broker)
         if organization.present?
-          message = Mustache.render(organization.first_reminder_message || '',
+          message = Mustache.render(organization.second_reminder_message || '',
                                     seeker_first_name: seeker.firstname,
                                     organization_name: organization.name,
                                     organization_street: organization.street,
@@ -55,7 +55,7 @@ module Messages
           se = RocketChat::Session.new(broker.rc_id)
           chat = RocketChat::Chat.new
           chat.create(se, [seeker.rc_username], message)
-          seeker.state = :completed
+          seeker.status = :completed
           seeker.save
         end
       end
