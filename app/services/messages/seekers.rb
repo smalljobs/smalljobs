@@ -3,8 +3,8 @@ module Messages
 
     def self.first_reminder_to_inactive
       seekers = Seeker.where(status: :inactive, parental: false, discussion: false).
-          where(first_date_message_to_inactive: nil).where("created_at < ?", Date.today - 29.days).
-          where.not(rc_id: [nil,''])
+          where(first_date_message_to_inactive: nil).where("created_at < ?", Date.today - (ENV['DAY_COUNT_TO_REMIND'].to_i - 1).days)
+          #where.not(rc_id: [nil,''])
       seekers.each do |seeker|
         organization = seeker.organization
         broker = organization.try(:broker)
@@ -21,20 +21,25 @@ module Messages
         else
           message = ''
         end
+
         if broker.present?
-          se = RocketChat::Session.new(broker.rc_id)
-          chat = RocketChat::Chat.new
-          chat.create(se, [seeker.rc_username], message)
-          seeker.first_date_message_to_inactive = Date.today
-          seeker.save
+          if seeker.rc_id.present?
+            se = RocketChat::Session.new(broker.rc_id)
+            chat = RocketChat::Chat.new
+            chat.create(se, [seeker.rc_username], message)
+          end
+        end
+        seeker.first_date_message_to_inactive = Date.today
+        unless seeker.save
+          Rails.logger.info "ERROR Seeker [#{seeker.id}] first message #{seeker.errors.full_messages}"
         end
       end
     end
 
     def self.second_reminder_to_inactive
       seekers = Seeker.where(status: :inactive, parental: false, discussion: false).
-          where(first_date_message_to_inactive:  Date.today - 30.days).
-          where.not(rc_id: [nil,''])
+          where(first_date_message_to_inactive:  Date.today - ENV['DAY_COUNT_TO_REMIND'].to_i.days)
+          #where.not(rc_id: [nil,''])
       seekers.each do |seeker|
         organization = seeker.organization
         broker = organization.try(:broker)
@@ -52,11 +57,15 @@ module Messages
           message = ''
         end
         if broker.present?
-          se = RocketChat::Session.new(broker.rc_id)
-          chat = RocketChat::Chat.new
-          chat.create(se, [seeker.rc_username], message)
-          seeker.status = :completed
-          seeker.save
+          if seeker.rc_id.present?
+            se = RocketChat::Session.new(broker.rc_id)
+            chat = RocketChat::Chat.new
+            chat.create(se, [seeker.rc_username], message)
+          end
+        end
+        seeker.status = :completed
+        unless seeker.save
+          Rails.logger.info "ERROR Seeker [#{seeker.id}] second message #{seeker.errors.full_messages}"
         end
       end
     end

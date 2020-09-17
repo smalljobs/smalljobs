@@ -20,6 +20,8 @@ RailsAdmin.config do |config|
     list do
       field :record_id
       field :record_type
+      field :manual_completion
+      field :completed
     end
 
     edit do
@@ -35,6 +37,8 @@ RailsAdmin.config do |config|
       field :todotype do
         read_only true
       end
+      field :manual_completion
+      field :completed
     end
   end
 

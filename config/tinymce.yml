@@ -26,7 +26,7 @@ expanded:
   menubar: false
   statusbar: false
   toolbar:
-    - code | styleselect | bold italic underline strikethrough | undo redo | tableinsertrowbefore tableinsertrowafter tabledeleterow | image | link
+    - code | styleselect | bold italic underline strikethrough | undo redo | tableinsertrowbefore tableinsertrowafter tabledeleterow | image | link | media
   table_toolbar: tableinsertrowbefore tableinsertrowafter tabledeleterow
   style_formats:
     - title: 'Header 1'
@@ -59,3 +59,5 @@ expanded:
     - table
     - image
     - link
+    - media
+  media_filter_html: false

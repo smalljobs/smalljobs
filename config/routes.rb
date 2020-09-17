@@ -89,7 +89,12 @@ Smalljobs::Application.routes.draw do
         end
       end
 
-      resources :todos, only: [:update]
+      resources :todos, only: [:update] do
+        member do
+          post :completed
+          post :uncompleted
+        end
+      end
       resources :statistics, only: [:index] do
         collection do
           get 'organization_statistics'

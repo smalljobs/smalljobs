@@ -107,8 +107,9 @@
                 %tr{ class: "organization organization-#{todo.organization_id}" }
                   - sortable_date = todo.created_at.strftime("%Y%m%d%H%M%S")
                   %td.completed
-                    %a{href: "#"}
-                      %i.fa.fa-2x.fa-check-circle
+                    - if todo.manual_completion
+                      %a.js-todo-completed{href: "#", data: {url: "#{url_for completed_broker_todo_path(todo.id)}", url_undo: "#{url_for uncompleted_broker_todo_path(todo.id)}"}}
+                        %i.fa.fa-2x.fa-check-circle
                   %td.date{sorttable_customkey: sortable_date}
                     = todo.created_at.strftime("%d.%m.%Y")
                   %td.title
@@ -149,8 +150,9 @@
                 %tr{ class: "organization organization-#{todo.organization_id}" }
                   - sortable_date = todo.created_at.strftime("%Y%m%d%H%M%S")
                   %td.completed
-                    %a{href: "#"}
-                      %i.fa.fa-2x.fa-check-circle
+                    - if todo.manual_completion
+                      %a.js-todo-completed{href: "#", data: {url: "#{url_for completed_broker_todo_path(todo.id)}", url_undo: "#{url_for uncompleted_broker_todo_path(todo.id)}"}}
+                        %i.fa.fa-2x.fa-check-circle
                   %td.date{sorttable_customkey: sortable_date}
                     = todo.created_at.strftime("%d.%m.%Y")
                   %td.title
