@@ -25,7 +25,7 @@ class Broker::DashboardsController < ApplicationController
                    seeker: :organization,
                    provider: :organization,
                    job: :organization
-                   )
+                   ).not_completed
                  .where("seeker_id IN (?) OR provider_id IN (?) OR job_id IN (?) OR allocation_id IN (?)",
                         @seekers.pluck(:id), @providers.pluck(:id), @jobs.pluck(:id), allocations.pluck(:id))
                  .reverse_order()
@@ -49,7 +49,7 @@ class Broker::DashboardsController < ApplicationController
                  seeker: :organization,
                  provider: :organization,
                  job: :organization
-                 )
+                 ).not_completed
                .where("seeker_id IN (?) OR provider_id IN (?) OR job_id IN (?) OR allocation_id IN (?)",
                       @seekers.map(&:id), @providers.map(&:id), @jobs.map(&:id), allocations.map(&:id))
                .reverse_order()

@@ -8,6 +8,9 @@ class Todo < ApplicationRecord
   belongs_to :allocation
   scope :postponed, -> {where("postponed > ?", DateTime.now)}
   scope :current, -> {where("postponed <= ? OR postponed IS NULL", DateTime.now)}
+  scope :not_completed, -> {where(completed: nil)}
+
+  validates :completed, absence: true, if: lambda {|m| m.manual_completion == false}
 
   def organization_id
     if record_type == 'job'

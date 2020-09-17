@@ -17,7 +17,7 @@ $(document).ready(function() {
         } else if(todo_type == 'current'){
           tr_last = tr.clone()
           tr_last.find('span').data('todo-type', 'postponed')
-          tr_last.append("<td>"+result.postponed+"</td>śś")
+          tr_last.append("<td>"+result.postponed+"</td>")
           $('.js-todo-postponed').find('tbody').prepend(tr_last)
           $('.js-todo-tabs > li > a[href="#todo_postponed"] > .sj-text-red').html($('#todo_postponed').find('tbody').find('tr').length)
           $('.js-todo-tabs > li > a[href="#todo_current"] > .sj-text-red').html($('#todo_current').find('tbody').find('tr').length-1)
@@ -83,4 +83,37 @@ $(document).ready(function() {
     }, 0)
   })
 
-  });
+	$('.js-todo-completed').on('click', function(event) {
+		event.preventDefault
+		_url = $(this).data('url')
+		_return_url = $(this).data('url-undo')
+		_tr = $(this).closest('tr')
+		$.ajax({
+			method: "POST",
+			url: _url,
+			success: function(response){
+				_tr.hide()
+				toastr.options.positionClass =  "toast-bottom-left";
+				toastr.options.timeOut =  10000;
+				toastr.options.onclick = function () {
+					$.ajax({
+						method: "POST",
+						url: _return_url,
+						success: function (response) {
+							_tr.show()
+						},
+						error: function (result) {
+							toastr.error(result.responseJSON.error, 'Error');
+						}
+					})
+				};
+				toastr.info("Rückgängig machen", 'Gelöscht.')
+			},
+			error: function(result){
+				toastr.error(result.responseJSON.error, 'Error');
+			}
+		})
+
+	})
+
+})

@@ -23,6 +23,7 @@ development:
   ROCKET_CHAT_URL: ''
   ROCKET_CHAT_USER_ID: ''
   ROCKET_CHAT_USER_TOKEN: ''
+  DAY_COUNT_TO_REMIND: '1'
 
 test:
   SERVER_IP: ''
@@ -48,6 +49,7 @@ test:
   ROCKET_CHAT_URL: ''
   ROCKET_CHAT_USER_ID: ''
   ROCKET_CHAT_USER_TOKEN: ''
+  DAY_COUNT_TO_REMIND: '30'
 
 staging:
   SERVER_IP: ''
@@ -73,6 +75,7 @@ staging:
   ROCKET_CHAT_URL: ''
   ROCKET_CHAT_USER_ID: ''
   ROCKET_CHAT_USER_TOKEN: ''
+  DAY_COUNT_TO_REMIND: '30'
 
 production:
   SERVER_IP: ''
@@ -99,3 +102,4 @@ production:
   ROCKET_CHAT_URL: ''
   ROCKET_CHAT_USER_ID: ''
   ROCKET_CHAT_USER_TOKEN: ''
+  DAY_COUNT_TO_REMIND: '30'

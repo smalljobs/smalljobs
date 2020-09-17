@@ -115,6 +115,9 @@ de:
         region: "Region"
         created_at: "Erstellt"
         updated_at: "Bearbeitet"
+      todo:
+        manual_completion: 'Manuelles abhaken'
+        completed: 'Abgeschlossen'
       user: &USER
         remember_me: "Angemeldet bleiben"
         firstname: "Vorname"
