@@ -22,32 +22,29 @@
         .col-xs-12.col-md-6
           = f.input :lastname, required: true
 
-    - if !@seeker.new_record? and ENV['ROCKET_CHAT_URL'].blank?
-      %fieldset
-        %a{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
-          %i.fa.fa-envelope
-          = "Nachricht senden"
+    - if !@seeker.new_record?
+      - if ENV['ROCKET_CHAT_URL'].blank?
+        %fieldset
+          %a{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+            %i.fa.fa-envelope
+            = "Nachricht senden"
 
-    %fieldset
-      %a{href: "#", "data-toggle": "modal", "data-target": "#jobs_certificate_modal"}
-        %i.fa.fa-file-text
-        = "Arbeitszeugnis erstellen"
+      %fieldset
+        %a{href: "#", "data-toggle": "modal", "data-target": "#jobs_certificate_modal"}
+          %i.fa.fa-file-text
+          = "Arbeitszeugnis erstellen"
 
     %fieldset
       .form-inputs
         = f.input :parental, label: false, inline_label: true
 
-      %a{href: agreement_broker_seeker_path(@seeker.agreement_id), target: '_blank'}
-        %i.fa.fa-print.margin_left_20.green
-        = "Drucken"
-      -# - if ENV['ROCKET_CHAT_URL'].blank?
-      %a.margin_left_20{href: "#", "data-toggle": "modal", "data-target": "#pdf_message_modal"}
-        %i.fa.fa-envelope
-        = "Elterneinverständnis als Pdf schicken"
-      -# - else
-      -#   %a.margin_left_20{href: "#{message_broker_rocketchats_path}", "data-target": "#pdf_message_modal", class: 'js-pdf-message-rc'}
-      -#     %i.fa.fa-envelope
-      -#     = "Elterneinverständnis als Pdf schicken"
+      - if !@seeker.new_record?
+        %a{href: agreement_broker_seeker_path(@seeker.agreement_id), target: '_blank'}
+          %i.fa.fa-print.margin_left_20.green
+          = "Drucken"
+        %a.margin_left_20{href: "#", "data-toggle": "modal", "data-target": "#pdf_message_modal"}
+          %i.fa.fa-envelope
+          = "Elterneinverständnis als Pdf schicken"
 
       .form-inputs
         = f.input :discussion, label: false, inline_label: true

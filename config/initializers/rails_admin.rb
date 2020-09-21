@@ -46,6 +46,7 @@ RailsAdmin.config do |config|
     list do
       field :title
       field :table
+      field :manual_completion
     end
 
     edit do
@@ -53,6 +54,7 @@ RailsAdmin.config do |config|
       field :description, :rich_editor do
         config(insert_many: true)
       end
+      field :manual_completion
       field :table
       field :where, :text
     end
