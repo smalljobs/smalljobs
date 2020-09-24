@@ -2,11 +2,29 @@
   position: fixed;
   bottom: 40px;
   right: 40px;
-  width: 100px;
-  height: 100px;
+  width: 122px;
+  height: 120px;
   //background-color: red;
   background-image: url(image-path('rcicon.png'));
   background-size: 100px;
+  background-repeat: no-repeat;
+  background-position: top;
+  padding-top: 100px;
+  color: #C1262C;
+  &:hover{
+    color: #C1262C;
+  }
+  span{
+    &.blink {
+      animation: blinker 1s linear infinite;
+    }
+
+    @keyframes blinker {
+      50% {
+        opacity: 0;
+      }
+    }
+  }
 }
 
 .sj-rocketchat-iframe-container{

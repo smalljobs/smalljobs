@@ -23,9 +23,9 @@
           = "Lade den Vertrag hier herunter, drucke ihn aus und bringe ihn zur Arbeit mit: "
           %br
           - if ENV['ROCKET_CHAT_URL'].blank?
-            %a{file:'', href: "#{url_for broker_allocation_contract_path(@allocation.contract_id, format: :pdf)}", type: "application/pdf", title: "Herunterladen"}= "Herunterladen"
+            %a{file:'', href: "#{url_for broker_allocation_contract_url(@allocation.contract_id, format: :pdf)}", type: "application/pdf", title: "Herunterladen"}= "Herunterladen"
           - else
-            = "Herunterladen #{url_for broker_allocation_contract_path(@allocation.contract_id, format: :pdf)}"
+            = "Herunterladen #{url_for broker_allocation_contract_url(@allocation.contract_id, format: :pdf)}"
           %br
           = "Vor Arbeitsstart solltest du und die Arbeitgebenden den Vertrag unterzeichnen."
           %br
