@@ -709,6 +709,7 @@ DEPENDENCIES
   mustache
   newrelic_rpm
   nexmo
+  nokogiri
   paperclip
   pg
   phony_rails

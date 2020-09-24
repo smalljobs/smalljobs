@@ -36,6 +36,7 @@ expanded:
     - title: 'Header 3'
       format: 'h3'
   extended_valid_elements : 'img[class=img-responsive|src|border=0|alt|title|hspace|vspace|width=auto|height=auto|align|onmouseover|onmouseout|name]'
+  image_dimensions: false
   file_picker_callback: "function (cb, value, meta) {
     var input = document.createElement('input');
     input.setAttribute('type', 'file');
