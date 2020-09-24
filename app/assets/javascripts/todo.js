@@ -107,7 +107,7 @@ $(document).ready(function() {
 						}
 					})
 				};
-				toastr.info("Rückgängig machen", 'Gelöscht.')
+				toastr.info("<span class=\"btn btn-success\">Rückgängig machen</span>", 'Gelöscht.')
 			},
 			error: function(result){
 				toastr.error(result.responseJSON.error, 'Error');

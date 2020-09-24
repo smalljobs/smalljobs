@@ -40,4 +40,18 @@ class Broker::RocketchatsController < InheritedResources::Base
     end
   end
 
+  def unread
+    se = RocketChat::Session.new(current_broker.rc_id)
+    subscription = RocketChat::Subscriptions.new
+    answer = subscription.get_unread(se)
+    respond_to do |format|
+      if answer
+        format.json { render json: {unread: answer[:unread]}, status: :ok }
+      else
+        format.json { render json: { error: message.error }, status: :unprocessable_entity }
+      end
+    end
+
+  end
+
 end

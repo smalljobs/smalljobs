@@ -29,8 +29,10 @@ $ ->
       e.preventDefault()
       $('.js-rocketchat-icon').addClass('sj-rotate')
       $('#js-rocket-chat-modal').modal('show')
+      $('.js-rocketchat-icon span').addClass('hidden')
   , '.js-rocketchat-icon'
 
+  getUnread()
 
 
 
@@ -100,6 +102,7 @@ generateIframe = (user_id, token, url)->
 
 
 
+
 getRoomId = ()->
   $.ajax
     url: $('.js-rocket-chat-room').attr('href')
@@ -113,3 +116,15 @@ getRoomId = ()->
       _error = respond.responseJSON['error']
       toastr.error(_error, 'Error')
       $('.js-rocketchat-icon').removeClass('sj-rotate')
+
+getUnread = ()->
+  $.ajax
+    url: $('.js-rocketchat-icon').data('unread')
+    method: 'GET'
+    success: (respond)->
+      if respond.unread > 0
+        $('.js-rocketchat-icon span').removeClass('hidden')
+    error: (respond)->
+      _error = respond.responseJSON['error']
+      toastr.error(_error, 'Error')
+
