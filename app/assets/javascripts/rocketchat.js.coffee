@@ -18,11 +18,21 @@ $ ->
     else if $('.js-rc-seeker-username').length and $('.js-rc-seeker-username').data('username').length == 0
       toastr.error($('.js-rc-seeker-username').data('error'), 'Error')
 
+
   $('#js-rocket-chat-modal').on 'hidden.bs.modal', (e)->
     if window.redirect_href?
       window.location.href = window.redirect_href
     else if $('.js-reload-after-close-rc').length
       window.location.reload();
+  if $(".js-recketchat-present").length
+    $(" .js-open-to-active-modal-rc, .js-open-to-rejected-modal-rc, .js-open-to-nothing-modal-rc," +
+      ".js-rejected-to-active-modal-rc, .js-rejected-to-nothing-modal-rc, .js-proposal-to-active-modal-rc, .js-proposal-to-deleted-modal-rc," +
+      ".js-proposal-to-nothing-modal-rc, .js-active-to-nothing-modal-rc, .js-active-send-contract-modal-rc, .js-active-to-finished-modal-rc," +
+      ".js-active-to-canceled-modal-rc, .js-finished-to-active-modal-rc, .js-finished-to-nothing-modal-rc, .js-finished-to-active-modal-rc," +
+      ".js-finished-to-nothing-modal-rc, .js-retracted-to-active-modal-rc, .js-retracted-to-nothing-modal-rc").on 'show.bs.modal', (e)->
+        if $(".js-rocket-chat-room").length == 0
+          $(".modal .textarea").hide()
+
 
   $(document).on
     click: (e)->
@@ -65,21 +75,21 @@ $ ->
       )
 
       _modal_class = _click_class.replace("-rc", "-modal-rc")
-
-      $.ajax
-        url: $(@).data('href')
-        method: 'POST'
-        data:
-          rc_username:  $('.js-rc-seeker-username').data('username')
-          message: $(".#{_modal_class} .textarea").text()
-        success: (respond)->
-          $(".#{_modal_class}").modal('hide')
-          $('#js-rocket-chat-modal').modal('show')
-#          if $(".#{_modal_class} .js-change-state").length
-#            $(".#{_modal_class} .js-change-state").click()
-        error: (respond)->
-          _error = respond.responseJSON['error']
-          toastr.error(_error, 'Error')
+      if $(".js-rocket-chat-room").length > 0
+        $.ajax
+          url: $(@).data('href')
+          method: 'POST'
+          data:
+            rc_username:  $('.js-rc-seeker-username').data('username')
+            message: $(".#{_modal_class} .textarea").text()
+          success: (respond)->
+            $(".#{_modal_class}").modal('hide')
+            $('#js-rocket-chat-modal').modal('show')
+  #          if $(".#{_modal_class} .js-change-state").length
+  #            $(".#{_modal_class} .js-change-state").click()
+          error: (respond)->
+            _error = respond.responseJSON['error']
+            toastr.error(_error, 'Error')
   , " .js-open-to-active-rc, .js-open-to-rejected-rc, .js-open-to-nothing-rc," +
       ".js-rejected-to-active-rc, .js-rejected-to-nothing-rc, .js-proposal-to-active-rc, .js-proposal-to-deleted-rc," +
       ".js-proposal-to-nothing-rc, .js-active-to-nothing-rc, .js-active-send-contract-rc, .js-active-to-finished-rc," +
@@ -128,3 +138,9 @@ getUnread = ()->
       _error = respond.responseJSON['error']
       toastr.error(_error, 'Error')
 
+
+$ ->
+  setInterval ()->
+    if $('.js-rocketchat-icon span').hasClass('hidden') and $("#js-rocket-chat-modal").css("display") != "block"
+      getUnread()
+  , 5000
