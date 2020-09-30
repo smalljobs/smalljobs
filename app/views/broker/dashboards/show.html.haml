@@ -281,6 +281,8 @@
       %div.row.margin-top-25
         %div.col-sm-2.float-left
           = link_to t('seekers.index.add_new'), new_broker_seeker_path, class: 'btn btn-success'
+        %div.col-sm-2.float-left
+          = link_to t('seekers.index.message_to_all'), broadcast_room_broker_rocketchats_path, class: 'btn btn-success js-message-to-all-rc'
         %div.col-sm-3.float-right
           %input.form-control.search{type: 'text', class: 'search-field js-search-field-seeker', placeholder: 'Suche'}
           %i.fa.fa-2x.fa-times-circle.delete-icon.display-none.js-seeker-delete-icon
@@ -337,6 +339,7 @@
                   = seeker.languages
                 %td.age.display-none
                   = seeker.age
+                %td.rc_username.display-none= seeker.rc_username
     %div{id: 'assignments', class: 'tab-pane fade in'}
       %div.row.margin-top-25
         %div.col-sm-3.float-right
@@ -603,7 +606,7 @@
       'long_description', 'short_description', 'phone',
       'mobile', 'contact_preference', 'contact_availability', 'company',
       'email', 'sex', 'additional_contacts', 'occupation', 'languages',
-      'age' ]
+      'age', 'rc_username' ]
     };
 
     var jobsList = new List('jobs', options);

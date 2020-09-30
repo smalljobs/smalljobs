@@ -168,6 +168,7 @@ Smalljobs::Application.routes.draw do
           get 'room/:rc_username', to: "rocketchats#room", as: :room
           post 'message', to: "rocketchats#message", as: :message
           get 'unread', to: "rocketchats#unread", as: :unread
+          post 'broadcast_room', to: "rocketchats#broadcast_room", as: :broadcast_room
         end
       end
     end
