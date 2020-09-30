@@ -425,6 +425,7 @@ de:
       lead: "Hier findest du die registrierten Jugendlichen in deiner Region."
       add_new: "Neuen Jugendlichen"
       no_seekers: "Es sind noch keine Jugendlichen in deiner Region erfasst."
+      message_to_all: "Nachricht versenden"
     show:
       title: "Jugenlicher %{name}"
       lead: "Hier findest du die Details zum Jugenlichen Job-Sucher."

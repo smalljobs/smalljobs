@@ -95,7 +95,28 @@ $ ->
       ".js-proposal-to-nothing-rc, .js-active-to-nothing-rc, .js-active-send-contract-rc, .js-active-to-finished-rc," +
       ".js-active-to-canceled-rc, .js-finished-to-active-rc, .js-finished-to-nothing-rc, .js-finished-to-active-rc," +
       ".js-finished-to-nothing-rc, .js-retracted-to-active-rc, .js-retracted-to-nothing-rc"
-
+  $(document).on
+    click: (e)->
+      e.preventDefault()
+      $('.js-rocketchat-icon').addClass('sj-rotate')
+      $('#js-rocket-chat-modal').modal('show')
+      $('.js-rocketchat-icon span').addClass('hidden')
+      _this = $(@)
+      $.ajax
+        url: _this.attr('href')
+        method: 'POST'
+        data: rc_usernames: $.map window.seekersList.visibleItems, (v)->
+          v['_values']['rc_username']
+        success: (respond)->
+          document.getElementById('js-rocketchat-iframe').contentWindow.postMessage({
+            externalCommand: 'go',
+            path: '/group/'+respond.name
+          }, '*')
+        error: (respond)->
+          _error = respond.responseJSON['error']
+          toastr.error(_error, 'Error')
+          $('.js-rocketchat-icon').removeClass('sj-rotate')
+  , ".js-message-to-all-rc"
 
 generateIframe = (user_id, token, url)->
   if $("#js-rocketchat-iframe")
@@ -126,6 +147,10 @@ getRoomId = ()->
       _error = respond.responseJSON['error']
       toastr.error(_error, 'Error')
       $('.js-rocketchat-icon').removeClass('sj-rotate')
+
+
+
+
 
 getUnread = ()->
   $.ajax

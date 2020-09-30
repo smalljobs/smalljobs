@@ -27,6 +27,19 @@ class Broker::RocketchatsController < InheritedResources::Base
     end
   end
 
+  def broadcast_room
+    se = RocketChat::Session.new(current_broker.rc_id)
+    room = RocketChat::Room.new
+    answer = room.create(se, params[:rc_usernames])
+    respond_to do |format|
+      if answer
+        format.json { render json: {name: answer['name']}, status: :ok }
+      else
+        format.json { render json: { error: room.error }, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def message
     se = RocketChat::Session.new(current_broker.rc_id)
     message = RocketChat::Chat.new
