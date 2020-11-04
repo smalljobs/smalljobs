@@ -19,7 +19,7 @@ module RocketChat
     # "ts"=>"2020-09-30T07:39:29.247Z",
     # "ro"=>false, "_updatedAt"=>"2020-09-30T07:39:29.451Z"
     # }
-    def create(session, user_names)
+    def create(session, user_names, region_name)
       path = '/api/extras/room.create'
       uri = URI.parse("#{ENV['ROCKET_CHAT_URL']}#{path}")
       request = Net::HTTP::Post.new(uri)
@@ -29,12 +29,11 @@ module RocketChat
       seekers = Seeker.where(rc_username: user_names)
       users = seekers.map{|x| {id: x.rc_id}}
       request.body = JSON.dump({
-                                   "name" => "Nachricht #{SecureRandom.hex}",
+                                   "name" => "Jobs #{region_name} #{session.broker.try(:first_name)} #{SecureRandom.hex}",
                                    'users' => users,
                                    'broadcast' => true
                                })
 
-      puts request.body
       req_options = {
           use_ssl: uri.scheme == "https",
       }

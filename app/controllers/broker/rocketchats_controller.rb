@@ -30,7 +30,7 @@ class Broker::RocketchatsController < InheritedResources::Base
   def broadcast_room
     se = RocketChat::Session.new(current_broker.rc_id)
     room = RocketChat::Room.new
-    answer = room.create(se, params[:rc_usernames])
+    answer = room.create(se, params[:rc_usernames], current_region.try(:name))
     respond_to do |format|
       if answer
         format.json { render json: {name: answer['name']}, status: :ok }
