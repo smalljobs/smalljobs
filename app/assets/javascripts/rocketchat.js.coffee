@@ -102,6 +102,10 @@ $ ->
       $('#js-rocket-chat-modal').modal('show')
       $('.js-rocketchat-icon span').addClass('hidden')
       _this = $(@)
+      document.getElementById('js-rocketchat-iframe').contentWindow.postMessage({
+        externalCommand: 'go',
+        path: '/'
+      }, '*')
       $.ajax
         url: _this.attr('href')
         method: 'POST'

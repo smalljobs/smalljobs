@@ -87,11 +87,13 @@ class Broker < ActiveRecord::Base
 
   def create_rc_account
     if self.rc_id.blank?
+      env = ""
+      env = "dev" if Rails.env == "development"
       rc = RocketChat::Users.new
       user = rc.create({
                     name: self.name,
                     email: self.email,
-                    username: "smalljobs_#{self.id}",
+                    username: "smalljobs_#{env}#{self.id}",
                     password: SecureRandom.hex,
                     customFields: {
                       smalljobs_user_id: self.id,
