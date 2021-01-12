@@ -22,27 +22,30 @@
         .col-xs-12.col-md-6
           = f.input :lastname, required: true
 
-  - if !@seeker.new_record?
-    %fieldset
-      %a{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
-        %i.fa.fa-envelope
-        = "Nachricht senden"
+    - if !@seeker.new_record?
+      - if ENV['ROCKET_CHAT_URL'].blank?
+        %fieldset
+          %a{href: "#", "data-toggle": "modal", "data-target": "#message_modal"}
+            %i.fa.fa-envelope
+            = "Nachricht senden"
 
-    %fieldset
-      %a{href: "#", "data-toggle": "modal", "data-target": "#jobs_certificate_modal"}
-        %i.fa.fa-file-text
-        = "Arbeitszeugnis erstellen"
+      %fieldset
+        %a{href: "#", "data-toggle": "modal", "data-target": "#jobs_certificate_modal"}
+          %i.fa.fa-file-text
+          = "Arbeitszeugnis erstellen"
 
     %fieldset
       .form-inputs
         = f.input :parental, label: false, inline_label: true
 
-      %a{href: agreement_broker_seeker_path(@seeker.agreement_id), target: '_blank'}
-        %i.fa.fa-print.margin_left_20.green
-        = "Drucken"
-      %a.margin_left_20{href: "#", "data-toggle": "modal", "data-target": "#pdf_message_modal"}
-        %i.fa.fa-envelope
-        = "Elterneinverständnis als Pdf schicken"
+      - if !@seeker.new_record?
+        %a{href: agreement_broker_seeker_path(@seeker.agreement_id), target: '_blank'}
+          %i.fa.fa-print.margin_left_20.green
+          = "Drucken"
+        %a.margin_left_20{href: "#", "data-toggle": "modal", "data-target": "#pdf_message_modal"}
+          %i.fa.fa-envelope
+          = "Elterneinverständnis als Pdf schicken"
+
       .form-inputs
         = f.input :discussion, label: false, inline_label: true
 
@@ -129,7 +132,10 @@
     %legend
       = "Zuständige Organisation"
     .form-inputs
-      = f.association :organization, required: true, include_blank: true, label: false, collection: current_broker.all_organizations
+      - if f.object.organization_id.blank? and current_broker.all_organizations.length == 1
+        - f.object.organization_id = current_broker.all_organizations.first.id
+      = f.association :organization, required: true, include_blank: true, label: false,
+      collection: current_broker.all_organizations
       -# change paused, if we change region we have to change place for seeker
       -#%a{href: "#", "data-toggle": "modal", "data-target": "#region_modal"}
       -#  Zu einer anderen Jobbörse übertragen
@@ -149,7 +155,8 @@
     -#= render 'region_modal'
 - if !@seeker.new_record?
   = render 'pdf_message_modal'
-  = render 'message_modal'
+  - if ENV['ROCKET_CHAT_URL'].blank?
+    = render 'message_modal'
   = render 'jobs_certificate_modal'
 
 

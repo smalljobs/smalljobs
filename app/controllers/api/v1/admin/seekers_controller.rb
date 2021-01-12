@@ -1,7 +1,7 @@
 class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
   before_action :set_seeker_by_phone_or_id, only: [:show]
   before_action :set_seeker, only: [:destroy, :update]
-  before_action :set_user_via_phone, only: [:create_access_token]
+  before_action :set_user_via_phone, only: [:create_seekers_access_token]
 
   # POST /api/v1/admin/users/login
   # Performs the login.
@@ -127,10 +127,10 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
   end
 
   def create_seekers_access_token
-    token = AccessToken.find_by(seeker_id: @seeker.id)
+    token = AccessToken.find_by(userable_id: @seeker.id, userable_type: 'Seeker', device_id: params[:device_id])
     token.destroy! if token != nil
 
-    token = AccessToken.new(userable_id: @seeker.id, userable_type: 'Seeker',  token_type: 'bearer')
+    token = AccessToken.new(userable_id: @seeker.id, userable_type: 'Seeker',  token_type: 'bearer', device_id: params[:device_id])
     token.expire_at = DateTime.now() + 30.days
     token.save!
 
@@ -157,7 +157,7 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
   def update_params
     params.permit(:phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id,
                   :street, :sex, :status, :categories, :login, :mobile, :email, :additional_contacts, :languages,
-                  :occupation, :occupation_end_date, :contact_availability, :contact_preference)
+                  :occupation, :occupation_end_date, :contact_availability, :contact_preference, :rc_id, :rc_username)
   end
   def set_update_params
     user_params = update_params

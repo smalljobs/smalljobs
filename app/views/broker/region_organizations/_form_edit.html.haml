@@ -19,6 +19,22 @@
       = f.input :opening_hours, required: true
       = f.input :street, required: true
       = f.association :place, required: true, collection: current_region.places, include_blank: true, :label_method => lambda { |place| "#{place.zip} #{place.name}" }
+      = f.input :signature_on_contract, as: :boolean, inline_label: true, label: false
+      = f.input :default_broker_id, collection: current_region.brokers, include_blank: true, :label_method => lambda { |broker| "#{broker.firstname} #{broker.lastname}" }
+  %fieldset
+    %legend
+      = t('legends.vacations')
+      %i.fa.fa-2x.fa-sun-o.pull-right
+
+    .form-inputs
+      = f.input :vacation_active, as: :boolean, inline_label: true, label: false, input_html: {class: "js-vacation-active"}
+      .sj-vacation-container.js-vacation-container
+        = f.input :start_vacation_date, as: :date
+        = f.input :end_vacation_date, as: :date
+        = f.input :vacation_title
+        = f.input :vacation_text
+
+
 
   %fieldset
     %legend
@@ -47,7 +63,9 @@
 
     .form-inputs
       -#= f.input :default_hourly_per_age
-      = f.input :wage_factor
+      = f.input :wage_factor, input_html: {type: 'text'}
+      = f.input :salary_deduction, input_html: {type: 'text'}
+      = f.input :hide_salary, as: :boolean, inline_label: true, label: false
 
   %fieldset
     %legend
@@ -97,6 +115,8 @@
       = f.input :get_job_msg
       = f.input :activation_msg
       = f.input :welcome_email_for_parents_msg
+      = f.input :first_reminder_message
+      = f.input :second_reminder_message
 
   .form-actions
     = button_tag I18n.t("common.reset_to_default"), class: 'btn btn-info js-reset-to-defaults', type: :button

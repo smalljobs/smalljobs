@@ -82,6 +82,39 @@ $ cd /vagrant
 ```
 Handling of [vagrant-Box](/puppet/README.md)
 
+### Docker Localy
+
+If you want start fast with docker
+
+* install docker
+* install docker-compose
+
+```bash
+$ git clone git@github.com:smalljobs/smalljobs.git
+$ cd smalljobs/docker/docker_smalljobs
+```
+You must edit docker-compose.yml and then
+
+```bash
+$ docker-compose build
+$ docker-compose up -d
+```
+And everything will be built
+
+#### Start docker 
+```bash
+$ docker-compose stop
+```
+#### Stop docker 
+```bash
+$ docker-compose start
+```
+#### Login to docker and start server
+```bash
+$ docker exec -it smalljob_docker_web_1 /bin/bash --login -c "stty rows 60 && stty cols 250 && bash --login"
+$ foreman start
+```
+
 #### Local SMPT Server
 
 If you want to preview the app emails, you need to install [MailCatcher](http://mailcatcher.me/) with:

@@ -27,7 +27,7 @@ Smalljobs::Application.routes.draw do
   get 'join_us',          to: 'pages#join_us'
   get 'rules_of_action',  to: 'pages#rules_of_action'
   get 'app_links',        to: 'pages#app_links'
-
+  post 'uploader/image', to: 'uploader#image'
 
   constraints(SmalljobsSubdomain) do
     namespace :broker do
@@ -74,6 +74,7 @@ Smalljobs::Application.routes.draw do
       resource :organization, only: [:edit, :update]
       resource :region, only: [:edit, :update] do
         delete :destroy_logo
+        delete :destroy_header_image
         collection do
           resources :organizations, except: [:new], controller: :region_organizations, as: :region_organizations do
             post :reset_templates_to_default
@@ -88,7 +89,12 @@ Smalljobs::Application.routes.draw do
         end
       end
 
-      resources :todos, only: [:update]
+      resources :todos, only: [:update] do
+        member do
+          post :completed
+          post :uncompleted
+        end
+      end
       resources :statistics, only: [:index] do
         collection do
           get 'organization_statistics'
@@ -157,6 +163,14 @@ Smalljobs::Application.routes.draw do
         get 'certificate'
       end
 
+      resources :rocketchats, onlye: [:create] do
+        collection do
+          get 'room/:rc_username', to: "rocketchats#room", as: :room
+          post 'message', to: "rocketchats#message", as: :message
+          get 'unread', to: "rocketchats#unread", as: :unread
+          post 'broadcast_room', to: "rocketchats#broadcast_room", as: :broadcast_room
+        end
+      end
     end
 
     namespace :provider do
@@ -255,7 +269,7 @@ Smalljobs::Application.routes.draw do
         collection do
           post :revoke
           post :apply
-          post :list_my_jobs
+          get :list_my_jobs
         end
       end
       resources :allocations, only: [:index]
@@ -308,7 +322,8 @@ Smalljobs::Application.routes.draw do
         collection do
           post :revoke
           post :apply
-          post :list_my_jobs
+          get :list_my_jobs
+          get :my
         end
       end
       resources :allocations, only: [:index]

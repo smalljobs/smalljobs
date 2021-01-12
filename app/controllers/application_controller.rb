@@ -3,6 +3,7 @@ require 'app_responder'
 class ApplicationController < ActionController::Base
   before_filter :require_https
   before_filter :redirect_www
+  before_filter :redirect_if_region_empty
 
   self.responder = AppResponder
   respond_to :html, :json
@@ -47,6 +48,12 @@ class ApplicationController < ActionController::Base
   def redirect_smalljobs
     if request.subdomain == 'smalljobs'
       redirect_to "https://winterthur.smalljobs.ch#{request.fullpath}", :status => :moved_permanently
+    end
+  end
+
+  def redirect_if_region_empty
+    if Region.where(subdomain: request.subdomain).blank?
+      redirect_to "https://smalljobs.ch/lokal"
     end
   end
 

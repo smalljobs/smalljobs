@@ -5,6 +5,7 @@ class Organization < ActiveRecord::Base
   has_many :places, through: :regions
 
   belongs_to :place, inverse_of: :organization
+  belongs_to :broker, foreign_key: :default_broker_id
 
   validates :name, presence: true, uniqueness: true
   validates :website, url: true, allow_blank: true, allow_nil: true
@@ -33,7 +34,8 @@ class Organization < ActiveRecord::Base
   attr_accessor :assigned_to_region, :region_id
 
   TEMPLATES_NAMES = ['welcome_letter_employers_msg', 'welcome_app_register_msg', 'welcome_chat_register_msg',
-                     'not_receive_job_msg', 'get_job_msg', 'activation_msg', 'welcome_email_for_parents_msg']
+                     'not_receive_job_msg', 'get_job_msg', 'activation_msg', 'welcome_email_for_parents_msg',
+                     'first_reminder_message', 'second_reminder_message']
 
   def connect_to_region
     if assigned_to_region == 'true'
@@ -77,6 +79,17 @@ class Organization < ActiveRecord::Base
 
   def destroy_background?
     self.remove_background! if @background_delete == "1"
+  end
+
+  def self.end_vacation(date = Time.zone.now.to_date )
+    organizations = Organization.where("end_vacation_date < ?", date)
+    organizations.each do |organization|
+      organization.update(
+          vacation_active: false,
+          start_vacation_date: nil,
+          end_vacation_date: nil
+      )
+    end
   end
 
   private

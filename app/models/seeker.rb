@@ -24,6 +24,7 @@ class Seeker < ActiveRecord::Base
 
   belongs_to :place, inverse_of: :seekers
   belongs_to :organization
+  has_one :region, through: :place
 
   attr_accessor :new_note
   attr_accessor :current_broker_id
@@ -209,8 +210,9 @@ class Seeker < ActiveRecord::Base
   end
 
   # Return seeker current region
+  # unused
   #
-  def region
+  def region_through_org
     return self.organization.regions.first if self.organization.present?
     nil
   end
@@ -324,6 +326,13 @@ class Seeker < ActiveRecord::Base
   end
 
   public
+
+  # show seeker age
+  def age
+    return Date.today.year - self.date_of_birth.year if self.date_of_birth.present?
+    return 0
+  end
+
 
   def stat_name
     if completed?

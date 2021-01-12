@@ -1,4 +1,4 @@
-%div.modal.fade{id: "proposal_to_deleted_modal"}
+%div.modal.fade.js-proposal-to-deleted-modal-rc{id: "proposal_to_deleted_modal"}
   %div.modal-dialog
     %div.modal-content
       %div.modal-header
@@ -23,7 +23,11 @@
             = "Keine App für Messaging installiert. Per Telefon Kontakt aufnehmen"
             %a{href: "tel:#{@allocation.seeker.mobile}"}
               = @allocation.seeker.mobile
-        %button.btn.btn-success.cancel_state
-          = "Vorschlag löschen"
+        - if ENV['ROCKET_CHAT_URL'].blank?
+          %button.btn.btn-success.cancel_state
+            = "Vorschlag löschen"
+        - else
+          %button.btn.btn-success.cancel_state.js-proposal-to-deleted-rc{data: {href: "#{message_broker_rocketchats_path}"}}
+            = "Vorschlag löschen"
       %div.modal-footer
         = render 'messages'

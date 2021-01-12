@@ -2,63 +2,62 @@
   %button.btn.btn-success.prevail_state.width-100.new-job-btn
     = "Neuen Job erfassen"
 
-- jobs = @provider.jobs.where(state: 'running')
+- jobs = @provider.jobs.where(state: 'check').order(created_at: :desc)
 - if jobs.count > 0
   %h4.allocations-header= "Jobs: Prüfen"
-  = t('activerecord.attributes.allocation.state_label.')
   - for job in jobs
     = link_to "#{job.title}, #{job.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_job_path(job), class: 'bold'
     %ul.allocations-list
-      - allocations = job.allocations.includes(:seeker)
-      - for allocation in allocations
+      - allocations = job.allocations.includes(:seeker).order(created_at: :desc)
+      - for allocation in order_allocation_by_state(allocations)
         %li.allocations-list-item
           %p
             = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
 
-- jobs = @provider.jobs.where(state: 'public')
+- jobs = @provider.jobs.where(state: 'public').order(created_at: :desc)
 - if jobs.count > 0
   %h4.allocations-header= "Jobs: Veröffentlichen"
   - for job in jobs
     = link_to "#{job.title}, #{job.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_job_path(job), class: 'bold'
     %ul.allocations-list
-      - allocations = job.allocations.includes(:seeker)
-      - for allocation in allocations
+      - allocations = job.allocations.includes(:seeker).order(created_at: :desc)
+      - for allocation in order_allocation_by_state(allocations)
         %li.allocations-list-item
           %p
             = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
 
-- jobs = @provider.jobs.where(state: 'hidden')
+- jobs = @provider.jobs.where(state: 'hidden').order(created_at: :desc)
 - if jobs.count > 0
   %h4.allocations-header= "Jobs: Versteckt"
   - for job in jobs
     = link_to "#{job.title}, #{job.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_job_path(job), class: 'bold'
     %ul.allocations-list
-      - allocations = job.allocations.includes(:seeker)
-      - for allocation in allocations
+      - allocations = job.allocations.includes(:seeker).order(created_at: :desc)
+      - for allocation in order_allocation_by_state(allocations)
         %li.allocations-list-item
           %p
             = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
 
-- jobs = @provider.jobs.where(state: 'feedback')
+- jobs = @provider.jobs.where(state: 'feedback').order(created_at: :desc)
 - if jobs.count > 0
   %h4.allocations-header= "Jobs: Feedback"
   - for job in jobs
     = link_to "#{job.title}, #{job.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_job_path(job), class: 'bold'
     %ul.allocations-list
-      - allocations = job.allocations.includes(:seeker)
-      - for allocation in allocations
+      - allocations = job.allocations.includes(:seeker).order(created_at: :desc)
+      - for allocation in aorder_allocation_by_state(allocations)
         %li.allocations-list-item
           %p
             = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)
 
-- jobs = @provider.jobs.where(state: 'finished')
+- jobs = @provider.jobs.where(state: 'finished').order(created_at: :desc)
 - if jobs.count > 0
   %h4.allocations-header= "Jobs: Beendet"
   - for job in jobs
     = link_to "#{job.title}, #{job.last_change_of_state.strftime("%d.%m.%Y")}", edit_broker_job_path(job), class: 'bold'
     %ul.allocations-list
-      - allocations = job.allocations.includes(:seeker)
-      - for allocation in allocations
+      - allocations = job.allocations.includes(:seeker).order(created_at: :desc)
+      - for allocation in order_allocation_by_state(allocations)
         %li.allocations-list-item
           %p
             = link_to "#{t("activerecord.attributes.allocation.state_label.#{allocation.state}")}, #{allocation.last_change_of_state.strftime("%d.%m.%Y")}: #{allocation.seeker.name}", broker_job_allocation_path(job, allocation.seeker)

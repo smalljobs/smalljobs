@@ -13,12 +13,14 @@ class Api::V1::JobsController < Api::V1::ApiController
     page = params[:page] == nil ? 1 : params[:page].to_i
     limit = params[:limit] == nil ? 10 : params[:limit].to_i
 
+    show_allocations = true?(params[:allocations])
+
     state = Job::state_from_integer(status)
 
     jobs = []
     found_jobs = []
 
-    if !region_id.nil?
+    if region_id.present?
       region = Region.find_by(id: region_id)
       render(json: {code: 'jobs/not_found', message: 'Region not found'}, status: 404) && return if region.nil?
       found_jobs = region.jobs
@@ -31,12 +33,19 @@ class Api::V1::JobsController < Api::V1::ApiController
       end
     end
     found_jobs = found_jobs.where(state: state) if !state.nil?
-    found_jobs = found_jobs.page(page).per(limit)
-    for job in found_jobs do
-      jobs.append(ApiHelper::job_to_json(job, job.organization, show_provider, show_organization, show_assignments, nil))
+    found_jobs = found_jobs.order(updated_at: :desc).page(page).per(limit)
+
+    found_jobs.each do |job|
+      jobs.append(ApiHelper::job_to_json_v1({job: job,
+                                             organization: job.organization,
+                                             show_provider: show_provider,
+                                             show_organization: show_organization,
+                                             show_assignments: show_assignments,
+                                             seeker: @seeker,
+                                             show_allocations: show_allocations}))
     end
 
-    render json: jobs, status: 200
+    render json: jobs.compact, status: 200
   end
 
   # POST /api/jobs/apply
@@ -111,8 +120,14 @@ class Api::V1::JobsController < Api::V1::ApiController
     show_provider = true?(params[:provider])
     show_organization = true?(params[:organization])
     show_assignments = true?(params[:assignments])
+    show_allocations = true?(params[:allocations])
+    if @seeker.class == Seeker and @seeker.jobs.find_by(id: id).present?
+      seeker = @seeker
+    else
+      seeker = nil
+    end
     job = Job.find_by(id: id)
-    if job == nil
+    if job.blank?
       render json: {code: 'jobs/not_found', message: 'Job not found'}, status: 404
       return
     end
@@ -126,7 +141,13 @@ class Api::V1::JobsController < Api::V1::ApiController
       status = 2
     end
 
-    render json: ApiHelper::job_to_json(job, job.organization, show_provider, show_organization, show_assignments, nil), status: 200
+    render json: ApiHelper::job_to_json_v1({job: job,
+                                            organization: job.organization,
+                                            show_provider: show_provider,
+                                            show_organization: show_organization,
+                                            show_assignments: show_assignments,
+                                            seeker: seeker,
+                                            show_allocations: show_allocations}), status: 200
   end
 
   # GET /api/allocations?user_id=1&job_id=1&user=true&provider=true&organization=true&assignments=true&status=0&page=1&limit=10
@@ -152,10 +173,53 @@ class Api::V1::JobsController < Api::V1::ApiController
     found_allocations = found_allocations.page(page).per(limit)
 
     for allocation in found_allocations
-      allocations.append(ApiHelper::allocation_with_job_to_json(allocation, allocation.job, show_provider, show_organization, show_seeker, show_assignments))
+      allocations.append(ApiHelper::allocation_with_job_to_json(allocation, allocation.job, show_provider, show_organization, show_seeker, show_assignments, @seeker))
     end
 
     render json: allocations, status: 200
   end
 
+  def my
+    if @seeker.present?
+      organization_id = params[:organization_id]
+      region_id = params[:region_id]
+      status = params[:status] == nil ? nil : params[:status].to_i
+      show_provider = true?(params[:provider])
+      show_organization = true?(params[:organization])
+      show_assignments = true?(params[:assignments])
+      page = params[:page] == nil ? 1 : params[:page].to_i
+      limit = params[:limit] == nil ? 10 : params[:limit].to_i
+      show_allocations = true?(params[:allocations])
+
+      state = Job::state_from_integer(status)
+
+      jobs = []
+      found_jobs = @seeker.jobs
+
+      if region_id.present?
+        region = Region.find_by(id: region_id)
+        render(json: {code: 'jobs/not_found', message: 'Region not found'}, status: 404) && return if region.nil?
+        found_jobs = region.jobs.joins(:seekers).where("seekers.id = ?", @seeker.id)
+        found_jobs = found_jobs.where(organization_id: organization_id) if !organization_id.nil?
+      else
+        if !organization_id.nil?
+          found_jobs = found_jobs.joins(:provider).where(providers: {organization_id: organization_id})
+        end
+      end
+      found_jobs = found_jobs.where(state: state) if !state.nil?
+      found_jobs = found_jobs.order(:updated_at).page(page).per(limit)
+      found_jobs.each do |job|
+        jobs.append(ApiHelper::job_to_json_v1({job: job,
+                                               organization: job.organization,
+                                               show_provider: show_provider,
+                                               show_organization: show_organization,
+                                               show_assignments: show_assignments,
+                                               seeker: @seeker,
+                                               show_allocations: show_allocations}))
+      end
+      render json: jobs.compact, status: 200
+    else
+      render json: {code: 'jobs/not_found', message: 'User not found'}, status: 404
+    end
+  end
 end

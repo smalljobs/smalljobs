@@ -1,14 +1,14 @@
-- if (current_broker.present? || current_provider.present?)
-  .vacation-bar.js-organization{data: {id: current_broker.selected_organization_id, name: "Alle Organisationen"}, style: "display: none"}
-    Die
-    %span.js-organisation-name
-      Alle Organisationen
-    Organisation hat Feiertage von
-    %span.js-org-start-date
-      test
-    bis
-    %span.js-org-end-date
-      test2
+-# - if (current_broker.present? || current_provider.present?)
+-#   .vacation-bar.js-organization{data: {id: current_broker.selected_organization_id, name: "Alle Organisationen"}, style: "display: none"}
+-#     Die
+-#     %span.js-organisation-name
+-#       Alle Organisationen
+-#     Organisation hat Feiertage von
+-#     %span.js-org-start-date
+-#       test
+-#     bis
+-#     %span.js-org-end-date
+-#       test2
 %div{id: 'dashboard'}
   %div.row
     %div.col-sm-3
@@ -19,7 +19,9 @@
           - for organization in current_broker.all_organizations
             %option{value: "#{organization.id}", data: {'vacation-start': organization.start_vacation_date,
             'vacation-end': organization.end_vacation_date,
-            'show-date': ( organization.vacation_active && (organization.end_vacation_date.present? && (organization.end_vacation_date > Date.today))).to_s}}
+            'show-date': ( organization.vacation_active && (organization.end_vacation_date.present? && (organization.end_vacation_date > Date.today))).to_s},
+            selected: organization.id == current_broker.selected_organization_id}
+
               = organization.name
     %div.col-sm-2.float-left.display-none
       %input.form-control.search{type: 'text', id: 'search-field', placeholder: 'Suche'}
@@ -47,7 +49,7 @@
       %a{'data-toggle': 'tab', href: '#todos'}
         =t('broker_dashboard.todo')
         %span
-          = "(#{@todos&.length.to_i})"
+          = "(#{@todos&.current&.length.to_i})"
     %li
       %a{'data-toggle': 'tab', href: '#jobs'}
         =t('broker_dashboard.jobs')
@@ -91,6 +93,7 @@
           %table.table.table-striped.sortable
             %thead
               %tr
+                %th
                 %th.sortable{id: 'todo_date'}= t('broker_dashboard.todo_table.date')
                 %th.sortable{id: 'todo_todo'}= t('broker_dashboard.todo_table.todo')
                 %th= t('broker_dashboard.todo_table.description')
@@ -99,10 +102,14 @@
               - if @todos.current.count == 0
 
                 %tr
-                  %td{colspan: 3}= "Es sind noch keine Todo in deiner Region erfasst"
+                  %td{colspan: 5}= "Es sind noch keine Todo in deiner Region erfasst"
               - @todos.current.each do |todo|
                 %tr{ class: "organization organization-#{todo.organization_id}" }
                   - sortable_date = todo.created_at.strftime("%Y%m%d%H%M%S")
+                  %td.completed
+                    - if todo.manual_completion
+                      %a.js-todo-completed{href: "#", data: {url: "#{url_for completed_broker_todo_path(todo.id)}", url_undo: "#{url_for uncompleted_broker_todo_path(todo.id)}"}}
+                        %i.fa.fa-2x.fa-check-circle
                   %td.date{sorttable_customkey: sortable_date}
                     = todo.created_at.strftime("%d.%m.%Y")
                   %td.title
@@ -138,10 +145,14 @@
               - if @todos.postponed.count == 0
 
                 %tr
-                  %td{colspan: 3}= "Es sind noch keine Todo in deiner Region erfasst"
+                  %td{colspan: 5}= "Es sind noch keine Todo in deiner Region erfasst"
               - @todos.postponed.each do |todo|
                 %tr{ class: "organization organization-#{todo.organization_id}" }
                   - sortable_date = todo.created_at.strftime("%Y%m%d%H%M%S")
+                  %td.completed
+                    - if todo.manual_completion
+                      %a.js-todo-completed{href: "#", data: {url: "#{url_for completed_broker_todo_path(todo.id)}", url_undo: "#{url_for uncompleted_broker_todo_path(todo.id)}"}}
+                        %i.fa.fa-2x.fa-check-circle
                   %td.date{sorttable_customkey: sortable_date}
                     = todo.created_at.strftime("%d.%m.%Y")
                   %td.title
@@ -270,9 +281,17 @@
       %div.row.margin-top-25
         %div.col-sm-2.float-left
           = link_to t('seekers.index.add_new'), new_broker_seeker_path, class: 'btn btn-success'
+        %div.col-sm-2.float-left
+          = link_to t('seekers.index.message_to_all'), broadcast_room_broker_rocketchats_path, class: 'btn btn-success js-message-to-all-rc'
         %div.col-sm-3.float-right
-          %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
-          %i.fa.fa-2x.fa-times-circle.delete-icon.display-none
+          %input.form-control.search{type: 'text', class: 'search-field js-search-field-seeker', placeholder: 'Suche'}
+          %i.fa.fa-2x.fa-times-circle.delete-icon.display-none.js-seeker-delete-icon
+          .sj-age-slider-container-relative
+            .sj-age-slider-container.js-age-slider-container.display-none
+              #js-lower-value.sj-lower-value.col-xs-2
+              .sj-slider.col-xs-6.col-xs-offset-1
+                #js-age-scroll
+              #js-higher-value.sj-higher-value.col-xs-2.col-xs-offset-1
         %div.col-sm-1.float-right
           %a.btn.archive-btn
             = "Archiv"
@@ -318,6 +337,9 @@
                   = seeker.additional_contacts
                 %td.languages.display-none
                   = seeker.languages
+                %td.age.display-none
+                  = seeker.age
+                %td.rc_username.display-none= seeker.rc_username
     %div{id: 'assignments', class: 'tab-pane fade in'}
       %div.row.margin-top-25
         %div.col-sm-3.float-right
@@ -383,6 +405,7 @@
   // window.location.hash = '';
 
   $(document).ready(function(){
+    $('.search-field').val('')
 
     $('.nav-pills a[href="#' + target + '"]').tab('show');
     setHelp();
@@ -483,17 +506,17 @@
     }
 
     function loadOrganization() {
-      var id = "#{current_broker.selected_organization_id}";
-      selectedOrganizationId = id;
-      if(id === '0') {
+      selectedOrganizationId = "#{current_broker.selected_organization_id}";
+
+      if(selectedOrganizationId === '0') {
         $('.display-none.organization').removeClass('display-none');
       } else {
         $('.display-none.organization').removeClass('display-none');
         $('.organization').addClass('display-none');
-        $('.organization-' + id).removeClass('display-none');
+        $('.organization-' + selectedOrganizationId).removeClass('display-none');
       }
 
-      $('#dropdown-btn').val(id);
+      $('#dropdown-btn').val(selectedOrganizationId);
       // $('#dropdown-btn').text($('.organization-dropdown[data-value="' + id + '"]').text());
     }
 
@@ -517,18 +540,19 @@
     });
 
     $('#dropdown-btn').on('change', function(){
-      var id = this.value;
+      selectedOrganizationId = this.value;
+      $.post("#{save_settings_broker_dashboard_path}", {selected_organization_id: parseInt(selectedOrganizationId)}, function(response) {});
       var name = $(this).find("option:selected").text();
       var vacationStart = $(this).find("option:selected").data('vacation-start');
       var vacationEnd = $(this).find("option:selected").data('vacation-end');
       var showDate = $(this).find("option:selected").data('show-date');
-      selectedOrganizationId = id;
-      if(id === '0') {
+
+      if(selectedOrganizationId === '0') {
         $('.display-none.organization').removeClass('display-none');
       } else {
         $('.display-none.organization').removeClass('display-none');
         $('.organization').addClass('display-none');
-        $('.organization-' + id).removeClass('display-none');
+        $('.organization-' + selectedOrganizationId).removeClass('display-none');
       }
 
 
@@ -542,12 +566,38 @@
       }
 
       $.each($('.js-active-tab a'), function(){
-        console.log($(this).attr('href'))
-        value = $("tr.organization", $($(this).attr('href'))).length - $("tr.display-none", $($(this).attr('href'))).length
-        console.log(value)
-        $("span",$("[href='"+$(this).attr('href')+"']")).text("("+value+")")
+           if ($(this).attr('href') != "#todos"){
+            value = $("tr.organization", $($(this).attr('href'))).length - $("tr.display-none", $($(this).attr('href'))).length
+            $("span",$("[href='"+$(this).attr('href')+"']")).text("("+value+")")
+          }else{
+            $.each($('.js-todo-tabs a'), function(){
+              if($(this).attr('aria-expanded') == 'true'){
+                value = $("tr.organization", $($(this).attr('href'))).length - $("tr.display-none", $($(this).attr('href'))).length
+                $("span",$("[href='#todos']")).text("("+value+")")
+              }
+            })
+          }
       })
     });
+
+    $('.js-todo-tabs a').on('click', function(){
+      _that = $(this);
+      $.each($('.js-active-tab a'), function(){
+          if ($(this).attr('href') != "#todos"){
+            value = $("tr.organization", $($(this).attr('href'))).length - $("tr.display-none", $($(this).attr('href'))).length
+            $("span",$("[href='"+$(this).attr('href')+"']")).text("("+value+")")
+          }else{
+            $.each($('.js-todo-tabs a'), function(){
+              // if($(this).attr('aria-expanded') == 'true'){
+              if($(this).attr('href') == _that.attr('href')){
+                value = $("tr.organization", $($(this).attr('href'))).length - $("tr.display-none", $($(this).attr('href'))).length
+                $("span",$("[href='#todos']")).text("("+value+")")
+              }
+            })
+          }
+
+        })
+    })
 
     var options = {
       valueNames: [ 'name', 'provider-name', 'place', 'status',
@@ -555,12 +605,13 @@
       'feedback', 'description', 'salary', 'manpower', 'duration',
       'long_description', 'short_description', 'phone',
       'mobile', 'contact_preference', 'contact_availability', 'company',
-      'email', 'sex', 'additional_contacts', 'occupation', 'languages' ]
+      'email', 'sex', 'additional_contacts', 'occupation', 'languages',
+      'age', 'rc_username' ]
     };
 
     var jobsList = new List('jobs', options);
     var providersList = new List('providers', options);
-    var seekersList = new List('seekers', options);
+    window.seekersList = new List('seekers', options);
     var assignmentsList = new List('assignments', options);
     var todosCurrentList = new List('todo_current', options);
     var todosPostponedList = new List('todo_postponed', options);
@@ -594,7 +645,7 @@
       todosPostponedList.search(searchString);
     });
 
-    checkSearchField();
+    //checkSearchField();
     loadOrganization();
     loadSortedColumn();
 
@@ -605,7 +656,6 @@
         searchFieldVal = '';
       }
       window.localStorage.setItem("search_filter", searchFieldVal);
-        $.post("#{save_settings_broker_dashboard_path}", {filter: searchFieldVal, selected_organization_id: parseInt(selectedOrganizationId)}, function(response) {
-      });
+      $.post("#{save_settings_broker_dashboard_path}", {filter: searchFieldVal, selected_organization_id: parseInt(selectedOrganizationId)}, function(response) {});
     });
   });

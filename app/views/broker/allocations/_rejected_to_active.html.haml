@@ -1,4 +1,4 @@
-%div.modal.fade{id: "rejected_to_active_modal"}
+%div.modal.fade.js-rejected-to-active-modal-rc{id: "rejected_to_active_modal"}
   %div.modal-dialog
     %div.modal-content
       %div.modal-header
@@ -17,7 +17,11 @@
             = "Keine App für Messaging installiert. Per Telefon Kontakt aufnehmen"
             %a{href: "tel:#{@allocation.seeker.mobile}"}
               = @allocation.seeker.mobile
-        %button.btn.btn-success.change_state
-          = "Anstellen"
+        - if ENV['ROCKET_CHAT_URL'].blank?
+          %button.btn.btn-success.js-change-state
+            = "Anstellen"
+        - else
+          %button.btn.btn-success.js-change-state.js-rejected-to-active-rc{data: {href: "#{message_broker_rocketchats_path}"}}
+            = "Anstellen"
       %div.modal-footer
         = render 'messages'

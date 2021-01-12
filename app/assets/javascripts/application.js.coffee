@@ -21,9 +21,9 @@
 
 ##= require tinymce-jquery
 #= require tinymce
-
-
 #= require broker
+#= require nouislider
+#= require dashboard
 
 ready = ->
   history_array = JSON.parse(sessionStorage.getItem('history') || '[]')

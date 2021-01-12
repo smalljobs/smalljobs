@@ -28,9 +28,11 @@ de:
       job: "Job"
       salary: "Lohn"
       wage_factor: "Lohn = Alter * Lohnfaktor * Arbeitsdauer"
+      vacation: "Urlaub"
     format:
       logo: "Format 400x220"
       background: "Format 700x400"
+      header_image: "Format 2068x1352"
   filters:
     all: "Alle"
     without_applications: "Ohne Bewerbungen"
@@ -89,7 +91,7 @@ de:
     allocation: "Zuweisung"
     application: "Bewerben"
     proposal: "Vorschlag"
-    seeker_salary: "Lohnvorschlag"
+    seeker_salary: "Lohn"
     messages_templates: "Vorlagen"
     available_placeholders: "Verfügbare Platzhalter:"
     seeker_salary_hint_wage_factor: >
@@ -133,7 +135,7 @@ de:
       hourly: "Stundenlohn"
       fixed: "Fixer Preis"
       hourly_per_age: "Stundenlohn pro Altersjahr"
-      hourly_per_age_with_factor: "Stundenlohn pro Altersjahr * %{wage_factor}"
+      hourly_per_age_with_factor: "Stundenlohn pro Altersjahr * %{wage_factor} - #{salary_deduction}"
     date_types:
       agreement: "Nach Absprache"
       date: "An einem bestimmten Tag"
@@ -212,6 +214,9 @@ de:
           lead: "Hier können Sie alle Bewertungen für einen Job betrachten."
           add_new: "Neue Bewertung hinzufügen"
           no_reviews: "Es sind noch keine Bewertungen für diesen Job erfasst"
+    seeker:
+      edit:
+        error: "Chat ist deaktiviert für diese Person. Bitte per Telefon Kontakt aufnehmen."
   provider:
     jobs:
       new:
@@ -420,6 +425,7 @@ de:
       lead: "Hier findest du die registrierten Jugendlichen in deiner Region."
       add_new: "Neuen Jugendlichen"
       no_seekers: "Es sind noch keine Jugendlichen in deiner Region erfasst."
+      message_to_all: "Nachricht versenden"
     show:
       title: "Jugenlicher %{name}"
       lead: "Hier findest du die Details zum Jugenlichen Job-Sucher."
@@ -464,6 +470,9 @@ de:
       action: "Als Vermittler anmelden"
   organizations:
     add_new: 'Neuen Standort'
+    edit:
+      vacation_title_default: 'Jobbörse in den Ferien'
+      vacation_text_default: 'Deine Jobbörse macht Ferien. Deshalb kann es zu Verzögerungen im Bewerbungsprozess kommen.'
   regions:
     index:
       teaser: "Willkommen bei SmallJobs"
@@ -603,3 +612,7 @@ de:
       start_date_too_late: 'Das Startdatum darf nicht nach dem Enddatum liegen'
       end_date_too_early: 'Das Enddatum darf nicht vor dem heutigen Datum liegen'
       start_and_end_date: "Bitte geben Sie das Start- und Enddatum des Urlaubs ein"
+  helpers:
+    api_helpers:
+      salary_calculated_1: 'CHF %{salary} pro Stunde (ca %{duration}h)'
+      salary_calculated_2: 'CHF %{salary} (pauschal)'

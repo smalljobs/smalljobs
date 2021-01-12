@@ -60,6 +60,8 @@ de:
         employments: "Anstellungen"
         brokers: "Vermittler"
         organizations: "Organization"
+        content: "Website Inhalt"
+        contact_content: "Website Kontakt"
       place:
         name: "Name"
         state: "Kanton"
@@ -96,12 +98,26 @@ de:
         get_job_msg: "Job erhalten"
         activation_msg: "Aktivierungsnachricht"
         welcome_email_for_parents_msg: "Willkommensmail für Eltern"
+        vacation_active: 'Abwesenheitsmeldung aktiviert'
+        start_vacation_date: 'Erster Tag'
+        end_vacation_date: 'Letzter Tag'
+        vacation_title: 'Abwesenheitsmeldung Titel'
+        vacation_text: 'Abwesenheitsmeldung Text'
+        salary_deduction: 'Lohnabzug'
+        hide_salary: 'Lohn in den Ausschreibungen verstecken'
+        signature_on_contract: 'Unterschrift im Vertrag mit Arbeitgebenden verlangen'
+        default_broker_id: 'Ansprechperson'
+        first_reminder_message: 'Registrationserinnerung nach 30 Tagen'
+        second_reminder_message: 'Deaktivierungsnachricht nach 30 Tagen'
       employment:
         organization: "Organisation"
         broker: "Vermittler"
         region: "Region"
         created_at: "Erstellt"
         updated_at: "Bearbeitet"
+      todo:
+        manual_completion: 'Manuelles abhaken'
+        completed: 'Abgeschlossen'
       user: &USER
         remember_me: "Angemeldet bleiben"
         firstname: "Vorname"

@@ -8,6 +8,11 @@ class Todo < ApplicationRecord
   belongs_to :allocation
   scope :postponed, -> {where("postponed > ?", DateTime.now)}
   scope :current, -> {where("postponed <= ? OR postponed IS NULL", DateTime.now)}
+  scope :not_completed, -> {where(completed: nil)}
+
+  validates :completed, absence: true, if: lambda {|m| m.manual_completion == false}
+
+  before_create :set_completion
 
   def organization_id
     if record_type == 'job'
@@ -67,6 +72,13 @@ class Todo < ApplicationRecord
       Rails.application.routes.url_helpers.edit_broker_seeker_url(seeker, subdomain: subdomain, host: host)
     elsif record_type == 'allocation'
       Rails.application.routes.url_helpers.broker_job_allocation_url(job, seeker, subdomain: subdomain, host: host)
+    end
+  end
+
+  private
+  def set_completion
+    if self.todotype.present?
+      self.manual_completion = self.todotype.manual_completion
     end
   end
 end

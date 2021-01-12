@@ -316,7 +316,7 @@ class ApiController < ApplicationController
     found_jobs = found_jobs.page(page).per(limit)
 
     for job in found_jobs do
-      jobs.append(ApiHelper::job_to_json(job, job.organization, show_provider, show_organization, show_assignments, nil))
+      jobs.append(ApiHelper::job_to_json(job, job.organization, show_provider, show_organization, show_assignments, nil, @seeker))
     end
 
     render json: jobs, status: 200
@@ -418,7 +418,7 @@ class ApiController < ApplicationController
       status = 2
     end
 
-    render json: ApiHelper::job_to_json(job, job.organization, show_provider, show_organization, show_assignments, nil), status: 200
+    render json: ApiHelper::job_to_json(job, job.organization, show_provider, show_organization, show_assignments, nil, @seeker), status: 200
   end
 
   # GET /api/allocations?user_id=1&job_id=1&user=true&provider=true&organization=true&assignments=true&status=0&page=1&limit=10
@@ -449,7 +449,7 @@ class ApiController < ApplicationController
     found_allocations = found_allocations.page(page).per(limit)
 
     for allocation in found_allocations
-      allocations.append(ApiHelper::allocation_with_job_to_json(allocation, allocation.job, show_provider, show_organization, show_seeker, show_assignments))
+      allocations.append(ApiHelper::allocation_with_job_to_json(allocation, allocation.job, show_provider, show_organization, show_seeker, show_assignments, @seeker))
     end
 
     render json: allocations, status: 200
@@ -816,10 +816,12 @@ class ApiController < ApplicationController
   end
 
   def register_params
-    params.permit(:parents_email, :zip, :phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id, :street, :sex, :categories)
+    params.permit(:parents_email, :zip, :phone, :password, :app_user_id, :organization_id, :firstname, :lastname,
+                  :birthdate, :place_id, :street, :sex, :categories, :rc_id, :rc_username)
   end
 
   def update_params
-    params.permit(:phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id, :street, :sex, :status, :categories)
+    params.permit(:phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id,
+                  :street, :sex, :status, :categories, :rc_id, :rc_username)
   end
 end

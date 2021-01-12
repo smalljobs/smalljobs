@@ -22,6 +22,10 @@ class Broker::RegionsController < InheritedResources::Base
   def destroy_logo
     @region.remove_logo!
   end
+
+  def destroy_header_image
+    @region.remove_header_image!
+  end
   protected
 
   # Returns currently signed in broker
@@ -33,7 +37,7 @@ class Broker::RegionsController < InheritedResources::Base
   end
 
   def permitted_params
-    params.require(:region).permit(:name, :logo)
+    params.require(:region).permit(:name, :logo, :content, :contact_content)
   end
 
 end
