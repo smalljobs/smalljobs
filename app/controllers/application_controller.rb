@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_if_region_empty
-    if Region.where(subdomain: request.subdomain).blank?
+    if request.subdomain!= 'api' and Region.where(subdomain: request.subdomain).blank?
       redirect_to "https://smalljobs.ch/lokal"
     end
   end
