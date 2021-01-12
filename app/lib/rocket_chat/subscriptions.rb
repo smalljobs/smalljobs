@@ -57,7 +57,7 @@ module RocketChat
       if response_json['status'].present? and response_json['status'] == "error"
         @error = response_json['message']
         false
-      elsif response_json['success'] and response_json['update'].present?
+      elsif response_json['success'] and response_json['update']&.length.present?
         @error = nil
         {
             unread: response_json['update'].map{|x| x['unread'].to_i}.sum,
