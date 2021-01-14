@@ -80,5 +80,6 @@ class Todo < ApplicationRecord
     if self.todotype.present?
       self.manual_completion = self.todotype.manual_completion
     end
+    return true
   end
 end
