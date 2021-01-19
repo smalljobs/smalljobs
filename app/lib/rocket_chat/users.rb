@@ -5,10 +5,11 @@
 module RocketChat
   class Users
 
-    attr_reader :error
+    attr_reader :error, :total_records
 
     def initialize
       @errors = nil
+      @total_records = nil
     end
 
     def create_token(user_id)
@@ -220,6 +221,55 @@ module RocketChat
       end
     end
 
+
+    def list(offset=0, count=100)
+      path = '/api/v1/users.list'
+      uri = URI.parse("#{ENV['ROCKET_CHAT_URL']}#{path}?fields={ \"username\":1, \"emails\":1 }&offset=#{offset}&count=#{count}")
+      request = Net::HTTP::Get.new(uri)
+      request["X-Auth-Token"] = ENV['ROCKET_CHAT_USER_TOKEN']
+      request["X-User-Id"] = ENV['ROCKET_CHAT_USER_ID']
+
+
+      req_options = {
+          use_ssl: uri.scheme == "https",
+      }
+
+      response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+        http.request(request)
+      end
+
+      #response.code
+      response_json = JSON.parse(response.body)
+      # return response_json
+      if response_json['status'].present? and response_json['status'] == "error"
+        @error = response_json['message']
+        false
+      elsif response_json['success'] and response_json['users'].present?
+        @error = nil
+        @total_records = response_json['total']
+        response_json['users']
+      elsif response_json['success'] == false
+        @error = response_json['error']
+        @session = nil
+        false
+      else
+        @error = 'Something went wrong'
+        @session = nil
+        false
+      end
+    end
+
+    def get_all_users
+      offset = 0
+      count = 100
+      users = list(offset, count)
+      while @total_records > users.length
+        puts users.length
+        next_users = list(offset+=count, count)
+        users += next_users if next_users
+      end
+      return users
+    end
 
   end
 end
