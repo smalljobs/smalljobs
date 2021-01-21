@@ -73,9 +73,9 @@ $ ->
         if _regex.test(value)
           _click_class = value
       )
-
       _modal_class = _click_class.replace("-rc", "-modal-rc")
-      if $(".js-rocket-chat-room").length > 0
+      _checkbox = $(".#{_modal_class} input[type='checkbox']");
+      if $(".js-rocket-chat-room").length > 0 and _checkbox.is(":checked")
         $.ajax
           url: $(@).data('href')
           method: 'POST'
@@ -90,11 +90,14 @@ $ ->
           error: (respond)->
             _error = respond.responseJSON['error']
             toastr.error(_error, 'Error')
+      else
+        $(".#{_modal_class}").modal('hide')
+
   , " .js-open-to-active-rc, .js-open-to-rejected-rc, .js-open-to-nothing-rc," +
       ".js-rejected-to-active-rc, .js-rejected-to-nothing-rc, .js-proposal-to-active-rc, .js-proposal-to-deleted-rc," +
       ".js-proposal-to-nothing-rc, .js-active-to-nothing-rc, .js-active-send-contract-rc, .js-active-to-finished-rc," +
       ".js-active-to-canceled-rc, .js-finished-to-active-rc, .js-finished-to-nothing-rc, .js-finished-to-active-rc," +
-      ".js-finished-to-nothing-rc, .js-retracted-to-active-rc, .js-retracted-to-nothing-rc"
+      ".js-retracted-to-active-rc, .js-retracted-to-nothing-rc"
   $(document).on
     click: (e)->
       e.preventDefault()
