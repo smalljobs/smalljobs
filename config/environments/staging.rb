@@ -1,12 +1,12 @@
 Smalljobs::Application.configure do
   # Sendgrid Config
   ActionMailer::Base.smtp_settings = {
-      address: 'smtp.sendgrid.net',
+      address: ENV['SMTP_ADDRESS'],
       port: '587',
       authentication: :plain,
-      user_name: ENV['SENDGRID_USERNAME'],
-      password: ENV['SENDGRID_PASSWORD'],
-      domain: 'heroku.com',
+      user_name: ENV['SMTP_USERNAME'],
+      password: ENV['SMTP_PASSWORD'],
+      domain: ENV['SMTP_ADDRESS'],
       enable_starttls_auto: true
   }
 
