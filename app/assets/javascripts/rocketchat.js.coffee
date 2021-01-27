@@ -130,7 +130,7 @@ generateIframe = (user_id, token, url)->
     $("#js-rocketchat-iframe").remove()
   window.iframeEl = document.createElement('iframe')
   window.iframeEl.id = 'js-rocketchat-iframe'
-  window.iframeEl.src = url+"/extras-ji/"+'?uid='+user_id+'&token='+token;
+  window.iframeEl.src = url+"/home"+'?uid='+user_id+'&token='+token;
   window.iframeEl.style = "width: 100%; height: 500px;"
   window.iframeEl.frameBorder = "0"
   $('.js-rocketchat-iframe-container').append(iframeEl);
