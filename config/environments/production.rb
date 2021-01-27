@@ -82,8 +82,14 @@ Smalljobs::Application.configure do
 
   # Sendgrid Config
   ActionMailer::Base.smtp_settings = {
-      v
-      enable_starttls_auto: true
+      address: ENV['SMTP_ADDRESS'],
+      port: ENV['SMTP_PORT'],
+      authentication: :plain,
+      user_name: ENV['SMTP_USERNAME'],
+      password: ENV['SMTP_PASSWORD'],
+      domain: ENV['SMTP_ADDRESS'],
+      enable_starttls_auto: false,
+      openssl_verify_mode: false
   }
 
   config.paperclip_defaults = {
