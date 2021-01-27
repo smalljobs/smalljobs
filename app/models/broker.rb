@@ -95,6 +95,7 @@ class Broker < ActiveRecord::Base
                     email: self.email,
                     username: "smalljobs_#{env}#{self.id}",
                     password: SecureRandom.hex,
+                    verified: true,
                     customFields: {
                       smalljobs_user_id: self.id,
                       is_support_user: "No"
