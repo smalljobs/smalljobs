@@ -2,7 +2,7 @@
 # email sending for the SmallJobs platform.
 #
 class Notifier < ActionMailer::Base
-  default from: 'SmallJobs <hello@smalljobs.ch>'
+  default from: 'SmallJobs <noreply@smalljobs.ch>'
   helper :mailer
 
   def weekly_update_for_broker(broker)
