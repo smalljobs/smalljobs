@@ -52,12 +52,12 @@ class Seeker < ActiveRecord::Base
 
   validate :unique_email
 
-  after_save :send_to_jugendinfo
+  # after_save :send_to_jugendinfo
   ## New option
-  ## after_create :send_create_to_jugendinfo
-  ## after_update :send_update_to_jugendinfo
-  ## after_destroy :send_delete_to_jugendinfo
-  ## after_destroy :delete_access_tokens
+  after_create :send_create_to_jugendinfo
+  after_update :send_update_to_jugendinfo
+  after_destroy :send_delete_to_jugendinfo
+  after_destroy :delete_access_tokens
 
   after_save :adjust_todo
 
@@ -75,9 +75,9 @@ class Seeker < ActiveRecord::Base
 
   # DEV = 'https://admin.staging.jugendarbeit.digital/api/ji/jobboard/ping/user'
   # LIVE = 'https://admin.staging.jugendarbeit.digital/api/ji/jobboard/ping/user'
-  DEV = 'https://devadmin.jugendarbeit.digital/api/jugendinfo_user/update_data/'
-  LIVE = 'https://admin.jugendarbeit.digital/api/jugendinfo_user/update_data/'
-  CURRENT_LINK = Rails.env.production? ? LIVE : DEV
+  # DEV = 'https://devadmin.jugendarbeit.digital/api/jugendinfo_user/update_data/'
+  # LIVE = 'https://admin.jugendarbeit.digital/api/jugendinfo_user/update_data/'
+  CURRENT_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/sync"
 
 
   # Adds new note to the database if it's present
@@ -265,40 +265,54 @@ class Seeker < ActiveRecord::Base
   end
 
   def jugendinfo_data
-    ApiHelper::seeker_to_json(self)
+    # ApiHelper::seeker_to_json(self)
+    {
+        seeker_id: self.id,
+        # broker_id: "INT",
+        phone: self.phone_was,
+        new_phone: self.phone,
+        mobile: self.mobile_was,
+        new_mobile: self.mobile,
+        # email: "email address only for brokers",
+        rc_id: self.rc_id,
+        rc_username: self.rc_username
+    }
   end
 
   # Make post request to jugendinfo API
   #
-  # def send_to_jugendinfo(method)
-  def send_to_jugendinfo
+  def send_to_jugendinfo(method)
     begin
-      logger.info "Sending changes to jugendinfo"
-      # logger.info "Sending: #{jugendinfo_data}"
-      logger.info "Sending: #{{token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', id: app_user_id, smalljobs_user_id: id, firstname: firstname, lastname: lastname, mobile: mobile, address: street, zip: place.zip, birthdate: date_of_birth.strftime('%Y-%m-%d'), city: place.name, smalljobs_status: Seeker.statuses[status], smalljobs_parental_consent: parental, smalljobs_first_visit: discussion, smalljobs_organization_id: organization.id}}"
-      # response = RestClient.post CURRENT_LINK, {operation: method,  data: jugendinfo_data}, {Authorization: "Bearer ob7jwke6axsaaygrcin54er1n7xoou6e3n1xduwm"}
-      response = RestClient.post CURRENT_LINK, {token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', id: app_user_id, smalljobs_user_id: id, firstname: firstname, lastname: lastname, mobile: mobile, address: street, zip: place.zip, birthdate: date_of_birth.strftime('%Y-%m-%d'), city: place.name, smalljobs_status: Seeker.statuses[status], smalljobs_parental_consent: parental, smalljobs_first_visit: discussion, smalljobs_organization_id: organization.id}
+      logger.info "Sending changes to jugendinfo #{CURRENT_LINK}"
+      data = { operation: method }
+      data.merge!(jugendinfo_data)
+      response = RestClient.post CURRENT_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
       logger.info "Response from jugendinfo: #{response}"
-    rescue
+    rescue RestClient::ExceptionWithResponse => e
+      logger.info e.response
       logger.info "Failed sending changes to jugendinfo"
-      nil
+      raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
+    rescue Exception => e
+      logger.info e.inspect
+      logger.info "Failed sending changes to jugendinfo"
+      raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
     end
   end
 
   # Make post request to jugendinfo API
   #
   def send_update_to_jugendinfo
-    # send_to_jugendinfo("UPDATE")
+    send_to_jugendinfo("UPDATE")
   end
   # Make post request to jugendinfo API
   #
   def send_create_to_jugendinfo
-    # send_to_jugendinfo("CREATE")
+    send_to_jugendinfo("CREATE")
   end
   # Make post request to jugendinfo API
   #
   def send_delete_to_jugendinfo
-    # send_to_jugendinfo("DELETE")
+    send_to_jugendinfo("DELETE")
   end
 
   # Sends welcome message through chat to new seeker

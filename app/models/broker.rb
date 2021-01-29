@@ -10,6 +10,8 @@ class Broker < ActiveRecord::Base
       blocked: I18n.t('broker.blocked', locale: :de, default: 'Deaktiviert')
   }
 
+  CURRENT_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/sync"
+
   include ConfirmToggle
   include Storext.model
 
@@ -43,6 +45,12 @@ class Broker < ActiveRecord::Base
   after_create :connect_to_region
   after_create :create_rc_account
   after_update :create_rc_account
+
+
+  after_create :send_create_to_jugendinfo
+  after_update :send_update_to_jugendinfo
+  after_destroy :send_delete_to_jugendinfo
+
   attr_accessor :assigned_to_region, :region_id
 
   def connect_to_region
@@ -153,4 +161,57 @@ class Broker < ActiveRecord::Base
   end
 
   # @!endgroup
+  private
+
+
+  def jugendinfo_data
+    # ApiHelper::seeker_to_json(self)
+    {
+        broker_id: self.id,
+        phone: self.phone_was,
+        new_phone: self.phone,
+        mobile: self.mobile_was,
+        new_mobile: self.mobile,
+        email: self.email,
+        rc_id: self.rc_id,
+        rc_username: self.rc_username
+    }
+  end
+
+  # Make post request to jugendinfo API
+  #
+  def send_to_jugendinfo(method)
+    begin
+      logger.info "Sending changes to jugendinfo #{CURRENT_LINK}"
+      data = { operation: method }
+      data.merge!(jugendinfo_data)
+      logger.info data
+      response = RestClient.post CURRENT_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
+      logger.info "Response from jugendinfo: #{response}"
+    rescue RestClient::ExceptionWithResponse => e
+      logger.info e.response
+      logger.info "Failed sending changes to jugendinfo"
+      raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
+    rescue Exception => e
+      logger.info e.inspect
+      logger.info "Failed sending changes to jugendinfo"
+      raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
+    end
+  end
+
+  # Make post request to jugendinfo API
+  #
+  def send_update_to_jugendinfo
+    send_to_jugendinfo("UPDATE")
+  end
+  # Make post request to jugendinfo API
+  #
+  def send_create_to_jugendinfo
+    send_to_jugendinfo("CREATE")
+  end
+  # Make post request to jugendinfo API
+  #
+  def send_delete_to_jugendinfo
+    send_to_jugendinfo("DELETE")
+  end
 end
