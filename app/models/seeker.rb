@@ -273,7 +273,8 @@ class Seeker < ActiveRecord::Base
         new_phone: self.phone,
         mobile: self.mobile_was,
         new_mobile: self.mobile,
-        email: self.email,
+        email: self.email_was,
+        new_email: self.email,
         rc_id: self.rc_id,
         rc_username: self.rc_username
     }
