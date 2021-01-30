@@ -273,7 +273,7 @@ class Seeker < ActiveRecord::Base
         new_phone: self.phone,
         mobile: self.mobile_was,
         new_mobile: self.mobile,
-        # email: "email address only for brokers",
+        email: self.email,
         rc_id: self.rc_id,
         rc_username: self.rc_username
     }
