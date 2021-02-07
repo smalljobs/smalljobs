@@ -33,6 +33,7 @@ class Broker < ActiveRecord::Base
   validates :role, presence: true
 
   validate :unique_email
+  validate :unique_mobile, on: :create
 
   phony_normalize :phone, default_country_code: 'CH'
   phony_normalize :mobile, default_country_code: 'CH'
@@ -90,6 +91,14 @@ class Broker < ActiveRecord::Base
     provider = Provider.find_by(email: email)
     if !seeker.nil? || !provider.nil?
       errors.add(:email, :email_not_unique)
+    end
+  end
+
+  def unique_mobile
+    seeker = Seeker.find_by(mobile: mobile)
+    provider = Provider.find_by(mobile: mobile)
+    if !seeker.nil? || !provider.nil?
+      errors.add(:mobile, :mobile_not_unique)
     end
   end
 
@@ -182,21 +191,22 @@ class Broker < ActiveRecord::Base
   # Make post request to jugendinfo API
   #
   def send_to_jugendinfo(method)
-    begin
-      logger.info "Sending changes to jugendinfo #{CURRENT_LINK}"
-      data = { operation: method }
-      data.merge!(jugendinfo_data)
-      logger.info data
-      response = RestClient.post CURRENT_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
-      logger.info "Response from jugendinfo: #{response}"
-    rescue RestClient::ExceptionWithResponse => e
-      logger.info e.response
-      logger.info "Failed sending changes to jugendinfo"
-      raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
-    rescue Exception => e
-      logger.info e.inspect
-      logger.info "Failed sending changes to jugendinfo"
-      raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
+    if ENV['JI_ENABLED']
+      begin
+        logger.info "Sending changes to jugendinfo #{CURRENT_LINK}"
+        data = { operation: method }
+        data.merge!(jugendinfo_data)
+        # response = RestClient.post CURRENT_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
+        logger.info "Response from jugendinfo: #{response}"
+      rescue RestClient::ExceptionWithResponse => e
+        logger.info e.response
+        logger.info "Failed sending changes to jugendinfo"
+        raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
+      rescue Exception => e
+        logger.info e.inspect
+        logger.info "Failed sending changes to jugendinfo"
+        raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
+      end
     end
   end
 
