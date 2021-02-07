@@ -1,4 +1,4 @@
-%div.modal.fade{id: "active_to_finished_modal"}
+%div.modal.fade.js-active-to-finished-modal-rc{id: "active_to_finished_modal"}
   %div.modal-dialog
     %div.modal-content
       %div.modal-header
@@ -14,14 +14,18 @@
           %br
           = "Deine Anstellung bei #{@allocation.job.provider.name} ist abgeschlossen."
           %br
-          = "Danke für deine Arbeit!"   
+          = "Danke für deine Arbeit!"
         %br
         - if @allocation.seeker.app_user_id.nil?
           %p
             = "Keine App für Messaging installiert. Per Telefon Kontakt aufnehmen"
             %a{href: "tel:#{@allocation.seeker.mobile}"}
               = @allocation.seeker.mobile
-        %button.btn.btn-success.change_state
-          = "Anstellung beenden"
+        - if ENV['ROCKET_CHAT_URL'].blank?
+          %button.btn.btn-success.js-change-state
+            = "Anstellung beenden"
+        - else
+          %button.btn.btn-success.js-change-state.js-active-to-finished-rc{data: {href: "#{message_broker_rocketchats_path}"}}
+            = "Anstellung beenden"
       %div.modal-footer
         = render 'messages'

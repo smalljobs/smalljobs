@@ -3,9 +3,17 @@ class Api::V1::ApiController < ApplicationController
   before_action :check_status, only: [:create_assignment, :update_assignment, :apply]
   skip_before_filter :verify_authenticity_token
 
+  # Access with and without authenticate
+  ACCESS_CONTROLLER_ACTION = [['api/v1/jobs','show'],['api/v1/jobs', 'index']]
+
 
   def authenticate
-    authenticate_token || render_unauthorized
+    if ACCESS_CONTROLLER_ACTION.include?([params[:controller], params[:action]])
+      authenticate_token 
+      return true
+    else
+      authenticate_token || render_unauthorized
+    end
   end
   # Check if authentication token is valid
   #

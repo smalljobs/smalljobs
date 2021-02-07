@@ -54,7 +54,11 @@ module ApiHelper
     json[:phone] = organization.phone
     json[:email] = organization.email
     json[:active] = organization.active
+    json[:default_broker_id] = organization.default_broker_id
+    json[:signature_on_contract] = organization.signature_on_contract
     json[:wage_factor] = organization.wage_factor
+    json[:salary_deduction] = organization.salary_deduction
+    json[:hide_salary] = organization.hide_salary
     json[:place] = place_to_json(organization.place)
     json[:opening_hours] = RedCloth.new(organization.opening_hours || "").to_html
     json[:registration_welcome_message] = message
@@ -62,7 +66,9 @@ module ApiHelper
     json[:vacations] = {
         active: organization.vacation_active,
         start: organization.start_vacation_date,
-        end: organization.end_vacation_date
+        end: organization.end_vacation_date,
+        title: organization.vacation_title,
+        text: organization.vacation_text
     }
     brokers = []
     for broker in organization.brokers
@@ -84,6 +90,9 @@ module ApiHelper
     json[:name] = broker.name
     json[:surname] = broker.lastname
     json[:email] = broker.email
+    json[:rc_id] = broker.rc_id
+    json[:rc_username] = broker.rc_username
+
     return json
   end
 
@@ -144,7 +153,7 @@ module ApiHelper
     if show_organization and organization.present?
       json[:organization] = organization_to_json(organization, organization.regions.first == nil ? nil : organization.regions.first.id)
     end
-    if show_assignments
+    if show_assignments and seeker.present?
       assignments = []
       all_assignments = job.assignments
       all_assignments = all_assignments.where(seeker_id: seeker.id) if seeker.present?
@@ -156,7 +165,7 @@ module ApiHelper
     end
 
 
-    if show_allocations
+    if show_allocations and seeker.present?
       allocations = []
       all_allocations = job.allocations
       all_allocations = all_allocations.where(seeker_id: seeker.id) if seeker.present?
@@ -169,7 +178,7 @@ module ApiHelper
 
     if seeker.present? and organization.present? and seeker.class == Seeker
       if (job.salary_type == "hourly_per_age")
-        salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_1", salary: (seeker.age * organization.wage_factor), duration: job.duration)
+        salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_1", salary: (seeker.age * organization.wage_factor - organization.salary_deduction), duration: job.duration)
       elsif (job.salary_type == "hourly" )
         salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_1", salary: job.salary, duration: job.duration)
       elsif (job.salary_type == "fixed")
@@ -411,6 +420,8 @@ module ApiHelper
     json[:internal_interview] = seeker.discussion
     json[:parental_consent] = seeker.parental
     json[:organization_id] = seeker.organization_id
+    json[:rc_id] = seeker.rc_id
+    json[:rc_username] = seeker.rc_username
     if seeker.organization.present?
 
       helpers_url = Rails.application.routes.url_helpers

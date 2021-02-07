@@ -6,6 +6,7 @@ class Provider < ActiveRecord::Base
 
   has_many :jobs
   has_many :assignments
+  has_many :allocation
   belongs_to :place, inverse_of: :providers
   belongs_to :organization
   # has_many :notes

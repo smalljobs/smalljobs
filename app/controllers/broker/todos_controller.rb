@@ -23,6 +23,30 @@ class Broker::TodosController < ApplicationController
     end
   end
 
+  def completed
+    respond_to do |format|
+      if @todo.blank?
+        format.json {render json: {message: t('broker_dashboard.todo_table.not_found')}, status: :not_found}
+      elsif @todo.update(completed: Time.zone.now)
+        format.json {render json: {}, status: :ok}
+      else
+        format.json {render json: {error: @todo.errors}, status: :unprocessable_entity}
+      end
+    end
+  end
+
+  def uncompleted
+    respond_to do |format|
+      if @todo.blank?
+        format.json {render json: {message: t('broker_dashboard.todo_table.not_found')}, status: :not_found}
+      elsif @todo.update(completed: nil)
+        format.json {render json: {}, status: :ok}
+      else
+        format.json {render json: {error: @todo.errors}, status: :unprocessable_entity}
+      end
+    end
+  end
+
   def set_todo
     allocations = Allocation.where(job: @jobs)
     @providers = current_broker.providers.includes(:place, :jobs, :organization).group('providers.id').order(:updated_at).reverse_order()

@@ -102,7 +102,10 @@
     %legend
       = "Zuständige Organisation"
     .form-inputs
-      = f.association :organization, required: true, include_blank: true, label: false, collection: current_broker.all_organizations
+      - if f.object.organization_id.blank? and current_broker.all_organizations.length == 1
+        - f.object.organization_id = current_broker.all_organizations.first.id
+      = f.association :organization, required: true, include_blank: true, label: false,
+      collection: current_broker.all_organizations
 
   .form-actions
     - if @provider.new_record?

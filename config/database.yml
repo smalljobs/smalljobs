@@ -17,6 +17,7 @@
 development:
   adapter: postgresql
   encoding: unicode
+#  database: smalljobs_migration
   database: smalljobs_development
   pool: 5
   username: postgres

@@ -1,4 +1,4 @@
-%div.modal.fade{id: "active_to_nothing_modal"}
+%div.modal.fade.js-active-to-nothing-modal-rc{id: "active_to_nothing_modal"}
   %div.modal-dialog
     %div.modal-content
       %div.modal-header
@@ -10,14 +10,18 @@
           = @allocation.seeker.name
           = ":"
         %div.form-control.resize-vertical.textarea{contenteditable: true}
-          = "Hallo #{@allocation.seeker.name}"   
+          = "Hallo #{@allocation.seeker.name}"
         %br
         - if @allocation.seeker.app_user_id.nil?
           %p
             = "Keine App für Messaging installiert. Per Telefon Kontakt aufnehmen"
             %a{href: "tel:#{@allocation.seeker.mobile}"}
               = @allocation.seeker.mobile
-        %button.btn.btn-success.prevail_state
-          = "Nachricht senden"
+        - if ENV['ROCKET_CHAT_URL'].blank?
+          %button.btn.btn-success.prevail_state
+            = "Nachricht senden"
+        - else
+          %button.btn.btn-success.js-active-to-nothing-rc{data: {href: "#{message_broker_rocketchats_path}"}}
+            = "Nachricht senden"
       %div.modal-footer
         = render 'messages'

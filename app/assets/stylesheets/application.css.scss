@@ -11,10 +11,16 @@
 @import "partials/form";
 @import "partials/table";
 @import "partials/home";
+@import "partials/rocketchat";
+@import "partials/region";
+@import "partials/dashboard";
 @import "bootstrap-select.min";
 @import "chart.min";
 @import "datepicker";
 @import "partials/loader";
+
+@import "partials/organization";
+@import "nouislider";
 
 table.sortable thead {
   background-color:#eee;
@@ -160,6 +166,10 @@ textarea.resize-vertical {
 
 .display-none, .display-none-st {
   display: none;
+}
+
+.opacity-0{
+  opacity: 0;
 }
 
 #helpButton i{

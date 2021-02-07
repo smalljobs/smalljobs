@@ -1,0 +1,35 @@
+de:
+  messages:
+    organizations:
+      first_reminder_message: "Hallo {{{seeker_first_name}}}
+                                Du hast dich vor einem Monat bei der Jobbörse registriert.  Bist du noch interessiert? Falls ja, melde dich doch per Chat oder Telefon bei uns:
+
+                                {{{organization_name}}}
+                                {{{organization_street}}}
+                                {{{organization_zip}}} {{{organization_place}}}
+
+                                {{{organization_opening_hours}}}
+
+                                {{{organization_phone}}}
+                                {{{organization_email}}}
+
+                                WICHTIG: Bitte melde dich innerhalb der nächsten 30 Tage. Danach wird dein Zugang automatisch deaktiviert.
+
+                                Beste Grüsse,
+                                Ihre Jobbörse für Jugendliche {{{organization_name}}}"
+      second_reminder_message: "Hallo {{{seeker_first_name}}}
+                                Du hast dich vor mindestens zwei Monaten bei der Jobbörse registriert.
+                                Da deine Registration seit zwei Monaten nicht fortgeschritten ist, hat dich unser System automatisch deaktiviert.
+                                Bist du noch interessiert? Falls ja, melde dich doch per Chat oder Telefon bei uns. Dann können wir dich wieder aktivieren:
+
+                                {{{organization_name}}}
+                                {{{organization_street}}}
+                                {{{organization_zip}}} {{{organization_place}}}
+
+                                {{{organization_opening_hours}}}
+
+                                {{{organization_phone}}}
+                                {{{organization_email}}}
+
+                                Beste Grüsse,
+                                Ihre Jobbörse für Jugendliche {{{organization_name}}}"

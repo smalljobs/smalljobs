@@ -1,12 +1,12 @@
-- if !@allocations[@job.id].nil? && !@allocations[@job.id][Allocation.states[:application_open]].nil?
-  %h5= "Bewerbungen"
-  - for allocation in @allocations[@job.id][Allocation.states[:application_open]]
+- if !@allocations[@job.id].nil? && !@allocations[@job.id][Allocation.states[:active]].nil?
+  %h5= "Aktive Anstellungen"
+  - for allocation in @allocations[@job.id][Allocation.states[:active]]
     %p
       = link_to "#{allocation.seeker.name}", broker_job_allocation_path(@job, allocation.seeker)
 
-- if !@allocations[@job.id].nil? && !@allocations[@job.id][Allocation.states[:application_rejected]].nil?
-  %h5= "Bewerbungen abgelehnt"
-  - for allocation in @allocations[@job.id][Allocation.states[:application_rejected]]
+- if !@allocations[@job.id].nil? && !@allocations[@job.id][Allocation.states[:application_open]].nil?
+  %h5= "Bewerbungen"
+  - for allocation in @allocations[@job.id][Allocation.states[:application_open]]
     %p
       = link_to "#{allocation.seeker.name}", broker_job_allocation_path(@job, allocation.seeker)
 
@@ -16,9 +16,15 @@
     %p
       = link_to "#{allocation.seeker.name}", broker_job_allocation_path(@job, allocation.seeker)
 
-- if !@allocations[@job.id].nil? && !@allocations[@job.id][Allocation.states[:active]].nil?
-  %h5= "Aktive Anstellungen"
-  - for allocation in @allocations[@job.id][Allocation.states[:active]]
+- if !@allocations[@job.id].nil? && !@allocations[@job.id][Allocation.states[:cancelled]].nil?
+  %h5= "Abgebrochene Anstellungen"
+  - for allocation in @allocations[@job.id][Allocation.states[:cancelled]]
+    %p
+      = link_to "#{allocation.seeker.name}", broker_job_allocation_path(@job, allocation.seeker)
+
+- if !@allocations[@job.id].nil? && !@allocations[@job.id][Allocation.states[:application_rejected]].nil?
+  %h5= "Bewerbungen abgelehnt"
+  - for allocation in @allocations[@job.id][Allocation.states[:application_rejected]]
     %p
       = link_to "#{allocation.seeker.name}", broker_job_allocation_path(@job, allocation.seeker)
 
@@ -28,9 +34,5 @@
     %p
       = link_to "#{allocation.seeker.name}", broker_job_allocation_path(@job, allocation.seeker)
 
-- if !@allocations[@job.id].nil? && !@allocations[@job.id][Allocation.states[:cancelled]].nil?
-  %h5= "Abgebrochene Anstellungen"
-  - for allocation in @allocations[@job.id][Allocation.states[:cancelled]]
-    %p
-      = link_to "#{allocation.seeker.name}", broker_job_allocation_path(@job, allocation.seeker)
+
 

@@ -53,6 +53,11 @@
           = render_navigation(context: :footer_main, expand_all: true)
         - else
           = render_navigation(context: :footer_region, expand_all: true)
+    - if ENV['ROCKET_CHAT_URL'].present?
+      = render partial: "/rocketchats/iframe"
+      .js-recketchat-present
+
+
     %div.modal.fade{id: "contextHelpModal"}
       %div.modal-dialog
         %div.modal-content

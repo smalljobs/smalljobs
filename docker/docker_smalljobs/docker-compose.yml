@@ -1,0 +1,28 @@
+version: '3'
+services:
+  db:
+    image: postgres:10.5
+    volumes:
+      # mount backup directory
+      - ~/tmp/databasebackup:/tmp
+      - smalljobs_dev_pgdata:/var/lib/postgresql/data
+  web:
+    build: ..
+    ports:
+      - "3000:3000"
+      - "3035:3035"
+      - "30122:22"
+    cap_add:
+      - SYS_ADMIN
+    volumes:
+      - /Users/directory/to/project/smalljobs_machine:/home/hosting/workspace # must be change
+      - ~/.ssh:/home/hosting/.ssh
+    stdin_open: true
+    tty: true
+    depends_on:
+      - db
+    env_file:
+      - container_variables.env
+
+volumes:
+  smalljobs_dev_pgdata:

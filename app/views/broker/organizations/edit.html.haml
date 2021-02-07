@@ -105,20 +105,16 @@
 
   %fieldset
     %legend
-      =t('legends.vacations')
-    .row.js-vacation-buttons
-      = f.input :vacation_active, as: :radio_buttons, collection: [{value: false, label: t('activerecord.attributes.organization.inactive_vacation').html_safe}, {value: true, label: t('activerecord.attributes.organization.active_vacation').html_safe}], label_method: ->(obj){obj[:label]}, value_method: ->(obj){obj[:value]}, label: false, inline_label: ''
-    .row.js-vacation-dates{style: "display: none"}
-      .col-xs-6
-        #start_vacation_date.input-append.date{"data-date" => "12-02-2012", "data-date-format" => "yyyy-mm-dd"}
-          %label
-            =t('organization.edit.start_date')
-          = f.text_field :start_vacation_date, class: 'js-datetime form-control', size: "16"
-      .col-xs-6
-        #end_vacation_date.input-append.date{"data-date" => "12-02-2012", "data-date-format" => "yyyy-mm-dd"}
-          %label
-            =t('organization.edit.end_date')
-          = f.text_field :end_vacation_date, class: 'js-datetime form-control', size: "16"
+      = t('legends.vacations')
+      %i.fa.fa-2x.fa-sun-o.pull-right
+
+    .form-inputs
+      = f.input :vacation_active, as: :boolean, inline_label: true, label: false, input_html: {class: "js-vacation-active"}
+      .sj-vacation-container.js-vacation-container
+        = f.input :start_vacation_date, as: :date
+        = f.input :end_vacation_date, as: :date
+        = f.input :vacation_title
+        = f.input :vacation_text
   .form-actions
     = f.button :submit, t('common.edit'), class: 'btn btn-primary'
 
@@ -145,21 +141,6 @@
   })
 
   $(document).ready(function(){
-    $('.js-datetime').BSdatepicker({    format: 'yyyy-mm-dd'  })
-    if($(".edit_organization .js-vacation-buttons input[type='radio']:checked").val() == 'true'){
-      $('.js-vacation-dates').show();
-    }
-    $(document).on('click', ".edit_organization .js-vacation-buttons input[type='radio']", function(){
-      if ($(".edit_organization .js-vacation-buttons input[type='radio']:checked").val() == 'true'){
-        $('.js-vacation-dates').css('display', 'block');
-        $('#start_vacation_date > .js-datetime').datepicker("setDate", new Date);
-        var today = new Date();
-        var nextweek = new Date(today.getFullYear(), today.getMonth(), today.getDate()+7);
-        $('#end_vacation_date  > .js-datetime').datepicker("setDate", nextweek);
-      }else{
-        $('.js-vacation-dates').hide();
-      }
-    })
     $('.organization_logo .controls').prepend('<div class="logo-wrapper"></div>');
     $('.organization_logo .controls img').prependTo('.logo-wrapper');
     $('.organization_logo .controls img').after('<i class="fa fa-trash fa-2x delete-logo-icon"/>');

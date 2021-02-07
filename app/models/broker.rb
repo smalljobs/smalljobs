@@ -23,6 +23,8 @@ class Broker < ActiveRecord::Base
   has_many :jobs, through: :providers
   has_many :assignments, through: :providers
   has_many :notes
+  # organization method is used, uses different logic
+  # belongs_to :organization, foreign_key: :default_broker_id
   validates :email, email: true, presence: true, uniqueness: true
   validates :firstname, :lastname, :phone, presence: true
   validates :phone, :mobile, phony_plausible: true
@@ -39,6 +41,8 @@ class Broker < ActiveRecord::Base
   end
 
   after_create :connect_to_region
+  after_create :create_rc_account
+  after_update :create_rc_account
   attr_accessor :assigned_to_region, :region_id
 
   def connect_to_region
@@ -78,6 +82,35 @@ class Broker < ActiveRecord::Base
     provider = Provider.find_by(email: email)
     if !seeker.nil? || !provider.nil?
       errors.add(:email, :email_not_unique)
+    end
+  end
+
+  def create_rc_account
+    if self.rc_id.blank?
+      env = ""
+      env = "dev" if Rails.env == "development"
+      rc = RocketChat::Users.new
+      user = rc.create({
+                    name: self.name,
+                    email: self.email,
+                    username: "smalljobs_#{env}#{self.id}",
+                    password: SecureRandom.hex,
+                    verified: true,
+                    customFields: {
+                      smalljobs_user_id: self.id,
+                      is_support_user: "No"
+                    }
+                })
+      if user
+        self.rc_id = user[:user_id]
+        self.rc_username = user[:user_name]
+        self.save
+      else
+        Rails.logger.error rc.error
+        false
+      end
+    else
+      true
     end
   end
 

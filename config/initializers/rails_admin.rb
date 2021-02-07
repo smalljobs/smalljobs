@@ -20,6 +20,8 @@ RailsAdmin.config do |config|
     list do
       field :record_id
       field :record_type
+      field :manual_completion
+      field :completed
     end
 
     edit do
@@ -35,6 +37,8 @@ RailsAdmin.config do |config|
       field :todotype do
         read_only true
       end
+      field :manual_completion
+      field :completed
     end
   end
 
@@ -42,6 +46,7 @@ RailsAdmin.config do |config|
     list do
       field :title
       field :table
+      field :manual_completion
     end
 
     edit do
@@ -49,6 +54,7 @@ RailsAdmin.config do |config|
       field :description, :rich_editor do
         config(insert_many: true)
       end
+      field :manual_completion
       field :table
       field :where, :text
     end
@@ -140,9 +146,19 @@ RailsAdmin.config do |config|
         field :description
         field :opening_hours
         field :website
+        field :signature_on_contract
         field :wage_factor do
           help I18n.t('admin.groups.wage_factor')
         end
+        field :salary_deduction
+        field :hide_salary
+
+        label I18n.t('admin.groups.vacation')
+        field :start_vacation_date
+        field :end_vacation_date
+        field :vacation_active
+        field :vacation_title
+        field :vacation_text
       end
 
       group :address do
@@ -157,6 +173,7 @@ RailsAdmin.config do |config|
 
         field :phone
         field :email
+        field :broker
       end
 
       group :messages do
@@ -212,12 +229,17 @@ RailsAdmin.config do |config|
       field :name
       field :subdomain
       field :places
+      field :content
+      field :contact_content
 
       group :design do
         label I18n.t('admin.groups.design')
 
         field :logo do
           help I18n.t('admin.format.logo')
+        end
+        field :header_image do
+          help I18n.t('admin.format.header_image')
         end
       end
     end
@@ -264,6 +286,8 @@ RailsAdmin.config do |config|
       field :email
       field :active
       field :confirmed
+      field :rc_id
+      field :rc_username
     end
 
     edit do
@@ -285,6 +309,8 @@ RailsAdmin.config do |config|
 
         field :contact_availability
         field :update_prefs
+        field :rc_id
+        field :rc_username
       end
 
       group :employment do
@@ -380,6 +406,8 @@ RailsAdmin.config do |config|
         field :password_confirmation
         field :date_of_birth
         field :sex
+        field :rc_id
+        field :rc_username
         field :app_user_id do
           read_only true
         end

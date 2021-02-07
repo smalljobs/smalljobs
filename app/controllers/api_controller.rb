@@ -816,10 +816,12 @@ class ApiController < ApplicationController
   end
 
   def register_params
-    params.permit(:parents_email, :zip, :phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id, :street, :sex, :categories)
+    params.permit(:parents_email, :zip, :phone, :password, :app_user_id, :organization_id, :firstname, :lastname,
+                  :birthdate, :place_id, :street, :sex, :categories, :rc_id, :rc_username)
   end
 
   def update_params
-    params.permit(:phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id, :street, :sex, :status, :categories)
+    params.permit(:phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id,
+                  :street, :sex, :status, :categories, :rc_id, :rc_username)
   end
 end

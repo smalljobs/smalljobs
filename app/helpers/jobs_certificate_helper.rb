@@ -36,10 +36,10 @@ module JobsCertificateHelper
     provider_jobs = {}
     seeker.providers.each do |provider|
       jobs = seeker.jobs.where(provider_id: provider.id).includes(:allocations).
-          where("allocations.seeker_id = ?", seeker.id).where.not("allocations.state": [:application_rejected, :cancelled]).
+          where("allocations.seeker_id = ?", seeker.id).where("allocations.state": [:active, :finished]).
           order(:start_date)
       jobs_last_end_date = seeker.jobs.where(provider_id: provider.id).includes(:allocations).
-          where("allocations.seeker_id = ?", seeker.id).where.not("allocations.state": [:application_rejected, :cancelled]).
+          where("allocations.seeker_id = ?", seeker.id).where("allocations.state": [:active, :finished]).
           order(end_date: :asc).limit(1).first
 
       if jobs.present? and jobs.first.assignments.exists? and jobs.first.assignments.first.start_time.present?
