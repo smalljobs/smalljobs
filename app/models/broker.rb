@@ -11,6 +11,7 @@ class Broker < ActiveRecord::Base
   }
 
   CURRENT_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/sync"
+  CREATE_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/check-user"
 
   include ConfirmToggle
   include Storext.model
@@ -33,7 +34,7 @@ class Broker < ActiveRecord::Base
   validates :role, presence: true
 
   validate :unique_email
-  validate :unique_mobile, on: :create
+  validate :unique_mobile
 
   phony_normalize :phone, default_country_code: 'CH'
   phony_normalize :mobile, default_country_code: 'CH'
@@ -95,6 +96,7 @@ class Broker < ActiveRecord::Base
   end
 
   def unique_mobile
+    return if mobile.blank?
     seeker = Seeker.find_by(mobile: mobile)
     provider = Provider.find_by(mobile: mobile)
     if !seeker.nil? || !provider.nil?
@@ -177,8 +179,8 @@ class Broker < ActiveRecord::Base
     # ApiHelper::seeker_to_json(self)
     {
         broker_id: self.id,
-        phone: self.phone_was,
-        new_phone: self.phone,
+        # phone: self.phone_was,
+        # new_phone: self.phone,
         mobile: self.mobile_was,
         new_mobile: self.mobile,
         email: self.email_was,
@@ -197,7 +199,7 @@ class Broker < ActiveRecord::Base
         data = { operation: method }
         data.merge!(jugendinfo_data)
         # response = RestClient.post CURRENT_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
-        logger.info "Response from jugendinfo: #{response}"
+        #logger.info "Response from jugendinfo: #{response}"
       rescue RestClient::ExceptionWithResponse => e
         logger.info e.response
         logger.info "Failed sending changes to jugendinfo"
@@ -218,7 +220,22 @@ class Broker < ActiveRecord::Base
   # Make post request to jugendinfo API
   #
   def send_create_to_jugendinfo
-    send_to_jugendinfo("CREATE")
+    if ENV['JI_ENABLED']
+      begin
+        logger.info "Sending create to jugendinfo #{CREATE_LINK}"
+        data = { phone: mobile, email: email }
+        response = RestClient.post CREATE_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
+        logger.info "Response from jugendinfo: #{response}"
+      rescue RestClient::ExceptionWithResponse => e
+        logger.info e.response
+        logger.info "Failed sending changes to jugendinfo"
+        raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
+      rescue Exception => e
+        logger.info e.inspect
+        logger.info "Failed sending changes to jugendinfo"
+        raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
+      end
+    end
   end
   # Make post request to jugendinfo API
   #

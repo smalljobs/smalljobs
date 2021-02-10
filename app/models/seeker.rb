@@ -51,6 +51,7 @@ class Seeker < ActiveRecord::Base
   validate :ensure_seeker_age
 
   validate :unique_email
+  validate :unique_mobile
 
   # after_save :send_to_jugendinfo
   ## New option
@@ -73,12 +74,14 @@ class Seeker < ActiveRecord::Base
 
   before_save :generate_agreement_id
 
+  after_create :send_create_to
+
   # DEV = 'https://admin.staging.jugendarbeit.digital/api/ji/jobboard/ping/user'
   # LIVE = 'https://admin.staging.jugendarbeit.digital/api/ji/jobboard/ping/user'
   # DEV = 'https://devadmin.jugendarbeit.digital/api/jugendinfo_user/update_data/'
   # LIVE = 'https://admin.jugendarbeit.digital/api/jugendinfo_user/update_data/'
   CURRENT_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/sync"
-
+  CREATE_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/check-user"
 
   # Adds new note to the database if it's present
   #
@@ -148,6 +151,7 @@ class Seeker < ActiveRecord::Base
 
 
   def unique_mobile
+    return if mobile.blank?
     broker = Broker.find_by(mobile: mobile)
     provider = Provider.find_by(mobile: mobile)
     if !broker.nil? || !provider.nil?
@@ -277,13 +281,12 @@ class Seeker < ActiveRecord::Base
     # ApiHelper::seeker_to_json(self)
     {
         seeker_id: self.id,
-        # broker_id: "INT",
-        phone: self.phone_was,
-        new_phone: self.phone,
+        # phone: self.phone_was,
+        # new_phone: self.phone,
         mobile: self.mobile_was,
         new_mobile: self.mobile,
-        email: self.email_was,
-        new_email: self.email,
+        # email: self.email_was,
+        # new_email: self.email,
         rc_id: self.rc_id,
         rc_username: self.rc_username
     }
@@ -298,7 +301,7 @@ class Seeker < ActiveRecord::Base
         data = { operation: method }
         data.merge!(jugendinfo_data)
         # response = RestClient.post CURRENT_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
-        logger.info "Response from jugendinfo: #{response}"
+        #logger.info "Response from jugendinfo: #{response}"
       rescue RestClient::ExceptionWithResponse => e
         logger.info e.response
         logger.info "Failed sending changes to jugendinfo"
@@ -319,7 +322,22 @@ class Seeker < ActiveRecord::Base
   # Make post request to jugendinfo API
   #
   def send_create_to_jugendinfo
-    send_to_jugendinfo("CREATE")
+    if ENV['JI_ENABLED']
+      begin
+        logger.info "Sending create to jugendinfo #{CREATE_LINK}"
+        data = { phone: mobile }
+        response = RestClient.post CREATE_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
+        logger.info "Response from jugendinfo: #{response}"
+      rescue RestClient::ExceptionWithResponse => e
+        logger.info e.response
+        logger.info "Failed sending changes to jugendinfo"
+        raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
+      rescue Exception => e
+        logger.info e.inspect
+        logger.info "Failed sending changes to jugendinfo"
+        raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
+      end
+    end
   end
   # Make post request to jugendinfo API
   #
