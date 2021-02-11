@@ -322,21 +322,21 @@ class Seeker < ActiveRecord::Base
   # Make post request to jugendinfo API
   #
   def send_create_to_jugendinfo
+
+    response = {}
     if ENV['JI_ENABLED']
-      begin
-        logger.info "Sending create to jugendinfo #{CREATE_LINK}"
-        data = { phone: mobile }
-        response = RestClient.post CREATE_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
-        logger.info "Response from jugendinfo: #{response}"
-      rescue RestClient::ExceptionWithResponse => e
-        logger.info e.response
-        logger.info "Failed sending changes to jugendinfo"
-        raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
-      rescue Exception => e
-        logger.info e.inspect
-        logger.info "Failed sending changes to jugendinfo"
-        raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
+      data = {}
+      data.merge!({phone: mobile}) if mobile.present?
+      if data.present?
+        response = RestClient.post CHECK_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
       end
+    end
+    if response.blank? or JSON.parse(response.body)['result'] == false
+      send_to_jugendinfo("CREATE")
+    elsif response.present? and JSON.parse(response.body)['result'] == true
+      # rc_id =
+      # rc_username =
+      # self.save
     end
   end
   # Make post request to jugendinfo API

@@ -11,7 +11,7 @@ class Broker < ActiveRecord::Base
   }
 
   CURRENT_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/sync"
-  CREATE_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/check-user"
+  CHECK_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/check-user"
 
   include ConfirmToggle
   include Storext.model
@@ -105,10 +105,14 @@ class Broker < ActiveRecord::Base
   end
 
   def create_rc_account
-    if self.rc_id.blank?
+
+    rc = RocketChat::Users.new
+    user_rc_details = rc.find_user_by_email(email)
+
+    if self.rc_id.blank? and user_rc_details.blank?
       env = ""
       env = "dev" if Rails.env == "development"
-      rc = RocketChat::Users.new
+
       user = rc.create({
                     name: self.name,
                     email: self.email,
@@ -128,6 +132,8 @@ class Broker < ActiveRecord::Base
         Rails.logger.error rc.error
         false
       end
+    elsif self.rc_id.blank? and user.present?
+      self.update(user_rc_details)
     else
       true
     end
@@ -220,22 +226,23 @@ class Broker < ActiveRecord::Base
   # Make post request to jugendinfo API
   #
   def send_create_to_jugendinfo
+    response = {}
     if ENV['JI_ENABLED']
-      begin
-        logger.info "Sending create to jugendinfo #{CREATE_LINK}"
-        data = { phone: mobile, email: email }
-        response = RestClient.post CREATE_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
-        logger.info "Response from jugendinfo: #{response}"
-      rescue RestClient::ExceptionWithResponse => e
-        logger.info e.response
-        logger.info "Failed sending changes to jugendinfo"
-        raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
-      rescue Exception => e
-        logger.info e.inspect
-        logger.info "Failed sending changes to jugendinfo"
-        raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
+      data = {}
+      data.merge!({phone: mobile}) if mobile.present?
+      data.merge!({email: email}) if email.present?
+      if data.present?
+        response = RestClient.post CHECK_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
       end
     end
+    if response.blank? or JSON.parse(response.body)['result'] == false
+      send_to_jugendinfo("CREATE")
+    elsif response.present? and JSON.parse(response.body)['result'] == true
+      # rc_id =
+      # rc_username =
+      # self.save
+    end
+
   end
   # Make post request to jugendinfo API
   #

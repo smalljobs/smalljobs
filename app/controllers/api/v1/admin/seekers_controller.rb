@@ -104,8 +104,12 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
   # Displays profile of user.
   #
   def show
-    render(json: {code: 'users/not_found', message: 'User not found'}, status: 404) && return if @seeker == nil
-    render json: ApiHelper::seeker_to_json(@seeker), status: 200
+    render(json: {code: 'users/not_found', message: 'User not found'}, status: 404) && return if @seeker.blank? and @broker.blank?
+    if @seeker.present?
+      render json: ApiHelper::seeker_to_json(@seeker), status: 200
+    elsif @broker.present?
+      render json: ApiHelper::broker_to_json(@broker), status: 200
+    end
   end
 
   # DELETE /api/users/v1/admin/users/:id
@@ -123,7 +127,8 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
   def check_if_exists
     phone = PhonyRails.normalize_number(login_params[:phone], default_country_code: 'CH') if params[:phone].present?
     is_seeker_exists = Seeker.where("mobile = ? OR login = ? OR phone = ?", phone, login_params[:phone], phone ).any?
-    render json: {exists: is_seeker_exists}
+    is_broker_exists = Broker.where("mobile = ? OR login = ? OR phone = ?", phone, login_params[:phone], phone ).any?
+    render json: {exists: (is_seeker_exists or is_broker_exists)}
   end
 
   def create_seekers_access_token
@@ -183,12 +188,19 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
     @seeker = Seeker.find_by(id: params[:id])
   end
 
+  # changes we search o
   def set_seeker_by_phone_or_id
     if params[:phone].present?
       phone = PhonyRails.normalize_number(login_params[:phone], default_country_code: 'CH')
-      return @seeker = Seeker.find_by(mobile: phone) || Seeker.find_by(login: login_params[:phone]) || Seeker.find_by(phone: phone)
+      @seeker = Seeker.find_by(mobile: phone) #|| Seeker.find_by(login: login_params[:phone]) || Seeker.find_by(phone: phone)
+      @broker = Broker.find_by(mobile: phone) #|| Broker.find_by(login: login_params[:phone]) || Broker.find_by(phone: phone)
+      return @seeker if @seeker.present?
+      return @broker if @broker.present?
     end
     @seeker = Seeker.find_by(id: params[:user_id])
+    @broker = Broker.find_by(id: params[:user_id])
+    return @seeker if @seeker.present?
+    return @broker if @broker.present?
   end
 
   def login_params

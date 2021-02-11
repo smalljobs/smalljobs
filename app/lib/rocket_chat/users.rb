@@ -271,5 +271,15 @@ module RocketChat
       return users
     end
 
+    def find_user_by_email(email)
+      users = get_all_users
+      users.each do |user|
+        if user['emails'].present? and email == user['emails'][0]['address']
+          return {rc_id: user["_id"], rc_username: user["username"]}
+        end
+      end
+      return nil
+    end
+
   end
 end
