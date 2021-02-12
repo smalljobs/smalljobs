@@ -88,12 +88,15 @@ module ApiHelper
     json = {}
     json[:user_type] = "broker"
     json[:id] = broker.id
-    json[:name] = broker.name
+    json[:firstname] = broker.firstname
     json[:surname] = broker.lastname
     json[:email] = broker.email
     json[:rc_id] = broker.rc_id
     json[:rc_username] = broker.rc_username
     json[:mobile] = broker.mobile
+    json[:phone] = broker.phone
+    json[:updated_at] = broker.updated_at
+    json[:app_user_id] = broker.app_user_id
 
     return json
   end

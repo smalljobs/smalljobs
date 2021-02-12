@@ -45,8 +45,10 @@ class Broker < ActiveRecord::Base
   end
 
   after_create :connect_to_region
-  after_create :create_rc_account
-  after_update :create_rc_account
+
+  before_create :get_rc_account_from_ji
+  before_create :create_rc_account
+  before_update :create_rc_account
 
 
   after_create :send_create_to_jugendinfo
@@ -105,38 +107,64 @@ class Broker < ActiveRecord::Base
   end
 
   def create_rc_account
-
-    rc = RocketChat::Users.new
-    user_rc_details = rc.find_user_by_email(email)
-
-    if self.rc_id.blank? and user_rc_details.blank?
-      env = ""
-      env = "dev" if Rails.env == "development"
-
-      user = rc.create({
-                    name: self.name,
-                    email: self.email,
-                    username: "smalljobs_#{env}#{self.id}",
-                    password: SecureRandom.hex,
-                    verified: true,
-                    customFields: {
-                      smalljobs_user_id: self.id,
-                      is_support_user: "No"
-                    }
-                })
-      if user
-        self.rc_id = user[:user_id]
-        self.rc_username = user[:user_name]
-        self.save
+    if ENV['ROCKET_CHAT_URL'].present?
+      rc = RocketChat::Users.new
+      if self.rc_id.blank?
+        user_rc_details = rc.find_user_by_email(email)
       else
-        Rails.logger.error rc.error
-        false
+        user_rc_details = nil
       end
-    elsif self.rc_id.blank? and user.present?
-      self.update(user_rc_details)
+      if self.rc_id.blank? and user_rc_details.blank?
+        env = ""
+        env = "dev" if Rails.env == "development"
+
+        user = rc.create({
+                      name: self.name,
+                      email: self.email,
+                      username: "smalljobs_#{env}#{self.id}",
+                      password: SecureRandom.hex,
+                      verified: true,
+                      customFields: {
+                        smalljobs_user_id: self.id,
+                        is_support_user: "No"
+                      }
+                  })
+        if user
+          self.rc_id = user[:user_id]
+          self.rc_username = user[:user_name]
+        else
+          Rails.logger.error rc.error
+          false
+        end
+      elsif self.rc_id.blank? and user_rc_details.present?
+        self.rc_id = user_rc_details[:rc_id]
+        self.rc_username = user_rc_details[:rc_username]
+      else
+        true
+      end
     else
       true
     end
+
+  end
+
+  def get_rc_account_from_ji
+    if ENV['JI_ENABLED']
+      response = {}
+      data = {}
+      data.merge!({phone: mobile}) if mobile.present?
+      data.merge!({email: email}) if email.present?
+      if data.present?
+        response = RestClient.post CHECK_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
+      end
+      if response.present? and JSON.parse(response.body)['result'] == true
+        record = JSON.parse(response.body)
+        self.rc_id = record["user"]["chat_user_id"]
+        self.rc_username = record["user"]["chat_user_username"]
+        self.app_user_id = record["user"]["id"]
+      end
+    end
+    true
   end
 
   # Returns the display name
@@ -187,9 +215,9 @@ class Broker < ActiveRecord::Base
         broker_id: self.id,
         # phone: self.phone_was,
         # new_phone: self.phone,
-        mobile: self.mobile_was,
+        mobile: self.mobile_was || self.mobile,
         new_mobile: self.mobile,
-        email: self.email_was,
+        email: self.email_was || self.email,
         new_email: self.email,
         rc_id: self.rc_id,
         rc_username: self.rc_username
@@ -204,7 +232,8 @@ class Broker < ActiveRecord::Base
         logger.info "Sending changes to jugendinfo #{CURRENT_LINK}"
         data = { operation: method }
         data.merge!(jugendinfo_data)
-        # response = RestClient.post CURRENT_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
+        puts data
+        response = RestClient.post CURRENT_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
         #logger.info "Response from jugendinfo: #{response}"
       rescue RestClient::ExceptionWithResponse => e
         logger.info e.response
@@ -226,23 +255,7 @@ class Broker < ActiveRecord::Base
   # Make post request to jugendinfo API
   #
   def send_create_to_jugendinfo
-    response = {}
-    if ENV['JI_ENABLED']
-      data = {}
-      data.merge!({phone: mobile}) if mobile.present?
-      data.merge!({email: email}) if email.present?
-      if data.present?
-        response = RestClient.post CHECK_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
-      end
-    end
-    if response.blank? or JSON.parse(response.body)['result'] == false
-      send_to_jugendinfo("CREATE")
-    elsif response.present? and JSON.parse(response.body)['result'] == true
-      # rc_id =
-      # rc_username =
-      # self.save
-    end
-
+    # send_to_jugendinfo("CREATE")
   end
   # Make post request to jugendinfo API
   #
