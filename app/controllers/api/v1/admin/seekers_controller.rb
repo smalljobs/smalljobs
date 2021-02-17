@@ -260,7 +260,7 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
     if @broker.present?
       return @broker = @broker.first
     else
-      @broker = nil      
+      @broker = nil
     end
     nil
   end
