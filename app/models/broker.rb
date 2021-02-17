@@ -47,7 +47,7 @@ class Broker < ActiveRecord::Base
   after_create :connect_to_region
 
   before_create :get_rc_account_from_ji
-  before_create :create_rc_account
+  after_create :create_rc_account_and_save
   before_update :create_rc_account
 
 
@@ -145,7 +145,11 @@ class Broker < ActiveRecord::Base
     else
       true
     end
+  end
 
+  def create_rc_account_and_save
+    self.create_rc_account
+    self.save
   end
 
   def get_rc_account_from_ji
@@ -250,7 +254,9 @@ class Broker < ActiveRecord::Base
   # Make post request to jugendinfo API
   #
   def send_update_to_jugendinfo
-    send_to_jugendinfo("UPDATE")
+    if self.app_user_id.present?
+      send_to_jugendinfo("UPDATE")
+    end
   end
   # Make post request to jugendinfo API
   #
@@ -260,6 +266,8 @@ class Broker < ActiveRecord::Base
   # Make post request to jugendinfo API
   #
   def send_delete_to_jugendinfo
-    send_to_jugendinfo("DELETE")
+    if self.app_user_id.present?
+      send_to_jugendinfo("DELETE")
+    end
   end
 end
