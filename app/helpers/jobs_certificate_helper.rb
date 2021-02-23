@@ -42,7 +42,7 @@ module JobsCertificateHelper
           where("allocations.seeker_id = ?", seeker.id).where("allocations.state": [:active, :finished]).
           order(end_date: :asc).limit(1).first
 
-      if jobs.present? and jobs.first.assignments.exists? and jobs.first.assignments.first.start_time.present?
+      if jobs.present? and jobs.first.assignments.exists? and jobs.first.assignments.order(:start_time).first.start_time.present?
         start_date = jobs.first.assignments.order(:start_time).first.start_time.to_date.strftime("%d.%m.%Y")
       elsif jobs.present?  and jobs.first.start_date.present?
         start_date = jobs.first.start_date.strftime("%d.%m.%Y")
@@ -52,7 +52,7 @@ module JobsCertificateHelper
         start_date = nil
       end
 
-      if jobs_last_end_date.present? and jobs_last_end_date.assignments.exists? and jobs_last_end_date.assignments.first.end_time.present?
+      if jobs_last_end_date.present? and jobs_last_end_date.assignments.exists? and jobs_last_end_date.assignments.order(end_time: :desc).first.end_time.present?
         end_date = jobs_last_end_date.assignments.order(end_time: :desc).first.end_time.to_date.strftime("%d.%m.%Y")
       elsif jobs_last_end_date.present?  and jobs_last_end_date.end_date.present?
         end_date = jobs_last_end_date.end_date.strftime("%d.%m.%Y")
