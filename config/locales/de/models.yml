@@ -165,6 +165,9 @@ de:
         occupation_end_date: "Ausbildungsende"
         languages: "Sprachen (Kommaliste)"
         additional_contacts: "Weitere Kontaktmöglichkeiten"
+        rc_id: "RC ID"
+        rc_username: "RC Username"
+        app_user_id: "JI ID"
       seeker:
         <<: *USER
         parental: "Elterneinverständnis erhalten"

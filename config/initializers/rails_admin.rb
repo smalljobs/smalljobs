@@ -311,8 +311,16 @@ RailsAdmin.config do |config|
 
         field :contact_availability
         field :update_prefs
-        field :rc_id
-        field :rc_username
+        field :rc_id  do
+          read_only true
+        end
+        field :rc_username  do
+          read_only true
+        end
+        field :app_user_id  do
+          read_only true
+        end
+
       end
 
       group :employment do
@@ -408,8 +416,12 @@ RailsAdmin.config do |config|
         field :password_confirmation
         field :date_of_birth
         field :sex
-        field :rc_id
-        field :rc_username
+        field :rc_id  do
+          read_only true
+        end
+        field :rc_username  do
+          read_only true
+        end
         field :app_user_id do
           read_only true
         end
