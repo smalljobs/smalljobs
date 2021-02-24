@@ -261,7 +261,9 @@ class Broker < ActiveRecord::Base
   # Make post request to jugendinfo API
   #
   def send_create_to_jugendinfo
-    # send_to_jugendinfo("CREATE")
+    if self.app_user_id.present?
+      send_to_jugendinfo("CREATE")
+    end
   end
   # Make post request to jugendinfo API
   #

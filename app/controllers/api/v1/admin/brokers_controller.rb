@@ -14,10 +14,11 @@ class Api::V1::Admin::BrokersController < Api::V1::Admin::ApiController
 
   private
   def update_params
-    params.permit( :rc_id, :rc_username)
+    params.permit( :rc_id, :rc_username, :mobile, :email, :phone)
   end
 
   def set_broker
-    @broker = Broker.find_by(email: params[:email])
+    #@broker = Broker.find_by(email: params[:email])
+    @broker = Broker.find_by(id: params[:id])
   end
 end
