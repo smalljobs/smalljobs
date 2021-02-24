@@ -288,8 +288,8 @@ Smalljobs::Application.routes.draw do
             post :login
           end
         end
-        resource :broker, only: [:update] do
-
+        # resource :broker, only: [:update] do
+        resources :brokers, only: [:update] do
         end
       end
 
