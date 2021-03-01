@@ -14,7 +14,7 @@ class Api::V1::Admin::BrokersController < Api::V1::Admin::ApiController
 
   private
   def update_params
-    params.permit( :rc_id, :rc_username, :mobile, :email, :phone)
+    params.permit( :rc_id, :rc_username, :mobile, :email, :phone, :app_user_id)
   end
 
   def set_broker
