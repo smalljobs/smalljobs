@@ -29,7 +29,7 @@ class Seeker < ActiveRecord::Base
   has_one :region, through: :place
 
   attr_accessor :new_note
-  attr_accessor :current_broker_id
+  attr_accessor :current_broker_id, :ji_request
 
   validates :login, presence: true, uniqueness: true
 
@@ -360,7 +360,7 @@ class Seeker < ActiveRecord::Base
   # Make post request to jugendinfo API
   #
   def send_to_jugendinfo(method)
-    if ENV['JI_ENABLED']
+    if ENV['JI_ENABLED'] and self.ji_request != true
       begin
         logger.info "Sending changes to jugendinfo #{CURRENT_LINK}"
         data = { operation: method }

@@ -2,7 +2,7 @@ class Api::V1::Admin::BrokersController < Api::V1::Admin::ApiController
   before_action :set_broker, only: [:update]
   def update
     if @broker.present?
-      if @broker.update(update_params)
+      if @broker.update(set_update_params)
         render json: {message: 'Broker updated successfully'}, status: 200
       else
         render json: {code: 'users/invalid', message: @broker.errors.first}, status: 422
@@ -15,6 +15,12 @@ class Api::V1::Admin::BrokersController < Api::V1::Admin::ApiController
   private
   def update_params
     params.permit( :rc_id, :rc_username, :mobile, :email, :phone, :app_user_id)
+  end
+
+  def set_update_params
+    user_params = update_params
+    user_params[:ji_request] = true
+    user_params
   end
 
   def set_broker

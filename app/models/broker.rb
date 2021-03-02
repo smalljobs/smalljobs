@@ -55,7 +55,7 @@ class Broker < ActiveRecord::Base
   after_update :send_update_to_jugendinfo
   after_destroy :send_delete_to_jugendinfo
 
-  attr_accessor :assigned_to_region, :region_id
+  attr_accessor :assigned_to_region, :region_id, :ji_request
 
   def connect_to_region
     if assigned_to_region == 'true'
@@ -153,7 +153,7 @@ class Broker < ActiveRecord::Base
   end
 
   def get_rc_account_from_ji
-    if ENV['JI_ENABLED']
+    if ENV['JI_ENABLED'] and self.ji_request != true
       response = {}
       data = {}
       data.merge!({phone: mobile}) if mobile.present?

@@ -201,6 +201,7 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
     user_params[:occupation_end_date] = DateTime.strptime(user_params[:occupation_end_date], '%s') if user_params[:occupation_end_date] != nil
     user_params[:work_category_ids] = JSON.parse user_params[:categories] if user_params[:categories] != nil
     user_params[:password_confirmation] = user_params[:password] if user_params[:password] != nil
+    user_params[:ji_request] = true
     user_params.except!(:birthdate, :categories)
     user_params
   end
