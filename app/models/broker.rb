@@ -153,7 +153,7 @@ class Broker < ActiveRecord::Base
   end
 
   def get_rc_account_from_ji
-    if ENV['JI_ENABLED'] and self.ji_request != true
+    if ENV['JI_ENABLED']
       response = {}
       data = {}
       data.merge!({phone: mobile}) if mobile.present?
@@ -231,7 +231,7 @@ class Broker < ActiveRecord::Base
   # Make post request to jugendinfo API
   #
   def send_to_jugendinfo(method)
-    if ENV['JI_ENABLED']
+    if ENV['JI_ENABLED'] and self.ji_request != true
       begin
         logger.info "Sending changes to jugendinfo #{CURRENT_LINK}"
         data = { operation: method }
