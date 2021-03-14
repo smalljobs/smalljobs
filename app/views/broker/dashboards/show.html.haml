@@ -138,9 +138,10 @@
               %tr
                 %th.sortable{id: 'todo_date'}= t('broker_dashboard.todo_table.date')
                 %th.sortable{id: 'todo_todo'}= t('broker_dashboard.todo_table.todo')
-                %th= t('broker_dashboard.todo_table.description')
-                %th.pull-right= t('broker_dashboard.todo_table.postpone')
-                %th= t('broker_dashboard.todo_table.date')
+                %th.sorttable_nosort= t('broker_dashboard.todo_table.description')
+                %th.sorttable_nosort
+                %th.sorttable_nosort.pull-right= t('broker_dashboard.todo_table.postpone')
+                %th.sortable= t('broker_dashboard.todo_table.date')
             %tbody.list
               - if @todos.postponed.count == 0
 
