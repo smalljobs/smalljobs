@@ -14,6 +14,11 @@ class Broker::SeekersController < InheritedResources::Base
     redirect_to edit_broker_seeker_path(@seeker)
   end
 
+  def update
+    super do |format|
+      format.html { redirect_to edit_broker_seeker_path(@seeker) }
+    end
+  end
   def new
     @seeker = Seeker.new()
     @seeker.place = current_region.places.order(:name, :zip).first
