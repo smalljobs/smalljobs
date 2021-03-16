@@ -86,12 +86,17 @@ module ApiHelper
   #
   def self.broker_to_json(broker)
     json = {}
+    json[:user_type] = "broker"
     json[:id] = broker.id
-    json[:name] = broker.name
+    json[:firstname] = broker.firstname
     json[:surname] = broker.lastname
     json[:email] = broker.email
     json[:rc_id] = broker.rc_id
     json[:rc_username] = broker.rc_username
+    json[:mobile] = broker.mobile
+    json[:phone] = broker.phone
+    json[:updated_at] = broker.updated_at
+    json[:app_user_id] = broker.app_user_id
 
     return json
   end
@@ -394,6 +399,7 @@ module ApiHelper
   #
   def self.seeker_to_json(seeker)
     json = {}
+    json[:user_type] = "seeker"
     json[:id] = seeker.id
     json[:app_user_id] = seeker.app_user_id
     json[:created_at] = seeker.created_at.strftime('%s')

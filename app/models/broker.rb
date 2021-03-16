@@ -10,6 +10,9 @@ class Broker < ActiveRecord::Base
       blocked: I18n.t('broker.blocked', locale: :de, default: 'Deaktiviert')
   }
 
+  CURRENT_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/sync"
+  CHECK_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/check-user"
+
   include ConfirmToggle
   include Storext.model
 
@@ -31,6 +34,7 @@ class Broker < ActiveRecord::Base
   validates :role, presence: true
 
   validate :unique_email
+  validate :unique_mobile
 
   phony_normalize :phone, default_country_code: 'CH'
   phony_normalize :mobile, default_country_code: 'CH'
@@ -41,9 +45,17 @@ class Broker < ActiveRecord::Base
   end
 
   after_create :connect_to_region
-  after_create :create_rc_account
-  after_update :create_rc_account
-  attr_accessor :assigned_to_region, :region_id
+
+  before_create :get_rc_account_from_ji
+  after_create :create_rc_account_and_save
+  before_update :create_rc_account
+
+
+  after_create :send_create_to_jugendinfo
+  after_update :send_update_to_jugendinfo
+  after_destroy :send_delete_to_jugendinfo
+
+  attr_accessor :assigned_to_region, :region_id, :ji_request
 
   def connect_to_region
     if assigned_to_region == 'true'
@@ -85,33 +97,78 @@ class Broker < ActiveRecord::Base
     end
   end
 
+  def unique_mobile
+    return if mobile.blank?
+    seeker = Seeker.find_by(mobile: mobile)
+    provider = Provider.find_by(mobile: mobile)
+    if !seeker.nil? || !provider.nil?
+      errors.add(:mobile, :mobile_not_unique)
+    end
+  end
+
   def create_rc_account
-    if self.rc_id.blank?
-      env = ""
-      env = "dev" if Rails.env == "development"
+    if ENV['ROCKET_CHAT_URL'].present?
       rc = RocketChat::Users.new
-      user = rc.create({
-                    name: self.name,
-                    email: self.email,
-                    username: "smalljobs_#{env}#{self.id}",
-                    password: SecureRandom.hex,
-                    verified: true,
-                    customFields: {
-                      smalljobs_user_id: self.id,
-                      is_support_user: "No"
-                    }
-                })
-      if user
-        self.rc_id = user[:user_id]
-        self.rc_username = user[:user_name]
-        self.save
+      if self.rc_id.blank?
+        user_rc_details = rc.find_user_by_email(email)
       else
-        Rails.logger.error rc.error
-        false
+        user_rc_details = nil
+      end
+      if self.rc_id.blank? and user_rc_details.blank?
+        env = ""
+        env = "dev" if Rails.env == "development"
+
+        user = rc.create({
+                      name: self.name,
+                      email: self.email,
+                      username: "smalljobs_#{env}#{self.id}",
+                      password: SecureRandom.hex,
+                      verified: true,
+                      customFields: {
+                        smalljobs_user_id: self.id,
+                        is_support_user: "No"
+                      }
+                  })
+        if user
+          self.rc_id = user[:user_id]
+          self.rc_username = user[:user_name]
+        else
+          Rails.logger.error rc.error
+          false
+        end
+      elsif self.rc_id.blank? and user_rc_details.present?
+        self.rc_id = user_rc_details[:rc_id]
+        self.rc_username = user_rc_details[:rc_username]
+      else
+        true
       end
     else
       true
     end
+  end
+
+  def create_rc_account_and_save
+    self.create_rc_account
+    self.save
+  end
+
+  def get_rc_account_from_ji
+    if ENV['JI_ENABLED']
+      response = {}
+      data = {}
+      data.merge!({phone: mobile}) if mobile.present?
+      data.merge!({email: email}) if email.present?
+      if data.present?
+        response = RestClient.post CHECK_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
+      end
+      if response.present? and JSON.parse(response.body)['result'] == true
+        record = JSON.parse(response.body)
+        self.rc_id = record["user"]["chat_user_id"]
+        self.rc_username = record["user"]["chat_user_username"]
+        self.app_user_id = record["user"]["id"]
+      end
+    end
+    true
   end
 
   # Returns the display name
@@ -153,4 +210,66 @@ class Broker < ActiveRecord::Base
   end
 
   # @!endgroup
+  private
+
+
+  def jugendinfo_data
+    # ApiHelper::seeker_to_json(self)
+    {
+        broker_id: self.id,
+        # phone: self.phone_was,
+        # new_phone: self.phone,
+        mobile: self.mobile_was || self.mobile,
+        new_mobile: self.mobile,
+        email: self.email_was || self.email,
+        new_email: self.email,
+        rc_id: self.rc_id,
+        rc_username: self.rc_username
+    }
+  end
+
+  # Make post request to jugendinfo API
+  #
+  def send_to_jugendinfo(method)
+    if ENV['JI_ENABLED'] and self.ji_request != true
+      begin
+        logger.info "Sending changes to jugendinfo #{CURRENT_LINK}"
+        data = { operation: method }
+        data.merge!(jugendinfo_data)
+        puts data
+        response = RestClient.post CURRENT_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
+        #logger.info "Response from jugendinfo: #{response}"
+      rescue RestClient::ExceptionWithResponse => e
+        logger.info e.response
+        logger.info "Failed sending changes to jugendinfo"
+        raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
+      rescue Exception => e
+        logger.info e.inspect
+        logger.info "Failed sending changes to jugendinfo"
+        raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
+      end
+    end
+  end
+
+  # Make post request to jugendinfo API
+  #
+  def send_update_to_jugendinfo
+    if self.app_user_id.present?
+      send_to_jugendinfo("UPDATE")
+    end
+  end
+  # Make post request to jugendinfo API
+  #
+  def send_create_to_jugendinfo
+    # if self.app_user_id.present?
+    #   send_to_jugendinfo("CREATE")
+    # end
+  end
+  # Make post request to jugendinfo API
+  #
+  def send_delete_to_jugendinfo
+    if self.app_user_id.present?
+      send_to_jugendinfo("DELETE")
+    end
+  end
 end

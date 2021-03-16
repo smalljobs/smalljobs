@@ -468,6 +468,9 @@ de:
       title: "Als Vermittler anmelden"
       lead: "Hier können sie sich als neuer Vermittler mit ihren Benutzerangaben für die gewählte Region anmelden."
       action: "Als Vermittler anmelden"
+    region:
+      edit:
+        ji_label: "Jugendapp Standort"
   organizations:
     add_new: 'Neuen Standort'
     edit:

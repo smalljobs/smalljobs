@@ -104,8 +104,12 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
   # Displays profile of user.
   #
   def show
-    render(json: {code: 'users/not_found', message: 'User not found'}, status: 404) && return if @seeker == nil
-    render json: ApiHelper::seeker_to_json(@seeker), status: 200
+    render(json: {code: 'users/not_found', message: 'User not found'}, status: 404) && return if @seeker.blank? and @broker.blank?
+    if @seeker.present?
+      render json: ApiHelper::seeker_to_json(@seeker), status: 200
+    elsif @broker.present?
+      render json: ApiHelper::broker_to_json(@broker), status: 200
+    end
   end
 
   # DELETE /api/users/v1/admin/users/:id
@@ -122,8 +126,40 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
   #
   def check_if_exists
     phone = PhonyRails.normalize_number(login_params[:phone], default_country_code: 'CH') if params[:phone].present?
-    is_seeker_exists = Seeker.where("mobile = ? OR login = ? OR phone = ?", phone, login_params[:phone], phone ).any?
-    render json: {exists: is_seeker_exists}
+    # is_seeker_exists = Seeker.where("mobile = ? OR id = ? OR email = ?", phone, params[:seeker_id], params[:email] ).any?
+    is_seeker_exists = nil
+    if phone.present?
+      is_seeker_exists = Seeker.where(mobile: phone)
+    end
+    if params[:seeker_id].present? and !is_seeker_exists.nil?
+      is_seeker_exists = is_seeker_exists.where(id: params[:seeker_id])
+    elsif params[:seeker_id].present?
+      is_seeker_exists = Seeker.where(id: params[:seeker_id])
+    end
+    if params[:email].present? and !is_seeker_exists.nil?
+      is_seeker_exists = is_seeker_exists.where(email: params[:email])
+    elsif params[:email].present?
+      is_seeker_exists = Seeker.where(email: params[:email])
+    end
+
+    # is_broker_exists = Broker.where("mobile = ? OR id = ? OR email = ?", phone, params[:broker_id], params[:email] ).any?
+    is_broker_exists = nil
+    if phone.present?
+      is_broker_exists = Broker.where(mobile: phone)
+    end
+    if params[:broker_id].present? and is_broker_exists.nil?
+      is_broker_exists = is_broker_exists.where(id: params[:broker_id])
+    elsif params[:broker_id].present?
+      is_broker_exists = Broker.where(id: params[:broker_id])
+    end
+    if params[:email].present? and is_broker_exists.nil?
+      is_broker_exists = is_broker_exists.where(email: params[:email])
+    elsif params[:email].present?
+      is_broker_exists = Broker.where(email: params[:email])
+    end
+
+
+    render json: {exists: (is_seeker_exists.present? or is_broker_exists.present?)}
   end
 
   def create_seekers_access_token
@@ -165,6 +201,7 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
     user_params[:occupation_end_date] = DateTime.strptime(user_params[:occupation_end_date], '%s') if user_params[:occupation_end_date] != nil
     user_params[:work_category_ids] = JSON.parse user_params[:categories] if user_params[:categories] != nil
     user_params[:password_confirmation] = user_params[:password] if user_params[:password] != nil
+    user_params[:ji_request] = true
     user_params.except!(:birthdate, :categories)
     user_params
   end
@@ -183,12 +220,50 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
     @seeker = Seeker.find_by(id: params[:id])
   end
 
+  # changes we search o
   def set_seeker_by_phone_or_id
+    @seeker = nil
+    @broker = nil
     if params[:phone].present?
       phone = PhonyRails.normalize_number(login_params[:phone], default_country_code: 'CH')
-      return @seeker = Seeker.find_by(mobile: phone) || Seeker.find_by(login: login_params[:phone]) || Seeker.find_by(phone: phone)
+      if phone.present?
+        @seeker = Seeker.where(mobile: phone)
+        @broker = Broker.where(mobile: phone)
+      end
     end
-    @seeker = Seeker.find_by(id: params[:user_id])
+    if params[:seeker_id].present? and params[:broker_id].blank? and @seeker.nil?
+      @seeker = Seeker.where(id: params[:seeker_id])
+    elsif  params[:seeker_id].present? and params[:broker_id].blank?
+      @seeker = @seeker.where(id: params[:seeker_id])
+    end
+
+    if params[:seeker_id].blank? and params[:broker_id].present? and @seeker.nil?
+      @broker = Broker.where(id: params[:broker_id])
+    elsif params[:seeker_id].blank? and params[:broker_id].present?
+      @broker = @broker.where(id: params[:broker_id])
+    end
+    if params[:email].present? and @seeker.nil?
+      @seeker = Seeker.where(email: params[:email])
+    elsif params[:email].present?
+      @seeker = @seeker.where(email: params[:email])
+    end
+    if params[:email].present? and @broker.nil?
+      @broker = Broker.where(email: params[:email])
+    elsif params[:email].present?
+      @broker = @broker.where(email: params[:email])
+    end
+
+    if @seeker.present?
+      return @seeker = @seeker.first
+    else
+      @seeker = nil
+    end
+    if @broker.present?
+      return @broker = @broker.first
+    else
+      @broker = nil
+    end
+    nil
   end
 
   def login_params

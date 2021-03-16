@@ -42,6 +42,7 @@ class Provider < ActiveRecord::Base
   after_save :adjust_todo
 
   validate :unique_email
+  validate :unique_mobile, on: :create
 
   after_save :add_new_note
 
@@ -86,6 +87,15 @@ class Provider < ActiveRecord::Base
     broker = Broker.find_by(email: email)
     if !seeker.nil? || !broker.nil?
       errors.add(:email, :email_not_unique)
+    end
+  end
+
+
+  def unique_mobile
+    seeker = Seeker.find_by(mobile: mobile)
+    broker = Broker.find_by(mobile: mobile)
+    if !seeker.nil? || !broker.nil?
+      errors.add(:mobile, :mobile_not_unique)
     end
   end
 
