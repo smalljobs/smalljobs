@@ -3,6 +3,8 @@ class Seeker < ActiveRecord::Base
 
   devise :database_authenticatable, :registerable, authentication_keys: [:login]
 
+  CURRENT_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/sync"
+  CHECK_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/check-user"
   # include ConfirmToggle
 
   enum status: {inactive: 1, active: 2, completed: 3}
@@ -27,7 +29,7 @@ class Seeker < ActiveRecord::Base
   has_one :region, through: :place
 
   attr_accessor :new_note
-  attr_accessor :current_broker_id
+  attr_accessor :current_broker_id, :ji_request
 
   validates :login, presence: true, uniqueness: true
 
@@ -51,13 +53,14 @@ class Seeker < ActiveRecord::Base
   validate :ensure_seeker_age
 
   validate :unique_email
+  validate :unique_mobile
 
-  after_save :send_to_jugendinfo
+  # after_save :send_to_jugendinfo
   ## New option
-  ## after_create :send_create_to_jugendinfo
-  ## after_update :send_update_to_jugendinfo
-  ## after_destroy :send_delete_to_jugendinfo
-  ## after_destroy :delete_access_tokens
+  after_create :send_create_to_jugendinfo
+  after_update :send_update_to_jugendinfo
+  after_destroy :send_delete_to_jugendinfo
+  after_destroy :delete_access_tokens
 
   after_save :adjust_todo
 
@@ -73,11 +76,9 @@ class Seeker < ActiveRecord::Base
 
   before_save :generate_agreement_id
 
-  # DEV = 'https://admin.staging.jugendarbeit.digital/api/ji/jobboard/ping/user'
-  # LIVE = 'https://admin.staging.jugendarbeit.digital/api/ji/jobboard/ping/user'
-  DEV = 'https://devadmin.jugendarbeit.digital/api/jugendinfo_user/update_data/'
-  LIVE = 'https://admin.jugendarbeit.digital/api/jugendinfo_user/update_data/'
-  CURRENT_LINK = Rails.env.production? ? LIVE : DEV
+  before_create :get_rc_account_from_ji
+  after_create :create_rc_account_and_save
+  before_update :create_rc_account
 
 
   # Adds new note to the database if it's present
@@ -143,6 +144,16 @@ class Seeker < ActiveRecord::Base
     broker = Broker.find_by(email: email)
     if !provider.nil? || !broker.nil?
       errors.add(:email, :email_not_unique)
+    end
+  end
+
+
+  def unique_mobile
+    return if mobile.blank?
+    broker = Broker.find_by(mobile: mobile)
+    provider = Provider.find_by(mobile: mobile)
+    if !broker.nil? || !provider.nil?
+      errors.add(:mobile, :mobile_not_unique)
     end
   end
 
@@ -226,6 +237,73 @@ class Seeker < ActiveRecord::Base
     ""
   end
 
+
+  def create_rc_account
+    if ENV['ROCKET_CHAT_URL'].present?
+      rc = RocketChat::Users.new
+      if self.rc_id.blank?
+        user_rc_details = rc.find_user_by_email(email)
+      else
+        user_rc_details = nil
+      end
+      if self.rc_id.blank? and user_rc_details.blank?
+        env = ""
+        env = "dev" if Rails.env == "development"
+
+        user = rc.create({
+                           name: self.name,
+                           email: self.email,
+                           username: "smalljobs_s_#{env}#{self.id}",
+                           password: SecureRandom.hex,
+                           verified: true,
+                           customFields: {
+                             smalljobs_user_id: self.id,
+                             is_support_user: "No"
+                           }
+                         })
+        if user
+          self.rc_id = user[:user_id]
+          self.rc_username = user[:user_name]
+        else
+          Rails.logger.error rc.error
+          false
+        end
+      elsif self.rc_id.blank? and user_rc_details.present?
+        self.rc_id = user_rc_details[:rc_id]
+        self.rc_username = user_rc_details[:rc_username]
+      else
+        true
+      end
+    else
+      true
+    end
+  end
+
+  def create_rc_account_and_save
+    self.create_rc_account
+    self.save
+  end
+
+
+  def get_rc_account_from_ji
+    if ENV['JI_ENABLED']
+      response = {}
+      data = {}
+      data.merge!({phone: mobile}) if mobile.present?
+      data.merge!({email: email}) if email.present?
+      if data.present?
+        response = RestClient.post CHECK_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
+      end
+      if response.present? and JSON.parse(response.body)['result'] == true
+        record = JSON.parse(response.body)
+        self.rc_id = record["user"]["chat_user_id"]
+        self.rc_username = record["user"]["chat_user_username"]
+        self.app_user_id = record["user"]["id"]
+      end
+    end
+    true
+  end
+
   private
 
   def delete_access_tokens
@@ -265,30 +343,48 @@ class Seeker < ActiveRecord::Base
   end
 
   def jugendinfo_data
-    ApiHelper::seeker_to_json(self)
+    # ApiHelper::seeker_to_json(self)
+    {
+        seeker_id: self.id,
+        # phone: self.phone_was,
+        # new_phone: self.phone,
+        mobile: self.mobile_was,
+        new_mobile: self.mobile,
+        # email: self.email_was,
+        # new_email: self.email,
+        rc_id: self.rc_id,
+        rc_username: self.rc_username
+    }
   end
 
   # Make post request to jugendinfo API
   #
-  # def send_to_jugendinfo(method)
-  def send_to_jugendinfo
-    begin
-      logger.info "Sending changes to jugendinfo"
-      # logger.info "Sending: #{jugendinfo_data}"
-      logger.info "Sending: #{{token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', id: app_user_id, smalljobs_user_id: id, firstname: firstname, lastname: lastname, mobile: mobile, address: street, zip: place.zip, birthdate: date_of_birth.strftime('%Y-%m-%d'), city: place.name, smalljobs_status: Seeker.statuses[status], smalljobs_parental_consent: parental, smalljobs_first_visit: discussion, smalljobs_organization_id: organization.id}}"
-      # response = RestClient.post CURRENT_LINK, {operation: method,  data: jugendinfo_data}, {Authorization: "Bearer ob7jwke6axsaaygrcin54er1n7xoou6e3n1xduwm"}
-      response = RestClient.post CURRENT_LINK, {token: '1bN1SO2W1Ilz4xL2ld364qVibI0PsfEYcKZRH', id: app_user_id, smalljobs_user_id: id, firstname: firstname, lastname: lastname, mobile: mobile, address: street, zip: place.zip, birthdate: date_of_birth.strftime('%Y-%m-%d'), city: place.name, smalljobs_status: Seeker.statuses[status], smalljobs_parental_consent: parental, smalljobs_first_visit: discussion, smalljobs_organization_id: organization.id}
-      logger.info "Response from jugendinfo: #{response}"
-    rescue
-      logger.info "Failed sending changes to jugendinfo"
-      nil
+  def send_to_jugendinfo(method)
+    if ENV['JI_ENABLED'] and self.ji_request != true
+      begin
+        logger.info "Sending changes to jugendinfo #{CURRENT_LINK}"
+        data = { operation: method }
+        data.merge!(jugendinfo_data)
+        response = RestClient.post CURRENT_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
+        #logger.info "Response from jugendinfo: #{response}"
+      rescue RestClient::ExceptionWithResponse => e
+        logger.info e.response
+        logger.info "Failed sending changes to jugendinfo"
+        raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
+      rescue Exception => e
+        logger.info e.inspect
+        logger.info "Failed sending changes to jugendinfo"
+        raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
+      end
     end
   end
 
   # Make post request to jugendinfo API
   #
   def send_update_to_jugendinfo
-    # send_to_jugendinfo("UPDATE")
+    if self.app_user_id.present?
+      send_to_jugendinfo("UPDATE")
+    end
   end
   # Make post request to jugendinfo API
   #
@@ -298,7 +394,9 @@ class Seeker < ActiveRecord::Base
   # Make post request to jugendinfo API
   #
   def send_delete_to_jugendinfo
-    # send_to_jugendinfo("DELETE")
+    if self.app_user_id.present?
+      send_to_jugendinfo("DELETE")
+    end
   end
 
   # Sends welcome message through chat to new seeker

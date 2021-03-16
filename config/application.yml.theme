@@ -24,6 +24,14 @@ development:
   ROCKET_CHAT_USER_ID: ''
   ROCKET_CHAT_USER_TOKEN: ''
   DAY_COUNT_TO_REMIND: '1'
+  SMTP_ADDRESS: 'smalljobs.ch'
+  SMTP_DOMAIN: 'smalljobs.ch'
+  SMTP_USERNAME: 'noreply@smalljobs.ch'
+  SMTP_PASSWORD: ''
+  SMTP_PORT: '587'
+  JUGENDAPP_URL: 'https://admin.staging.jugendarbeit.digital'
+  JUGENDAPP_TOKEN: ''
+  JI_ENABLED: false
 
 test:
   SERVER_IP: ''
@@ -50,6 +58,14 @@ test:
   ROCKET_CHAT_USER_ID: ''
   ROCKET_CHAT_USER_TOKEN: ''
   DAY_COUNT_TO_REMIND: '30'
+  SMTP_ADDRESS: 'smalljobs.ch'
+  SMTP_DOMAIN: 'smalljobs.ch'
+  SMTP_USERNAME: 'noreply@smalljobs.ch'
+  SMTP_PASSWORD: ''
+  SMTP_PORT: '587'
+  JUGENDAPP_URL: 'https://admin.staging.jugendarbeit.digital'
+  JUGENDAPP_TOKEN: ''
+  JI_ENABLED: false
 
 staging:
   SERVER_IP: ''
@@ -76,6 +92,14 @@ staging:
   ROCKET_CHAT_USER_ID: ''
   ROCKET_CHAT_USER_TOKEN: ''
   DAY_COUNT_TO_REMIND: '30'
+  SMTP_ADDRESS: 'smalljobs.ch'
+  SMTP_DOMAIN: 'smalljobs.ch'
+  SMTP_USERNAME: 'noreply@smalljobs.ch'
+  SMTP_PASSWORD: ''
+  SMTP_PORT: '587'
+  JUGENDAPP_URL: 'https://admin.staging.jugendarbeit.digital'
+  JUGENDAPP_TOKEN: ''
+  JI_ENABLED: false
 
 production:
   SERVER_IP: ''
@@ -103,3 +127,11 @@ production:
   ROCKET_CHAT_USER_ID: ''
   ROCKET_CHAT_USER_TOKEN: ''
   DAY_COUNT_TO_REMIND: '30'
+  SMTP_ADDRESS: 'smalljobs.ch'
+  SMTP_DOMAIN: 'smalljobs.ch'
+  SMTP_USERNAME: 'noreply@smalljobs.ch'
+  SMTP_PASSWORD: ''
+  SMTP_PORT: '587'
+  JUGENDAPP_URL: 'https://admin.staging.jugendarbeit.digital'
+  JUGENDAPP_TOKEN: ''
+  JI_ENABLED: false

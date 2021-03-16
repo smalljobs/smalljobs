@@ -9,7 +9,7 @@ class Api::V1::ApiController < ApplicationController
 
   def authenticate
     if ACCESS_CONTROLLER_ACTION.include?([params[:controller], params[:action]])
-      authenticate_token 
+      authenticate_token
       return true
     else
       authenticate_token || render_unauthorized
