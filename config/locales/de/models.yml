@@ -260,6 +260,7 @@ de:
           attributes:
             mobile:
               improbable_phone: "ist keine gültige Telefonnummer"
+              mobile_not_unique: 'wird von einem anderen Benutzer verwendet'
             phone:
               improbable_phone: "ist keine gültige Telefonnummer"
             terms:
@@ -268,6 +269,7 @@ de:
           attributes:
             mobile:
               improbable_phone: "ist keine gültige Telefonnummer"
+              mobile_not_unique: 'wird von einem anderen Benutzer verwendet'
             phone:
               improbable_phone: "ist keine gültige Telefonnummer"
             terms:
@@ -276,6 +278,7 @@ de:
           attributes:
             mobile:
               improbable_phone: "ist keine gültige Telefonnummer"
+              mobile_not_unique: 'wird von einem anderen Benutzer verwendet'
             phone:
               improbable_phone: "ist keine gültige Telefonnummer"
         organization:
