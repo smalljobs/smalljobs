@@ -7,6 +7,7 @@ class Todo < ApplicationRecord
   belongs_to :job
   belongs_to :allocation
   scope :postponed, -> {where("postponed > ?", DateTime.now)}
+  scope :postponed_obsolate, -> {where("postponed < ?", DateTime.now)}
   scope :current, -> {where("postponed <= ? OR postponed IS NULL", DateTime.now)}
   scope :not_completed, -> {where(completed: nil)}
 

@@ -35,6 +35,10 @@ every 1.day, at: '1am' do
   rake "smalljobs:update_broker_from_rc"
 end
 
+every 1.day, at: '1am' do
+  rake "smalljobs:update_postoponed_todos"
+end
+
 # every :monday, at: '12pm' do # Use any day of the week or :weekend, :weekday
 #   rake "smalljobs:send_job_reminder"
 # end
