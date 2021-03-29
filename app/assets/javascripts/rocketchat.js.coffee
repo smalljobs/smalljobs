@@ -15,8 +15,13 @@ $ ->
     $('.js-rocketchat-icon').removeClass('sj-rotate')
     if $('.js-rocket-chat-room').length
       getRoomId()
+      if !window.rcAvailableInIframe
+        $('#js-rocket-chat-modal').modal('hide')
     else if $('.js-rc-seeker-username').length and $('.js-rc-seeker-username').data('username').length == 0
       toastr.error($('.js-rc-seeker-username').data('error'), 'Error')
+      if !window.rcAvailableInIframe
+        $('#js-rocket-chat-modal').modal('hide')
+        window.open(window.url)
 
 
   $('#js-rocket-chat-modal').on 'hidden.bs.modal', (e)->
@@ -135,8 +140,8 @@ generateIframe = (user_id, token, url)->
   window.iframeEl.frameBorder = "0"
   $('.js-rocketchat-iframe-container').append(iframeEl);
   $("#js-rocketchat-iframe").on 'load', ->
-    if $(@).attr('src') != url+"/home"
-      window.iframeEl.src = url+"/home"
+      if $(@).attr('src') != url+"/home"
+        window.iframeEl.src = url+"/home"
 
 
 
@@ -146,10 +151,13 @@ getRoomId = ()->
     url: $('.js-rocket-chat-room').attr('href')
     method: 'GET'
     success: (respond)->
-      document.getElementById('js-rocketchat-iframe').contentWindow.postMessage({
-        externalCommand: 'go',
-        path: '/direct/'+respond.id
-      }, '*')
+      if window.rcAvailableInIframe
+        document.getElementById('js-rocketchat-iframe').contentWindow.postMessage({
+          externalCommand: 'go',
+          path: '/direct/'+respond.id
+        }, '*')
+      else
+        window.open(window.url+'/direct/'+respond.id)
     error: (respond)->
       _error = respond.responseJSON['error']
       toastr.error(_error, 'Error')
