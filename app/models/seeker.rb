@@ -50,7 +50,8 @@ class Seeker < ActiveRecord::Base
   phony_normalize :phone, default_country_code: 'CH'
   phony_normalize :mobile, default_country_code: 'CH'
 
-  validate :ensure_seeker_age
+  validate :ensure_seeker_age_create, on: :create
+  validate :ensure_seeker_age_update, on: :update
 
   validate :unique_email
   validate :unique_mobile
@@ -313,9 +314,19 @@ class Seeker < ActiveRecord::Base
   #
   # @return [Boolean] validation status
   #
-  def ensure_seeker_age
+  def ensure_seeker_age_create
     if date_of_birth.present? && !date_of_birth.between?(26.years.ago, 13.years.ago)
       errors.add(:date_of_birth, :invalid_seeker_age)
+    end
+  end
+
+  # Validate the job seeker age
+  #
+  # @return [Boolean] validation status
+  #
+  def ensure_seeker_age_update
+    if date_of_birth.present? && !(date_of_birth < 13.years.ago)
+      errors.add(:date_of_birth, :invalid_seeker_age_update)
     end
   end
 
