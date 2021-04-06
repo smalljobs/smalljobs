@@ -1,6 +1,6 @@
 class Broker::AllocationsController < InheritedResources::Base
 
-  before_filter :authenticate_broker!
+  before_filter :authenticate_broker!, except: [:contract]
 
   belongs_to :job
 
