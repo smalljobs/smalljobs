@@ -82,10 +82,12 @@ class Api::V1::SeekersController < Api::V1::ApiController
       user_params.except!(:zip)
     end
 
+    if user_params[:parent_email].blank?
+      parents_email = user_params[:parents_email]
+      user_params.except!(:parents_email)
+      user_params[:parent_email] = parents_email
+    end
 
-    parents_email = user_params[:parents_email]
-    user_params.except!(:parents_email)
-    user_params[:email] = parents_email
 
     seeker = Seeker.new(user_params)
     seeker.status = 'inactive'
@@ -107,10 +109,10 @@ class Api::V1::SeekersController < Api::V1::ApiController
     #registration_welcome_message.gsub! "\n", "<br>"
     # MessagingHelper::send_message(title, message, seeker.app_user_id, seeker.organization.email)
 
-    unless parents_email.nil?
+    unless seeker.parent_email.nil?
       parent_message = Mustache.render(seeker.organization.welcome_email_for_parents_msg || '', seeker_first_name: seeker.firstname, seeker_last_name: seeker.lastname, seeker_link_to_agreement: url_for(agreement_broker_seeker_url(seeker.agreement_id, subdomain: seeker.organization.regions.first.subdomain, host: host, protocol: 'https')), broker_first_name: seeker.organization.brokers.first.firstname, broker_last_name: seeker.organization.brokers.first.lastname, organization_name: seeker.organization.name, organization_street: seeker.organization.street, organization_zip: seeker.organization.place.zip, organization_place: seeker.organization.place.name, organization_phone: seeker.organization.phone, organization_email: seeker.organization.email, link_to_jobboard_list: url_for(root_url(subdomain: seeker.organization.regions.first.subdomain, host: host, protocol: 'https')))
       parent_message.gsub! "\n", "<br>"
-      Notifier.send_welcome_message_for_parents(parent_message, parents_email).deliver
+      Notifier.send_welcome_message_for_parents(parent_message, seeker.parent_email).deliver
     end
 
     #render json: {message: 'User created successfully', user: ApiHelper::seeker_to_json(seeker), organization: ApiHelper::organization_to_json(seeker.organization, seeker.organization.regions.first.id, registration_welcome_message, seeker_agreement_link)}
@@ -256,7 +258,7 @@ class Api::V1::SeekersController < Api::V1::ApiController
   end
 
   def register_params
-    params.permit(:parents_email, :zip, :phone, :password, :app_user_id, :organization_id, :firstname, :lastname,
+    params.permit(:parents_email, :parent_email, :email, :zip, :phone, :password, :app_user_id, :organization_id, :firstname, :lastname,
                   :birthdate, :place_id, :street, :sex, :categories, :rc_id, :rc_username)
   end
 

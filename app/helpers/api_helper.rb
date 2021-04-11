@@ -416,6 +416,7 @@ module ApiHelper
     json[:login] = seeker.login
     json[:mobile] = seeker.mobile
     json[:email] = seeker.email
+    json[:parent_email] = seeker.parent_email
     json[:additional_contacts] = seeker.additional_contacts
     json[:languages] = seeker.languages
     json[:occupation] = seeker.occupation

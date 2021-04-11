@@ -405,6 +405,7 @@ RailsAdmin.config do |config|
       field :lastname
       field :phone
       field :email
+      field :parent_email
     end
 
     edit do
@@ -444,6 +445,7 @@ RailsAdmin.config do |config|
         label I18n.t('admin.groups.contact')
 
         field :email
+        field :parent_email
         field :phone
         field :mobile
         field :additional_contacts
