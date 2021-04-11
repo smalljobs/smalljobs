@@ -56,6 +56,8 @@ class Seeker < ActiveRecord::Base
   validate :unique_email
   validate :unique_mobile
 
+  before_update :update_login
+  before_create :set_login
   # after_save :send_to_jugendinfo
   ## New option
   after_create :send_create_to_jugendinfo
@@ -462,5 +464,15 @@ class Seeker < ActiveRecord::Base
   def phone_or_mobile
     return phone if phone.present?
     return mobile
+  end
+
+  def update_login
+    if self.mobile != self.mobile_was
+      self.login = self.mobile
+    end
+  end
+
+  def set_login
+    self.login = self.mobile
   end
 end
