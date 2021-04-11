@@ -92,12 +92,12 @@
   %fieldset
     .form-inputs
       = f.input :mobile, required: true
-      - if @seeker.new_record?
-        = f.input :password, required: true, autocomplete: 'off'
-        = f.input :password_confirmation, required: true
-      - else
-        = f.input :password, required: false, autocomplete: 'off'
-        = f.input :password_confirmation, required: false
+      -# - if @seeker.new_record?
+      -#   = f.input :password, required: true, autocomplete: 'off'
+      -#   = f.input :password_confirmation, required: true
+      -# - else
+      -#   = f.input :password, required: false, autocomplete: 'off'
+      -#   = f.input :password_confirmation, required: false
       = f.input :email
       = f.input :additional_contacts, required: false
       = f.input :date_of_birth, required: true, start_year: Date.today.year - 25, end_year: Date.today.year - 13, include_blank: true, hint: ''
