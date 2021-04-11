@@ -8,8 +8,12 @@ $ ->
       generateIframe(respond.user_id, respond.auth_token, respond.url)
       window.url = respond.url
     error: (respond)->
-      _error = respond.responseJSON['error']
-      toastr.error(_error, 'Error')
+      if $(".js-rocketchat-icon").length > 0
+        _error = respond.responseJSON['error']
+        toastr.error(_error, 'Error')
+      else
+#        if login page
+        generateIframe('', '', $('.js-rocketchat-url').data('url') )
 
   $('#js-rocket-chat-modal').on 'shown.bs.modal', (e)->
     $('.js-rocketchat-icon').removeClass('sj-rotate')
@@ -29,7 +33,7 @@ $ ->
       window.location.href = window.redirect_href
     else if $('.js-reload-after-close-rc').length
       window.location.reload();
-  if $(".js-recketchat-present").length
+  if $(".js-rocketchat-present").length
     $(" .js-open-to-active-modal-rc, .js-open-to-rejected-modal-rc, .js-open-to-nothing-modal-rc," +
       ".js-rejected-to-active-modal-rc, .js-rejected-to-nothing-modal-rc, .js-proposal-to-active-modal-rc, .js-proposal-to-deleted-modal-rc," +
       ".js-proposal-to-nothing-modal-rc, .js-active-to-nothing-modal-rc, .js-active-send-contract-modal-rc, .js-active-to-finished-modal-rc," +
@@ -132,12 +136,12 @@ $ ->
 
 generateIframe = (user_id, token, url)->
   if $("#js-rocketchat-iframe")
-    $("#js-rocketchat-iframe").remove()
-  window.iframeEl = document.createElement('iframe')
-  window.iframeEl.id = 'js-rocketchat-iframe'
+    $("#js-rocketchat-iframe").remove();
+  window.iframeEl = document.createElement('iframe');
+  window.iframeEl.id = 'js-rocketchat-iframe';
   window.iframeEl.src = url+"/home"+'?uid='+user_id+'&token='+token;
-  window.iframeEl.style = "width: 100%; height: 500px;"
-  window.iframeEl.frameBorder = "0"
+  window.iframeEl.style = "width: 100%; height: 500px;";
+  window.iframeEl.frameBorder = "0";
   $('.js-rocketchat-iframe-container').append(iframeEl);
   $("#js-rocketchat-iframe").on 'load', ->
       if $(@).attr('src') != url+"/home"

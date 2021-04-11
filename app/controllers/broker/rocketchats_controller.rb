@@ -10,7 +10,7 @@ class Broker::RocketchatsController < InheritedResources::Base
         format.json { render json: answer.merge({url: ENV['ROCKET_CHAT_URL']}), status: :ok }
       else
         format.json { render json: { error: rc.error }, status: :unprocessable_entity }
-        end
+      end
     end
   end
 
