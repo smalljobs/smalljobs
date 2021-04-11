@@ -99,6 +99,7 @@
         = f.input :password, required: false, autocomplete: 'off'
         = f.input :password_confirmation, required: false
       = f.input :email
+      = f.input :parent_email
       = f.input :additional_contacts, required: false
       = f.input :date_of_birth, required: true, start_year: Date.today.year - 25, end_year: Date.today.year - 13, include_blank: true, hint: ''
       = f.input :sex, collection: seeker_sex, include_blank: false

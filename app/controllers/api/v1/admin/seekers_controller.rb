@@ -62,9 +62,11 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
     end
 
 
-    parents_email = user_params[:parents_email]
-    user_params.except!(:parents_email)
-    user_params[:email] = parents_email
+    if user_params[:parent_email].blank?
+      parents_email = user_params[:parents_email]
+      user_params.except!(:parents_email)
+      user_params[:parent_email] = parents_email
+    end
 
     seeker = Seeker.new(user_params)
     seeker.status = 'inactive'
@@ -271,6 +273,7 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
   end
 
   def register_params
-    params.permit(:parents_email, :zip, :phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id, :street, :sex, :categories)
+    params.permit(:parents_email, :parent_email, :email, :zip, :phone, :password, :app_user_id, :organization_id,
+                  :firstname, :lastname, :birthdate, :place_id, :street, :sex, :categories)
   end
 end
