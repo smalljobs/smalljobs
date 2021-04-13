@@ -81,6 +81,7 @@ class Seeker < ActiveRecord::Base
   after_create :create_rc_account_and_save
   before_update :create_rc_account
 
+  before_create :set_rc_email
 
   # Adds new note to the database if it's present
   #
@@ -243,7 +244,7 @@ class Seeker < ActiveRecord::Base
     if ENV['ROCKET_CHAT_URL'].present?
       rc = RocketChat::Users.new
       if self.rc_id.blank?
-        user_rc_details = rc.find_user_by_email(email)
+        user_rc_details = rc.find_user_by_email(self.rc_email)
       else
         user_rc_details = nil
       end
@@ -253,7 +254,7 @@ class Seeker < ActiveRecord::Base
 
         user = rc.create({
                            name: self.name,
-                           email: self.email,
+                           email: self.rc_email,
                            username: "smalljobs_s_#{env}#{self.id}",
                            password: SecureRandom.hex,
                            verified: true,
@@ -462,5 +463,14 @@ class Seeker < ActiveRecord::Base
   def phone_or_mobile
     return phone if phone.present?
     return mobile
+  end
+
+
+  def set_rc_email
+    if self.email.present?
+      self.rc_email = self.email
+    else
+      self.rc_email = "#{SecureRandom.uuid}@smalljobs.ch"
+    end
   end
 end
