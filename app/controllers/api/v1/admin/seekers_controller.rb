@@ -43,7 +43,9 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
     user_params[:date_of_birth] = DateTime.strptime(user_params[:birthdate], '%s').in_time_zone('Warsaw')
     user_params.except!(:birthdate)
     # user_params[:login] = user_params[:phone]
-    user_params[:mobile] = user_params[:phone]
+    if user_params[:mobile].blank?
+      user_params[:mobile] = user_params[:phone]
+    end
 
     user_params[:work_category_ids] = JSON.parse user_params[:categories] if user_params[:categories] != nil
       # user_params.except!(:categories)
@@ -194,7 +196,7 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
   private
   def update_params
     params.permit(:phone, :password, :app_user_id, :organization_id, :firstname, :lastname, :birthdate, :place_id,
-                  :street, :sex, :status, :categories, :login, :mobile, :email, :additional_contacts, :languages,
+                  :street, :sex, :status, :categories, :login, :mobile, :email, :parent_email, :additional_contacts, :languages,
                   :occupation, :occupation_end_date, :contact_availability, :contact_preference, :rc_id, :rc_username)
   end
   def set_update_params

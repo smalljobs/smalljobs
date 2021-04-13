@@ -54,6 +54,7 @@ class Seeker < ActiveRecord::Base
   validate :ensure_seeker_age_update, on: :update
 
   validate :unique_email
+  validates :email, uniqueness: true, allow_blank: true
   validate :unique_mobile
 
   before_validation :update_login, on: :update
