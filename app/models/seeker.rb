@@ -56,8 +56,8 @@ class Seeker < ActiveRecord::Base
   validate :unique_email
   validate :unique_mobile
 
-  before_update :update_login
-  before_create :set_login
+  before_validation :update_login, on: :update
+  before_validation :set_login, on: :create
   # after_save :send_to_jugendinfo
   ## New option
   after_create :send_create_to_jugendinfo

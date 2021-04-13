@@ -63,7 +63,9 @@ class Api::V1::SeekersController < Api::V1::ApiController
     user_params[:date_of_birth] = DateTime.strptime(user_params[:birthdate], '%s').in_time_zone('Warsaw')
     user_params.except!(:birthdate)
     # user_params[:login] = user_params[:phone]
-    user_params[:mobile] = user_params[:phone]
+    if user_params[:mobile].blank?
+      user_params[:mobile] = user_params[:phone]
+    end
     if user_params[:categories] != nil
       user_params[:work_category_ids] = JSON.parse user_params[:categories]
       user_params.except!(:categories)
@@ -259,7 +261,7 @@ class Api::V1::SeekersController < Api::V1::ApiController
 
   def register_params
     params.permit(:parents_email, :parent_email, :email, :zip, :phone, :password, :app_user_id, :organization_id, :firstname, :lastname,
-                  :birthdate, :place_id, :street, :sex, :categories, :rc_id, :rc_username)
+                  :birthdate, :place_id, :street, :sex, :categories, :rc_id, :rc_username, :mobile)
   end
 
 end
