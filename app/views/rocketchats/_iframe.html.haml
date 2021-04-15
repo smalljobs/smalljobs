@@ -1,5 +1,5 @@
 - if current_broker.try(:rc_id).present?
-  =link_to content_tag(:span, "Neue Nachrichten", class: 'blink hidden'), broker_rocketchats_path, class: "sj-rocketchat-icon js-rocketchat-icon", data: {unread: unread_broker_rocketchats_path}
+  =link_to content_tag(:span, "Neue Nachrichten", class: 'blink hidden'), broker_rocketchats_path, class: "sj-rocketchat-icon js-rocketchat-icon display-none", data: {unread: unread_broker_rocketchats_path}
 
 
   -# - if current_broker.try(:rc_id).present?
