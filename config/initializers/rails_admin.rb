@@ -404,6 +404,7 @@ RailsAdmin.config do |config|
       field :firstname
       field :lastname
       field :phone
+      field :mobile
       field :email
       field :parent_email
     end
