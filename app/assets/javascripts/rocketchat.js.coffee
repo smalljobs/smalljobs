@@ -26,6 +26,9 @@ $ ->
       if !window.rcAvailableInIframe
         $('#js-rocket-chat-modal').modal('hide')
         window.open(window.url)
+    else if !window.rcAvailableInIframe
+      $('#js-rocket-chat-modal').modal('hide')
+      window.open(window.url)
 
 
   $('#js-rocket-chat-modal').on 'hidden.bs.modal', (e)->
