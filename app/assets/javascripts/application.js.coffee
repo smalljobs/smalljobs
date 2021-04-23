@@ -25,6 +25,7 @@
 #= require broker
 #= require nouislider
 #= require dashboard
+#= require rocketchat_observer.js
 
 
 ready = ->

@@ -5,6 +5,7 @@ window.addEventListener('message', function(e) {
 		// console.log(e.data.eventName); // event name
 		// console.log(e.data.data); // event data
 		window.rcAvailableInIframe = true;
+		rocketChatProxy.rcAvailableInIframe = true
 	}
 
 
