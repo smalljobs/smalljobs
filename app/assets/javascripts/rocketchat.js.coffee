@@ -147,6 +147,10 @@ generateIframe = (user_id, token, url)->
   window.iframeEl.frameBorder = "0";
   $('.js-rocketchat-iframe-container').append(iframeEl);
   $("#js-rocketchat-iframe").on 'load', ->
+    document.getElementById('js-rocketchat-iframe').contentWindow.postMessage({
+      event: 'login-with-token',
+      loginToken: token
+    }, 'https://staging.jugend.online');
     rocketChatProxy.iframeLoad = true
     rocketChatProxy.url = url + "/home"
 
