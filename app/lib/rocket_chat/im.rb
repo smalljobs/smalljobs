@@ -57,5 +57,38 @@ module RocketChat
         false
       end
     end
+
+    def history(session, room_id)
+      path = '/api/v1/im.history'
+      uri = URI.parse("#{ENV['ROCKET_CHAT_URL']}#{path}?roomId=#{room_id}")
+      request = Net::HTTP::Get.new(uri)
+      request.content_type = "application/json"
+      request["X-Auth-Token"] = session.data[:auth_token]
+      request["X-User-Id"] = session.data[:user_id]
+
+      req_options = {
+        use_ssl: uri.scheme == "https",
+      }
+      response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+        http.request(request)
+      end
+
+      #response.code
+      response_json = JSON.parse(response.body)
+      if response_json['status'].present? and response_json['status'] == "error"
+        @error = response_json['message']
+        false
+      elsif response_json['success'] and response_json['messages'].present?
+        @error = nil
+        response_json['messages']
+      elsif  response_json['success'] == false
+        @error = response_json['error']
+        false
+      else
+        puts response_json
+        @error = 'Something went wrong'
+        false
+      end
+    end
   end
 end

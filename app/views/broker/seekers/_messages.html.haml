@@ -1,22 +1,20 @@
-- if @messages == nil
-  - @messages = []
 - for message in @messages
   %div.row
-  - if message['from_ji_user_id'].to_s == "#{@seeker.app_user_id}"
+  - if message.dig(:u, :username) == @seeker.rc_username
     %div.col-sm-8.align-left
-      %h5.grey= DateTime.strptime(message['datetime'], '%s').in_time_zone.strftime('%d.%m.%Y,%H:%M')
+      %h5.grey= message[:datetime].in_time_zone.strftime('%d.%m.%Y,%H:%M')
       %h4.bold= MessagingHelper::return_proper_title(message['title'])
-      %p
-        - if message['message'] != nil
-          = message['message'].html_safe
+      %p.pre-line
+        - if message[:message] != nil
+          = message[:message].html_safe
       %br
     %div.col-sm-4
   - else
     %div.col-sm-4
     %div.col-sm-8.align-left.message
-      %h5.grey= DateTime.strptime(message['datetime'], '%s').in_time_zone.strftime('%d.%m.%Y,%H:%M')
+      %h5.grey= message[:datetime].in_time_zone.strftime('%d.%m.%Y,%H:%M')
       %h4.bold= MessagingHelper::return_proper_title(message['title'])
-      %p
-        - if message['message'] != nil
-          = message['message'].html_safe
+      %p.pre-line
+        - if message[:message] != nil
+          = message[:message].html_safe
       %br
