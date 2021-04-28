@@ -11,33 +11,22 @@
           = ":"
         %div.form-control.resize-vertical.textarea.pre-line{contenteditable: true}
           = "Hallo #{@seeker.firstname}"
-          %br
           = "Willkommen bei Small.Jobs!"
-          %br
           = "Damit du dich auf Jobs bewerben kannst, brauchen wir das Einverständnis deiner Eltern. Dieses Einverständnis bitte hier herunterladen: "
-          %br
           - if ENV['ROCKET_CHAT_URL'].blank?
             %a{file:'', href: "#{url_for agreement_broker_seeker_url(@seeker.agreement_id)}?format=pdf", type: "application/pdf", title: "Elterneinverständnis herunterladen"}= "Elterneinverständnis herunterladen"
           - else
             =  "Elterneinverständnis herunterladen #{url_for agreement_broker_seeker_url(@seeker.agreement_id)}?format=pdf"
-          %br
           = "Dann ausdrucken und uns vorbeibringen:"
           -if @seeker.organization.present?
-            %br
             = @seeker.organization.name
-            %br
             = @seeker.organization.street
-            %br
             = @seeker.organization.place.custom_name
-            %br
-            = "Für einen Termin schreibe uns hier oder ruf an "
-            %a{href: "tel:#{@seeker.organization.phone}"}= @seeker.organization.phone
-            %br
-            %br
-            = "Danke,"
-            %br
+            %span.no-wrap
+              = "Für einen Termin schreibe uns hier oder ruf an "
+              %a{href: "tel:#{@seeker.organization.phone}"}= @seeker.organization.phone
+            = "\nDanke,"
             = @seeker.organization.name
-        %br
         - if @seeker.app_user_id.nil?
           %p
             = "Keine App für Messaging installiert. Per Telefon Kontakt aufnehmen"
