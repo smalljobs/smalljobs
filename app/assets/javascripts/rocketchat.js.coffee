@@ -26,6 +26,9 @@ $ ->
       if !window.rcAvailableInIframe
         $('#js-rocket-chat-modal').modal('hide')
         window.open(window.url)
+    else if !window.rcAvailableInIframe
+      $('#js-rocket-chat-modal').modal('hide')
+      window.open(window.url)
 
 
   $('#js-rocket-chat-modal').on 'hidden.bs.modal', (e)->
@@ -144,9 +147,8 @@ generateIframe = (user_id, token, url)->
   window.iframeEl.frameBorder = "0";
   $('.js-rocketchat-iframe-container').append(iframeEl);
   $("#js-rocketchat-iframe").on 'load', ->
-      if $(@).attr('src') != url+"/home"
-        window.iframeEl.src = url+"/home"
-        $(".js-rocketchat-icon").removeClass('display-none')
+    rocketChatProxy.iframeLoad = true
+    rocketChatProxy.url = url + "/home"
 
 
 
