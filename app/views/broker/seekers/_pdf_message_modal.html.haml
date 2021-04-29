@@ -27,7 +27,8 @@
               %a{href: "tel:#{@seeker.organization.phone}"}= @seeker.organization.phone
             = "\nDanke,"
             = @seeker.organization.name
-        - if @seeker.app_user_id.nil?
+        %br
+        - unless @seeker_exist_in_chat
           %p
             = "Keine App für Messaging installiert. Per Telefon Kontakt aufnehmen"
             %a{href: "tel:#{@seeker.mobile}"}
