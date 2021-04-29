@@ -66,7 +66,7 @@ $ ->
         method: 'POST'
         data:
           rc_username:  $('.js-rc-seeker-username').data('username')
-          message: $('.js-pdf-message-modal .textarea').text()
+          message: $('.js-pdf-message-modal .textarea')[0].innerText
         success: (respond)->
           $('.js-pdf-message-modal').modal('hide')
           $('#js-rocket-chat-modal').modal('show')
