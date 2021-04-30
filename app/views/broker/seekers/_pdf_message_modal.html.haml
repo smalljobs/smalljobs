@@ -5,10 +5,9 @@
         %button.close{"data-dismiss": "modal", type: "button"} &times;
         %h2= "Elterneinverständnis als Pdf schicken"
       %div.modal-body
-        %input{type: "checkbox", checked: "true"}
-          = "Nachricht an "
-          = @seeker.name
-          = ":"
+        = "Nachricht an "
+        = @seeker.name
+        = ":"
         %div.form-control.resize-vertical.textarea{contenteditable: true}
           = "Hallo #{@seeker.firstname}"
           %br
