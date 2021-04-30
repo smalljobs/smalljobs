@@ -7,7 +7,9 @@ var handler = function () {
 				window.iframeEl.src = target.url;
 				var rocketChatIcon = document.querySelector('.js-rocketchat-icon');
 				if (rocketChatIcon) {
-					rocketChatIcon.classList.remove('display-none');
+				  setTimeout(function () {
+            rocketChatIcon.classList.remove('display-none');
+          }, 3000)
 				}
 			}
 			return true;
