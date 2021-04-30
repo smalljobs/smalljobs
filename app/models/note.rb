@@ -4,6 +4,5 @@ class Note < ActiveRecord::Base
   belongs_to :provider
   belongs_to :seeker
 
-  validates :broker, presence: true
   validates :message, presence: true
 end
