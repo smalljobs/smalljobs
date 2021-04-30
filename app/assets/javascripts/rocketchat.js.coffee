@@ -66,7 +66,7 @@ $ ->
         method: 'POST'
         data:
           rc_username:  $('.js-rc-seeker-username').data('username')
-          message: $('.js-pdf-message-modal .textarea').text()
+          message: $('.js-pdf-message-modal .textarea')[0].innerText
         success: (respond)->
           $('.js-pdf-message-modal').modal('hide')
           $('#js-rocket-chat-modal').modal('show')
@@ -147,6 +147,10 @@ generateIframe = (user_id, token, url)->
   window.iframeEl.frameBorder = "0";
   $('.js-rocketchat-iframe-container').append(iframeEl);
   $("#js-rocketchat-iframe").on 'load', ->
+    document.getElementById('js-rocketchat-iframe').contentWindow.postMessage({
+      event: 'login-with-token',
+      loginToken: token
+    }, 'https://staging.jugend.online');
     rocketChatProxy.iframeLoad = true
     rocketChatProxy.url = url + "/home"
 
