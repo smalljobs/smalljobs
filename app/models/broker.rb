@@ -158,6 +158,7 @@ class Broker < ActiveRecord::Base
       data = {}
       data.merge!({phone: mobile}) if mobile.present?
       data.merge!({email: email}) if email.present?
+      data.merge!({ type: 'broker' })
       if data.present?
         response = RestClient.post CHECK_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
       end
