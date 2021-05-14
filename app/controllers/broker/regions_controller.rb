@@ -17,6 +17,8 @@ class Broker::RegionsController < InheritedResources::Base
     @organizations = @region.organizations.distinct
     @brokers = @region.brokers.distinct
     @places = @region.places.distinct
+    gon.content = @region.content
+    gon.contact_content = @region.contact_content
   end
 
   def update

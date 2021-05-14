@@ -26,7 +26,7 @@
 #= require nouislider
 #= require dashboard
 #= require rocketchat_observer.js
-
+#= require init_tiny.js
 
 ready = ->
   history_array = JSON.parse(sessionStorage.getItem('history') || '[]')

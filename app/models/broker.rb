@@ -160,7 +160,11 @@ class Broker < ActiveRecord::Base
       data.merge!({email: email}) if email.present?
       data.merge!({ type: 'broker' })
       if data.present?
-        response = RestClient.post CHECK_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
+        begin
+          response = RestClient.post CHECK_LINK, data, { Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}" }
+        rescue RestClient::ExceptionWithResponse => e
+          e.response
+        end
       end
       if response.present? and JSON.parse(response.body)['result'] == true
         record = JSON.parse(response.body)

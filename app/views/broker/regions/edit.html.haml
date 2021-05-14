@@ -68,8 +68,7 @@
         Website Inhalt
     .row
       .col-xs-12
-        = tinymce :expanded
-        = f.text_area :content, class: 'tinymce'
+        %textarea.tinymce.invisible{name: 'region[content]'}
 
 
   .form-actions

@@ -104,3 +104,5 @@ group :production do
   gem 'tunemygc'
   gem 'newrelic_rpm'
 end
+
+gem 'gon'
