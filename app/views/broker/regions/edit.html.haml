@@ -61,14 +61,14 @@
         Website Kontakt
     .row
       .col-xs-12
-        = f.text_area :contact_content, class: 'tinymce'
+        = f.text_area :contact_content, class: 'tinymce-js'
 
     %label
       %div
         Website Inhalt
     .row
       .col-xs-12
-        %textarea.tinymce.invisible{name: 'region[content]'}
+        %textarea.tinymce-js.invisible{name: 'region[content]'}
 
 
   .form-actions
