@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', function () {
   if(!window.location.href.match('broker/region/edit')) return
   tinyMCE.init({
     selector: 'textarea.tinymce-js',
