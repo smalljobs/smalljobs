@@ -23,7 +23,7 @@ window.addEventListener('DOMContentLoaded', function () {
     ],
     extended_valid_elements: 'img[class=img-responsive|src|border=0|alt|title|hspace|vspace|width=auto|height=auto|align|onmouseover|onmouseout|name]',
     image_dimensions: false,
-    file_picker_callback (cb, value, meta) {
+    file_picker_callback: function (cb, value, meta) {
       var input = document.createElement('input');
       input.setAttribute('type', 'file');
       input.setAttribute('accept', 'image/*');
@@ -44,7 +44,7 @@ window.addEventListener('DOMContentLoaded', function () {
     },
     plugins: 'code table image link media',
     media_filter_html: false,
-    init_instance_callback (e) {
+    init_instance_callback: function (e) {
       if (e.id === 'region[content]') {
         e.contentDocument.body.innerHTML = gon.content
       } else if (e.id === 'region_contanct_content') {
