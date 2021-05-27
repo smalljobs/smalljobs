@@ -6,6 +6,7 @@ class Seeker < ActiveRecord::Base
   CURRENT_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/sync"
   CHECK_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/check-user"
   # include ConfirmToggle
+  include Auditable
 
   enum status: {inactive: 1, active: 2, completed: 3}
 

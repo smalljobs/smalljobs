@@ -14,6 +14,7 @@ class Broker < ActiveRecord::Base
   CHECK_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/check-user"
 
   include ConfirmToggle
+  include Auditable
   include Storext.model
 
   has_and_belongs_to_many :update_prefs

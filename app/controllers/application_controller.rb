@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :require_https
   before_filter :redirect_www
   before_filter :redirect_if_region_empty
+  around_action :set_current_user
 
   self.responder = AppResponder
   respond_to :html, :json
@@ -108,5 +109,13 @@ class ApplicationController < ActionController::Base
     end
   rescue
     'www'
+  end
+
+  def set_current_user
+    Current.user = current_user
+    yield
+  ensure
+    # to address the thread variable leak issues in Puma/Thin webserver
+    Current.user = nil
   end
 end

@@ -1,6 +1,8 @@
 RailsAdmin.config do |config|
   config.main_app_name = ['Small Jobs', 'Adminstration']
 
+  config.parent_controller = "::ApplicationController"
+
   config.authorize_with do
     redirect_to main_app.root_path unless current_admin != nil
   end
@@ -290,6 +292,10 @@ RailsAdmin.config do |config|
       field :confirmed
       field :rc_id
       field :rc_username
+      field :created_by
+      field :created_at
+      field :updated_by
+      field :updated_at
     end
 
     edit do
@@ -407,6 +413,10 @@ RailsAdmin.config do |config|
       field :mobile
       field :email
       field :parent_email
+      field :created_by
+      field :created_at
+      field :updated_by
+      field :updated_at
     end
 
     edit do
