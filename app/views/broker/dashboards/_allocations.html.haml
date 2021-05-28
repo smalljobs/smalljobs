@@ -19,8 +19,9 @@
 - if !@allocations[@job.id].nil? && !@allocations[@job.id][Allocation.states[:cancelled]].nil?
   %h5= "Abgebrochene Anstellungen"
   - for allocation in @allocations[@job.id][Allocation.states[:cancelled]]
+    - next if allocation.seeker.nil?
     %p
-      = link_to "#{allocation.seeker.name}", broker_job_allocation_path(@job, allocation.seeker)
+      = link_to "#{allocation.seeker&.name}", broker_job_allocation_path(@job, allocation.seeker)
 
 - if !@allocations[@job.id].nil? && !@allocations[@job.id][Allocation.states[:application_rejected]].nil?
   %h5= "Bewerbungen abgelehnt"
@@ -31,8 +32,9 @@
 - if !@allocations[@job.id].nil? && !@allocations[@job.id][Allocation.states[:finished]].nil?
   %h5= "Beendete Anstellungen"
   - for allocation in @allocations[@job.id][Allocation.states[:finished]]
+    - next if allocation.seeker.nil?
     %p
-      = link_to "#{allocation.seeker.name}", broker_job_allocation_path(@job, allocation.seeker)
+      = link_to "#{allocation.seeker&.name}", broker_job_allocation_path(@job, allocation.seeker)
 
 
 
