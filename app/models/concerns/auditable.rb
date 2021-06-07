@@ -5,7 +5,7 @@ module Auditable
 
   included do
     # Assigns created_by_id and updated_by_id upon included Class initialization
-    before_save :add_created_by_and_updated_by
+    after_save :add_created_by_and_updated_by
 
 
     enum creator_type: {
@@ -23,15 +23,26 @@ module Auditable
     }, _prefix: true
 
     def created_by
-      user(created_by_id, creator_type)&.email
+      user = user(created_by_id, creator_type)
+      user_name(user)
     end
 
     def updated_by
-      user(updated_by_id, updater_type)&.email
+      user = user(updated_by_id, updater_type)
+      user_name(user)
     end
   end
 
   private
+
+  def user_name(user)
+    return unless user
+    if user.email.present?
+      user.email
+    elsif user.class.name != 'Admin'
+      "#{user.firstname} #{user.lastname}"
+    end
+  end
 
   def user(id, user_role)
     return nil unless user_role
@@ -47,11 +58,16 @@ module Auditable
   def add_created_by_and_updated_by
     return unless Current.user
     user_role = Current.user.class.name.downcase
-
-    self.created_by_id ||= Current.user.id
-    self.updated_by_id = Current.user.id
-    self.creator_type ||= user_role
-    self.updater_type = user_role
+    user_id = Current.user.id
+    if created_by_id.nil? && creator_type.nil?
+      update_columns(
+        created_by_id: user_id,
+        creator_type: user_role,
+        updated_by_id: user_id,
+        updater_type: user_role)
+    else
+      update_columns(updated_by_id: user_id, updater_type: user_role)
+    end
   rescue ArgumentError => e
     Rails.logger.error '-------------------------'
     Rails.logger.error "User role is invalid #{e.inspect}"

@@ -93,10 +93,12 @@ class Api::V1::SeekersController < Api::V1::ApiController
 
     seeker = Seeker.new(user_params)
     seeker.status = 'inactive'
+    Current.user = seeker
     if !seeker.save
       render json: {code: 'users/invalid', message: seeker.errors.first}, status: 422
       return
     end
+    Current.user = nil
 
     if seeker.place.nil?
       seeker.place = seeker.organization.place

@@ -168,6 +168,8 @@ de:
         rc_id: "RC ID"
         rc_username: "RC Username"
         app_user_id: "JI ID"
+        created_by: "Erstellt von"
+        updated_by: "Aktualisiert von"
       seeker:
         <<: *USER
         parental: "Elterneinverständnis erhalten"
