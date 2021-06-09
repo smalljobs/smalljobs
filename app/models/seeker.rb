@@ -6,6 +6,7 @@ class Seeker < ActiveRecord::Base
   CURRENT_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/sync"
   CHECK_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/check-user"
   # include ConfirmToggle
+  include Auditable
 
   enum status: {inactive: 1, active: 2, completed: 3}
 
@@ -50,11 +51,15 @@ class Seeker < ActiveRecord::Base
   phony_normalize :phone, default_country_code: 'CH'
   phony_normalize :mobile, default_country_code: 'CH'
 
-  validate :ensure_seeker_age
+  validate :ensure_seeker_age_create, on: :create
+  validate :ensure_seeker_age_update, on: :update
 
   validate :unique_email
+  validates :email, uniqueness: true, allow_blank: true
   validate :unique_mobile
 
+  before_validation :update_login, on: :update
+  before_validation :set_login, on: :create
   # after_save :send_to_jugendinfo
   ## New option
   after_create :send_create_to_jugendinfo
@@ -80,6 +85,7 @@ class Seeker < ActiveRecord::Base
   after_create :create_rc_account_and_save
   before_update :create_rc_account
 
+  before_create :set_rc_email
 
   # Adds new note to the database if it's present
   #
@@ -242,7 +248,7 @@ class Seeker < ActiveRecord::Base
     if ENV['ROCKET_CHAT_URL'].present?
       rc = RocketChat::Users.new
       if self.rc_id.blank?
-        user_rc_details = rc.find_user_by_email(email)
+        user_rc_details = rc.find_user_by_email(self.rc_email)
       else
         user_rc_details = nil
       end
@@ -252,7 +258,7 @@ class Seeker < ActiveRecord::Base
 
         user = rc.create({
                            name: self.name,
-                           email: self.email,
+                           email: self.rc_email,
                            username: "smalljobs_s_#{env}#{self.id}",
                            password: SecureRandom.hex,
                            verified: true,
@@ -290,7 +296,8 @@ class Seeker < ActiveRecord::Base
       response = {}
       data = {}
       data.merge!({phone: mobile}) if mobile.present?
-      data.merge!({email: email}) if email.present?
+      data.merge!({ email: email })
+      data.merge!({ type: 'seeker' })
       if data.present?
         response = RestClient.post CHECK_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
       end
@@ -313,9 +320,19 @@ class Seeker < ActiveRecord::Base
   #
   # @return [Boolean] validation status
   #
-  def ensure_seeker_age
+  def ensure_seeker_age_create
     if date_of_birth.present? && !date_of_birth.between?(26.years.ago, 13.years.ago)
       errors.add(:date_of_birth, :invalid_seeker_age)
+    end
+  end
+
+  # Validate the job seeker age
+  #
+  # @return [Boolean] validation status
+  #
+  def ensure_seeker_age_update
+    if date_of_birth.present? && !(date_of_birth < 13.years.ago)
+      errors.add(:date_of_birth, :invalid_seeker_age_update)
     end
   end
 
@@ -451,5 +468,24 @@ class Seeker < ActiveRecord::Base
   def phone_or_mobile
     return phone if phone.present?
     return mobile
+  end
+
+  def update_login
+    if self.mobile != self.mobile_was
+      self.login = self.mobile
+    end
+  end
+
+  def set_login
+    self.login = self.mobile
+  end
+
+
+  def set_rc_email
+    if self.email.present?
+      self.rc_email = self.email
+    else
+      self.rc_email = "#{SecureRandom.uuid}@smalljobs.ch"
+    end
   end
 end

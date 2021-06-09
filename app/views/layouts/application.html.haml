@@ -18,6 +18,7 @@
 
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
+    = include_gon
     = favicon_link_tag
     = csrf_meta_tags
 
@@ -55,7 +56,8 @@
           = render_navigation(context: :footer_region, expand_all: true)
     - if ENV['ROCKET_CHAT_URL'].present?
       = render partial: "/rocketchats/iframe"
-      .js-recketchat-present
+      .js-rocketchat-present
+      .js-rocketchat-url{data: {url: ENV['ROCKET_CHAT_URL']}}
 
 
     %div.modal.fade{id: "contextHelpModal"}

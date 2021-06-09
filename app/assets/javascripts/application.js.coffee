@@ -12,6 +12,7 @@
 #= require bootstrap-datepicker.js
 #= require chart.min.js
 
+#= require detect_turn_off_cookies.js
 
 #= require autocomplete-rails
 #= require shared.js
@@ -24,6 +25,8 @@
 #= require broker
 #= require nouislider
 #= require dashboard
+#= require rocketchat_observer.js
+#= require init_tiny.js
 
 ready = ->
   history_array = JSON.parse(sessionStorage.getItem('history') || '[]')

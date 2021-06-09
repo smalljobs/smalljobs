@@ -264,7 +264,7 @@ module RocketChat
       count = 100
       users = list(offset, count)
       while @total_records > users.length
-        puts users.length
+        # puts users.length
         next_users = list(offset+=count, count)
         users += next_users if next_users
       end

@@ -1,6 +1,6 @@
 class Broker::AllocationsController < InheritedResources::Base
 
-  before_filter :authenticate_broker!
+  before_filter :authenticate_broker!, except: [:contract]
 
   belongs_to :job
 
@@ -16,7 +16,7 @@ class Broker::AllocationsController < InheritedResources::Base
       @allocation.save!
     end
 
-    @messages = MessagingHelper::get_messages(@allocation.seeker.app_user_id)
+    @messages = MessagingHelper::get_messages(current_broker.rc_id, @allocation.seeker.rc_username)
     @org = @allocation.job.organization
 
     job_provider_phone = @job.provider.mobile.empty? ? @job.provider.phone : @job.provider.mobile

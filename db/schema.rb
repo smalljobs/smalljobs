@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190923121734) do
+ActiveRecord::Schema.define(version: 20210527124509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20190923121734) do
     t.datetime "updated_at"
     t.datetime "expire_at"
     t.string   "userable_type",             default: "Seeker"
+    t.string   "device_id"
   end
 
   create_table "admins", force: :cascade do |t|
@@ -78,35 +79,8 @@ ActiveRecord::Schema.define(version: 20190923121734) do
     t.index ["job_id"], name: "index_assignments_on_job_id", using: :btree
   end
 
-  create_table "brokers", force: :cascade do |t|
-    t.string   "firstname",              limit: 255,                    null: false
-    t.string   "lastname",               limit: 255,                    null: false
-    t.string   "phone",                  limit: 255,                    null: false
-    t.string   "mobile",                 limit: 255
-    t.boolean  "active",                             default: false
-    t.string   "email",                  limit: 255, default: "",       null: false
-    t.string   "encrypted_password",     limit: 255, default: "",       null: false
-    t.string   "reset_password_token",   limit: 255
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0,        null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",     limit: 255
-    t.string   "last_sign_in_ip",        limit: 255
-    t.string   "confirmation_token",     limit: 255
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email",      limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "contact_availability"
-    t.jsonb    "settings",                           default: {},       null: false
-    t.text     "role",                               default: "normal"
-    t.index ["confirmation_token"], name: "index_brokers_on_confirmation_token", unique: true, using: :btree
-    t.index ["email"], name: "index_brokers_on_email", unique: true, using: :btree
-    t.index ["reset_password_token"], name: "index_brokers_on_reset_password_token", unique: true, using: :btree
-  end
+# Could not dump table "brokers" because of following StandardError
+#   Unknown type 'user_role' for column 'creator_type'
 
   create_table "brokers_update_prefs", force: :cascade do |t|
     t.integer "broker_id"
@@ -174,6 +148,14 @@ ActiveRecord::Schema.define(version: 20190923121734) do
     t.index ["title"], name: "index_jobs_on_title", using: :btree
   end
 
+  create_table "jobs_certificates", force: :cascade do |t|
+    t.integer  "seeker_id"
+    t.text     "content"
+    t.uuid     "jobs_certificate_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
   create_table "notes", force: :cascade do |t|
     t.text     "message"
     t.integer  "broker_id"
@@ -214,6 +196,14 @@ ActiveRecord::Schema.define(version: 20190923121734) do
     t.date     "start_vacation_date"
     t.date     "end_vacation_date"
     t.boolean  "vacation_active",                                                   default: false
+    t.string   "vacation_title"
+    t.text     "vacation_text"
+    t.float    "salary_deduction",                                                  default: 0.0
+    t.boolean  "hide_salary",                                                       default: false
+    t.boolean  "signature_on_contract",                                             default: true
+    t.integer  "default_broker_id"
+    t.text     "first_reminder_message"
+    t.text     "second_reminder_message"
     t.index ["name"], name: "index_organizations_on_name", unique: true, using: :btree
   end
 
@@ -285,11 +275,16 @@ ActiveRecord::Schema.define(version: 20190923121734) do
   end
 
   create_table "regions", force: :cascade do |t|
-    t.string   "name",       limit: 255, null: false
+    t.string   "name",             limit: 255, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "subdomain",  limit: 255, null: false
+    t.string   "subdomain",        limit: 255, null: false
     t.string   "logo"
+    t.string   "header_image"
+    t.text     "content"
+    t.text     "contact_content"
+    t.integer  "ji_location_id"
+    t.string   "ji_location_name"
     t.index ["name"], name: "index_regions_on_name", unique: true, using: :btree
     t.index ["subdomain"], name: "index_regions_on_subdomain", using: :btree
   end
@@ -307,62 +302,8 @@ ActiveRecord::Schema.define(version: 20190923121734) do
     t.string   "simplified_type",        default: "file"
   end
 
-  create_table "seekers", force: :cascade do |t|
-    t.string   "firstname",                     limit: 255,                      null: false
-    t.string   "lastname",                      limit: 255,                      null: false
-    t.string   "street",                        limit: 255
-    t.date     "date_of_birth"
-    t.string   "phone",                         limit: 255
-    t.string   "mobile",                        limit: 255
-    t.string   "contact_preference",            limit: 255, default: "whatsapp"
-    t.text     "contact_availability"
-    t.boolean  "active",                                    default: false
-    t.string   "provider",                      limit: 255
-    t.string   "uid",                           limit: 255
-    t.string   "name",                          limit: 255
-    t.string   "email",                         limit: 255, default: ""
-    t.string   "encrypted_password",            limit: 255, default: "",         null: false
-    t.string   "reset_password_token",          limit: 255
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                             default: 0,          null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",            limit: 255
-    t.string   "last_sign_in_ip",               limit: 255
-    t.string   "confirmation_token",            limit: 255
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email",             limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "place_id"
-    t.string   "sex",                           limit: 255
-    t.integer  "ji_user_id"
-    t.integer  "organization_id"
-    t.string   "login",                         limit: 255, default: "",         null: false
-    t.integer  "status",                                    default: 1
-    t.integer  "app_user_id"
-    t.text     "notes"
-    t.boolean  "parental",                                  default: false
-    t.boolean  "discussion",                                default: false
-    t.string   "recovery_code"
-    t.date     "last_recovery"
-    t.integer  "recovery_times"
-    t.string   "occupation"
-    t.date     "occupation_end_date"
-    t.text     "additional_contacts"
-    t.string   "languages"
-    t.datetime "last_message_date"
-    t.boolean  "last_message_sent_from_seeker"
-    t.boolean  "last_message_seen"
-    t.integer  "messages_count"
-    t.text     "other_skills"
-    t.uuid     "agreement_id"
-    t.index ["confirmation_token"], name: "index_seekers_on_confirmation_token", unique: true, using: :btree
-    t.index ["organization_id"], name: "index_seekers_on_organization_id", using: :btree
-    t.index ["reset_password_token"], name: "index_seekers_on_reset_password_token", unique: true, using: :btree
-  end
+# Could not dump table "seekers" because of following StandardError
+#   Unknown type 'user_role' for column 'creator_type'
 
   create_table "seekers_work_categories", force: :cascade do |t|
     t.integer "seeker_id"
@@ -377,9 +318,11 @@ ActiveRecord::Schema.define(version: 20190923121734) do
     t.integer  "job_id"
     t.integer  "provider_id"
     t.integer  "allocation_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.datetime "postponed"
+    t.boolean  "manual_completion", default: false
+    t.datetime "completed"
     t.index ["allocation_id"], name: "index_todos_on_allocation_id", using: :btree
     t.index ["job_id"], name: "index_todos_on_job_id", using: :btree
     t.index ["provider_id"], name: "index_todos_on_provider_id", using: :btree
@@ -392,8 +335,9 @@ ActiveRecord::Schema.define(version: 20190923121734) do
     t.text     "description"
     t.integer  "table"
     t.string   "where"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.boolean  "manual_completion", default: false
   end
 
   create_table "update_prefs", force: :cascade do |t|

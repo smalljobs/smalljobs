@@ -62,11 +62,11 @@
               %div.col-md-8
                 %p
                   %span.bold.margin-right-10
-                    = note.broker.name
+                    = note.broker&.name || '-'
                   %span.js-note-date
                     = note.updated_at.strftime("%d.%m.%Y, %H:%M")
               %div.col-md-4.text-right
-                - if note.broker.id == current_broker.id
+                - if note.broker&.id == current_broker.id
                   %span.edit-btn.js-btn-edit
                     = "Bearbeiten"
                   %span.remove-btn{'data-note-id': "#{note.id}"}
@@ -92,13 +92,14 @@
   %fieldset
     .form-inputs
       = f.input :mobile, required: true
-      - if @seeker.new_record?
-        = f.input :password, required: true, autocomplete: 'off'
-        = f.input :password_confirmation, required: true
-      - else
-        = f.input :password, required: false, autocomplete: 'off'
-        = f.input :password_confirmation, required: false
+      -# - if @seeker.new_record?
+      -#   = f.input :password, required: true, autocomplete: 'off'
+      -#   = f.input :password_confirmation, required: true
+      -# - else
+      -#   = f.input :password, required: false, autocomplete: 'off'
+      -#   = f.input :password_confirmation, required: false
       = f.input :email
+      = f.input :parent_email
       = f.input :additional_contacts, required: false
       = f.input :date_of_birth, required: true, start_year: Date.today.year - 25, end_year: Date.today.year - 13, include_blank: true, hint: ''
       = f.input :sex, collection: seeker_sex, include_blank: false

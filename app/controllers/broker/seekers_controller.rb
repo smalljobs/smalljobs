@@ -29,7 +29,9 @@ class Broker::SeekersController < InheritedResources::Base
   def edit
     @jobs_certificate = @seeker.jobs_certificate
     @organizations_and_regions = Region.order(:name).includes(:organizations).map{|x| [x.name, x.organizations.order(:name).distinct.map{|y|  [y.name, y.id]}]}
-    @messages = MessagingHelper::get_messages(@seeker.app_user_id)
+    @messages = MessagingHelper::get_messages(current_broker.rc_id, @seeker.rc_username)
+    rc = RocketChat::Users.new
+    @seeker_exist_in_chat = rc.info(@seeker.rc_id).present?
     # @seeker.current_broker_id = current_broker.id
     edit!
   end

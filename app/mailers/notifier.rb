@@ -50,7 +50,7 @@ class Notifier < ActionMailer::Base
 
     attachments['agreement.pdf'] = File.read(File.expand_path(File.join(Rails.root, 'docs', 'agreement.pdf')))
 
-    mail(to: seeker.email, cc: broker_emails_for(seeker), subject: t('mail.send_agreement_for_seeker')) do |format|
+    mail(to: seeker.parent_email, cc: broker_emails_for(seeker), subject: t('mail.send_agreement_for_seeker')) do |format|
       format.text
       format.html
     end

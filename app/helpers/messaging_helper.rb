@@ -45,17 +45,21 @@ module MessagingHelper
   # @param device_token [Integer] user id on jugendinfo server
   #
   # @return [Array<Json>] array of messages retrieved from jugendinfo server
-  def self.get_messages(device_token)
-    conversation_id = get_conversation_id(device_token)
+  def self.get_messages(user_id, rc_username)
     messages = []
-    unless conversation_id.nil?
-      url = "#{@@current_url}/jugendinfo_message/get_messages/?key=#{ENV['JUGENDINFO_API_KEY']}&id=#{conversation_id}&limit=1000"
-      response = RestClient.get url
-      json = JSON.parse(response.body)
-      messages = json['messages'].sort_by {|val| DateTime.strptime(val['datetime'], '%s')}.reverse
+    se, im = RcSession.new(user_id).call
+    room_id = im.create(se, [rc_username]).try(:dig, '_id')
+    return messages if room_id.nil?
+    history = im.history(se, room_id)
+    return messages unless history
+    messages = history.map do |history_element|
+      {
+        message: history_element.dig('msg'),
+        u: history_element.dig('u'),
+        datetime: history_element.dig('ts')
+      }
     end
-
-    messages
+    messages.map(&:deep_symbolize_keys)
   end
 
   # Get last message corresponding to given user from jugendinfo api
@@ -93,4 +97,25 @@ module MessagingHelper
 
     messages_count
   end
+
+  class RcSession
+    attr_reader :user_id
+
+    def initialize(user_id)
+      @user_id = user_id
+    end
+
+    def call
+      initialize_session
+    end
+
+    private
+
+    def initialize_session
+      se = RocketChat::Session.new(user_id)
+      im = RocketChat::Im.new
+      [se, im]
+    end
+  end
+
 end

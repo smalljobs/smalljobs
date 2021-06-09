@@ -14,6 +14,7 @@ class Broker < ActiveRecord::Base
   CHECK_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/check-user"
 
   include ConfirmToggle
+  include Auditable
   include Storext.model
 
   has_and_belongs_to_many :update_prefs
@@ -158,8 +159,13 @@ class Broker < ActiveRecord::Base
       data = {}
       data.merge!({phone: mobile}) if mobile.present?
       data.merge!({email: email}) if email.present?
+      data.merge!({ type: 'broker' })
       if data.present?
-        response = RestClient.post CHECK_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
+        begin
+          response = RestClient.post CHECK_LINK, data, { Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}" }
+        rescue RestClient::ExceptionWithResponse => e
+          e.response
+        end
       end
       if response.present? and JSON.parse(response.body)['result'] == true
         record = JSON.parse(response.body)
