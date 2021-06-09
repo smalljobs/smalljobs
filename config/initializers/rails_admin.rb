@@ -287,6 +287,7 @@ RailsAdmin.config do |config|
       field :firstname
       field :lastname
       field :phone
+      field :mobile
       field :email
       field :active
       field :confirmed
@@ -357,6 +358,7 @@ RailsAdmin.config do |config|
       field :firstname
       field :lastname
       field :phone
+      field :mobile
       field :email
       field :active
     end
