@@ -3,11 +3,11 @@ class Seeker < ActiveRecord::Base
 
   devise :database_authenticatable, :registerable, authentication_keys: [:login]
 
-  # TODO To be deleted after verification
   CURRENT_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/sync"
-
-
   CHECK_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/check-user"
+
+  attr_accessor :is_register
+
   # include ConfirmToggle
   include Auditable
 
@@ -67,9 +67,8 @@ class Seeker < ActiveRecord::Base
   # after_save :send_to_jugendinfo
   ## New option
 
-  # TODO To be deleted after verification
   after_create :send_create_to_jugendinfo
-  after_update :send_update_to_jugendinfo
+  after_update :send_update_to_jugendinfo, unless: -> { is_register }
   after_destroy :send_delete_to_jugendinfo
 
   after_destroy :delete_access_tokens
@@ -382,7 +381,6 @@ class Seeker < ActiveRecord::Base
   end
 
   # Make post request to jugendinfo API
-  # TODO To be deleted after verification
   def send_to_jugendinfo(method)
     if ENV['JI_ENABLED'] and self.ji_request != true
       begin
@@ -404,21 +402,18 @@ class Seeker < ActiveRecord::Base
   end
 
   # Make post request to jugendinfo API
-  # TODO To be deleted after verification
   def send_update_to_jugendinfo
     if self.app_user_id.present?
       send_to_jugendinfo("UPDATE")
     end
   end
+
   # Make post request to jugendinfo API
-  #
-  # TODO To be deleted after verification
   def send_create_to_jugendinfo
-    # send_to_jugendinfo("CREATE")
+    send_to_jugendinfo("CREATE")
   end
+
   # Make post request to jugendinfo API
-  #
-  # TODO To be deleted after verification
   def send_delete_to_jugendinfo
     if self.app_user_id.present?
       send_to_jugendinfo("DELETE")

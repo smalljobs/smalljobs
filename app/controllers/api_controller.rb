@@ -90,6 +90,7 @@ class ApiController < ApplicationController
 
     seeker = Seeker.new(user_params)
     seeker.status = 'inactive'
+    seeker.is_register = true
     if !seeker.save
       render json: {code: 'users/invalid', message: seeker.errors.first}, status: 422
       return
