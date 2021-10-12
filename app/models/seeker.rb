@@ -4,7 +4,7 @@ class Seeker < ActiveRecord::Base
   devise :database_authenticatable, :registerable, authentication_keys: [:login]
 
   # TODO To be deleted after verification
-  # CURRENT_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/sync"
+  CURRENT_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/sync"
 
 
   CHECK_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/check-user"
@@ -68,9 +68,9 @@ class Seeker < ActiveRecord::Base
   ## New option
 
   # TODO To be deleted after verification
-  # after_create :send_create_to_jugendinfo
-  # after_update :send_update_to_jugendinfo
-  # after_destroy :send_delete_to_jugendinfo
+  after_create :send_create_to_jugendinfo
+  after_update :send_update_to_jugendinfo
+  after_destroy :send_delete_to_jugendinfo
 
   after_destroy :delete_access_tokens
 
@@ -383,47 +383,47 @@ class Seeker < ActiveRecord::Base
 
   # Make post request to jugendinfo API
   # TODO To be deleted after verification
-  # def send_to_jugendinfo(method)
-  #   if ENV['JI_ENABLED'] and self.ji_request != true
-  #     begin
-  #       logger.info "Sending changes to jugendinfo #{CURRENT_LINK}"
-  #       data = { operation: method }
-  #       data.merge!(jugendinfo_data)
-  #       response = RestClient.post CURRENT_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
-  #       #logger.info "Response from jugendinfo: #{response}"
-  #     rescue RestClient::ExceptionWithResponse => e
-  #       logger.info e.response
-  #       logger.info "Failed sending changes to jugendinfo"
-  #       raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
-  #     rescue Exception => e
-  #       logger.info e.inspect
-  #       logger.info "Failed sending changes to jugendinfo"
-  #       raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
-  #     end
-  #   end
-  # end
+  def send_to_jugendinfo(method)
+    if ENV['JI_ENABLED'] and self.ji_request != true
+      begin
+        logger.info "Sending changes to jugendinfo #{CURRENT_LINK}"
+        data = { operation: method }
+        data.merge!(jugendinfo_data)
+        response = RestClient.post CURRENT_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
+        #logger.info "Response from jugendinfo: #{response}"
+      rescue RestClient::ExceptionWithResponse => e
+        logger.info e.response
+        logger.info "Failed sending changes to jugendinfo"
+        raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
+      rescue Exception => e
+        logger.info e.inspect
+        logger.info "Failed sending changes to jugendinfo"
+        raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
+      end
+    end
+  end
 
   # Make post request to jugendinfo API
   # TODO To be deleted after verification
-  # def send_update_to_jugendinfo
-  #   if self.app_user_id.present?
-  #     send_to_jugendinfo("UPDATE")
-  #   end
-  # end
+  def send_update_to_jugendinfo
+    if self.app_user_id.present?
+      send_to_jugendinfo("UPDATE")
+    end
+  end
   # Make post request to jugendinfo API
   #
-  # TODO To be deleted after verification
-  # def send_create_to_jugendinfo
-    # send_to_jugendinfo("CREATE")
-  # end
+  TODO To be deleted after verification
+  def send_create_to_jugendinfo
+    send_to_jugendinfo("CREATE")
+  end
   # Make post request to jugendinfo API
   #
-  # TODO To be deleted after verification
-  # def send_delete_to_jugendinfo
-  #   if self.app_user_id.present?
-  #     send_to_jugendinfo("DELETE")
-  #   end
-  # end
+  TODO To be deleted after verification
+  def send_delete_to_jugendinfo
+    if self.app_user_id.present?
+      send_to_jugendinfo("DELETE")
+    end
+  end
 
   # Sends welcome message through chat to new seeker
   #
