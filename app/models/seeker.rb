@@ -412,7 +412,7 @@ class Seeker < ActiveRecord::Base
   end
   # Make post request to jugendinfo API
   #
-  TODO To be deleted after verification
+  # TODO To be deleted after verification
   def send_create_to_jugendinfo
     send_to_jugendinfo("CREATE")
   end
