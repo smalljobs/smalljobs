@@ -67,10 +67,6 @@ class Seeker < ActiveRecord::Base
   # after_save :send_to_jugendinfo
   ## New option
 
-  after_create :send_create_to_jugendinfo
-  after_update :send_update_to_jugendinfo, unless: -> { is_register }
-  after_destroy :send_delete_to_jugendinfo
-
   after_destroy :delete_access_tokens
 
   after_save :adjust_todo
@@ -92,6 +88,11 @@ class Seeker < ActiveRecord::Base
   before_update :create_rc_account
 
   before_create :set_rc_email
+
+  after_create :send_create_to_jugendinfo
+  after_update :send_update_to_jugendinfo, unless: -> { is_register }
+  after_destroy :send_delete_to_jugendinfo
+
 
   # Adds new note to the database if it's present
   #
