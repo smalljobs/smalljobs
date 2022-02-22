@@ -393,11 +393,15 @@ class Seeker < ActiveRecord::Base
       rescue RestClient::ExceptionWithResponse => e
         logger.info e.response
         logger.info "Failed sending changes to jugendinfo"
-        raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
+        if method != "DELETE"
+          raise ActiveRecord::Rollback, "RestClient Failed sending changes to jugendinfo"
+        end
       rescue Exception => e
         logger.info e.inspect
         logger.info "Failed sending changes to jugendinfo"
-        raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
+        if method != "DELETE"
+          raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
+        end
       end
     end
   end
