@@ -391,12 +391,14 @@ class Seeker < ActiveRecord::Base
         response = RestClient.post CURRENT_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
         #logger.info "Response from jugendinfo: #{response}"
       rescue RestClient::ExceptionWithResponse => e
+        self.errors[:default] << "Failed sending changes to jugendinfo"
         logger.info e.response
         logger.info "Failed sending changes to jugendinfo"
         if method != "DELETE"
           raise ActiveRecord::Rollback, "RestClient Failed sending changes to jugendinfo"
         end
       rescue Exception => e
+        self.errors[:default] << "Failed sending changes to jugendinfo"
         logger.info e.inspect
         logger.info "Failed sending changes to jugendinfo"
         if method != "DELETE"

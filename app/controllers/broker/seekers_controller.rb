@@ -26,6 +26,19 @@ class Broker::SeekersController < InheritedResources::Base
     create!
   end
 
+  def update
+    if @seeker.update(permitted_params[:seeker])
+      redirect_to [:broker, @seeker]
+    else
+      @jobs_certificate = @seeker.jobs_certificate
+      @organizations_and_regions = Region.order(:name).includes(:organizations).map{|x| [x.name, x.organizations.order(:name).distinct.map{|y|  [y.name, y.id]}]}
+      @messages = MessagingHelper::get_messages(current_broker.rc_id, @seeker.rc_username)
+      rc = RocketChat::Users.new
+      @seeker_exist_in_chat = rc.info(@seeker.rc_id).present?
+      render :edit
+    end
+  end
+
   def edit
     @jobs_certificate = @seeker.jobs_certificate
     @organizations_and_regions = Region.order(:name).includes(:organizations).map{|x| [x.name, x.organizations.order(:name).distinct.map{|y|  [y.name, y.id]}]}
