@@ -11,6 +11,8 @@ class Region < ActiveRecord::Base
   has_many :providers, through: :places
   has_many :seekers, through: :places
 
+  belongs_to :country
+
   validates :name, presence: true, uniqueness: true
   validates :subdomain, presence: true, subdomain: true
   validates :places, length: {minimum: 1}
