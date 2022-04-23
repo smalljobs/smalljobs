@@ -175,13 +175,13 @@
           Den Stundenlohn können Sie selbst bestimmen, wir empfehlen jedoch einen Richtwert
           von Alter x <%= @provider.organization.wage_factor || 1 %>
           (z.B. 17 Jahre x <%= @provider.organization.wage_factor || 1 %> =
-          <%= 17 * (BigDecimal.new((@provider.organization.wage_factor || 1).to_s)) %> CHF)
+          <%= 17 * (BigDecimal.new((@provider.organization.wage_factor || 1).to_s)) %> <%= get_currency(@provider.place.region.country) %>)
 
 <!--          Der Stundenlohn entspricht dem Alter des Jugendlichen mal <%#= @provider.organization.wage_factor || 1 %> (z.B. 17 Jahre-->
 <!--          x <%#= @provider.organization.wage_factor || 1 %> = <%#= 17 * (@provider.organization.wage_factor || 1) %> CHF).-->
         </li>
         <li>
-          Unfallversicherung: Familienversicherung des Jugendlichen (bis zu einem Jahreslohn von 750 CHF).
+          Unfallversicherung: Familienversicherung des Jugendlichen (bis zu einem Jahreslohn von 750 <%= get_currency(@provider.place.region.country) %>).
         </li>
         <li>
           Haftpflichtversicherung : Familienversicherung oder Arbeitgeberversicherung.
