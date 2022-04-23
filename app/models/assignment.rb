@@ -33,6 +33,14 @@ class Assignment < ActiveRecord::Base
       dur = "#{hours}:#{minutes}"
     end
 
-    return "#{stat}, #{date}, #{dur}, CHF #{payment}"
+    return "#{stat}, #{date}, #{dur}, #{currency} #{payment}"
+  end
+
+  def currency
+    country = self.job.region.country
+    return 'CHF' if country.blank?
+    return 'EUR' if country.name == 'Germany' || country.alpha2.downcase == 'de'
+
+    'CHF'
   end
 end

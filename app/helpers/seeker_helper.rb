@@ -13,9 +13,16 @@ module SeekerHelper
 
   def total_amount_earned_in_assignment(seeker)
     assignments = seeker.assignments
-    "#{assignments.count} Einsätze, Total verdient: CHF #{assignments.sum(:payment)}"
+    "#{assignments.count} Einsätze, Total verdient: #{currency(assignments)} #{assignments.sum(:payment)}"
   end
 
+  def currency(assignments)
+    countries = assignments.map { |a| a.job.region.country }.compact.uniq
+    return 'CHF' if countries.blank?
+    return 'EUR' if countries.size == 1 && (countries.first.name == 'Germany' || countries.first.alpha2.downcase == 'de')
+
+    'CHF'
+  end
 
   def order_allocation_by_state(allocations)
     allocations_state = []
