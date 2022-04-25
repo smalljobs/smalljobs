@@ -617,5 +617,5 @@ de:
       start_and_end_date: "Bitte geben Sie das Start- und Enddatum des Urlaubs ein"
   helpers:
     api_helpers:
-      salary_calculated_1: 'CHF %{salary} pro Stunde (ca %{duration}h)'
-      salary_calculated_2: 'CHF %{salary} (pauschal)'
+      salary_calculated_1: '%{currency} %{salary} pro Stunde (ca %{duration}h)'
+      salary_calculated_2: '%{currency} %{salary} (pauschal)'

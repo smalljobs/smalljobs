@@ -141,7 +141,7 @@
           Dauer (h)
         </th>
         <th>
-          CHF
+          <%= get_currency(@provider.place.region.country) %>
         </th>
         <th>
           Unterschrift Jugendliche_r
@@ -184,7 +184,7 @@
       x <%= @provider&.organization&.wage_factor || 1 %> = <%= 17 * (@provider&.organization&.wage_factor || 1) %> CHF).
     </li>-->
     <li>
-      Unfallversicherung: Familienversicherung des/der Jugendlichen (bis zu einem Jahreslohn von 750 CHF).
+      Unfallversicherung: Familienversicherung des/der Jugendlichen (bis zu einem Jahreslohn von 750 <%= get_currency(@provider.place.region.country) %>).
     </li>
     <li>
       Haftpflichtversicherung : Familienversicherung oder Arbeitgeberversicherung.
