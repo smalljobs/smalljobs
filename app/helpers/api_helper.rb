@@ -183,11 +183,11 @@ module ApiHelper
 
     if seeker.present? and organization.present? and seeker.class == Seeker
       if (job.salary_type == "hourly_per_age")
-        salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_1", currency: currency( seeker.assignments), salary: (seeker.age * organization.wage_factor - organization.salary_deduction), duration: job.duration)
+        salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_1", currency: currency(seeker.assignments), salary: (seeker.age * organization.wage_factor - organization.salary_deduction), duration: job.duration)
       elsif (job.salary_type == "hourly" )
-        salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_1", currency: currency( seeker.assignments),salary: job.salary, duration: job.duration)
+        salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_1", currency: currency(seeker.assignments), salary: job.salary, duration: job.duration)
       elsif (job.salary_type == "fixed")
-        salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_2", currency: currency( seeker.assignments), salary: job.salary)
+        salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_2", currency: currency(seeker.assignments), salary: job.salary)
       end
     end
 
