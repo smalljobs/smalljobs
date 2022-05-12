@@ -235,7 +235,9 @@ RailsAdmin.config do |config|
       field :contact_content
       field :ji_location_id
       field :ji_location_name
-      field :country
+      field :country do
+        required true
+      end
 
       group :design do
         label I18n.t('admin.groups.design')
