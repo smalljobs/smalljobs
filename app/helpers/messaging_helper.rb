@@ -14,8 +14,12 @@ module MessagingHelper
   # @return [Json] response from the jugendinfo server
   def self.send_message(title, message, device_token, sendermail)
     url = "#{@@current_url}/jugendinfo_push/send"
-    response = RestClient.post url, api: ENV['JUGENDINFO_API_KEY'], message_title: title, message: message, device_token: device_token, sendermail: sendermail
-    response
+    begin
+      RestClient.post url, api: ENV['JUGENDINFO_API_KEY'], message_title: title, message: message, device_token: device_token, sendermail: sendermail
+    rescue StandardError => e
+      Rails.logger.error 'External service error'
+      Rails.logger.error e.inspect
+    end
   end
 
   def self.return_proper_title title
