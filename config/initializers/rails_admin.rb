@@ -235,6 +235,8 @@ RailsAdmin.config do |config|
       field :contact_content
       field :ji_location_id
       field :ji_location_name
+      field :rules
+      field :detail_link
 
       group :design do
         label I18n.t('admin.groups.design')

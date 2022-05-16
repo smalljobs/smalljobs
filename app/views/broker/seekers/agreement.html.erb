@@ -82,7 +82,7 @@
       </li>
       <li>
         ich die gesetzlichen Richtlinien kenne und einverstanden bin, dass <%= @seeker.name %> in diesem Rahmen
-        Sackgeldjobs macht (siehe www.smalljobs.ch/jugendschutz).
+        Sackgeldjobs macht (siehe <%= @seeker.region.detail_link.presence || 'www.smalljobs.ch/jugendschutz' %>).
       </li>
       <li>
         ich für <%= @seeker.name %> eine gültige Unfall- und Haftpflichtversicherung abgeschlossen habe.

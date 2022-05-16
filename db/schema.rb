@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210527124509) do
+ActiveRecord::Schema.define(version: 20220516214708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +99,11 @@ ActiveRecord::Schema.define(version: 20210527124509) do
   create_table "certificates_seekers", force: :cascade do |t|
     t.integer "seeker_id"
     t.integer "certificate_id"
+  end
+
+  create_table "countries", force: :cascade do |t|
+    t.string "name"
+    t.string "alpha2"
   end
 
   create_table "default_templates", force: :cascade do |t|
@@ -285,6 +290,9 @@ ActiveRecord::Schema.define(version: 20210527124509) do
     t.text     "contact_content"
     t.integer  "ji_location_id"
     t.string   "ji_location_name"
+    t.integer  "country_id"
+    t.text     "rules"
+    t.string   "detail_link"
     t.index ["name"], name: "index_regions_on_name", unique: true, using: :btree
     t.index ["subdomain"], name: "index_regions_on_subdomain", using: :btree
   end
