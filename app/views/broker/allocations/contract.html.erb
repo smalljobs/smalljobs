@@ -51,13 +51,13 @@
       Lohn:
 
         <% if @job.salary_type == 'fixed' %>
-        <%= t('jobs.fixed_price', salary: number_to_currency(@job.salary)) %>
+        <%= t('jobs.fixed_price', salary: number_to_currency(@job.salary, unit: get_currency(@job.region.country))) %>
 
         <% elsif @job.salary_type == 'hourly' %>
-        <%= t('jobs.hourly_rate', salary: number_to_currency(@job.salary)) %>
+        <%= t('jobs.hourly_rate', salary: number_to_currency(@job.salary, unit: get_currency(@job.region.country))) %>
 
         <% elsif @job.salary_type == 'hourly_per_age' %>
-        <%= t('jobs.hourly_rate', salary: number_to_currency(get_age(@allocation.seeker.date_of_birth) * @job.organization.wage_factor - @job.organization.salary_deduction)) %>
+        <%= t('jobs.hourly_rate', salary: number_to_currency(get_age(@allocation.seeker.date_of_birth) * @job.organization.wage_factor - @job.organization.salary_deduction, unit: get_currency(@job.region.country))) %>
         <% end %>
     </div>
 
