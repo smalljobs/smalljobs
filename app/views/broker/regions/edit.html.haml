@@ -42,6 +42,16 @@
         .col-xs-4
           = f.input :ji_location_id, collection: @ji_locations, include_blank: false, as: :select, label: false
 
+    .row
+      .col-xs-4
+        = f.input :detail_link, label: 'Richtlinien Detail-Link'
+
+    %label
+      %div
+        Richtlinien Text
+    .row
+      .col-xs-12
+        = f.text_area :rules, class: 'tinymce-js'
 
     %label
       %div

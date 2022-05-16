@@ -60,7 +60,9 @@ class Broker::RegionsController < InheritedResources::Base
   end
 
   def permitted_params
-    params.require(:region).permit(:name, :logo, :content, :contact_content, :ji_location_id, :ji_location_name)
+    params.require(:region).permit(
+      :name, :logo, :content, :contact_content, :ji_location_id, :ji_location_name, :rules, :detail_link
+    )
   end
 
 end
