@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220516214708) do
+ActiveRecord::Schema.define(version: 20220517131728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -223,6 +223,7 @@ ActiveRecord::Schema.define(version: 20220516214708) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "full_name",  limit: 255
+    t.integer  "country_id"
     t.index ["name"], name: "index_places_on_name", using: :btree
     t.index ["zip"], name: "index_places_on_zip", using: :btree
   end

@@ -5,6 +5,7 @@ class Place < ActiveRecord::Base
   has_many :jobs, through: :providers
   has_many :seekers
   has_one :organization
+  belongs_to :country
 
   validates :zip, :name, :longitude, :latitude, presence: true
 
