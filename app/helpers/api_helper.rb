@@ -1,4 +1,6 @@
 module ApiHelper
+  extend CurrencyHelper
+  extend SeekerHelper
   # Converts given region to json format
   #
   # @param region [Region] region to convert
