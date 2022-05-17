@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220420042217) do
+ActiveRecord::Schema.define(version: 20220517131728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -223,6 +223,7 @@ ActiveRecord::Schema.define(version: 20220420042217) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "full_name",  limit: 255
+    t.integer  "country_id"
     t.index ["name"], name: "index_places_on_name", using: :btree
     t.index ["zip"], name: "index_places_on_zip", using: :btree
   end
@@ -291,6 +292,8 @@ ActiveRecord::Schema.define(version: 20220420042217) do
     t.integer  "ji_location_id"
     t.string   "ji_location_name"
     t.integer  "country_id"
+    t.text     "rules"
+    t.string   "detail_link"
     t.index ["name"], name: "index_regions_on_name", unique: true, using: :btree
     t.index ["subdomain"], name: "index_regions_on_subdomain", using: :btree
   end
