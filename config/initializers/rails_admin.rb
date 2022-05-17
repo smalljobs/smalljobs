@@ -103,6 +103,7 @@ RailsAdmin.config do |config|
       field :name
       field :province
       field :state
+      field :country
     end
 
     edit do
@@ -111,6 +112,9 @@ RailsAdmin.config do |config|
 
         field :zip
         field :name
+        field :country do
+          required true
+        end
       end
 
       group :political do
