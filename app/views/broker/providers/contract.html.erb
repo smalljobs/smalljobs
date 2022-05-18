@@ -158,7 +158,7 @@
 
 <div id="page-3" class="page alwaysbreak page-default">
   <div class="body-container">
-    <%= raw @provider.organization.regions&.first&.rules&.presence || @default_text %>
+    <%= raw @provider.organization.regions&.first&.rules&.presence %>
       <footer class="footer-right">
         Seite 2 von 2
       </footer>

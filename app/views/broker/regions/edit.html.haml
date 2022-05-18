@@ -48,10 +48,17 @@
 
     %label
       %div
-        Richtlinien Text
+        Richtlinien Jobvertrag Text
     .row
       .col-xs-12
-        = f.text_area :rules, class: 'tinymce-js'
+        = f.text_area :job_contract_rules, class: 'tinymce-js'
+
+    %label
+      %div
+        Richtlinien Arbeitgebervertrag Text
+    .row
+      .col-xs-12
+        = f.text_area :provider_contract_rules, class: 'tinymce-js'
 
     %label
       %div

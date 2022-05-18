@@ -235,7 +235,8 @@ RailsAdmin.config do |config|
       field :contact_content
       field :ji_location_id
       field :ji_location_name
-      field :rules
+      field :provider_contract_rules
+      field :job_contract_rules
       field :detail_link
 
       group :design do
