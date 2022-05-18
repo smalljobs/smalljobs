@@ -39,7 +39,7 @@ class Assignment < ActiveRecord::Base
   def currency
     country = self.job.region.country
     return 'CHF' if country.blank?
-    return 'EUR' if country.name == 'Germany' || country.alpha2.downcase == 'de'
+    return 'EUR' if country.name.downcase == 'Germany' || country.alpha2.downcase == 'de'
 
     'CHF'
   end
