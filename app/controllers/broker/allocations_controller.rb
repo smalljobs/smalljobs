@@ -173,9 +173,6 @@ class Broker::AllocationsController < InheritedResources::Base
   def send_contract
     @job = Job.find_by(id: params[:job_id])
     @allocation = Allocation.find_by(id: params[:id])
-    @default_text = ActionController::Base.new.render_to_string(
-      template: 'broker/allocations/default_text.html.erb'
-    )
     seeker = @allocation.seeker
     title = params[:title]
     message = params[:message]

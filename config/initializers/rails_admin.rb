@@ -239,6 +239,9 @@ RailsAdmin.config do |config|
       field :contact_content
       field :ji_location_id
       field :ji_location_name
+      field :provider_contract_rules
+      field :job_contract_rules
+      field :detail_link
       field :country do
         required true
       end
