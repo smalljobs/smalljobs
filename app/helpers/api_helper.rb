@@ -195,6 +195,7 @@ module ApiHelper
 
 
     json[:salary_calculated] = salary_to_show
+    json[:salary_currency] = get_currency(job.region.country)
 
     return json
   end
