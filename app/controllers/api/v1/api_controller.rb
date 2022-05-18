@@ -9,9 +9,11 @@ class Api::V1::ApiController < ApplicationController
 
   def authenticate
     if ACCESS_CONTROLLER_ACTION.include?([params[:controller], params[:action]])
+      puts 'auth 1'
       authenticate_token
       return true
     else
+      puts 'auth 1'
       authenticate_token || render_unauthorized
     end
   end
@@ -19,11 +21,13 @@ class Api::V1::ApiController < ApplicationController
   #
   def authenticate_token
     token = get_token
+    puts "authenticate_token:#{authenticate_token}"
     return false if token == nil
 
     expiration_date = token.expire_at || (token.created_at + 30.days)
+    puts "EXP: #{expiration_date < DateTime.now}"
     return false if expiration_date < DateTime.now
-
+    puts 'auth 3'
     @seeker = token.userable
   end
 
@@ -37,10 +41,14 @@ class Api::V1::ApiController < ApplicationController
 
   def get_token
     authorization_header = request.authorization()
+    puts "authorization_header: #{authorization_header}"
     if authorization_header != nil
       token = authorization_header.split(" ")[1]
+      puts "token1: #{token}"
       token = AccessToken.find_by(access_token: token)
+      puts "token2: #{token.inspect}"
     end
+    puts "token3: #{token.inspect}"
     token
   end
 
