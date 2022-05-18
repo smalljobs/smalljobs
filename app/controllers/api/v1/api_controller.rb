@@ -41,7 +41,7 @@ class Api::V1::ApiController < ApplicationController
 
   def get_token
     Rails.logger.info 'get token'
-    authorization_header = request.authorization
+    authorization_header = request.authorization()
     Rails.logger.info "authorization_header: #{authorization_header}"
     if authorization_header != nil
       token = authorization_header.split(" ")[1]
