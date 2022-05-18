@@ -185,11 +185,11 @@ module ApiHelper
 
     if seeker.present? and organization.present? and seeker.class == Seeker
       if (job.salary_type == "hourly_per_age")
-        salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_1", currency: get_currency(job.region.country.name), salary: ('%.2f' % (seeker.age * organization.wage_factor - organization.salary_deduction)), duration: job.duration)
+        salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_1", currency: get_currency(job.region.country), salary: ('%.2f' % (seeker.age * organization.wage_factor - organization.salary_deduction)), duration: job.duration)
       elsif (job.salary_type == "hourly" )
-        salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_1", currency: get_currency(job.region.country.name), salary: ('%.2f' % job.salary.to_f), duration: job.duration)
+        salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_1", currency: get_currency(job.region.country), salary: ('%.2f' % job.salary.to_f), duration: job.duration)
       elsif (job.salary_type == "fixed")
-        salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_2", currency: get_currency(job.region.country.name), salary: ('%.2f' % job.salary.to_f))
+        salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_2", currency: get_currency(job.region.country), salary: ('%.2f' % job.salary.to_f))
       end
     end
 
