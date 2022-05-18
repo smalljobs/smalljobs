@@ -19,7 +19,7 @@ module SeekerHelper
   def currency(assignments)
     countries = assignments.map { |a| a.job.region.country }.compact.uniq
     return 'CHF' if countries.blank?
-    return 'EUR' if countries.size == 1 && (countries.first.name == 'Germany' || countries.first.alpha2.downcase == 'de')
+    return 'EUR' if countries.size == 1 && (countries.first.name.downcase == 'Germany' || countries.first.alpha2.downcase == 'de')
 
     'CHF'
   end

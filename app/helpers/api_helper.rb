@@ -273,6 +273,7 @@ module ApiHelper
     json[:user_id] = allocation.seeker_id
     json[:provider_id] = allocation.provider_id
     json[:payment] = allocation.job.salary
+    json[:currency] = allocation.currency
     return json
   end
 
