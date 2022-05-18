@@ -40,7 +40,8 @@ class Api::V1::ApiController < ApplicationController
   private
 
   def get_token
-    authorization_header = request.authorization()
+    puts 'get token'
+    authorization_header = request.authorization
     puts "authorization_header: #{authorization_header}"
     if authorization_header != nil
       token = authorization_header.split(" ")[1]
