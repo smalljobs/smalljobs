@@ -37,6 +37,10 @@ class Api::V1::ApiController < ApplicationController
     render json: {code: 'users/invalid', message: 'Invalid access token'}, status: 422
   end
 
+  def render_unauthorized_status
+    render json: {code: 'users/status', message: 'Invalid user status'}, status: 422
+  end
+
   private
 
   def get_token
