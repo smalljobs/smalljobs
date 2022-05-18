@@ -7,10 +7,10 @@ class Broker::PlacesController < InheritedResources::Base
 
   def autocomplete_place_zip
     term = params[:term].downcase
-    places = Place.where(
-        'LOWER(places.zip) LIKE ? OR LOWER(places.name) LIKE ?',
-        "%#{term}%", "%#{term}%"
-    ).where(region_id: nil).order(:id).limit(10)
+    places = Place.where('LOWER(places.zip) LIKE :term OR LOWER(places.name) LIKE :term', term: "%#{term}%")
+                  .where(region_id: nil)
+                  .where(country_id: current_user.regions.pluck(:country_id))
+                  .order(:id).limit(10)
     render :json => places.map { |place| {:id => place.id, :label => place.full_name, :value => place.full_name} }
   end
 
