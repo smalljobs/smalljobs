@@ -21,7 +21,7 @@ class Api::V1::ApiController < ApplicationController
   #
   def authenticate_token
     token = get_token
-    puts "authenticate_token:#{authenticate_token}"
+    puts "authenticate_token:#{token}"
     return false if token == nil
 
     expiration_date = token.expire_at || (token.created_at + 30.days)
