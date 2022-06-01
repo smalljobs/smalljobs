@@ -65,7 +65,6 @@ module RocketChat
           @error = response_json['error']
           false
         else
-          puts response_json
           @error = 'Something went wrong'
           false
         end

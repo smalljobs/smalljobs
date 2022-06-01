@@ -45,7 +45,6 @@ module RocketChat
       #response.code
       response_json = JSON.parse(response.body)
 
-      puts response_json
       if response_json['errorStrings'].present?
         @error = response_json['errorStrings'].last
         false
@@ -53,7 +52,6 @@ module RocketChat
         @error = nil
         response_json
       else
-        puts response_json
         @error = 'Something went wrong'
         false
       end

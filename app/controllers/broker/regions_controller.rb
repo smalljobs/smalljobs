@@ -63,10 +63,6 @@ class Broker::RegionsController < InheritedResources::Base
       template: 'broker/allocations/default_text.html.erb'
     )
 
-    puts ''
-    puts @provider
-    puts ''
-
     provider_contract = ActionController::Base.new.render_to_string(
       template: 'broker/providers/default_text.html.erb', locals: { organization: @region.organizations.distinct.first }
     )
