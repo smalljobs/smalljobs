@@ -103,6 +103,7 @@ RailsAdmin.config do |config|
       field :name
       field :province
       field :state
+      field :country
     end
 
     edit do
@@ -111,6 +112,9 @@ RailsAdmin.config do |config|
 
         field :zip
         field :name
+        field :country do
+          required true
+        end
       end
 
       group :political do
@@ -235,6 +239,12 @@ RailsAdmin.config do |config|
       field :contact_content
       field :ji_location_id
       field :ji_location_name
+      field :provider_contract_rules
+      field :job_contract_rules
+      field :detail_link
+      field :country do
+        required true
+      end
 
       group :design do
         label I18n.t('admin.groups.design')

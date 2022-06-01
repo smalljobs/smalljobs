@@ -27,11 +27,13 @@ class Organization < ActiveRecord::Base
 
   before_save :destroy_logo?
   before_save :destroy_background?
+  before_save :set_wage_factor_if_nil
 
   after_initialize :copy_default_templates
 
   after_create :connect_to_region
   attr_accessor :assigned_to_region, :region_id
+
 
   TEMPLATES_NAMES = ['welcome_letter_employers_msg', 'welcome_app_register_msg', 'welcome_chat_register_msg',
                      'not_receive_job_msg', 'get_job_msg', 'activation_msg', 'welcome_email_for_parents_msg',
@@ -105,6 +107,12 @@ class Organization < ActiveRecord::Base
       if end_vacation_date.present? && (end_vacation_date < Date.today)
         errors.add(:end_vacation_date, I18n.t('errors.messages.end_date_too_early'))
       end
+    end
+  end
+
+  def set_wage_factor_if_nil
+    if self.wage_factor.nil?
+      self.wage_factor = 1
     end
   end
 end

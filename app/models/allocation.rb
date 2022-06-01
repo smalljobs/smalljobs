@@ -83,4 +83,12 @@ class Allocation < ActiveRecord::Base
   def generate_contract_id
     self.contract_id = SecureRandom.uuid if self.contract_id.nil?
   end
+
+  def currency
+    country = self.job.region.country
+    return 'CHF' if country.blank?
+    return 'EUR' if country.name.downcase == 'Germany' || country.alpha2.downcase == 'de'
+
+    'CHF'
+  end
 end

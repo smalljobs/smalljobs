@@ -33,14 +33,19 @@ class Api::V1::ApiController < ApplicationController
     render json: {code: 'users/invalid', message: 'Invalid access token'}, status: 422
   end
 
+  def render_unauthorized_status
+    render json: {code: 'users/status', message: 'Invalid user status'}, status: 422
+  end
+
   private
 
   def get_token
-    authorization_header = request.authorization()
+    authorization_header = request.authorization
     if authorization_header != nil
       token = authorization_header.split(" ")[1]
       token = AccessToken.find_by(access_token: token)
     end
+
     token
   end
 

@@ -242,7 +242,6 @@ class Broker < ActiveRecord::Base
         logger.info "Sending changes to jugendinfo #{CURRENT_LINK}"
         data = { operation: method }
         data.merge!(jugendinfo_data)
-        puts data
         response = RestClient.post CURRENT_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
         #logger.info "Response from jugendinfo: #{response}"
       rescue RestClient::ExceptionWithResponse => e

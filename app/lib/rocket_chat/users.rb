@@ -93,7 +93,6 @@ module RocketChat
         @error = response_json['error']
         false
       else
-        puts response_json
         @error = 'Something went wrong'
         @data = nil
         false
@@ -162,7 +161,6 @@ module RocketChat
       if response_json['success'].present? and response_json['success'] == true
         true
       else
-        puts response_json
         @error = 'Something went wrong'
         false
       end
@@ -214,7 +212,6 @@ module RocketChat
         @error = response_json['error']
         false
       else
-        puts response_json
         @error = 'Something went wrong'
         @data = nil
         false
@@ -264,7 +261,6 @@ module RocketChat
       count = 100
       users = list(offset, count)
       while @total_records > users.length
-        # puts users.length
         next_users = list(offset+=count, count)
         users += next_users if next_users
       end

@@ -18,7 +18,7 @@
       <% else %>
         <img id="baner" src="<%= wicked_pdf_asset_base64 'ParentalAgreement.jpg' %>" width="100%" height="300mm">
       <% end %>
-      <div class="banner-title">Sackgeldjob-Börse<br/>
+      <div class="banner-title">Taschengeldjob-Börse<br/>
         <%= @seeker.organization&.name %><br/>
         <span>Einverständnis zur Teilnahme</span></div>
       <div class="group-logos bottom-20">
@@ -78,11 +78,11 @@
         ich für <%= @seeker.name %> erziehungsberechtigt bin.
       </li>
       <li>
-        <%= @seeker.name %> mit meiner Einverständnis bei der Sackgeldjob-Börse anmeldet.
+        <%= @seeker.name %> mit meiner Einverständnis bei der Taschengeldjob-Börse anmeldet.
       </li>
       <li>
         ich die gesetzlichen Richtlinien kenne und einverstanden bin, dass <%= @seeker.name %> in diesem Rahmen
-        Sackgeldjobs macht (siehe www.smalljobs.ch/jugendschutz).
+        Taschengeldjobs macht (siehe <%= @seeker.region.detail_link %>).
       </li>
       <li>
         ich für <%= @seeker.name %> eine gültige Unfall- und Haftpflichtversicherung abgeschlossen habe.
