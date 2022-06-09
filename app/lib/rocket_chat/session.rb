@@ -11,8 +11,10 @@ module RocketChat
       @broker = Broker.where(rc_id: user_id).limit(1).first
       rc = RocketChat::Users.new
       auth_info = rc.create_token(user_id)
-      user_name = rc.info(user_id)
-      @data = auth_info.merge(user_name)
+      if auth_info
+        user_name = rc.info(user_id)
+        @data = auth_info.merge(user_name)
+      end
     end
   end
 end
