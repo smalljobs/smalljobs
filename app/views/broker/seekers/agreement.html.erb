@@ -13,20 +13,20 @@
 <body>
   <div id="page-1" class="alwaysbreak page page-default">
     <div class="banner-container">
-      <% if  @seeker.organization.present? &&  @seeker.organization.background.present? %>
+      <% if @seeker && @seeker.organization.present? &&  @seeker.organization.background.present? %>
         <img id="baner" src="<%= @seeker.organization.background.url(:web) %>" width="100%" height="300mm">
       <% else %>
         <img id="baner" src="<%= wicked_pdf_asset_base64 'ParentalAgreement.jpg' %>" width="100%" height="300mm">
       <% end %>
       <div class="banner-title">Sackgeldjob-Börse<br/>
-        <%= @seeker.organization&.name %><br/>
+        <%= @seeker&.organization&.name %><br/>
         <span>Einverständnis zur Teilnahme</span></div>
       <div class="group-logos bottom-20">
 
-        <% if @seeker.organization.logo.present? %>
+        <% if @seeker&.organization&.logo.present? %>
           <img class="others-logo-img"  src="<%= @seeker.organization.logo.url(:web, :normal) %>">
         <% end %>
-        <% if @seeker.organization.regions.first.logo.present? %>
+        <% if @seeker&.organization&.regions&.first&.logo.present? %>
           <img class="others-logo-img"  src="<%= @seeker.organization.regions.first.logo.url(:web, :normal) %>">
         <% end %>
         <img class="smalljobs-logo-img" src="<%= wicked_pdf_asset_base64 'sj-logo-white.png' %>">
@@ -47,11 +47,11 @@
     </p>
     <ol class="list-align-left">
       <li>
-        meine Angaben gegenüber <%= @seeker.organization&.name %> wahrheitsgetreu sind.
+        meine Angaben gegenüber <%= @seeker&.organization&.name %> wahrheitsgetreu sind.
       </li>
       <li>
         ich mich bei den mir vermittelten Jobs an die Richtlinien von Smalljobs und die Weisungen meiner Jobbörse
-        <%= @seeker.organization&.name %> halte.
+        <%= @seeker&.organization&.name %> halte.
       </li>
     </ol>
 
