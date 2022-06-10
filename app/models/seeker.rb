@@ -73,7 +73,6 @@ class Seeker < ActiveRecord::Base
 
   before_save :generate_agreement_id
 
-  before_create :get_rc_account_from_ji
   after_create :create_rc_account_and_save
   before_update :create_rc_account
 
@@ -254,27 +253,6 @@ class Seeker < ActiveRecord::Base
   def create_rc_account_and_save
     self.create_rc_account
     self.save
-  end
-
-
-  def get_rc_account_from_ji
-    if ENV['JI_ENABLED']
-      response = {}
-      data = {}
-      data.merge!({phone: mobile}) if mobile.present?
-      data.merge!({ email: email })
-      data.merge!({ type: 'seeker' })
-      if data.present?
-        response = RestClient.post CHECK_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
-      end
-      if response.present? and JSON.parse(response.body)['result'] == true
-        record = JSON.parse(response.body)
-        self.rc_id = record["user"]["chat_user_id"]
-        self.rc_username = record["user"]["chat_user_username"]
-        self.app_user_id = record["user"]["id"]
-      end
-    end
-    true
   end
 
   private
