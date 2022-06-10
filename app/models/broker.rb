@@ -47,14 +47,8 @@ class Broker < ActiveRecord::Base
 
   after_create :connect_to_region
 
-  before_create :get_rc_account_from_ji
   after_create :create_rc_account_and_save
   before_update :create_rc_account
-
-
-  after_create :send_create_to_jugendinfo
-  after_update :send_update_to_jugendinfo
-  after_destroy :send_delete_to_jugendinfo
 
   attr_accessor :assigned_to_region, :region_id, :ji_request
 
@@ -153,30 +147,6 @@ class Broker < ActiveRecord::Base
     self.save
   end
 
-  def get_rc_account_from_ji
-    if ENV['JI_ENABLED']
-      response = {}
-      data = {}
-      data.merge!({phone: mobile}) if mobile.present?
-      data.merge!({email: email}) if email.present?
-      data.merge!({ type: 'broker' })
-      if data.present?
-        begin
-          response = RestClient.post CHECK_LINK, data, { Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}" }
-        rescue RestClient::ExceptionWithResponse => e
-          e.response
-        end
-      end
-      if response.present? and JSON.parse(response.body)['result'] == true
-        record = JSON.parse(response.body)
-        self.rc_id = record["user"]["chat_user_id"]
-        self.rc_username = record["user"]["chat_user_username"]
-        self.app_user_id = record["user"]["id"]
-      end
-    end
-    true
-  end
-
   # Returns the display name
   #
   # @return [String] the name
@@ -216,66 +186,4 @@ class Broker < ActiveRecord::Base
   end
 
   # @!endgroup
-  private
-
-
-  def jugendinfo_data
-    # ApiHelper::seeker_to_json(self)
-    {
-        broker_id: self.id,
-        # phone: self.phone_was,
-        # new_phone: self.phone,
-        mobile: self.mobile_was || self.mobile,
-        new_mobile: self.mobile,
-        email: self.email_was || self.email,
-        new_email: self.email,
-        rc_id: self.rc_id,
-        rc_username: self.rc_username
-    }
-  end
-
-  # Make post request to jugendinfo API
-  #
-  def send_to_jugendinfo(method)
-    if ENV['JI_ENABLED'] and self.ji_request != true
-      begin
-        logger.info "Sending changes to jugendinfo #{CURRENT_LINK}"
-        data = { operation: method }
-        data.merge!(jugendinfo_data)
-        puts data
-        response = RestClient.post CURRENT_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
-        #logger.info "Response from jugendinfo: #{response}"
-      rescue RestClient::ExceptionWithResponse => e
-        logger.info e.response
-        logger.info "Failed sending changes to jugendinfo"
-        raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
-      rescue Exception => e
-        logger.info e.inspect
-        logger.info "Failed sending changes to jugendinfo"
-        raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
-      end
-    end
-  end
-
-  # Make post request to jugendinfo API
-  #
-  def send_update_to_jugendinfo
-    if self.app_user_id.present?
-      send_to_jugendinfo("UPDATE")
-    end
-  end
-  # Make post request to jugendinfo API
-  #
-  def send_create_to_jugendinfo
-    # if self.app_user_id.present?
-    #   send_to_jugendinfo("CREATE")
-    # end
-  end
-  # Make post request to jugendinfo API
-  #
-  def send_delete_to_jugendinfo
-    if self.app_user_id.present?
-      send_to_jugendinfo("DELETE")
-    end
-  end
 end
