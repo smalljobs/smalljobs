@@ -1,6 +1,10 @@
 module MessagingHelper
-  def self.send_message(title, message, device_token, sendermail)
-    #implement RC method to send messages
+  def self.send_message(user_id, rc_username, message)
+    se, im = RcSession.new(user_id).call
+    room_id = im.create(se, [rc_username]).try(:dig, '_id')
+    return if room_id.blank?
+
+    im.send_message(message, room_id, rc_username)
   end
 
   def self.return_proper_title title
