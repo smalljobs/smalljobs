@@ -75,8 +75,6 @@ class Seeker < ActiveRecord::Base
 
   after_save :add_new_note
 
-  before_save :update_messages_count
-
   before_save :generate_agreement_id
 
   before_create :get_rc_account_from_ji
@@ -111,13 +109,6 @@ class Seeker < ActiveRecord::Base
         logger.info "Error creating todo: #{$!}"
       end
     end
-  end
-
-  # Updates count of the messages
-  #
-  def update_messages_count
-    return if self.app_user_id.nil?
-    self.messages_count = MessagingHelper.get_messages_count(self.app_user_id)
   end
 
   # Check if there is no provider or broker with the same email

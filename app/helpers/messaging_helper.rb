@@ -62,23 +62,6 @@ module MessagingHelper
     messages.map(&:deep_symbolize_keys)
   end
 
-  def self.get_messages_count(device_token)
-    conversation_id = get_conversation_id(device_token)
-    messages_count = 0
-    unless conversation_id.nil?
-      url = "#{@@current_url}/jugendinfo_message/get_messages_count_from_conversation/?conversation_id=#{conversation_id}"
-      response = RestClient.get url
-      begin
-        json = JSON.parse(response.body)
-        messages_count = json['count']
-      rescue
-        nil
-      end
-    end
-
-    messages_count
-  end
-
   class RcSession
     attr_reader :user_id
 
