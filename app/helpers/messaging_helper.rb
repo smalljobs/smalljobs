@@ -1,21 +1,6 @@
 module MessagingHelper
-  require 'rest-client'
-  @@dev = 'https://devadmin.jugendarbeit.digital/api'
-  @@live = 'https://admin.jugendarbeit.digital/api'
-  @@current_url = Rails.env.production? ? @@live : @@dev
-
-  # Send message to given user using jugendinfo api
-  #
-  # @param title [String] title of the message
-  # @param message [String] content of the message
-  # @param device_token [Integer] user id on jugendinfo server
-  # @param sendermail [String] email of broker sending message
-  #
-  # @return [Json] response from the jugendinfo server
   def self.send_message(title, message, device_token, sendermail)
-    url = "#{@@current_url}/jugendinfo_push/send"
-    response = RestClient.post url, api: ENV['JUGENDINFO_API_KEY'], message_title: title, message: message, device_token: device_token, sendermail: sendermail
-    response
+    #implement RC method to send messages
   end
 
   def self.return_proper_title title
