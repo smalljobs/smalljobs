@@ -23,23 +23,6 @@ module MessagingHelper
     title
   end
 
-  # Get conversation id for given user from jugendinfo api
-  #
-  # @param device_token [Integer] user id on jugendinfo server
-  #
-  # @return [Integer] conversation id
-  def self.get_conversation_id(device_token)
-    url = "#{@@current_url}/jugendinfo_message/get_conversation_id_by_user?user_id=#{device_token}"
-    begin
-      response = RestClient.get url
-      json = JSON.parse(response)
-      conversation_id = json['id']
-      conversation_id
-    rescue
-      nil
-    end
-  end
-
   # Get messages corresponding to given user from jugendinfo api
   #
   # @param device_token [Integer] user id on jugendinfo server
