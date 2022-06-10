@@ -62,25 +62,6 @@ module MessagingHelper
     messages.map(&:deep_symbolize_keys)
   end
 
-  # Get last message corresponding to given user from jugendinfo api
-  #
-  # @param device_token [Integer] user id on jugendinfo server
-  #
-  # @return [<Json>] last message retrieved from jugendinfo server
-  def self.get_last_message(device_token)
-    conversation_id = get_conversation_id(device_token)
-    message = nil
-    unless conversation_id.nil?
-      url = "#{@@current_url}/jugendinfo_message/get_messages/?key=#{ENV['JUGENDINFO_API_KEY']}&id=#{conversation_id}&last=1"
-      response = RestClient.get url
-      json = JSON.parse(response.body)
-      messages = json['messages']
-      message = messages[messages.count - 1] if messages.count > 0
-    end
-
-    message
-  end
-
   def self.get_messages_count(device_token)
     conversation_id = get_conversation_id(device_token)
     messages_count = 0

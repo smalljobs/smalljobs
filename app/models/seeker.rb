@@ -75,8 +75,6 @@ class Seeker < ActiveRecord::Base
 
   after_save :add_new_note
 
-  before_save :update_last_message
-
   before_save :update_messages_count
 
   before_save :generate_agreement_id
@@ -113,25 +111,6 @@ class Seeker < ActiveRecord::Base
         logger.info "Error creating todo: #{$!}"
       end
     end
-  end
-
-  # Updates last message for seeker
-  #
-  def update_last_message
-    logger.info "App user id is #{self.app_user_id}"
-    return if self.app_user_id.nil?
-
-    message = MessagingHelper.get_last_message(self.app_user_id)
-    logger.info "Last message is #{message}"
-    return if message.nil?
-
-    self.last_message_date = DateTime.strptime(message['datetime'], '%s').in_time_zone('Warsaw')
-    logger.info "last_message_date is #{self.last_message_date}"
-
-    self.last_message_sent_from_seeker = message['from_ji_user_id'] == self.app_user_id.to_s
-    logger.info "last_message_sent_from_seeker is #{self.last_message_sent_from_seeker}"
-    self.last_message_seen = message['seen'] == '1'
-    logger.info "last_message_seen is #{self.last_message_seen}"
   end
 
   # Updates count of the messages
