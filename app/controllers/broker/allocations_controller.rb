@@ -139,7 +139,7 @@ class Broker::AllocationsController < InheritedResources::Base
     title = params[:title]
     message = params[:message]
 
-    response = MessagingHelper::send_message(title, message, seeker.app_user_id, current_broker.email)
+    response = MessagingHelper::send_message(seeker.rc_id, seeker.rc_username, "#{title}. #{message}")
 
     render json: {state: 'ok', response: response}
   end
@@ -177,7 +177,7 @@ class Broker::AllocationsController < InheritedResources::Base
     title = params[:title]
     message = params[:message]
 
-    response = MessagingHelper::send_message(title, message, seeker.app_user_id, @allocation.provider.email)
+    response = MessagingHelper::send_message(seeker.rc_id, seeker.rc_username, "#{title}. #{message}")
 
     render json: {state: 'ok', response: response}
   end

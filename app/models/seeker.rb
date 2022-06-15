@@ -64,9 +64,6 @@ class Seeker < ActiveRecord::Base
   before_validation :update_login, on: :update
   before_validation :set_login, on: :create
 
-  # after_save :send_to_jugendinfo
-  ## New option
-
   after_destroy :delete_access_tokens
 
   after_save :adjust_todo
@@ -77,13 +74,8 @@ class Seeker < ActiveRecord::Base
 
   after_save :add_new_note
 
-  # before_save :update_last_message
-
-  before_save :update_messages_count
-
   before_save :generate_agreement_id
 
-  before_create :get_rc_account_from_ji
   after_create :create_rc_account_and_save
   before_update :create_rc_account
 
@@ -120,32 +112,6 @@ class Seeker < ActiveRecord::Base
         logger.info "Error creating todo: #{$!}"
       end
     end
-  end
-
-  # Updates last message for seeker
-  #
-  # def update_last_message
-  #   logger.info "App user id is #{self.app_user_id}"
-  #   return if self.app_user_id.nil?
-  #
-  #   message = MessagingHelper.get_last_message(self.app_user_id)
-  #   logger.info "Last message is #{message}"
-  #   return if message.nil?
-  #
-  #   self.last_message_date = DateTime.strptime(message['datetime'], '%s').in_time_zone('Warsaw')
-  #   logger.info "last_message_date is #{self.last_message_date}"
-  #
-  #   self.last_message_sent_from_seeker = message['from_ji_user_id'] == self.app_user_id.to_s
-  #   logger.info "last_message_sent_from_seeker is #{self.last_message_sent_from_seeker}"
-  #   self.last_message_seen = message['seen'] == '1'
-  #   logger.info "last_message_seen is #{self.last_message_seen}"
-  # end
-
-  # Updates count of the messages
-  #
-  def update_messages_count
-    return if self.app_user_id.nil?
-    self.messages_count = MessagingHelper.get_messages_count(self.app_user_id)
   end
 
   # Check if there is no provider or broker with the same email
@@ -297,27 +263,6 @@ class Seeker < ActiveRecord::Base
     self.save
   end
 
-
-  def get_rc_account_from_ji
-    if ENV['JI_ENABLED']
-      response = {}
-      data = {}
-      data.merge!({phone: mobile}) if mobile.present?
-      data.merge!({ email: email })
-      data.merge!({ type: 'seeker' })
-      if data.present?
-        response = RestClient.post CHECK_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
-      end
-      if response.present? and JSON.parse(response.body)['result'] == true
-        record = JSON.parse(response.body)
-        self.rc_id = record["user"]["chat_user_id"]
-        self.rc_username = record["user"]["chat_user_username"]
-        self.app_user_id = record["user"]["id"]
-      end
-    end
-    true
-  end
-
   private
 
   def delete_access_tokens
@@ -366,67 +311,6 @@ class Seeker < ActiveRecord::Base
     Notifier.new_seeker_signup_for_broker(self).deliver
   end
 
-  def jugendinfo_data
-    # ApiHelper::seeker_to_json(self)
-    {
-        seeker_id: self.id,
-        # phone: self.phone_was,
-        # new_phone: self.phone,
-        mobile: self.mobile_was,
-        new_mobile: self.mobile,
-        # email: self.email_was,
-        # new_email: self.email,
-        rc_id: self.rc_id,
-        rc_username: self.rc_username
-    }
-  end
-
-  # Make post request to jugendinfo API
-  def send_to_jugendinfo(method)
-    if ENV['JI_ENABLED'] and self.ji_request != true
-      begin
-        logger.info "Sending changes to jugendinfo #{CURRENT_LINK}"
-        data = { operation: method }
-        data.merge!(jugendinfo_data)
-        response = RestClient.post CURRENT_LINK, data, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
-        #logger.info "Response from jugendinfo: #{response}"
-      rescue RestClient::ExceptionWithResponse => e
-        self.errors[:default] << "Failed sending changes to jugendinfo"
-        logger.info e.response
-        logger.info "Failed sending changes to jugendinfo"
-        if method != "DELETE"
-          raise ActiveRecord::Rollback, "RestClient Failed sending changes to jugendinfo"
-        end
-      rescue Exception => e
-        self.errors[:default] << "Failed sending changes to jugendinfo"
-        logger.info e.inspect
-        logger.info "Failed sending changes to jugendinfo"
-        if method != "DELETE"
-          raise ActiveRecord::Rollback, "Failed sending changes to jugendinfo"
-        end
-      end
-    end
-  end
-
-  # Make post request to jugendinfo API
-  def send_update_to_jugendinfo
-    if self.app_user_id.present?
-      send_to_jugendinfo("UPDATE")
-    end
-  end
-
-  # Make post request to jugendinfo API
-  def send_create_to_jugendinfo
-    send_to_jugendinfo("CREATE")
-  end
-
-  # Make post request to jugendinfo API
-  def send_delete_to_jugendinfo
-    if self.app_user_id.present?
-      send_to_jugendinfo("DELETE")
-    end
-  end
-
   # Sends welcome message through chat to new seeker
   #
   def send_welcome_message
@@ -436,7 +320,7 @@ class Seeker < ActiveRecord::Base
     message = Mustache.render(self.organization.welcome_chat_register_msg || '', organization_name: self.organization.name, organization_street: self.organization.street, organization_zip: self.organization.place.zip, organization_place: self.organization.place.name, organization_phone: self.organization.phone, organization_email: self.organization.email, seeker_first_name: self.firstname, seeker_last_name: self.lastname, broker_first_name: self.organization.brokers.first.try(:firstname).to_s, broker_last_name: self.organization.brokers.first.try(:lastname).to_s, seeker_link_to_agreement: "<a file type='application/pdf' title='Elterneinverständnis herunterladen' href='#{seeker_agreement_link}'>#{seeker_agreement_link}</a>", link_to_jobboard_list: (Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host)))
     logger.info "Welcome message: #{message}"
 
-    MessagingHelper::send_message(title, message, self.app_user_id, self.organization.email)
+    MessagingHelper::send_message(self.rc_id, self.rc_username, "#{title}. #{message}")
   end
 
   # Sends activation message through chat after seeker is activated
@@ -448,7 +332,7 @@ class Seeker < ActiveRecord::Base
     seeker_agreement_link = "#{(Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host, protocol: 'https'))}/broker/seekers/#{self.agreement_id}/agreement"
     message = Mustache.render(self.organization.activation_msg || '', organization_name: self.organization.name, organization_street: self.organization.street, organization_zip: self.organization.place.zip, organization_place: self.organization.place.name, organization_phone: self.organization.phone, organization_email: self.organization.email, seeker_first_name: self.firstname, seeker_last_name: self.lastname, broker_first_name: self.organization.brokers.first.try(:firstname).to_s, broker_last_name: self.organization.brokers.first.try(:lastname).to_s, seeker_link_to_agreement: "<a file type='application/pdf' title='Elterneinverständnis herunterladen' href='#{seeker_agreement_link}'>#{seeker_agreement_link}</a>", link_to_jobboard_list: (Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host)))
 
-    MessagingHelper::send_message(title, message, self.app_user_id, self.organization.email)
+    MessagingHelper::send_message(self.rc_id, self.rc_username, "#{title}. #{message}")
   end
 
   public
