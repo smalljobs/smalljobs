@@ -64,7 +64,7 @@ class Seeker < ActiveRecord::Base
   after_destroy :delete_access_tokens
 
   after_save :adjust_todo
-
+  after_create :create_rc_account_and_save
   after_create :send_welcome_message
 
   before_save :send_activation_message, if: proc {|s| s.status_changed? && s.active?}
@@ -72,8 +72,6 @@ class Seeker < ActiveRecord::Base
   after_save :add_new_note
 
   before_save :generate_agreement_id
-
-  after_create :create_rc_account_and_save
   before_update :create_rc_account
 
   before_create :set_rc_email
@@ -251,7 +249,9 @@ class Seeker < ActiveRecord::Base
   end
 
   def create_rc_account_and_save
+    puts 'create_rc_account_and_save'
     self.create_rc_account
+    puts 'create_rc_account_and_save 2'
     self.save
   end
 

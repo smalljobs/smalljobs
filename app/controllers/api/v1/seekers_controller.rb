@@ -90,7 +90,6 @@ class Api::V1::SeekersController < Api::V1::ApiController
       user_params[:parent_email] = parents_email
     end
 
-
     seeker = Seeker.new(user_params)
     seeker.status = 'inactive'
     Current.user = seeker
