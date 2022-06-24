@@ -79,11 +79,6 @@ class Seeker < ActiveRecord::Base
 
   before_create :set_rc_email
 
-  after_create :send_create_to_jugendinfo
-  after_update :send_update_to_jugendinfo, unless: -> { is_register }
-  after_destroy :send_delete_to_jugendinfo
-
-
   # Adds new note to the database if it's present
   #
   def add_new_note
