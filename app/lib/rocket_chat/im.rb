@@ -89,7 +89,7 @@ module RocketChat
       end
     end
 
-    def send_message(message, room_id, rc_username)
+    def send_message(session, message, room_id, rc_username)
       path = '/api/v1/chat.postMessage'
       uri = URI.parse("#{ENV['ROCKET_CHAT_URL']}#{path}")
       request = Net::HTTP::Post.new(uri)
