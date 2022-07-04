@@ -13,21 +13,21 @@
 <body>
   <div id="page-1" class="alwaysbreak page page-default">
     <div class="banner-container">
-      <% if @seeker && @seeker.organization.present? &&  @seeker.organization.background.present? %>
-        <img id="baner" src="<%= @seeker.organization.background.url(:web) %>" width="100%" height="300mm">
+      <% if  @seeker&.organization.present? &&  @seeker&.organization&.background&.present? %>
+        <img id="baner" src="<%= @seeker&.organization&.background&.url(:web) %>" width="100%" height="300mm">
       <% else %>
         <img id="baner" src="<%= wicked_pdf_asset_base64 'ParentalAgreement.jpg' %>" width="100%" height="300mm">
       <% end %>
       <div class="banner-title">Taschengeldjob-Börse<br/>
-        <%=@seeker&.organization&.name %><br/>
+        <%= @seeker&.organization&.name %><br/>
         <span>Einverständnis zur Teilnahme</span></div>
       <div class="group-logos bottom-20">
 
-        <% if @seeker&.organization&.logo.present? %>
-          <img class="others-logo-img"  src="<%= @seeker.organization.logo.url(:web, :normal) %>">
+        <% if @seeker&.organization&.logo&.present? %>
+          <img class="others-logo-img"  src="<%= @seeker&.organization&.logo&.url(:web, :normal) %>">
         <% end %>
-        <% if @seeker&.organization&.regions&.first&.logo.present? %>
-          <img class="others-logo-img"  src="<%= @seeker.organization.regions.first.logo.url(:web, :normal) %>">
+        <% if @seeker&.organization&.regions&.first&.logo&.present? %>
+          <img class="others-logo-img"  src="<%= @seeker&.organization&.regions&.first&.logo&.url(:web, :normal) %>">
         <% end %>
         <img class="smalljobs-logo-img" src="<%= wicked_pdf_asset_base64 'sj-logo-white.png' %>">
       </div>
@@ -37,10 +37,10 @@
 
   <div class="body-container">
     <div class="margin-top-40 font-bigger font-bold">
-      <%= @seeker.name %>, <%= @seeker.date_of_birth.strftime('%d.%m.%Y') %>
+      <%= @seeker&.name %>, <%= @seeker&.date_of_birth&.strftime('%d.%m.%Y') %>
     </div>
     <p class="font-smaller font-bold">
-      <%= @seeker.street %>, <%= @seeker.place.full_name %>
+      <%= @seeker&.street %>, <%= @seeker&.place&.full_name %>
     </p>
     <p>
       Ich bestätige hiermit, dass:
@@ -65,7 +65,7 @@
       <div class="column column-right">
         <div class="signature">
         </div>
-        <div class="font-smaller">Unterschrift <%= @seeker.name %></div>
+        <div class="font-smaller">Unterschrift <%= @seeker&.name %></div>
       </div>
     </div>
 
@@ -75,17 +75,17 @@
     <p>Ich bestätige hiermit, dass</p>
     <ol class="list-align-left">
       <li>
-        ich für <%= @seeker.name %> erziehungsberechtigt bin.
+        ich für <%= @seeker&.name %> erziehungsberechtigt bin.
       </li>
       <li>
-        <%= @seeker.name %> mit meiner Einverständnis bei der Taschengeldjob-Börse anmeldet.
+        <%= @seeker&.name %> mit meiner Einverständnis bei der Taschengeldjob-Börse anmeldet.
       </li>
       <li>
-        ich die gesetzlichen Richtlinien kenne und einverstanden bin, dass <%= @seeker.name %> in diesem Rahmen
-        Taschengeldjobs macht (siehe <%= @seeker.region.detail_link %>).
+        ich die gesetzlichen Richtlinien kenne und einverstanden bin, dass <%= @seeker&.name %> in diesem Rahmen
+        Taschengeldjobs macht (siehe <%= @seeker&.region.detail_link %>).
       </li>
       <li>
-        ich für <%= @seeker.name %> eine gültige Unfall- und Haftpflichtversicherung abgeschlossen habe.
+        ich für <%= @seeker&.name %> eine gültige Unfall- und Haftpflichtversicherung abgeschlossen habe.
       </li>
     </ol>
 
@@ -100,7 +100,7 @@
         <div class="signature">
         </div>
         <div class="font-smaller">Unterschrift
-          Erziehungsberechtigte <%= @seeker.name %></div>
+          Erziehungsberechtigte <%= @seeker&.name %></div>
       </div>
     </div>
 
