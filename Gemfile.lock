@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/kreativgebiet/rich.git
+  remote: https://github.com/kreativgebiet/rich.git
   revision: 2c8f85438e7391f9a11d4972272723bbe85844cd
   specs:
     rich (1.4.8)
@@ -143,6 +143,7 @@ GEM
     countries (1.2.5)
       currencies (~> 0.4.2)
       i18n_data (~> 0.7.0)
+    crass (1.0.6)
     credit_card_validations (3.4.0)
       activemodel (>= 3, <= 6)
       activesupport (>= 3, <= 6)
@@ -410,7 +411,8 @@ GEM
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
-    loofah (2.0.3)
+    loofah (2.18.0)
+      crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     lumberjack (1.0.11)
     mail (2.6.5)
@@ -420,7 +422,9 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
-    mimemagic (0.3.2)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_magick (4.7.0)
     mini_portile2 (2.1.0)
     minitest (5.10.2)
@@ -504,8 +508,8 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.0.3)
-      loofah (~> 2.0)
+    rails-html-sanitizer (1.4.3)
+      loofah (~> 2.3)
     rails-i18n (5.0.3)
       i18n (~> 0.7)
       railties (~> 5.0)
