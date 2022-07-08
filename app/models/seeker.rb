@@ -306,6 +306,7 @@ class Seeker < ActiveRecord::Base
   def send_welcome_message
     title = 'Willkommen'
     host = "#{self.organization.regions.first.subdomain}.smalljobs.ch"
+    default_rc_user = organization.broker
     seeker_agreement_link = "#{(Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host, protocol: 'https'))}/broker/seekers/#{self.agreement_id}/agreement"
     message = Mustache.render(
       self.organization.welcome_chat_register_msg || '',
@@ -324,7 +325,7 @@ class Seeker < ActiveRecord::Base
     )
     logger.info "Welcome message: #{message}"
 
-    MessagingHelper::send_message(self.rc_id, self.rc_username, "#{title}. #{message}")
+    MessagingHelper::send_message(default_rc_user.rc_id, default_rc_user.rc_username, "#{title}. #{message}")
   end
 
   # Sends activation message through chat after seeker is activated
@@ -332,7 +333,7 @@ class Seeker < ActiveRecord::Base
   def send_activation_message
     title = 'Willkommen'
     host = "#{self.organization.regions.first.subdomain}.smalljobs.ch"
-
+    default_rc_user = organization.broker
     seeker_agreement_link = "#{(Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host, protocol: 'https'))}/broker/seekers/#{self.agreement_id}/agreement"
     message = Mustache.render(
       self.organization.activation_msg || '',
@@ -350,7 +351,7 @@ class Seeker < ActiveRecord::Base
       link_to_jobboard_list: (Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host))
     )
 
-    MessagingHelper::send_message(self.rc_id, self.rc_username, "#{title}. #{message}")
+    MessagingHelper::send_message(default_rc_user.rc_id, default_rc_user.rc_username, "#{title}. #{message}")
   end
 
   public
