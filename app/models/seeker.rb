@@ -252,9 +252,7 @@ class Seeker < ActiveRecord::Base
   end
 
   def create_rc_account_and_save
-    puts 'create_rc_account_and_save'
     self.create_rc_account
-    puts 'create_rc_account_and_save 2'
     self.save
   end
 
@@ -311,11 +309,26 @@ class Seeker < ActiveRecord::Base
   def send_welcome_message
     title = 'Willkommen'
     host = "#{self.organization.regions.first.subdomain}.smalljobs.ch"
+    default_rc_user = organization.broker
     seeker_agreement_link = "#{(Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host, protocol: 'https'))}/broker/seekers/#{self.agreement_id}/agreement"
-    message = Mustache.render(self.organization.welcome_chat_register_msg || '', organization_name: self.organization.name, organization_street: self.organization.street, organization_zip: self.organization.place.zip, organization_place: self.organization.place.name, organization_phone: self.organization.phone, organization_email: self.organization.email, seeker_first_name: self.firstname, seeker_last_name: self.lastname, broker_first_name: self.organization.brokers.first.try(:firstname).to_s, broker_last_name: self.organization.brokers.first.try(:lastname).to_s, seeker_link_to_agreement: "<a file type='application/pdf' title='Elterneinverständnis herunterladen' href='#{seeker_agreement_link}'>#{seeker_agreement_link}</a>", link_to_jobboard_list: (Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host)))
+    message = Mustache.render(
+      self.organization.welcome_chat_register_msg || '',
+      organization_name: self.organization.name,
+      organization_street: self.organization.street,
+      organization_zip: self.organization.place.zip,
+      organization_place: self.organization.place.name,
+      organization_phone: self.organization.phone,
+      organization_email: self.organization.email,
+      seeker_first_name: self.firstname,
+      seeker_last_name: self.lastname,
+      broker_first_name: self.organization.brokers.first.try(:firstname).to_s,
+      broker_last_name: self.organization.brokers.first.try(:lastname).to_s,
+      seeker_link_to_agreement: seeker_agreement_link,
+      link_to_jobboard_list: (Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host))
+    )
     logger.info "Welcome message: #{message}"
 
-    MessagingHelper::send_message(self.rc_id, self.rc_username, "#{title}. #{message}")
+    MessagingHelper::send_message(default_rc_user.rc_id, default_rc_user.rc_username, "#{title}. #{message}")
   end
 
   # Sends activation message through chat after seeker is activated
@@ -323,11 +336,25 @@ class Seeker < ActiveRecord::Base
   def send_activation_message
     title = 'Willkommen'
     host = "#{self.organization.regions.first.subdomain}.smalljobs.ch"
-
+    default_rc_user = organization.broker
     seeker_agreement_link = "#{(Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host, protocol: 'https'))}/broker/seekers/#{self.agreement_id}/agreement"
-    message = Mustache.render(self.organization.activation_msg || '', organization_name: self.organization.name, organization_street: self.organization.street, organization_zip: self.organization.place.zip, organization_place: self.organization.place.name, organization_phone: self.organization.phone, organization_email: self.organization.email, seeker_first_name: self.firstname, seeker_last_name: self.lastname, broker_first_name: self.organization.brokers.first.try(:firstname).to_s, broker_last_name: self.organization.brokers.first.try(:lastname).to_s, seeker_link_to_agreement: "<a file type='application/pdf' title='Elterneinverständnis herunterladen' href='#{seeker_agreement_link}'>#{seeker_agreement_link}</a>", link_to_jobboard_list: (Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host)))
+    message = Mustache.render(
+      self.organization.activation_msg || '',
+      organization_name: self.organization.name,
+      organization_street: self.organization.street,
+      organization_zip: self.organization.place.zip,
+      organization_place: self.organization.place.name,
+      organization_phone: self.organization.phone,
+      organization_email: self.organization.email,
+      seeker_first_name: self.firstname,
+      seeker_last_name: self.lastname,
+      broker_first_name: self.organization.brokers.first.try(:firstname).to_s,
+      broker_last_name: self.organization.brokers.first.try(:lastname).to_s,
+      seeker_link_to_agreement: seeker_agreement_link,
+      link_to_jobboard_list: (Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host))
+    )
 
-    MessagingHelper::send_message(self.rc_id, self.rc_username, "#{title}. #{message}")
+    MessagingHelper::send_message(default_rc_user.rc_id, default_rc_user.rc_username, "#{title}. #{message}")
   end
 
   public
