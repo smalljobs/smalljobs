@@ -361,8 +361,9 @@ class Seeker < ActiveRecord::Base
 
   # show seeker age
   def age
-    return Date.today.year - self.date_of_birth.year if self.date_of_birth.present?
-    return 0
+    return ((Time.zone.now - self.date_of_birth.to_time) / 1.year.seconds).floor if self.date_of_birth.present?
+
+    0
   end
 
 
