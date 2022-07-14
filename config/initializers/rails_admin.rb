@@ -237,7 +237,7 @@ RailsAdmin.config do |config|
         help "Optional. Separate ID's by comma ',' eg. 1,2"
       end
       field :ji_location_name do
-        label "Optional. Separate names by comma ',' eg. name1,name2"
+        help "Optional. Separate names by comma ',' eg. name1,name2"
       end
 
       group :design do
