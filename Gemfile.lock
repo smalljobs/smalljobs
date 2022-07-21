@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/kreativgebiet/rich.git
+  remote: https://github.com/kreativgebiet/rich.git
   revision: 2c8f85438e7391f9a11d4972272723bbe85844cd
   specs:
     rich (1.4.8)
@@ -420,7 +420,9 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
-    mimemagic (0.3.2)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_magick (4.7.0)
     mini_portile2 (2.1.0)
     minitest (5.10.2)
@@ -637,7 +639,7 @@ GEM
       railties (>= 3.1.1)
     trollop (2.1.2)
     tunemygc (1.0.69)
-    tzinfo (1.2.3)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     tzinfo-data (1.2019.1)
       tzinfo (>= 1.0.0)
