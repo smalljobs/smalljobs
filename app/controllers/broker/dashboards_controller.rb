@@ -58,11 +58,14 @@ class Broker::DashboardsController < ApplicationController
   # Save broker settings from dashboard (current filter and selected organization)
   #
   def save_settings
-    current_broker.update_columns(
-      selected_organization_id: params[:selected_organization_id],
-      filter: params[:filter]
-    )
-    render json: {message: 'ok', broker: current_broker.selected_organization_id}
+    current_broker.selected_organization_id = params[:selected_organization_id]
+    current_broker.filter = params[:filter]
+    if current_broker.save
+      render json: {message: 'Saved broker settings', broker: current_broker.selected_organization_id}, status: 200
+    else
+      error = "Can't save broker settings. #{current_broker.errors.full_messages.join(',')}"
+      render json: {message: error, broker: current_broker.selected_organization_id}, status: 404
+    end
   end
 
   protected

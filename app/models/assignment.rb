@@ -37,7 +37,14 @@ class Assignment < ActiveRecord::Base
   end
 
   def currency
-    country = self.job.region.country
+    country = nil
+    begin
+      country = self.job.region.country
+    rescue StandardError => e
+      Raven.extra_context(assignment_id: self.id) do
+        Raven.capture_exception(e)
+      end
+    end
     return 'CHF' if country.blank?
     return 'EUR' if country.name.downcase == 'Germany' || country.alpha2.downcase == 'de'
 
