@@ -542,7 +542,15 @@
 
     $('#dropdown-btn').on('change', function(){
       selectedOrganizationId = this.value;
-      $.post("#{save_settings_broker_dashboard_path}", {selected_organization_id: parseInt(selectedOrganizationId)}, function(response) {});
+      $.post("#{save_settings_broker_dashboard_path}", {selected_organization_id: parseInt(selectedOrganizationId)})
+        .success(function(response){
+          toastr.success(response.message);
+        })
+        .fail(function(response){
+          toastr.error(response.responseJSON.message);
+        });
+
+
       var name = $(this).find("option:selected").text();
       var vacationStart = $(this).find("option:selected").data('vacation-start');
       var vacationEnd = $(this).find("option:selected").data('vacation-end');
