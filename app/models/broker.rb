@@ -210,8 +210,13 @@ class Broker < ActiveRecord::Base
     BrokersUpdatePref.where(update_pref_id: update_pref.id).find_each do |broker_update_pref|
       broker = broker_update_pref.broker
       next unless broker.active?
-      mail = Notifier.weekly_update_for_broker(broker)
-      mail.deliver unless mail.nil?
+      begin
+        mail = Notifier.weekly_update_for_broker(broker)
+        mail.deliver unless mail.nil?
+      rescue StandardError => e
+        Rails.logger.info "Error occurs when sending weekly update. Broker.send_weekly_update"
+        Rails.logger.info e.inspect
+      end
     end
   end
 
