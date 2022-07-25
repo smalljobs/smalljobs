@@ -51,7 +51,7 @@
       %i.fa.fa-2x.fa-legal.pull-right
 
     .form-inputs
-      = f.input :terms, as: :boolean, label: false, inline_label: I18n.t('common.provider_terms', rules: link_to(t('navigation.rules'), @region.detail_link, target: '_blank' )).html_safe
+      = f.input :terms, as: :boolean, label: false, inline_label: I18n.t('common.provider_terms', rules: link_to(t('navigation.rules'), @region&.detail_link || 'http://smalljobs.ch/jugendschutz/', target: '_blank' )).html_safe
 
   .form-actions
     = f.button :submit, t('providers.registrations.new.register'), class: 'btn btn-primary'
