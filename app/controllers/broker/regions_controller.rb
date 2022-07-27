@@ -25,13 +25,16 @@ class Broker::RegionsController < InheritedResources::Base
     if ENV['JI_ENABLED']
       response = RestClient.get CURRENT_LINK, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
       @ji_locations = JSON.parse(response.body)["data"].map{|x| [x['name'], x['id']]}
-      @ji_locations.each do |ji|
-        if ji[1].to_s == params[:region][:ji_location_id].to_s
-          params[:region][:ji_location_name] = ji[0]
-        end
+
+      location_ids = params[:region][:ji_location_id].split(',').reject(&:blank?).map(&:strip)
+      location_names = []
+      @ji_locations.each do |name, id|
+        location_names << name if location_ids.include?(id.to_s)
       end
       if params[:region][:ji_location_id].blank?
         params[:region][:ji_location_name] = nil
+      else
+        params[:region][:ji_location_name] = location_names.join(',')
       end
     end
 

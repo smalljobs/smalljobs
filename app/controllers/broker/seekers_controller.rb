@@ -73,8 +73,9 @@ class Broker::SeekersController < InheritedResources::Base
   def send_message
     title = params[:title]
     message = params[:message]
+    default_rc_user = @seeker.organization.broker
     Spawnling.new do
-      response = MessagingHelper::send_message(title, message, @seeker.app_user_id, current_broker.email)
+      response = MessagingHelper::send_message(@seeker.rc_id, default_rc_user.rc_username, "#{title}. #{message}")
     end
     render json: { state: 'ok'}#, response: response }
   end

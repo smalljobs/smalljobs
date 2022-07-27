@@ -3,6 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
   before_filter :configure_permitted_parameters
 
   def new
+    @region = Region.find_by(subdomain: subdomain)
     if self.resource_name == :broker
       flash[:alert] = t('devise_views.no_broker_registration')
       redirect_to root_path
@@ -42,6 +43,10 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   protected
+
+  def subdomain
+    self.request.host.split('.').first
+  end
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up) do |u|

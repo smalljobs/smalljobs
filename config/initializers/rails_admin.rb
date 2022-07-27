@@ -237,8 +237,12 @@ RailsAdmin.config do |config|
       field :places
       field :content
       field :contact_content
-      field :ji_location_id
-      field :ji_location_name
+      field :ji_location_id do
+        help "Optional. Separate ID's by comma ',' eg. 1,2"
+      end
+      field :ji_location_name do
+        help "Optional. Separate names by comma ',' eg. name1,name2"
+      end
       field :provider_contract_rules
       field :job_contract_rules
       field :detail_link

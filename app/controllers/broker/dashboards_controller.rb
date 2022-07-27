@@ -60,8 +60,12 @@ class Broker::DashboardsController < ApplicationController
   def save_settings
     current_broker.selected_organization_id = params[:selected_organization_id]
     current_broker.filter = params[:filter]
-    current_broker.save!
-    render json: {message: 'ok', broker: current_broker.selected_organization_id}
+    if current_broker.save
+      render json: {message: 'Saved broker settings', broker: current_broker.selected_organization_id}, status: 200
+    else
+      error = "Can't save broker settings. #{current_broker.errors.full_messages.join(',')}"
+      render json: {message: error, broker: current_broker.selected_organization_id}, status: 404
+    end
   end
 
   protected

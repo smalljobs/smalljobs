@@ -88,5 +88,30 @@ module RocketChat
         false
       end
     end
+
+    def send_message(session, message, room_id, rc_username)
+      path = '/api/v1/chat.postMessage'
+      uri = URI.parse("#{ENV['ROCKET_CHAT_URL']}#{path}")
+      request = Net::HTTP::Post.new(uri)
+      request.content_type = "application/json"
+      request["X-Auth-Token"] = session.data[:auth_token]
+      request["X-User-Id"] = session.data[:user_id]
+
+      request.body = JSON.dump(
+        {
+          'roomId' => room_id,
+          'channel' => "@#{rc_username}",
+          'text' => message
+        }
+      )
+
+      req_options = {
+        use_ssl: uri.scheme == "https",
+      }
+
+      response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+        http.request(request)
+      end
+    end
   end
 end
