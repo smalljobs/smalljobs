@@ -144,7 +144,7 @@ class Broker::AllocationsController < InheritedResources::Base
     begin
       response = MessagingHelper::send_message(seeker.rc_id, default_rc_user.rc_username, "#{title}. #{message}")
     rescue StandardError => e
-      Raven.extra_context(seeker_id: self.id) do
+      Raven.extra_context(seeker_id: seeker.id, allocation_id: @allocation.id) do
         Raven.capture_exception(e)
       end
     end
@@ -190,7 +190,7 @@ class Broker::AllocationsController < InheritedResources::Base
     begin
       response = MessagingHelper::send_message(seeker.rc_id, default_rc_user.rc_username, "#{title}. #{message}")
     rescue StandardError => e
-      Raven.extra_context(seeker_id: self.id) do
+      Raven.extra_context(seeker_id: seeker.id, allocation_id: @allocation.id) do
         Raven.capture_exception(e)
       end
     end
