@@ -140,7 +140,14 @@ class Broker::AllocationsController < InheritedResources::Base
     message = params[:message]
     default_rc_user = seeker.organization.broker
 
-    response = MessagingHelper::send_message(seeker.rc_id, default_rc_user.rc_username, "#{title}. #{message}")
+    response = {}
+    begin
+      response = MessagingHelper::send_message(seeker.rc_id, default_rc_user.rc_username, "#{title}. #{message}")
+    rescue StandardError => e
+      Raven.extra_context(seeker_id: self.id) do
+        Raven.capture_exception(e)
+      end
+    end
 
     render json: {state: 'ok', response: response}
   end
@@ -179,7 +186,14 @@ class Broker::AllocationsController < InheritedResources::Base
     message = params[:message]
     default_rc_user = seeker.organization.broker
 
-    response = MessagingHelper::send_message(seeker.rc_id, default_rc_user.rc_username, "#{title}. #{message}")
+    response = {}
+    begin
+      response = MessagingHelper::send_message(seeker.rc_id, default_rc_user.rc_username, "#{title}. #{message}")
+    rescue StandardError => e
+      Raven.extra_context(seeker_id: self.id) do
+        Raven.capture_exception(e)
+      end
+    end
 
     render json: {state: 'ok', response: response}
   end
