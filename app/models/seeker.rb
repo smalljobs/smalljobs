@@ -441,7 +441,13 @@ class Seeker < ActiveRecord::Base
     )
     logger.info "Welcome message: #{message}"
 
-    MessagingHelper::send_message(default_rc_user.rc_id, default_rc_user.rc_username, "#{title}. #{message}")
+    begin
+      MessagingHelper::send_message(default_rc_user.rc_id, default_rc_user.rc_username, "#{title}. #{message}")
+    rescue StandardError => e
+      Raven.extra_context(seeker_id: self.id) do
+        Raven.capture_exception(e)
+      end
+    end
   end
 
   # Sends activation message through chat after seeker is activated
@@ -467,7 +473,13 @@ class Seeker < ActiveRecord::Base
       link_to_jobboard_list: (Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host))
     )
 
-    MessagingHelper::send_message(default_rc_user.rc_id, default_rc_user.rc_username, "#{title}. #{message}")
+    begin
+      MessagingHelper::send_message(default_rc_user.rc_id, default_rc_user.rc_username, "#{title}. #{message}")
+    rescue StandardError => e
+      Raven.extra_context(seeker_id: self.id) do
+        Raven.capture_exception(e)
+      end
+    end
   end
 
   public
