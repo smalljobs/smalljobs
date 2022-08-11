@@ -102,10 +102,10 @@
         Die vermittelnde Jobbörse kann unter keinen Umständen haftbar gemacht werden.
       </li>
       <li>
-        Der Stundenlohn entspricht dem Alter des Jugendlichen mal <%= @provider.organization.wage_factor %> (z.B. 17 Jahre x <%= @provider.organization.wage_factor %> = <%= 17 * @provider.organization.wage_factor %> <%= get_currency(@provider.place.region.country) %>).
+        Der Stundenlohn entspricht dem Alter des Jugendlichen mal <%= @provider.organization.wage_factor %> (z.B. 17 Jahre x <%= @provider.organization.wage_factor %> = <%= 17 * @provider.organization.wage_factor %> <%= get_currency(@provider) %>).
       </li>
       <li>
-        Unfallversicherung: Familienversicherung des Jugendlichen (bis zu einem Jahreslohn von 750 <%= get_currency(@provider.place.region.country) %>).
+        Unfallversicherung: Familienversicherung des Jugendlichen (bis zu einem Jahreslohn von 750 <%= get_currency(@provider) %>).
       </li>
       <li>
         Haftpflichtversicherung : Familienversicherung oder Arbeitgeberversicherung.
@@ -255,7 +255,7 @@
           Dauer (h)
         </th>
         <th>
-          <%= get_currency(@provider.place.region.country) %>
+          <%= get_currency(@provider) %>
         </th>
         <th>
           Vorname, Name Jugendliche/r

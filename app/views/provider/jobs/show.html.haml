@@ -22,7 +22,7 @@
       .col-lg-6
         %h3= t('legends.salary')
         %p= t("jobs.salary_types.#{ @job.salary_type }")
-        %p= number_to_currency(@job.salary, unit: get_currency(@job.region.country, unit: get_currency(@job.region.country)))
+        %p= number_to_currency(@job.salary, unit: get_currency(@job))
 
     .row
       .col-lg-6
