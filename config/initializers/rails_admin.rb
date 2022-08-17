@@ -179,7 +179,9 @@ RailsAdmin.config do |config|
 
         field :phone
         field :email
-        field :broker
+        field :broker do
+          required true
+        end
       end
 
       group :messages do
