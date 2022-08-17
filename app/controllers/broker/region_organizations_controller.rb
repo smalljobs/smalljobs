@@ -5,10 +5,12 @@ class Broker::RegionOrganizationsController < InheritedResources::Base
   before_filter :organization, only: [:edit, :update]
 
   def edit
-    @organization.vacation_title = I18n.t('organizations.edit.vacation_title_default') if @organization.vacation_title.blank?
-    @organization.vacation_text = I18n.t('organizations.edit.vacation_text_default') if @organization.vacation_text.blank?
-    @organization.first_reminder_message = I18n.t('messages.organizations.first_reminder_message') if @organization.first_reminder_message.blank?
-    @organization.second_reminder_message = I18n.t('messages.organizations.second_reminder_message') if @organization.second_reminder_message.blank?
+    if @organization
+      @organization.vacation_title = I18n.t('organizations.edit.vacation_title_default') if @organization.vacation_title.blank?
+      @organization.vacation_text = I18n.t('organizations.edit.vacation_text_default') if @organization.vacation_text.blank?
+      @organization.first_reminder_message = I18n.t('messages.organizations.first_reminder_message') if @organization.first_reminder_message.blank?
+      @organization.second_reminder_message = I18n.t('messages.organizations.second_reminder_message') if @organization.second_reminder_message.blank?
+    end
   end
 
   def create
