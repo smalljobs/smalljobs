@@ -24,12 +24,15 @@ class ApiController < ApplicationController
     end
 
     token = AccessToken.find_by(userable_id: seeker.id, userable_type: 'Seeker')
-    token.destroy! if token != nil
+    if token != nil
+      Rails.logger.info "LOGGER API old token: #{token.inspect}"
+      token.destroy!
+    end
 
     token = AccessToken.new(userable_id: seeker.id, userable_type: 'Seeker', token_type: 'bearer')
-    token.expire_at = DateTime.now() + 30.days
+    token.expire_at = DateTime.now() + 360.days
     token.save!
-
+    Rails.logger.info "LOGGER API new token: #{token.inspect}"
     # expires_in = token.created_at + 30.days
     # expires_in -= token.created_at
 
@@ -44,6 +47,7 @@ class ApiController < ApplicationController
     if authorization_header != nil
       token = authorization_header.split(" ")[1]
       token = AccessToken.find_by(access_token: token)
+      Rails.logger.info "LOGGER API logout: #{token.inspect}"
       token.destroy!
     end
 
