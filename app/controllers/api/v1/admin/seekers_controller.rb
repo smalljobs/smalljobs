@@ -168,11 +168,17 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
 
   def create_seekers_access_token
     token = AccessToken.find_by(userable_id: @seeker.id, userable_type: 'Seeker', device_id: params[:device_id])
-    token.destroy! if token != nil
+    if token.present? and token.expire_at < DateTime.now
+      Rails.logger.info "LOGGER API admin old token: #{token.inspect}"
+      token.destroy!
+    end
 
-    token = AccessToken.new(userable_id: @seeker.id, userable_type: 'Seeker',  token_type: 'bearer', device_id: params[:device_id])
-    token.expire_at = DateTime.now() + 360.days
-    token.save!
+    if token.blank? or token.expire_at < DateTime.now
+      token = AccessToken.new(userable_id: @seeker.id, userable_type: 'Seeker',  token_type: 'bearer', device_id: params[:device_id])
+      token.expire_at = DateTime.now() + 360.days
+      token.save!
+      Rails.logger.info "LOGGER API admin new token: #{token.inspect}"
+    end
 
     render json: {
       access_token: token.access_token,
