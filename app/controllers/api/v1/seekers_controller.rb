@@ -23,12 +23,16 @@ class Api::V1::SeekersController < Api::V1::ApiController
     end
 
     token = AccessToken.find_by(userable_id: seeker.id, userable_type: 'Seeker')
-    token.destroy! if token != nil
-
-    token = AccessToken.new(userable_id: seeker.id, userable_type: 'Seeker', token_type: 'bearer')
-    token.expire_at = DateTime.now() + 30.days
-    token.save!
-
+    if token.present? and token.expire_at < DateTime.now
+      Rails.logger.info "LOGGER API seeker old token: #{token.inspect}"
+      token.destroy!
+    end
+    if token.blank? or token.expire_at < DateTime.now
+      token = AccessToken.new(userable_id: seeker.id, userable_type: 'Seeker', token_type: 'bearer')
+      token.expire_at = DateTime.now() + 360.days
+      token.save!
+      Rails.logger.info "LOGGER API seeker new token: #{token.inspect}"
+    end
     # expires_in = token.created_at + 30.days
     # expires_in -= token.created_at
 

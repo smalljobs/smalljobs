@@ -171,7 +171,7 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
     token.destroy! if token != nil
 
     token = AccessToken.new(userable_id: @seeker.id, userable_type: 'Seeker',  token_type: 'bearer', device_id: params[:device_id])
-    token.expire_at = DateTime.now() + 30.days
+    token.expire_at = DateTime.now() + 360.days
     token.save!
 
     render json: {
