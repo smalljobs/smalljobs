@@ -62,8 +62,8 @@ module RocketChat
       uri = URI.parse("#{ENV['ROCKET_CHAT_URL']}#{path}?roomId=#{room_id}")
       request = Net::HTTP::Get.new(uri)
       request.content_type = "application/json"
-      request["X-Auth-Token"] = session.data[:auth_token]
-      request["X-User-Id"] = session.data[:user_id]
+      request["X-Auth-Token"] = session.data&.fetch(:auth_token)
+      request["X-User-Id"] = session.data&.fetch(:user_id)
 
       req_options = {
         use_ssl: uri.scheme == "https",
@@ -94,8 +94,8 @@ module RocketChat
       uri = URI.parse("#{ENV['ROCKET_CHAT_URL']}#{path}")
       request = Net::HTTP::Post.new(uri)
       request.content_type = "application/json"
-      request["X-Auth-Token"] = session.data[:auth_token]
-      request["X-User-Id"] = session.data[:user_id]
+      request["X-Auth-Token"] = session.data&.fetch(:auth_token)
+      request["X-User-Id"] = session.data&.fetch(:user_id)
 
       request.body = JSON.dump(
         {

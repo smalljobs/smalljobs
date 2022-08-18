@@ -24,8 +24,8 @@ module RocketChat
       uri = URI.parse("#{ENV['ROCKET_CHAT_URL']}#{path}")
       request = Net::HTTP::Post.new(uri)
       request.content_type = "application/json"
-      request["X-Auth-Token"] = session.data[:auth_token]
-      request["X-User-Id"] = session.data[:user_id]
+      request["X-Auth-Token"] = session.data&.fetch(:auth_token)
+      request["X-User-Id"] = session.data&.fetch(:user_id)
       seekers = Seeker.where(rc_username: user_names)
       users = seekers.map{|x| {id: x.rc_id}}
       request.body = JSON.dump({
