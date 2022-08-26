@@ -40,7 +40,7 @@ class Assignment < ActiveRecord::Base
     country = nil
     begin
       country = self.job.region.country
-    rescue StandardError => e
+    rescue Exception => e
       Raven.extra_context(assignment_id: self.id) do
         Raven.capture_exception(e)
       end
