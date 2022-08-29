@@ -70,7 +70,7 @@
 :javascript
   $(document).ready(function() {
     $("#job_seekers").on('change', function() {
-      if($("#job_seekers").val() != null) {
+      if($("#job_seekers").val() != null && $("#job_seekers").val() != "" ) {
         window.location.href = "/broker/jobs/" + "#{@job.id}" + "/allocations/" + $("#job_seekers").val() + "?create=1";
       }
     });
