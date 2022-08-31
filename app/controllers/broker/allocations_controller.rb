@@ -13,7 +13,10 @@ class Broker::AllocationsController < InheritedResources::Base
     @allocation = Allocation.find_by(job_id: @job.id, seeker_id: params[:id])
     if @allocation.nil? && !params[:create].nil?
       @allocation = Allocation.new(provider_id: @job.provider_id, job_id: @job.id, seeker_id: params[:id], state: :proposal)
-      @allocation.save!
+      unless @allocation.save!
+        Rails.logger.info "Allocation save errors #{@allocation.errors.full_messages}"
+        Rails.logger.info "#{@allocation.inspect}"
+      end
     end
 
     @messages = MessagingHelper::get_messages(current_broker.rc_id, @allocation.seeker.rc_username)
