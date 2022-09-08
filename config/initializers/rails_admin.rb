@@ -704,4 +704,14 @@ RailsAdmin.config do |config|
     end
   end
 
+  config.model Country do
+    list do
+      field :id
+      field :name
+      field :alpha2
+      field :regions
+
+    end
+  end
+
 end
