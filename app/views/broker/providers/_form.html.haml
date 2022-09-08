@@ -50,11 +50,11 @@
               %div.col-md-8
                 %p
                   %span.bold.margin-right-10
-                    = note.broker.name
+                    = note.broker.try(:name)
                   %span.js-note-date
                     = note.updated_at.strftime("%d.%m.%Y, %H:%M")
               %div.col-md-4.text-right
-                - if note.broker.id == current_broker.id
+                - if note.broker.try(:id) == current_broker.id
                   %span.edit-btn.js-btn-edit
                     = "Bearbeiten"
                   %span.remove-btn{'data-note-id': "#{note.id}"}
