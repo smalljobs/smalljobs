@@ -19,7 +19,7 @@ class Api::V1::Admin::BrokersController < Api::V1::Admin::ApiController
 
   def set_update_params
     user_params = update_params
-    user_params[:ji_request] = true
+    user_params[:ji_request] = false
     user_params
   end
 
