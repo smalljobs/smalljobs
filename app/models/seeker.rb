@@ -225,6 +225,7 @@ class Seeker < ActiveRecord::Base
     else
       self.organization_id = organization_id
     end
+    self.ji_request = true
     self.save
   end
 
@@ -289,6 +290,7 @@ class Seeker < ActiveRecord::Base
 
   def create_rc_account_and_save
     self.create_rc_account
+    self.ji_request = true
     self.save
   end
 
