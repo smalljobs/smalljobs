@@ -7,6 +7,8 @@ class Seeker < ActiveRecord::Base
   CHECK_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/check-user"
 
   attr_accessor :is_register
+  attr_accessor :new_note
+  attr_accessor :current_broker_id, :ji_request
 
   # include ConfirmToggle
   include Auditable
@@ -31,9 +33,6 @@ class Seeker < ActiveRecord::Base
   belongs_to :place, inverse_of: :seekers
   belongs_to :organization
   has_one :region, through: :place
-
-  attr_accessor :new_note
-  attr_accessor :current_broker_id, :ji_request
 
   validates :login, presence: true, uniqueness: true
 
@@ -71,7 +70,6 @@ class Seeker < ActiveRecord::Base
   after_destroy :delete_access_tokens
 
   after_save :adjust_todo
-  after_create :create_rc_account_and_save
   after_create :send_welcome_message
 
   before_save :send_activation_message, if: proc {|s| s.status_changed? && s.active?}

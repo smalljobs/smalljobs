@@ -98,6 +98,7 @@ class Api::V1::SeekersController < Api::V1::ApiController
     seeker.status = 'inactive'
     Current.user = seeker
     seeker.is_register = true
+    seeker.ji_request = true
     if !seeker.save
       render json: {code: 'users/invalid', message: seeker.errors.first}, status: 422
       return
