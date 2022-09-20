@@ -121,6 +121,7 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
   #
   def destroy
     render(json: {code: 'users/not_found', message: 'User not found'}, status: 404) && return if @seeker == nil
+    @seeker.ji_request = true
     @seeker.destroy!
     render json: {message: 'Seeker deleted.', id: params[:id]}
   end
