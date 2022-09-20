@@ -59,7 +59,6 @@ module Auditable
     return unless Current.user
     user_role = Current.user.class.name.downcase
     user_id = Current.user.id
-    self.ji_request = true
     if created_by_id.nil? && creator_type.nil?
       update_columns(
         created_by_id: user_id,

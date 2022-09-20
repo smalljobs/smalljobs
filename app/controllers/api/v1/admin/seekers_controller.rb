@@ -72,7 +72,7 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
 
     seeker = Seeker.new(user_params)
     seeker.status = 'inactive'
-
+    seeker.ji_request = true
     render(json: {code: 'users/invalid', message: seeker.errors.first}, status: 422) && return if !seeker.save
 
     if seeker.place.nil?

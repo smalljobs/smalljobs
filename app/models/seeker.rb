@@ -270,6 +270,7 @@ class Seeker < ActiveRecord::Base
                              is_support_user: "No"
                            }
                          })
+        self.ji_request = true
         if user
           self.rc_id = user[:user_id]
           self.rc_username = user[:user_name]
@@ -290,7 +291,6 @@ class Seeker < ActiveRecord::Base
 
   def create_rc_account_and_save
     self.create_rc_account
-    self.ji_request = true
     self.save
   end
 
