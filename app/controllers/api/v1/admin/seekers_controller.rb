@@ -72,7 +72,7 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
 
     seeker = Seeker.new(user_params)
     seeker.status = 'inactive'
-
+    seeker.ji_request = true
     render(json: {code: 'users/invalid', message: seeker.errors.first}, status: 422) && return if !seeker.save
 
     if seeker.place.nil?
@@ -121,6 +121,7 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
   #
   def destroy
     render(json: {code: 'users/not_found', message: 'User not found'}, status: 404) && return if @seeker == nil
+    @seeker.ji_request = true
     @seeker.destroy!
     render json: {message: 'Seeker deleted.', id: params[:id]}
   end
