@@ -29,7 +29,7 @@ class Api::V1::SeekersController < Api::V1::ApiController
     end
     if token.blank? or token.expire_at < DateTime.now
       token = AccessToken.new(userable_id: seeker.id, userable_type: 'Seeker', token_type: 'bearer')
-      token.expire_at = DateTime.now() + 360.days
+      token.expire_at = DateTime.now() + ENV['TOKEN_EXPIRATION'].to_i.days
       token.save!
       Rails.logger.info "LOGGER API seeker new token: #{token.inspect}"
     end

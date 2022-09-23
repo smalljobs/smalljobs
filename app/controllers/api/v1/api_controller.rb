@@ -21,7 +21,7 @@ class Api::V1::ApiController < ApplicationController
     token = get_token
     return false if token == nil
 
-    expiration_date = token.expire_at || (token.created_at + 360.days)
+    expiration_date = token.expire_at || (token.created_at + ENV['TOKEN_EXPIRATION'].to_i.days)
     return false if expiration_date < DateTime.now
 
     @seeker = token.userable
