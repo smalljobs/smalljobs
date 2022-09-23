@@ -32,6 +32,8 @@ development:
   JUGENDAPP_URL: 'https://admin.staging.jugendarbeit.digital'
   JUGENDAPP_TOKEN: ''
   JI_ENABLED: false
+  #days
+  TOKEN_EXPIRATION: 360
 
 test:
   SERVER_IP: ''
@@ -66,6 +68,8 @@ test:
   JUGENDAPP_URL: 'https://admin.staging.jugendarbeit.digital'
   JUGENDAPP_TOKEN: ''
   JI_ENABLED: false
+  #days
+  TOKEN_EXPIRATION: 360
 
 staging:
   SERVER_IP: ''
@@ -100,6 +104,8 @@ staging:
   JUGENDAPP_URL: 'https://admin.staging.jugendarbeit.digital'
   JUGENDAPP_TOKEN: ''
   JI_ENABLED: false
+  #days
+  TOKEN_EXPIRATION: 360
 
 production:
   SERVER_IP: ''
@@ -135,3 +141,5 @@ production:
   JUGENDAPP_URL: 'https://admin.staging.jugendarbeit.digital'
   JUGENDAPP_TOKEN: ''
   JI_ENABLED: false
+  #days
+  TOKEN_EXPIRATION: 360
