@@ -83,4 +83,19 @@ class Allocation < ActiveRecord::Base
   def generate_contract_id
     self.contract_id = SecureRandom.uuid if self.contract_id.nil?
   end
+
+  def currency
+    country = nil
+    begin
+      country = self.job.region.country
+    rescue StandardError => e
+      Raven.extra_context(allocation_id: self.id) do
+        Raven.capture_exception(e)
+      end
+    end
+    return 'CHF' if country.blank?
+    return 'EUR' if country.name.downcase == 'Germany' || country.alpha2.downcase == 'de'
+
+    'CHF'
+  end
 end

@@ -93,7 +93,6 @@ module RocketChat
         @error = response_json['error']
         false
       else
-        puts response_json
         @error = 'Something went wrong'
         @data = nil
         false
@@ -162,7 +161,6 @@ module RocketChat
       if response_json['success'].present? and response_json['success'] == true
         true
       else
-        puts response_json
         @error = 'Something went wrong'
         false
       end
@@ -214,7 +212,6 @@ module RocketChat
         @error = response_json['error']
         false
       else
-        puts response_json
         @error = 'Something went wrong'
         @data = nil
         false
@@ -264,7 +261,6 @@ module RocketChat
       count = 100
       users = list(offset, count)
       while @total_records > users.length
-        # puts users.length
         next_users = list(offset+=count, count)
         users += next_users if next_users
       end
@@ -272,11 +268,43 @@ module RocketChat
     end
 
     def find_user_by_email(email)
-      users = get_all_users
-      users.each do |user|
-        if user['emails'].present? and email == user['emails'][0]['address']
-          return {rc_id: user["_id"], rc_username: user["username"]}
+      offset = 0
+      count = 1
+      path = '/api/v1/users.list'
+      uri = URI.parse("#{ENV['ROCKET_CHAT_URL']}#{path}?fields={ \"username\":1, \"emails\":1 }&offset=#{offset}&count=#{count}&query={\"emails\":{\"$elemMatch\": {\"address\" : {\"$eq\":\"#{email}\"}}}}")
+      request = Net::HTTP::Get.new(uri)
+      request["X-Auth-Token"] = ENV['ROCKET_CHAT_USER_TOKEN']
+      request["X-User-Id"] = ENV['ROCKET_CHAT_USER_ID']
+
+
+      req_options = {
+        use_ssl: uri.scheme == "https",
+      }
+
+      response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+        http.request(request)
+      end
+
+      #response.code
+      response_json = JSON.parse(response.body)
+      # return response_json
+      if response_json['status'].present? and response_json['status'] == "error"
+        @error = response_json['message']
+      elsif response_json['success'] and response_json['users'].present?
+        @error = nil
+        @total_records = response_json['total']
+        users = response_json['users']
+        users.each do |user|
+          if user['emails'].present? and email == user['emails'][0]['address']
+            return {rc_id: user["_id"], rc_username: user["username"]}
+          end
         end
+      elsif response_json['success'] == false
+        @error = response_json['error']
+        @session = nil
+      else
+        @error = 'Something went wrong'
+        @session = nil
       end
       return nil
     end

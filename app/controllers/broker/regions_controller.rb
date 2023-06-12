@@ -25,15 +25,21 @@ class Broker::RegionsController < InheritedResources::Base
     if ENV['JI_ENABLED']
       response = RestClient.get CURRENT_LINK, {Authorization: "Bearer #{ENV['JUGENDAPP_TOKEN']}"}
       @ji_locations = JSON.parse(response.body)["data"].map{|x| [x['name'], x['id']]}
-      @ji_locations.each do |ji|
-        if ji[1].to_s == params[:region][:ji_location_id].to_s
-          params[:region][:ji_location_name] = ji[0]
-        end
+
+      location_ids = params[:region][:ji_location_id].split(',').reject(&:blank?).map(&:strip)
+      location_names = []
+      @ji_locations.each do |name, id|
+        location_names << name if location_ids.include?(id.to_s)
       end
       if params[:region][:ji_location_id].blank?
         params[:region][:ji_location_name] = nil
+      else
+        params[:region][:ji_location_name] = location_names.join(',')
       end
     end
+
+    set_default_rules
+    set_default_detail_link
 
     if !@region.update(permitted_params)
       redirect_to edit_broker_region_path, flash: {error: @region.errors.full_messages[0]}
@@ -51,6 +57,23 @@ class Broker::RegionsController < InheritedResources::Base
   end
   protected
 
+  def set_default_detail_link
+    params[:region][:detail_link] = 'www.smalljobs.ch/jugendschutz' if params[:region][:detail_link].blank?
+  end
+
+  def set_default_rules
+    job_contract = ActionController::Base.new.render_to_string(
+      template: 'broker/allocations/default_text.html.erb'
+    )
+
+    provider_contract = ActionController::Base.new.render_to_string(
+      template: 'broker/providers/default_text.html.erb', locals: { organization: @region.organizations.distinct.first }
+    )
+
+    params[:region][:job_contract_rules] = job_contract if params[:region][:job_contract_rules].blank?
+    params[:region][:provider_contract_rules] = provider_contract if params[:region][:provider_contract_rules].blank?
+  end
+
   # Returns currently signed in broker
   #
   # @return [Broker] currently signed in broker
@@ -60,7 +83,10 @@ class Broker::RegionsController < InheritedResources::Base
   end
 
   def permitted_params
-    params.require(:region).permit(:name, :logo, :content, :contact_content, :ji_location_id, :ji_location_name)
+    params.require(:region).permit(
+      :name, :logo, :content, :contact_content, :ji_location_id, :ji_location_name, :job_contract_rules,
+      :provider_contract_rules, :detail_link
+    )
   end
 
 end

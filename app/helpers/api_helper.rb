@@ -1,4 +1,6 @@
 module ApiHelper
+  extend CurrencyHelper
+  extend SeekerHelper
   # Converts given region to json format
   #
   # @param region [Region] region to convert
@@ -182,17 +184,24 @@ module ApiHelper
     salary_to_show = nil
 
     if seeker.present? and organization.present? and seeker.class == Seeker
-      if (job.salary_type == "hourly_per_age")
-        salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_1", salary: (seeker.age * organization.wage_factor - organization.salary_deduction), duration: job.duration)
-      elsif (job.salary_type == "hourly" )
-        salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_1", salary: job.salary, duration: job.duration)
-      elsif (job.salary_type == "fixed")
-        salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_2", salary: job.salary)
+      begin
+        if (job.salary_type == "hourly_per_age")
+          salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_1", currency: get_currency(job), salary: ('%.2f' % (seeker.age * organization.wage_factor - organization.salary_deduction)), duration: job.duration)
+        elsif (job.salary_type == "hourly" )
+          salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_1", currency: get_currency(job), salary: ('%.2f' % job.salary.to_f), duration: job.duration)
+        elsif (job.salary_type == "fixed")
+          salary_to_show = I18n.t("helpers.api_helpers.salary_calculated_2", currency: get_currency(job), salary: ('%.2f' % job.salary.to_f))
+        end
+      rescue StandardError => e
+        Raven.extra_context(job_id: job.id) do
+          Raven.capture_exception(e)
+        end
       end
     end
 
 
     json[:salary_calculated] = salary_to_show
+    json[:salary_currency] = get_currency(job)
 
     return json
   end
@@ -271,6 +280,7 @@ module ApiHelper
     json[:user_id] = allocation.seeker_id
     json[:provider_id] = allocation.provider_id
     json[:payment] = allocation.job.salary
+    json[:currency] = allocation.currency
     return json
   end
 

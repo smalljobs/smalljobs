@@ -36,7 +36,7 @@ every 1.day, at: '1am' do
 end
 
 every 1.day, at: '1am' do
-  rake "smalljobs:update_postoponed_todos"
+  rake "smalljobs:update_postponed_todos"
 end
 
 # every :monday, at: '12pm' do # Use any day of the week or :weekend, :weekday

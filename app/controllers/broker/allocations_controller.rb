@@ -13,7 +13,10 @@ class Broker::AllocationsController < InheritedResources::Base
     @allocation = Allocation.find_by(job_id: @job.id, seeker_id: params[:id])
     if @allocation.nil? && !params[:create].nil?
       @allocation = Allocation.new(provider_id: @job.provider_id, job_id: @job.id, seeker_id: params[:id], state: :proposal)
-      @allocation.save!
+      unless @allocation.save!
+        Rails.logger.info "Allocation save errors #{@allocation.errors.full_messages}"
+        Rails.logger.info "#{@allocation.inspect}"
+      end
     end
 
     @messages = MessagingHelper::get_messages(current_broker.rc_id, @allocation.seeker.rc_username)
@@ -138,8 +141,16 @@ class Broker::AllocationsController < InheritedResources::Base
     seeker = @allocation.seeker
     title = params[:title]
     message = params[:message]
+    default_rc_user = seeker.organization.broker
 
-    response = MessagingHelper::send_message(title, message, seeker.app_user_id, current_broker.email)
+    response = {}
+    begin
+      response = MessagingHelper::send_message(default_rc_user.rc_id, default_rc_user.rc_username, "#{title}. #{message}")
+    rescue StandardError => e
+      Raven.extra_context(seeker_id: seeker.id, allocation_id: @allocation.id) do
+        Raven.capture_exception(e)
+      end
+    end
 
     render json: {state: 'ok', response: response}
   end
@@ -176,8 +187,16 @@ class Broker::AllocationsController < InheritedResources::Base
     seeker = @allocation.seeker
     title = params[:title]
     message = params[:message]
+    default_rc_user = seeker.organization.broker
 
-    response = MessagingHelper::send_message(title, message, seeker.app_user_id, @allocation.provider.email)
+    response = {}
+    begin
+      response = MessagingHelper::send_message(seeker.rc_id, default_rc_user.rc_username, "#{title}. #{message}")
+    rescue StandardError => e
+      Raven.extra_context(seeker_id: seeker.id, allocation_id: @allocation.id) do
+        Raven.capture_exception(e)
+      end
+    end
 
     render json: {state: 'ok', response: response}
   end

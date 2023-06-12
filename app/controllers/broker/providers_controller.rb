@@ -42,7 +42,9 @@ class Broker::ProvidersController < InheritedResources::Base
   #
   def contract
     require 'rqrcode'
-    @broker = current_broker
+    @broker = @provider.organization.broker
+    @broker = current_broker if @broker.blank?
+    
     @qrcode = RQRCode::QRCode.new(@provider.id.to_s, mode: :number).as_png
     provider_phone = @provider.mobile.empty? ? @provider.phone : @provider.mobile
     @letter_msg = Mustache.render(@provider.organization.welcome_letter_employers_msg || '', provider_first_name: @provider.firstname, provider_last_name: @provider.lastname, provider_phone: provider_phone, broker_first_name: current_broker.firstname, broker_last_name: current_broker.lastname, organization_name: @provider.organization.name, organization_zip: @provider.organization.place.zip, organization_street: @provider.organization.street, organization_place: @provider.organization.place.name, organization_phone: @provider.organization.phone, organization_email: @provider.organization.email, link_to_jobboard_list: url_for(root_url()))

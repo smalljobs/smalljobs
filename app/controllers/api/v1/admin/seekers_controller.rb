@@ -72,7 +72,7 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
 
     seeker = Seeker.new(user_params)
     seeker.status = 'inactive'
-
+    seeker.ji_request = true
     render(json: {code: 'users/invalid', message: seeker.errors.first}, status: 422) && return if !seeker.save
 
     if seeker.place.nil?
@@ -121,6 +121,7 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
   #
   def destroy
     render(json: {code: 'users/not_found', message: 'User not found'}, status: 404) && return if @seeker == nil
+    @seeker.ji_request = true
     @seeker.destroy!
     render json: {message: 'Seeker deleted.', id: params[:id]}
   end
@@ -168,11 +169,17 @@ class Api::V1::Admin::SeekersController < Api::V1::Admin::ApiController
 
   def create_seekers_access_token
     token = AccessToken.find_by(userable_id: @seeker.id, userable_type: 'Seeker', device_id: params[:device_id])
-    token.destroy! if token != nil
+    if token.present? and token.expire_at < DateTime.now
+      Rails.logger.info "LOGGER API admin old token: #{token.inspect}"
+      token.destroy!
+    end
 
-    token = AccessToken.new(userable_id: @seeker.id, userable_type: 'Seeker',  token_type: 'bearer', device_id: params[:device_id])
-    token.expire_at = DateTime.now() + 30.days
-    token.save!
+    if token.blank? or token.expire_at < DateTime.now
+      token = AccessToken.new(userable_id: @seeker.id, userable_type: 'Seeker',  token_type: 'bearer', device_id: params[:device_id])
+      token.expire_at = DateTime.now() + 360.days
+      token.save!
+      Rails.logger.info "LOGGER API admin new token: #{token.inspect}"
+    end
 
     render json: {
       access_token: token.access_token,

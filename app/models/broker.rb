@@ -51,7 +51,6 @@ class Broker < ActiveRecord::Base
   after_create :create_rc_account_and_save
   before_update :create_rc_account
 
-
   after_create :send_create_to_jugendinfo
   after_update :send_update_to_jugendinfo
   after_destroy :send_delete_to_jugendinfo
@@ -210,27 +209,32 @@ class Broker < ActiveRecord::Base
     BrokersUpdatePref.where(update_pref_id: update_pref.id).find_each do |broker_update_pref|
       broker = broker_update_pref.broker
       next unless broker.active?
-      mail = Notifier.weekly_update_for_broker(broker)
-      mail.deliver unless mail.nil?
+      begin
+        mail = Notifier.weekly_update_for_broker(broker)
+        mail.deliver unless mail.nil?
+      rescue StandardError => e
+        Rails.logger.info "Error occurs when sending weekly update. Broker.send_weekly_update"
+        Rails.logger.info e.inspect
+      end
     end
   end
 
   # @!endgroup
-  private
 
+  private
 
   def jugendinfo_data
     # ApiHelper::seeker_to_json(self)
     {
-        broker_id: self.id,
-        # phone: self.phone_was,
-        # new_phone: self.phone,
-        mobile: self.mobile_was || self.mobile,
-        new_mobile: self.mobile,
-        email: self.email_was || self.email,
-        new_email: self.email,
-        rc_id: self.rc_id,
-        rc_username: self.rc_username
+      broker_id: self.id,
+      # phone: self.phone_was,
+      # new_phone: self.phone,
+      mobile: self.mobile_was || self.mobile,
+      new_mobile: self.mobile,
+      email: self.email_was || self.email,
+      new_email: self.email,
+      rc_id: self.rc_id,
+      rc_username: self.rc_username
     }
   end
 

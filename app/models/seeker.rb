@@ -5,6 +5,11 @@ class Seeker < ActiveRecord::Base
 
   CURRENT_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/sync"
   CHECK_LINK = "#{ENV['JUGENDAPP_URL']}/api/ji/jobboard/check-user"
+
+  attr_accessor :is_register
+  attr_accessor :new_note
+  attr_accessor :current_broker_id, :ji_request
+
   # include ConfirmToggle
   include Auditable
 
@@ -28,9 +33,6 @@ class Seeker < ActiveRecord::Base
   belongs_to :place, inverse_of: :seekers
   belongs_to :organization
   has_one :region, through: :place
-
-  attr_accessor :new_note
-  attr_accessor :current_broker_id, :ji_request
 
   validates :login, presence: true, uniqueness: true
 
@@ -68,7 +70,6 @@ class Seeker < ActiveRecord::Base
   after_destroy :delete_access_tokens
 
   after_save :adjust_todo
-
   after_create :send_welcome_message
 
   before_save :send_activation_message, if: proc {|s| s.status_changed? && s.active?}
@@ -76,7 +77,6 @@ class Seeker < ActiveRecord::Base
   after_save :add_new_note
 
   before_save :update_last_message
-
   before_save :update_messages_count
 
   before_save :generate_agreement_id
@@ -223,6 +223,7 @@ class Seeker < ActiveRecord::Base
     else
       self.organization_id = organization_id
     end
+    self.ji_request = true
     self.save
   end
 
@@ -267,6 +268,7 @@ class Seeker < ActiveRecord::Base
                              is_support_user: "No"
                            }
                          })
+        self.ji_request = true
         if user
           self.rc_id = user[:user_id]
           self.rc_username = user[:user_name]
@@ -289,7 +291,6 @@ class Seeker < ActiveRecord::Base
     self.create_rc_account
     self.save
   end
-
 
   def get_rc_account_from_ji
     if ENV['JI_ENABLED']
@@ -362,15 +363,15 @@ class Seeker < ActiveRecord::Base
   def jugendinfo_data
     # ApiHelper::seeker_to_json(self)
     {
-        seeker_id: self.id,
-        # phone: self.phone_was,
-        # new_phone: self.phone,
-        mobile: self.mobile_was,
-        new_mobile: self.mobile,
-        # email: self.email_was,
-        # new_email: self.email,
-        rc_id: self.rc_id,
-        rc_username: self.rc_username
+      seeker_id: self.id,
+      # phone: self.phone_was,
+      # new_phone: self.phone,
+      mobile: self.mobile_was,
+      new_mobile: self.mobile,
+      # email: self.email_was,
+      # new_email: self.email,
+      rc_id: self.rc_id,
+      rc_username: self.rc_username
     }
   end
 
@@ -421,11 +422,32 @@ class Seeker < ActiveRecord::Base
   def send_welcome_message
     title = 'Willkommen'
     host = "#{self.organization.regions.first.subdomain}.smalljobs.ch"
+    default_rc_user = organization.broker
     seeker_agreement_link = "#{(Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host, protocol: 'https'))}/broker/seekers/#{self.agreement_id}/agreement"
-    message = Mustache.render(self.organization.welcome_chat_register_msg || '', organization_name: self.organization.name, organization_street: self.organization.street, organization_zip: self.organization.place.zip, organization_place: self.organization.place.name, organization_phone: self.organization.phone, organization_email: self.organization.email, seeker_first_name: self.firstname, seeker_last_name: self.lastname, broker_first_name: self.organization.brokers.first.try(:firstname).to_s, broker_last_name: self.organization.brokers.first.try(:lastname).to_s, seeker_link_to_agreement: "<a file type='application/pdf' title='Elterneinverständnis herunterladen' href='#{seeker_agreement_link}'>#{seeker_agreement_link}</a>", link_to_jobboard_list: (Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host)))
+    message = Mustache.render(
+      self.organization.welcome_chat_register_msg || '',
+      organization_name: self.organization.name,
+      organization_street: self.organization.street,
+      organization_zip: self.organization.place.zip,
+      organization_place: self.organization.place.name,
+      organization_phone: self.organization.phone,
+      organization_email: self.organization.email,
+      seeker_first_name: self.firstname,
+      seeker_last_name: self.lastname,
+      broker_first_name: self.organization.brokers.first.try(:firstname).to_s,
+      broker_last_name: self.organization.brokers.first.try(:lastname).to_s,
+      seeker_link_to_agreement: seeker_agreement_link,
+      link_to_jobboard_list: (Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host))
+    )
     logger.info "Welcome message: #{message}"
 
-    MessagingHelper::send_message(title, message, self.app_user_id, self.organization.email)
+    begin
+      MessagingHelper::send_message(self.rc_id, self.rc_username, "#{title}. #{message}")
+    rescue StandardError => e
+      Raven.extra_context(seeker_id: self.id) do
+        Raven.capture_exception(e)
+      end
+    end
   end
 
   # Sends activation message through chat after seeker is activated
@@ -433,11 +455,31 @@ class Seeker < ActiveRecord::Base
   def send_activation_message
     title = 'Willkommen'
     host = "#{self.organization.regions.first.subdomain}.smalljobs.ch"
-
+    default_rc_user = organization.broker
     seeker_agreement_link = "#{(Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host, protocol: 'https'))}/broker/seekers/#{self.agreement_id}/agreement"
-    message = Mustache.render(self.organization.activation_msg || '', organization_name: self.organization.name, organization_street: self.organization.street, organization_zip: self.organization.place.zip, organization_place: self.organization.place.name, organization_phone: self.organization.phone, organization_email: self.organization.email, seeker_first_name: self.firstname, seeker_last_name: self.lastname, broker_first_name: self.organization.brokers.first.try(:firstname).to_s, broker_last_name: self.organization.brokers.first.try(:lastname).to_s, seeker_link_to_agreement: "<a file type='application/pdf' title='Elterneinverständnis herunterladen' href='#{seeker_agreement_link}'>#{seeker_agreement_link}</a>", link_to_jobboard_list: (Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host)))
+    message = Mustache.render(
+      self.organization.activation_msg || '',
+      organization_name: self.organization.name,
+      organization_street: self.organization.street,
+      organization_zip: self.organization.place.zip,
+      organization_place: self.organization.place.name,
+      organization_phone: self.organization.phone,
+      organization_email: self.organization.email,
+      seeker_first_name: self.firstname,
+      seeker_last_name: self.lastname,
+      broker_first_name: self.organization.brokers.first.try(:firstname).to_s,
+      broker_last_name: self.organization.brokers.first.try(:lastname).to_s,
+      seeker_link_to_agreement: seeker_agreement_link,
+      link_to_jobboard_list: (Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host))
+    )
 
-    MessagingHelper::send_message(title, message, self.app_user_id, self.organization.email)
+    begin
+      MessagingHelper::send_message(self.rc_id, self.rc_username, "#{title}. #{message}")
+    rescue StandardError => e
+      Raven.extra_context(seeker_id: self.id) do
+        Raven.capture_exception(e)
+      end
+    end
   end
 
   public

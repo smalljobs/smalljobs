@@ -62,6 +62,7 @@ de:
         organizations: "Organization"
         content: "Website Inhalt"
         contact_content: "Website Kontakt"
+        country: 'Land'
       place:
         name: "Name"
         state: "Kanton"

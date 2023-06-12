@@ -24,12 +24,16 @@ class ApiController < ApplicationController
     end
 
     token = AccessToken.find_by(userable_id: seeker.id, userable_type: 'Seeker')
-    token.destroy! if token != nil
-
-    token = AccessToken.new(userable_id: seeker.id, userable_type: 'Seeker', token_type: 'bearer')
-    token.expire_at = DateTime.now() + 30.days
-    token.save!
-
+    if token.present? and token.expire_at < DateTime.now
+      Rails.logger.info "LOGGER API old token: #{token.inspect}"
+      token.destroy!
+    end
+    if token.blank? or token.expire_at < DateTime.now
+      token = AccessToken.new(userable_id: seeker.id, userable_type: 'Seeker', token_type: 'bearer')
+      token.expire_at = DateTime.now() + ENV['TOKEN_EXPIRATION'].to_i.days
+      token.save!
+      Rails.logger.info "LOGGER API new token: #{token.inspect}"
+    end
     # expires_in = token.created_at + 30.days
     # expires_in -= token.created_at
 
@@ -44,6 +48,7 @@ class ApiController < ApplicationController
     if authorization_header != nil
       token = authorization_header.split(" ")[1]
       token = AccessToken.find_by(access_token: token)
+      Rails.logger.info "LOGGER API logout: #{token.inspect}"
       token.destroy!
     end
 
@@ -90,6 +95,8 @@ class ApiController < ApplicationController
 
     seeker = Seeker.new(user_params)
     seeker.status = 'inactive'
+    seeker.is_register = true
+    seeker.ji_request = true
     if !seeker.save
       render json: {code: 'users/invalid', message: seeker.errors.first}, status: 422
       return
@@ -790,7 +797,7 @@ class ApiController < ApplicationController
       return false
     end
 
-    expiration_date = token.expire_at || (token.created_at + 30.days)
+    expiration_date = token.expire_at || (token.created_at + ENV['TOKEN_EXPIRATION'].to_i.days)
     if expiration_date < DateTime.now
       return false
     end

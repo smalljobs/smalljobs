@@ -40,8 +40,8 @@ module RocketChat
       path = '/api/v1/subscriptions.get'
       uri = URI.parse("#{ENV['ROCKET_CHAT_URL']}#{path}?updatedSince=#{date.strftime('%FT%RZ')}")
       request = Net::HTTP::Get.new(uri)
-      request["X-Auth-Token"] = session.data[:auth_token]
-      request["X-User-Id"] = session.data[:user_id]
+      request["X-Auth-Token"] = session.data&.fetch(:auth_token)
+      request["X-User-Id"] = session.data&.fetch(:user_id)
 
 
       req_options = {

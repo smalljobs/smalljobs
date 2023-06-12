@@ -33,6 +33,21 @@ class Assignment < ActiveRecord::Base
       dur = "#{hours}:#{minutes}"
     end
 
-    return "#{stat}, #{date}, #{dur}, CHF #{payment}"
+    return "#{stat}, #{date}, #{dur}, #{currency} #{payment}"
+  end
+
+  def currency
+    country = nil
+    begin
+      country = self.job.region.country
+    rescue Exception => e
+      Raven.extra_context(assignment_id: self.id) do
+        Raven.capture_exception(e)
+      end
+    end
+    return 'CHF' if country.blank?
+    return 'EUR' if country.name.downcase == 'Germany' || country.alpha2.downcase == 'de'
+
+    'CHF'
   end
 end

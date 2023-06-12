@@ -57,6 +57,7 @@ gem 'tinymce-rails'
 gem "sentry-raven"
 gem 'whenever', require: false
 gem 'nokogiri'
+gem 'mimemagic', github: 'zajacp/mimemagic'
 
 
 group :development, :test do

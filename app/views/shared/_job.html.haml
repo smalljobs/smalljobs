@@ -2,10 +2,10 @@
 %h4= job.title
 
 - if job.salary_type == 'fixed'
-  %p= t('jobs.fixed_price', salary: number_to_currency(job.salary))
+  %p= t('jobs.fixed_price', salary: number_to_currency(job.salary, unit: get_currency(job)))
 
 - elsif job.salary_type == 'hourly'
-  %p= t('jobs.hourly_rate', salary: number_to_currency(job.salary))
+  %p= t('jobs.hourly_rate', salary: number_to_currency(job.salary, unit: get_currency(job)))
 
 %p= job.provider.name + ', ' + job.provider.place.zip + ' ' + job.provider.place.name
 

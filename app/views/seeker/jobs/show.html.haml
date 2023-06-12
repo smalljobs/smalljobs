@@ -22,7 +22,7 @@
 
         %h3= t('legends.salary')
         %p= t("jobs.salary_types.#{ @job.salary_type }")
-        %p= number_to_currency(@job.salary)
+        %p= number_to_currency(@job.salary, unit: get_currency(@job))
 
         %h3= t('legends.seekers')
         %p= t('jobs.manpower', manpower: @job.manpower)
