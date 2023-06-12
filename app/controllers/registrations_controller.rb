@@ -50,7 +50,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up) do |u|
-      u.permit(:login, :password, :password_confirmation, :firstname, :lastname, :street, :place_id, :date_of_birth, :sex, :email, :phone, :mobile, :contact_preference, :contact_availability, :terms, :organization_id, work_category_ids: [])
+      u.permit(:login, :password, :password_confirmation, :firstname, :lastname, :street, :place_id, :date_of_birth, :sex, :email, :phone, :mobile, :company, :contact_preference, :contact_availability, :terms, :organization_id, work_category_ids: [])
     end
 
     devise_parameter_sanitizer.permit(:account_update) do |u|
