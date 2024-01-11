@@ -6,6 +6,7 @@ class SessionsController < Devise::SessionsController
   end
 
   def create
+    delete_rc_cookie
     login = params[:provider][:login]
     password = params[:provider][:password]
 
@@ -29,6 +30,12 @@ class SessionsController < Devise::SessionsController
 
       if broker.valid_password?(password)
         broker.create_rc_account
+        token = broker.create_rc_token
+
+        cookies['rc_token'] = token
+        cookies['rc_uid'] = broker.rc_id
+        cookies['rc_username'] = broker.rc_username
+
         if broker.regions.pluck(:id).include?(current_region.id)
           authenticated = true
         else
@@ -56,6 +63,7 @@ class SessionsController < Devise::SessionsController
   end
 
   def destroy
+    delete_rc_cookie
     super
   end
 
@@ -68,5 +76,12 @@ class SessionsController < Devise::SessionsController
     # added_attrs = [:phone, :email, :password, :password_confirmation, :remember_me]
     # devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
     # devise_parameter_sanitizer.permit :account_update, keys: added_attrs
+  end
+
+  private
+  def delete_rc_cookie
+    cookies.delete 'rc_token'
+    cookies.delete 'rc_uid'
+    cookies.delete 'rc_username'
   end
 end

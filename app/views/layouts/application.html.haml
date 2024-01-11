@@ -2,7 +2,7 @@
 %html
   %head
     %title Smalljobs
-
+ 
     :javascript
       history.scrollRestoration = "manual";
       var _rollbarParams = {
@@ -76,3 +76,7 @@
 
       ga('create', 'UA-47562460-1', 'smalljobs.ch');
       ga('send', 'pageview');
+    %script{crossorigin: "", src: "https://unpkg.com/react@18/umd/react.production.min.js"}
+    %script{crossorigin: "", src: "https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"}
+    = javascript_include_tag "chat/ja_chat.min.js", "data-turbolinks-track" => true
+    = javascript_include_tag "chat/script.js", "data-turbolinks-track" => true

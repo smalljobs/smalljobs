@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220518140721) do
+ActiveRecord::Schema.define(version: 20220712074946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,7 +58,6 @@ ActiveRecord::Schema.define(version: 20220518140721) do
     t.integer  "conversation_id"
     t.integer  "provider_id"
     t.uuid     "contract_id"
-    t.index ["job_id", "seeker_id"], name: "index_allocations_on_job_id_and_seeker_id", unique: true, using: :btree
     t.index ["job_id"], name: "index_allocations_on_job_id", using: :btree
     t.index ["provider_id"], name: "index_allocations_on_provider_id", using: :btree
     t.index ["seeker_id"], name: "index_allocations_on_seeker_id", using: :btree
@@ -289,7 +288,7 @@ ActiveRecord::Schema.define(version: 20220518140721) do
     t.string   "header_image"
     t.text     "content"
     t.text     "contact_content"
-    t.integer  "ji_location_id"
+    t.string   "ji_location_id"
     t.string   "ji_location_name"
     t.integer  "country_id"
     t.text     "job_contract_rules"

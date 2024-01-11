@@ -37,8 +37,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def require_https
-    Rails.logger.info "LOGGER WEB params: #{params.inspect}"
-    Rails.logger.info "LOGGER WEB header #{request.headers.env.reject { |key| key.to_s.include?('.') }}"
+    # Rails.logger.info "LOGGER WEB params: #{params.inspect}"
+    # Rails.logger.info "LOGGER WEB header #{request.headers.env.reject { |key| key.to_s.include?('.') }}"
     redirect_to protocol: 'https://' unless request.ssl? || request.local? || request.subdomain == 'dev' || Rails.env.test?
   end
 

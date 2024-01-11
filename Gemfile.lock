@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/kreativgebiet/rich.git
+  remote: https://github.com/kreativgebiet/rich
   revision: 2c8f85438e7391f9a11d4972272723bbe85844cd
   specs:
     rich (1.4.8)
@@ -11,7 +11,7 @@ GIT
       sass-rails
 
 GIT
-  remote: git://github.com/zajacp/mimemagic.git
+  remote: https://github.com/zajacp/mimemagic
   revision: 01f92d86d15d85cfd0f20dabd025dcbd36a8a60f
   specs:
     mimemagic (0.3.5)

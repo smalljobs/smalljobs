@@ -99,11 +99,11 @@
                 %th= t('broker_dashboard.todo_table.description')
                 %th.pull-right= t('broker_dashboard.todo_table.postpone')
             %tbody.list
-              - if @todos.current.count == 0
+              - if @todos&.current&.count == 0
 
                 %tr
                   %td{colspan: 5}= "Es sind noch keine Todo in deiner Region erfasst"
-              - @todos.current.each do |todo|
+              - @todos&.current&.each do |todo|
                 %tr{ class: "organization organization-#{todo.organization_id}" }
                   - sortable_date = todo.created_at.strftime("%Y%m%d%H%M%S")
                   %td.completed
@@ -143,11 +143,11 @@
                 %th.sorttable_nosort.pull-right= t('broker_dashboard.todo_table.postpone')
                 %th.sortable= t('broker_dashboard.todo_table.date')
             %tbody.list
-              - if @todos.postponed.count == 0
+              - if @todos&.postponed&.count == 0
 
                 %tr
                   %td{colspan: 5}= "Es sind noch keine Todo in deiner Region erfasst"
-              - @todos.postponed.each do |todo|
+              - @todos&.postponed&.each do |todo|
                 %tr{ class: "organization organization-#{todo.organization_id}" }
                   - sortable_date = todo.created_at.strftime("%Y%m%d%H%M%S")
                   %td.completed
