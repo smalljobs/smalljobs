@@ -39,7 +39,7 @@ gem 'wkhtmltopdf-binary'
 # gem 'wkhtmltopdf-binary-edge', '~> 0.12.5.0'
 gem 'rqrcode'
 gem 'storext'
-gem 'rich', github: 'kreativgebiet/rich'
+gem 'rich', git: 'https://github.com/kreativgebiet/rich'
 gem 'paperclip'
 gem 'aws-sdk'
 gem 'nexmo'
@@ -57,7 +57,7 @@ gem 'tinymce-rails'
 gem "sentry-raven"
 gem 'whenever', require: false
 gem 'nokogiri'
-gem 'mimemagic', github: 'zajacp/mimemagic'
+gem 'mimemagic', git: 'https://github.com/zajacp/mimemagic'
 
 
 group :development, :test do

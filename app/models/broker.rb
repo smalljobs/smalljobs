@@ -152,6 +152,22 @@ class Broker < ActiveRecord::Base
     self.save
   end
 
+  def create_rc_token
+    rc = RocketChat::Users.new
+    if self.rc_id.present?
+      answer = rc.create_token(self.rc_id)
+      if answer
+        return answer[:auth_token]
+      else
+        Rails.logger.error "Can not get Broker rc_token #{rc.error}"
+        nil
+      end
+    else
+      Rails.logger.error "Broker does not have a rc_id"
+      nil
+    end
+  end
+
   def get_rc_account_from_ji
     if ENV['JI_ENABLED']
       response = {}
