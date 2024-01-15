@@ -309,4 +309,29 @@ module ApplicationHelper
     ((Time.zone.now - date_of_birth.to_time) / 1.year.seconds).floor
   end
 
+  # Creates a inbox icons
+  #
+  # @param [Integer] number
+  # @return [String] html icon inbox
+  #
+  def inbox_icon(unread_messages_number)
+    if unread_messages_number.to_i > 0
+      return "<div class='favicon-counter js-rocket-chat-inbox-counter'>#{unread_messages_number}</div><i class='fas fa-inbox fa-lg js-rocket-chat-inbox-icon'></i>".html_safe
+    else
+      return "<div class='favicon-counter js-rocket-chat-inbox-counter'></div><i class='fal fa-light fa-inbox fa-lg js-rocket-chat-inbox-icon'></i>".html_safe
+    end
+  end
+
+  # Creates a inbox icons
+  #
+  # @param [Integer] number
+  # @return [String] number unread messages with ()
+  #
+  def number_unread_messages(unread_messages_number)
+    if unread_messages_number.to_i > 0
+      return "(#{unread_messages_number})"
+    else
+      return ""
+    end
+  end
 end

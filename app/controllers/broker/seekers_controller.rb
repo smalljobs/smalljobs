@@ -45,6 +45,7 @@ class Broker::SeekersController < InheritedResources::Base
     @messages = MessagingHelper::get_messages(current_broker.rc_id, @seeker.rc_username)
     rc = RocketChat::Users.new
     @seeker_exist_in_chat = rc.info(@seeker.rc_id).present?
+    @unread_messages = rc.unread_from_seeker(current_user.rc_id, @seeker.rc_username)
     # @seeker.current_broker_id = current_broker.id
     edit!
   end

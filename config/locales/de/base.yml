@@ -216,6 +216,7 @@ de:
           no_reviews: "Es sind noch keine Bewertungen für diesen Job erfasst"
     seeker:
       edit:
+        chat: "Chat"
         error: "Chat ist deaktiviert für diese Person. Bitte per Telefon Kontakt aufnehmen."
   provider:
     jobs:
@@ -584,6 +585,7 @@ de:
       name: 'Jugendlicher'
       address: 'Adresse'
       plz: 'PLZ Ort'
+      chat: 'Chat'
     assignments_table:
       no_assignments: 'Es sind noch keine Einsatz in deiner Region erfasst.'
       status: 'Status'

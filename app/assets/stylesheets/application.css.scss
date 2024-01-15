@@ -1,5 +1,5 @@
 /*
- *= require font-awesome
+ require font-awesome
  *= require_self
  *= require social-share-button
  *= require toastr.min
@@ -127,8 +127,10 @@ textarea.resize-vertical {
 
 /* Radio button inner circle */
 .control--radio .control__indicator:after {
+  font-family: 'Font Awesome 5 Pro';
+  font-weight: 900;
   content: '\f00c';
-  font-family: FontAwesome;
+  
   color: #5fc2a5;
   font-size: 14px;
   top: -4px;
@@ -428,4 +430,25 @@ th.sortable span {
 .sj-row-margin{
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.favicon-box{
+  cursor: pointer;
+  text-align: center;
+  position: relative;
+  width: 50px;
+  color:#58b99e;
+  .favicon-counter{
+    background-color: #fff;
+    text-shadow: 0px 0px 2px #fff;
+    position: absolute;
+    top: 18%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 30%;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 13px;
+
+  }
 }
