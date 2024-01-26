@@ -489,7 +489,7 @@ th.sortable span {
       --bc: var(--active);
       --d-o: .3s;
       --d-t: .6s;
-      
+      --d-t-e: cubic-bezier(.2, .85, .32, 1.2);
     }
     &:disabled {
       --b: var(--disabled);
