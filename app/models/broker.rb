@@ -243,6 +243,10 @@ class Broker < ActiveRecord::Base
     return Hash[*array]
   end
 
+  def unread_messages_sum
+    self.unread_messages.sum(:quantity)
+  end
+
   def update_unread_messages
     timestampt = DateTime.now - 1.minutes
     seeker_messages = []

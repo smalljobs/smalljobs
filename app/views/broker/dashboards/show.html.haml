@@ -61,7 +61,7 @@
         %span
           = "(#{@providers&.length.to_i})"
     %li
-      %a{'data-toggle': 'tab', href: '#seekers'}
+      %a{'data-toggle': 'tab', href: '#seekers', id: 'js-tab-seekers'}
         =t('broker_dashboard.seekers')
         %span
           = "(#{@seekers&.length.to_i})"
@@ -80,6 +80,11 @@
         %li.margin_left_20
           %a{'data-toggle': 'tab', href: '#todo_postponed'}
             =t('broker_dashboard.verschoben')
+        %li.margin_left_20
+          %a{ id: 'js-tab-unread-messages' }
+            =t('broker_dashboard.ungelesene_nachrichten') 
+            %span
+              = "(#{current_broker.unread_messages_sum})"
         %span.js-postpone-msg.margin_left_20{style: 'display: none'}
           =t('broker_dashboard.todo_table.postpone_message')
 
@@ -605,7 +610,7 @@
           }else{
             $.each($('.js-todo-tabs a'), function(){
               // if($(this).attr('aria-expanded') == 'true'){
-              if($(this).attr('href') == _that.attr('href')){
+              if($(this).attr('href') == _that.attr('href') && $(this).attr('id') != 'js-tab-unread-messages'){
                 value = $("tr.organization", $($(this).attr('href'))).length - $("tr.display-none", $($(this).attr('href'))).length
                 $("span",$("[href='#todos']")).text("("+value+")")
               }
@@ -674,4 +679,10 @@
       window.localStorage.setItem("search_filter", searchFieldVal);
       $.post("#{save_settings_broker_dashboard_path}", {filter: searchFieldVal, selected_organization_id: parseInt(selectedOrganizationId)}, function(response) {});
     });
+
+
+    $('#js-tab-unread-messages').click(function(event){
+      event.preventDefault();
+      $('#js-tab-seekers').click();
+    })
   });

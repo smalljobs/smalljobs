@@ -79,9 +79,11 @@ $(function(){
             var height = $('#js-rocketchat-iframe-container').height()
             $('#js-chat-element').height(height)
             inboxIcon.removeClass('fas').addClass('fal')
+            var seeker_unread = parseInt(inboxCounter.text())
             inboxCounter.text('')
             inboxCounter.parents('.chat').attr('sorttable_customkey', 0)
-
+            var sum = parseInt($('span', $('#js-tab-unread-messages')).text().replace("(",""))
+            $('span', $('#js-tab-unread-messages')).text("("+(sum - seeker_unread).toString()+")")
         })
 
         let rcUrl = $('.js-rocket-chat-room', $(this)).attr('href')
