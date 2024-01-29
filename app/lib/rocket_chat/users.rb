@@ -180,6 +180,10 @@ module RocketChat
       end
     end
 
+
+
+
+
     def unread_from_seeker(broker_rc_id, seeker_rc_name)
       rooms_hash = rooms(broker_rc_id)
       if rooms_hash
@@ -192,15 +196,56 @@ module RocketChat
       return 0
     end
 
-    def unread_seekers(broker_rc_id)
-      rooms_hash = rooms(broker_rc_id)
-      if rooms_hash
-        array = rooms_hash[:rooms].map do |room|
-           [room["name"], room["unread"]]
-        end.flatten
-        return Hash[*array]
+    # def unread_seekers(broker_rc_id)
+    #   rooms_hash = rooms(broker_rc_id)
+    #   if rooms_hash
+    #     array = rooms_hash[:rooms].map do |room|
+    #        [room["name"], room["unread"]]
+    #     end.flatten
+    #     return Hash[*array]
+    #   end
+    #   return {}
+    # end
+
+    def unread_seekers(user_id, date)
+      path = '/api/v1/subscriptions.get'
+      # arg="userId"
+
+      user_messages = {}
+
+      user_hash = create_token(user_id)
+      if user_hash
+        if date.blank?
+          uri = URI.parse("#{ENV['ROCKET_CHAT_URL']}#{path}")
+        else
+          # in some reason RC see updates only if the time is less then 2 hours
+          uri = URI.parse("#{ENV['ROCKET_CHAT_URL']}#{path}?updatedSince=#{(date-3.hours).strftime('%Y-%m-%dT%H:%M:%S.%LZ')}")
+          puts uri
+        end
+
+        request = Net::HTTP::Get.new(uri)
+        request["X-Auth-Token"] = user_hash[:auth_token]
+        request["X-User-Id"] = user_hash[:user_id]
+        req_options = {
+          use_ssl: uri.scheme == "https",
+        }
+
+        response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+          http.request(request)
+        end
+        response_json = JSON.parse(response.body)
+        puts response_json
+
+        if response_json["success"] == true
+          response_json["update"].each do |record|
+            user_messages.merge!({record["name"] => record["unread"]})
+          end
+        end
+
+        return user_messages
+      else
+        false
       end
-      return {}
     end
 
 

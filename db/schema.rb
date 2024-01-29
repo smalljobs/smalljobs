@@ -10,11 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220712074946) do
+ActiveRecord::Schema.define(version: 20240126123126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "uuid-ossp"
 
   create_table "access_tokens", force: :cascade do |t|
     t.string   "access_token",  limit: 255
@@ -58,6 +57,7 @@ ActiveRecord::Schema.define(version: 20220712074946) do
     t.integer  "conversation_id"
     t.integer  "provider_id"
     t.uuid     "contract_id"
+    t.index ["job_id", "seeker_id"], name: "index_allocations_on_job_id_and_seeker_id", unique: true, using: :btree
     t.index ["job_id"], name: "index_allocations_on_job_id", using: :btree
     t.index ["provider_id"], name: "index_allocations_on_provider_id", using: :btree
     t.index ["seeker_id"], name: "index_allocations_on_seeker_id", using: :btree
@@ -347,6 +347,14 @@ ActiveRecord::Schema.define(version: 20220712074946) do
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.boolean  "manual_completion", default: false
+  end
+
+  create_table "unread_messages", force: :cascade do |t|
+    t.integer  "broker_id"
+    t.integer  "seeker_id"
+    t.integer  "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "update_prefs", force: :cascade do |t|
