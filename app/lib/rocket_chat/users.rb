@@ -207,7 +207,7 @@ module RocketChat
     #   return {}
     # end
 
-    def unread_seekers(user_id, date)
+    def unread_seekers(user_id, date=nil)
       path = '/api/v1/subscriptions.get'
       # arg="userId"
 
