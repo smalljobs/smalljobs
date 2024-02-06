@@ -1,0 +1,20 @@
+%div.modal.fade{id: "js-rocket-chat-broadcast-modal"}
+  %div.modal-dialog.modal-lg
+    %div.modal-content
+      %div.modal-header
+        %button.close{"data-dismiss": "modal", type: "button"} &times;
+        = "Erstelle einen neuen Broadcast"
+      %div
+        #js-rocket-chat-brodcast-container.sj-rocket-chat-brodcast-container 
+          = form_tag "#" do 
+            .form-group
+              - @seekers.each do |seeker|
+                = label_tag do 
+                  = check_box_tag 'broadcast[seeker_ids][]', seeker.id, true, id: "seeker_#{seeker.id}", class: 'sj-checkbox-tag'
+                  = seeker.name
+            .form-group    
+              = label_tag "brodcast[message]", "Deine Nachricht:"   
+              = text_area(:broadcast, :message, class: "form-control", row: 8, style: "min-height: 150px;")
+            .form-group.overflow-hidden 
+              = submit_tag "senden", class: 'btn btn-success float-right js-send-broadcast-rocketchat'      
+      -#%div.modal-footer
