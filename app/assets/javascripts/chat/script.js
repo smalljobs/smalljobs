@@ -5,6 +5,13 @@ $(function(){
     $('.js-rocket-chat-start').click(function(event){
         event.preventDefault();         
         // generateIframe(respond.user_id, respond.auth_token, respond.url);
+
+        if ($(this).hasClass('sj-hide-animation')){
+            $(this).removeClass('sj-hide-animation')
+        }else{
+            $(this).addClass('sj-hide-animation')
+        }
+
         var oldChat = document.getElementById('js-chat-element');
         if (oldChat){
             ReactDOM.unmountComponentAtNode(oldChat);
@@ -19,6 +26,7 @@ $(function(){
         if ($('#js-chat-seeker-container').is(':hidden')){
             $('#js-chat-seeker-container').slideDown()
             $('.js-number-unread-messages').text('')
+            $('.js-number-unread-messages').hide()
         } else {
             $('#js-chat-seeker-container').slideUp()
         }
@@ -30,6 +38,7 @@ $(function(){
             success: function(respond) {
                 ReactDOM.render(
                     React.createElement(Chat, {
+                        theme: 'teal',
                         config: {
                             host : $('.js-rocketchat-url').data('url'),
                             rId : respond.id,
@@ -96,6 +105,7 @@ $(function(){
             success: function(respond) {
                 ReactDOM.render(
                     React.createElement(Chat, {
+                        theme: 'teal',
                         config: {
                             host : $('.js-rocketchat-url').data('url'),
                             rId : respond.id,

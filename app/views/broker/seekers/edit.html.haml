@@ -8,12 +8,12 @@
   .col-sm-4
     .row
       .col-sm-12.margin_top_20.text-center
-        = link_to "#", class: "button btn btn-primary btn-success js-rocket-chat-start" do
-          = I18n.t('broker.seeker.edit.chat')
-          %span.js-number-unread-messages
-            = number_unread_messages(@unread_messages)
-        #js-chat-seeker-container.sj-chat-seeker-container.margin_top_20 
-          #js-chat-seeker  
+        -# = link_to "#", class: "button btn btn-primary btn-success js-rocket-chat-start" do
+        -#   = I18n.t('broker.seeker.edit.chat')
+        -#   %span.js-number-unread-messages
+        -#     = number_unread_messages(@unread_messages)
+        -# #js-chat-seeker-container.sj-chat-seeker-container.margin_top_20 
+        -#   #js-chat-seeker  
       .col-sm-12.bg-allocations.margin_top_20    
         .bg-allocations  
           - if @seeker.allocations.where.not(job: nil).exists?
