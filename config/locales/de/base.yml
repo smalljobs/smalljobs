@@ -424,9 +424,10 @@ de:
     index:
       title: "Jugendlich in deiner Region"
       lead: "Hier findest du die registrierten Jugendlichen in deiner Region."
-      add_new: "Neuen Jugendlichen"
+      add_new: "Jugendlichen hinzufügen"
       no_seekers: "Es sind noch keine Jugendlichen in deiner Region erfasst."
-      message_to_all: "Nachricht versenden"
+      message_to_all: "Infos an Auswahl senden"
+      show_all_broadcast: "Infos an Auswahl senden"
     show:
       title: "Jugenlicher %{name}"
       lead: "Hier findest du die Details zum Jugenlichen Job-Sucher."

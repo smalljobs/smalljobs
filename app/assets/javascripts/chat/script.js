@@ -127,10 +127,23 @@ $(function(){
     });  
     
 
+    $('.js-message-to-all-rocketchat').click(function(event){
+        event.preventDefault()
+        // var myDiv = document.createElement("div");
+        // myDiv.innerHTML += "Hello";
+        // $('#js-rocket-chat-brodcast-container').append(myDiv)
+        $('#js-rocket-chat-broadcast-modal').modal('show')
+        $('#js-rocket-chat-broadcast-modal').on('shown.bs.modal', function(){
+           
+            
+        })
+    })
 
 
     
-
+    $('.js-send-broadcast-rocketchat').click(function(event){
+        event.preventDefault()
+    });
    
 
 })

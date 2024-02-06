@@ -1,14 +1,3 @@
--# - if (current_broker.present? || current_provider.present?)
--#   .vacation-bar.js-organization{data: {id: current_broker.selected_organization_id, name: "Alle Organisationen"}, style: "display: none"}
--#     Die
--#     %span.js-organisation-name
--#       Alle Organisationen
--#     Organisation hat Feiertage von
--#     %span.js-org-start-date
--#       test
--#     bis
--#     %span.js-org-end-date
--#       test2
 %div{id: 'dashboard'}
   %div.row
     %div.col-sm-3
@@ -285,10 +274,13 @@
                   = provider.company
     %div{id: 'seekers', class: 'tab-pane fade in'}
       %div.row.margin-top-25
-        %div.col-sm-2.float-left
+        %div.col-sm-8.float-left
           = link_to t('seekers.index.add_new'), new_broker_seeker_path, class: 'btn btn-success'
+          = link_to t('seekers.index.message_to_all'), broadcast_room_broker_rocketchats_path, class: 'btn btn-success margin_left_20 js-message-to-all-rocketchat'        
         -# %div.col-sm-2.float-left
         -#   = link_to t('seekers.index.message_to_all'), broadcast_room_broker_rocketchats_path, class: 'btn btn-success js-message-to-all-rc'
+        
+          
         %div.col-sm-3.float-right
           %input.form-control.search{type: 'text', class: 'search-field js-search-field-seeker', placeholder: 'Suche'}
           %i.fa.fa-2x.fa-times-circle.delete-icon.display-none.js-seeker-delete-icon
@@ -401,7 +393,7 @@
                     = assignment.payment.floor
                 %td.feedback
                   = assignment.feedback
-
+= render partial: 'rocketchat_broadcast_modal'
 :javascript
   var target = window.location.hash;
   var params = window.location.search.substr(1);
