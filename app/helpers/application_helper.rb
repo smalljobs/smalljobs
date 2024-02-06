@@ -329,7 +329,7 @@ module ApplicationHelper
   #
   def number_unread_messages(unread_messages_number)
     if unread_messages_number.to_i > 0
-      return "(#{unread_messages_number})"
+      return "#{unread_messages_number}"
     else
       return ""
     end
