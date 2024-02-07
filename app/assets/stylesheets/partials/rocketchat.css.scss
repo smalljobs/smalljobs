@@ -24,7 +24,9 @@
   background-position: top;
   padding-top: 100px;
   display: block;
-  
+}
+.sj-rocketchat-icon-click{
+  cursor: pointer;  
   span{
     &.blink {
       animation: blinker 1s linear infinite;
