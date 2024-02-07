@@ -105,3 +105,14 @@
     padding-right: 10px;
   }
 }
+
+.sj-send-broadcast-rocketchat{
+  i{
+    display: none;
+  }
+  &.disabled{
+    i{
+      display: inline-block;
+    }
+  }
+}

@@ -31,6 +31,7 @@
 #= require organization
 #= require rich.js
 # require rocketchat
+#= require chat/broadcast.js
 
 ready = ->
   

@@ -6,15 +6,17 @@
         = "Erstelle einen neuen Broadcast"
       %div
         #js-rocket-chat-brodcast-container.sj-rocket-chat-brodcast-container 
-          = form_tag "#" do 
+          = form_tag message_broker_rocketchats_path do 
             .form-group
               - @seekers.each do |seeker|
                 = label_tag do 
-                  = check_box_tag 'broadcast[seeker_ids][]', seeker.id, true, id: "seeker_#{seeker.id}", class: 'sj-checkbox-tag'
+                  = check_box_tag 'broadcast[seeker_ids][]', seeker.id, true, id: "seeker_#{seeker.id}", class: 'sj-checkbox-tag', data: {rc_name: seeker.rc_username}
                   = seeker.name
             .form-group    
               = label_tag "brodcast[message]", "Deine Nachricht:"   
               = text_area(:broadcast, :message, class: "form-control", row: 8, style: "min-height: 150px;")
             .form-group.overflow-hidden 
-              = submit_tag "senden", class: 'btn btn-success float-right js-send-broadcast-rocketchat'      
+              = button_tag type: "submit", class: 'btn btn-success float-right js-send-broadcast-rocketchat sj-send-broadcast-rocketchat' do 
+                %i.fad.fa-spinner-third.fa-spin
+                = "senden"    
       -#%div.modal-footer
