@@ -276,7 +276,8 @@
       %div.row.margin-top-25
         %div.col-sm-8.float-left
           = link_to t('seekers.index.add_new'), new_broker_seeker_path, class: 'btn btn-success'
-          = link_to t('seekers.index.message_to_all'), broadcast_room_broker_rocketchats_path, class: 'btn btn-success margin_left_20 js-message-to-all-rocketchat'        
+          = link_to t('seekers.index.message_to_all'), "#", class: 'btn btn-success margin_left_20 js-message-to-all-rocketchat'        
+          = link_to t('seekers.index.show_all_broadcast'), last_message_broker_broadcast_messages_path, class: 'btn btn-success margin_left_20 js-message-show-all-broadcast'        
         -# %div.col-sm-2.float-left
         -#   = link_to t('seekers.index.message_to_all'), broadcast_room_broker_rocketchats_path, class: 'btn btn-success js-message-to-all-rc'
         

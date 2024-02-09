@@ -27,6 +27,8 @@ class Seeker < ActiveRecord::Base
   has_many :providers, through: :jobs
   has_many :unread_messages
   has_many :todos, dependent: :destroy
+  has_many :broadcast_message_seekers, dependent: :destroy
+  has_many :broadcast_messages, through: :broadcast_message_seekers
 
   belongs_to :place, inverse_of: :seekers
   belongs_to :organization
