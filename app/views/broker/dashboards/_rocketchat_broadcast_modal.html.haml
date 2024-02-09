@@ -10,7 +10,7 @@
             .form-group
               - @seekers.each do |seeker|
                 = label_tag do 
-                  = check_box_tag 'broadcast[seeker_ids][]', seeker.id, false, id: "seeker_#{seeker.id}", class: 'sj-checkbox-tag', data: {rc_name: seeker.rc_username, seeker_id: seeker.id}
+                  = check_box_tag 'broadcast[seeker_ids][]', seeker.id, true, id: "seeker_#{seeker.id}", class: 'sj-checkbox-tag', data: {rc_name: seeker.rc_username, seeker_id: seeker.id}
                   = seeker.name
             .form-group    
               = label_tag "brodcast[message]", "Deine Nachricht:"   
