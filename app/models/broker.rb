@@ -28,6 +28,7 @@ class Broker < ActiveRecord::Base
   has_many :assignments, through: :providers
   has_many :notes
   has_many :unread_messages
+  has_many :broadcast_messages
   # organization method is used, uses different logic
   # belongs_to :organization, foreign_key: :default_broker_id
   validates :email, email: true, presence: true, uniqueness: true

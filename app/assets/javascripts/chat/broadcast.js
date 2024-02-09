@@ -28,18 +28,17 @@ $(function(){
                 
                 $('input.sj-checkbox-tag[type=checkbox]:checked').each(function () {
                     let rc_username = $(this).data('rc-name')
+                    let seeker_id = $(this).data('seeker-id')
                     if (rc_username != undefined && rc_username != '' && hash[rc_username] == undefined){
                         hash[rc_username] = 1
-                        console.log(rc_username)
-                        // console.log(url)
-                        // console.log(message)
                         $.ajax({
                             url: url,
                             type: 'POST',
                             async: false,
                             data: {
                                 message: message,
-                                rc_username: rc_username
+                                rc_username: rc_username,
+                                seeker_id: seeker_id
                             },
                             success: function(result) {
                             
@@ -52,8 +51,42 @@ $(function(){
                 });
                 that.removeClass('disabled')
                 alert("Die Nachricht wurde versendet")
+                $('#js-rocket-chat-broadcast-modal').modal('hide');
 
             }
-        }, 500)
+        }, 1000)
     });
+
+    $('.js-message-show-all-broadcast').click(function(event){
+        event.preventDefault()
+        let url = $(this).attr('href')
+        
+        $.ajax({
+            url: url,
+            type: 'get',
+            success: function(result) {
+                $('.js-rocket-chat-message').text(result.message) 
+                let seekers = result.seekers
+                var seekers_tekst = ""
+                for (const seeker of seekers) {
+                    if (seekers_tekst == ""){
+                        seekers_tekst = seeker
+                    }else{
+                        seekers_tekst = seekers_tekst + ", " + seeker
+                    }
+                }
+                $('.js-rocket-chat-seekers-list').text(seekers_tekst);
+                $('#js-rocket-chat-all-broadcast-seekers-modal').modal('show')
+                $('#js-rocket-chat-all-broadcast-seekers-modal').on('shown.bs.modal', function(){
+        })
+            },
+            error: function(result){
+                console.log(result.responseJSON.error);
+                alert(result.responseJSON.error)
+                $('#js-rocket-chat-all-broadcast-seekers-modal').modal('hide');
+            }
+        });    
+    
+
+    })
 })

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20240126123126) do
+ActiveRecord::Schema.define(version: 20240209082725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,20 @@ ActiveRecord::Schema.define(version: 20240126123126) do
     t.integer  "duration"
     t.float    "payment"
     t.index ["job_id"], name: "index_assignments_on_job_id", using: :btree
+  end
+
+  create_table "broadcast_message_seekers", force: :cascade do |t|
+    t.integer  "seeker_id"
+    t.integer  "broadcast_message_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "broadcast_messages", force: :cascade do |t|
+    t.integer  "broker_id"
+    t.text     "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 # Could not dump table "brokers" because of following StandardError
