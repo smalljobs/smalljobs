@@ -89,4 +89,17 @@ $(function(){
     
 
     })
+
+    $('.js-rocket-chat-broadcast-list-link').click(function(event){
+        event.preventDefault()
+        if ($('.js-rocket-chat-change-caret', $(this)).hasClass('fa-caret-down')){
+            $('.js-rocket-chat-change-caret', $(this)).removeClass('fa-caret-down')
+            $('.js-rocket-chat-change-caret', $(this)).addClass('fa-caret-up') 
+            $('.js-rocket-chat-broadcast-list').removeClass('display-none')
+        }else{
+            $('.js-rocket-chat-change-caret', $(this)).removeClass('fa-caret-up')
+            $('.js-rocket-chat-change-caret', $(this)).addClass('fa-caret-down')
+            $('.js-rocket-chat-broadcast-list').addClass('display-none') 
+        }
+    })
 })
