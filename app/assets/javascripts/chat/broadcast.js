@@ -59,26 +59,40 @@ $(function(){
 
     $('.js-message-show-all-broadcast').click(function(event){
         event.preventDefault()
+        $('.js-rocket-chat-message').text("")
         let url = $(this).attr('href')
         
         $.ajax({
             url: url,
             type: 'get',
             success: function(result) {
-                $('.js-rocket-chat-message').text(result.message) 
-                let seekers = result.seekers
-                var seekers_tekst = ""
-                for (const seeker of seekers) {
-                    if (seekers_tekst == ""){
-                        seekers_tekst = seeker
-                    }else{
-                        seekers_tekst = seekers_tekst + ", " + seeker
+                for (const record of result){
+                    let strong_created_at = document.createElement('strong'); 
+                    let div_message = document.createElement('div');
+                    let div_seekers = document.createElement('div');
+                    strong_created_at.innerHTML += record.created_at
+                    div_message.innerHTML += record.message
+                    let seekers_tekst = ""
+                    let seekers = record.seekers
+                    for (const seeker of seekers) {
+                        if (seekers_tekst == ""){
+                            seekers_tekst = seeker
+                        }else{
+                            seekers_tekst = seekers_tekst + ", " + seeker
+                        }
                     }
+                    div_seekers.innerHTML += seekers_tekst
+                    $('.js-rocket-chat-message').append(strong_created_at)
+                    $('.js-rocket-chat-message').append(div_message)
+                    $('.js-rocket-chat-message').append(div_seekers)
+
                 }
-                $('.js-rocket-chat-seekers-list').text(seekers_tekst);
+                
+                
+                
                 $('#js-rocket-chat-all-broadcast-seekers-modal').modal('show')
                 $('#js-rocket-chat-all-broadcast-seekers-modal').on('shown.bs.modal', function(){
-        })
+                })
             },
             error: function(result){
                 console.log(result.responseJSON.error);
