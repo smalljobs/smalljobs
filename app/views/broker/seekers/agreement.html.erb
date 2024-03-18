@@ -149,7 +149,7 @@
         
       </ul>
     </div>
-    <p class="font-bigger font-color-green">
+    <p class="font-color-green">
       Weitere Hinweise:
     </p>
     <p>
@@ -168,7 +168,29 @@
     </p>
     <p >
       Kontaktangaben <br />
-      SmallJobs - Standort
+      <%= @seeker&.organization&.name %>
+      <br />
+      <%= @seeker&.organization&.street %>
+      <br />
+
+      <%= @seeker&.organization&.place&.zip + ' ' + @seeker&.organization&.place&.name %>
+      <br />
+
+
+      <% if @seeker&.organization&.phone %>
+        <%= @seeker.organization.phone.phony_formatted %>
+        <br />
+      <%end%>
+
+      <% if @seeker&.organization&.email %>
+        <%= @seeker.organization.email %>
+        <br />
+      <%end%>
+
+      <% if @seeker&.organization&.website %>
+         <%= @seeker.organization.website %>
+        <br />
+      <%end%>
     </p>
     
 
