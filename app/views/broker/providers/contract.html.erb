@@ -222,7 +222,29 @@
     </p>
     <p>
       Kontaktangaben <br />
-      SmallJobs - Standort
+      <%= @provider&.organization&.name %>
+      <br />
+      <%= @provider&.organization&.street %>
+      <br />
+
+      <%= @provider&.organization&.place&.zip + ' ' + @provider&.organization&.place&.name %>
+      <br />
+
+
+      <% if @provider&.organization&.phone %>
+        <%= @provider.organization.phone.phony_formatted %>
+        <br />
+      <%end%>
+
+      <% if @provider&.organization&.email %>
+        <%= @provider.organization.email %>
+        <br />
+      <%end%>
+
+      <% if @provider&.organization&.website %>
+         <%= @provider.organization.website %>
+        <br />
+      <%end%>
     </p>
     <p>
       Ich bestätige hiermit, dass ich den Kodex für Arbeitgebende SmallJobs aufmerksam gelesen und verstanden habe und dies in der Zusammenarbeit mit SmallJobs und den Jugendlichen umsetze.

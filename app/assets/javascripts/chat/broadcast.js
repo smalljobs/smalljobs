@@ -68,8 +68,14 @@ $(function(){
             success: function(result) {
                 for (const record of result){
                     let strong_created_at = document.createElement('strong'); 
+                    let div_container = document.createElement('div'); 
                     let div_message = document.createElement('div');
                     let div_seekers = document.createElement('div');
+                    let div_seekers_show = document.createElement('div');
+                    div_seekers_show.classList.add('sj-rocket-chat-seeker-show')
+                    div_seekers_show.classList.add('js-rocket-chat-seeker-show')
+                    div_seekers_show.innerHTML += 'Alle Empfänger anzeigen'
+                    div_seekers.classList.add('sj-rocket-chat-seeker-lists')
                     strong_created_at.innerHTML += record.created_at
                     div_message.innerHTML += record.message
                     let seekers_tekst = ""
@@ -82,10 +88,12 @@ $(function(){
                         }
                     }
                     div_seekers.innerHTML += seekers_tekst
-                    $('.js-rocket-chat-message').append(strong_created_at)
-                    $('.js-rocket-chat-message').append(div_message)
-                    $('.js-rocket-chat-message').append(div_seekers)
+                    div_container.append(strong_created_at)
+                    div_container.append(div_message)
+                    div_container.append(div_seekers)
+                    div_container.append(div_seekers_show)
 
+                    $('.js-rocket-chat-message').append(div_container)
                 }
                 
                 
@@ -116,4 +124,14 @@ $(function(){
             $('.js-rocket-chat-broadcast-list').addClass('display-none') 
         }
     })
+
+    $(document).on({
+        click: function(e){
+            e.preventDefault()
+            $('.sj-rocket-chat-seeker-lists', $(this).parent()).show();
+            $(this).hide()
+
+        }
+    
+    }, '.js-rocket-chat-seeker-show')
 })
