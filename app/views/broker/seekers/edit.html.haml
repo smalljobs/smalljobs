@@ -19,7 +19,7 @@
           - if @seeker.allocations.where.not(job: nil).exists?
             %div.provider_allocations
               = render 'allocations'
-          = render 'todos'
+          -# = render 'todos'
           = render 'assignments'
 
 = render partial: '/rocketchats/rc_seeker', locals: {seeker: @seeker}
