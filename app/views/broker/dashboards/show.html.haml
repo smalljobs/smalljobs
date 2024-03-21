@@ -346,6 +346,7 @@
                 %td.age.display-none
                   = seeker.age
                 %td.rc_username.display-none= seeker.rc_username
+                %td.id.display-none= seeker.id
     %div{id: 'assignments', class: 'tab-pane fade in'}
       %div.row.margin-top-25
         %div.col-sm-3.float-right
@@ -620,7 +621,7 @@
       'long_description', 'short_description', 'phone',
       'mobile', 'contact_preference', 'contact_availability', 'company',
       'email', 'sex', 'additional_contacts', 'occupation', 'languages',
-      'age', 'rc_username' ]
+      'age', 'rc_username', 'id' ]
     };
 
     var jobsList = new List('jobs', options);

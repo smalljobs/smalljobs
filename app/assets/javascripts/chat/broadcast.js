@@ -3,6 +3,13 @@
 $(function(){
     $('.js-message-to-all-rocketchat').click(function(event){
         event.preventDefault()
+        $.map(window.seekersList.items, function(v) {
+            $("#seeker_"+v['_values']['id']).prop('checked', false);
+          })
+
+        $.map(window.seekersList.visibleItems, function(v) {
+            $("#seeker_"+v['_values']['id']).prop('checked', true);
+          })
         $('#js-rocket-chat-broadcast-modal').modal('show')
         $('#js-rocket-chat-broadcast-modal').on('shown.bs.modal', function(){
         
