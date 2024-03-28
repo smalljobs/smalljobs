@@ -10,11 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220518140721) do
+ActiveRecord::Schema.define(version: 20240209082725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "uuid-ossp"
 
   create_table "access_tokens", force: :cascade do |t|
     t.string   "access_token",  limit: 255
@@ -77,6 +76,20 @@ ActiveRecord::Schema.define(version: 20220518140721) do
     t.integer  "duration"
     t.float    "payment"
     t.index ["job_id"], name: "index_assignments_on_job_id", using: :btree
+  end
+
+  create_table "broadcast_message_seekers", force: :cascade do |t|
+    t.integer  "seeker_id"
+    t.integer  "broadcast_message_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "broadcast_messages", force: :cascade do |t|
+    t.integer  "broker_id"
+    t.text     "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 # Could not dump table "brokers" because of following StandardError
@@ -289,7 +302,7 @@ ActiveRecord::Schema.define(version: 20220518140721) do
     t.string   "header_image"
     t.text     "content"
     t.text     "contact_content"
-    t.integer  "ji_location_id"
+    t.string   "ji_location_id"
     t.string   "ji_location_name"
     t.integer  "country_id"
     t.text     "job_contract_rules"
@@ -348,6 +361,14 @@ ActiveRecord::Schema.define(version: 20220518140721) do
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.boolean  "manual_completion", default: false
+  end
+
+  create_table "unread_messages", force: :cascade do |t|
+    t.integer  "broker_id"
+    t.integer  "seeker_id"
+    t.integer  "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "update_prefs", force: :cascade do |t|

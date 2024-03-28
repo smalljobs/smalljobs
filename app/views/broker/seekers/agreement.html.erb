@@ -35,77 +35,170 @@
 
 
 
-  <div class="body-container">
-    <div class="margin-top-40 font-bigger font-bold">
-      <%= @seeker&.name %>, <%= @seeker&.date_of_birth&.strftime('%d.%m.%Y') %>
+    <div class="body-container">
+      <div class="margin-top-40 font-bigger font-bold">
+        <%= @seeker&.name %>, <%= @seeker&.date_of_birth&.strftime('%d.%m.%Y') %>
+      </div>
+      <p class="font-smaller font-bold">
+        <%= @seeker&.street %>, <%= @seeker&.place&.full_name %>
+      </p>
+      <p>
+        Ich bestätige hiermit, dass:
+      </p>
+      <ol class="list-align-left">
+        <li>
+          meine Angaben gegenüber <%= @seeker&.organization&.name %> wahrheitsgetreu sind.
+        </li>
+        <li>
+          ich mich bei den mir vermittelten Jobs an die Richtlinien von Smalljobs und die Weisungen meiner Jobbörse
+          <%= @seeker&.organization&.name %> halte.
+        </li>
+      </ol>
+
+
+      <div class="row margin-top-40">
+        <div class="column column-left">
+          <div class="signature">
+          </div>
+          <div class="font-smaller">Ort, Datum</div>
+        </div>
+        <div class="column column-right">
+          <div class="signature">
+          </div>
+          <div class="font-smaller">Unterschrift <%= @seeker&.name %></div>
+        </div>
+      </div>
+
+      <div class="margin-top-40 font-bigger font-bold">
+        Einverständnis der Eltern / Erziehungsberechtigten:
+      </div>
+      <p>Ich bestätige hiermit, dass</p>
+      <ol class="list-align-left">
+        <li>
+          ich für <%= @seeker&.name %> erziehungsberechtigt bin.
+        </li>
+        <li>
+          <%= @seeker&.name %> mit meiner Einverständnis bei der Taschengeldjob-Börse anmeldet.
+        </li>
+        <li>
+          ich die gesetzlichen Richtlinien kenne und einverstanden bin, dass <%= @seeker&.name %> in diesem Rahmen
+          Taschengeldjobs macht (siehe <%= @seeker&.region&.detail_link || 'www.smalljobs.ch/jugendschutz' %>).
+        </li>
+        <li>
+          ich für <%= @seeker&.name %> eine gültige Unfall- und Haftpflichtversicherung abgeschlossen habe.
+        </li>
+      </ol>
+
+
+      <div class="row margin-top-40">
+        <div class="column column-left">
+          <div class="signature">
+          </div>
+          <div class="font-smaller">Ort, Datum</div>
+        </div>
+        <div class="column column-right">
+          <div class="signature">
+          </div>
+          <div class="font-smaller">Unterschrift
+            Erziehungsberechtigte <%= @seeker&.name %></div>
+        </div>
+      </div>
+
+
     </div>
-    <p class="font-smaller font-bold">
-      <%= @seeker&.street %>, <%= @seeker&.place&.full_name %>
+  </div>
+
+<div id="page-2" class="page alwaysbreak page-default">
+  <div class="body-container line-height-1-5">
+    <div class="margin-top-40 font-bigger font-bold">
+      TIPPS UND HINWEISE
+    </div>
+    <div class="font-bigger margin-top-40">
+      … für Jugendliche
+    </div>
+    <p class="margin-top-40">
+      Willkommen bei Smalljobs, yay! Wir freuen uns, wenn du bei der Ausübung deiner Jobs viel Spaß und eine gute Zeit hast. 
     </p>
     <p>
-      Ich bestätige hiermit, dass:
+      Was ist aber, wenn du dich unwohl fühlst? Dir vielleicht jemand ungewollt zu Nahe kommt oder du dir komische Sprüche anhören musst?
     </p>
-    <ol class="list-align-left">
-      <li>
-        meine Angaben gegenüber <%= @seeker&.organization&.name %> wahrheitsgetreu sind.
-      </li>
-      <li>
-        ich mich bei den mir vermittelten Jobs an die Richtlinien von Smalljobs und die Weisungen meiner Jobbörse
-        <%= @seeker&.organization&.name %> halte.
-      </li>
-    </ol>
-
-
-    <div class="row margin-top-40">
-      <div class="column column-left">
-        <div class="signature">
-        </div>
-        <div class="font-smaller">Ort, Datum</div>
-      </div>
-      <div class="column column-right">
-        <div class="signature">
-        </div>
-        <div class="font-smaller">Unterschrift <%= @seeker&.name %></div>
-      </div>
+    <p class="font-bigger font-color-green">
+      Persönliche Grenzen – egal, wann und wo diese gezogen werden – sind immer okay. Wir unterstützen dich!
+    </p>
+    <p class="font-bigger font-color-green">
+      Wir tolerieren keinerlei Übergriffe (körperlich und psychisch)!<br/>
+      Wir tolerieren keinerlei diskriminierendes Verhalten!
+    </p>
+    <div >
+      <p class="font-color-green">
+        Folgende Punkte sind uns wichtig:
+      </p>
+      <ul>
+        <li>
+          Gerne darfst du beim Kennenlerntermin bei deinem möglichen neuen Job jemanden mitnehmen (Elternteil, Freund*innen, etc.). Melde dies doch vorher kurz den Arbeitgebenden an.
+        </li>
+        <li>  
+          Hör auf dein Bauchgefühl! Solltest du dich beim Arbeitgebenden unwohl fühlen, darfst du den Arbeitsplatz ohne Angabe von Gründen verlassen. Bitte nimm danach unbedingt mit uns Kontakt auf, um die Situation zu klären. 
+        </li>
+        <li>
+          Ob eine Grenzüberschreitung stattgefunden hat oder nicht, entscheidest DU!
+        </li>
+        <li>
+          Du darfst uns jederzeit kontaktieren, sollte sich etwas beim SmallJob für dich nicht gut anfühlen. Wir hören dir zu, begleiten und beraten dich.
+        </li>
+        
+      </ul>
     </div>
+    <p>
+      Weitere Hinweise:
+    </p>
+    <p>
+      <ul>
+        <li>
+          Bei Verhinderung (Krankheit / Ferien) meldest du dich frühzeitig bei deiner/em Arbeitgeber*in ab.
+        </li>
+        <li>  
+          Falls du deinen Jugendjob künden willst (oder dir gekündigt wird), setze dich mit uns in Verbindung.
+        </li>
+        <li>  
+          Dein*e Arbeitgeber*in ist über längere Zeit nicht erreichbar? – melde dich bei uns!
+        </li>
+      </ul>    
+      
+    </p>
+    <p class="margin-top-40">
+      Kontaktangaben <br />
+      <%= @seeker&.organization&.name %>
+      <br />
+      <%= @seeker&.organization&.street %>
+      <br />
 
-    <div class="margin-top-40 font-bigger font-bold">
-      Einverständnis der Eltern / Erziehungsberechtigten:
-    </div>
-    <p>Ich bestätige hiermit, dass</p>
-    <ol class="list-align-left">
-      <li>
-        ich für <%= @seeker&.name %> erziehungsberechtigt bin.
-      </li>
-      <li>
-        <%= @seeker&.name %> mit meiner Einverständnis bei der Taschengeldjob-Börse anmeldet.
-      </li>
-      <li>
-        ich die gesetzlichen Richtlinien kenne und einverstanden bin, dass <%= @seeker&.name %> in diesem Rahmen
-        Taschengeldjobs macht (siehe <%= @seeker&.region&.detail_link || 'www.smalljobs.ch/jugendschutz' %>).
-      </li>
-      <li>
-        ich für <%= @seeker&.name %> eine gültige Unfall- und Haftpflichtversicherung abgeschlossen habe.
-      </li>
-    </ol>
+      <%= @seeker&.organization&.place&.zip + ' ' + @seeker&.organization&.place&.name %>
+      <br />
 
 
-    <div class="row margin-top-40">
-      <div class="column column-left">
-        <div class="signature">
-        </div>
-        <div class="font-smaller">Ort, Datum</div>
-      </div>
-      <div class="column column-right">
-        <div class="signature">
-        </div>
-        <div class="font-smaller">Unterschrift
-          Erziehungsberechtigte <%= @seeker&.name %></div>
-      </div>
-    </div>
+      <% if @seeker&.organization&.phone %>
+        <%= @seeker.organization.phone.phony_formatted %>
+        <br />
+      <%end%>
 
+      <% if @seeker&.organization&.email %>
+        <%= @seeker.organization.email %>
+        <br />
+      <%end%>
+
+      <% if @seeker&.organization&.website %>
+         <%= @seeker.organization.website %>
+        <br />
+      <%end%>
+    </p>
+    
 
   </div>
-  </div>
+
+</div>
+
+
+
 </body>
 </html>

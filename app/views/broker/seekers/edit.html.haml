@@ -3,17 +3,24 @@
 %strong
   = " >  Jugendliche_r"
 %div.row
-  %div.col-sm-8
+  .col-sm-8
     = render 'form'
-  %div.col-sm-4.margin_top_120.bg-allocations
-    - if @seeker.allocations.where.not(job: nil).exists?
-      %div.provider_allocations
-        = render 'allocations'
-    = render 'todos'
-    = render 'assignments'
+  .col-sm-4
+    .row
+      .col-sm-12.margin_top_20.text-center
+        -# = link_to "#", class: "button btn btn-primary btn-success js-rocket-chat-start" do
+        -#   = I18n.t('broker.seeker.edit.chat')
+        -#   %span.js-number-unread-messages
+        -#     = number_unread_messages(@unread_messages)
+        -# #js-chat-seeker-container.sj-chat-seeker-container.margin_top_20 
+        -#   #js-chat-seeker  
+      .col-sm-12.bg-allocations.margin_top_20    
+        .bg-allocations  
+          - if @seeker.allocations.where.not(job: nil).exists?
+            %div.provider_allocations
+              = render 'allocations'
+          -# = render 'todos'
+          = render 'assignments'
 
--#.hidden
--#  .js-rc-seeker-username{data: {username: @seeker.rc_username.to_s, error: I18n.t("broker.seeker.edit.error")}}
--#  - if @seeker.rc_username.present?
--#    = link_to '#', room_broker_rocketchats_path(@seeker.rc_username), class: 'js-rocket-chat-room'
 = render partial: '/rocketchats/rc_seeker', locals: {seeker: @seeker}
+

@@ -7,7 +7,7 @@
 #= require list.min.js
 #= require contextHelp.js
 #= require bootstrap-select.min.js
-#= require_tree .
+
 #= require todo.js
 #= require bootstrap-datepicker.js
 #= require chart.min.js
@@ -25,10 +25,16 @@
 #= require broker
 #= require nouislider
 #= require dashboard
-#= require rocketchat_observer.js
+# require rocketchat_observer.js
 #= require init_tiny.js
+#= require comment.js
+#= require organization
+#= require rich.js
+# require rocketchat
+#= require chat/broadcast.js
 
 ready = ->
+  
   history_array = JSON.parse(sessionStorage.getItem('history') || '[]')
 
   history_array.push(window.location.href)

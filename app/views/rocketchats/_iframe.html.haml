@@ -1,5 +1,12 @@
-- if current_broker.try(:rc_id).present?
-  =link_to content_tag(:span, "Neue Nachrichten", class: 'blink hidden'), broker_rocketchats_path, class: "sj-rocketchat-icon js-rocketchat-icon display-none", data: {unread: unread_broker_rocketchats_path}
+- if current_broker.try(:rc_id).present? and @seeker.present?
+  -# link_to content_tag(:span, "Neue Nachrichten", class: 'blink hidden'), broker_rocketchats_path, class: "sj-rocketchat-icon js-rocketchat-icon display-none", data: {unread: unread_broker_rocketchats_path}
+  =link_to "#", class: "js-rocket-chat-start sj-rocketchat-icon-click" do 
+    %i.sj-rocketchat-icon
+    %i.fal.fa-times-circle.sj-rocketchat-cross
+    - if @unread_messages.to_i > 0
+      = content_tag(:span, number_unread_messages(@unread_messages), class: 'js-number-unread-messages')
+  #js-chat-seeker-container.sj-chat-seeker-container
+    #js-chat-seeker     
 
 
   -# - if current_broker.try(:rc_id).present?
@@ -11,5 +18,5 @@
         %button.close{"data-dismiss": "modal", type: "button"} &times;
         = "Chat"
       %div
-        .js-rocketchat-iframe-container.sj-rocketchat-iframe-container
+        #js-rocketchat-iframe-container.js-rocketchat-iframe-container.sj-rocketchat-iframe-container
       -#%div.modal-footer

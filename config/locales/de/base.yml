@@ -216,7 +216,15 @@ de:
           no_reviews: "Es sind noch keine Bewertungen für diesen Job erfasst"
     seeker:
       edit:
+        chat: "Chat"
         error: "Chat ist deaktiviert für diese Person. Bitte per Telefon Kontakt aufnehmen."
+    dashboard:
+      rocket_chat_broadcast_modal:
+        recipients_count: "Empfänger (%{length}) anzeigen"    
+        create_new_broadcast: "Erstelle einen neuen Broadcast"
+        last_message_and_recipient: "Letzte Nachricht und Empfängerliste"
+        your_message: "Deine Nachricht:"
+        send: "senden"
   provider:
     jobs:
       new:
@@ -423,9 +431,10 @@ de:
     index:
       title: "Jugendlich in deiner Region"
       lead: "Hier findest du die registrierten Jugendlichen in deiner Region."
-      add_new: "Neuen Jugendlichen"
+      add_new: "Jugendlichen hinzufügen"
       no_seekers: "Es sind noch keine Jugendlichen in deiner Region erfasst."
-      message_to_all: "Nachricht versenden"
+      message_to_all: "Infos an Auswahl senden"
+      show_all_broadcast: "alle Broadcasts"
     show:
       title: "Jugenlicher %{name}"
       lead: "Hier findest du die Details zum Jugenlichen Job-Sucher."
@@ -558,6 +567,7 @@ de:
     assignments: 'Einsätze'
     aktuelle: 'Aktuelle'
     verschoben: 'Verschoben'
+    ungelesene_nachrichten: 'ungelesene Nachrichten' 
     todo_table:
       date: 'Datum'
       todo: 'Todo'
@@ -584,6 +594,7 @@ de:
       name: 'Jugendlicher'
       address: 'Adresse'
       plz: 'PLZ Ort'
+      chat: 'Chat'
     assignments_table:
       no_assignments: 'Es sind noch keine Einsatz in deiner Region erfasst.'
       status: 'Status'
@@ -605,6 +616,8 @@ de:
     edit:
       start_date: 'Startdatum'
       end_date: 'Enddatum'
+  broadcast_messages:
+    no_message_found: "No message found"    
   errors:
     messages:
       carrierwave_processing_error: "Kann das Bild leider nicht bearbeiten."

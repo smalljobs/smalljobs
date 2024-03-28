@@ -41,9 +41,13 @@ class Broker::RocketchatsController < InheritedResources::Base
   end
 
   def message
+    broadcast_message = current_broker.broadcast_messages.where("created_at > ?", DateTime.now-1.hour).find_or_create_by(message: params[:message])
     se = RocketChat::Session.new(current_broker.rc_id)
     message = RocketChat::Chat.new
     answer = message.create(se, [params[:rc_username]], params[:message])
+    if answer
+      BroadcastMessageSeeker.create(seeker_id: params[:seeker_id], broadcast_message_id: broadcast_message.id)
+    end
     respond_to do |format|
       if answer
         format.json { render json: {id: answer['_id']}, status: :ok }
@@ -52,6 +56,7 @@ class Broker::RocketchatsController < InheritedResources::Base
       end
     end
   end
+
 
   def unread
     se = RocketChat::Session.new(current_broker.rc_id)

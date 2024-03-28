@@ -22,8 +22,8 @@ Smalljobs::Application.configure do
       }
   }
 
-  config.assets.precompile += %w( rich/base.js )
-  config.assets.precompile += %w( rich/editor.css pdf.css )
+  config.assets.precompile += %w( rich/base.js chat/ja_chat.min.js chat/script.js )
+  config.assets.precompile += %w( rich/editor.css pdf.css fontawesome.css )
 
 
   # Mailer default link host

@@ -7,6 +7,8 @@ class Broker::DashboardsController < ApplicationController
   load_and_authorize_resource :seeker, through: :current_region
 
   def show
+    current_broker.update_unread_messages
+    @unread_messages = current_broker.unread_messages_hash
     if params[:archive] == true || params[:archive] == 'true'
       @jobs = current_broker.jobs.where(state: 'finished').includes(:provider, :organization).group('jobs.id').order(:last_change_of_state).reverse_order()
       allocations = Allocation.where(job: @jobs).includes(:seeker)

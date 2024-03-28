@@ -163,12 +163,19 @@ Smalljobs::Application.routes.draw do
         get 'certificate'
       end
 
-      resources :rocketchats, onlye: [:create] do
+      resources :rocketchats, only: [:create] do
         collection do
           get 'room/:rc_username', to: "rocketchats#room", as: :room
           post 'message', to: "rocketchats#message", as: :message
           get 'unread', to: "rocketchats#unread", as: :unread
           post 'broadcast_room', to: "rocketchats#broadcast_room", as: :broadcast_room
+        end
+      end
+
+      resources :broadcast_messages, only: [] do
+        collection do
+          get 'last_message'
+
         end
       end
     end

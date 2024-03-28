@@ -96,6 +96,7 @@ div.page {
     line-height: 1.4;
 }
 
+
 .margin-top-20{
     margin-top: 20px;
 }
@@ -226,7 +227,9 @@ div.page {
     color: #18bc9c;
 }
 
-
+.font-color-green{
+    color: #18bc9c;
+}
 
 
 #baner {
@@ -259,6 +262,13 @@ div.page {
 .row-w {
     width: 100%;
 
+}
+
+
+.col05{
+    width: 50%;
+    float: left;
+    
 }
 
 .col1 {
@@ -463,6 +473,10 @@ div.page {
 
 .line-height-1-2{
     line-height: 1.2em;
+}
+
+.line-height-1-5{
+    line-height: 1.5em;
 }
 
 .white-text{

@@ -148,7 +148,7 @@
     </div>
   </div>
   <footer class="footer-right">
-    *www.jugend.app <span>Seite 1 von 2</span>
+    *www.jugend.app <span>Seite 1 von 3</span>
   </footer>
 </div>
 
@@ -160,10 +160,116 @@
   <div class="body-container">
     <%= raw @provider.organization.regions&.first&.provider_contract_rules %>
       <footer class="footer-right">
-        Seite 2 von 2
+        Seite 2 von 3
       </footer>
   </div>
 
 </div>
+
+<div id="page-4" class="page alwaysbreak page-default font-smaller">
+  <div class="body-container line-height-1-5">
+    <div class="margin-top-40 font-bigger font-bold">
+      TIPPS UND HINWEISE
+    </div>
+    <div class="font-bigger margin-top-40">
+      … für Arbeitgebende
+    </div>
+    <p class="margin-top-40">
+      Sie haben einen Jugendjob über SmallJobs ausgeschrieben – vielen Dank für Ihr Engagement!      
+    </p>
+    <p>
+      Jugendliche, welche sich bei SmallJobs registriert haben, sind zwischen 13 und 17 Jahren alt. Die meisten machen über SmallJobs erste Erfahrungen auf dem Arbeitsmarkt und freuen sich mit der Arbeitstätigkeit ihr Taschengeld aufzubessern.
+    </p>
+    <p class="font-bigger font-color-green">
+
+      Damit der erste Job für alle eine positive Erfahrung bleibt, gilt es als Arbeitgebende folgende Punkte zu beachten:
+    </p>
+    <div >
+      <ul>
+        <li>
+          Die Jugendlichen dürfen zu einem Kennenlerngespräch eine Begleitperson ihrer Wahl mitnehmen
+        </li>
+        <li>  
+          Als Erwachsene sind Sie in der Verantwortung eine für junge Menschen angenehme und wohlwollende Atmosphäre zu schaffen
+        </li>
+        <li>
+          Ein gesundes Nähe-Distanz-Verhältnis wird vorausgesetzt.
+        </li>
+        <li>
+          Sollten sich die Jugendlichen am Arbeitsplatz unwohl fühlen, dürfen diese ohne Angabe von Gründen den Arbeitsplatz verlassen. Nehmen Sie bitte im Anschluss mit dem jeweiligen SmallJob Standort Kontakt auf, um die Situation aufzuklären.
+        </li>
+        <li>  
+          Wir ermutigen die Jugendlichen sich auf ihr Bauchgefühl zu verlassen.
+        </li>
+      </ul>
+    </div>
+    <p>
+      Weitere Hinweise:
+    </p>
+    <p>
+      <ul>
+        <li>
+          Bitte kontaktieren Sie uns bei angefallener Veränderung des Arbeitsverhältnisses (Kündigung, etc.)
+        </li>
+        <li>  
+          Sollten Sie die jugendliche Person über längere Zeit nicht erreichen melden Sie sich bei uns.
+        </li>
+        <li>  
+          Sollten wir nichts mehr von Ihnen hören, gehen wir davon aus, dass das Arbeitsverhältnis wie vereinbart gut läuft.
+        </li>
+      </ul>    
+      Sowohl Arbeitgebende wie auch Jugendliche können sich jederzeit für die Beratung, Begleitung und Unterstützung bei SmallJobs melden unter: 
+    </p>
+    <p class="margin-top-40">
+      Kontaktangaben <br />
+      <%= @provider&.organization&.name %>
+      <br />
+      <%= @provider&.organization&.street %>
+      <br />
+
+      <%= @provider&.organization&.place&.zip + ' ' + @provider&.organization&.place&.name %>
+      <br />
+
+
+      <% if @provider&.organization&.phone %>
+        <%= @provider.organization.phone.phony_formatted %>
+        <br />
+      <%end%>
+
+      <% if @provider&.organization&.email %>
+        <%= @provider.organization.email %>
+        <br />
+      <%end%>
+
+      <% if @provider&.organization&.website %>
+         <%= @provider.organization.website %>
+        <br />
+      <%end%>
+    </p>
+    <p>
+      Ich bestätige hiermit, dass ich den Kodex für Arbeitgebende SmallJobs aufmerksam gelesen und verstanden habe und dies in der Zusammenarbeit mit SmallJobs und den Jugendlichen umsetze.
+    </p>
+    <div >
+      <div class="row-w margin-top-80">
+        <div class="col05">
+          _____________________________<br />
+          Datum/Ort
+        </div>
+        <div class="col05">
+          _______________________________<br/>
+          Unterschrift
+        </div>
+      </div>  
+      <div class="clear-both"></div>                      			       
+    </div>
+
+    <footer class="footer-right">
+      Seite 3 von 3
+    </footer>
+  </div>
+
+</div>
+
+
 </body>
 </html>

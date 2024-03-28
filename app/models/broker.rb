@@ -27,6 +27,8 @@ class Broker < ActiveRecord::Base
   has_many :jobs, through: :providers
   has_many :assignments, through: :providers
   has_many :notes
+  has_many :unread_messages
+  has_many :broadcast_messages
   # organization method is used, uses different logic
   # belongs_to :organization, foreign_key: :default_broker_id
   validates :email, email: true, presence: true, uniqueness: true
@@ -152,6 +154,22 @@ class Broker < ActiveRecord::Base
     self.save
   end
 
+  def create_rc_token
+    rc = RocketChat::Users.new
+    if self.rc_id.present?
+      answer = rc.create_token(self.rc_id)
+      if answer
+        return answer[:auth_token]
+      else
+        Rails.logger.error "Can not get Broker rc_token #{rc.error}"
+        nil
+      end
+    else
+      Rails.logger.error "Broker does not have a rc_id"
+      nil
+    end
+  end
+
   def get_rc_account_from_ji
     if ENV['JI_ENABLED']
       response = {}
@@ -217,6 +235,44 @@ class Broker < ActiveRecord::Base
         Rails.logger.info e.inspect
       end
     end
+  end
+
+  def unread_messages_hash
+    array = self.unread_messages.where("quantity > 0").map do |unread_message|
+        [unread_message.seeker_id , unread_message.quantity]
+    end.flatten
+    return Hash[*array]
+  end
+
+  def unread_messages_sum
+    self.unread_messages.sum(:quantity)
+  end
+
+  def update_unread_messages
+    timestampt = DateTime.now - 1.minutes
+    seeker_messages = []
+    if self.unread_messages_timestamp.present?
+      seeker_messages = RocketChat::Users.new().unread_seekers(self.rc_id, self.unread_messages_timestamp)
+      self.update(unread_messages_timestamp: timestampt)
+    else
+      seeker_messages = RocketChat::Users.new().unread_seekers(self.rc_id)
+      self.update(unread_messages_timestamp: timestampt)
+    end
+
+
+    seeker_messages.each do |k,v|
+      v = v.to_i
+      seeker = Seeker.find_by_rc_username(k)
+      if seeker.present?
+        unread_message = UnreadMessage.where(broker_id: self.id, seeker_id: seeker.id)
+        if unread_message.present?
+          unread_message.update(quantity: v)
+        else
+          UnreadMessage.create(broker_id: self.id, seeker_id: seeker.id, quantity: v)
+        end
+      end
+    end
+
   end
 
   # @!endgroup
