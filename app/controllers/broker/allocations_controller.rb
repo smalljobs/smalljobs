@@ -19,6 +19,12 @@ class Broker::AllocationsController < InheritedResources::Base
       end
     end
 
+    @seeker = @allocation.seeker
+    if @seeker.present?
+      rc = RocketChat::Users.new
+      @unread_messages = rc.unread_from_seeker(current_user.rc_id, @seeker.rc_username)
+    end
+
     @messages = MessagingHelper::get_messages(current_broker.rc_id, @allocation.seeker.rc_username)
     @org = @allocation.job.organization
 
