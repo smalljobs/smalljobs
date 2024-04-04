@@ -30,11 +30,11 @@
 #= require comment.js
 #= require organization
 #= require rich.js
-# require rocketchat
+#= require rocketchat
 #= require chat/broadcast.js
 
 ready = ->
-  
+
   history_array = JSON.parse(sessionStorage.getItem('history') || '[]')
 
   history_array.push(window.location.href)

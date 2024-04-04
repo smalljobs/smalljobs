@@ -54,7 +54,7 @@ $ ->
       $('.js-rocketchat-icon span').addClass('hidden')
   , '.js-rocketchat-icon'
 
-  getUnread()
+#  getUnread()
 
 
 
@@ -173,20 +173,20 @@ getRoomId = ()->
 
 
 
-getUnread = ()->
-  $.ajax
-    url: $('.js-rocketchat-icon').data('unread')
-    method: 'GET'
-    success: (respond)->
-      if respond.unread > 0
-        $('.js-rocketchat-icon span').removeClass('hidden')
-    error: (respond)->
-      _error = respond.responseJSON['error']
-      toastr.error(_error, 'Error')
-
-
-$ ->
-  setInterval ()->
-    if $('.js-rocketchat-icon span').hasClass('hidden') and $("#js-rocket-chat-modal").css("display") != "block"
-      getUnread()
-  , 5000
+#getUnread = ()->
+#  $.ajax
+#    url: $('.js-rocketchat-icon').data('unread')
+#    method: 'GET'
+#    success: (respond)->
+#      if respond.unread > 0
+#        $('.js-rocketchat-icon span').removeClass('hidden')
+#    error: (respond)->
+#      _error = respond.responseJSON['error']
+#      toastr.error(_error, 'Error')
+#
+#
+#$ ->
+#  setInterval ()->
+#    if $('.js-rocketchat-icon span').hasClass('hidden') and $("#js-rocket-chat-modal").css("display") != "block"
+#      getUnread()
+#  , 5000
