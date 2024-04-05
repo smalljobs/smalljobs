@@ -71,7 +71,7 @@
             =t('broker_dashboard.verschoben')
         %li.margin_left_20
           %a{ id: 'js-tab-unread-messages' }
-            =t('broker_dashboard.ungelesene_nachrichten') 
+            =t('broker_dashboard.ungelesene_nachrichten')
             %span
               = "(#{current_broker.unread_messages_sum})"
         %span.js-postpone-msg.margin_left_20{style: 'display: none'}
@@ -276,12 +276,12 @@
       %div.row.margin-top-25
         %div.col-sm-8.float-left
           = link_to t('seekers.index.add_new'), new_broker_seeker_path, class: 'btn btn-success'
-          = link_to t('seekers.index.message_to_all'), "#", class: 'btn btn-success margin_left_20 js-message-to-all-rocketchat'        
-          = link_to t('seekers.index.show_all_broadcast'), last_message_broker_broadcast_messages_path, class: 'btn btn-success margin_left_20 js-message-show-all-broadcast'        
+          = link_to t('seekers.index.message_to_all'), "#", class: 'btn btn-success margin_left_20 js-message-to-all-rocketchat'
+          = link_to t('seekers.index.show_all_broadcast'), last_message_broker_broadcast_messages_path, class: 'btn btn-success margin_left_20 js-message-show-all-broadcast'
         -# %div.col-sm-2.float-left
         -#   = link_to t('seekers.index.message_to_all'), broadcast_room_broker_rocketchats_path, class: 'btn btn-success js-message-to-all-rc'
-        
-          
+
+
         %div.col-sm-3.float-right
           %input.form-control.search{type: 'text', class: 'search-field js-search-field-seeker', placeholder: 'Suche'}
           %i.fa.fa-2x.fa-times-circle.delete-icon.display-none.js-seeker-delete-icon
@@ -320,8 +320,9 @@
                     .hidden
                       .js-rc-seeker-username{data: {username: seeker.rc_username.to_s, id: seeker.rc_id, error: I18n.t("broker.seeker.edit.error")}}
                       - if seeker.rc_username.present?
-                        = link_to '#', room_broker_rocketchats_path(seeker.rc_username), class: 'js-rocket-chat-room', data: {username: seeker.rc_username.to_s, id: seeker.rc_id}
-                    = inbox_icon(@unread_messages[seeker.id]) 
+                        -# = link_to '#', room_broker_rocketchats_path(seeker.rc_username), class: 'js-rocket-chat-room', data: {username: seeker.rc_username.to_s, id: seeker.rc_id}
+                        = link_to '#', edit_broker_seeker_path(seeker, chat: 'open'), class: 'js-rocket-chat-room'
+                    = inbox_icon(@unread_messages[seeker.id])
                 %td.name= link_to seeker.name, edit_broker_seeker_path(seeker)
                 %td.street= seeker.street
                 %td.place= seeker.place.zip + ' ' + seeker.place.name
