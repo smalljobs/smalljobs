@@ -321,7 +321,7 @@
                       .js-rc-seeker-username{data: {username: seeker.rc_username.to_s, id: seeker.rc_id, error: I18n.t("broker.seeker.edit.error")}}
                       - if seeker.rc_username.present?
                         -# = link_to '#', room_broker_rocketchats_path(seeker.rc_username), class: 'js-rocket-chat-room', data: {username: seeker.rc_username.to_s, id: seeker.rc_id}
-                        = link_to '#', edit_broker_seeker_path(seeker, chat: 'open'), class: 'js-rocket-chat-room'
+                        -# = link_to '#', edit_broker_seeker_path(seeker, chat: 'open'), class: 'js-rocket-chat-room'
                     = inbox_icon(@unread_messages[seeker.id])
                 %td.name= link_to seeker.name, edit_broker_seeker_path(seeker)
                 %td.street= seeker.street
