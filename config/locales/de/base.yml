@@ -220,7 +220,8 @@ de:
         error: "Chat ist deaktiviert für diese Person. Bitte per Telefon Kontakt aufnehmen."
     dashboard:
       rocket_chat_broadcast_modal:
-        recipients_count: "Empfänger (%{length}) anzeigen"    
+        add_more_recipient: "weitere Empfänger hinzufügen"
+        recipients_count: "Empfänger (<span id='js-rocket-chat-recipients-count'>%{length}</span>) anzeigen"
         create_new_broadcast: "Erstelle einen neuen Broadcast"
         last_message_and_recipient: "Letzte Nachricht und Empfängerliste"
         your_message: "Deine Nachricht:"
@@ -567,7 +568,7 @@ de:
     assignments: 'Einsätze'
     aktuelle: 'Aktuelle'
     verschoben: 'Verschoben'
-    ungelesene_nachrichten: 'ungelesene Nachrichten' 
+    ungelesene_nachrichten: 'ungelesene Nachrichten'
     todo_table:
       date: 'Datum'
       todo: 'Todo'
@@ -617,7 +618,7 @@ de:
       start_date: 'Startdatum'
       end_date: 'Enddatum'
   broadcast_messages:
-    no_message_found: "No message found"    
+    no_message_found: "No message found"
   errors:
     messages:
       carrierwave_processing_error: "Kann das Bild leider nicht bearbeiten."

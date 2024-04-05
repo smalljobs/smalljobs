@@ -5,23 +5,26 @@
         %button.close{"data-dismiss": "modal", type: "button"} &times;
         = I18n.t('broker.dashboard.rocket_chat_broadcast_modal.create_new_broadcast')
       %div
-        #js-rocket-chat-brodcast-container.sj-rocket-chat-brodcast-container 
-          = form_tag message_broker_rocketchats_path do 
-            .form-group 
+        #js-rocket-chat-brodcast-container.sj-rocket-chat-brodcast-container
+          = form_tag message_broker_rocketchats_path do
+            .form-group
               = link_to "#", class: 'js-rocket-chat-broadcast-list-link rocket-chat-broadcast-list' do
-                
-                = I18n.t('broker.dashboard.rocket_chat_broadcast_modal.recipients_count', length: @seekers.length)
-                %i.fas.fa-caret-down.js-rocket-chat-change-caret 
+
+                = raw I18n.t('broker.dashboard.rocket_chat_broadcast_modal.recipients_count', length: @seekers.length)
+                %i.fas.fa-caret-down.js-rocket-chat-change-caret
             .form-group.display-none.js-rocket-chat-broadcast-list
-              - @seekers.each do |seeker|
-                = label_tag do 
-                  = check_box_tag 'broadcast[seeker_ids][]', seeker.id, true, id: "seeker_#{seeker.id}", class: 'sj-checkbox-tag', data: {rc_name: seeker.rc_username, seeker_id: seeker.id}
-                  = seeker.name
-            .form-group    
+              .js-rocket-chat-broadcast-list-checked
+              = link_to  I18n.t('broker.dashboard.rocket_chat_broadcast_modal.add_more_recipient') ,"#", class: 'js-rocket-chat-broadcast-add-more-recipient'
+              .js-rocket-chat-broadcast-list-unchecked.hidden
+                - @seekers.each do |seeker|
+                  = label_tag do
+                    = check_box_tag 'broadcast[seeker_ids][]', seeker.id, true, id: "seeker_#{seeker.id}", class: 'sj-checkbox-tag js-broadcast-checkbox-tag', data: {rc_name: seeker.rc_username, seeker_id: seeker.id}
+                    = seeker.name
+            .form-group
               = label_tag "brodcast[message]", I18n.t('broker.dashboard.rocket_chat_broadcast_modal.your_message')
               = text_area(:broadcast, :message, class: "form-control", row: 8, style: "min-height: 150px;")
-            .form-group.overflow-hidden 
-              = button_tag type: "submit", class: 'btn btn-success float-right js-send-broadcast-rocketchat sj-send-broadcast-rocketchat' do 
+            .form-group.overflow-hidden
+              = button_tag type: "submit", class: 'btn btn-success float-right js-send-broadcast-rocketchat sj-send-broadcast-rocketchat' do
                 %i.fad.fa-spinner-third.fa-spin
                 = I18n.t('broker.dashboard.rocket_chat_broadcast_modal.send')
       -#%div.modal-footer
@@ -34,10 +37,10 @@
         %button.close{"data-dismiss": "modal", type: "button"} &times;
         = I18n.t('broker.dashboard.rocket_chat_broadcast_modal.last_message_and_recipient')
       %div
-        #js-rocket-chat-all-brodcast-seekers-container.sj-rocket-chat-brodcast-container 
-          .js-rocket-chat-message 
+        #js-rocket-chat-all-brodcast-seekers-container.sj-rocket-chat-brodcast-container
+          .js-rocket-chat-message
           %br
           %br
           .js-rocket-chat-seekers-list
-          
-      -#%div.modal-footer      
+
+      -#%div.modal-footer
