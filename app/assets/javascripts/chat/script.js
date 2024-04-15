@@ -71,7 +71,7 @@ $(function() {
 
     $('.js-list-seeker-rocket-chat-inbox').click(function(event){
         event.preventDefault();
-        let rcUrl = $('.js-rocket-chat-room', $(this)).attr('href')
+        let rcUrl = $('.js-rocket-chat-seeker-edit', $(this)).attr('href')
         window.location = rcUrl;
         // generateIframe(respond.user_id, respond.auth_token, respond.url);
         // var oldChat = document.getElementById('js-chat-element');
