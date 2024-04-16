@@ -13,6 +13,16 @@ module RocketChat
     end
 
     def create_token(user_id)
+      user = Broker.find_by_rc_id(user_id)
+      user = Seeker.find_by_rc_id(user_id) if user.blank?
+
+      if user.present? and user.rc_token.present? and me(user_id)
+        return  {
+          user_id: user_id,
+          auth_token: user.rc_token,
+        }
+      end
+
       path = '/api/v1/users.createToken'
       uri = URI.parse("#{ENV['ROCKET_CHAT_URL']}#{path}")
       request = Net::HTTP::Post.new(uri)
@@ -38,6 +48,7 @@ module RocketChat
         false
       elsif response_json['success'] and response_json['data'].present?
         @error = nil
+        user.update(rc_token: response_json['data']['authToken']) if user.present?
         {
             user_id: response_json['data']['userId'],
             auth_token: response_json['data']['authToken'],
@@ -98,6 +109,7 @@ module RocketChat
         false
       end
     end
+
 
     def info(user_id, arg="userId")
       path = '/api/v1/users.info'
@@ -422,6 +434,38 @@ module RocketChat
       end
       return nil
     end
+
+
+    def me(user_id)
+      @broker = Broker.find_by_rc_id(user_id)
+      return false if @broker.nil? or @broker.rc_token.nil?
+
+      path = '/api/v1/me'
+      uri = URI.parse("#{ENV['ROCKET_CHAT_URL']}#{path}")
+      request = Net::HTTP::Get.new(uri)
+      request.content_type = "application/json"
+      request["X-Auth-Token"] = @broker.rc_token
+      request["X-User-Id"] = @broker.rc_id
+
+      req_options = {
+        use_ssl: uri.scheme == "https",
+      }
+
+      response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+        http.request(request)
+      end
+
+      #response.code
+      response_json = JSON.parse(response.body)
+
+      if response_json['success'].present? and response_json['success'].to_s == "true"
+        true
+      else
+        @error = 'Something went wrong'
+        false
+      end
+    end
+
 
   end
 end

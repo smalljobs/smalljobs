@@ -8,7 +8,7 @@ module RocketChat
     # username: ....
     # }
     def initialize(user_id)
-      @broker = Broker.where(rc_id: user_id).limit(1).first
+      @broker = Broker.find_by_rc_id(user_id)
       rc = RocketChat::Users.new
       auth_info = rc.create_token(user_id)
       if auth_info

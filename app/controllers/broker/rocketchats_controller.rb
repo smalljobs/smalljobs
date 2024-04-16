@@ -16,8 +16,6 @@ class Broker::RocketchatsController < InheritedResources::Base
 
   def room
     se = RocketChat::Session.new(current_broker.rc_id)
-    cookies['rc_token'] = se[:auth_token]
-
     im = RocketChat::Im.new
     answer = im.create(se, [params[:rc_username]])
     respond_to do |format|
@@ -31,8 +29,6 @@ class Broker::RocketchatsController < InheritedResources::Base
 
   def broadcast_room
     se = RocketChat::Session.new(current_broker.rc_id)
-    cookies['rc_token'] = se[:auth_token]
-
     room = RocketChat::Room.new
     answer = room.create(se, params[:rc_usernames], current_region.try(:name))
     respond_to do |format|
@@ -47,8 +43,6 @@ class Broker::RocketchatsController < InheritedResources::Base
   def message
     broadcast_message = current_broker.broadcast_messages.where("created_at > ?", DateTime.now-1.hour).find_or_create_by(message: params[:message])
     se = RocketChat::Session.new(current_broker.rc_id)
-    cookies['rc_token'] = se[:auth_token]
-
     message = RocketChat::Chat.new
     answer = message.create(se, [params[:rc_username]], params[:message])
     if answer
@@ -66,8 +60,6 @@ class Broker::RocketchatsController < InheritedResources::Base
 
   def unread
     se = RocketChat::Session.new(current_broker.rc_id)
-    cookies['rc_token'] = se[:auth_token]
-
     subscription = RocketChat::Subscriptions.new
     answer = subscription.get_unread(se)
     respond_to do |format|

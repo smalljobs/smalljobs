@@ -108,7 +108,6 @@ module MessagingHelper
 
     def initialize_session
       se = RocketChat::Session.new(user_id)
-      cookies['rc_token'] = se[:auth_token]
       im = RocketChat::Im.new
       [se, im]
     end
