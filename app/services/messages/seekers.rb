@@ -25,7 +25,6 @@ module Messages
         if broker.present?
           if seeker.rc_id.present?
             se = RocketChat::Session.new(broker.rc_id)
-            cookies['rc_token'] = se[:auth_token]
             chat = RocketChat::Chat.new
             chat.create(se, [seeker.rc_username], message)
           end
@@ -60,7 +59,6 @@ module Messages
         if broker.present?
           if seeker.rc_id.present?
             se = RocketChat::Session.new(broker.rc_id)
-            cookies['rc_token'] = se[:auth_token]
             chat = RocketChat::Chat.new
             chat.create(se, [seeker.rc_username], message)
           end
