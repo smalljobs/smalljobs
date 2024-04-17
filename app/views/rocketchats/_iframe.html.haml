@@ -1,4 +1,4 @@
-- if current_broker.try(:rc_id).present? and @seeker.present?
+- if current_broker.try(:rc_id).present? and @seeker.present? and (@seeker.rc_id.present? and @seeker.rc_username.present?)
   -# link_to content_tag(:span, "Neue Nachrichten", class: 'blink hidden'), broker_rocketchats_path, class: "sj-rocketchat-icon js-rocketchat-icon display-none", data: {unread: unread_broker_rocketchats_path}
   =link_to "#", class: "js-rocket-chat-start sj-rocketchat-icon-click" do
     %i.sj-rocketchat-icon
