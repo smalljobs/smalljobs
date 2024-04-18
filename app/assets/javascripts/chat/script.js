@@ -33,6 +33,7 @@ $(function() {
                     $('#js-chat-seeker-container').slideDown()
                     $('.js-number-unread-messages').text('')
                     $('.js-number-unread-messages').hide()
+                    $('.js-rocket-chat-start').addClass('sj-hide-animation')
                 }
 
             },
