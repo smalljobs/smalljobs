@@ -114,6 +114,11 @@ class ApplicationController < ActionController::Base
   end
 
   def set_current_user
+    # if token was changed in backend we have to change token in cookies
+    if current_user.present? and current_user.try(:rc_id).present? and current_user.rc_username.present? and current_user.rc_token.present? and current_user.rc_token != cookies['rc_token']
+      cookies['rc_token'] = current_user.rc_token
+    end
+
     Current.user = current_user
     yield
   ensure
