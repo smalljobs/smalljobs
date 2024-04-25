@@ -20,7 +20,7 @@ class Broker::RocketchatsController < InheritedResources::Base
     answer = im.create(se, [params[:rc_username]])
     respond_to do |format|
       if answer
-        format.json { render json: {id: answer['_id']}, status: :ok }
+        format.json { render json: {id: answer['_id'], user_token: current_broker.rc_token}, status: :ok }
       else
         format.json { render json: { error: im.error }, status: :unprocessable_entity }
       end
