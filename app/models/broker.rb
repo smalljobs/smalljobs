@@ -259,6 +259,7 @@ class Broker < ActiveRecord::Base
       self.update(unread_messages_timestamp: timestampt)
     end
 
+    seeker_messages = [] if seeker_messages == false
 
     seeker_messages.each do |k,v|
       v = v.to_i

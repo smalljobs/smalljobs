@@ -12,10 +12,10 @@
         -#   = I18n.t('broker.seeker.edit.chat')
         -#   %span.js-number-unread-messages
         -#     = number_unread_messages(@unread_messages)
-        -# #js-chat-seeker-container.sj-chat-seeker-container.margin_top_20 
-        -#   #js-chat-seeker  
-      .col-sm-12.bg-allocations.margin_top_20    
-        .bg-allocations  
+        -# #js-chat-seeker-container.sj-chat-seeker-container.margin_top_20
+        -#   #js-chat-seeker
+      .col-sm-12.bg-allocations.margin_top_20
+        .bg-allocations
           - if @seeker.allocations.where.not(job: nil).exists?
             %div.provider_allocations
               = render 'allocations'
@@ -23,4 +23,5 @@
           = render 'assignments'
 
 = render partial: '/rocketchats/rc_seeker', locals: {seeker: @seeker}
+.hidden.js-current-broker-rc-id{data: {rcid: current_broker.rc_id}}
 
