@@ -323,6 +323,7 @@
                       - if seeker.rc_username.present?
                         -# = link_to '#', room_broker_rocketchats_path(seeker.rc_username), class: 'js-rocket-chat-room', data: {username: seeker.rc_username.to_s, id: seeker.rc_id}
                         -# = link_to '#', edit_broker_seeker_path(seeker, chat: 'open'), class: 'js-rocket-chat-room'
+                        = link_to '#', room_broker_rocketchats_path(seeker.rc_username), class: 'js-rocket-chat-room-in-loop'
                     = inbox_icon(@unread_messages[seeker.id])
                 %td.name= link_to seeker.name, edit_broker_seeker_path(seeker)
                 %td.street= seeker.street
@@ -398,6 +399,7 @@
                 %td.feedback
                   = assignment.feedback
 = render partial: 'rocketchat_broadcast_modal'
+.hidden.js-current-broker-rc-id{data: {rcid: current_broker.rc_id}}
 :javascript
   var target = window.location.hash;
   var params = window.location.search.substr(1);
