@@ -124,7 +124,7 @@
                         = 'Job: ' + todo.job.title
                   %td
                     %span.sj-postpone.js-postpone{data: {url: broker_todo_path(todo.id), todo_type: 'current'}}
-                      %i.fa.fa-2x.fa-clock-o.pull-right.safari-fix
+                      %i.fa.fa-2x.fa-clock.pull-right.safari-fix
       %div{id: 'todo_postponed', class: 'tab-pane js-todo-postponed'}
         .table-responsive
           %table.table.table-striped.sortable
@@ -168,7 +168,7 @@
                         = 'Job: ' + todo.job.title
                   %td
                     %span.sj-postpone.js-postpone{data: {url: broker_todo_path(todo.id), 'todo-type' => 'postponed'}}
-                      %i.fa.fa-2x.fa-clock-o.pull-right.safari-fix
+                      %i.fa.fa-2x.fa-clock.pull-right.safari-fix
                   %td
                     = todo.postponed.strftime("%d.%m.%Y")
 
