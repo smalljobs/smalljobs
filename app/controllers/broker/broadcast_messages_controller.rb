@@ -4,7 +4,10 @@ class Broker::BroadcastMessagesController < InheritedResources::Base
 
 
   def last_message
-    @broadcast_messages = current_broker.broadcast_messages.order(created_at: :desc).limit(10)
+    @broadcast_messages = current_broker.broadcast_messages.includes(:broadcast_message_seekers, :seekers)
+                                        .joins(:broadcast_message_seekers)
+                                        .where.not(broadcast_message_seekers: { seeker_id: nil })
+                                        .order(created_at: :desc).distinct.limit(10)
 
     json_array = []
 
