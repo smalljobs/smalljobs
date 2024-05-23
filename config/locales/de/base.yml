@@ -146,6 +146,8 @@ de:
     applications: "Bewerbungen"
     allocations: "Zuweisungen"
     reviews: "Bewertungen"
+  rocketchat:
+    error: 'Fehlerhafter Benutzer:in (Der Chat ist für diese Nutzer:in nicht verfügbar)'
   broker:
     normal_html: <div class='control__indicator'></div>Vermittlung
     organization_admin_html: <div class='control__indicator'></div>Organisationsadministration
