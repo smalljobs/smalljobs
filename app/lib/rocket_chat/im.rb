@@ -81,7 +81,8 @@ module RocketChat
         @error = nil
         response_json['messages']
       elsif  response_json['success'] == false
-        @error = response_json['error']
+        @error = t('rocketchat.error')
+        # @error = response_json['error']
         false
       else
         @error = 'Something went wrong'
