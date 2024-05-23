@@ -216,7 +216,24 @@ class Broker::AllocationsController < InheritedResources::Base
   def reject_other_allocations(job)
     job.allocations.application_open.find_each do |allocation|
       allocation.state = :application_rejected
+      send_reject_message(allocation)
       allocation.save!
+    end
+  end
+
+  def send_reject_message(allocation)
+    seeker = allocation.seeker
+    title = params[:title]
+    message = params[:message]
+    default_rc_user = seeker.organization.broker
+
+    response = {}
+    begin
+      response = MessagingHelper::send_message(default_rc_user.rc_id, seeker.rc_username, "#{title}. #{message}")
+    rescue StandardError => e
+      Raven.extra_context(seeker_id: seeker.id, allocation_id: allocation.id) do
+        Raven.capture_exception(e)
+      end
     end
   end
 
