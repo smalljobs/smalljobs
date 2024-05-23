@@ -43,7 +43,7 @@ module RocketChat
       #response.code
       response_json = JSON.parse(response.body)
       if response_json['status'].present? and response_json['status'] == "error"
-        @error = t('rocketchat.error')
+        @error = I18n.t('rocketchat.error')
         Rails.logger.error '-----------------'
         Rails.logger.error response_json['error'].inspect
         Rails.logger.error '-----------------'
@@ -52,7 +52,7 @@ module RocketChat
         @error = nil
         response_json['room']
       elsif  response_json['success'] == false
-        @error = t('rocketchat.error')
+        @error = I18n.t('rocketchat.error')
         Rails.logger.error '-----------------'
         Rails.logger.error response_json['error'].inspect
         Rails.logger.error '-----------------'
