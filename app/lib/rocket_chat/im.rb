@@ -82,6 +82,9 @@ module RocketChat
         response_json['messages']
       elsif  response_json['success'] == false
         @error = t('rocketchat.error')
+        Rails.logger.error '-----------------'
+        Rails.logger.error response_json['error'].inspect
+        Rails.logger.error '-----------------'
         # @error = response_json['error']
         false
       else
