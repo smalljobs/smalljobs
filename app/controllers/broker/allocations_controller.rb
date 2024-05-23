@@ -91,15 +91,15 @@ class Broker::AllocationsController < InheritedResources::Base
     if @allocation.application_open?
       @allocation.state = :active
       @allocation.save!
-      reject_other_allocations(@job) if reject_other
+      reject_other_allocations(@job, current_region, current_broker) if reject_other
     elsif @allocation.application_rejected?
       @allocation.state = :active
       @allocation.save!
-      reject_other_allocations(@job) if reject_other
+      reject_other_allocations(@job, current_region, current_broker) if reject_other
     elsif @allocation.proposal?
       @allocation.state = :active
       @allocation.save!
-      reject_other_allocations(@job) if reject_other
+      reject_other_allocations(@job, current_region, current_broker) if reject_other
     elsif @allocation.active?
       @allocation.state = :finished
       @allocation.save!
@@ -213,10 +213,45 @@ class Broker::AllocationsController < InheritedResources::Base
   #
   # @param job [Job]
   #
-  def reject_other_allocations(job)
+  def reject_other_allocations(job, region, broker)
     job.allocations.application_open.find_each do |allocation|
       allocation.state = :application_rejected
+      send_reject_message(allocation, job, region, broker)
       allocation.save!
+    end
+  end
+
+  def send_reject_message(allocation, job, region, broker)
+    seeker = allocation.seeker
+    job_provider_phone = job.provider.mobile.empty? ? job.provider.phone : job.provider.mobile
+    message = Mustache.render(region.organizations.first.not_receive_job_msg || '',
+      seeker_first_name: seeker.firstname || '',
+      seeker_last_name: seeker.lastname || '',
+      seeker_link_to_agreement: url_for(agreement_broker_seeker_url(seeker.agreement_id)) || '',
+      provider_first_name: job.provider.firstname || '',
+      provider_last_name: job.provider.lastname || '',
+      provider_phone: job_provider_phone || '',
+      broker_first_name: broker.firstname || '',
+      broker_last_name: broker.lastname || '',
+      organization_name: job.organization.name || '',
+      organization_zip: job.organization.place.zip || '',
+      organization_street: job.organization.street || '',
+      organization_place: job.organization.place.name || '',
+      organization_phone: job.organization.phone || '',
+      organization_email: job.organization.email || '',
+      link_to_jobboard_list: url_for(root_url()) || '',
+      job_name: job.title || '',
+      job_title: job.title)
+
+    default_rc_user = seeker.organization.broker
+
+    response = {}
+    begin
+      response = MessagingHelper::send_message(default_rc_user.rc_id, seeker.rc_username, "#{message}")
+    rescue StandardError => e
+      Raven.extra_context(seeker_id: seeker.id, allocation_id: allocation.id) do
+        Raven.capture_exception(e)
+      end
     end
   end
 
