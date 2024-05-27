@@ -14,31 +14,30 @@ ActiveRecord::Schema.define(version: 20240527052615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "uuid-ossp"
 
   create_table "access_tokens", force: :cascade do |t|
-    t.string   "access_token"
-    t.string   "token_type"
-    t.string   "refresh_token"
+    t.string   "access_token",  limit: 255
+    t.string   "token_type",    limit: 255
+    t.string   "refresh_token", limit: 255
     t.integer  "userable_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "expire_at"
-    t.string   "userable_type", default: "Seeker"
+    t.string   "userable_type",             default: "Seeker"
     t.string   "device_id"
   end
 
   create_table "admins", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",                      default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["email"], name: "index_admins_on_email", unique: true, using: :btree
@@ -104,7 +103,7 @@ ActiveRecord::Schema.define(version: 20240527052615) do
   end
 
   create_table "certificates", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["title"], name: "index_certificates_on_title", using: :btree
@@ -144,20 +143,20 @@ ActiveRecord::Schema.define(version: 20240527052615) do
   end
 
   create_table "jobs", force: :cascade do |t|
-    t.integer  "provider_id",                                                             null: false
-    t.integer  "work_category_id",                                                        null: false
-    t.string   "title",                                                                   null: false
-    t.string   "date_type",                                                               null: false
+    t.integer  "provider_id",                                                                         null: false
+    t.integer  "work_category_id",                                                                    null: false
+    t.string   "title",                limit: 255,                                                    null: false
+    t.string   "date_type",            limit: 255,                                                    null: false
     t.date     "start_date"
     t.date     "end_date"
-    t.decimal  "salary",               precision: 8, scale: 2
-    t.string   "salary_type",                                  default: "hourly_per_age", null: false
-    t.integer  "manpower",                                     default: 1,                null: false
-    t.integer  "duration",                                     default: 1,                null: false
+    t.decimal  "salary",                           precision: 8, scale: 2
+    t.string   "salary_type",          limit: 255,                         default: "hourly_per_age", null: false
+    t.integer  "manpower",                                                 default: 1,                null: false
+    t.integer  "duration",                                                 default: 1,                null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "state",                                        default: "created"
-    t.boolean  "rating_reminder_sent",                         default: false
+    t.string   "state",                limit: 255,                         default: "created"
+    t.boolean  "rating_reminder_sent",                                     default: false
     t.text     "long_description"
     t.text     "short_description"
     t.datetime "last_change_of_state"
@@ -190,19 +189,19 @@ ActiveRecord::Schema.define(version: 20240527052615) do
   end
 
   create_table "organizations", force: :cascade do |t|
-    t.string   "logo"
-    t.string   "background"
-    t.string   "name",                                                                  null: false
-    t.string   "website"
+    t.string   "logo",                          limit: 255
+    t.string   "background",                    limit: 255
+    t.string   "name",                          limit: 255,                                         null: false
+    t.string   "website",                       limit: 255
     t.text     "description"
-    t.string   "street",                                                                null: false
-    t.string   "email",                                                                 null: false
-    t.string   "phone"
-    t.boolean  "active",                                                default: true
+    t.string   "street",                        limit: 255,                                         null: false
+    t.string   "email",                         limit: 255,                                         null: false
+    t.string   "phone",                         limit: 255
+    t.boolean  "active",                                                            default: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "place_id"
-    t.decimal  "default_hourly_per_age",        precision: 8, scale: 2, default: "1.0"
+    t.decimal  "default_hourly_per_age",                    precision: 8, scale: 2, default: "1.0"
     t.float    "wage_factor"
     t.text     "opening_hours"
     t.text     "welcome_letter_employers_msg"
@@ -214,12 +213,12 @@ ActiveRecord::Schema.define(version: 20240527052615) do
     t.text     "welcome_email_for_parents_msg"
     t.date     "start_vacation_date"
     t.date     "end_vacation_date"
-    t.boolean  "vacation_active",                                       default: false
+    t.boolean  "vacation_active",                                                   default: false
     t.string   "vacation_title"
     t.text     "vacation_text"
-    t.float    "salary_deduction",                                      default: 0.0
-    t.boolean  "hide_salary",                                           default: false
-    t.boolean  "signature_on_contract",                                 default: true
+    t.float    "salary_deduction",                                                  default: 0.0
+    t.boolean  "hide_salary",                                                       default: false
+    t.boolean  "signature_on_contract",                                             default: true
     t.integer  "default_broker_id"
     t.text     "first_reminder_message"
     t.text     "second_reminder_message"
@@ -228,54 +227,54 @@ ActiveRecord::Schema.define(version: 20240527052615) do
 
   create_table "places", force: :cascade do |t|
     t.integer  "region_id"
-    t.string   "zip",                                null: false
-    t.string   "name",                               null: false
-    t.string   "state"
-    t.string   "province"
-    t.decimal  "longitude",  precision: 9, scale: 6, null: false
-    t.decimal  "latitude",   precision: 9, scale: 6, null: false
+    t.string   "zip",        limit: 255,                         null: false
+    t.string   "name",       limit: 255,                         null: false
+    t.string   "state",      limit: 255
+    t.string   "province",   limit: 255
+    t.decimal  "longitude",              precision: 9, scale: 6, null: false
+    t.decimal  "latitude",               precision: 9, scale: 6, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "full_name"
+    t.string   "full_name",  limit: 255
     t.integer  "country_id"
     t.index ["name"], name: "index_places_on_name", using: :btree
     t.index ["zip"], name: "index_places_on_zip", using: :btree
   end
 
   create_table "providers", force: :cascade do |t|
-    t.string   "email"
-    t.string   "firstname",                                null: false
-    t.string   "lastname",                                 null: false
-    t.string   "street",                                   null: false
-    t.string   "phone"
-    t.string   "mobile"
-    t.string   "contact_preference",     default: "email"
+    t.string   "email",                  limit: 255
+    t.string   "firstname",              limit: 255,                   null: false
+    t.string   "lastname",               limit: 255,                   null: false
+    t.string   "street",                 limit: 255,                   null: false
+    t.string   "phone",                  limit: 255
+    t.string   "mobile",                 limit: 255
+    t.string   "contact_preference",     limit: 255, default: "email"
     t.text     "contact_availability"
-    t.boolean  "active",                 default: true
-    t.string   "provider"
-    t.string   "uid"
-    t.string   "name"
-    t.string   "encrypted_password",     default: "",      null: false
-    t.string   "reset_password_token"
+    t.boolean  "active",                             default: true
+    t.string   "provider",               limit: 255
+    t.string   "uid",                    limit: 255
+    t.string   "name",                   limit: 255
+    t.string   "encrypted_password",     limit: 255, default: "",      null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,       null: false
+    t.integer  "sign_in_count",                      default: 0,       null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "confirmation_token"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
+    t.string   "confirmation_token",     limit: 255
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
+    t.string   "unconfirmed_email",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "place_id"
     t.integer  "organization_id"
-    t.boolean  "contract",               default: true
+    t.boolean  "contract",                           default: true
     t.text     "notes"
-    t.string   "company"
-    t.integer  "state",                  default: 1
+    t.string   "company",                limit: 255
+    t.integer  "state",                              default: 1
     t.index ["confirmation_token"], name: "index_providers_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_providers_on_email", using: :btree
     t.index ["organization_id"], name: "index_providers_on_organization_id", using: :btree
@@ -284,9 +283,9 @@ ActiveRecord::Schema.define(version: 20240527052615) do
 
   create_table "rails_admin_histories", force: :cascade do |t|
     t.text     "message"
-    t.string   "username"
+    t.string   "username",   limit: 255
     t.integer  "item"
-    t.string   "table"
+    t.string   "table",      limit: 255
     t.integer  "month",      limit: 2
     t.bigint   "year"
     t.datetime "created_at"
@@ -295,10 +294,10 @@ ActiveRecord::Schema.define(version: 20240527052615) do
   end
 
   create_table "regions", force: :cascade do |t|
-    t.string   "name",                    null: false
+    t.string   "name",                    limit: 255, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "subdomain",               null: false
+    t.string   "subdomain",               limit: 255, null: false
     t.string   "logo"
     t.string   "header_image"
     t.text     "content"
@@ -368,8 +367,8 @@ ActiveRecord::Schema.define(version: 20240527052615) do
     t.integer  "broker_id"
     t.integer  "seeker_id"
     t.integer  "quantity"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.datetime "last_message_timestamp"
   end
 
@@ -381,7 +380,7 @@ ActiveRecord::Schema.define(version: 20240527052615) do
   end
 
   create_table "work_categories", force: :cascade do |t|
-    t.string   "name",       null: false
+    t.string   "name",       limit: 255, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "icon_name"
