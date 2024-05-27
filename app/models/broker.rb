@@ -238,10 +238,17 @@ class Broker < ActiveRecord::Base
   end
 
   def unread_messages_hash
-    array = self.unread_messages.where("quantity > 0").map do |unread_message|
-        [unread_message.seeker_id , unread_message.quantity]
-    end.flatten
-    return Hash[*array]
+    array = self.unread_messages.map do |unread_message|
+      {
+        unread_message.seeker_id => {
+          quantity: unread_message.quantity,
+          timestamp: unread_message.last_message_timestamp
+        }
+      }
+    end
+    return array.reduce({}) do |acc, hash|
+      acc.merge(hash)
+    end
   end
 
   def unread_messages_sum
@@ -262,14 +269,15 @@ class Broker < ActiveRecord::Base
     seeker_messages = [] if seeker_messages == false
 
     seeker_messages.each do |k,v|
-      v = v.to_i
+      quantity = v[:quantity].to_i
+      last_message_timestamp = v[:last_message]
       seeker = Seeker.find_by_rc_username(k)
       if seeker.present?
         unread_message = UnreadMessage.where(broker_id: self.id, seeker_id: seeker.id)
         if unread_message.present?
-          unread_message.update(quantity: v)
+          unread_message.update(quantity: quantity, last_message_timestamp: last_message_timestamp.to_datetime)
         else
-          UnreadMessage.create(broker_id: self.id, seeker_id: seeker.id, quantity: v)
+          UnreadMessage.create(broker_id: self.id, seeker_id: seeker.id, quantity: quantity, last_message_timestamp: last_message_timestamp.to_datetime)
         end
       end
     end

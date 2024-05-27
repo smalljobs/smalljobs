@@ -250,7 +250,7 @@ module RocketChat
 
         if response_json["success"] == true
           response_json["update"].each do |record|
-            user_messages.merge!({record["name"] => record["unread"]})
+            user_messages.merge!({record["name"] => { quantity: record["unread"], last_message: record['ls'] }})
           end
         end
 

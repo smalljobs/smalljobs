@@ -72,4 +72,20 @@ class Broker::RocketchatsController < InheritedResources::Base
 
   end
 
+  def update_unread_messages
+    broker = Broker.find_by(rc_id: params[:broker_id])
+    seeker = Seeker.find_by(rc_username: params[:seeker_username])
+    respond_to do |format|
+      if broker.present? && seeker.present?
+        um = UnreadMessage.find_by(broker_id: broker.id, seeker_id: seeker.id)
+        if um.update(last_message_timestamp: Time.at(params[:timestamp].to_i / 1000).to_datetime)
+          format.json { render json: { msg: 'ok' }, status: :ok }
+        else
+          format.json { render json: { error: um.error }, status: :unprocessable_entity }
+        end
+      else
+        format.json { render json: { msg: 'User not found' }, status: :not_found }
+      end
+    end
+  end
 end

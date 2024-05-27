@@ -315,7 +315,7 @@
                   = seeker_label(seeker)
                 %td{sorttable_customkey: seeker.updated_at.strftime("%Y%m%d%H%M%S")}
                   = seeker.updated_at.strftime("%d.%m.%Y")
-                %td.chat{sorttable_customkey: @unread_messages[seeker.id].to_i }
+                %td.chat{sorttable_customkey: @unread_messages.dig(seeker.id, :timestamp).try(:strftime, "%Y%m%d%H%M%S") }
                   .favicon-box.js-list-seeker-rocket-chat-inbox
                     .hidden
                       .js-rc-seeker-username{data: {username: seeker.rc_username.to_s, id: seeker.rc_id, error: I18n.t("broker.seeker.edit.error")}}
@@ -324,7 +324,7 @@
                         -# = link_to '#', room_broker_rocketchats_path(seeker.rc_username), class: 'js-rocket-chat-room', data: {username: seeker.rc_username.to_s, id: seeker.rc_id}
                         -# = link_to '#', edit_broker_seeker_path(seeker, chat: 'open'), class: 'js-rocket-chat-room'
                         = link_to '#', room_broker_rocketchats_path(seeker.rc_username), class: 'js-rocket-chat-room-in-loop'
-                    = inbox_icon(@unread_messages[seeker.id])
+                    = inbox_icon(@unread_messages[seeker.id].try(:quantity))
                 %td.name= link_to seeker.name, edit_broker_seeker_path(seeker)
                 %td.street= seeker.street
                 %td.place= seeker.place.zip + ' ' + seeker.place.name
