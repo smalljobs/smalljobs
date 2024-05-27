@@ -98,6 +98,10 @@ $ ->
             rc_username:  $('.js-rc-seeker-username').data('username')
             message: $(".#{_modal_class} .textarea").text()
           success: (respond)->
+            if (_classes.contains('js-open-to-rejected-rc'))
+              sessionStorage.setItem('showChat', 'true')
+              location.reload()
+            
             $(".#{_modal_class}").modal('hide')
 #            $('#js-rocket-chat-modal').modal('show')
             $('#js-chat-seeker-container').slideDown()
