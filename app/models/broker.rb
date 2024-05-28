@@ -275,9 +275,9 @@ class Broker < ActiveRecord::Base
       if seeker.present?
         unread_message = UnreadMessage.where(broker_id: self.id, seeker_id: seeker.id)
         if unread_message.present?
-          unread_message.update(quantity: quantity, last_message_timestamp: last_message_timestamp.to_datetime)
+          unread_message.update(quantity: quantity, last_message_timestamp: last_message_timestamp.try(:to_datetime))
         else
-          UnreadMessage.create(broker_id: self.id, seeker_id: seeker.id, quantity: quantity, last_message_timestamp: last_message_timestamp.to_datetime)
+          UnreadMessage.create(broker_id: self.id, seeker_id: seeker.id, quantity: quantity, last_message_timestamp: last_message_timestamp.try(:to_datetime))
         end
       end
     end
