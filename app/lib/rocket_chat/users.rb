@@ -220,9 +220,9 @@ module RocketChat
     # end
 
     def unread_seekers(user_id, date=nil)
+      rooms = get_rooms(user_id)
       path = '/api/v1/subscriptions.get'
       # arg="userId"
-
       user_messages = {}
 
       user_hash = create_token(user_id)
@@ -246,11 +246,12 @@ module RocketChat
           http.request(request)
         end
         response_json = JSON.parse(response.body)
-        puts response_json
+        # puts response_json
 
         if response_json["success"] == true
           response_json["update"].each do |record|
-            user_messages.merge!({record["name"] => { quantity: record["unread"], last_message: record['ls'] }})
+            room = rooms.select { |key, _| key.try(:include?, record["name"]) }
+            user_messages.merge!({record["name"] => { quantity: record["unread"], last_message: room.try(:values).try(:first) }})
           end
         end
 
@@ -260,7 +261,38 @@ module RocketChat
       end
     end
 
+    def get_rooms(user_id)
+      path = '/api/v1/rooms.get'
 
+      user_rooms = {}
+
+      user_hash = create_token(user_id)
+      if user_hash
+        uri = URI.parse("#{ENV['ROCKET_CHAT_URL']}#{path}")
+        request = Net::HTTP::Get.new(uri)
+        request["X-Auth-Token"] = user_hash[:auth_token]
+        request["X-User-Id"] = user_hash[:user_id]
+        req_options = {
+          use_ssl: uri.scheme == "https",
+        }
+
+        response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+          http.request(request)
+        end
+        response_json = JSON.parse(response.body)
+        # puts response_json
+
+        if response_json["success"] == true
+          response_json["update"].each do |record|
+            user_rooms.merge!({record["usernames"] => record.dig('lastMessage', 'ts') })
+          end
+        end
+
+        return user_rooms
+      else
+        []
+      end
+    end
 
 
     def delete(user_id)
