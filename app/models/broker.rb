@@ -238,7 +238,7 @@ class Broker < ActiveRecord::Base
   end
 
   def unread_messages_hash
-    array = self.unread_messages.map do |unread_message|
+    array = self.unread_messages.where.not(last_message_timestamp: nil).map do |unread_message|
       {
         unread_message.seeker_id => {
           quantity: unread_message.quantity,
