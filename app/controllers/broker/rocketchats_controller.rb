@@ -78,7 +78,9 @@ class Broker::RocketchatsController < InheritedResources::Base
     respond_to do |format|
       if broker.present? && seeker.present?
         um = UnreadMessage.find_by(broker_id: broker.id, seeker_id: seeker.id)
-        if um.update(last_message_timestamp: Time.at(params[:timestamp].to_i / 1000).to_datetime)
+        datetime_param = Time.at(params[:timestamp].to_i / 1000).to_s
+        datetime_without_tz = DateTime.strptime(datetime_param, '%Y-%m-%d %H:%M:%S %z').new_offset(0) + 2.hours
+        if um.update(last_message_timestamp: datetime_without_tz)
           format.json { render json: { msg: 'ok' }, status: :ok }
         else
           format.json { render json: { error: um.error }, status: :unprocessable_entity }
