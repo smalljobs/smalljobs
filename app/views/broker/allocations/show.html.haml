@@ -164,6 +164,10 @@
   :javascript
     window.redirect_href = null;
     $(document).ready(function() {
+      if (sessionStorage.getItem('showChat') == 'true') {
+        $('#js-chat-seeker-container').slideDown()
+        sessionStorage.removeItem('showChat')
+      }
       var modalId;
 
       function checkForModal() {
