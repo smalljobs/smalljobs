@@ -72,6 +72,21 @@ $(function() {
                         $('.js-rocket-chat-inbox-icon', container_inbox).addClass('fas')
                     }
                 }
+                $.ajax({
+                  url: '/broker/rocketchats/update_unread_messages',
+                  method: 'POST',
+                  data: {
+                    broker_id: $('.js-current-broker-rc-id').data('rcid'),
+                    seeker_username: data.fields.args[0].u.username,
+                    timestamp: data.fields.args[0].ts.$date
+                  },
+                  error: function (respond) {
+                    var _error;
+                    _error = respond.responseJSON['error'];
+                    toastr.error(_error, 'Error');
+                    return null
+                  }
+                });
             }
         })
 
