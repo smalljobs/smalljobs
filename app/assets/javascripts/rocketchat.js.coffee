@@ -98,15 +98,15 @@ $ ->
             rc_username:  $('.js-rc-seeker-username').data('username')
             message: $(".#{_modal_class} .textarea").text()
           success: (respond)->
-            if (_classes.contains('js-open-to-rejected-rc'))
+            if (_classes.contains('js-open-to-rejected-rc') || _classes.contains('js-open-to-active-rc'))
               sessionStorage.setItem('showChat', 'true')
               location.reload()
-            
-            $(".#{_modal_class}").modal('hide')
-#            $('#js-rocket-chat-modal').modal('show')
-            $('#js-chat-seeker-container').slideDown()
-            $('.js-number-unread-messages').text('')
-            $('.js-number-unread-messages').hide()
+            else
+              $(".#{_modal_class}").modal('hide')
+  #            $('#js-rocket-chat-modal').modal('show')
+              $('#js-chat-seeker-container').slideDown()
+              $('.js-number-unread-messages').text('')
+              $('.js-number-unread-messages').hide()
 
           error: (respond)->
             _error = respond.responseJSON['error']
