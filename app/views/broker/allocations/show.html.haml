@@ -165,7 +165,9 @@
     window.redirect_href = null;
     $(document).ready(function() {
       if (sessionStorage.getItem('showChat') == 'true') {
-        $('#js-chat-seeker-container').slideDown()
+        setTimeout(() => {
+          $('.js-rocket-chat-start').click()
+        }, 1000)
         sessionStorage.removeItem('showChat')
       }
       var modalId;
