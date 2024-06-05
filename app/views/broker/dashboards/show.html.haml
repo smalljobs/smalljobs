@@ -324,7 +324,7 @@
                         -# = link_to '#', room_broker_rocketchats_path(seeker.rc_username), class: 'js-rocket-chat-room', data: {username: seeker.rc_username.to_s, id: seeker.rc_id}
                         -# = link_to '#', edit_broker_seeker_path(seeker, chat: 'open'), class: 'js-rocket-chat-room'
                         = link_to '#', room_broker_rocketchats_path(seeker.rc_username), class: 'js-rocket-chat-room-in-loop'
-                    = inbox_icon(@unread_messages[seeker.id].try(:quantity))
+                    = inbox_icon(@unread_messages.dig(seeker.id, :quantity))
                 %td.name= link_to seeker.name, edit_broker_seeker_path(seeker)
                 %td.street= seeker.street
                 %td.place= seeker.place.zip + ' ' + seeker.place.name
