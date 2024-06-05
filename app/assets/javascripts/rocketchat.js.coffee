@@ -103,10 +103,7 @@ $ ->
               location.reload()
             else
               $(".#{_modal_class}").modal('hide')
-  #            $('#js-rocket-chat-modal').modal('show')
-              $('#js-chat-seeker-container').slideDown()
-              $('.js-number-unread-messages').text('')
-              $('.js-number-unread-messages').hide()
+              $('.js-rocket-chat-start').click()
 
           error: (respond)->
             _error = respond.responseJSON['error']
