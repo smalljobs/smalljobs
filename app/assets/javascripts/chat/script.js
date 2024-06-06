@@ -1,53 +1,45 @@
 'use strict';
 
+function hostToWS(host, ssl) {
+    if (ssl === void 0) { ssl = false; }
+    host = host.replace(/^(https?:\/\/)?/, '');
+    return "ws" + (ssl ? 's' : '') + "://" + host;
+}
+
 $(function() {
-
-    if ( $('.js-rocket-chat-room').length > 0 ){
-
-        var chatDiv = document.createElement("div");
-        chatDiv.id = "js-chat-element";
-
-        chatDiv.style="width: 100%; height: 500px;"
-        $('#js-chat-seeker').append(chatDiv)
-
-        $.ajax({
-            url: $('.js-rocket-chat-room').attr('href'),
-            method: 'GET',
-            success: function (respond) {
-                ReactDOM.render(
-                  React.createElement(Chat, {
-                      theme: 'teal',
-                      config: {
-                          host: $('.js-rocketchat-url').data('url'),
-                          rId: respond.id,
-                          dmUid: $('.js-rc-seeker-username').data('id'),
-                          dmUsername: $('.js-rc-seeker-username').data('username')
-                      }
-                  }),
-                  document.getElementById('js-chat-element')
-                );
-                const queryString = window.location.search;
-                const urlParams = new URLSearchParams(queryString);
-                const chat = urlParams.get('chat')
-                if (chat === 'open'){
-                    $('#js-chat-seeker-container').slideDown()
-                    $('.js-number-unread-messages').text('')
-                    $('.js-number-unread-messages').hide()
-                    $('.js-rocket-chat-start').addClass('sj-hide-animation')
-                }
-
-            },
-            error: function (respond) {
-                var _error;
-                _error = respond.responseJSON['error'];
-                toastr.error(_error, 'Error');
-                return null
-            }
-        });
-    }
 
     $('.js-rocket-chat-start').click(function(event){
         event.preventDefault();
+        if ($('#js-chat-element').html().trim() === ''){
+            $.ajax({
+                url: $('.js-rocket-chat-room').attr('href'),
+                method: 'GET',
+                success: function (respond) {
+                    ReactDOM.render(
+                      React.createElement(Chat, {
+                          theme: 'teal',
+                          config: {
+                              host: $('.js-rocketchat-url').data('url'),
+                              rId: respond.id,
+                              dmUid: $('.js-rc-seeker-username').data('id'),
+                              dmUsername: $('.js-rc-seeker-username').data('username')
+                          }
+                      }),
+                      document.getElementById('js-chat-element')
+                    );
+
+
+                },
+                error: function (respond) {
+                    var _error;
+                    _error = respond.responseJSON['error'];
+                    toastr.error(_error, 'Error');
+                    return null
+                }
+            });
+        }
+
+
         if ($(this).hasClass('sj-hide-animation')){
             $(this).removeClass('sj-hide-animation')
         }else{
@@ -62,85 +54,147 @@ $(function() {
         } else {
             $('#js-chat-seeker-container').slideUp()
         }
-
-
-
-
     });
 
+    // List seekers
+    if($('.js-list-seeker-rocket-chat-inbox').length > 0){
+        console.log(hostToWS($('.js-rocketchat-url').data('url'), true) + "/websocket")
+        var realTimeAPI = new window.rcRealTimeAPI(hostToWS($('.js-rocketchat-url').data('url'), true) + "/websocket");
+        realTimeAPI.connectToServer();
+        realTimeAPI.keepAlive().subscribe();
+        realTimeAPI.onMessage((data) => {
+            if(data.msg === "changed" && data.collection === "stream-room-messages"){
+                if (data.fields.args[0].unread){
+                    let container_inbox = $("div").find("[data-username='" + data.fields.args[0].u.username + "']").closest('.js-list-seeker-rocket-chat-inbox');
+                    $('.js-rocket-chat-inbox-counter', container_inbox).text(Number($('.js-rocket-chat-inbox-counter', container_inbox).text()) + 1)
+                    if (!$('.js-rocket-chat-inbox-icon', container_inbox).hasClass('fas')){
+                        $('.js-rocket-chat-inbox-icon', container_inbox).removeClass('fal')
+                        $('.js-rocket-chat-inbox-icon', container_inbox).addClass('fas')
+                    }
+                }
+                $.ajax({
+                  url: '/broker/rocketchats/update_unread_messages',
+                  method: 'POST',
+                  data: {
+                    broker_id: $('.js-current-broker-rc-id').data('rcid'),
+                    seeker_username: data.fields.args[0].u.username,
+                    timestamp: data.fields.args[0].ts.$date
+                  },
+                  error: function (respond) {
+                    var _error;
+                    _error = respond.responseJSON['error'];
+                    toastr.error(_error, 'Error');
+                    return null
+                  }
+                });
+            }
+        })
 
+        realTimeAPI.sendMessage({
+            "msg": "method",
+            "method": "rooms/get",
+            "id": $('.js-current-broker-rc-id').data('rcid'),
+            "params": [ { "$date": 0 } ]
+        })
+
+        $('.js-list-seeker-rocket-chat-inbox').each(function(index){
+
+            let that = $(this)
+              // create or get channal id for each user
+
+
+            $.ajax({
+                url: $('.js-rocket-chat-room-in-loop', that).attr('href'),
+                method: 'GET',
+                success: function (respond) {
+                    realTimeAPI.loginWithAuthToken(respond.user_token);
+                    realTimeAPI.sendMessage({
+                        "msg": "sub",
+                        "name": "stream-room-messages",
+                        "params": [
+                            respond.id,
+                            {"useCollection": false, "args": []}
+                        ],
+                        "id": "ddp-" + index
+                    })
+                }
+            })
+
+        })
+
+
+    }
 
     $('.js-list-seeker-rocket-chat-inbox').click(function(event){
         event.preventDefault();
+
         let rcUrl = $('.js-rocket-chat-seeker-edit', $(this)).attr('href')
         window.location = rcUrl;
-        // generateIframe(respond.user_id, respond.auth_token, respond.url);
-        // var oldChat = document.getElementById('js-chat-element');
-        // if (oldChat){
-        //     ReactDOM.unmountComponentAtNode(oldChat);
-        //     oldChat.remove();
-        // }
-        //
-        // var chatDiv = document.createElement("div");
-        // chatDiv.id = "js-chat-element";
-        //
-        // // chatDiv.style="width: 100%; height: 500px;"
-        // // $('#js-chat-seeker').append(chatDiv)
-        // // $('#js-chat-seeker-container').slideDown()
-        //
-        // let inboxIcon = $('.js-rocket-chat-inbox-icon', $(this))
-        // let inboxCounter = $('.js-rocket-chat-inbox-counter', $(this))
-        //
-        // // Umieszczanie w modalu
-        // chatDiv.style="width: 100%; height: 0px;"
-        // $('#js-rocketchat-iframe-container').append(chatDiv)
-        // $('#js-rocket-chat-modal').modal('show')
-        // $('#js-rocket-chat-modal').on('shown.bs.modal', function(){
-        //     var height = $('#js-rocketchat-iframe-container').height()
-        //     $('#js-chat-element').height(height)
-        //     inboxIcon.removeClass('fas').addClass('fal')
-        //     var seeker_unread = parseInt(inboxCounter.text())
-        //     inboxCounter.text('')
-        //     inboxCounter.parents('.chat').attr('sorttable_customkey', 0)
-        //     var sum = parseInt($('span', $('#js-tab-unread-messages')).text().replace("(",""))
-        //     $('span', $('#js-tab-unread-messages')).text("("+(sum - seeker_unread).toString()+")")
-        // })
-        //
-        // let rcUrl = $('.js-rocket-chat-room', $(this)).attr('href')
-        // let rcId = $('.js-rocket-chat-room', $(this)).data('id')
-        // let rcUsername = $('.js-rocket-chat-room', $(this)).data('username')
-        //
-        // $.ajax({
-        //     url: rcUrl,
-        //     method: 'GET',
-        //     success: function(respond) {
-        //         ReactDOM.render(
-        //             React.createElement(Chat, {
-        //                 theme: 'teal',
-        //                 config: {
-        //                     host : $('.js-rocketchat-url').data('url'),
-        //                     rId : respond.id,
-        //                     dmUid : rcId,
-        //                     dmUsername : rcUsername
-        //                 }
-        //             }),
-        //             document.getElementById('js-chat-element')
-        //         );
-        //     },
-        //     error: function(respond) {
-        //         var _error;
-        //         _error = respond.responseJSON['error'];
-        //         toastr.error(_error, 'Error');
-        //         return null
-        //     }
-        // });
-        //
+
     });
 
+    // seeker edit
+    if ( $('.js-rocket-chat-room').length > 0 ){
+        console.log(hostToWS($('.js-rocketchat-url').data('url'), true) + "/websocket")
+        var realTimeAPI = new window.rcRealTimeAPI(hostToWS($('.js-rocketchat-url').data('url'), true) + "/websocket");
+
+        realTimeAPI.connectToServer();
+        realTimeAPI.keepAlive().subscribe();
+
+        realTimeAPI.onMessage((data) => {
+            if(data.msg === "changed" && data.collection === "stream-room-messages"){
+                if (data.fields.args[0].unread){
+                    $('.js-number-unread-messages').text(Number($('.js-number-unread-messages').text()) + 1)
+                    if (!$('.js-rocket-chat-start').hasClass('sj-hide-animation')){
+                        $('.js-number-unread-messages').show();
+                    }
+                }
+            }
+        })
+
+
+
+        $.ajax({
+            url: $('.js-rocket-chat-room').attr('href'),
+            method: 'GET',
+            success: function (respond) {
+                realTimeAPI.loginWithAuthToken(respond.user_token);
+                realTimeAPI.sendMessage({
+                    "msg":"sub",
+                    "name":"stream-room-messages",
+                    "params":[
+                      respond.id,
+                      {"useCollection":false,"args":[]}
+                    ],
+                    "id":"ddp-1"
+                })
+                realTimeAPI.sendMessage({
+                    "msg": "method",
+                    "method": "rooms/get",
+                    "id": $('.js-current-broker-rc-id').data('rcid'),
+                    "params": [ { "$date": 0 } ]
+                })
+            }
+        })
 
 
 
 
+
+        var chatDiv = document.createElement("div");
+        chatDiv.id = "js-chat-element";
+
+        chatDiv.style="width: 100%; height: 500px;"
+        $('#js-chat-seeker').append(chatDiv)
+
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const chat = urlParams.get('chat')
+        if (chat === 'open'){
+            // Click have to be after definition click event
+            $('.js-rocket-chat-start').click()
+        }
+    }
 })
 
 

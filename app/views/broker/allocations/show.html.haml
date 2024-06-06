@@ -164,6 +164,12 @@
   :javascript
     window.redirect_href = null;
     $(document).ready(function() {
+      if (sessionStorage.getItem('showChat') == 'true') {
+        setTimeout(() => {
+          $('.js-rocket-chat-start').click()
+        }, 1000)
+        sessionStorage.removeItem('showChat')
+      }
       var modalId;
 
       function checkForModal() {
@@ -197,9 +203,17 @@
           sendMessage(function(){
             if("#{ENV['ROCKET_CHAT_URL'].blank?}" == "true"){
               sessionStorage.setItem('showModal', true);
-              window.location.href = response['redirect_to'];
+              if (window.location.href === response['redirect_to']) {
+                location.reload()
+              } else {
+                window.location.href = response['redirect_to'];
+              }
             }else{
-              window.redirect_href = response['redirect_to'];
+              if (window.location.href === response['redirect_to']) {
+                location.reload()
+              } else {
+                window.location.href = response['redirect_to'];
+              }
             }
           });
 

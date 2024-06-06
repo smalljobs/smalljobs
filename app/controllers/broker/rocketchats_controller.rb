@@ -20,7 +20,7 @@ class Broker::RocketchatsController < InheritedResources::Base
     answer = im.create(se, [params[:rc_username]])
     respond_to do |format|
       if answer
-        format.json { render json: {id: answer['_id']}, status: :ok }
+        format.json { render json: {id: answer['_id'], user_token: current_broker.rc_token}, status: :ok }
       else
         format.json { render json: { error: im.error }, status: :unprocessable_entity }
       end
@@ -72,4 +72,22 @@ class Broker::RocketchatsController < InheritedResources::Base
 
   end
 
+  def update_unread_messages
+    broker = Broker.find_by(rc_id: params[:broker_id])
+    seeker = Seeker.find_by(rc_username: params[:seeker_username])
+    respond_to do |format|
+      if broker.present? && seeker.present?
+        um = UnreadMessage.find_by(broker_id: broker.id, seeker_id: seeker.id)
+        datetime_param = Time.at(params[:timestamp].to_i / 1000).to_s
+        datetime_without_tz = DateTime.strptime(datetime_param, '%Y-%m-%d %H:%M:%S %z').new_offset(0) + 2.hours
+        if um.update(last_message_timestamp: datetime_without_tz)
+          format.json { render json: { msg: 'ok' }, status: :ok }
+        else
+          format.json { render json: { error: um.error }, status: :unprocessable_entity }
+        end
+      else
+        format.json { render json: { msg: 'User not found' }, status: :not_found }
+      end
+    end
+  end
 end

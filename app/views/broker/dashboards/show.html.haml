@@ -124,7 +124,7 @@
                         = 'Job: ' + todo.job.title
                   %td
                     %span.sj-postpone.js-postpone{data: {url: broker_todo_path(todo.id), todo_type: 'current'}}
-                      %i.fa.fa-2x.fa-clock-o.pull-right.safari-fix
+                      %i.fa.fa-2x.fa-clock.pull-right.safari-fix
       %div{id: 'todo_postponed', class: 'tab-pane js-todo-postponed'}
         .table-responsive
           %table.table.table-striped.sortable
@@ -168,7 +168,7 @@
                         = 'Job: ' + todo.job.title
                   %td
                     %span.sj-postpone.js-postpone{data: {url: broker_todo_path(todo.id), 'todo-type' => 'postponed'}}
-                      %i.fa.fa-2x.fa-clock-o.pull-right.safari-fix
+                      %i.fa.fa-2x.fa-clock.pull-right.safari-fix
                   %td
                     = todo.postponed.strftime("%d.%m.%Y")
 
@@ -315,7 +315,7 @@
                   = seeker_label(seeker)
                 %td{sorttable_customkey: seeker.updated_at.strftime("%Y%m%d%H%M%S")}
                   = seeker.updated_at.strftime("%d.%m.%Y")
-                %td.chat{sorttable_customkey: @unread_messages[seeker.id].to_i }
+                %td.chat{sorttable_customkey: @unread_messages.dig(seeker.id, :timestamp).try(:strftime, "%Y%m%d%H%M%S") }
                   .favicon-box.js-list-seeker-rocket-chat-inbox
                     .hidden
                       .js-rc-seeker-username{data: {username: seeker.rc_username.to_s, id: seeker.rc_id, error: I18n.t("broker.seeker.edit.error")}}
@@ -323,7 +323,8 @@
                       - if seeker.rc_username.present?
                         -# = link_to '#', room_broker_rocketchats_path(seeker.rc_username), class: 'js-rocket-chat-room', data: {username: seeker.rc_username.to_s, id: seeker.rc_id}
                         -# = link_to '#', edit_broker_seeker_path(seeker, chat: 'open'), class: 'js-rocket-chat-room'
-                    = inbox_icon(@unread_messages[seeker.id])
+                        = link_to '#', room_broker_rocketchats_path(seeker.rc_username), class: 'js-rocket-chat-room-in-loop'
+                    = inbox_icon(@unread_messages.dig(seeker.id, :quantity))
                 %td.name= link_to seeker.name, edit_broker_seeker_path(seeker)
                 %td.street= seeker.street
                 %td.place= seeker.place.zip + ' ' + seeker.place.name
@@ -398,6 +399,7 @@
                 %td.feedback
                   = assignment.feedback
 = render partial: 'rocketchat_broadcast_modal'
+.hidden.js-current-broker-rc-id{data: {rcid: current_broker.rc_id}}
 :javascript
   var target = window.location.hash;
   var params = window.location.search.substr(1);

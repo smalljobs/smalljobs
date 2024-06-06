@@ -444,7 +444,7 @@ class Seeker < ActiveRecord::Base
     logger.info "Welcome message: #{message}"
 
     begin
-      MessagingHelper::send_message(self.rc_id, self.rc_username, "#{title}. #{message}")
+      MessagingHelper::send_message(self.organization.brokers.first.try(:rc_id), self.rc_username, "#{title}. #{message}")
     rescue StandardError => e
       Raven.extra_context(seeker_id: self.id) do
         Raven.capture_exception(e)
@@ -476,7 +476,7 @@ class Seeker < ActiveRecord::Base
     )
 
     begin
-      MessagingHelper::send_message(self.rc_id, self.rc_username, "#{title}. #{message}")
+      MessagingHelper::send_message(self.organization.brokers.first.try(:rc_id), self.rc_username, "#{title}. #{message}")
     rescue StandardError => e
       Raven.extra_context(seeker_id: self.id) do
         Raven.capture_exception(e)
