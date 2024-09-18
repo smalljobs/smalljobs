@@ -1,0 +1,47 @@
+%div.row.margin-top-25
+  %div.col-sm-3.float-right
+    %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
+    %i.fa.fa-2x.fa-times-circle.delete-icon.display-none
+  %div.col-sm-1.float-right
+    %a.btn.archive-btn
+      = "Archiv"
+.table-responsive
+  %table.table.table-striped.sortable
+    %thead
+      %tr
+        %th.sortable{id: 'assignment_status'}= t('broker_dashboard.assignments_table.status')
+        %th.sortable{id: 'assignment_date'}= t('broker_dashboard.jobs_table.date')
+        %th.sortable{id: 'assignment_seeker'}= t('broker_dashboard.assignments_table.seeker')
+        %th.sortable{id: 'assignment_provider'}= t('broker_dashboard.assignments_table.provider')
+        %th.sortable{id: 'assignment_duration'}= t('broker_dashboard.assignments_table.duration')
+        %th.sortable{id: 'assignment_payment'}= t('broker_dashboard.assignments_table.payment')
+        %th.sortable{id: 'assignment_feedback'}= t('broker_dashboard.assignments_table.feedback')
+    %tbody.list
+      - if @assignments.size == 0
+        %tr
+          %td{ colspan: 5 }= t('seekers.index.no_seekers')
+
+      - @assignments.each do |assignment|
+        %tr{ class: "organization organization-#{assignment.provider.organization_id}" }
+          %td.status
+            = assignment_label(assignment)
+          %td.date{sorttable_customkey: assignment.created_at.strftime("%Y%m%d%H%M%S")}
+            = assignment.created_at.strftime("%d.%m.%Y")
+          %td.name
+            = link_to assignment.seeker.name, edit_broker_seeker_path(assignment.seeker)
+          %td.provider-name
+            = link_to assignment.provider.name, edit_broker_provider_path(assignment.provider)
+          %td.duration
+            - if assignment.duration != nil
+              - minutes = assignment.duration/60000
+              - minutes = minutes.floor
+              - hours = minutes/60
+              - hours = hours.floor
+              - minutes = minutes % 60
+              = "#{hours}:#{minutes}"
+              = " "
+          %td.payment{data: {id: (assignment.payment.present?  ? assignment.payment.floor : 0)}}
+            - if assignment.payment != nil
+              = assignment.payment.floor
+          %td.feedback
+            = assignment.feedback

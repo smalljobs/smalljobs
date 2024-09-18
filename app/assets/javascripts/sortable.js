@@ -21,19 +21,19 @@ $(document).ready(function(){
         var stIsIE = /*@cc_on!@*/false;
 
         sorttable = {
-            init: function() {
-                // quit if this function has already been called
-                if (arguments.callee.done) return;
-                // flag this function so we don't do the same thing twice
-                arguments.callee.done = true;
-                // kill the timer
-                if (_timer) clearInterval(_timer);
-
-                if (!document.createElement || !document.getElementsByTagName) return;
-
-                sorttable.DATE_RE = /^(\d\d?)[\/\.-](\d\d?)[\/\.-]((\d\d)?\d\d)$/;
-
-                forEach(document.getElementsByTagName('table'), function(table) {
+            init: function(skipInit) {
+              // quit if this function has already been called
+              if (arguments.callee.done && skipInit) return;
+              // flag this function so we don't do the same thing twice
+              arguments.callee.done = true;
+              // kill the timer
+              if (_timer) clearInterval(_timer);
+              
+              if (!document.createElement || !document.getElementsByTagName) return;
+              
+              sorttable.DATE_RE = /^(\d\d?)[\/\.-](\d\d?)[\/\.-]((\d\d)?\d\d)$/;
+              
+              forEach(document.getElementsByTagName('table'), function(table) {
                     if (table.className.search(/\bsortable\b/) != -1) {
                         sorttable.makeSortable(table);
                     }

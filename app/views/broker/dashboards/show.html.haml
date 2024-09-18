@@ -82,95 +82,8 @@
           %div.col-sm-3.float-right
             %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
             %i.fa.fa-2x.fa-times-circle.delete-icon.display-none
-      %div{id: 'todo_current', class: 'tab-pane active js-todo-current'}
-        .table-responsive
-          %table.table.table-striped.sortable
-            %thead
-              %tr
-                %th
-                %th.sortable{id: 'todo_date'}= t('broker_dashboard.todo_table.date')
-                %th.sortable{id: 'todo_todo'}= t('broker_dashboard.todo_table.todo')
-                %th= t('broker_dashboard.todo_table.description')
-                %th.pull-right= t('broker_dashboard.todo_table.postpone')
-            %tbody.list
-              - if @todos&.current&.count == 0
-
-                %tr
-                  %td{colspan: 5}= "Es sind noch keine Todo in deiner Region erfasst"
-              - @todos&.current&.each do |todo|
-                %tr{ class: "organization organization-#{todo.organization_id}" }
-                  - sortable_date = todo.created_at.strftime("%Y%m%d%H%M%S")
-                  %td.completed
-                    - if todo.manual_completion
-                      %a.js-todo-completed{href: "#", data: {url: "#{url_for completed_broker_todo_path(todo.id)}", url_undo: "#{url_for uncompleted_broker_todo_path(todo.id)}"}}
-                        %i.fa.fa-2x.fa-check-circle
-                  %td.date{sorttable_customkey: sortable_date}
-                    = todo.created_at.strftime("%d.%m.%Y")
-                  %td.title
-                    = todo.todotype.title
-                  %td.description
-                    - if todo.record_type == 'job'
-                      = link_to 'Job: ' + todo.job.title, edit_broker_job_path(todo.job)
-                    - elsif todo.record_type == 'provider'
-                      = link_to 'Anbieterln: ' + todo.provider.name, edit_broker_provider_path(todo.provider)
-                    - elsif todo.record_type == 'seeker'
-                      = link_to 'JugendlicheR: ' + todo.seeker.name, edit_broker_seeker_path(todo.seeker)
-                    - elsif todo.record_type == 'allocation'
-                      %a{href: "#{url_for broker_job_allocation_path(todo.job, todo.seeker)}"}
-                        = 'JugendlicheR: ' + todo.seeker.name
-                        %br
-                        = 'Anbieterln: ' + todo.provider.name
-                        %br
-                        = 'Job: ' + todo.job.title
-                  %td
-                    %span.sj-postpone.js-postpone{data: {url: broker_todo_path(todo.id), todo_type: 'current'}}
-                      %i.fa.fa-2x.fa-clock.pull-right.safari-fix
-      %div{id: 'todo_postponed', class: 'tab-pane js-todo-postponed'}
-        .table-responsive
-          %table.table.table-striped.sortable
-            %thead
-              %tr
-                %th.sortable{id: 'todo_date'}= t('broker_dashboard.todo_table.date')
-                %th.sortable{id: 'todo_todo'}= t('broker_dashboard.todo_table.todo')
-                %th.sorttable_nosort= t('broker_dashboard.todo_table.description')
-                %th.sorttable_nosort
-                %th.sorttable_nosort.pull-right= t('broker_dashboard.todo_table.postpone')
-                %th.sortable= t('broker_dashboard.todo_table.date')
-            %tbody.list
-              - if @todos&.postponed&.count == 0
-
-                %tr
-                  %td{colspan: 5}= "Es sind noch keine Todo in deiner Region erfasst"
-              - @todos&.postponed&.each do |todo|
-                %tr{ class: "organization organization-#{todo.organization_id}" }
-                  - sortable_date = todo.created_at.strftime("%Y%m%d%H%M%S")
-                  %td.completed
-                    - if todo.manual_completion
-                      %a.js-todo-completed{href: "#", data: {url: "#{url_for completed_broker_todo_path(todo.id)}", url_undo: "#{url_for uncompleted_broker_todo_path(todo.id)}"}}
-                        %i.fa.fa-2x.fa-check-circle
-                  %td.date{sorttable_customkey: sortable_date}
-                    = todo.created_at.strftime("%d.%m.%Y")
-                  %td.title
-                    = todo.todotype.title
-                  %td.description
-                    - if todo.record_type == 'job'
-                      = link_to 'Job: ' + todo.job.title, edit_broker_job_path(todo.job)
-                    - elsif todo.record_type == 'provider'
-                      = link_to 'Anbieterln: ' + todo.provider.name, edit_broker_provider_path(todo.provider)
-                    - elsif todo.record_type == 'seeker'
-                      = link_to 'JugendlicheR: ' + todo.seeker.name, edit_broker_seeker_path(todo.seeker)
-                    - elsif todo.record_type == 'allocation'
-                      %a{href: "#{url_for broker_job_allocation_path(todo.job, todo.seeker)}"}
-                        = 'JugendlicheR: ' + todo.seeker.name
-                        %br
-                        = 'Anbieterln: ' + todo.provider.name
-                        %br
-                        = 'Job: ' + todo.job.title
-                  %td
-                    %span.sj-postpone.js-postpone{data: {url: broker_todo_path(todo.id), 'todo-type' => 'postponed'}}
-                      %i.fa.fa-2x.fa-clock.pull-right.safari-fix
-                  %td
-                    = todo.postponed.strftime("%d.%m.%Y")
+      %div.table-loader-wrapper{id: 'todos-table-to-insert'}
+        %i.fad.fa-spinner-third.fa-spin
 
     %div{id: 'jobs', class: 'tab-pane fade in'}
       %div.row.margin-top-25
@@ -185,219 +98,21 @@
         %div.col-sm-2.float-right
           %a.btn.contract-btn{href: "#", "data-toggle": "modal", "data-target": "#jobFormModal"}
             = "Job Formular"
-      .table-responsive
-        %table.table.table-striped.sortable
-          %thead
-            %tr
-              %th.sortable{id: 'job_status'}= t('broker_dashboard.jobs_table.status')
-              %th.sortable{id: 'job_date'}= t('broker_dashboard.jobs_table.date')
-              %th.sortable{id: 'job_job'}= t('broker_dashboard.jobs_table.job')
-              %th.sortable{id: 'job_provider'}= t('broker_dashboard.jobs_table.provider')
-              %th= t('broker_dashboard.jobs_table.allocations')
-          %tbody.list
-            - if @jobs.size == 0
-              %tr
-                %td{ colspan: 6 }= t('broker.jobs.index.no_jobs')
+      %div.table-loader-wrapper{id: 'jobs-table-to-insert'}
+        %i.fad.fa-spinner-third.fa-spin
 
-            - @jobs.each do |job|
-              - @job = job
-              %tr{ class: "organization organization-#{job.organization_id} status-#{job.stat_name}" }
-                %td.status
-                  = job_label(job)
-                - sortable_date = job.last_change_of_state == nil ?  "": job.last_change_of_state.strftime("%Y%m%d%H%M%S")
-                %td.date{sorttable_customkey: sortable_date}
-                  = job.last_change_of_state == nil ?  "": job.last_change_of_state.strftime("%d.%m.%Y")
-                %td.title
-                  = link_to job.title, edit_broker_job_path(job)
-                %td.name
-                  = link_to job.provider.name, edit_broker_provider_path(job.provider)
-                %td.allocations
-                  = render 'allocations'
-                %td.salary.display-none
-                  = job.salary
-                %td.manpower.display-none
-                  = job.manpower
-                %td.duration.display-none
-                  = job.duration
-                %td.long_description.display-none
-                  = job.long_description
-                %td.short_description.display-none
-                  = job.short_description
     %div{id: 'providers', class: 'tab-pane fade in'}
-      %div.row.margin-top-25
-        %div.col-sm-2.float-left
-          = link_to t('providers.index.add_new'), new_broker_provider_path, class: 'btn btn-success'
-        %div.col-sm-3.float-right
-          %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
-          %i.fa.fa-2x.fa-times-circle.delete-icon.display-none
-        %div.col-sm-1.float-right
-          %a.btn.archive-btn
-            = "Archiv"
-        %div.col-sm-2.float-right
-      .table-responsive
-        %table.table.table-striped.sortable
-          %thead
-            %tr
-              %th.sortable{id: 'provider_status'}= t('broker_dashboard.providers_table.status')
-              %th.sortable{id: 'provider_date'}= t('broker_dashboard.jobs_table.date')
-              %th.sortable{id: 'provider_provider'}= t('broker_dashboard.providers_table.name')
-              %th.sortable{id: 'provider_address'}= t('broker_dashboard.providers_table.address')
-              %th.sortable{id: 'provider_plz'}= t('broker_dashboard.providers_table.plz')
-              %th.sortable{id: 'provider_jobs'}= t('broker_dashboard.providers_table.jobs')
-          %tbody.list
-            - if @providers.size == 0
-              %tr
-                %td{ colspan: 5 }= t('providers.index.no_providers')
+      %div.table-loader-wrapper{id: 'providers-table-to-insert'}
+        %i.fad.fa-spinner-third.fa-spin
 
-            - @providers.each do |provider|
-              %tr{ class: "organization organization-#{provider.organization_id} status-#{provider.stat_name}" }
-                %td.status
-                  = provider_label(provider)
-                %td.date{sorttable_customkey: provider.updated_at.strftime("%Y%m%d%H%M%S")}
-                  = provider.updated_at.strftime("%d.%m.%Y")
-                %td.name= link_to provider.name, edit_broker_provider_path(provider)
-                %td.street= provider.street
-                %td.place= provider.place.zip + ' ' + provider.place.name
-                %td.jobs
-                  -provider.jobs.each do |job|
-                    %ul.list-unstyled
-                      %li= link_to job.title, edit_broker_job_path(job)
-                %td.phone.display-none
-                  = provider.phone
-                %td.mobile.display-none
-                  = provider.mobile
-                %td.contact_preference.display-none
-                  = provider.contact_preference
-                %td.contact_availability.display-none
-                  = provider.contact_availability
-                %td.company.display-none
-                  = provider.company
     %div{id: 'seekers', class: 'tab-pane fade in'}
-      %div.row.margin-top-25
-        %div.col-sm-8.float-left
-          = link_to t('seekers.index.add_new'), new_broker_seeker_path, class: 'btn btn-success'
-          = link_to t('seekers.index.message_to_all'), "#", class: 'btn btn-success margin_left_20 js-message-to-all-rocketchat'
-          = link_to t('seekers.index.show_all_broadcast'), last_message_broker_broadcast_messages_path, class: 'btn btn-success margin_left_20 js-message-show-all-broadcast'
-        -# %div.col-sm-2.float-left
-        -#   = link_to t('seekers.index.message_to_all'), broadcast_room_broker_rocketchats_path, class: 'btn btn-success js-message-to-all-rc'
+      %div.table-loader-wrapper{id: 'seekers-table-to-insert'}
+        %i.fad.fa-spinner-third.fa-spin
 
-
-        %div.col-sm-3.float-right
-          %input.form-control.search{type: 'text', class: 'search-field js-search-field-seeker', placeholder: 'Suche'}
-          %i.fa.fa-2x.fa-times-circle.delete-icon.display-none.js-seeker-delete-icon
-          .sj-age-slider-container-relative
-            .sj-age-slider-container.js-age-slider-container.display-none
-              #js-lower-value.sj-lower-value.col-xs-2
-              .sj-slider.col-xs-6.col-xs-offset-1
-                #js-age-scroll
-              #js-higher-value.sj-higher-value.col-xs-2.col-xs-offset-1
-        %div.col-sm-1.float-right
-          %a.btn.archive-btn
-            = "Archiv"
-        %div.col-sm-2.float-right
-      .table-responsive
-        %table.table.table-striped.sortable
-          %thead
-            %tr
-              %th.sortable{id: 'seeker_status'}= t('broker_dashboard.seekers_table.status')
-              %th.sortable{id: 'seeker_date'}= t('broker_dashboard.jobs_table.date')
-              %th.sortable{id: 'seeker_chat'}= t('broker_dashboard.seekers_table.chat')
-              %th.sortable{id: 'seeker_seeker'}= t('broker_dashboard.seekers_table.name')
-              %th.sortable{id: 'seeker_address'}= t('broker_dashboard.seekers_table.address')
-              %th.sortable{id: 'seeker_plz'}= t('broker_dashboard.seekers_table.plz')
-          %tbody.list
-            - if @seekers.size == 0
-              %tr
-                %td{ colspan: 4 }= t('seekers.index.no_seekers')
-            - @seekers.each do |seeker|
-              %tr{ class: "organization organization-#{seeker.organization_id} status-#{seeker.stat_name}" }
-                %td.status
-                  = seeker_label(seeker)
-                %td{sorttable_customkey: seeker.updated_at.strftime("%Y%m%d%H%M%S")}
-                  = seeker.updated_at.strftime("%d.%m.%Y")
-                %td.chat{sorttable_customkey: @unread_messages.dig(seeker.id, :timestamp).try(:strftime, "%Y%m%d%H%M%S") }
-                  .favicon-box.js-list-seeker-rocket-chat-inbox
-                    .hidden
-                      .js-rc-seeker-username{data: {username: seeker.rc_username.to_s, id: seeker.rc_id, error: I18n.t("broker.seeker.edit.error")}}
-                      = link_to '#', edit_broker_seeker_path(seeker, chat: 'open') , class: 'js-rocket-chat-seeker-edit'
-                      - if seeker.rc_username.present?
-                        -# = link_to '#', room_broker_rocketchats_path(seeker.rc_username), class: 'js-rocket-chat-room', data: {username: seeker.rc_username.to_s, id: seeker.rc_id}
-                        -# = link_to '#', edit_broker_seeker_path(seeker, chat: 'open'), class: 'js-rocket-chat-room'
-                        = link_to '#', room_broker_rocketchats_path(seeker.rc_username), class: 'js-rocket-chat-room-in-loop'
-                    = inbox_icon(@unread_messages.dig(seeker.id, :quantity))
-                %td.name= link_to seeker.name, edit_broker_seeker_path(seeker)
-                %td.street= seeker.street
-                %td.place= seeker.place.zip + ' ' + seeker.place.name
-                %td.phone.display-none
-                  = seeker.phone
-                %td.mobile.display-none
-                  = seeker.mobile
-                %td.contact_preference.display-none
-                  = seeker.contact_preference
-                %td.contact_availability.display-none
-                  = seeker.contact_availability
-                %td.email.display-none
-                  = seeker.email
-                %td.sex.display-none
-                  = seeker.sex
-                %td.occupation.display-none
-                  = seeker.occupation
-                %td.additional_contacts.display-none
-                  = seeker.additional_contacts
-                %td.languages.display-none
-                  = seeker.languages
-                %td.age.display-none
-                  = seeker.age
-                %td.rc_username.display-none= seeker.rc_username
-                %td.id.display-none= seeker.id
     %div{id: 'assignments', class: 'tab-pane fade in'}
-      %div.row.margin-top-25
-        %div.col-sm-3.float-right
-          %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
-          %i.fa.fa-2x.fa-times-circle.delete-icon.display-none
-        %div.col-sm-1.float-right
-          %a.btn.archive-btn
-            = "Archiv"
-      .table-responsive
-        %table.table.table-striped.sortable
-          %thead
-            %tr
-              %th.sortable{id: 'assignment_status'}= t('broker_dashboard.assignments_table.status')
-              %th.sortable{id: 'assignment_date'}= t('broker_dashboard.jobs_table.date')
-              %th.sortable{id: 'assignment_seeker'}= t('broker_dashboard.assignments_table.seeker')
-              %th.sortable{id: 'assignment_provider'}= t('broker_dashboard.assignments_table.provider')
-              %th.sortable{id: 'assignment_duration'}= t('broker_dashboard.assignments_table.duration')
-              %th.sortable{id: 'assignment_payment'}= t('broker_dashboard.assignments_table.payment')
-              %th.sortable{id: 'assignment_feedback'}= t('broker_dashboard.assignments_table.feedback')
-          %tbody.list
-            - if @assignments.size == 0
-              %tr
-                %td{ colspan: 5 }= t('seekers.index.no_seekers')
+      %div.table-loader-wrapper{id: 'assignments-table-to-insert'}
+        %i.fad.fa-spinner-third.fa-spin
 
-            - @assignments.each do |assignment|
-              %tr{ class: "organization organization-#{assignment.provider.organization_id}" }
-                %td.status
-                  = assignment_label(assignment)
-                %td.date{sorttable_customkey: assignment.created_at.strftime("%Y%m%d%H%M%S")}
-                  = assignment.created_at.strftime("%d.%m.%Y")
-                %td.name
-                  = link_to assignment.seeker.name, edit_broker_seeker_path(assignment.seeker)
-                %td.provider-name
-                  = link_to assignment.provider.name, edit_broker_provider_path(assignment.provider)
-                %td.duration
-                  - if assignment.duration != nil
-                    - minutes = assignment.duration/60000
-                    - minutes = minutes.floor
-                    - hours = minutes/60
-                    - hours = hours.floor
-                    - minutes = minutes % 60
-                    = "#{hours}:#{minutes}"
-                    = " "
-                %td.payment{data: {id: (assignment.payment.present?  ? assignment.payment.floor : 0)}}
-                  - if assignment.payment != nil
-                    = assignment.payment.floor
-                %td.feedback
-                  = assignment.feedback
 = render partial: 'rocketchat_broadcast_modal'
 .hidden.js-current-broker-rc-id{data: {rcid: current_broker.rc_id}}
 :javascript
@@ -449,13 +164,13 @@
       var hash = target;
       var sortedColumnId = sessionStorage.getItem('sortedColumn' + hash);
       if(sortedColumnId != undefined) {
-        sorttable.init();
+        sorttable.init(false);
         sorttable.innerSortFunction.apply(document.getElementById(sortedColumnId), []);
         if(sessionStorage.getItem('sortedReverse' + hash) === 'true') {
           sorttable.innerSortFunction.apply(document.getElementById(sortedColumnId), []);
         }
       } else {
-        sorttable.init();
+        sorttable.init(false);
         if(hash === "todo" && !tableSorted[0]) {
           tableSorted[0] = true;
           sorttable.innerSortFunction.apply(document.getElementById('todo_date'), []);
@@ -508,12 +223,24 @@
         $('.delete-icon').removeClass('display-none');
       }
 
-      jobsList.search(searchString);
-      providersList.search(searchString);
-      seekersList.search(searchString);
-      assignmentsList.search(searchString);
-      todosCurrentList.search(searchString);
-      todosPostponedList.search(searchString);
+      if (jobsList) {
+        jobsList.search(searchString);
+      }
+      if (providersList) {
+        providersList.search(searchString);
+      }
+      if (seekersList) {
+        seekersList.search(searchString);
+      }
+      if (assignmentsList) {
+        assignmentsList.search(searchString);
+      }
+      if (todosCurrentList) {
+        todosCurrentList.search(searchString);
+      }
+      if (todosPostponedList) {
+        todosPostponedList.search(searchString);
+      }
     }
 
     function loadOrganization() {
@@ -544,9 +271,8 @@
         location.hash = e.target.hash;
       }
 
-
       target = e.target.hash.replace('#', '');
-      loadSortedColumn();
+      //loadSortedColumn();
       setHelp();
     });
 
@@ -628,13 +354,6 @@
       'age', 'rc_username', 'id' ]
     };
 
-    var jobsList = new List('jobs', options);
-    var providersList = new List('providers', options);
-    window.seekersList = new List('seekers', options);
-    var assignmentsList = new List('assignments', options);
-    var todosCurrentList = new List('todo_current', options);
-    var todosPostponedList = new List('todo_postponed', options);
-
     $('.search-field').on('keyup', function() {
       var searchString = $(this).val();
       if(searchString !== "") {
@@ -644,29 +363,53 @@
       }
       $('.search-field').val(searchString);
 
-      jobsList.search(searchString);
-      providersList.search(searchString);
-      seekersList.search(searchString);
-      assignmentsList.search(searchString);
-      todosCurrentList.search(searchString);
-      todosPostponedList.search(searchString);
+      if (jobsList) {
+        jobsList.search(searchString);
+      }
+      if (providersList) {
+        providersList.search(searchString);
+      }
+      if (seekersList) {
+        seekersList.search(searchString);
+      }
+      if (assignmentsList) {
+        assignmentsList.search(searchString);
+      }
+      if (todosCurrentList) {
+        todosCurrentList.search(searchString);
+      }
+      if (todosPostponedList) {
+        todosPostponedList.search(searchString);
+      }
     });
 
     $('.delete-icon').click(function(){
       $('.search-field').val("");
       $('.delete-icon').addClass('display-none');
       var searchString = "";
-      jobsList.search(searchString);
-      providersList.search(searchString);
-      seekersList.search(searchString);
-      assignmentsList.search(searchString);
-      todosCurrentList.search(searchString);
-      todosPostponedList.search(searchString);
+      if (jobsList) {
+        jobsList.search(searchString);
+      }
+      if (providersList) {
+        providersList.search(searchString);
+      }
+      if (seekersList) {
+        seekersList.search(searchString);
+      }
+      if (assignmentsList) {
+        assignmentsList.search(searchString);
+      }
+      if (todosCurrentList) {
+        todosCurrentList.search(searchString);
+      }
+      if (todosPostponedList) {
+        todosPostponedList.search(searchString);
+      }
     });
 
     //checkSearchField();
     loadOrganization();
-    loadSortedColumn();
+    //loadSortedColumn();
 
     window.addEventListener("beforeunload", function (event) {
       // $(window).scrollTop(0);

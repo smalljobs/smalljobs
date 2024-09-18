@@ -1,0 +1,48 @@
+%div.row.margin-top-25
+  %div.col-sm-2.float-left
+    = link_to t('providers.index.add_new'), new_broker_provider_path, class: 'btn btn-success'
+  %div.col-sm-3.float-right
+    %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
+    %i.fa.fa-2x.fa-times-circle.delete-icon.display-none
+  %div.col-sm-1.float-right
+    %a.btn.archive-btn
+      = "Archiv"
+  %div.col-sm-2.float-right
+.table-responsive
+  %table.table.table-striped.sortable
+    %thead
+      %tr
+        %th.sortable{id: 'provider_status'}= t('broker_dashboard.providers_table.status')
+        %th.sortable{id: 'provider_date'}= t('broker_dashboard.jobs_table.date')
+        %th.sortable{id: 'provider_provider'}= t('broker_dashboard.providers_table.name')
+        %th.sortable{id: 'provider_address'}= t('broker_dashboard.providers_table.address')
+        %th.sortable{id: 'provider_plz'}= t('broker_dashboard.providers_table.plz')
+        %th.sortable{id: 'provider_jobs'}= t('broker_dashboard.providers_table.jobs')
+    %tbody.list
+      - if @providers.size == 0
+        %tr
+          %td{ colspan: 5 }= t('providers.index.no_providers')
+
+      - @providers.each do |provider|
+        %tr{ class: "organization organization-#{provider.organization_id} status-#{provider.stat_name}" }
+          %td.status
+            = provider_label(provider)
+          %td.date{sorttable_customkey: provider.updated_at.strftime("%Y%m%d%H%M%S")}
+            = provider.updated_at.strftime("%d.%m.%Y")
+          %td.name= link_to provider.name, edit_broker_provider_path(provider)
+          %td.street= provider.street
+          %td.place= provider.place.zip + ' ' + provider.place.name
+          %td.jobs
+            -provider.jobs.each do |job|
+              %ul.list-unstyled
+                %li= link_to job.title, edit_broker_job_path(job)
+          %td.phone.display-none
+            = provider.phone
+          %td.mobile.display-none
+            = provider.mobile
+          %td.contact_preference.display-none
+            = provider.contact_preference
+          %td.contact_availability.display-none
+            = provider.contact_availability
+          %td.company.display-none
+            = provider.company
