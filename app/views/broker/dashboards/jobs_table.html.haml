@@ -1,0 +1,38 @@
+.table-responsive
+  %table.table.table-striped.sortable
+    %thead
+      %tr
+        %th.sortable{id: 'job_status'}= t('broker_dashboard.jobs_table.status')
+        %th.sortable{id: 'job_date'}= t('broker_dashboard.jobs_table.date')
+        %th.sortable{id: 'job_job'}= t('broker_dashboard.jobs_table.job')
+        %th.sortable{id: 'job_provider'}= t('broker_dashboard.jobs_table.provider')
+        %th= t('broker_dashboard.jobs_table.allocations')
+    %tbody.list
+      - if @jobs.size == 0
+        %tr
+          %td{ colspan: 6 }= t('broker.jobs.index.no_jobs')
+
+      - @jobs.each do |job|
+        - @job = job
+        %tr{ class: "organization organization-#{job.organization_id} status-#{job.stat_name}" }
+          %td.status
+            = job_label(job)
+          - sortable_date = job.last_change_of_state == nil ?  "": job.last_change_of_state.strftime("%Y%m%d%H%M%S")
+          %td.date{sorttable_customkey: sortable_date}
+            = job.last_change_of_state == nil ?  "": job.last_change_of_state.strftime("%d.%m.%Y")
+          %td.title
+            = link_to job.title, edit_broker_job_path(job)
+          %td.name
+            = link_to job.provider.name, edit_broker_provider_path(job.provider)
+          %td.allocations
+            = render 'allocations'
+          %td.salary.display-none
+            = job.salary
+          %td.manpower.display-none
+            = job.manpower
+          %td.duration.display-none
+            = job.duration
+          %td.long_description.display-none
+            = job.long_description
+          %td.short_description.display-none
+            = job.short_description

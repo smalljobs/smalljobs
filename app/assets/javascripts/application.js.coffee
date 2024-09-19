@@ -32,6 +32,7 @@
 #= require rich.js
 #= require rocketchat
 #= require chat/broadcast.js
+#= require broker_dashboard.js
 
 ready = ->
 
