@@ -102,14 +102,53 @@
         %i.fad.fa-spinner-third.fa-spin
 
     %div{id: 'providers', class: 'tab-pane fade in'}
+      %div.row.margin-top-25
+        %div.col-sm-2.float-left
+          = link_to t('providers.index.add_new'), new_broker_provider_path, class: 'btn btn-success'
+        %div.col-sm-3.float-right
+          %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
+          %i.fa.fa-2x.fa-times-circle.delete-icon.display-none
+        %div.col-sm-1.float-right
+          %a.btn.archive-btn
+            = "Archiv"
+        %div.col-sm-2.float-right
       %div.table-loader-wrapper{id: 'providers-table-to-insert'}
         %i.fad.fa-spinner-third.fa-spin
 
     %div{id: 'seekers', class: 'tab-pane fade in'}
+      %div.row.margin-top-25
+        %div.col-sm-8.float-left
+          = link_to t('seekers.index.add_new'), new_broker_seeker_path, class: 'btn btn-success'
+          = link_to t('seekers.index.message_to_all'), "#", class: 'btn btn-success margin_left_20 js-message-to-all-rocketchat'
+          = link_to t('seekers.index.show_all_broadcast'), last_message_broker_broadcast_messages_path, class: 'btn btn-success margin_left_20 js-message-show-all-broadcast'
+        -# %div.col-sm-2.float-left
+        -#   = link_to t('seekers.index.message_to_all'), broadcast_room_broker_rocketchats_path, class: 'btn btn-success js-message-to-all-rc'
+
+
+        %div.col-sm-3.float-right
+          %input.form-control.search{type: 'text', class: 'search-field js-search-field-seeker', placeholder: 'Suche'}
+          %i.fa.fa-2x.fa-times-circle.delete-icon.display-none.js-seeker-delete-icon
+          .sj-age-slider-container-relative
+            .sj-age-slider-container.js-age-slider-container.display-none
+              #js-lower-value.sj-lower-value.col-xs-2
+              .sj-slider.col-xs-6.col-xs-offset-1
+                #js-age-scroll
+              #js-higher-value.sj-higher-value.col-xs-2.col-xs-offset-1
+        %div.col-sm-1.float-right
+          %a.btn.archive-btn
+            = "Archiv"
+        %div.col-sm-2.float-right
       %div.table-loader-wrapper{id: 'seekers-table-to-insert'}
         %i.fad.fa-spinner-third.fa-spin
 
     %div{id: 'assignments', class: 'tab-pane fade in'}
+      %div.row.margin-top-25
+        %div.col-sm-3.float-right
+          %input.form-control.search{type: 'text', class: 'search-field', placeholder: 'Suche'}
+          %i.fa.fa-2x.fa-times-circle.delete-icon.display-none
+        %div.col-sm-1.float-right
+          %a.btn.archive-btn
+            = "Archiv"
       %div.table-loader-wrapper{id: 'assignments-table-to-insert'}
         %i.fad.fa-spinner-third.fa-spin
 
