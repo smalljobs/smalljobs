@@ -251,7 +251,7 @@ module RocketChat
         if response_json["success"] == true
           response_json["update"].each do |record|
             room = rooms.select { |key, _| key.try(:include?, record["name"]) }
-            user_messages.merge!({record["name"] => { quantity: record["unread"], last_message: room.try(:values).try(:first) }})
+            user_messages.merge!({record["name"] => { quantity: record["unread"], last_message: room.try(:values).try(:first), room_id: record["rid"] }})
           end
         end
 
