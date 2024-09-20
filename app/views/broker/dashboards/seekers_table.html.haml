@@ -21,7 +21,7 @@
           %td.chat{sorttable_customkey: @unread_messages.dig(seeker.id, :timestamp).try(:strftime, "%Y%m%d%H%M%S") }
             .favicon-box.js-list-seeker-rocket-chat-inbox
               .hidden
-                .js-rc-seeker-username{data: {username: seeker.rc_username.to_s, id: seeker.rc_id, error: I18n.t("broker.seeker.edit.error")}}
+                .js-rc-seeker-username{data: {user_token: current_broker.rc_token, room_id: @unread_messages.dig(seeker.id, :room_id), username: seeker.rc_username.to_s, id: seeker.rc_id, error: I18n.t("broker.seeker.edit.error")}}
                 = link_to '#', edit_broker_seeker_path(seeker, chat: 'open') , class: 'js-rocket-chat-seeker-edit'
                 - if seeker.rc_username.present?
                   -# = link_to '#', room_broker_rocketchats_path(seeker.rc_username), class: 'js-rocket-chat-room', data: {username: seeker.rc_username.to_s, id: seeker.rc_id}

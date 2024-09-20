@@ -242,7 +242,8 @@ class Broker < ActiveRecord::Base
       {
         unread_message.seeker_id => {
           quantity: unread_message.quantity,
-          timestamp: unread_message.last_message_timestamp
+          timestamp: unread_message.last_message_timestamp,
+          room_id: unread_message.room_id
         }
       }
     end
@@ -271,13 +272,14 @@ class Broker < ActiveRecord::Base
     seeker_messages.each do |k,v|
       quantity = v[:quantity].to_i
       last_message_timestamp = v[:last_message]
+      rid = v[:room_id]
       seeker = Seeker.find_by_rc_username(k)
       if seeker.present?
         unread_message = UnreadMessage.where(broker_id: self.id, seeker_id: seeker.id)
         if unread_message.present?
-          unread_message.update(quantity: quantity, last_message_timestamp: last_message_timestamp.try(:to_datetime))
+          unread_message.update(quantity: quantity, last_message_timestamp: last_message_timestamp.try(:to_datetime), room_id: rid)
         else
-          UnreadMessage.create(broker_id: self.id, seeker_id: seeker.id, quantity: quantity, last_message_timestamp: last_message_timestamp.try(:to_datetime))
+          UnreadMessage.create(broker_id: self.id, seeker_id: seeker.id, quantity: quantity, last_message_timestamp: last_message_timestamp.try(:to_datetime), room_id: rid)
         end
       end
     end

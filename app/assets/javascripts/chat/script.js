@@ -176,29 +176,21 @@ $(function() {
             "params": [ { "$date": 0 } ]
         })
 
+        // this loop is to subscribe to websocket to allow it getting the messages
         $('.js-list-seeker-rocket-chat-inbox').each(function(index){
-
-            let that = $(this)
-              // create or get channal id for each user
-
-
-            $.ajax({
-                url: $('.js-rocket-chat-room-in-loop', that).attr('href'),
-                method: 'GET',
-                success: function (respond) {
-                    realTimeAPI.loginWithAuthToken(respond.user_token);
-                    realTimeAPI.sendMessage({
-                        "msg": "sub",
-                        "name": "stream-room-messages",
-                        "params": [
-                            respond.id,
-                            {"useCollection": false, "args": []}
-                        ],
-                        "id": "ddp-" + index
-                    })
-                }
+            const dataHolder = $(this).find('.js-rc-seeker-username')
+            const userToken = dataHolder.data('userToken')
+            const roomId = dataHolder.data('roomId')
+            realTimeAPI.loginWithAuthToken(userToken);
+            realTimeAPI.sendMessage({
+                "msg": "sub",
+                "name": "stream-room-messages",
+                "params": [
+                  roomId,
+                  {"useCollection": false, "args": []}
+                ],
+                "id": "ddp-" + index
             })
-
         })
 
 
