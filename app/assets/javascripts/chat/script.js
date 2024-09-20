@@ -97,30 +97,30 @@ $(function() {
             "params": [ { "$date": 0 } ]
         })
 
-        $('.js-list-seeker-rocket-chat-inbox').each(function(index){
+        // $('.js-list-seeker-rocket-chat-inbox').each(function(index){
 
-            let that = $(this)
-              // create or get channal id for each user
+        //     let that = $(this)
+        //       // create or get channal id for each user
 
 
-            $.ajax({
-                url: $('.js-rocket-chat-room-in-loop', that).attr('href'),
-                method: 'GET',
-                success: function (respond) {
-                    realTimeAPI.loginWithAuthToken(respond.user_token);
-                    realTimeAPI.sendMessage({
-                        "msg": "sub",
-                        "name": "stream-room-messages",
-                        "params": [
-                            respond.id,
-                            {"useCollection": false, "args": []}
-                        ],
-                        "id": "ddp-" + index
-                    })
-                }
-            })
+        //     $.ajax({
+        //         url: $('.js-rocket-chat-room-in-loop', that).attr('href'),
+        //         method: 'GET',
+        //         success: function (respond) {
+        //             realTimeAPI.loginWithAuthToken(respond.user_token);
+        //             realTimeAPI.sendMessage({
+        //                 "msg": "sub",
+        //                 "name": "stream-room-messages",
+        //                 "params": [
+        //                     respond.id,
+        //                     {"useCollection": false, "args": []}
+        //                 ],
+        //                 "id": "ddp-" + index
+        //             })
+        //         }
+        //     })
 
-        })
+        // })
 
 
     }
