@@ -28,28 +28,38 @@ $(document).ready(function() {
         window.jobsList = new List('jobs', options);
         loadSortedColumn();
       })
+    } else if (activeTabId === '#jobs' && $('.jobs-table-inserted').length) {
+      loadSortedColumn()
     } else if (activeTabId === '#todos' && $(`${activeTabId} #todos-table-to-insert`).length){
       getTableHtml('todos', () => {
         window.todosCurrentList = new List('todo_current', options);
         window.todosPostponedList = new List('todo_postponed', options);
         loadSortedColumn();
       })
+    } else if (activeTabId === '#todos' && $('.todos-table-inserted').length) {
+      loadSortedColumn()
     } else if (activeTabId === '#providers' && $(`${activeTabId} #providers-table-to-insert`).length){
       getTableHtml('providers', () => {
         window.providersList = new List('providers', options);
         loadSortedColumn();
       })
+    } else if (activeTabId === '#providers' && $('.providers-table-inserted').length) {
+      loadSortedColumn()
     } else if (activeTabId === '#assignments' && $(`${activeTabId} #assignments-table-to-insert`).length){
       getTableHtml('assignments', () => {
         window.assignmentsList = new List('assignments', options);
         loadSortedColumn();
       })
+    } else if (activeTabId === '#assignments' && $('.assignments-table-inserted').length) {
+      loadSortedColumn()
     } else if (activeTabId === '#seekers' && $(`${activeTabId} #seekers-table-to-insert`).length){
       getTableHtml('seekers', () => {
         window.seekersList = new List('seekers', options);
         loadSortedColumn();
         reInitInboxChat()
       })
+    } else if (activeTabId === '#seekers' && $('.seekers-table-inserted').length) {
+      loadSortedColumn()
     }
   }
 

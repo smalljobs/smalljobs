@@ -99,7 +99,9 @@ $(document).ready(function(){
                                 sorttable.reverse(this.sorttable_tbody);
                                 this.className = this.className.replace('sorttable_sorted',
                                     'sorttable_sorted_reverse');
-                                this.removeChild(document.getElementById('sorttable_sortfwdind'));
+                                if (document.getElementById('sorttable_sortfwdind')) {
+                                  this.removeChild(document.getElementById('sorttable_sortfwdind'));
+                                }
                                 sortrevind = document.createElement('span');
                                 sortrevind.id = "sorttable_sortrevind";
                                 sortrevind.innerHTML = stIsIE ? '&nbsp<font face="webdings">5</font>' : '&nbsp;&#x25B4;';
