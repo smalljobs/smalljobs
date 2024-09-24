@@ -15,7 +15,16 @@ $(document).ready(function() {
   window.providersList = null
   window.assignmentsList = null
   window.seekersList = null
-  initTable()
+  var target = window.location.hash;
+  target = target.replace('#', '');
+  if(target === '') {
+    target = 'todo';
+  }
+  var newHash = target;
+
+  if (newHash === 'todo' || newHash === 'todos' || newHash === 'todo_postponed' || newHash === 'todo_current') {
+    initTable()
+  }
 
   $('#dashboard .nav-pills a').on('shown.bs.tab', function (e) {
     initTable();
@@ -29,7 +38,7 @@ $(document).ready(function() {
         loadSortedColumn();
       })
     } else if (activeTabId === '#jobs' && $('.jobs-table-inserted').length) {
-      loadSortedColumn()
+      // loadSortedColumn()
     } else if (activeTabId === '#todos' && $(`${activeTabId} #todos-table-to-insert`).length){
       getTableHtml('todos', () => {
         window.todosCurrentList = new List('todo_current', options);
@@ -37,21 +46,21 @@ $(document).ready(function() {
         loadSortedColumn();
       })
     } else if (activeTabId === '#todos' && $('.todos-table-inserted').length) {
-      loadSortedColumn()
+      // loadSortedColumn()
     } else if (activeTabId === '#providers' && $(`${activeTabId} #providers-table-to-insert`).length){
       getTableHtml('providers', () => {
         window.providersList = new List('providers', options);
         loadSortedColumn();
       })
     } else if (activeTabId === '#providers' && $('.providers-table-inserted').length) {
-      loadSortedColumn()
+      // loadSortedColumn()
     } else if (activeTabId === '#assignments' && $(`${activeTabId} #assignments-table-to-insert`).length){
       getTableHtml('assignments', () => {
         window.assignmentsList = new List('assignments', options);
         loadSortedColumn();
       })
     } else if (activeTabId === '#assignments' && $('.assignments-table-inserted').length) {
-      loadSortedColumn()
+      // loadSortedColumn()
     } else if (activeTabId === '#seekers' && $(`${activeTabId} #seekers-table-to-insert`).length){
       getTableHtml('seekers', () => {
         window.seekersList = new List('seekers', options);
@@ -59,7 +68,8 @@ $(document).ready(function() {
         reInitInboxChat()
       })
     } else if (activeTabId === '#seekers' && $('.seekers-table-inserted').length) {
-      loadSortedColumn()
+
+      // loadSortedColumn()
     }
   }
 
@@ -77,27 +87,27 @@ $(document).ready(function() {
       if(hash === "todo" && !tableSorted[0]) {
         tableSorted[0] = true;
         sorttable.innerSortFunction.apply(document.getElementById('todo_date'), []);
-        sorttable.innerSortFunction.apply(document.getElementById('todo_date'), []);
+        // sorttable.innerSortFunction.apply(document.getElementById('todo_date'), []);
       }
       if(hash === "jobs" && !tableSorted[1]) {
         tableSorted[1] = true;
         sorttable.innerSortFunction.apply(document.getElementById('job_date'), []);
-        sorttable.innerSortFunction.apply(document.getElementById('job_date'), []);
+        // sorttable.innerSortFunction.apply(document.getElementById('job_date'), []);
       }
       if(hash === "providers" && !tableSorted[2]) {
         tableSorted[2] = true;
         sorttable.innerSortFunction.apply(document.getElementById('provider_date'), []);
-        sorttable.innerSortFunction.apply(document.getElementById('provider_date'), []);
+        // sorttable.innerSortFunction.apply(document.getElementById('provider_date'), []);
       }
       if(hash === "seekers" && !tableSorted[3]) {
         tableSorted[3] = true;
         sorttable.innerSortFunction.apply(document.getElementById('seeker_date'), []);
-        sorttable.innerSortFunction.apply(document.getElementById('seeker_date'), []);
+        // sorttable.innerSortFunction.apply(document.getElementById('seeker_date'), []);
       }
       if(hash === "assignments" && !tableSorted[4]) {
         tableSorted[4] = true;
         sorttable.innerSortFunction.apply(document.getElementById('assignment_date'), []);
-        sorttable.innerSortFunction.apply(document.getElementById('assignment_date'), []);
+        // sorttable.innerSortFunction.apply(document.getElementById('assignment_date'), []);
       }
     }
   }

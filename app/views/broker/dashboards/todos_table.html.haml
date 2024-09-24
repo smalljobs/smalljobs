@@ -6,8 +6,8 @@
           %th
           %th.sortable{id: 'todo_date'}= t('broker_dashboard.todo_table.date')
           %th.sortable{id: 'todo_todo'}= t('broker_dashboard.todo_table.todo')
-          %th= t('broker_dashboard.todo_table.description')
-          %th.pull-right= t('broker_dashboard.todo_table.postpone')
+          %th.sorttable_nosort= t('broker_dashboard.todo_table.description')
+          %th.sorttable_nosort.pull-right= t('broker_dashboard.todo_table.postpone')
       %tbody.list
         - if @todos&.current&.count == 0
 

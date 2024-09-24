@@ -28,13 +28,15 @@ $(document).ready(function(){
               arguments.callee.done = true;
               // kill the timer
               if (_timer) clearInterval(_timer);
-              
+
               if (!document.createElement || !document.getElementsByTagName) return;
-              
+
               sorttable.DATE_RE = /^(\d\d?)[\/\.-](\d\d?)[\/\.-]((\d\d)?\d\d)$/;
-              
+
               forEach(document.getElementsByTagName('table'), function(table) {
-                    if (table.className.search(/\bsortable\b/) != -1) {
+                    if (table.className.search(/\bsortable\b/) != -1 && !table.classList.contains('initialized-sort')) {
+
+                        table.classList.add('initialized-sort')
                         sorttable.makeSortable(table);
                     }
                 });
@@ -101,6 +103,8 @@ $(document).ready(function(){
                                     'sorttable_sorted_reverse');
                                 if (document.getElementById('sorttable_sortfwdind')) {
                                   this.removeChild(document.getElementById('sorttable_sortfwdind'));
+                                }else{
+                                    console.log("Error sorttable_sortfwdind")
                                 }
                                 sortrevind = document.createElement('span');
                                 sortrevind.id = "sorttable_sortrevind";
@@ -114,7 +118,11 @@ $(document).ready(function(){
                                 sorttable.reverse(this.sorttable_tbody);
                                 this.className = this.className.replace('sorttable_sorted_reverse',
                                     'sorttable_sorted');
-                                this.removeChild(document.getElementById('sorttable_sortrevind'));
+                                if (document.getElementById('sorttable_sortrevind')) {
+                                    this.removeChild(document.getElementById('sorttable_sortrevind'));
+                                }else{
+                                    console.log("Error sorttable_sortrevind")
+                                }
                                 sortfwdind = document.createElement('span');
                                 sortfwdind.id = "sorttable_sortfwdind";
                                 sortfwdind.innerHTML = stIsIE ? '&nbsp<font face="webdings">6</font>' : '&nbsp;&#x25BE;';

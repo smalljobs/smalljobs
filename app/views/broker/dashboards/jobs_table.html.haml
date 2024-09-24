@@ -6,7 +6,7 @@
         %th.sortable{id: 'job_date'}= t('broker_dashboard.jobs_table.date')
         %th.sortable{id: 'job_job'}= t('broker_dashboard.jobs_table.job')
         %th.sortable{id: 'job_provider'}= t('broker_dashboard.jobs_table.provider')
-        %th= t('broker_dashboard.jobs_table.allocations')
+        %th.sorttable_nosort= t('broker_dashboard.jobs_table.allocations')
     %tbody.list
       - if @jobs.size == 0
         %tr
