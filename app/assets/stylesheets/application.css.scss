@@ -562,3 +562,10 @@ a.rocket-chat-broadcast-list{
   font-weight: bold;
   text-decoration: none;
 }
+
+.table-loader-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+}

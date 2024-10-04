@@ -21,20 +21,22 @@ $(document).ready(function(){
         var stIsIE = /*@cc_on!@*/false;
 
         sorttable = {
-            init: function() {
-                // quit if this function has already been called
-                if (arguments.callee.done) return;
-                // flag this function so we don't do the same thing twice
-                arguments.callee.done = true;
-                // kill the timer
-                if (_timer) clearInterval(_timer);
+            init: function(skipInit) {
+              // quit if this function has already been called
+              if (arguments.callee.done && skipInit) return;
+              // flag this function so we don't do the same thing twice
+              arguments.callee.done = true;
+              // kill the timer
+              if (_timer) clearInterval(_timer);
 
-                if (!document.createElement || !document.getElementsByTagName) return;
+              if (!document.createElement || !document.getElementsByTagName) return;
 
-                sorttable.DATE_RE = /^(\d\d?)[\/\.-](\d\d?)[\/\.-]((\d\d)?\d\d)$/;
+              sorttable.DATE_RE = /^(\d\d?)[\/\.-](\d\d?)[\/\.-]((\d\d)?\d\d)$/;
 
-                forEach(document.getElementsByTagName('table'), function(table) {
-                    if (table.className.search(/\bsortable\b/) != -1) {
+              forEach(document.getElementsByTagName('table'), function(table) {
+                    if (table.className.search(/\bsortable\b/) != -1 && !table.classList.contains('initialized-sort')) {
+
+                        table.classList.add('initialized-sort')
                         sorttable.makeSortable(table);
                     }
                 });
@@ -99,7 +101,11 @@ $(document).ready(function(){
                                 sorttable.reverse(this.sorttable_tbody);
                                 this.className = this.className.replace('sorttable_sorted',
                                     'sorttable_sorted_reverse');
-                                this.removeChild(document.getElementById('sorttable_sortfwdind'));
+                                if (document.getElementById('sorttable_sortfwdind')) {
+                                  this.removeChild(document.getElementById('sorttable_sortfwdind'));
+                                }else{
+                                    console.log("Error sorttable_sortfwdind")
+                                }
                                 sortrevind = document.createElement('span');
                                 sortrevind.id = "sorttable_sortrevind";
                                 sortrevind.innerHTML = stIsIE ? '&nbsp<font face="webdings">5</font>' : '&nbsp;&#x25B4;';
@@ -112,7 +118,11 @@ $(document).ready(function(){
                                 sorttable.reverse(this.sorttable_tbody);
                                 this.className = this.className.replace('sorttable_sorted_reverse',
                                     'sorttable_sorted');
-                                this.removeChild(document.getElementById('sorttable_sortrevind'));
+                                if (document.getElementById('sorttable_sortrevind')) {
+                                    this.removeChild(document.getElementById('sorttable_sortrevind'));
+                                }else{
+                                    console.log("Error sorttable_sortrevind")
+                                }
                                 sortfwdind = document.createElement('span');
                                 sortfwdind.id = "sorttable_sortfwdind";
                                 sortfwdind.innerHTML = stIsIE ? '&nbsp<font face="webdings">6</font>' : '&nbsp;&#x25BE;';

@@ -1,0 +1,55 @@
+.table-responsive.seekers-table-inserted
+  %table.table.table-striped.sortable
+    %thead
+      %tr
+        %th.sortable{id: 'seeker_status'}= t('broker_dashboard.seekers_table.status')
+        %th.sortable{id: 'seeker_date'}= t('broker_dashboard.jobs_table.date')
+        %th.sortable{id: 'seeker_chat'}= t('broker_dashboard.seekers_table.chat')
+        %th.sortable{id: 'seeker_seeker'}= t('broker_dashboard.seekers_table.name')
+        %th.sortable{id: 'seeker_address'}= t('broker_dashboard.seekers_table.address')
+        %th.sortable{id: 'seeker_plz'}= t('broker_dashboard.seekers_table.plz')
+    %tbody.list
+      - if @seekers.size == 0
+        %tr
+          %td{ colspan: 4 }= t('seekers.index.no_seekers')
+      - @seekers.each do |seeker|
+        %tr{ class: "organization organization-#{seeker.organization_id} status-#{seeker.stat_name}" }
+          %td.status
+            = seeker_label(seeker)
+          %td{sorttable_customkey: seeker.updated_at.strftime("%Y%m%d%H%M%S")}
+            = seeker.updated_at.strftime("%d.%m.%Y")
+          %td.chat{sorttable_customkey: @unread_messages.dig(seeker.id, :timestamp).try(:strftime, "%Y%m%d%H%M%S") }
+            .favicon-box.js-list-seeker-rocket-chat-inbox
+              .hidden
+                .js-rc-seeker-username{data: {user_token: current_broker.rc_token, room_id: @unread_messages.dig(seeker.id, :room_id), username: seeker.rc_username.to_s, id: seeker.rc_id, error: I18n.t("broker.seeker.edit.error")}}
+                = link_to '#', edit_broker_seeker_path(seeker, chat: 'open') , class: 'js-rocket-chat-seeker-edit'
+                - if seeker.rc_username.present?
+                  -# = link_to '#', room_broker_rocketchats_path(seeker.rc_username), class: 'js-rocket-chat-room', data: {username: seeker.rc_username.to_s, id: seeker.rc_id}
+                  -# = link_to '#', edit_broker_seeker_path(seeker, chat: 'open'), class: 'js-rocket-chat-room'
+                  = link_to '#', room_broker_rocketchats_path(seeker.rc_username), class: 'js-rocket-chat-room-in-loop'
+              = inbox_icon(@unread_messages.dig(seeker.id, :quantity))
+          %td.name= link_to seeker.name, edit_broker_seeker_path(seeker)
+          %td.street= seeker.street
+          %td.place= seeker.place.zip + ' ' + seeker.place.name
+          %td.phone.display-none
+            = seeker.phone
+          %td.mobile.display-none
+            = seeker.mobile
+          %td.contact_preference.display-none
+            = seeker.contact_preference
+          %td.contact_availability.display-none
+            = seeker.contact_availability
+          %td.email.display-none
+            = seeker.email
+          %td.sex.display-none
+            = seeker.sex
+          %td.occupation.display-none
+            = seeker.occupation
+          %td.additional_contacts.display-none
+            = seeker.additional_contacts
+          %td.languages.display-none
+            = seeker.languages
+          %td.age.display-none
+            = seeker.age
+          %td.rc_username.display-none= seeker.rc_username
+          %td.id.display-none= seeker.id
