@@ -336,7 +336,6 @@
     $('.js-todo-tabs a').on('click', function(){
       _that = $(this);
       $.each($('.js-active-tab a'), function(){
-        console.log('test2')
           if ($(this).attr('href') != "#todos"){
             value = $("tr.organization", $($(this).attr('href'))).length - $("tr.display-none", $($(this).attr('href'))).length
             $("span",$("[href='"+$(this).attr('href')+"']")).text("("+value+")")
