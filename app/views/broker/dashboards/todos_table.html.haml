@@ -1,5 +1,7 @@
 %div{id: 'todo_current', class: 'tab-pane active js-todo-current todos-table-inserted'}
   .table-responsive
+    %span
+      = I18n.t("stats.records", count: @todos&.current&.length.to_i)
     %table.table.table-striped.sortable
       %thead
         %tr
@@ -43,6 +45,8 @@
                 %i.fa.fa-2x.fa-clock.pull-right.safari-fix
 %div{id: 'todo_postponed', class: 'tab-pane js-todo-postponed'}
   .table-responsive
+    %span
+      = I18n.t("stats.records", count: @todos&.postponed&.length.to_i)
     %table.table.table-striped.sortable
       %thead
         %tr

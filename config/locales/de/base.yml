@@ -110,6 +110,10 @@ de:
     male: "Männlich"
     female: "Weiblich"
     other: "Anderes"
+  stats:
+    records:
+      one: "%{count} Eintrag"
+      other: "%{count} Einträge"
   mail:
     send_agreement_for_seeker: "SmallJobs> Elterliche Vereinbarung mit SmallJobs"
     new_seeker_signup_for_broker: "SmallJobs> Neuer Jugendlicher zur Freischaltung"

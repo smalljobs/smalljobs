@@ -1,4 +1,6 @@
 .table-responsive.seekers-table-inserted
+  %span
+    = I18n.t("stats.records", count: @seekers&.length.to_i)
   %table.table.table-striped.sortable
     %thead
       %tr

@@ -37,29 +37,23 @@
     %li.active
       %a{'data-toggle': 'tab', href: '#todos'}
         =t('broker_dashboard.todo')
-        %span
-          = "(#{@todos&.current&.length.to_i})"
+
     %li
       %a{'data-toggle': 'tab', href: '#jobs'}
         =t('broker_dashboard.jobs')
-        %span
-          = "(#{@jobs&.length.to_i})"
+
     %li
       %a{'data-toggle': 'tab', href: '#providers'}
         =t('broker_dashboard.providers')
-        %span
-          = "(#{@providers&.length.to_i})"
+
     %li
       %a{'data-toggle': 'tab', href: '#seekers', id: 'js-tab-seekers'}
         =t('broker_dashboard.seekers')
-        %span
-          = "(#{@seekers&.length.to_i})"
 
     %li
       %a{'data-toggle': 'tab', href: '#assignments'}
         =t('broker_dashboard.assignments')
-        %span
-          = "(#{@assignments&.length.to_i})"
+
   %div.tab-content
     %div{id: 'todos', class: 'tab-pane fade in active'}
       %ul.nav.nav-pills.margin_top_20.js-todo-tabs{style: {display: 'none'}}
