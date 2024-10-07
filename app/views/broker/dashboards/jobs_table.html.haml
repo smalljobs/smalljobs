@@ -1,4 +1,6 @@
 .table-responsive.jobs-table-inserted
+  %span#jobs_count.counter
+    = I18n.t("stats.records", count: @jobs&.length.to_i)
   %table.table.table-striped.sortable
     %thead
       %tr

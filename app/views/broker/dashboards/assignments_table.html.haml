@@ -1,4 +1,6 @@
 .table-responsive.assignments-table-inserted
+  %span#assignments_count.counter
+    = I18n.t("stats.records", count: @assignments&.length.to_i)
   %table.table.table-striped.sortable
     %thead
       %tr
