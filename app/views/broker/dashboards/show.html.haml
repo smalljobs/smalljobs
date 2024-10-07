@@ -307,6 +307,18 @@
       }
 
       $.each($('.js-active-tab a'), function(){
+        // update all loaded numbers
+        const availableTables = ['#todo_postponed', '#todo_current', '.jobs-table-inserted', '.providers-table-inserted', '.seekers-table-inserted', '.assignments-table-inserted']
+        availableTables.forEach(table => {
+          const element = document.querySelector(table)
+          if (element) {
+            const value = element.querySelectorAll('.organization:not(.display-none)').length
+            const counter = element.querySelector('span.counter')
+            let counterText = counter?.innerText
+            counterText = counterText.replace(/\d+/, value);
+            counter.innerText = counterText
+          }
+        })
            if ($(this).attr('href') != "#todos"){
             value = $("tr.organization", $($(this).attr('href'))).length - $("tr.display-none", $($(this).attr('href'))).length
             $("span",$("[href='"+$(this).attr('href')+"']")).text("("+value+")")
@@ -324,6 +336,7 @@
     $('.js-todo-tabs a').on('click', function(){
       _that = $(this);
       $.each($('.js-active-tab a'), function(){
+        console.log('test2')
           if ($(this).attr('href') != "#todos"){
             value = $("tr.organization", $($(this).attr('href'))).length - $("tr.display-none", $($(this).attr('href'))).length
             $("span",$("[href='"+$(this).attr('href')+"']")).text("("+value+")")
@@ -377,6 +390,18 @@
       if (todosPostponedList) {
         todosPostponedList.search(searchString);
       }
+      // update all loaded numbers
+      const availableTables = ['#todo_postponed', '#todo_current', '.jobs-table-inserted', '.providers-table-inserted', '.seekers-table-inserted', '.assignments-table-inserted']
+      availableTables.forEach(table => {
+        const element = document.querySelector(table)
+        if (element) {
+          const value = element.querySelectorAll('.organization:not(.display-none)').length
+          const counter = element.querySelector('span.counter')
+          let counterText = counter?.innerText
+          counterText = counterText.replace(/\d+/, value);
+          counter.innerText = counterText
+        }
+      })
     });
 
     $('.delete-icon').click(function(){

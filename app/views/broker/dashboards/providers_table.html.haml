@@ -1,5 +1,5 @@
 .table-responsive.providers-table-inserted
-  %span
+  %span#providers_count.counter
     = I18n.t("stats.records", count: @providers&.length.to_i)
   %table.table.table-striped.sortable
     %thead
