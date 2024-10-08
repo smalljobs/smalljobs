@@ -29,6 +29,16 @@ $ ->
           false
       # Only items with id > 1 are shown in list
   #    listObj.filter()
+      # // update all loaded numbers
+      availableTables = ['#todo_postponed', '#todo_current', '.jobs-table-inserted', '.providers-table-inserted', '.seekers-table-inserted', '.assignments-table-inserted']
+      availableTables.forEach (table) ->
+        element = document.querySelector(table)
+        if element
+          value = element.querySelectorAll('.organization:not(.display-none)').length
+          counter = element.querySelector('span.counter')
+          counterText = counter?.innerText
+          counterText = counterText.replace(/\d+/, value);
+          counter.innerText = counterText
       return
 
 
