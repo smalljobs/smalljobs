@@ -366,8 +366,10 @@
       var searchString = $(this).val();
       if(searchString !== "") {
         $('.delete-icon').removeClass('display-none');
+        localStorage.setItem('search', searchString);
       } else {
         $('.delete-icon').addClass('display-none');
+        localStorage.removeItem('search');
       }
       $('.search-field').val(searchString);
 
@@ -405,6 +407,7 @@
 
     $('.delete-icon').click(function(){
       $('.search-field').val("");
+      localStorage.removeItem('search');
       $('.delete-icon').addClass('display-none');
       var searchString = "";
       if (jobsList) {
@@ -425,6 +428,19 @@
       if (todosPostponedList) {
         todosPostponedList.search(searchString);
       }
+
+      // update all loaded numbers
+      const availableTables = ['#todo_postponed', '#todo_current', '.jobs-table-inserted', '.providers-table-inserted', '.seekers-table-inserted', '.assignments-table-inserted']
+      availableTables.forEach(table => {
+        const element = document.querySelector(table)
+        if (element) {
+          const value = element.querySelectorAll('.organization:not(.display-none)').length
+          const counter = element.querySelector('span.counter')
+          let counterText = counter?.innerText
+          counterText = counterText.replace(/\d+/, value);
+          counter.innerText = counterText
+        }
+      })
     });
 
     //checkSearchField();
@@ -438,6 +454,7 @@
         searchFieldVal = '';
       }
       window.localStorage.setItem("search_filter", searchFieldVal);
+      window.localStorage.removeItem("search");
       $.post("#{save_settings_broker_dashboard_path}", {filter: searchFieldVal, selected_organization_id: parseInt(selectedOrganizationId)}, function(response) {});
     });
 

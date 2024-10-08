@@ -15,6 +15,7 @@ $(document).ready(function() {
   window.providersList = null
   window.assignmentsList = null
   window.seekersList = null
+
   var target = window.location.hash;
   target = target.replace('#', '');
   if(target === '') {
@@ -30,12 +31,45 @@ $(document).ready(function() {
     initTable();
   })
 
+  function updateOrganization() {
+    const organizationValue = $('#dropdown-btn').val()
+    if(organizationValue === '0') {
+      $('.display-none.organization').removeClass('display-none');
+    } else {
+      $('.display-none.organization').removeClass('display-none');
+      $('.organization').addClass('display-none');
+      $('.organization-' + organizationValue).removeClass('display-none');
+    }
+    updateRowNumbers()
+  }
+
+  function updateRowNumbers() {
+    // update all loaded numbers
+    const availableTables = ['#todo_postponed', '#todo_current', '.jobs-table-inserted', '.providers-table-inserted', '.seekers-table-inserted', '.assignments-table-inserted']
+    availableTables.forEach(table => {
+      const element = document.querySelector(table)
+      if (element) {
+        const value = element.querySelectorAll('.organization:not(.display-none)').length
+        const counter = element.querySelector('span.counter')
+        let counterText = counter?.innerText
+        counterText = counterText.replace(/\d+/, value);
+        counter.innerText = counterText
+      }
+    })
+  }
+
   function initTable() {
+    const searchString = localStorage.getItem('search')
     const activeTabId = $('#dashboard .nav-pills').find('.active > a').attr('href')
     if (activeTabId === '#jobs' && $(`${activeTabId} #jobs-table-to-insert`).length){
       getTableHtml('jobs', () => {
         window.jobsList = new List('jobs', options);
         loadSortedColumn();
+        updateOrganization()
+        if (searchString && searchString.length > 0) {
+          window.jobsList.search(searchString);
+          updateRowNumbers()
+        }
       })
     } else if (activeTabId === '#jobs' && $('.jobs-table-inserted').length) {
       // loadSortedColumn()
@@ -44,6 +78,12 @@ $(document).ready(function() {
         window.todosCurrentList = new List('todo_current', options);
         window.todosPostponedList = new List('todo_postponed', options);
         loadSortedColumn();
+        updateOrganization()
+        if (searchString && searchString.length > 0) {
+          window.todosCurrentList.search(searchString);
+          window.todosPostponedList.search(searchString);
+          updateRowNumbers()
+        }
       })
     } else if (activeTabId === '#todos' && $('.todos-table-inserted').length) {
       // loadSortedColumn()
@@ -51,6 +91,11 @@ $(document).ready(function() {
       getTableHtml('providers', () => {
         window.providersList = new List('providers', options);
         loadSortedColumn();
+        updateOrganization()
+        if (searchString && searchString.length > 0) {
+          window.providersList.search(searchString);
+          updateRowNumbers()
+        }
       })
     } else if (activeTabId === '#providers' && $('.providers-table-inserted').length) {
       // loadSortedColumn()
@@ -58,6 +103,11 @@ $(document).ready(function() {
       getTableHtml('assignments', () => {
         window.assignmentsList = new List('assignments', options);
         loadSortedColumn();
+        updateOrganization()
+        if (searchString && searchString.length > 0) {
+          window.assignmentsList.search(searchString);
+          updateRowNumbers()
+        }
       })
     } else if (activeTabId === '#assignments' && $('.assignments-table-inserted').length) {
       // loadSortedColumn()
@@ -65,6 +115,11 @@ $(document).ready(function() {
       getTableHtml('seekers', () => {
         window.seekersList = new List('seekers', options);
         loadSortedColumn();
+        updateOrganization()
+        if (searchString && searchString.length > 0) {
+          window.seekersList.search(searchString);
+          updateRowNumbers()
+        }
         reInitInboxChat()
       })
     } else if (activeTabId === '#seekers' && $('.seekers-table-inserted').length) {
