@@ -37,29 +37,23 @@
     %li.active
       %a{'data-toggle': 'tab', href: '#todos'}
         =t('broker_dashboard.todo')
-        %span
-          = "(#{@todos&.current&.length.to_i})"
+
     %li
       %a{'data-toggle': 'tab', href: '#jobs'}
         =t('broker_dashboard.jobs')
-        %span
-          = "(#{@jobs&.length.to_i})"
+
     %li
       %a{'data-toggle': 'tab', href: '#providers'}
         =t('broker_dashboard.providers')
-        %span
-          = "(#{@providers&.length.to_i})"
+
     %li
       %a{'data-toggle': 'tab', href: '#seekers', id: 'js-tab-seekers'}
         =t('broker_dashboard.seekers')
-        %span
-          = "(#{@seekers&.length.to_i})"
 
     %li
       %a{'data-toggle': 'tab', href: '#assignments'}
         =t('broker_dashboard.assignments')
-        %span
-          = "(#{@assignments&.length.to_i})"
+
   %div.tab-content
     %div{id: 'todos', class: 'tab-pane fade in active'}
       %ul.nav.nav-pills.margin_top_20.js-todo-tabs{style: {display: 'none'}}
@@ -313,6 +307,18 @@
       }
 
       $.each($('.js-active-tab a'), function(){
+        // update all loaded numbers
+        const availableTables = ['#todo_postponed', '#todo_current', '.jobs-table-inserted', '.providers-table-inserted', '.seekers-table-inserted', '.assignments-table-inserted']
+        availableTables.forEach(table => {
+          const element = document.querySelector(table)
+          if (element) {
+            const value = element.querySelectorAll('.organization:not(.display-none)').length
+            const counter = element.querySelector('span.counter')
+            let counterText = counter?.innerText
+            counterText = counterText.replace(/\d+/, value);
+            counter.innerText = counterText
+          }
+        })
            if ($(this).attr('href') != "#todos"){
             value = $("tr.organization", $($(this).attr('href'))).length - $("tr.display-none", $($(this).attr('href'))).length
             $("span",$("[href='"+$(this).attr('href')+"']")).text("("+value+")")
@@ -360,8 +366,10 @@
       var searchString = $(this).val();
       if(searchString !== "") {
         $('.delete-icon').removeClass('display-none');
+        localStorage.setItem('search', searchString);
       } else {
         $('.delete-icon').addClass('display-none');
+        localStorage.removeItem('search');
       }
       $('.search-field').val(searchString);
 
@@ -383,10 +391,23 @@
       if (todosPostponedList) {
         todosPostponedList.search(searchString);
       }
+      // update all loaded numbers
+      const availableTables = ['#todo_postponed', '#todo_current', '.jobs-table-inserted', '.providers-table-inserted', '.seekers-table-inserted', '.assignments-table-inserted']
+      availableTables.forEach(table => {
+        const element = document.querySelector(table)
+        if (element) {
+          const value = element.querySelectorAll('.organization:not(.display-none)').length
+          const counter = element.querySelector('span.counter')
+          let counterText = counter?.innerText
+          counterText = counterText.replace(/\d+/, value);
+          counter.innerText = counterText
+        }
+      })
     });
 
     $('.delete-icon').click(function(){
       $('.search-field').val("");
+      localStorage.removeItem('search');
       $('.delete-icon').addClass('display-none');
       var searchString = "";
       if (jobsList) {
@@ -407,6 +428,19 @@
       if (todosPostponedList) {
         todosPostponedList.search(searchString);
       }
+
+      // update all loaded numbers
+      const availableTables = ['#todo_postponed', '#todo_current', '.jobs-table-inserted', '.providers-table-inserted', '.seekers-table-inserted', '.assignments-table-inserted']
+      availableTables.forEach(table => {
+        const element = document.querySelector(table)
+        if (element) {
+          const value = element.querySelectorAll('.organization:not(.display-none)').length
+          const counter = element.querySelector('span.counter')
+          let counterText = counter?.innerText
+          counterText = counterText.replace(/\d+/, value);
+          counter.innerText = counterText
+        }
+      })
     });
 
     //checkSearchField();
@@ -420,6 +454,7 @@
         searchFieldVal = '';
       }
       window.localStorage.setItem("search_filter", searchFieldVal);
+      window.localStorage.removeItem("search");
       $.post("#{save_settings_broker_dashboard_path}", {filter: searchFieldVal, selected_organization_id: parseInt(selectedOrganizationId)}, function(response) {});
     });
 
