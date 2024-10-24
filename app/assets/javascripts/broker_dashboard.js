@@ -77,6 +77,12 @@ $(document).ready(function() {
       getTableHtml('todos', () => {
         window.todosCurrentList = new List('todo_current', options);
         window.todosPostponedList = new List('todo_postponed', options);
+        // display none the non active one
+        if (newHash === 'todo_postponed') {
+          document.querySelector('#todo_current').style.display = 'none';
+        } else {
+          document.querySelector('#todo_postponed').style.display = 'none';
+        }
         loadSortedColumn();
         updateOrganization()
         if (searchString && searchString.length > 0) {
