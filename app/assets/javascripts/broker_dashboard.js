@@ -174,8 +174,15 @@ $(document).ready(function() {
   }
 
   function getTableHtml(id, successCallback) {
+    const params = new URLSearchParams(window.location.search)
+    const isArchive = params.get('archive')
+    let url = `/broker/dashboard/${id}_table`
+    if (isArchive && isArchive === 'true') {
+      url += '?archive=true'
+    }
+    console.log(url)
     $.ajax({
-      url: `/broker/dashboard/${id}_table`,
+      url: url,
       type: 'GET',
       success: function(result) {
         const tempDiv = $('<div>').html(result);

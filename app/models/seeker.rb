@@ -436,15 +436,15 @@ class Seeker < ActiveRecord::Base
       organization_email: self.organization.email,
       seeker_first_name: self.firstname,
       seeker_last_name: self.lastname,
-      broker_first_name: self.organization.brokers.first.try(:firstname).to_s,
-      broker_last_name: self.organization.brokers.first.try(:lastname).to_s,
+      broker_first_name: self.organization.broker.try(:firstname).to_s,
+      broker_last_name: self.organization.broker.try(:lastname).to_s,
       seeker_link_to_agreement: seeker_agreement_link,
       link_to_jobboard_list: (Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host))
     )
     logger.info "Welcome message: #{message}"
 
     begin
-      MessagingHelper::send_message(self.organization.brokers.first.try(:rc_id), self.rc_username, "#{title}. #{message}")
+      MessagingHelper::send_message(self.organization.broker.try(:rc_id), self.rc_username, "#{title}. #{message}")
     rescue StandardError => e
       Raven.extra_context(seeker_id: self.id) do
         Raven.capture_exception(e)
@@ -469,14 +469,14 @@ class Seeker < ActiveRecord::Base
       organization_email: self.organization.email,
       seeker_first_name: self.firstname,
       seeker_last_name: self.lastname,
-      broker_first_name: self.organization.brokers.first.try(:firstname).to_s,
-      broker_last_name: self.organization.brokers.first.try(:lastname).to_s,
+      broker_first_name: self.organization.broker.try(:firstname).to_s,
+      broker_last_name: self.organization.broker.try(:lastname).to_s,
       seeker_link_to_agreement: seeker_agreement_link,
       link_to_jobboard_list: (Rails.application.routes.url_helpers.root_url(subdomain: self.organization.regions.first.subdomain, host: host))
     )
 
     begin
-      MessagingHelper::send_message(self.organization.brokers.first.try(:rc_id), self.rc_username, "#{title}. #{message}")
+      MessagingHelper::send_message(self.organization.broker.try(:rc_id), self.rc_username, "#{title}. #{message}")
     rescue StandardError => e
       Raven.extra_context(seeker_id: self.id) do
         Raven.capture_exception(e)
