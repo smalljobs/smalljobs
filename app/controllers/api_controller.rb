@@ -108,6 +108,7 @@ class ApiController < ApplicationController
     end
 
     default_broker = seeker.organization.broker
+    default_broker = seeker.organization.brokers.first if default_broker.nil?
 
     title = 'Willkommen'
     host = "#{seeker.organization.regions.first.subdomain}.smalljobs.ch"

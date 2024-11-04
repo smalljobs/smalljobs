@@ -441,6 +441,7 @@ module ApiHelper
     json[:rc_username] = seeker.rc_username
     if seeker.organization.present?
       default_broker = seeker.organization.broker
+      default_broker = seeker.organization.brokers.first if default_broker.nil?
       helpers_url = Rails.application.routes.url_helpers
       host = "#{seeker.organization.regions.first.subdomain}.smalljobs.ch"
       seeker_agreement_link = helpers_url.agreement_broker_seeker_url(seeker.agreement_id, subdomain: seeker.organization.regions.first.subdomain, host: host, protocol: 'https')
