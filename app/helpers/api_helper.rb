@@ -440,11 +440,12 @@ module ApiHelper
     json[:rc_id] = seeker.rc_id
     json[:rc_username] = seeker.rc_username
     if seeker.organization.present?
-
+      default_broker = seeker.organization.broker
+      default_broker = seeker.organization.brokers.first if default_broker.nil?
       helpers_url = Rails.application.routes.url_helpers
       host = "#{seeker.organization.regions.first.subdomain}.smalljobs.ch"
       seeker_agreement_link = helpers_url.agreement_broker_seeker_url(seeker.agreement_id, subdomain: seeker.organization.regions.first.subdomain, host: host, protocol: 'https')
-      registration_welcome_message = Mustache.render(seeker.organization.welcome_app_register_msg || '', seeker_first_name: seeker.firstname, seeker_last_name: seeker.lastname, seeker_link_to_agreement: "<a file type='application/pdf' title='Elterneinverständnis herunterladen' href='#{seeker_agreement_link}'>#{seeker_agreement_link}</a>", broker_first_name: seeker.organization.brokers.first.firstname, broker_last_name: seeker.organization.brokers.first.lastname, organization_name: seeker.organization.name, organization_street: seeker.organization.street, organization_zip: seeker.organization.place.zip, organization_place: seeker.organization.place.name, organization_phone: seeker.organization.phone, organization_email: seeker.organization.email, link_to_jobboard_list: helpers_url.root_url(subdomain: seeker.organization.regions.first.subdomain, host: host, protocol: 'https'))
+      registration_welcome_message = Mustache.render(seeker.organization.welcome_app_register_msg || '', seeker_first_name: seeker.firstname, seeker_last_name: seeker.lastname, seeker_link_to_agreement: "<a file type='application/pdf' title='Elterneinverständnis herunterladen' href='#{seeker_agreement_link}'>#{seeker_agreement_link}</a>", broker_first_name: default_broker.firstname, broker_last_name: default_broker.lastname, organization_name: seeker.organization.name, organization_street: seeker.organization.street, organization_zip: seeker.organization.place.zip, organization_place: seeker.organization.place.name, organization_phone: seeker.organization.phone, organization_email: seeker.organization.email, link_to_jobboard_list: helpers_url.root_url(subdomain: seeker.organization.regions.first.subdomain, host: host, protocol: 'https'))
       registration_welcome_message.gsub! "\r\n", "<br>"
       registration_welcome_message.gsub! "\n", "<br>"
 
